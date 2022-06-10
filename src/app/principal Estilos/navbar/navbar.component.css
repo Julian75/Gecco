@@ -1,0 +1,47 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+mat-toolbar{
+  background-color: #00235C;
+  height: 13%;
+}
+mat-icon, .nombre{ color: white; position: relative;}
+.nombre{ left: 75%; }
+mat-icon{
+  font-size: 40px;
+  width: 5%;
+  height: 70%;
+  left: 76%;
+  top: 10%;
+}
+ul, ol {
+  list-style:none;
+}
+li { float:unset; }
+
+li a {
+  color:#fff;
+  text-decoration:none;
+  padding:10px 12px;
+  display:block;
+}
+
+li ul {
+  display:none;
+  position:absolute;
+  min-width:50px;
+  background-color: #97B4E2;
+}
+
+li:hover > ul {
+  display:block;
+}
+
+li ul li {
+  position:relative;
+}
+
+/* li ul li ul {
+  right:-140px;
+  top:0px;
+} */
