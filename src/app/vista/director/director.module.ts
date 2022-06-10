@@ -1,12 +1,19 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { DirectorRoutingModule } from './director-routing.module';
+import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    UsuariosComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    DirectorRoutingModule
+  ],
+  exports:[
+    UsuariosComponent
   ]
 })
 export class DirectorModule { }

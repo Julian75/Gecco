@@ -5,3 +5,17 @@ mat-drawer{
   background-color: #00235C;
   width: 15%;
 }
+.logo{
+  width: 95%;
+  position: relative;
+  top: -5%;
+}
+.boton{
+  width: 100%;
+  background-color: #97B4E2;
+  margin-top: 5%;
+  color: white;
+  text-align: left;
+}
+mat-icon{ margin-left: 45%; font-size: 35px; margin-top: -5%;}
+button, mat-menu{ border-radius: 0%; }
