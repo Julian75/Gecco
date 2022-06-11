@@ -40,8 +40,10 @@ li:hover > ul {
 li ul li {
   position:relative;
 }
+.contenedor{ width: 70% !important; margin-left: 15%; margin-top: 6%;}
 
-/* li ul li ul {
-  right:-140px;
-  top:0px;
-} */
+.flecha{
+  color: white;
+  width: 10%;
+  margin-left: 63%;
+}

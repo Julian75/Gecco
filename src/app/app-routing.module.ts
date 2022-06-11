@@ -5,6 +5,7 @@ import { LoginComponent } from './formularios/formulariosPrincipales/login/login
 import { OlvidoContrasenaComponent } from './formularios/formulariosPrincipales/olvido-contrasena/olvido-contrasena.component';
 import { InicioGeneralComponent } from './principal Estilos/inicio-general/inicio-general.component';
 import { SidebarComponent } from './principal Estilos/sidebar/sidebar.component';
+import { ModulosComponent } from './vista/director/componentes/modulos/modulos.component';
 import { UsuariosComponent } from './vista/director/componentes/usuarios/usuarios.component';
 import { VistaComponent } from './vista/vista.component';
 
@@ -16,13 +17,13 @@ const routes: Routes = [
       {
         path: '',
         component: UsuariosComponent
+      },
+      {
+        path: 'vista',
+        component: VistaComponent,
+        loadChildren:()=>import('./vista/vista.module').then(mod=>mod.VistaModule)
       }
     ]
-  },
-  {
-    path: 'vista',
-    component: VistaComponent,
-    loadChildren:()=>import('./vista/vista.module').then(mod=>mod.VistaModule)
   },
   {
     path: 'login',
@@ -35,7 +36,8 @@ const routes: Routes = [
   {
     path: 'cambiarContrasena',
     component: CambiarContrasenaComponent
-  }
+  },
+
 ];
 
 @NgModule({
