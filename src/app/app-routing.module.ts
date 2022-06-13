@@ -1,13 +1,12 @@
+import { UsuariosComponent } from './vista/modulos/usuarios/usuarios.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CambiarContrasenaComponent } from './formularios/formulariosPrincipales/cambiar-contrasena/cambiar-contrasena.component';
 import { LoginComponent } from './formularios/formulariosPrincipales/login/login.component';
 import { OlvidoContrasenaComponent } from './formularios/formulariosPrincipales/olvido-contrasena/olvido-contrasena.component';
-import { InicioGeneralComponent } from './principal Estilos/inicio-general/inicio-general.component';
-import { SidebarComponent } from './principal Estilos/sidebar/sidebar.component';
-import { ModulosComponent } from './vista/director/componentes/modulos/modulos.component';
-import { UsuariosComponent } from './vista/director/componentes/usuarios/usuarios.component';
 import { VistaComponent } from './vista/vista.component';
+import { SidebarComponent } from './vista/componentes-principales/sidebar/sidebar.component';
+import { InicioGeneralComponent } from './vista/componentes-principales/inicio-general/inicio-general.component';
 
 const routes: Routes = [
   {
@@ -16,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: UsuariosComponent
+        component: InicioGeneralComponent
       },
       {
         path: 'vista',
