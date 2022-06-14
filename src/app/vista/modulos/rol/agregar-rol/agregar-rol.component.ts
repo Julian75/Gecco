@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class AgregarRolComponent implements OnInit {
   public formRol!: FormGroup;
   public listarEstado: any = [];
+  public estadosDisponibles:any = [];
   color = ('primary');
   constructor(
     private fb: FormBuilder,
@@ -39,8 +40,16 @@ export class AgregarRolComponent implements OnInit {
 
   public listarEstados() {
     this.servicioEstado.listarTodos().subscribe(res => {
-      this.listarEstado = res;
-  });}
+      // this.listarEstado = res;
+      res.forEach(element => {
+        if(element.idModulo.id == 3){
+          this.estadosDisponibles.push(element)
+          console.log(this.estadosDisponibles)
+        }
+      });
+      this.listarEstado = this.estadosDisponibles
+    });
+  }
 
   public guardar() {
     let rol : Rol = new Rol();
@@ -70,7 +79,7 @@ export class AgregarRolComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Modulo Registrado!',
+        title: 'Rol Registrado!',
         showConfirmButton: false,
         timer: 1500
       })

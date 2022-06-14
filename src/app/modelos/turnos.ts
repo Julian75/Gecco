@@ -4,8 +4,8 @@ import { Estado } from "./estado";
 export class Turnos {
   public id: number=0;
   public descripcion: string="";
-  public horaInicio: Date = new Date();
-  public horaFinal: Date = new Date();
+  public horaInicio: string="";
+  public horaFinal: string="";
   idEstado !: Estado;
   idTipoTurno !: TipoTurno;
 }

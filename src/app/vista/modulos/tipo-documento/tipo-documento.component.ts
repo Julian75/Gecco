@@ -1,25 +1,26 @@
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
-import { TurnosService } from 'src/app/servicios/turnos.service';
+import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
+import { AgregarTipoDocumentoComponent } from './agregar-tipo-documento/agregar-tipo-documento.component';
+import { ModificarTipoDocumentoComponent } from './modificar-tipo-documento/modificar-tipo-documento.component';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-turnos',
-  templateUrl: './turnos.component.html',
-  styleUrls: ['./turnos.component.css']
+  selector: 'app-tipo-documento',
+  templateUrl: './tipo-documento.component.html',
+  styleUrls: ['./tipo-documento.component.css']
 })
-export class TurnosComponent implements OnInit {
-
+export class TipoDocumentoComponent implements OnInit {
   dtOptions: any = {};
-  public listarTurnos: any = [];
+  public listarTipoDocumentos: any = [];
 
-  displayedColumns = ['id', 'descripcion', 'horaInicio', 'horaFinal', 'estado', 'tipoTurno', 'opciones'];
+  displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
 
 
   constructor(
-    private servicioTurno: TurnosService,
+    private servicioTipoDocumento: TipoDocumentoService,
     public dialog: MatDialog
   ) { }
 
@@ -48,14 +49,27 @@ export class TurnosComponent implements OnInit {
   }
 
   public listarTodos () {
-    this.servicioTurno.listarTodos().subscribe( res =>{
-      this.listarTurnos = res;
-      this.dataSource = new MatTableDataSource( this.listarTurnos);
-      console.log(res)
+    this.servicioTipoDocumento.listarTodos().subscribe( res =>{
+      this.listarTipoDocumentos = res;
+      this.dataSource = new MatTableDataSource( this.listarTipoDocumentos);
     })
   }
 
-  eliminarTurnos(id:number){
+  abrirModal(): void {
+    const dialogRef = this.dialog.open(AgregarTipoDocumentoComponent, {
+      width: '500px',
+    });
+  }
+
+  modificarTipoDocumento(id: number): void {
+    const dialogRef = this.dialog.open(ModificarTipoDocumentoComponent, {
+      width: '500px',
+      data: id
+    });
+    console.log(id)
+  }
+
+  eliminarTipoDocumento(id:number){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -74,11 +88,11 @@ export class TurnosComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.servicioTurno.eliminar(id).subscribe(res=>{
+        this.servicioTipoDocumento.eliminar(id).subscribe(res=>{
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el turno.',
+            'Se elimino el tipo documento.',
             'success'
           )
         })
@@ -94,5 +108,4 @@ export class TurnosComponent implements OnInit {
       }
     })
   }
-
 }

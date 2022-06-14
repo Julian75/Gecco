@@ -1,25 +1,5 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTable} from '@angular/material/table';
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079},
-  {position: 2, name: 'Helium', weight: 4.0026 },
-  {position: 3, name: 'Lithium', weight: 6.941},
-  {position: 4, name: 'Beryllium', weight: 9.012 },
-  {position: 5, name: 'Boron', weight: 10.811 },
-  {position: 6, name: 'Carbon', weight: 12.0107 },
-  {position: 7, name: 'Nitrogen', weight: 14.0067 },
-  {position: 8, name: 'Oxygen', weight: 15.9994 },
-  {position: 9, name: 'Fluorine', weight: 18.9984 },
-  {position: 10, name: 'Neon', weight: 20.1797},
-];
 
 @Component({
   selector: 'app-usuarios',
@@ -29,36 +9,87 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class UsuariosComponent implements OnInit {
 
   dtOptions: any = {};
+  public listarUsuarios: any = [];
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = [...ELEMENT_DATA];
+  displayedColumns = ['id', 'nombre', 'apellido', 'correo', 'documento', 'tipoDocumento', 'estado', 'rol', 'opciones'];
+  dataSource!:MatTableDataSource<any>;
 
-  @ViewChild(MatTable)
-  table!: MatTable<PeriodicElement>;
 
-  addData() {
-    const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-    this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
-    this.table.renderRows();
-  }
-
-  removeData() {
-    this.dataSource.pop();
-    this.table.renderRows();
-  }
-
-  constructor() { }
+  constructor(
+    // private servicioTurno: TurnosService,
+    // public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 7,
-      processing: true,
-      dom: 'Bfrtip',
-      buttons: [
-        'copy', 'print', 'csv', 'pdf', 'excel', 'colvis'
-      ]
-    };
+    // this.listarTodos();
+    // this.dtOptions = {
+    //   dom: 'Bfrtip',
+    //   pagingType: 'full_numbers',
+    //   pageLength: 7,
+    //   processing: true,
+    //   buttons: [
+    //     {
+    //       extend: 'excel',
+    //       text: '<i class="fa-solid fa-file-excel text-success btnexcel" style="background-color:#6DBE53;"></i>',
+    //     },
+    //     {
+    //       extend: 'pdf',
+    //       text: '<i class="fa-solid fa-file-pdf" style="background-color: #DA161A;"></i>',
+    //     },
+    //      {
+    //       extend: 'print',
+    //       text: '<i class="fa-solid fa-print " style="color:#959595" ></i>',
+    //      }
+    //   ]
+    // };
   }
+
+  // public listarTodos () {
+  //   this.servicioTurno.listarTodos().subscribe( res =>{
+  //     this.listarTurnos = res;
+  //     this.dataSource = new MatTableDataSource( this.listarTurnos);
+  //     console.log(res)
+  //   })
+  // }
+
+  // eliminarTurnos(id:number){
+  //   const swalWithBootstrapButtons = Swal.mixin({
+  //     customClass: {
+  //       confirmButton: 'btn btn-success',
+  //       cancelButton: 'btn btn-danger mx-5'
+  //     },
+  //     buttonsStyling: false
+  //   })
+
+  //   swalWithBootstrapButtons.fire({
+  //     title: '¿Estas seguro?',
+  //     text: "No podrás revertir esto!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Si, Eliminar!',
+  //     cancelButtonText: 'No, Cancelar!',
+  //     reverseButtons: true
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.servicioTurno.eliminar(id).subscribe(res=>{
+  //         this.listarTodos();
+  //         swalWithBootstrapButtons.fire(
+  //           'Eliminado!',
+  //           'Se elimino el turno.',
+  //           'success'
+  //         )
+  //       })
+  //     } else if (
+  //       /* Read more about handling dismissals below */
+  //       result.dismiss === Swal.DismissReason.cancel
+  //     ) {
+  //       swalWithBootstrapButtons.fire(
+  //         'Cancelado!',
+  //         '',
+  //         'error'
+  //       )
+  //     }
+  //   })
+  // }
 
 }

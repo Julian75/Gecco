@@ -1,1 +1,46 @@
-<p>modificar-turnos works!</p>
+<div class="contenedor">
+  <h2 class="dato"> Modificar Turno</h2>
+  <form [formGroup]="formTurno">
+    <div class="row1">
+      <div class="nombre2">
+        <h2>Hora Inicio</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Modificar hora </mat-label>
+        <input type="time" id="horaInicio" formControlName="horaInicio" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Hora Final</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Modificar hora </mat-label>
+        <input type="time" id="horaFinal" formControlName="horaFinal" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre3">
+        <h2>Estado Turno</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+        <mat-label>Modificar Estado del Turno</mat-label>
+        <select matNativeControl id="estado" name="estado" formControlName="estado">
+          <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Tipo Turno</h2>
+        <mat-form-field class="nombre1"  appearance="fill">
+        <mat-label>Modificar Tipo del Turno</mat-label>
+        <select matNativeControl id="tipoTurno" name="tipoTurno" formControlName="tipoTurno">
+          <option *ngFor="let item of listarTipoTurno"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardar" (click)="guardar()" >Modificar Turno</button>
+      </div>
+    </div>
+  </form>
+</div>
+

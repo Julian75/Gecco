@@ -1,5 +1,7 @@
+import { EstadoService } from 'src/app/servicios/estado.service';
 import { ModificarModuloComponent } from './modificar-modulo/modificar-modulo.component';
 import { ModuloService } from './../../../servicios/modulo.service';
+
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AgregarModuloComponent } from './agregar-modulo/agregar-modulo.component';
@@ -111,3 +113,4 @@ export class ModuloComponent implements OnInit {
   }
 
 }
+

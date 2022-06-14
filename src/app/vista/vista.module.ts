@@ -22,6 +22,14 @@ import { ModificarTipoTurnoComponent } from './modulos/tipo-turno/modificar-tipo
 import { TurnosComponent } from './modulos/turnos/turnos.component';
 import { AgregarTurnosComponent } from './modulos/turnos/agregar-turnos/agregar-turnos.component';
 import { ModificarTurnosComponent } from './modulos/turnos/modificar-turnos/modificar-turnos.component';
+import { TipoDocumentoComponent } from './modulos/tipo-documento/tipo-documento.component';
+import { AgregarTipoDocumentoComponent } from './modulos/tipo-documento/agregar-tipo-documento/agregar-tipo-documento.component';
+import { ModificarTipoDocumentoComponent } from './modulos/tipo-documento/modificar-tipo-documento/modificar-tipo-documento.component';
+import { ListaEstadosComponent } from './modulos/modulo/lista-estados/lista-estados.component';
+import { AgregarEstadoComponent } from './modulos/modulo/lista-estados/agregar-estado/agregar-estado.component';
+import { ModificarEstadoComponent } from './modulos/modulo/lista-estados/modificar-estado/modificar-estado.component';
+import { AgregarUsuariosComponent } from './modulos/usuarios/agregar-usuarios/agregar-usuarios.component';
+import { ModificarUsuariosComponent } from './modulos/usuarios/modificar-usuarios/modificar-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +49,15 @@ import { ModificarTurnosComponent } from './modulos/turnos/modificar-turnos/modi
     ModificarTipoTurnoComponent,
     TurnosComponent,
     AgregarTurnosComponent,
-    ModificarTurnosComponent
+    ModificarTurnosComponent,
+    TipoDocumentoComponent,
+    AgregarTipoDocumentoComponent,
+    ModificarTipoDocumentoComponent,
+    ListaEstadosComponent,
+    AgregarEstadoComponent,
+    ModificarEstadoComponent,
+    AgregarUsuariosComponent,
+    ModificarUsuariosComponent
   ],
   imports: [
     CommonModule,

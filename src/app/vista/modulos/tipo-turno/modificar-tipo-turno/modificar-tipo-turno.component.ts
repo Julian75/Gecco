@@ -84,7 +84,7 @@ export class ModificarTipoTurnoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Rol modificado!',
+        title: 'Tipo Turno modificado!',
         showConfirmButton: false,
         timer: 1500
       })

@@ -1,8 +1,10 @@
+import { ModificarTipoTurnoComponent } from './modificar-tipo-turno/modificar-tipo-turno.component';
 import { AgregarTipoTurnoComponent } from './agregar-tipo-turno/agregar-tipo-turno.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 import { TipoTurnoService } from 'src/app/servicios/tipoTurno.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tipo-turno',
@@ -60,52 +62,52 @@ export class TipoTurnoComponent implements OnInit {
     });
   }
 
-  // modificarModulo(id: number): void {
-  //   const dialogRef = this.dialog.open(ModificarModuloComponent, {
-  //     width: '500px',
-  //     data: id
-  //   });
-  //   console.log(id)
-  // }
+  modificarTipoTurno(id: number): void {
+    const dialogRef = this.dialog.open(ModificarTipoTurnoComponent, {
+      width: '500px',
+      data: id
+    });
+    console.log(id)
+  }
 
-  // eliminarModulo(id:number){
-  //   const swalWithBootstrapButtons = Swal.mixin({
-  //     customClass: {
-  //       confirmButton: 'btn btn-success',
-  //       cancelButton: 'btn btn-danger mx-5'
-  //     },
-  //     buttonsStyling: false
-  //   })
+  eliminarTipoTurno(id:number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger mx-5'
+      },
+      buttonsStyling: false
+    })
 
-  //   swalWithBootstrapButtons.fire({
-  //     title: '¿Estas seguro?',
-  //     text: "No podrás revertir esto!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Si, Eliminar!',
-  //     cancelButtonText: 'No, Cancelar!',
-  //     reverseButtons: true
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       this.servicioModulo.eliminar(id).subscribe(res=>{
-  //         this.listarTodos();
-  //         swalWithBootstrapButtons.fire(
-  //           'Eliminado!',
-  //           'Se elimino el modulo.',
-  //           'success'
-  //         )
-  //       })
-  //     } else if (
-  //       /* Read more about handling dismissals below */
-  //       result.dismiss === Swal.DismissReason.cancel
-  //     ) {
-  //       swalWithBootstrapButtons.fire(
-  //         'Cancelado!',
-  //         '',
-  //         'error'
-  //       )
-  //     }
-  //   })
-  // }
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'No, Cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicioTipoTurno.eliminar(id).subscribe(res=>{
+          this.listarTodos();
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'Se elimino el Tipo de turno.',
+            'success'
+          )
+        })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado!',
+          '',
+          'error'
+        )
+      }
+    })
+  }
 
 }
