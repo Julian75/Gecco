@@ -1,20 +1,22 @@
 <div class="principal">
   <img src="../../../../assets/img-navbar/" alt="" srcset="">
   <div class="formulario">
+    <form [formGroup]="formLogin">
     <div class="datos">
       <img src="../../../../assets/formularios/logo suchance.png" alt="" class="logo">
       <mat-form-field class="numIdentificacion" appearance="fill">
         <mat-label>Username:</mat-label>
-        <input matInput>
+        <input id="username" formControlName="username" matInput>
       </mat-form-field>
       <mat-form-field class="password" appearance="fill">
         <mat-label>Password:</mat-label>
-        <input matInput>
+        <input type="password" id="password" formControlName="password" matInput>
       </mat-form-field>
-      <button mat-raised-button>INGRESAR</button>
+      <button mat-raised-button (click)="ingresar()">INGRESAR</button>
       <a href="" class="olvido" routerLink="/olvidoContrasena">OLVIDO CONTRASEÑA</a>
     </div>
     <hr>
     <img src="../../../../assets/formularios/form.png" alt="" class="imgLogin">
+  </form>
   </div>
 </div>

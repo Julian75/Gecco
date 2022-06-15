@@ -1,37 +1,37 @@
 <mat-drawer-container class="example">
   <mat-drawer mode="side" opened >
     <img src="../../../assets/logo/LOGO GECCO-ai (4).png" alt="" class="logo">
-    <!-- <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Administrador
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <p>I'm visible because I am open</p>
-    </div>
-  </mat-expansion-panel> -->
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
-        Usuario
+        Administración
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button routerLink="/usuarios">
-        Usuarios
-      </button>
-      <button mat-raised-button routerLink="/inicio">Inicio</button>
+      <button mat-raised-button routerLink="/usuarios">Usuarios</button>
+      <button mat-raised-button routerLink="/tipoDocumento">Tipos de Documentos</button>
+      <button mat-raised-button routerLink="/roles">Roles</button>
       <button mat-raised-button routerLink="/modulo">Modulos</button>
-      <button mat-raised-button routerLink="/tipoDocumento">Tipo Documentos</button>
-      <button mat-raised-button routerLink="/roles">Rol</button>
-      <button mat-raised-button routerLink="/tipoTurnos">Tipo de Turnos</button>
-      <button mat-raised-button routerLink="/turnos">Turnos</button>
+      <button mat-raised-button routerLink="/inicio">Accesos</button>
     </div>
   </mat-expansion-panel>
-
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Malla de Turnos
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button routerLink="/asignarPuntoVenta">Asignar Punto de Venta</button>
+      <button mat-raised-button routerLink="/asignarTurno">Asignar Turno</button>
+      <button mat-raised-button routerLink="/inicio">Novedad</button>
+      <button mat-raised-button routerLink="/tipoTurnos">Tipos de Turnos</button>
+      <button mat-raised-button routerLink="/turnos">Turnos</button>
+      <button mat-raised-button routerLink="/inicio">Asignar Turno Vendedor</button>
+    </div>
+  </mat-expansion-panel>
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

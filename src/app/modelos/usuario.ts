@@ -8,6 +8,7 @@ export class Usuario {
   public apellido: string="";
   public correo: string="";
   public documento: number=0;
+  public password: String="";
   idRol !: Rol;
   idTipoDocumento !: TipoDocumento;
   idEstado !: Estado;

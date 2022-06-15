@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class SharedService {
 
   readonly APIUrl="http://localhost:9000/api";
+  readonly APIUrlSiga="http://localhost:7000/api";
 
   constructor() { }
 }

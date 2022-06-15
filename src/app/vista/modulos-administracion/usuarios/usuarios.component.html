@@ -1,0 +1,67 @@
+<div class="contenedor">
+  <button mat-button class="btn boton botonagregar text-white my-2" routerLink="/agregarUsuario">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+  <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef ><h1>Id</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef><h1>Nombre</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef><h1>Apellido</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.apellido}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef><h1>Correo</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.correo}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipoDocumento">
+        <th mat-header-cell *matHeaderCellDef><h1>Tipo Documento</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.idTipoDocumento.descripcion}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="documento">
+        <th mat-header-cell *matHeaderCellDef><h1>Documento</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.documento}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef><h1>Estado</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="rol">
+        <th mat-header-cell *matHeaderCellDef><h1>Rol</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.idRol.descripcion}}</td>
+      </ng-container>
+
+      <!--Opciones-->
+      <ng-container matColumnDef="opciones">
+        <th mat-header-cell *matHeaderCellDef >Opciones</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-button class="btn btnedit me-2" [routerLink]="['/modificarUsuario', item.id]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button class="btn btnremove me-2" (click)="eliminarUsuario(item.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -1,19 +1,23 @@
-import { ModificarRolComponent } from './modulos/rol/modificar-rol/modificar-rol.component';
-import { RolComponent } from './modulos/rol/rol.component';
-import { ModificarModuloComponent } from './modulos/modulo/modificar-modulo/modificar-modulo.component';
-import { UsuariosComponent } from './modulos/usuarios/usuarios.component';
+import { AsignarPuntoVentaComponent } from './modulos-turnos/asignar-punto-venta/asignar-punto-venta.component';
+import { ModificarRolComponent } from './modulos-administracion/rol/modificar-rol/modificar-rol.component';
+import { RolComponent } from './modulos-administracion/rol/rol.component';
+import { UsuariosComponent } from './modulos-administracion/usuarios/usuarios.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SidebarComponent } from './componentes-principales/sidebar/sidebar.component';
 import { InicioGeneralComponent } from './componentes-principales/inicio-general/inicio-general.component';
-import { ModuloComponent } from './modulos/modulo/modulo.component';
-import { TipoTurnoComponent } from './modulos/tipo-turno/tipo-turno.component';
-import { TurnosComponent } from './modulos/turnos/turnos.component';
-import { AgregarTurnosComponent } from './modulos/turnos/agregar-turnos/agregar-turnos.component';
-import { ModificarTurnosComponent } from './modulos/turnos/modificar-turnos/modificar-turnos.component';
-import { TipoDocumentoComponent } from './modulos/tipo-documento/tipo-documento.component';
-import { ListaEstadosComponent } from './modulos/modulo/lista-estados/lista-estados.component';
-import { AgregarUsuariosComponent } from './modulos/usuarios/agregar-usuarios/agregar-usuarios.component';
+import { ModuloComponent } from './modulos-administracion/modulo/modulo.component';
+import { TipoTurnoComponent } from './modulos-turnos/tipo-turno/tipo-turno.component';
+import { TurnosComponent } from './modulos-turnos/turnos/turnos.component';
+import { AgregarTurnosComponent } from './modulos-turnos/turnos/agregar-turnos/agregar-turnos.component';
+import { ModificarTurnosComponent } from './modulos-turnos/turnos/modificar-turnos/modificar-turnos.component';
+import { TipoDocumentoComponent } from './modulos-administracion/tipo-documento/tipo-documento.component';
+import { ListaEstadosComponent } from './modulos-administracion/modulo/lista-estados/lista-estados.component';
+import { AgregarUsuariosComponent } from './modulos-administracion/usuarios/agregar-usuarios/agregar-usuarios.component';
+import { ModificarUsuariosComponent } from './modulos-administracion/usuarios/modificar-usuarios/modificar-usuarios.component';
+import { AsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/asignar-turno-vendedor.component';
+import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-turno.component';
+import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
 
 const routes: Routes = [
   {
@@ -75,18 +79,31 @@ const routes: Routes = [
         path: 'agregarUsuario',
         component: AgregarUsuariosComponent
       },
-
-
+      {
+        path: 'modificarUsuario/:id',
+        component: ModificarUsuariosComponent
+      },
+      //Apartado de asignar turno
+      {
+        path: 'asignarTurno',
+        component: AsignarTurnoComponent
+      },
+      {
+        path: 'agregarAsignarTurno',
+        component: AgregarAsignarTurnoComponent
+      },
+      // Apartado de asignar turno Vendedor
+      {
+        path: 'asignarTurnoVendedor',
+        component: AsignarTurnoVendedorComponent
+      },
+      // Apartado de asignar punto de venta
+      {
+        path: 'asignarPuntoVenta',
+        component: AsignarPuntoVentaComponent
+      },
     ]
   },
-  // {
-  //   path: 'usuarios',
-  //   component: UsuariosComponent
-  // },
-  // {
-  //   path: 'inicio',
-  //   component: InicioGeneralComponent
-  // },
 ];
 
 @NgModule({

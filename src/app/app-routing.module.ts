@@ -1,4 +1,3 @@
-import { UsuariosComponent } from './vista/modulos/usuarios/usuarios.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CambiarContrasenaComponent } from './formularios/formulariosPrincipales/cambiar-contrasena/cambiar-contrasena.component';
@@ -10,7 +9,7 @@ import { InicioGeneralComponent } from './vista/componentes-principales/inicio-g
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'vista',
     component: SidebarComponent,
     children: [
       {
@@ -25,7 +24,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'login',
+    path: '',
     component: LoginComponent
   },
   {

@@ -1,0 +1,50 @@
+<div class="contenedor">
+  <h2 class="dato">Agregar Nueva Asignacion de Turno</h2>
+  <form [formGroup]="formAsignarTurno">
+    <div class="row1">
+      <div class="nombre2">
+        <h2>Estado</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese Estado</mat-label>
+        <select matNativeControl id="estado" name="estado" formControlName="estado">
+          <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Sitio Venta</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese Sitio Venta</mat-label>
+        <select matNativeControl id="sitioVenta" name="sitioVenta" formControlName="sitioVenta">
+          <!-- <option *ngFor="let item of listarSitioVenta"  value="{{item.id}}">{{item.descripcion}}</option> -->
+        </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre3">
+        <h2>Turno</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+        <mat-label>Ingrese Turno</mat-label>
+        <select matNativeControl id="turno" name="turno" formControlName="turno">
+          <!-- <option *ngFor="let item of listarTurno"  value="{{item.id}}">{{item.descripcion}}</option> -->
+        </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Oficina</h2>
+        <mat-form-field class="nombre1"  appearance="fill">
+        <mat-label>Ingrese oficina</mat-label>
+        <select matNativeControl id="oficina" name="oficina" formControlName="oficina">
+          <option *ngFor="let item of listaOficinas"  value="{{item.id}}">{{item.nom_oficina}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardar">Insertar</button>
+      </div>
+    </div>
+  </form>
+</div>
+

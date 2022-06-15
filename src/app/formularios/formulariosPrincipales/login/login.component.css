@@ -18,7 +18,7 @@ hr{
   height: 99.5%;
   left: 50%;
   position: absolute;
-  margin-top: -23%;
+  margin-top: -19.3%;
   border-width: 2px;
 }
 .formulario, .numIdentificacion, .password, button, .olvido, .imgLogin{ position: relative; }
@@ -27,7 +27,7 @@ hr{
   margin-top: 6%;
   margin-left: 5%;
 }
-.numIdentificacion{ top: 100px; left: -35%; }
+.numIdentificacion{ top: 130px; left: -35%; }
 .password{ top: 120px; left: 8%;}
 mat-form-field{ width: 300px; }
 button{
@@ -49,6 +49,6 @@ button{
 }
 .imgLogin{
   width: 450px;
-  top: -19%;
+  top: -90px;
   left: 52%;
 }
