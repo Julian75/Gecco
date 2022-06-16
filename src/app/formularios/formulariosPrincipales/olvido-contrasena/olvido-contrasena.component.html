@@ -1,7 +1,7 @@
 <div class="principal">
-  <form [formGroup]="formCorreo">
-    <img src="../../../../assets/img-navbar/" alt="" srcset="">
-    <div class="formulario">
+  <img src="../../../../assets/img-navbar/" alt="" srcset="">
+  <div class="formulario">
+    <form [formGroup]="formCorreo">
       <div class="datos">
         <img src="../../../../assets/formularios/logo suchance.png" alt="" class="logo">
         <mat-form-field class="numIdentificacion" appearance="fill">
@@ -12,11 +12,11 @@
           <mat-label>Correo:</mat-label>
           <input matInput formControlName="correo">
         </mat-form-field>
-        <button mat-raised-button class="buttonEnviar" (click)="enviarCorreo">ENVIAR</button>
+        <button mat-raised-button class="buttonEnviar" (click)="enviarCorreo()">ENVIAR</button>
         <button mat-raised-button class="buttonIniciar" routerLink="/">INICIAR SESION</button>
       </div>
       <hr>
       <img src="../../../../assets/formularios/form.png" alt="" class="imgLogin">
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

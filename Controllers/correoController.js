@@ -10,8 +10,8 @@ const nodemailer = require('nodemailer')
         host: 'smtp.gmail.com',
         port: 587,
         auth:{
-            user: 'gokut777@gmail.com',
-            pass: 'nbkmejoeqnmlnksd',
+            user: 'hallysandrea@gmail.com',
+            pass: 'jfhunhqavhcgruyh',
         }
 
     })
@@ -22,8 +22,9 @@ const nodemailer = require('nodemailer')
         html: body.mensaje, /** texto plano o se puede agrear otra cosa formato html */
         // attachments: [
         //     {
-        //         filename: 'Comprobante.png',
-        //         path: body.imagen,
+        //         filename: 'GECCO.png',
+        //         path: '../../../../assets/logo/GECCO.png',
+        //         cid: 'logo'
         //     }
         // ]
     }

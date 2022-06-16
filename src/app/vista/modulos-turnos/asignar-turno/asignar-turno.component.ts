@@ -49,9 +49,14 @@ export class AsignarTurnoComponent implements OnInit {
     };
   }
 
+
+
+
+
   public listarTodos () {
     this.servicioAsignarTurno.listarTodos().subscribe( res =>{
       this.listarTurnos = res;
+      console.log(res)
       this.dataSource = new MatTableDataSource(this.listarTurnos);
     })
   }

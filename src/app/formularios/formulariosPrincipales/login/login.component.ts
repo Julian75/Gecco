@@ -11,7 +11,14 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
   public formLogin!: FormGroup;
-  public encontrado = "";
+  public inicioSesion = false;
+  public contraseñaIncorrecta = false;
+  public vacios = false;
+  public noRegistrado = false;
+  public listarcontraseñaIncorrecta: any = [];
+  public listarVacios: any = [];
+  public listarNoRegistrado: any = [];
+  public listarinicioSesion: any = [];
   public usuario: any;
 
   constructor(
@@ -35,57 +42,52 @@ export class LoginComponent implements OnInit {
     this.servicioUsuario.listarTodos().subscribe(res=>{
       const username = this.formLogin.controls['username'].value;
       const password = this.formLogin.controls['password'].value;
-      res.forEach(element => {
+      for (let index = 0; index < res.length; index++) {
+        const element = res[index];
         if(element.documento == username){
-          if(element.password == password){
-            this.encontrado = "iniciar sesion"
-            this.usuario = element.documento
+          const usuario = element
+          if(usuario.password == password){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Bienvenido(a)!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.usuario = usuario.documento
+            this.router.navigate(['/vista']);
+            break
           }else if(element.password != password){
-            this.encontrado = "contraseña incorrecta"
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Digito la contraseña incorrecta!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            break
           }
+          break
         }else if(username=="" || password==""){
-          this.encontrado = "vacios"
-        }else if(username != element.documento && password!= element.password){
-          this.encontrado = "no registrado"
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Los campos estan vacios!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          break
+        }else if(username !== element.documento){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Este usuario no esta registrado!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          break
         }
-      });
-      if(this.encontrado == "iniciar sesion"){
-        var varSesion = sessionStorage.setItem('usuario', this.usuario);
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Bienvenido(a)!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(['/vista']);
-      }
-      if(this.encontrado == "contraseña incorrecta"){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Digito la contraseña incorrecta!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-      if(this.encontrado == "no registrado"){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Este usuario no esta registrado!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-      if(this.encontrado == "vacios"){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Los campos estan vacios!',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        break
       }
     })
   }

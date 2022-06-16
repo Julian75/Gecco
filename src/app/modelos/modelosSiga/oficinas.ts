@@ -1,4 +1,4 @@
 export class Oficinas {
-  public id: number=0;
-  public descripcion: string="";
+  public ideOficina: number=0;
+  public nom_oficina: string="";
 }

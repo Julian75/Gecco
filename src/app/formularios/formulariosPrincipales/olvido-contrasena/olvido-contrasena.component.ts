@@ -33,13 +33,14 @@ export class OlvidoContrasenaComponent implements OnInit {
   }
 
   public enviarCorreo () {
-    const documento = this.formCorreo.controls['documento'].value;
+    const documento = Number(this.formCorreo.controls['documento'].value);
     const correo = this.formCorreo.controls['correo'].value;
     this.servicioUsuario.listarTodos().subscribe( res =>{
       for (let i = 0; i < res.length; i++) {
         if(documento == res[i].documento && correo == res[i].correo){
+          console.log(res)
           let parametros ={
-            email: correo,
+            email: res[i].correo,
             asunto: 'OLVIDO DE CONTRASEÑA',
             mensaje:`<!doctype html>
             <html>
@@ -47,22 +48,31 @@ export class OlvidoContrasenaComponent implements OnInit {
                 <meta charset="utf-8">
               </head>
               <body>
-                <p>Has realizado una solicitud para el cambio de contraseña</p>
-                <h3>Para completar tu cambio de contraseña, oprime el boton de abajo!!</h3>
+                <h3 style="color: black;">Has realizado una solicitud para el cambio de contraseña</h3>
+                <h3 style="color: black;">Para completar tu cambio de contraseña, oprime el boton de abajo!!</h3>
                 <a href="http://localhost:4200/cambiarContrasena"
                 style="text-decoration: none;
                     padding: 10px;
                     font-weight: 600;
                     font-size: 20px;
                     color: #ffffff;
-                    background-color: #FFB633;
+                    background-color: #00235C;
                     border-radius: 6px;
                     box-shadow: 0 2px 3px #ffffff;
                     pointer-events: all;
                     "
                 >Cambiar contraseña</a>
+                <img src="../../../../assets/formularios/logo suchance.png" style="width: 400px;">
+                <img src="cid:logo" style="width: 400px;">
               </body>
             </html>`,
+            attachments: [
+              {
+                  filename: 'GECCO.png',
+                  path: '../../../../assets/logo/GECCO.png',
+                  cid: 'logo'
+              }
+          ]
           }
           console.log(parametros)
           this.httpclien.post('http://localhost:3500/envio',parametros).subscribe(resp=>{

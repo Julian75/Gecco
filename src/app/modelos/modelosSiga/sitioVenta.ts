@@ -1,7 +1,7 @@
 import { Oficinas } from "./oficinas";
 
 export class SitioVenta {
-  public id: number=0;
-  public descripcion: string="";
-  idOficina !: Oficinas;
+  public ideSitioventa: number=0;
+  public nom_sitioventa: string="";
+  ideOficina !: Oficinas;
 }

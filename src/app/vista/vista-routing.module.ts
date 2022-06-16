@@ -18,6 +18,8 @@ import { ModificarUsuariosComponent } from './modulos-administracion/usuarios/mo
 import { AsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/asignar-turno-vendedor.component';
 import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-turno.component';
 import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
+import { AccesosComponent } from './modulos-administracion/accesos/accesos.component';
+import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,10 @@ const routes: Routes = [
       {
         path: 'modificarRol/:id',
         component: ModificarRolComponent
+      },
+      {
+        path: 'visualizarAccessos/:id',
+        component: AccesosComponent
       },
       // Apartado de tipo turnos
       {
@@ -91,6 +97,10 @@ const routes: Routes = [
       {
         path: 'agregarAsignarTurno',
         component: AgregarAsignarTurnoComponent
+      },
+      {
+        path: 'modificarAsignarTurno/:id',
+        component: ModificarAsignarTurnoComponent
       },
       // Apartado de asignar turno Vendedor
       {
