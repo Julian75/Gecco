@@ -10,11 +10,11 @@
         </mat-form-field>
         <mat-form-field class="contrasenaNueva" appearance="fill">
           <mat-label>Contraseña Nueva:</mat-label>
-          <input matInput formControlName="contrasenaNueva">
+          <input type="password" matInput formControlName="contrasenaNueva">
         </mat-form-field>
         <mat-form-field class="password" appearance="fill">
           <mat-label>Confirmar Contraseña:</mat-label>
-          <input matInput formControlName="confirmarContrasena">
+          <input type="password" matInput formControlName="confirmarContrasena">
         </mat-form-field>
         <button mat-raised-button class="buttonEnviar" (click)="enviar()">CAMBIAR CONTRASEÑA</button>
         <button mat-raised-button class="buttonIniciar" routerLink="/">INICIAR SESION</button>

@@ -1,1 +1,23 @@
-<p>agregar-accesos works!</p>
+<h2 class="dato">Ingresar Nuevo Accesos</h2>
+<form [formGroup]="formaAccesos">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+        <h2>Accesos</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Acceso del Rol</mat-label>
+        <select matNativeControl id="modulo" name="modulo" formControlName="modulo">
+          <option *ngFor="let item of listarModulo"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Insertar Acceso</button>
+    </div>
+  </div>
+</form>
+
+

@@ -5,19 +5,18 @@
       <div class="nombre2">
         <h2>Oficina</h2>
         <mat-form-field class="nombre"  appearance="fill">
-        <mat-label>Ingrese oficina</mat-label>
+        <mat-label>Modificar Oficina</mat-label>
         <select matNativeControl id="oficina" name="oficina" formControlName="oficina" [(ngModel)]="id" (change)="idOficina()">
-          <option *ngFor="let item of listaOficinas"  value="{{item.id}}" [ngValue]="item">{{item.ideOficina}} | {{item.nom_oficina}}</option>
+          <option *ngFor="let item of listaOficinas"  value="{{item.id}}" [ngValue]="item" [selected]="item.ideOficina == listaoficina.ideOficina">{{item.ideOficina}} | {{item.nom_oficina}}</option>
         </select>
         </mat-form-field>
-
       </div>
       <div class="nombre3">
         <h2>Sitio Venta</h2>
         <mat-form-field class="nombre1" appearance="fill">
-        <mat-label>Ingrese Sitio Venta</mat-label>
+        <mat-label>Modificar Sitio Venta</mat-label>
         <select matNativeControl id="sitioVenta" name="sitioVenta" formControlName="sitioVenta" [(ngModel)]="idSitioVenta" (change)="idSitiosVentas()">
-          <option *ngFor="let item of listarSitioVentas"  value="{{item.ideSitioventa}}" [ngValue]="item">{{item.nom_sitioventa}}</option>
+          <option *ngFor="let item of listarSitioVentas"  value="{{item.ideSitioventa}}" [ngValue]="item" [selected]="item.ideSitioventa == listasitioventa.ideSitioventa" >{{item.nom_sitioventa}}</option>
         </select>
         </mat-form-field>
       </div>

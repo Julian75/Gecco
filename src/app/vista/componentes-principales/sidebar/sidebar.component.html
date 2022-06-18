@@ -1,19 +1,18 @@
 <mat-drawer-container class="example">
-  <mat-drawer mode="side" opened >
+  <mat-drawer mode="side" opened>
     <img src="../../../assets/logo/LOGO GECCO-ai (4).png" alt="" class="logo">
   <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
+                       (closed)="panelOpenState = false">
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
         Administración
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button routerLink="/usuarios">Usuarios</button>
-      <button mat-raised-button routerLink="/tipoDocumento">Tipos de Documentos</button>
-      <button mat-raised-button routerLink="/roles">Roles</button>
-      <button mat-raised-button routerLink="/modulo">Modulos</button>
-      <button mat-raised-button routerLink="/inicio">Accesos</button>
+      <button mat-raised-button id="Usuario" routerLink="/usuarios">Usuarios</button>
+      <button mat-raised-button id="Tipo Documento" routerLink="/tipoDocumento">Tipos de Documentos</button>
+      <button mat-raised-button id="Rol" routerLink="/roles">Roles</button>
+      <button mat-raised-button id="" routerLink="/modulo">Modulos</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true"
@@ -24,12 +23,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button routerLink="/asignarPuntoVenta">Asignar Punto de Venta</button>
-      <button mat-raised-button routerLink="/asignarTurno">Asignar Turno</button>
-      <button mat-raised-button routerLink="/inicio">Novedad</button>
-      <button mat-raised-button routerLink="/tipoTurnos">Tipos de Turnos</button>
-      <button mat-raised-button routerLink="/turnos">Turnos</button>
-      <button mat-raised-button routerLink="/inicio">Asignar Turno Vendedor</button>
+      <button mat-raised-button id="Asignacion de Turno" routerLink="/asignarTurno">Asignar Turno a Punto de Venta</button>
+      <button mat-raised-button id="" routerLink="/inicio">Novedad</button>
+      <button mat-raised-button id="Tipo Turno" routerLink="/tipoTurnos">Tipos de Turnos</button>
+      <button mat-raised-button id="Turnos" routerLink="/turnos">Turnos</button>
+      <button mat-raised-button id="" routerLink="/asignarTurnoVendedor">Asignar Turno Vendedor</button>
     </div>
   </mat-expansion-panel>
   </mat-drawer>

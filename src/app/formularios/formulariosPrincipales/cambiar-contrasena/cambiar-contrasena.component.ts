@@ -37,31 +37,33 @@ export class CambiarContrasenaComponent implements OnInit {
   public enviar() {
     this.servicioUsuario.listarTodos().subscribe( res => {
       const documento = Number(this.formUsuario.controls['documento'].value);
-      const contrasenaNueva = this.formUsuario.controls['documento'].value;
-      const confirmarContrasena = this.formUsuario.controls['documento'].value;
-      for (let i = 0; i < res.length; i++) {
-        if (res[i].documento == documento) {
-          this.listarUsuarios.push(res[i]);
-
+      const contrasenaNueva = this.formUsuario.controls['contrasenaNueva'].value;
+      const confirmarContrasena = this.formUsuario.controls['confirmarContrasena'].value;
+      res.forEach(element => {
+        if(element.documento == documento){
+          if(contrasenaNueva == confirmarContrasena){
+            let usuario : Usuario = new Usuario();
+            usuario.id = element.id;
+            usuario.apellido = element.apellido;
+            usuario.correo = element.correo;
+            usuario.documento = element.documento;
+            usuario.nombre = element.nombre;
+            usuario.idEstado = element.idEstado;
+            usuario.idRol = element.idRol;
+            usuario.idTipoDocumento = element.idTipoDocumento;
+            usuario.password = contrasenaNueva
+            this.actualizarUsuario(usuario)
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Las contraseñas no son iguales!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
         }
-      }
-      let usuario : Usuario = new Usuario();
-      usuario.id = this.listarUsuarios.id
-      this.servicioUsuario.listarPorId(usuario.id).subscribe(res=>{
-        if (contrasenaNueva == confirmarContrasena) {
-          usuario.apellido = res.apellido;
-          usuario.correo = res.correo;
-          usuario.documento = res.documento;
-          usuario.nombre = res.nombre;
-          usuario.idEstado = res.idEstado;
-          usuario.idRol = res.idRol;
-          usuario.idTipoDocumento = res.idTipoDocumento;
-          usuario.password = contrasenaNueva
-          this.actualizarUsuario(usuario)
-        }
-      })
-
-
+      });
     })
   }
 
@@ -70,11 +72,11 @@ export class CambiarContrasenaComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Usuario modificado!',
+        title: 'Contraseña modificado!',
         showConfirmButton: false,
         timer: 1500
       })
-      this.router.navigate(['/usuarios']);
+      this.router.navigate(['/']);
     }, error => {
       Swal.fire({
         position: 'center',

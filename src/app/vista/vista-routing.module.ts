@@ -1,4 +1,3 @@
-import { AsignarPuntoVentaComponent } from './modulos-turnos/asignar-punto-venta/asignar-punto-venta.component';
 import { ModificarRolComponent } from './modulos-administracion/rol/modificar-rol/modificar-rol.component';
 import { RolComponent } from './modulos-administracion/rol/rol.component';
 import { UsuariosComponent } from './modulos-administracion/usuarios/usuarios.component';
@@ -20,6 +19,8 @@ import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-tu
 import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
 import { AccesosComponent } from './modulos-administracion/accesos/accesos.component';
 import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
+import { AgregarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/agregar-asignar-turno-vendedor/agregar-asignar-turno-vendedor.component';
+import { ModificarDatosComponent } from '../formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
 
 const routes: Routes = [
   {
@@ -107,10 +108,14 @@ const routes: Routes = [
         path: 'asignarTurnoVendedor',
         component: AsignarTurnoVendedorComponent
       },
-      // Apartado de asignar punto de venta
       {
-        path: 'asignarPuntoVenta',
-        component: AsignarPuntoVentaComponent
+        path: 'agregarTurnoVendedor',
+        component: AgregarAsignarTurnoVendedorComponent
+      },
+      //Modificar Datos de Usuario
+      {
+        path: 'modificarDatos',
+        component: ModificarDatosComponent
       },
     ]
   },

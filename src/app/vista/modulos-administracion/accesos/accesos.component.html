@@ -7,40 +7,31 @@
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="descripcion">
-          <th mat-header-cell *matHeaderCellDef><h1>Descripcion</h1></th>
-          <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
         <ng-container matColumnDef="idModulo">
-            <th mat-header-cell *matHeaderCellDef><h1>idModulo</h1></th>
-            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+            <th mat-header-cell *matHeaderCellDef><h1>Modulo</h1></th>
+            <td mat-cell *matCellDef="let element">{{element.idModulo.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="idRol">
-            <th mat-header-cell *matHeaderCellDef><h1>idRol</h1></th>
-            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+            <th mat-header-cell *matHeaderCellDef><h1>Role</h1></th>
+            <td mat-cell *matCellDef="let element">{{element.idRol.descripcion}}</td>
         </ng-container>
 
         <!--Opciones-->
-        <ng-container matColumnDef="opciones">
-          <th mat-header-cell *matHeaderCellDef >Opciones</th>
-          <td mat-cell *matCellDef="let item">
-            <button mat-button class="btn btnedit me-2" >
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-button class="btn btnremove me-2" >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="opciones">
+        <th mat-header-cell *matHeaderCellDef >Opciones</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-button class="btn btnremove me-2" (click)="eliminarAcceso(item.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <button mat-button class="btn boton botonagregar text-white my-2" >
-      Agregar Estado al Modulo <!--{{this.acceso}}-->
+    <button mat-button class="btn boton botonagregar text-white my-2" (click)="abrirModal()">
+      Agregar Acesso del Rol {{this.Rol}}
     </button>
   </div>

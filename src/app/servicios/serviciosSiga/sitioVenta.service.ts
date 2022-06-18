@@ -18,4 +18,7 @@ export class SitioVentaService {
   public listarTodos(){
     return this.http.get<SitioVenta[]>(this.path+'/Obtener');
   }
+  public listarPorId(id: number){
+    return this.http.get<SitioVenta[]>(this.path+'/Obtener?id='+id);
+  }
 }

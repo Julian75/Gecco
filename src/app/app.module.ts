@@ -13,13 +13,15 @@ import {DataTablesModule} from 'angular-datatables';
 import { CambiarContrasenaComponent } from './formularios/formulariosPrincipales/cambiar-contrasena/cambiar-contrasena.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModificarDatosComponent } from './formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     OlvidoContrasenaComponent,
-    CambiarContrasenaComponent
+    CambiarContrasenaComponent,
+    ModificarDatosComponent
   ],
   imports: [
     BrowserModule,

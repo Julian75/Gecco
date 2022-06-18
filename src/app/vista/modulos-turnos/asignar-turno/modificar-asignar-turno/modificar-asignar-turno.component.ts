@@ -1,3 +1,4 @@
+import { AsignarTurno } from './../../../../modelos/asignarTurno';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,10 +23,12 @@ export class ModificarAsignarTurnoComponent implements OnInit {
   public listarTurnos: any = [];
   public listaTurno: any = [];
   public listaOficinas: any = [];
+  public listaoficina: any = [];
   public listaIdOficinas: any = [];
   public listaSitioVenta: any = [];
   public listarSitioVentas: any = [];
   public listaIdSitioVenta: any = [];
+  public listasitioventa: any = [];
   public idAsignarTurno : any;
   public listarAsignarTurno : any = [];
 
@@ -152,22 +155,58 @@ export class ModificarAsignarTurnoComponent implements OnInit {
         this.formAsignarTurno.controls['id'].setValue(this.listarAsignarTurno.id);
         this.formAsignarTurno.controls['estado'].setValue(this.listarAsignarTurno.idEstado.id);
         this.servicioOficina.listarTodos().subscribe(res=>{
-          console.log(res)
           res.forEach(element => {
             if(element.ideOficina == this.listarAsignarTurno.idOficina){
-              const oficina = this.formAsignarTurno.controls['oficina'].setValue(this.listarAsignarTurno.nombreOficina);
-              console.log(element.nom_oficina)
+              this.listaoficina = element
+              this.servicioSitioVenta.listarTodos().subscribe(res=>{
+                for (let index = 0; index < res.length; index++) {
+                  const element = res[index];
+                  if(element.ideOficina == this.listaoficina.ideOficina){
+                    const lista = element
+                    this.listaSitioVenta.push(lista)
+                  }
+                }
+                this.listarSitioVentas = this.listaSitioVenta
+                res.forEach(element => {
+                  if(element.ideSitioventa == this.listarAsignarTurno.idSitioVenta){
+                    this.listasitioventa = element
+                    console.log(this.listasitioventa)
+                    this.formAsignarTurno.controls['turno'].setValue(this.listarAsignarTurno.idTurnos.id);
+                    this.servicioAsignarTurno.listarTodos().subscribe(res=>{
+                      for (let index = 0; index < res.length; index++) {
+                        const element = res[index];
+                        if (element.idSitioVenta == this.listasitioventa.ideSitioventa){
+                          this.listaSitioVentaTabla.push(element)
+                        }
+                      }
+                      this.listaSitioVentasTabla = this.listaSitioVentaTabla
+                      this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
+                    })
+                  }
+                });
+              })
             }
           });
         })
-        this.formAsignarTurno.controls['sitioVenta'].setValue(this.listarAsignarTurno.idEstado.id);
-        this.formAsignarTurno.controls['turno'].setValue(this.listarAsignarTurno.idEstado.id);
       })
     })
   }
 
   public guardar(){
-
+    let asignarTurno : AsignarTurno = new AsignarTurno();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      asignarTurno.id = Number(params.get('id'));
+      this.servicioAsignarTurno.listarPorId(asignarTurno.id).subscribe(res=>{
+        asignarTurno.nombreOficina = res.nombreOficina
+        asignarTurno.nombreSitioVenta = res.nombreSitioVenta
+        asignarTurno.idEstado = res.idEstado // No se actualiza
+        asignarTurno.idOficina = res.idOficina
+        asignarTurno.idSitioVenta = res.idSitioVenta
+        asignarTurno.idTurnos = res.idTurnos
+        const idOficina = this.formAsignarTurno.controls['oficina'].value
+          // this.servicioOficina.listarTodos().subscribe(res => {
+        console.log(asignarTurno.idOficina)
+      })
+    });
   }
-
 }

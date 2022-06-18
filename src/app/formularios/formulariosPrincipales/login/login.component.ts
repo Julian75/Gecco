@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         if(element.documento == username){
           const usuario = element
           if(usuario.password == password){
+
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
               timer: 1500
             })
             this.usuario = usuario.documento
+            sessionStorage.setItem('usuario',this.usuario)
             this.router.navigate(['/vista']);
             break
           }else if(element.password != password){

@@ -19,4 +19,8 @@ export class UsuarioVendedoresService {
   public listarTodos(){
     return this.http.get<UsuariosVendedores[]>(this.path+'/Obtener');
   }
+  public listarPorId(id: number){
+    return this.http.get<UsuariosVendedores[]>(this.path+'/Obtener?id='+id);
+  }
+
 }

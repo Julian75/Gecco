@@ -15,7 +15,7 @@ export class AsignarTurnoComponent implements OnInit {
   public listarOficinas: any = [];
   public listarSitioVentas: any = [];
 
-  displayedColumns = ['id', 'estado', 'horaInicio', 'horaFinal', 'nombreOficina', 'nombreSitioVenta', 'tipoTurno', 'Opciones'];
+  displayedColumns = ['id', 'estado', 'horaInicio', 'horaFinal', 'nombreOficina', 'nombreSitioVenta', 'tipoTurno'];
   dataSource!:MatTableDataSource<any>;
 
 
@@ -60,46 +60,5 @@ export class AsignarTurnoComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.listarTurnos);
     })
   }
-
-  eliminarUsuario(id:number){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger mx-5'
-      },
-      buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-      title: '¿Estas seguro?',
-      text: "No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, Eliminar!',
-      cancelButtonText: 'No, Cancelar!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.servicioAsignarTurno.eliminar(id).subscribe(res=>{
-          this.listarTodos();
-          swalWithBootstrapButtons.fire(
-            'Eliminado!',
-            'Se elimino el usuario.',
-            'success'
-          )
-        })
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelado!',
-          '',
-          'error'
-        )
-      }
-    })
-  }
-
 
 }

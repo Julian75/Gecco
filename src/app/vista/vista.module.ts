@@ -40,9 +40,6 @@ import { ModificarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar
 import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-turno.component';
 import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
 import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
-import { AsignarPuntoVentaComponent } from './modulos-turnos/asignar-punto-venta/asignar-punto-venta.component';
-import { AgregarAsignarPuntoVentaComponent } from './modulos-turnos/asignar-punto-venta/agregar-asignar-punto-venta/agregar-asignar-punto-venta.component';
-import { ModificarAsignarPuntoVentaComponent } from './modulos-turnos/asignar-punto-venta/modificar-asignar-punto-venta/modificar-asignar-punto-venta.component';
 
 @NgModule({
   declarations: [
@@ -80,9 +77,9 @@ import { ModificarAsignarPuntoVentaComponent } from './modulos-turnos/asignar-pu
     AsignarTurnoComponent,
     AgregarAsignarTurnoComponent,
     ModificarAsignarTurnoComponent,
-    AsignarPuntoVentaComponent,
-    AgregarAsignarPuntoVentaComponent,
-    ModificarAsignarPuntoVentaComponent,
+    AccesosComponent,
+    ModificarAccesosComponent,
+    AgregarAccesosComponent
   ],
   imports: [
     CommonModule,

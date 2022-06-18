@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
 export class ModificarModuloComponent implements OnInit {
 
   public formModulo!: FormGroup;
-  color = ('primary');
   public idModulo: any;
   public listaModulos: any = [];  // lista de modulos
 

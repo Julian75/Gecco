@@ -1,16 +1,13 @@
 <mat-toolbar>
-  <h2 class="nombre">Nombre</h2>
+  <h2 class="nombre">{{usuario.nombre}}</h2>
   <mat-icon class="person">person</mat-icon>
   <mat-label class=""><mat-icon>arrow_drop_down</mat-icon></mat-label>
   <mat-select class="flecha">
-    <mat-option routerLink="/cambiarContrasena">
+    <mat-option routerLink="/modificarDatos">
       Modificar Perfil
     </mat-option>
-    <mat-option routerLink="/cambiarContrasena">
-      Cambiar Contraseña
-    </mat-option>
-    <mat-option routerLink="/director/modulos">
-      Cerrar Sesion
+    <mat-option >
+      <button (click)="salir()">Cerrar Sesion</button>
     </mat-option>
   </mat-select>
 </mat-toolbar>

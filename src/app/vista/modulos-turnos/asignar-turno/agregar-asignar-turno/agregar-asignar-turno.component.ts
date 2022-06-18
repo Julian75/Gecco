@@ -36,7 +36,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
   public listaSitioVentasTabla:any=[]
 
 
-  displayedColumns = ['id', 'descripcion', 'horaFinal', 'horaInicio', 'Estado', 'Tipo Turno'];
+  displayedColumns = ['id', 'descripcion', 'horaFinal', 'horaInicio', 'Estado', 'Tipo Turno', 'Opciones'];
   dataSource!:MatTableDataSource<any>;
 
   constructor(
@@ -128,7 +128,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
 
   idSitioVenta: any // Id de la oficina capturado - 18
 
-  idSitiosVentas(){
+  public idSitiosVentas(){
     const listaSitioVenta = this.idSitioVenta
     this.listaIdSitioVenta.push(listaSitioVenta.ideSitioventa)
     let ultimo = this.listaIdSitioVenta[this.listaIdSitioVenta.length - 1]
@@ -220,7 +220,10 @@ export class AgregarAsignarTurnoComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.router.navigate(['/asignarTurno']);
+      this.listaSitioVentasTabla = []
+      this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
+      this.router.navigate(['/agregarAsignarTurno']);
+      this.crearFormulario()
     }, error => {
       Swal.fire({
         position: 'center',
@@ -230,6 +233,49 @@ export class AgregarAsignarTurnoComponent implements OnInit {
         timer: 1500
       })
     });
+  }
+
+  public eliminarAsignarTurno(id:number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger mx-5'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'No, Cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicioAsignarTurno.eliminar(id).subscribe(res=>{
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'Se elimino el usuario.',
+            'success'
+          )
+          this.listaSitioVentasTabla = []
+          this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
+          this.router.navigate(['/agregarAsignarTurno']);
+          this.crearFormulario()
+        })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado!',
+          '',
+          'error'
+        )
+      }
+    })
   }
 
 

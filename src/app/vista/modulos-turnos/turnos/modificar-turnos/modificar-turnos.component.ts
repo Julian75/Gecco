@@ -78,7 +78,7 @@ export class ModificarTurnosComponent implements OnInit {
         this.formTurno.controls['horaInicio'].setValue(this.listarTurno.horaInicio);
         this.formTurno.controls['horaFinal'].setValue(this.listarTurno.horaFinal);
         this.formTurno.controls['estado'].setValue(this.listarTurno.idEstado.id);
-        this.formTurno.controls['tipoTurno'].setValue(this.listarTurno.idTipoTurno.id);
+        console.log(this.formTurno.controls['tipoTurno'].setValue(this.listarTurno.idTipoTurno.id));
       })
     })
   }
