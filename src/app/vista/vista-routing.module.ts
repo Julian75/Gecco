@@ -21,6 +21,11 @@ import { AccesosComponent } from './modulos-administracion/accesos/accesos.compo
 import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
 import { AgregarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/agregar-asignar-turno-vendedor/agregar-asignar-turno-vendedor.component';
 import { ModificarDatosComponent } from '../formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
+import { NovedadesComponent } from './modulos-turnos/novedades/novedades.component';
+import { TipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedades/tipo-novedades.component';
+import { JerarquiaComponent } from './modulos-turnos/jerarquia/jerarquia.component';
+import { AgregarJerarquiaComponent } from './modulos-turnos/jerarquia/agregar-jerarquia/agregar-jerarquia.component';
+import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
 
 const routes: Routes = [
   {
@@ -116,6 +121,26 @@ const routes: Routes = [
       {
         path: 'modificarDatos',
         component: ModificarDatosComponent
+      },
+      // //apartado de novedades
+      {
+        path: 'novedades',
+        component: NovedadesComponent
+      },
+      // Apartado de tipo Novedades
+      {
+        path: 'tipoNovedades',
+        component: TipoNovedadesComponent
+      },
+      //Jerarquía
+      {
+        path: 'jerarquia',
+        component: JerarquiaComponent
+      },
+      // //Modificar Jerarquía
+      {
+        path: 'mallas',
+        component: MallasComponent
       },
     ]
   },

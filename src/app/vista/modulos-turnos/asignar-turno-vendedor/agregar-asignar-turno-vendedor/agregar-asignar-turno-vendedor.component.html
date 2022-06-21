@@ -44,14 +44,14 @@
         <h2>Fecha Inicio</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese fecha inicio</mat-label>
-        <input type="date" id="horaInicio" name="horaInicio" formControlName="horaInicio" matInput>
+        <input type="date" id="fechaInicio" name="fechaInicio" formControlName="fechaInicio" matInput>
         </mat-form-field>
       </div>
       <div class="nombre4">
         <h2>Fecha Final</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese fecha final</mat-label>
-        <input type="date" id="horaFinal" name="horaFinal" formControlName="horaFinal" matInput >
+        <input type="date" id="fechaFinal" name="fechaFinal" formControlName="fechaFinal" matInput >
         </mat-form-field>
       </div>
     </div>
@@ -113,7 +113,7 @@
     <ng-container matColumnDef="opciones">
       <th mat-header-cell *matHeaderCellDef >Opciones</th>
       <td mat-cell *matCellDef="let item">
-        <button mat-button class="btn btnremove">
+        <button mat-button class="btn btnremove" (click)="eliminarAsignarTurnoVendedor(item.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

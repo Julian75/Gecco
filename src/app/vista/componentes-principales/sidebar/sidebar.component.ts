@@ -1,4 +1,3 @@
-import { ModuloService } from 'src/app/servicios/modulo.service';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,23 +12,18 @@ export class SidebarComponent implements OnInit {
   panelOpenState = false;
   public idRol: any = [];
   public listaAcceso: any = [];
-  public listaModulos: any = [];
   public acceso: any;
 
   constructor(
     private servicioUsuario: UsuarioService,
     private servicioAcceso: AccesoService,
-    private servicioModulo: ModuloService,
   ) { }
 
   ngOnInit(): void {
     this.listarAccesos()
-    this.listarModulos()
   }
 
   public listarAccesos () {
-    document.getElementById('Tipo Documento')?.setAttribute('style', 'display: none;')
-    document.getElementById('Usuario')?.setAttribute('style', 'display: none;')
     this.servicioUsuario.listarTodos().subscribe( res =>{
       res.forEach(element => {
         if (element.documento == Number(sessionStorage.getItem('usuario'))) {
@@ -40,12 +34,39 @@ export class SidebarComponent implements OnInit {
               if (element.idRol = this.idRol) {
                 this.listaAcceso.push(element.idModulo.descripcion)
                 console.log(this.listaAcceso)
-                for (let i = 0; i < this.listaModulos.length; i++) {
+                for (let i = 0; i < this.listaAcceso.length; i++) {
                   if (this.listaAcceso[i] = 'Usuario') {
                     document.getElementById('Usuario')?.setAttribute('style', 'display: block;')
                   }
                   if (this.listaAcceso[i] = 'Tipo Documento') {
                     document.getElementById('Tipo Documento')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Rol') {
+                    document.getElementById('Rol')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Modulos') {
+                    document.getElementById('Modulos')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Asignacion Turno') {
+                    document.getElementById('Asignacion Turno')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Novedad') {
+                    document.getElementById('Novedad')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Tipo Turno') {
+                    document.getElementById('Tipo Turno')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Turnos') {
+                    document.getElementById('Turnos')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Asignar Turno Vendedor') {
+                    document.getElementById('Asignar Turno Vendedor')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Jerarquia') {
+                    document.getElementById('Jerarquia')?.setAttribute('style', 'display: block;')
+                  }
+                  if (this.listaAcceso[i] = 'Tipo Novedades') {
+                    document.getElementById('Tipo Novedades')?.setAttribute('style', 'display: block;')
                   }
                 }
               }
@@ -53,15 +74,6 @@ export class SidebarComponent implements OnInit {
           })
         }
       });
-    })
-  }
-
-  public listarModulos () {
-    this.servicioModulo.listarTodos().subscribe( res =>{
-      res.forEach(element => {
-        this.listaModulos.push(element.descripcion);
-      });
-      console.log(this.listaModulos)
     })
   }
 

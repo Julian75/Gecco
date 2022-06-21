@@ -6,7 +6,7 @@ mat-toolbar{
   height: 13%;
 }
 mat-icon, .nombre{ color: white; position: relative;}
-.nombre{ left: 75%; }
+.nombre{ left: 5%; }
 mat-icon{
   font-size: 40px;
   width: 5%;

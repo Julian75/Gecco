@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
+import { forEach } from 'jszip';
 
 @Component({
   selector: 'app-login',
@@ -42,12 +43,10 @@ export class LoginComponent implements OnInit {
     this.servicioUsuario.listarTodos().subscribe(res=>{
       const username = this.formLogin.controls['username'].value;
       const password = this.formLogin.controls['password'].value;
-      for (let index = 0; index < res.length; index++) {
-        const element = res[index];
+      res.forEach(element => {
         if(element.documento == username){
           const usuario = element
           if(usuario.password == password){
-
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -58,7 +57,6 @@ export class LoginComponent implements OnInit {
             this.usuario = usuario.documento
             sessionStorage.setItem('usuario',this.usuario)
             this.router.navigate(['/vista']);
-            break
           }else if(element.password != password){
             Swal.fire({
               position: 'center',
@@ -67,9 +65,7 @@ export class LoginComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             })
-            break
           }
-          break
         }else if(username=="" || password==""){
           Swal.fire({
             position: 'center',
@@ -78,7 +74,6 @@ export class LoginComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
-          break
         }else if(username !== element.documento){
           Swal.fire({
             position: 'center',
@@ -87,10 +82,8 @@ export class LoginComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
-          break
         }
-        break
-      }
+      })
     })
   }
 

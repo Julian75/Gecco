@@ -1,0 +1,40 @@
+<div class="contenedor">
+  <button mat-button class="btn boton botonagregar text-white my-2" (click)="agregarTipoNovedades()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+  <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef ><h1>Id</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef><h1>Descripcion</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="observacion">
+        <th mat-header-cell *matHeaderCellDef><h1>Observación</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.observacion}}</td>
+      </ng-container>
+
+      <!--Opciones-->
+      <ng-container matColumnDef="opciones">
+        <th mat-header-cell *matHeaderCellDef >Opciones</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-button class="btn btnedit mx-5" (click)="modificarTipoNovedades(item.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button class="btn btnremove" (click)="eliminarTipoNovedades(item.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -2,8 +2,8 @@ import { Turnos } from "./turnos";
 
 export class AsignarTurnoVendedor {
   public id: number=0;
-  public horaInicio: string="";
-  public horaFinal: string="";
+  public fechaInicio: Date = new Date();
+  public fechaFinal: Date = new Date();
   idTurno !: Turnos;
   public idOficina: number=0;
   public nombreOficina: string="";

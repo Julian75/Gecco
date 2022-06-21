@@ -40,6 +40,14 @@ import { ModificarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar
 import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-turno.component';
 import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
 import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
+import { NovedadesComponent } from './modulos-turnos/novedades/novedades.component';
+import { JerarquiaComponent } from './modulos-turnos/jerarquia/jerarquia.component';
+import { TipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedades/tipo-novedades.component';
+import { AgregarJerarquiaComponent } from './modulos-turnos/jerarquia/agregar-jerarquia/agregar-jerarquia.component';
+import { AgregarTipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedades/agregar-tipo-novedades/agregar-tipo-novedades.component';
+import { ModificarTipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedades/modificar-tipo-novedades/modificar-tipo-novedades.component';
+import { ModificarJerarquiaComponent } from './modulos-turnos/jerarquia/modificar-jerarquia/modificar-jerarquia.component';
+import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +87,15 @@ import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/m
     ModificarAsignarTurnoComponent,
     AccesosComponent,
     ModificarAccesosComponent,
-    AgregarAccesosComponent
+    AgregarAccesosComponent,
+    NovedadesComponent,
+    JerarquiaComponent,
+    TipoNovedadesComponent,
+    AgregarJerarquiaComponent,
+    AgregarTipoNovedadesComponent,
+    ModificarTipoNovedadesComponent,
+    ModificarJerarquiaComponent,
+    MallasComponent
   ],
   imports: [
     CommonModule,

@@ -179,21 +179,34 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           this.servicioSitioVenta.listarPorId(element.ideOficina).subscribe(resSitioVenta=>{
             const idSitioVenta = this.formAsignarTurno.controls['sitioVenta'].value
             resSitioVenta.forEach(elementSitioVenta => {
+              console.log(elementSitioVenta)
               if(elementSitioVenta.ideSitioventa == idSitioVenta.ideSitioventa){
-                asignarTurnoVendedor.idSitioVenta == Number(elementSitioVenta.ideSitioventa)
-                asignarTurnoVendedor.nombreSitioVenta == elementSitioVenta.nom_sitioventa
+                asignarTurnoVendedor.idSitioVenta = Number(elementSitioVenta.ideSitioventa)
+                asignarTurnoVendedor.nombreSitioVenta = elementSitioVenta.nom_sitioventa
                 this.servicioUsuarioVendedor.listarPorId(element.ideOficina).subscribe(resUsuarioVendedor=>{
                   const idUsuarioVendedor = this.formAsignarTurno.controls['vendedor'].value
                   resUsuarioVendedor.forEach(elementUsuarioVendedor => {
                     if(elementUsuarioVendedor.ideUsuario == idUsuarioVendedor.ideUsuario){
                       asignarTurnoVendedor.idVendedor = elementUsuarioVendedor.ideUsuario
                       asignarTurnoVendedor.nombreVendedor = elementUsuarioVendedor.nombres+" "+elementUsuarioVendedor.apellido1
-                      console.log(asignarTurnoVendedor.nombreVendedor)
                       const idTurno = this.formAsignarTurno.controls['turno'].value
                       this.servicioTurnos.listarPorId(idTurno).subscribe(resTurno=>{
                         asignarTurnoVendedor.idTurno = resTurno
-                        // asignarTurnoVendedor.horaInicio =
-                        // asignarTurnoVendedor.horaFinal =
+                        const fechaInicio = this.formAsignarTurno.controls['fechaInicio'].value;
+                        const fechaFinal = this.formAsignarTurno.controls['fechaFinal'].value;
+                        if(fechaInicio < fechaFinal){
+                          asignarTurnoVendedor.fechaInicio = fechaInicio
+                          asignarTurnoVendedor.fechaFinal = fechaFinal
+                          this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                        }else{
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Selecciono una fecha menor a la inicial!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        }
                       })
                     }
                   });
@@ -204,26 +217,74 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
         }
       });
     })
-
-    // let asignarTurno : AsignarTurno = new AsignarTurno();
-    // this.servicioEstado.listarTodos().subscribe(res => {
-    //   res.forEach(element => {
-    //     if (element.id == 13) {
-    //       asignarTurno.idEstado = element;
-    //       const idOficina = this.formAsignarTurno.controls['oficina'].value
-    //       this.servicioOficina.listarTodos().subscribe(res => {
-    //         for (let index = 0; index < res.length; index++) {
-    //           const element = res[index];
-    //           if(element.ideOficina == idOficina.ideOficina){
-    //             asignarTurno.idOficina = element.ideOficina
-    //             asignarTurno.nombreOficina = element.nom_oficina
-    //             const idSitioVenta = this.formAsignarTurno.controls['sitioVenta'].value
   }
 
-  public registrarAsignacionTurno(asignarTurno: AsignarTurno) {
+  public registrarAsignacionTurnoVendedor(asignarTurnoVendedor: AsignarTurnoVendedor) {
+    this.servicioAsigarTurnoVendedor.registrar(asignarTurnoVendedor).subscribe(res=>{
+      console.log(asignarTurnoVendedor)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se ha asignado ese turno a un vendedor!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.listaSitioVentasTabla = []
+      this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
+      this.router.navigate(['/agregarTurnoVendedor']);
+      this.crearFormulario()
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 
-  public eliminarAsignarTurno(id:number){
+  public eliminarAsignarTurnoVendedor(id:number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger mx-5'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'No, Cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicioAsigarTurnoVendedor.eliminar(id).subscribe(res=>{
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'Se elimino el Tipo de turno.',
+            'success'
+          )
+          this.listaSitioVentasTabla = []
+          this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
+          this.router.navigate(['/agregarTurnoVendedor']);
+          this.crearFormulario()
+        })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado!',
+          '',
+          'error'
+        )
+      }
+    })
   }
 
 }
