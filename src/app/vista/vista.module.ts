@@ -48,6 +48,12 @@ import { AgregarTipoNovedadesComponent } from './modulos-turnos/novedades/tipo-n
 import { ModificarTipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedades/modificar-tipo-novedades/modificar-tipo-novedades.component';
 import { ModificarJerarquiaComponent } from './modulos-turnos/jerarquia/modificar-jerarquia/modificar-jerarquia.component';
 import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
+import { AgregarNovedadComponent } from './modulos-turnos/novedades/agregar-novedad/agregar-novedad.component';
+import { OpcionesVisitaComponent } from './modulos-visita/opciones-visita/opciones-visita.component';
+import { VisitasComponent } from './modulos-visita/visitas/visitas.component';
+import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-detalle.component';
+import { AgregarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/agregar-opciones-visita/agregar-opciones-visita.component';
+import { ModificarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/modificar-opciones-visita/modificar-opciones-visita.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +101,13 @@ import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
     AgregarTipoNovedadesComponent,
     ModificarTipoNovedadesComponent,
     ModificarJerarquiaComponent,
-    MallasComponent
+    MallasComponent,
+    AgregarNovedadComponent,
+    OpcionesVisitaComponent,
+    VisitasComponent,
+    VisitaDetalleComponent,
+    AgregarOpcionesVisitaComponent,
+    ModificarOpcionesVisitaComponent
   ],
   imports: [
     CommonModule,

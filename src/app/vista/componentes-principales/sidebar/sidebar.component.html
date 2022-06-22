@@ -33,6 +33,18 @@
       <button mat-raised-button id="Asignar Turno Vendedor" routerLink="/mallas">Malla de Turnos</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Visita
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="Asignacion Turno" routerLink="/opcionesVisita">Opciones</button>
+      <button mat-raised-button id="Jerarquia" routerLink="/visitaDetalle">Visita</button>
+    </div>
+  </mat-expansion-panel>
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

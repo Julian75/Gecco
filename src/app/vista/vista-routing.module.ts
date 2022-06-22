@@ -26,6 +26,8 @@ import { TipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedade
 import { JerarquiaComponent } from './modulos-turnos/jerarquia/jerarquia.component';
 import { AgregarJerarquiaComponent } from './modulos-turnos/jerarquia/agregar-jerarquia/agregar-jerarquia.component';
 import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
+import { OpcionesVisitaComponent } from './modulos-visita/opciones-visita/opciones-visita.component';
+import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-detalle.component';
 
 const routes: Routes = [
   {
@@ -141,6 +143,15 @@ const routes: Routes = [
       {
         path: 'mallas',
         component: MallasComponent
+      },
+      //Apartado de Visita
+      {
+        path: 'opcionesVisita',
+        component: OpcionesVisitaComponent
+      },
+      {
+        path: 'visitaDetalle',
+        component: VisitaDetalleComponent
       },
     ]
   },

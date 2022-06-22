@@ -1,0 +1,19 @@
+<h2 class="dato">Ingresar Nueva Opcion de Visita</h2>
+<form [formGroup]="formOpcionVisita">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese descripción </mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Insertar Opción</button>
+    </div>
+  </div>
+</form>

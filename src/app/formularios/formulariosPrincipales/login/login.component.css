@@ -24,11 +24,11 @@ hr{
 .formulario, .numIdentificacion, .password, button, .olvido, .imgLogin{ position: relative; }
 .logo{
   width: 38%;
-  margin-top: 3%;
+  margin-top: 6%;
   margin-left: 5%;
 }
-.numIdentificacion{ top: 130px; left: -35%; }
-.password{ top: 120px; left: 8%;}
+.numIdentificacion{ top: 160px; left: -35%; }
+.password{ top: 160px; left: 8%;}
 mat-form-field{ width: 300px; }
 button{
   width: 15%;
@@ -36,7 +36,7 @@ button{
   background-color: #00235C;
   color: white;
   font-size: 20px;
-  top: 210px;
+  top: 260px;
   left: -15%;
 }
 .olvido{
@@ -44,11 +44,11 @@ button{
   color: #00235C;
   font-size: 20px;
   font-weight: 700;
-  top: 280px;
+  top: 330px;
   left: -33%;
 }
 .imgLogin{
   width: 450px;
-  top: -90px;
+  top: -50px;
   left: 52%;
 }

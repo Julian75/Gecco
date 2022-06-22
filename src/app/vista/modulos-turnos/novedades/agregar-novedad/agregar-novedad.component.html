@@ -1,0 +1,29 @@
+<h2 class="dato">Ingresar Novedad</h2>
+<form [formGroup]="formNovedad">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Tipo de Novedades</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Tipo de Novedad</mat-label>
+        <select matNativeControl id="tipoNovedad" name="tipoNovedad" formControlName="tipoNovedad">
+          <option *ngFor="let item of listarTipoNovedades"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Observación</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese observación </mat-label>
+      <textarea id="observacion" formControlName="observacion" matInput></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Insertar Novedad</button>
+    </div>
+  </div>
+</form>
+

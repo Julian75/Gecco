@@ -36,3 +36,18 @@ td {
 .boton{ background-color: #00235C; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
+
+#Cumplio{
+  background-color: #abee95;
+}
+#Cumplio, #Incumplio, #No_ingreso{ font-weight: 700;}
+#Incumplio{
+  background-color: #DA161A;
+  color: white;
+}
+#No_ingreso{
+  background-color: #cecece;
+}
+button #14{
+
+}
