@@ -3,7 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { OpcionesVisitaService } from './../../../../servicios/opcionesVisita.service';
-import { opcionesVisita } from 'src/app/modelos/opcionesVisita';
+import { OpcionesVisita } from 'src/app/modelos/opcionesVisita';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -44,7 +44,7 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
   }
 
   public guardar(){
-    let opcionVisita : opcionesVisita = new opcionesVisita();
+    let opcionVisita : OpcionesVisita = new OpcionesVisita();
     opcionVisita.id = this.formOpcionVisita.value.id;
     opcionVisita.descripcion = this.formOpcionVisita.value.descripcion;
     this.servicioOpcionVisita.actualizar(opcionVisita).subscribe(res => {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { opcionesVisita } from '../modelos/opcionesVisita';
+import { OpcionesVisita } from '../modelos/opcionesVisita';
 import { SharedService } from '../shared.service';
 
 @Injectable({
@@ -16,19 +16,19 @@ export class OpcionesVisitaService {
    { }
 
   public listarTodos(){
-    return this.http.get<opcionesVisita[]>(this.path+'/Obtener');
+    return this.http.get<OpcionesVisita[]>(this.path+'/Obtener');
   }
 
  public listarPorId(id: number){
-    return this.http.get<opcionesVisita>(this.path+'/ObtenerId/'+id);
+    return this.http.get<OpcionesVisita>(this.path+'/ObtenerId/'+id);
   }
 
-  public registrar(OpcionesVisita: opcionesVisita){
-    return this.http.post<void>(this.path+'/Guardar',OpcionesVisita);
+  public registrar(opcionesVisita: OpcionesVisita){
+    return this.http.post<void>(this.path+'/Guardar',opcionesVisita);
   }
 
-  public actualizar(OpcionesVisita: opcionesVisita){
-    return this.http.put<void>(this.path+'/Modificar/'+ OpcionesVisita.id, OpcionesVisita);
+  public actualizar(opcionesVisita: OpcionesVisita){
+    return this.http.put<void>(this.path+'/Modificar/'+ opcionesVisita.id, opcionesVisita);
   }
 
   public eliminar(id: number){

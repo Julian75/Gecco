@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { OpcionesVisitaService } from 'src/app/servicios/opcionesVisita.service';
 import Swal from 'sweetalert2';
-import { opcionesVisita } from 'src/app/modelos/opcionesVisita';
+import { OpcionesVisita } from 'src/app/modelos/opcionesVisita';
 
 @Component({
   selector: 'app-agregar-opciones-visita',
@@ -32,7 +32,7 @@ export class AgregarOpcionesVisitaComponent implements OnInit {
   }
 
   public guardar(){
-    let opcionVisita : opcionesVisita = new opcionesVisita();
+    let opcionVisita : OpcionesVisita = new OpcionesVisita();
     opcionVisita.descripcion = this.formOpcionVisita.value.descripcion;
     this.servicioOpcion.registrar(opcionVisita).subscribe( res => {
       Swal.fire({
