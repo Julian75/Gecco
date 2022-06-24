@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/modelos/usuario';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Router } from '@angular/router';
-import { ignoreElements } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-agregar-usuarios',
@@ -23,6 +23,9 @@ export class AgregarUsuariosComponent implements OnInit {
   public listarExiste:any =[]
   color = ('primary');
   public encontrado = false;
+  public key: string = "contra123"
+  public encriptacion: any;
+  public desencriptado: any;
 
   constructor(
     private fb: FormBuilder,
@@ -97,7 +100,30 @@ export class AgregarUsuariosComponent implements OnInit {
       console.log(existe)
       if(existe == false ){
         usuario.documento = this.formUsuario.controls['documento'].value;
-        usuario.password = this.formUsuario.controls['documento'].value;
+        var contraseña = this.formUsuario.controls['documento'].value;
+        let _key = CryptoJS.enc.Utf8.parse(this.key);
+        console.log(_key)
+        var get = JSON.stringify(_key)
+        var get2 = JSON.parse(get)
+        console.log(get2)
+        let contraseña2 = CryptoJS.AES.encrypt(
+          JSON.stringify(contraseña), _key, {
+            keySize: 16,
+            iv: _key,
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+          });
+        this.encriptacion = contraseña2.toString();
+        console.log(this.encriptacion)
+        this.desencriptado = CryptoJS.AES.decrypt(
+          this.encriptacion, get2, {
+            keySize: 16,
+            iv: get2,
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+          }).toString(CryptoJS.enc.Utf8);
+          console.log(this.desencriptado )
+        usuario.password = this.encriptacion
         const idEstado = this.formUsuario.controls['estado'].value;
         this.servicioEstado.listarPorId(idEstado).subscribe(res => {
           this.listaEstados = res;

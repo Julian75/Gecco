@@ -95,34 +95,64 @@ export class VisitaDetalleComponent implements OnInit {
 
   capturarOpcion(elemento:any,opcion:any){
     var obj = {
-      elemento: {},
-      opcion: {}
+      elemento: elemento,
+      opcion: opcion
     }
-    // console.log(this.lista.length)
-    if(this.lista.length>=1 ){
-      console.log("Holis")
-      this.lista.forEach((element:any) => {
-        if(element.elemento.id == elemento.id){
-          // element.elemento = elemento
-          // element.opcion = opcion
-          console.log(this.lista.indexOf(element))
-        }else if(element.elemento.id != elemento.id){
-          obj.elemento = elemento
-          obj.opcion = opcion
-          this.lista.push(obj)
-          console.log(this.lista)
+    for (let i = 0; i < this.listarElementosVisita.length; i++) {
+      const element = this.lista[i];
+      if (element) {
+        if (element.elemento.id == obj.elemento.id) {
+          this.lista.splice([i], 1, obj)
+          break
+        }else if(obj.elemento.id == element.elemento.id+1){
+          var id2 = element.elemento.id+1
+          if (obj.elemento.id < id2) {
+            this.lista.push(obj)
+            break
+          }
         }
-      });
-    }else{
-      console.log("hola")
-      obj.elemento = elemento
-      obj.opcion = opcion
-      this.lista.push(obj)
-      console.log(this.lista)
-
+      }else{
+        this.lista.push(obj)
+        break
+      }
     }
-
   }
+
+
+
+  // capturarOpcion(elemento:any,opcion:any){
+  //   var obj = {
+  //     elemento: {},
+  //     opcion: {}
+  //   }
+  //   // console.log(this.lista.length)
+  //   if(this.lista.length>=1 ){
+  //     console.log("Holis")
+  //     this.lista.forEach((element:any) => {
+  //       if(element.elemento.id == elemento.id){
+  //         // element.elemento = elemento
+  //         // element.opcion = opcion
+  //         console.log(this.lista.indexOf(element))
+  //       }else if(element.elemento.id != elemento.id){
+  //         obj.elemento = elemento
+  //         obj.opcion = opcion
+  //         this.lista.push(obj)
+  //         console.log(this.lista)
+  //       }
+  //     });
+  //   }else{
+  //     console.log("hola")
+  //     obj.elemento = elemento
+  //     obj.opcion = opcion
+  //     this.lista.push(obj)
+  //     console.log(this.lista)
+
+  //   }
+
+  // }
+
+
+
 
   public registrarVisita(visita: Visitas, lista:any) {
     // this.servicioVisita.registrar(visita).subscribe(res=>{

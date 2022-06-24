@@ -72,7 +72,7 @@ export class JerarquiaComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Tipo de novedad.',
+            'Se eliminó el Tipo de novedad.',
             'success'
           )
         })
