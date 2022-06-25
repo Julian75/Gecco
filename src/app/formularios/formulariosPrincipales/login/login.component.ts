@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
 import { forEach } from 'jszip';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   public listarNoRegistrado: any = [];
   public listarinicioSesion: any = [];
   public usuario: any;
+  public desencriptado: any;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +48,20 @@ export class LoginComponent implements OnInit {
       res.forEach(element => {
         if(element.documento == username){
           const usuario = element
-          if(usuario.password == password){
+          var contrasena = usuario.password.toString();
+          var cifras = usuario.cifra.toString();
+          var key = JSON.parse(cifras);
+          console.log(key)
+          console.log(contrasena)
+          let desencriptados = CryptoJS.AES.decrypt(
+          contrasena, key, {
+            keySize: 16,
+            iv: key,
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+          }).toString(CryptoJS.enc.Utf8);
+          console.log(desencriptados);
+          if(desencriptados == password){
             Swal.fire({
               position: 'center',
               icon: 'success',

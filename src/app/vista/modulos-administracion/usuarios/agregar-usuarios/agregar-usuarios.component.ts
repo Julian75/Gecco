@@ -101,29 +101,29 @@ export class AgregarUsuariosComponent implements OnInit {
       if(existe == false ){
         usuario.documento = this.formUsuario.controls['documento'].value;
         var contraseña = this.formUsuario.controls['documento'].value;
-        let _key = CryptoJS.enc.Utf8.parse(this.key);
-        console.log(_key)
-        var get = JSON.stringify(_key)
-        var get2 = JSON.parse(get)
-        console.log(get2)
-        let contraseña2 = CryptoJS.AES.encrypt(
-          JSON.stringify(contraseña), _key, {
-            keySize: 16,
-            iv: _key,
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-          });
-        this.encriptacion = contraseña2.toString();
-        console.log(this.encriptacion)
-        this.desencriptado = CryptoJS.AES.decrypt(
-          this.encriptacion, get2, {
-            keySize: 16,
-            iv: get2,
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-          }).toString(CryptoJS.enc.Utf8);
-          console.log(this.desencriptado )
-        usuario.password = this.encriptacion
+        let key = CryptoJS.MD5(contraseña);
+        console.log(key)
+        // let _key = CryptoJS.enc.Utf8.parse(this.key);
+        // var get = JSON.stringify(_key)
+        // let contraseña2 = CryptoJS.AES.encrypt(
+        //   JSON.stringify(contraseña), _key, {
+        //     keySize: 16,
+        //     iv: _key,
+        //     mode: CryptoJS.mode.ECB,
+        //     padding: CryptoJS.pad.Pkcs7
+        //   });
+        // this.encriptacion = contraseña2.toString();
+        // console.log(this.encriptacion)
+        // this.desencriptado = CryptoJS.AES.decrypt(
+        //   this.encriptacion, get2, {
+        //     keySize: 16,
+        //     iv: get2,
+        //     mode: CryptoJS.mode.ECB,
+        //     padding: CryptoJS.pad.Pkcs7
+        //   }).toString(CryptoJS.enc.Utf8);
+        //   console.log(this.desencriptado )
+        usuario.password = key.toString();
+        usuario.cifra = "nada";
         const idEstado = this.formUsuario.controls['estado'].value;
         this.servicioEstado.listarPorId(idEstado).subscribe(res => {
           this.listaEstados = res;

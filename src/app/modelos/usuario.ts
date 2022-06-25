@@ -9,6 +9,7 @@ export class Usuario {
   public correo: string="";
   public documento: number=0;
   public password: String="";
+  public cifra: String="";
   idRol !: Rol;
   idTipoDocumento !: TipoDocumento;
   idEstado !: Estado;
