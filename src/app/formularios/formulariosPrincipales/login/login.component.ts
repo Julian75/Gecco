@@ -48,20 +48,20 @@ export class LoginComponent implements OnInit {
       res.forEach(element => {
         if(element.documento == username){
           const usuario = element
-          var contrasena = usuario.password.toString();
-          var cifras = usuario.cifra.toString();
-          var key = JSON.parse(cifras);
-          console.log(key)
-          console.log(contrasena)
-          let desencriptados = CryptoJS.AES.decrypt(
-          contrasena, key, {
-            keySize: 16,
-            iv: key,
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-          }).toString(CryptoJS.enc.Utf8);
-          console.log(desencriptados);
-          if(desencriptados == password){
+          // var contrasena = usuario.password.toString();
+          // var cifras = usuario.cifra.toString();
+          // var key = JSON.parse(cifras);
+          // console.log(key)
+          // console.log(contrasena)
+          // let desencriptados = CryptoJS.AES.decrypt(
+          // contrasena, key, {
+          //   keySize: 16,
+          //   iv: key,
+          //   mode: CryptoJS.mode.ECB,
+          //   padding: CryptoJS.pad.Pkcs7
+          // }).toString(CryptoJS.enc.Utf8);
+          // console.log(desencriptados);
+          if(usuario.password == password){
             Swal.fire({
               position: 'center',
               icon: 'success',

@@ -6,7 +6,11 @@ table{
     border: 1px solid #000;
     border-bottom: 20%;
   }
-
+  mat-form-field{
+    width: 20%;
+    margin-left: 79.5%;
+    margin-top: -15%;
+  }
   h1{
     text-align: center;
     margin-top: 10px;
@@ -23,12 +27,13 @@ table{
     background-color: #00235C;
     color: #fff;
     position: relative;
-    margin-left: 15px;
+    margin-left: 10px;
   }
 
   td {
     border: 1px solid #000;
     text-align: center;
+    /* padding: 0px 5px; */
   }
   .contenedor{
     width: 80% !important; margin-left: 10%; margin-top: 6%;

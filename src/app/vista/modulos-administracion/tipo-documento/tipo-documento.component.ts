@@ -26,26 +26,6 @@ export class TipoDocumentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarTodos();
-    this.dtOptions = {
-      dom: 'Bfrtip',
-      pagingType: 'full_numbers',
-      pageLength: 7,
-      processing: true,
-      buttons: [
-        {
-          extend: 'excel',
-          text: '<i class="fa-solid fa-file-excel text-success btnexcel" style="background-color:#6DBE53;"></i>',
-        },
-        {
-          extend: 'pdf',
-          text: '<i class="fa-solid fa-file-pdf" style="background-color: #DA161A;"></i>',
-        },
-         {
-          extend: 'print',
-          text: '<i class="fa-solid fa-print " style="color:#959595" ></i>',
-         }
-      ]
-    };
   }
 
   public listarTodos () {
@@ -107,5 +87,15 @@ export class TipoDocumentoComponent implements OnInit {
         )
       }
     })
+  }
+
+  // Filtrado
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

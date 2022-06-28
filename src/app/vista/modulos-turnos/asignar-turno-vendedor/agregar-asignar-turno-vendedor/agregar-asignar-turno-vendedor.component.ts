@@ -193,11 +193,17 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                       this.servicioTurnos.listarPorId(idTurno).subscribe(resTurno=>{
                         asignarTurnoVendedor.idTurno = resTurno
                         const fechaInicio = this.formAsignarTurno.controls['fechaInicio'].value;
+
+                        // const dia = fechaI.getDay();
+                        // const mes = fechaI.getMonth();
+                        // const año = fechaI.getFullYear();
+                        // const fechaInicio = new Date(año,mes,dia)
                         const fechaFinal = this.formAsignarTurno.controls['fechaFinal'].value;
+                        // console.log(fechaFinal)
                         if(fechaInicio < fechaFinal){
                           asignarTurnoVendedor.fechaInicio = fechaInicio
                           asignarTurnoVendedor.fechaFinal = fechaFinal
-                          this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                          // this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
                         }else{
                           Swal.fire({
                             position: 'center',

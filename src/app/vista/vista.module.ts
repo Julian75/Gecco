@@ -54,6 +54,7 @@ import { VisitasComponent } from './modulos-visita/visitas/visitas.component';
 import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-detalle.component';
 import { AgregarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/agregar-opciones-visita/agregar-opciones-visita.component';
 import { ModificarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/modificar-opciones-visita/modificar-opciones-visita.component';
+import { ModificarNovedadesComponent } from './modulos-turnos/novedades/modificar-novedades/modificar-novedades.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { ModificarOpcionesVisitaComponent } from './modulos-visita/opciones-visi
     VisitasComponent,
     VisitaDetalleComponent,
     AgregarOpcionesVisitaComponent,
-    ModificarOpcionesVisitaComponent
+    ModificarOpcionesVisitaComponent,
+    ModificarNovedadesComponent
   ],
   imports: [
     CommonModule,

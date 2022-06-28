@@ -1,0 +1,21 @@
+<h2 class="dato">Novedad Generada</h2>
+<form [formGroup]="formNovedad">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Novedad generada por</h2>
+      {{listaNovedad.idUsuario.nombre}} {{listaNovedad.idUsuario.apellido}}
+    </div>
+    <div class="nombre2">
+      <h2>Tipo de Novedad</h2>
+      {{listaNovedad.idTipoNovedad.descripcion}}
+    </div>
+    <div class="nombre2">
+      <h2>Observación</h2>
+      <h4>{{listaNovedad.observacion}}</h4>
+
+    </div>
+  </div>
+</form>
+
+

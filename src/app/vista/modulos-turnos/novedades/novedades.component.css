@@ -25,7 +25,11 @@ table{
     position: relative;
     margin-left: 15px;
   }
-
+  mat-form-field{
+    width: 20%;
+    margin-left: 79.5%;
+    margin-top: -15%;
+  }
   td {
     border: 1px solid #000;
     text-align: center;

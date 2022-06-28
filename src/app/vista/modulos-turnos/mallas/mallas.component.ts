@@ -6,6 +6,7 @@ import { HistorialService } from 'src/app/servicios/serviciosSiga/historial.serv
 import { AgregarNovedadComponent } from '../novedades/agregar-novedad/agregar-novedad.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NovedadService } from 'src/app/servicios/novedad.service';
+import { ModificarNovedadesComponent } from '../novedades/modificar-novedades/modificar-novedades.component';
 
 @Component({
   selector: 'app-mallas',
@@ -36,26 +37,6 @@ export class MallasComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarTodos();
-    this.dtOptions = {
-      dom: 'Bfrtip',
-      pagingType: 'full_numbers',
-      pageLength: 7,
-      processing: true,
-      buttons: [
-        {
-          extend: 'excel',
-          text: '<i class="fa-solid fa-file-excel text-success btnexcel" style="background-color:#6DBE53;"></i>',
-        },
-        {
-          extend: 'pdf',
-          text: '<i class="fa-solid fa-file-pdf" style="background-color: #DA161A;"></i>',
-        },
-         {
-          extend: 'print',
-          text: '<i class="fa-solid fa-print " style="color:#959595" ></i>',
-         }
-      ]
-    };
   }
 
   public listarTodos () {
@@ -68,7 +49,8 @@ export class MallasComponent implements OnInit {
         var malla1 = {
           listaAsignarTurnoVendedor: {},
           estado: {},
-          listaSigaApi: {}
+          listaSigaApi: {},
+          validar: false
         };
         var fechaInicio = new Date(element.fechaInicio);
         var fechaFinal = new Date(element.fechaFinal);
@@ -83,6 +65,16 @@ export class MallasComponent implements OnInit {
                     malla1.listaAsignarTurnoVendedor = element
                     malla1.estado = resEstado
                     malla1.listaSigaApi = {}
+                    malla1.validar = false
+                    this.servicioNovedad.listarTodos().subscribe(resNovedad=>{
+                      resNovedad.forEach(elementNovedad => {
+                        if(elementNovedad.idAsignarTurnoVendedor.idVendedor == element.idVendedor && elementNovedad.idAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                          console.log("Hola")
+                          malla1.validar = true
+                          console.log()
+                        }
+                      });
+                    })
                     // document.getElementById("Estado")?.setAttribute('style','background-color: red;');
                   }
                   console.log('no ingreso')
@@ -94,6 +86,7 @@ export class MallasComponent implements OnInit {
                       malla1.listaAsignarTurnoVendedor = element
                       malla1.estado = resEstado
                       malla1.listaSigaApi = primerObjeto
+                      malla1.validar = true
                     }
                     // document.getElementById("Estado")?.setAttribute('style','background-color: red;');
                     console.log("Si cumplio")
@@ -104,6 +97,16 @@ export class MallasComponent implements OnInit {
                       malla1.listaAsignarTurnoVendedor = element
                       malla1.estado = resEstado
                       malla1.listaSigaApi = primerObjeto
+                      malla1.validar = false
+                      this.servicioNovedad.listarTodos().subscribe(resNovedad=>{
+                        resNovedad.forEach(elementNovedad => {
+                          if(elementNovedad.idAsignarTurnoVendedor.idVendedor == element.idVendedor && elementNovedad.idAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                            console.log("Hola2")
+                            console.log("Ya tiene novedad")
+                            malla1.validar = true
+                          }
+                        });
+                      })
                     }
                     // document.getElementById('No Cumplio')?.setAttribute('style','background-color: #DA161A;;');
                     console.log('no cumplio')
@@ -119,6 +122,7 @@ export class MallasComponent implements OnInit {
                 malla1.listaAsignarTurnoVendedor = element
                 malla1.estado = resEstado
                 malla1.listaSigaApi = {}
+                malla1.validar = false
               }
               console.log('Aun no debe ingresar')
             })
@@ -132,6 +136,7 @@ export class MallasComponent implements OnInit {
         };
       })
       this.dataSource = new MatTableDataSource(this.listaMallas);
+      console.log(this.listaMallas)
     })
 
   }
@@ -151,5 +156,23 @@ export class MallasComponent implements OnInit {
       width: '500px',
       data: {idAsignarTurnoVendedor: idAsignarTurnoV, idEstado:idE},
     });
+  }
+
+  visualizarNovedad(id: number): void {
+    const dialogRef = this.dialog.open(ModificarNovedadesComponent, {
+      width: '500px',
+      data: id
+    });
+    console.log(id)
+  }
+
+   // Filtrado
+   applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

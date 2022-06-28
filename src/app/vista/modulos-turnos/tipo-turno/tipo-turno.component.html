@@ -2,6 +2,10 @@
   <button mat-button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
     <mat-icon>add_circle</mat-icon>
   </button>
+  <mat-form-field appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field>
   <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
@@ -31,5 +35,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
+  <mat-paginator [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+  </mat-paginator>
 </div>

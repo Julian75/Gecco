@@ -2,49 +2,53 @@
   <button mat-button class="btn boton botonagregar text-white my-2" routerLink="/agregarUsuario">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
+  <mat-form-field appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field>
+  <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef ><h1>Id</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Id</h1></th>
         <td mat-cell *matCellDef="let element">{{element.id}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef><h1>Nombre</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Nombre</h1></th>
         <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="apellido">
-        <th mat-header-cell *matHeaderCellDef><h1>Apellido</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Apellido</h1></th>
         <td mat-cell *matCellDef="let element">{{element.apellido}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="correo">
-        <th mat-header-cell *matHeaderCellDef><h1>Correo</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Correo</h1></th>
         <td mat-cell *matCellDef="let element">{{element.correo}}</td>
       </ng-container>
 
       <ng-container matColumnDef="tipoDocumento">
-        <th mat-header-cell *matHeaderCellDef><h1>Tipo Documento</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Tipo Documento</h1></th>
         <td mat-cell *matCellDef="let element">{{element.idTipoDocumento.descripcion}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="documento">
-        <th mat-header-cell *matHeaderCellDef><h1>Documento</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Documento</h1></th>
         <td mat-cell *matCellDef="let element">{{element.documento}}</td>
       </ng-container>
 
       <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef><h1>Estado</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Estado</h1></th>
         <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
       </ng-container>
 
       <ng-container matColumnDef="rol">
-        <th mat-header-cell *matHeaderCellDef><h1>Rol</h1></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Rol</h1></th>
         <td mat-cell *matCellDef="let element">{{element.idRol.descripcion}}</td>
       </ng-container>
 
@@ -64,4 +68,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+  </mat-paginator>
 </div>

@@ -36,3 +36,8 @@ td {
 .boton{ background-color: #00235C; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
+mat-form-field{
+  width: 20%;
+  margin-left: 79.5%;
+  margin-top: -15%;
+}

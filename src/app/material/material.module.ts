@@ -11,6 +11,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [],
@@ -26,7 +28,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTableModule,
     MatExpansionModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports:[
     MatSidenavModule,
@@ -39,7 +43,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTableModule,
     MatExpansionModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class MaterialModule { }

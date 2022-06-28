@@ -5,34 +5,40 @@ table{
     margin-bottom: 3% !important;
     border: 1px solid #000;
     border-bottom: 20%;
-  }
+}
 
-  h1{
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
+mat-form-field{
+  width: 20%;
+  margin-left: 79.5%;
+  margin-top: -15%;
+}
 
-  .btnVisualizar{
-    background-color: #97B4E2;
-    width: 10%;
-  }
+h1{
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 
-  th{
-    background-color: #00235C;
-    color: #fff;
-    position: relative;
-    margin-left: 15px;
-  }
+.btnVisualizar{
+  background-color: #97B4E2;
+  width: 10%;
+}
 
-  td {
-    border: 1px solid #000;
-    text-align: center;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 6%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
+th{
+  background-color: #00235C;
+  color: #fff;
+  position: relative;
+  margin-left: 15px;
+}
+
+td {
+  border: 1px solid #000;
+  text-align: center;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 6%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }

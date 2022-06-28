@@ -6,6 +6,11 @@ table{
     border: 1px solid #000;
     border-bottom: 20%;
   }
+  mat-form-field{
+    width: 20%;
+    margin-left: 79.5%;
+    margin-top: -15%;
+  }
 
   h1{
     text-align: center;

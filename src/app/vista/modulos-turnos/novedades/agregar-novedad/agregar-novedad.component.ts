@@ -55,15 +55,20 @@ export class AgregarNovedadComponent implements OnInit {
     this.servicioAsignarTurnoVendedor.listarPorId(this.lista[0]).subscribe(res=>{
       let novedad : Novedad = new Novedad();
       novedad.idAsignarTurnoVendedor = res
+      console.log(novedad.idAsignarTurnoVendedor)
       this.servicioUsuario.listarTodos().subscribe(resUsuario=>{
         resUsuario.forEach(elementUsuario => {
           if(elementUsuario.documento == Number(sessionStorage.getItem('usuario'))){
             novedad.idUsuario = elementUsuario
+            console.log(novedad.idUsuario)
             const tipoNovedad = this.formNovedad.controls['tipoNovedad'].value;
             this.servicioTipoNovedad.listarPorId(tipoNovedad).subscribe(resTipoNovedad=>{
               novedad.observacion = this.formNovedad.controls['observacion'].value;
+              console.log(novedad.observacion)
               novedad.fecha = this.fecha;
+              console.log(novedad.fecha)
               novedad.idTipoNovedad = resTipoNovedad
+              console.log(novedad.idTipoNovedad)
               console.log(novedad)
               if(novedad.observacion==null || novedad.observacion==""){
                 Swal.fire({
