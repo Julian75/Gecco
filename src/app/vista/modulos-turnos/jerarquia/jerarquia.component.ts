@@ -1,10 +1,12 @@
 import { JerarquiaService } from './../../../servicios/jerarquia.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AgregarJerarquiaComponent } from './agregar-jerarquia/agregar-jerarquia.component';
 import { ModificarJerarquiaComponent } from './modificar-jerarquia/modificar-jerarquia.component';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-jerarquia',
@@ -16,6 +18,8 @@ export class JerarquiaComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private jerarquiaService: JerarquiaService,
     public dialog: MatDialog
@@ -37,6 +41,8 @@ export class JerarquiaComponent implements OnInit {
     this.jerarquiaService.listarTodos().subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     );
   }

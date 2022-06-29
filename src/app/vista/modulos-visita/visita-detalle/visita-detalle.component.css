@@ -12,7 +12,7 @@ h1{
   font-size: 20px;
 }
 .contenedor{
-  width: 80% !important; margin-left: 10%; margin-top: 6%;
+  width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
 .btnedit{ background-color: #97B4E2; color: white; }
@@ -59,7 +59,7 @@ padding-bottom: 4%;
 width: 80% !important; margin-left: 10%; margin-top: 4%;
 }
 li{
-  margin-bottom: 5%;
+  margin-bottom: 2%;
   margin-left: 7%;
   color: #00235C;
 }
@@ -67,4 +67,5 @@ h3{
   display:inline;
   font-weight: 700;
 }
-mat-radio-button{ color:black; }
+a{ text-decoration: none; }
+mat-radio-button{ color:black; margin-bottom: 2%; }

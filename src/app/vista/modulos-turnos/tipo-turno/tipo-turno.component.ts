@@ -2,10 +2,11 @@ import { ModificarTipoTurnoComponent } from './modificar-tipo-turno/modificar-ti
 import { AgregarTipoTurnoComponent } from './agregar-tipo-turno/agregar-tipo-turno.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TipoTurnoService } from 'src/app/servicios/tipoTurno.service';
 import Swal from 'sweetalert2';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-tipo-turno',
   templateUrl: './tipo-turno.component.html',
@@ -17,7 +18,8 @@ export class TipoTurnoComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioTipoTurno: TipoTurnoService,
@@ -33,6 +35,8 @@ export class TipoTurnoComponent implements OnInit {
       this.listarTipoTurnos = res;
       console.log(res)
       this.dataSource = new MatTableDataSource( this.listarTipoTurnos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

@@ -2,10 +2,12 @@ import { AgregarEstadoComponent } from './agregar-estado/agregar-estado.componen
 import { ParamMap, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { ModificarEstadoComponent } from './modificar-estado/modificar-estado.component';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-lista-estados',
@@ -19,7 +21,8 @@ export class ListaEstadosComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioEstadoModulo: EstadoService,
@@ -29,26 +32,6 @@ export class ListaEstadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarTodos();
-    this.dtOptions = {
-      dom: 'Bfrtip',
-      pagingType: 'full_numbers',
-      pageLength: 7,
-      processing: true,
-      buttons: [
-        {
-          extend: 'excel',
-          text: '<i class="fa-solid fa-file-excel text-success btnexcel" style="background-color:#6DBE53;"></i>',
-        },
-        {
-          extend: 'pdf',
-          text: '<i class="fa-solid fa-file-pdf" style="background-color: #DA161A;"></i>',
-        },
-         {
-          extend: 'print',
-          text: '<i class="fa-solid fa-print " style="color:#959595" ></i>',
-         }
-      ]
-    };
   }
 
   public listarTodos () {
@@ -63,6 +46,8 @@ export class ListaEstadosComponent implements OnInit {
         });
         console.log(this.listarEstadosModulo)
         this.dataSource = new MatTableDataSource(this.listarEstadosModulo);
+        this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       })
     })
   }

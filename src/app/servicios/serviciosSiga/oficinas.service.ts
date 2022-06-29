@@ -18,4 +18,8 @@ export class OficinasService {
   public listarTodos(){
     return this.http.get<Oficinas[]>(this.path+'/Obtener');
   }
+
+  public listarPorId(id: number){
+    return this.http.get<Oficinas[]>(this.path+'/Obtener?id='+id);
+  }
 }

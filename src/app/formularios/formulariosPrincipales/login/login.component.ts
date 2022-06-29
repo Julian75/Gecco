@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   public listarNoRegistrado: any = [];
   public listarinicioSesion: any = [];
   public usuario: any;
+  public id: any = [];
   public desencriptado: any;
 
   constructor(
@@ -42,64 +43,60 @@ export class LoginComponent implements OnInit {
   }
 
   ingresar(){
-    this.servicioUsuario.listarTodos().subscribe(res=>{
-      const username = this.formLogin.controls['username'].value;
-      const password = this.formLogin.controls['password'].value;
-      res.forEach(element => {
-        if(element.documento == username){
-          const usuario = element
-          // var contrasena = usuario.password.toString();
-          // var cifras = usuario.cifra.toString();
-          // var key = JSON.parse(cifras);
-          // console.log(key)
-          // console.log(contrasena)
-          // let desencriptados = CryptoJS.AES.decrypt(
-          // contrasena, key, {
-          //   keySize: 16,
-          //   iv: key,
-          //   mode: CryptoJS.mode.ECB,
-          //   padding: CryptoJS.pad.Pkcs7
-          // }).toString(CryptoJS.enc.Utf8);
-          // console.log(desencriptados);
-          if(usuario.password == password){
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Bienvenido(a)!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.usuario = usuario.documento
-            sessionStorage.setItem('usuario',this.usuario)
-            this.router.navigate(['/vista']);
-          }else if(element.password != password){
+      this.servicioUsuario.listarTodos().subscribe(res=>{
+        const username = this.formLogin.controls['username'].value;
+        const password = this.formLogin.controls['password'].value;
+        res.forEach(element => {
+          if(element.documento == username){
+            const usuario = element
+            // var contrasena = usuario.password.toString();
+            // var cifras = usuario.cifra.toString();
+            // var key = JSON.parse(cifras);
+            // console.log(key)
+            // console.log(contrasena)
+            // let desencriptados = CryptoJS.AES.decrypt(
+            // contrasena, key, {
+            //   keySize: 16,
+            //   iv: key,
+            //   mode: CryptoJS.mode.ECB,
+            //   padding: CryptoJS.pad.Pkcs7
+            // }).toString(CryptoJS.enc.Utf8);
+            // console.log(desencriptados);
+            if(usuario.password == password){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Bienvenido(a)!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.usuario = usuario.documento
+              this.id = usuario.id
+              console.log(this.id)
+              sessionStorage.setItem('usuario',this.usuario)
+              sessionStorage.setItem('id',this.id)
+              this.router.navigate(['/vista']);
+            }else if(element.password != password){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Digito la contraseña incorrecta!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          }else if(username=="" || password==""){
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: 'Digito la contraseña incorrecta!',
+              title: 'Los campos estan vacios!',
               showConfirmButton: false,
               timer: 1500
             })
           }
-        }else if(username=="" || password==""){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Los campos estan vacios!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }else if(username !== element.documento){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Este usuario no esta registrado!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }
+        })
       })
-    })
-  }
 
+
+  }
 }

@@ -1,9 +1,11 @@
 import { AsignarTurnoService } from './../../../servicios/asignarTurno.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
 import { SitioVentaService } from 'src/app/servicios/serviciosSiga/sitioVenta.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-asignar-turno',
   templateUrl: './asignar-turno.component.html',
@@ -17,7 +19,8 @@ export class AsignarTurnoComponent implements OnInit {
 
   displayedColumns = ['id', 'estado', 'horaInicio', 'horaFinal', 'nombreOficina', 'nombreSitioVenta', 'tipoTurno'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioAsignarTurno: AsignarTurnoService,
@@ -34,6 +37,8 @@ export class AsignarTurnoComponent implements OnInit {
       this.listarTurnos = res;
       console.log(res)
       this.dataSource = new MatTableDataSource(this.listarTurnos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

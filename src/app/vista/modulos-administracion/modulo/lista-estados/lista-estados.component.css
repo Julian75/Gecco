@@ -6,8 +6,12 @@ table{
   border: 1px solid #000;
   border-bottom: 20%;
 }
-
-h1{
+mat-form-field{
+  width: 20%;
+  margin-left: 79.5%;
+  margin-top: -15%;
+}
+h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -31,7 +35,7 @@ td {
   text-align: center;
 }
 .contenedor{
-  width: 80% !important; margin-left: 10%; margin-top: 6%;
+  width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
 .btnedit{ background-color: #97B4E2; color: white; }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,9 @@ import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { AgregarAccesosComponent } from './agregar-accesos/agregar-accesos.component';
 import Swal from 'sweetalert2';
 import { ModificarAccesosComponent } from './modificar-accesos/modificar-accesos.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+
 @Component({
   selector: 'app-accesos',
   templateUrl: './accesos.component.html',
@@ -17,6 +20,8 @@ export class AccesosComponent implements OnInit {
   public Rol: any;
   displayedColumns = ['id', 'idModulo','idRol', 'opciones'];
   dataSource!:MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     // private servicioAccesoRol: ,
     public dialog: MatDialog,
@@ -42,6 +47,8 @@ export class AccesosComponent implements OnInit {
         });
         console.log(this.listarAccesoRol)
         this.dataSource = new MatTableDataSource(this.listarAccesoRol);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     })
   }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { NovedadService } from 'src/app/servicios/novedad.service';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-novedades',
   templateUrl: './novedades.component.html',
@@ -11,10 +12,10 @@ export class NovedadesComponent implements OnInit {
 
   dtOptions: any = {};
   public listarNovedades: any = [];
-
   displayedColumns = ['id', 'usuario', 'turno', 'tipoNovedad', 'fecha', 'observacion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioNovedad: NovedadService,
   ) {
@@ -29,6 +30,8 @@ export class NovedadesComponent implements OnInit {
       this.listarNovedades = res;
       console.log(res)
       this.dataSource = new MatTableDataSource( this.listarNovedades);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

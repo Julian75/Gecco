@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
 import { AgregarTipoDocumentoComponent } from './agregar-tipo-documento/agregar-tipo-documento.component';
 import { ModificarTipoDocumentoComponent } from './modificar-tipo-documento/modificar-tipo-documento.component';
 import Swal from 'sweetalert2';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-tipo-documento',
   templateUrl: './tipo-documento.component.html',
@@ -17,7 +18,8 @@ export class TipoDocumentoComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioTipoDocumento: TipoDocumentoService,
@@ -32,6 +34,8 @@ export class TipoDocumentoComponent implements OnInit {
     this.servicioTipoDocumento.listarTodos().subscribe( res =>{
       this.listarTipoDocumentos = res;
       this.dataSource = new MatTableDataSource( this.listarTipoDocumentos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

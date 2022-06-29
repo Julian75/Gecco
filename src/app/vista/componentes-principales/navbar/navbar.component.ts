@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
   }
   public salir(){
     sessionStorage.removeItem('usuario');
+    sessionStorage.removeItem('id');
     this.router.navigate(['/']);
   }
 

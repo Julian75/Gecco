@@ -11,7 +11,7 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-h1{
+h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -35,7 +35,7 @@ td {
   text-align: center;
 }
 .contenedor{
-  width: 80% !important; margin-left: 10%; margin-top: 6%;
+  width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .btnver{ background-color: #959595; color: white; }
 .boton{ background-color: #00235C; }

@@ -1,12 +1,14 @@
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { ModificarModuloComponent } from './modificar-modulo/modificar-modulo.component';
 import { ModuloService } from './../../../servicios/modulo.service';
-
-import { Component, OnInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AgregarModuloComponent } from './agregar-modulo/agregar-modulo.component';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-modulo',
@@ -19,7 +21,8 @@ export class ModuloComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioModulo: ModuloService,
@@ -35,6 +38,8 @@ export class ModuloComponent implements OnInit {
       this.listarModulos = res;
       console.log(res)
       this.dataSource = new MatTableDataSource( this.listarModulos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

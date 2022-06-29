@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 import { UsuarioVendedoresService } from 'src/app/servicios/serviciosSiga/usuariosVendedores.service';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-asignar-turno-vendedor',
   templateUrl: './asignar-turno-vendedor.component.html',
@@ -15,7 +16,8 @@ export class AsignarTurnoVendedorComponent implements OnInit {
 
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioAsignarTurnoVendedor: AsignarTurnoVendedorService,
     private servicioUsuarioVendedor: UsuarioVendedoresService,
@@ -29,6 +31,8 @@ export class AsignarTurnoVendedorComponent implements OnInit {
     this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
       this.listaAsignarTurnoVendedor = res;
       this.dataSource = new MatTableDataSource( this.listaAsignarTurnoVendedor);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       console.log(res)
     })
     this.servicioUsuarioVendedor.listarPorId(13).subscribe(res=>{

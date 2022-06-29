@@ -8,6 +8,7 @@ import { RolService } from 'src/app/servicios/rol.service';
 import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
+import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
 
 @Component({
   selector: 'app-modificar-usuarios',
@@ -25,6 +26,7 @@ export class ModificarUsuariosComponent implements OnInit {
   public listaEstados: any = [];
   public listaTipoDocumentos: any = [];
   public listaRoles: any = [];
+  public listaOficinas: any = [];
 
   public encontrado = false;
   public listarExiste: any = [];
@@ -34,6 +36,7 @@ export class ModificarUsuariosComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioTipoDocumento: TipoDocumentoService,
     private servicioRoles: RolService,
+    private servicioOficinas : OficinasService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -45,6 +48,7 @@ export class ModificarUsuariosComponent implements OnInit {
     this.listarEstados();
     this.listarTipoDocumentos();
     this.listarRoles();
+    this.listarOficinas();
   }
 
   private crearFormulario() {
@@ -57,6 +61,7 @@ export class ModificarUsuariosComponent implements OnInit {
       estado: [null,Validators.required],
       rol: [null,Validators.required],
       tipoDocumento: [null,Validators.required],
+      oficina: [null,Validators.required],
     });
   }
 
@@ -83,6 +88,12 @@ export class ModificarUsuariosComponent implements OnInit {
     });
   }
 
+  public listarOficinas() {
+    this.servicioOficinas.listarTodos().subscribe(res => {
+      this.listaOficinas = res;
+    });
+  }
+
   public listaporidUsuario() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idUsuario = params.get('id');
@@ -97,6 +108,7 @@ export class ModificarUsuariosComponent implements OnInit {
         this.formUsuario.controls['estado'].setValue(this.listarUsuario.idEstado.id);
         this.formUsuario.controls['rol'].setValue(this.listarUsuario.idRol.id);
         this.formUsuario.controls['tipoDocumento'].setValue(this.listarUsuario.idTipoDocumento.id);
+        // this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideSubzona);
       })
     })
   }
@@ -115,6 +127,8 @@ export class ModificarUsuariosComponent implements OnInit {
         usuario.idRol = listaUsuarios.idRol
         usuario.password = listaUsuarios.password
         usuario.idTipoDocumento = listaUsuarios.idTipoDocumento
+        usuario.ideOficina = listaUsuarios.ideOficina
+        usuario.ideSubzona = listaUsuarios.ideSubzona
         this.servicioUsuario.listarTodos().subscribe(res=>{
           const documento = this.formUsuario.controls['documento'].value;
           const nombre = this.formUsuario.controls['nombre'].value;

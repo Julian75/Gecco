@@ -5,8 +5,10 @@ mat-toolbar{
   background-color: #00235C;
   height: 13%;
 }
-mat-icon, .nombre{ color: white; position: relative;}
+mat-icon, .nombre, .rol{ color: white; position: relative;}
 .nombre{ left: 75%; }
+
+.rol:hover{ color: #00235C;   }
 mat-icon{
   font-size: 40px;
   width: 5%;

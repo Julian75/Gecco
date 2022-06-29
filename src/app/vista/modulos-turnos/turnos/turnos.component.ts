@@ -1,9 +1,10 @@
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TurnosService } from 'src/app/servicios/turnos.service';
 import Swal from 'sweetalert2';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-turnos',
   templateUrl: './turnos.component.html',
@@ -16,7 +17,8 @@ export class TurnosComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'horaInicio', 'horaFinal', 'estado', 'tipoTurno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioTurno: TurnosService,
@@ -31,6 +33,8 @@ export class TurnosComponent implements OnInit {
     this.servicioTurno.listarTodos().subscribe( res =>{
       this.listarTurnos = res;
       this.dataSource = new MatTableDataSource( this.listarTurnos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       console.log(res)
     })
   }

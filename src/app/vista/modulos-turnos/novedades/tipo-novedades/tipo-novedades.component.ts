@@ -1,11 +1,12 @@
 import { AgregarTipoNovedadesComponent } from './agregar-tipo-novedades/agregar-tipo-novedades.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { TipoNovedadesService } from 'src/app/servicios/tipoNovedades.Service';
 import { ModificarTipoNovedadesComponent } from './modificar-tipo-novedades/modificar-tipo-novedades.component';
 import Swal from 'sweetalert2';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-tipo-novedades',
   templateUrl: './tipo-novedades.component.html',
@@ -17,7 +18,8 @@ export class TipoNovedadesComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion', 'observacion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioTipoNovedades: TipoNovedadesService,
@@ -32,6 +34,8 @@ export class TipoNovedadesComponent implements OnInit {
     this.servicioTipoNovedades.listarTodos().subscribe( res =>{
       this.listarTipoNovedades = res;
       this.dataSource = new MatTableDataSource( this.listarTipoNovedades);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

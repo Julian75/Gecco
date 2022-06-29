@@ -2,9 +2,11 @@ import { ModificarRolComponent } from './modificar-rol/modificar-rol.component';
 import { AgregarRolComponent } from './agregar-rol/agregar-rol.component';
 import { RolService } from './../../../servicios/rol.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-rol',
   templateUrl: './rol.component.html',
@@ -16,7 +18,8 @@ export class RolComponent implements OnInit {
 
   displayedColumns = ['id', 'descripcion','estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioRol: RolService,
     public dialog: MatDialog
@@ -32,6 +35,8 @@ export class RolComponent implements OnInit {
       this.listarRoles = res;
       console.log(res)
       this.dataSource = new MatTableDataSource( this.listarRoles);
+      this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     })
   }
 

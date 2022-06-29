@@ -1,11 +1,13 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
 import { OpcionesVisitaService } from 'src/app/servicios/opcionesVisita.service';
 import { AgregarOpcionesVisitaComponent } from './agregar-opciones-visita/agregar-opciones-visita.component';
 import { ModificarOpcionesVisitaComponent } from './modificar-opciones-visita/modificar-opciones-visita.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-opciones-visita',
@@ -17,6 +19,8 @@ export class OpcionesVisitaComponent implements OnInit {
 
   displayedColumns = ['idOpcionVisita', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public dialog: MatDialog,
@@ -32,6 +36,8 @@ export class OpcionesVisitaComponent implements OnInit {
   public listarTodo(){
     this.servicioOpcionesVisita.listarTodos().subscribe(res=>{
       this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

@@ -6,15 +6,15 @@
         <mat-label>Buscar</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
       </mat-form-field>
-    <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
+    <table datatable  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
         <!-- Position Column -->
         <ng-container matColumnDef="idOpcionVisita" >
-          <th mat-header-cell *matHeaderCellDef ><h1>Id</h1></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Id</h3></th>
           <td mat-cell *matCellDef="let element">{{element.id}}</td>
         </ng-container>
 
         <ng-container matColumnDef="descripcion">
-          <th mat-header-cell *matHeaderCellDef><h1>Descripcion</h1></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Descripcion</h3></th>
           <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
         </ng-container>
 
@@ -35,8 +35,8 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator [length]="100"
-              [pageSize]="5"
-              [pageSizeOptions]="[5, 10, 25, 100]"
+              [pageSize]="10"
+              [pageSizeOptions]="[2, 5, 10, 25, 100]"
               aria-label="Select page">
   </mat-paginator>
   </div>

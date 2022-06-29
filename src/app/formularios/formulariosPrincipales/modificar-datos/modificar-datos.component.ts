@@ -14,6 +14,7 @@ import { ModificarUsuariosComponent } from 'src/app/vista/modulos-administracion
 })
 export class ModificarDatosComponent implements OnInit {
   public formModificarUser!: FormGroup;
+  public usuario : any = [];
   constructor(
     private servicioUsuario: UsuarioService,
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class ModificarDatosComponent implements OnInit {
     this.servicioUsuario.listarTodos().subscribe(res => {
       res.forEach(element => {
         if (element.documento == Number(sessionStorage.getItem('usuario'))) {
+          this.usuario = element;
           this.formModificarUser.patchValue({
             id: element.id,
             documentoUser: element.documento,

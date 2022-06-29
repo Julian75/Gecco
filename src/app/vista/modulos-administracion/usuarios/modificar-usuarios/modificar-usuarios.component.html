@@ -57,6 +57,15 @@
           <input type="number" id="documento" formControlName="documento" matInput minlength="1">
         </mat-form-field>
       </div>
+      <div class="nombre4">
+        <h2>Oficina</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+        <mat-label>Ingrese Oficina</mat-label>
+        <select matNativeControl id="oficina" name="oficina" formControlName="oficina">
+          <option *ngFor="let item of listaOficinas"  value="{{item.ideOficina}}">{{item.ideOficina}} | {{item.nom_oficina}}</option>
+        </select>
+        </mat-form-field>
+      </div>
     </div>
     <div class="row">
       <!-- Boton de guardar datos -->

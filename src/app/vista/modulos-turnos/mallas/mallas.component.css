@@ -29,27 +29,30 @@ th{
   position: relative;
   margin-left: 15px;
 }
-
 td {
   border: 1px solid #000;
-  text-align: center;
+  text-align: left;
+  font-size: 12px;
 }
+.hora{ text-align: center; }
 .contenedor{
-  width: 80% !important; margin-left: 10%; margin-top: 6%;
+  width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
 
 #Cumplio{
-  background-color: #abee95;
+  background-color: #C6EFCE;
+  color: #006100;
 }
-#Cumplio, #Incumplio, #No_ingreso{ font-weight: 700;}
+#Cumplio, #Incumplio, #No_ingreso, #Aun{ font-weight: 700;}
 #Incumplio{
-  background-color: #DA161A;
-  color: white;
+  background-color: #FFEB9C;
+  color: #9C6524;
 }
 #No_ingreso{
-  background-color: #cecece;
+  background-color: #ffc7ce;
+  color: #9B0006;
 }
 .btnver{ background-color:  #3ebb14; color: white; }
