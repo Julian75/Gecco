@@ -6,6 +6,7 @@ export class AsignarTurnoVendedor {
   public fechaFinal: Date = new Date();
   idTurno !: Turnos;
   public idOficina: number=0;
+  public ideSubzona: number=0;
   public nombreOficina: string="";
   public idSitioVenta: number=0;
   public nombreSitioVenta: string="";

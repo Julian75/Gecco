@@ -1,8 +1,10 @@
 <div class="contenedor">
+  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><img width="28px" src="../../../../assets/botones/excel.png" alt="" srcset=""></button>
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
+
   <table mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
       <!-- Position Column -->
       <ng-container matColumnDef="usuarioVendedor">
@@ -22,7 +24,7 @@
 
       <ng-container matColumnDef="sitioVentaAsistencia">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Sitio Venta Ingresa</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideSitioventa}}</td>
+        <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideSitioventa}} </td>
       </ng-container>
 
       <ng-container matColumnDef="oficinaZona">
@@ -67,8 +69,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [length]="100"
-              [pageSize]="10"
+  <mat-paginator [length]="500"
+              [pageSize]="50"
               [pageSizeOptions]="[5, 10, 25, 100]"
               aria-label="Select page">
   </mat-paginator>

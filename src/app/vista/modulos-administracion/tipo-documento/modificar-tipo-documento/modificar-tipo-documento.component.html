@@ -9,6 +9,15 @@
       <input id="descripcion" formControlName="descripcion" matInput>
       </mat-form-field>
     </div>
+    <div class="nombre2">
+      <h2>Estado</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Modifica estado del tipo documento</mat-label>
+      <select matNativeControl id="estado" name="estado" formControlName="estado">
+        <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
+      </select>
+      </mat-form-field>
+    </div>
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->

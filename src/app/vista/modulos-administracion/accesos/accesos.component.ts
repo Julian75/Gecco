@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { ModificarAccesosComponent } from './modificar-accesos/modificar-accesos.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-accesos',
   templateUrl: './accesos.component.html',
@@ -17,6 +17,7 @@ import { MatSort } from '@angular/material/sort';
 export class AccesosComponent implements OnInit {
   dtOptions: any = {};
   public listarAccesoRol: any = [];
+  public nombreRol: any;
   public Rol: any;
   displayedColumns = ['id', 'idModulo','idRol', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -43,9 +44,10 @@ export class AccesosComponent implements OnInit {
           if(element.idRol.id == id){
             this.listarAccesoRol.push(element)
             this.Rol = element.idRol.descripcion;
+            this.nombreRol = element.idRol.descripcion
+            console.log(this.nombreRol)
           }
         });
-        console.log(this.listarAccesoRol)
         this.dataSource = new MatTableDataSource(this.listarAccesoRol);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -90,7 +92,6 @@ export class AccesosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.accesoServicio.eliminar(id).subscribe(res=>{
-          this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
             'Se elimino el modulo.',
@@ -117,6 +118,17 @@ export class AccesosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  name = 'listaUsuarios.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('usuario');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
   }
 }
 

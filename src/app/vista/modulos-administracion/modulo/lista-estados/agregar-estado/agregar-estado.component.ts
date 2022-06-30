@@ -34,13 +34,14 @@ export class AgregarEstadoComponent implements OnInit {
     this.formEstado = this.fb.group({
       id: 0,
       descripcion: [null,Validators.required],
-      estado: [null,Validators.required],
+      observacion: ['',Validators.required],
     });
   }
 
   public guardar() {
     let estado : Estado = new Estado();
     estado.descripcion=this.formEstado.controls['descripcion'].value;
+    estado.observacion = this.formEstado.controls['observacion'].value;
     const idModulo = Number(this.idModulo)
     this.servicioModulo.listarPorId(idModulo).subscribe(res=>{
       estado.idModulo = res

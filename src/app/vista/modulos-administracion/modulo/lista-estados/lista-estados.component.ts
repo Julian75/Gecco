@@ -8,7 +8,7 @@ import { ModificarEstadoComponent } from './modificar-estado/modificar-estado.co
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-lista-estados',
   templateUrl: './lista-estados.component.html',
@@ -19,7 +19,7 @@ export class ListaEstadosComponent implements OnInit {
   public listarEstadosModulo: any = [];
   public modulo: any;
 
-  displayedColumns = ['id', 'descripcion', 'opciones'];
+  displayedColumns = ['id', 'descripcion', 'observacion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -90,7 +90,6 @@ export class ListaEstadosComponent implements OnInit {
      }).then((result) => {
        if (result.isConfirmed) {
          this.servicioEstadoModulo.eliminar(id).subscribe(res=>{
-           this.listarTodos();
            swalWithBootstrapButtons.fire(
              'Eliminado!',
              'Se elimino el modulo.',
@@ -109,5 +108,23 @@ export class ListaEstadosComponent implements OnInit {
        }
      })
    }
+   // Filtrado
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  name = 'listaUsuarios.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('usuario');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
+  }
 }

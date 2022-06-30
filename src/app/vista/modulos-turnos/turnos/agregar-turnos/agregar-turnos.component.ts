@@ -66,72 +66,89 @@ export class AgregarTurnosComponent implements OnInit {
   }
 
   public guardar() {
-    this.encontrado=false
-    this.hora = false;
-     let turno : Turnos = new Turnos();
-     this.servicioTurnos.listarTodos().subscribe(res => {
-      const idTurno = res.length+1
-      console.log(idTurno)
-      turno.descripcion = "Turno "+idTurno
-      const horaInicio = this.formTurno.controls['horaInicio'].value;
-      const horaFinal = this.formTurno.controls['horaFinal'].value;
-      for (let i = 0; i < res.length; i++) {
-        if(res[i].horaInicio == horaInicio && res[i].horaFinal == horaFinal){
-          this.encontrado = true
-        }else if(horaInicio > horaFinal || horaInicio == horaFinal){
-            this.hora = true
+    const horasI = this.formTurno.controls['horaInicio'].value;
+    const horaF = this.formTurno.controls['horaFinal'].value;
+    const estadito = this.formTurno.controls['estado'].value;
+    const tipoTurni = this.formTurno.controls['tipoTurno'].value;
+    if(horasI == null || horaF == null || estadito == null || tipoTurni == null){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Los campos se encuentran vacios!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.crearFormulario()
+    }else{
+      this.encontrado=false
+      this.hora = false;
+       let turno : Turnos = new Turnos();
+       this.servicioTurnos.listarTodos().subscribe(res => {
+        const idTurno = res.length+1
+        console.log(idTurno)
+        turno.descripcion = "Turno "+idTurno
+        const horaInicio = this.formTurno.controls['horaInicio'].value;
+        const horaFinal = this.formTurno.controls['horaFinal'].value;
+        for (let i = 0; i < res.length; i++) {
+          if(res[i].horaInicio == horaInicio && res[i].horaFinal == horaFinal){
             this.encontrado = true
+          }else if(horaInicio > horaFinal || horaInicio == horaFinal){
+              this.hora = true
+              this.encontrado = true
+          }
+          else{
+            this.encontrado = false
+          }
+          this.listarExiste.push(this.encontrado)
         }
-        else{
-          this.encontrado = false
-        }
-        this.listarExiste.push(this.encontrado)
-      }
-      const existe = this.listarExiste.includes( true )
-      console.log(existe)
-      if(existe == false ){
-        turno.horaInicio = this.formTurno.controls['horaInicio'].value;
-        turno.horaFinal = this.formTurno.controls['horaFinal'].value;
-        const idEstado = this.formTurno.controls['estado'].value;
-          this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-          this.listarEstado = res;
-          turno.idEstado= this.listarEstado
-          const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
-          this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
-            this.listarTipoTurno = res;
-            turno.idTipoTurno= this.listarTipoTurno
-            if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'El campo esta vacio!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }else{
-              this.registrarTurno(turno);
-            }
+        const existe = this.listarExiste.includes( true )
+        console.log(existe)
+        if(existe == false ){
+          turno.horaInicio = this.formTurno.controls['horaInicio'].value;
+          turno.horaFinal = this.formTurno.controls['horaFinal'].value;
+          const idEstado = this.formTurno.controls['estado'].value;
+            this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+            this.listarEstado = res;
+            turno.idEstado= this.listarEstado
+            const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
+            this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
+              this.listarTipoTurno = res;
+              turno.idTipoTurno= this.listarTipoTurno
+              if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'El campo esta vacio!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }else{
+                this.registrarTurno(turno);
+              }
+            })
           })
-        })
-      }
-      if(existe == true){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Este turno ya esta guardado!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(['/turnos']);
-      }
-      if(this.hora == true){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Por favor ingrese una hora valida!',
-        })
-      }
-    });
+        }
+        if(existe == true){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Este turno ya esta guardado!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.router.navigate(['/turnos']);
+        }
+        if(this.hora == true){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Por favor ingrese una hora valida!',
+          })
+          this.crearFormulario();
+          this.router.navigate(['/agregarTurno']);
+        }
+      });
+    }
   }
 
     public registrarTurno(turno: Turnos) {

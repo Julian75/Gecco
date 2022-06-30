@@ -176,6 +176,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
         if(element.ideOficina == idOficina.ideOficina){
           asignarTurnoVendedor.idOficina = Number(element.ideOficina)
           asignarTurnoVendedor.nombreOficina = element.nom_oficina
+          asignarTurnoVendedor.ideSubzona = element.ideSubzona
           this.servicioSitioVenta.listarPorId(element.ideOficina).subscribe(resSitioVenta=>{
             const idSitioVenta = this.formAsignarTurno.controls['sitioVenta'].value
             resSitioVenta.forEach(elementSitioVenta => {
@@ -196,7 +197,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                         const fechaInicio = new Date(fechaI.getFullYear(), fechaI.getMonth(), fechaI.getDate()+1);
                         const fechaF = new Date(this.formAsignarTurno.controls['fechaFinal'].value);
                         const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                        if(fechaInicio < fechaFinal){
+                        if(fechaInicio <= fechaFinal){
                           asignarTurnoVendedor.fechaInicio = fechaInicio
                           asignarTurnoVendedor.fechaFinal = fechaFinal
                           this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)

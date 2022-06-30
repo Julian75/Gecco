@@ -18,6 +18,15 @@
       </select>
       </mat-form-field>
     </div>
+    <div class="nombre2">
+      <h2>Jerarquia</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Jerarquía del Rol</mat-label>
+      <select matNativeControl id="jerarquia" name="jerarquia" formControlName="jerarquia">
+        <option *ngFor="let item of listJerarquia"  value="{{item.id}}">{{item.descripcion}}</option>
+      </select>
+      </mat-form-field>
+    </div>
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->

@@ -108,7 +108,7 @@ export class ModificarUsuariosComponent implements OnInit {
         this.formUsuario.controls['estado'].setValue(this.listarUsuario.idEstado.id);
         this.formUsuario.controls['rol'].setValue(this.listarUsuario.idRol.id);
         this.formUsuario.controls['tipoDocumento'].setValue(this.listarUsuario.idTipoDocumento.id);
-        // this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideSubzona);
+        this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideOficina);
       })
     })
   }
@@ -119,6 +119,7 @@ export class ModificarUsuariosComponent implements OnInit {
       usuario.id = Number(params.get('id'));
       this.servicioUsuario.listarPorId(usuario.id).subscribe(res=>{
         const listaUsuarios = res
+        console.log(listaUsuarios)
         usuario.nombre = listaUsuarios.nombre
         usuario.apellido = listaUsuarios.apellido
         usuario.correo = listaUsuarios.correo
@@ -137,10 +138,11 @@ export class ModificarUsuariosComponent implements OnInit {
           const estado = this.formUsuario.controls['estado'].value;
           const rol = this.formUsuario.controls['rol'].value;
           const tipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
+          const oficina = this.formUsuario.controls['oficina'].value;
           for (let i = 0; i < res.length; i++) {
-            if(res[i].documento == documento && listaUsuarios.nombre == nombre && listaUsuarios.apellido == apellido && listaUsuarios.correo == correo && listaUsuarios.idEstado.id == estado && listaUsuarios.idRol.id == rol && listaUsuarios.idTipoDocumento.id == tipoDocumento ){
+            if(res[i].documento == documento && listaUsuarios.nombre == nombre && listaUsuarios.apellido == apellido && listaUsuarios.correo == correo && listaUsuarios.idEstado.id == estado && listaUsuarios.idRol.id == rol && listaUsuarios.idTipoDocumento.id == tipoDocumento && listaUsuarios.ideOficina == oficina ){
               this.encontrado = true
-            }else if(nombre=="" || documento==null || apellido=="" || correo=="" || estado==undefined || estado==null || rol==undefined || rol==null || tipoDocumento==null || tipoDocumento==undefined){
+            }else if(nombre=="" || documento==null || apellido=="" || correo=="" || estado==undefined || estado==null || rol==undefined || rol==null || tipoDocumento==null || tipoDocumento==undefined|| oficina==null || oficina==undefined){
               this.encontrado = true
               Swal.fire({
                 position: 'center',
@@ -150,12 +152,6 @@ export class ModificarUsuariosComponent implements OnInit {
                 timer: 1500
               })
               // this.router.navigate(['/usuarios']);
-              // en la tabla modulos esta asi:
-              // 1-tipo turno
-              // 2-turnos
-              // 3- rol
-              // 4- tipo documento
-              // 5- usuario
             }else{
               this.encontrado = false
             }
@@ -180,17 +176,24 @@ export class ModificarUsuariosComponent implements OnInit {
                 this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
                   this.listaTipoDocumentos = res;
                   usuario.idTipoDocumento = this.listaTipoDocumentos
-                  if(usuario.nombre,usuario.apellido,usuario.correo,usuario.documento==null || usuario.nombre,usuario.apellido,usuario.correo=="" || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento==undefined || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento==null){
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'error',
-                      title: 'El campo esta vacio!',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                  }else{
-                    this.actualizarUsuario(usuario);
-                  }
+                  const ideOficina = this.formUsuario.controls['oficina'].value;
+                  this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
+                    res.forEach(elementOficina => {
+                      usuario.ideOficina = elementOficina.ideOficina
+                      usuario.ideSubzona = elementOficina.ideSubzona
+                      if(usuario.nombre,usuario.apellido,usuario.correo,usuario.documento==null || usuario.nombre,usuario.apellido,usuario.correo=="" || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento, usuario.ideOficina==undefined || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento,usuario.ideOficina==null){
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'error',
+                          title: 'El campo esta vacio!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      }else{
+                        this.actualizarUsuario(usuario);
+                      }
+                    });
+                  })
                 })
               })
             })
@@ -199,9 +202,9 @@ export class ModificarUsuariosComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: 'Este usuario ya esta guardado o ya existe un usuario con ese número de documento!',
+              title: 'No hubieron cambios o ya existe un usuario con ese número de documento!',
               showConfirmButton: false,
-              timer: 1500
+              timer: 2000
             })
             this.router.navigate(['/usuarios']);
           }

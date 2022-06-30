@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-tipo-documento',
@@ -22,7 +23,8 @@ export class AgregarTipoDocumentoComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AgregarTipoDocumentoComponent>,
     private servicioEstado : EstadoService,
-    private servicioTipoDocumento: TipoDocumentoService
+    private servicioTipoDocumento: TipoDocumentoService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {

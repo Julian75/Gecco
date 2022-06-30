@@ -14,7 +14,6 @@ import { CambiarContrasenaComponent } from './formularios/formulariosPrincipales
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModificarDatosComponent } from './formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
-
 @NgModule({
   declarations: [
     AppComponent,

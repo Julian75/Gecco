@@ -110,16 +110,8 @@ export class AgregarAsignarTurnoComponent implements OnInit {
     let penultimo = this.listaIdOficinas[this.listaIdOficinas.length - 2]
     if(ultimo != penultimo || penultimo == undefined){
       this.listaSitioVenta = []
-      this.servicioSitioVenta.listarTodos().subscribe(res=>{
-        for (let index = 0; index < res.length; index++) {
-          const element = res[index];
-          if(element.ideOficina == listaOficina.ideOficina){
-            const lista = element
-            this.listaSitioVenta.push(lista)
-          }
-        }
-        this.listarSitioVentas = this.listaSitioVenta
-
+      this.servicioSitioVenta.listarPorId(ultimo).subscribe(res=>{
+        this.listarSitioVentas = res
       })
     }else{
       console.log("todo igual")
@@ -222,8 +214,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       })
       this.listaSitioVentasTabla = []
       this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
-      this.router.navigate(['/agregarAsignarTurno']);
-      this.crearFormulario()
+      this.router.navigate(['/asignarTurno']);
     }, error => {
       Swal.fire({
         position: 'center',

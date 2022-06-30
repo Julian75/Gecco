@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AgregarModuloComponent } from './agregar-modulo/agregar-modulo.component';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-modulo',
@@ -104,6 +104,16 @@ export class ModuloComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  name = 'listaUsuarios.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('usuario');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
   }
 }
 

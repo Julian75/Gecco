@@ -78,91 +78,102 @@ export class ModificarTurnosComponent implements OnInit {
         this.formTurno.controls['horaInicio'].setValue(this.listarTurno.horaInicio);
         this.formTurno.controls['horaFinal'].setValue(this.listarTurno.horaFinal);
         this.formTurno.controls['estado'].setValue(this.listarTurno.idEstado.id);
-        console.log(this.formTurno.controls['tipoTurno'].setValue(this.listarTurno.idTipoTurno.id));
+        this.formTurno.controls['tipoTurno'].setValue(this.listarTurno.idTipoTurno.id);
       })
     })
   }
 
   public guardar() {
     let turno : Turnos = new Turnos();
+    const horaI = this.formTurno.controls['horaInicio'].value;
+    const horaF = this.formTurno.controls['horaFinal'].value;
+    const idEstad = this.formTurno.controls['estado'].value;
+    const idTipoTurn = this.formTurno.controls['tipoTurno'].value;
     this.route.paramMap.subscribe((params: ParamMap) => {
       turno.id = Number(params.get('id'));
-      this.servicioTurno.listarPorId(turno.id).subscribe(res=>{
-        const listaTurno = res
+      this.servicioTurno.listarPorId(turno.id).subscribe(resTurno=>{
+        const listaTurno = resTurno
         turno.descripcion = listaTurno.descripcion
         turno.horaInicio = listaTurno.horaInicio
         turno.horaFinal = listaTurno.horaFinal
         turno.idEstado = listaTurno.idEstado
         turno.idTipoTurno = listaTurno.idTipoTurno
-        this.servicioTurno.listarTodos().subscribe(res => {
-          const horaInicio = this.formTurno.controls['horaInicio'].value;
-          const horaFinal = this.formTurno.controls['horaFinal'].value;
-          for (let i = 0; i < res.length; i++) {
-            if(res[i].horaInicio == horaInicio && res[i].horaFinal == horaFinal){
-              this.encontrado = true
-            }else if(horaInicio > horaFinal || horaInicio == horaFinal){
-                this.hora = true
-                this.encontrado = true
-            }
-            else{
-              this.encontrado = false
-            }
-            this.listarExiste.push(this.encontrado)
-          }
-          const existe = this.listarExiste.includes( true )
-          if(existe == false ){
-            turno.horaInicio = this.formTurno.controls['horaInicio'].value;
-            turno.horaFinal = this.formTurno.controls['horaFinal'].value;
-            const idEstado = this.formTurno.controls['estado'].value;
-              this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-              this.listarEstado = res;
-              turno.idEstado= this.listarEstado
-              const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
-              this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
-                this.listarTipoTurno = res;
-                turno.idTipoTurno= this.listarTipoTurno
-                if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'El campo esta vacio!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                }else{
-                  this.actualizarTurno(turno);
+        if(horaF == resTurno.horaFinal && horaI == resTurno.horaInicio && idEstad == resTurno.idEstado.id && idTipoTurn == resTurno.idTipoTurno.id){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No hubieron cambios!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.router.navigate(['/turnos']);
+        }else{
+          this.servicioTurno.listarTodos().subscribe(res => {
+            const horaInicio = this.formTurno.controls['horaInicio'].value;
+            const horaFinal = this.formTurno.controls['horaFinal'].value;
+            for (let i = 0; i < res.length; i++) {
+              if(res[i].horaInicio == horaInicio && res[i].horaFinal == horaFinal){
+                if(resTurno.idEstado.id == idEstad && resTurno.idTipoTurno == idTipoTurn){
+                  this.encontrado = true
                 }
+                else{ this.encontrado = false }
+              }else if(horaInicio > horaFinal || horaInicio == horaFinal){
+                if(resTurno.idEstado.id == idEstad && resTurno.idTipoTurno == idTipoTurn){
+                  this.encontrado = true
+                  this.hora = true
+                }
+                else{ this.encontrado = false }
+              }
+              else{
+                this.encontrado = false
+              }
+              this.listarExiste.push(this.encontrado)
+            }
+            const existe = this.listarExiste.includes( true )
+            if(existe == false ){
+              turno.horaInicio = this.formTurno.controls['horaInicio'].value;
+              turno.horaFinal = this.formTurno.controls['horaFinal'].value;
+              const idEstado = this.formTurno.controls['estado'].value;
+              console.log(idEstado)
+              this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+                this.listarEstado = res;
+                turno.idEstado= this.listarEstado
+                const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
+                this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
+                  this.listarTipoTurno = res;
+                  turno.idTipoTurno= this.listarTipoTurno
+                  if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: 'El campo esta vacio!',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                  }else{
+                    this.actualizarTurno(turno);
+                  }
+                })
               })
-            })
-          }
-          if(existe == 'sin cambios'){
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'No hubo ningun cambio!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.router.navigate(['/turnos']);
-          }
-          if(existe == true){
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Este turno ya esta guardado!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.router.navigate(['/turnos']);
-          }
-          if(this.hora == true){
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Por favor ingrese una hora valida!',
-            })
-          }
-        })
+            }
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Este turno ya esta guardado o no hubieron cambios!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+            if(this.hora == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Por favor ingrese una hora valida!',
+              })
+            }
+          })
+        }
       })
     })
   }

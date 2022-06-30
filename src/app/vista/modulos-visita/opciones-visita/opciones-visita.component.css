@@ -11,7 +11,13 @@ table{
     margin-left: 79.5%;
     margin-top: -15%;
   }
+  .excelButton{
+    background-color: #6DBE53;
+    color: white;
+    right: 60px;
+  }
 
+  .excelButton, .pdfButton, .printButton{ position: relative; top: 75px; height: 43px;}
   h3{
     text-align: center;
     margin-top: 10px;

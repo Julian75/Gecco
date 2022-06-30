@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { JerarquiaService } from 'src/app/servicios/jerarquia.service';
 @Component({
   selector: 'app-modificar-rol',
   templateUrl: './modificar-rol.component.html',
@@ -18,13 +19,16 @@ export class ModificarRolComponent implements OnInit {
   public idRol : any;
   public listarRol : any = [];
   public listarEstado : any = [];
+  public listarJerarquia: any
   public estadosDisponibles : any = [];
   public listaEstados: any = [];
+  public listJerarquia: any = [];
   color = ('primary');
 
   constructor(
     private servicioRol: RolService,
     private servicioEstado: EstadoService,
+    private servicioJerarquia: JerarquiaService,
     public dialogRef: MatDialogRef<ModificarRolComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -36,6 +40,7 @@ export class ModificarRolComponent implements OnInit {
     this.crearFormulario();
     this.listarporidRol();
     this.listaEstado();
+    this.listaJerarquia();
   }
 
   private crearFormulario() {
@@ -43,6 +48,7 @@ export class ModificarRolComponent implements OnInit {
       id: [''],
       descripcion: [null,Validators.required],
       estado: [null,Validators.required],
+      jerarquia: [null,Validators.required]
     });
   }
 
@@ -57,6 +63,14 @@ export class ModificarRolComponent implements OnInit {
   })
   ;}
 
+  public listaJerarquia() {
+    this.servicioJerarquia.listarTodos().subscribe(resJerar => {
+      this.listarJerarquia = resJerar;
+      console.log(resJerar)
+    }
+    );
+  }
+
   public listarporidRol() {
     this.idRol = this.data;
     this.servicioRol.listarPorId(this.idRol).subscribe(res => {
@@ -64,6 +78,7 @@ export class ModificarRolComponent implements OnInit {
       this.formRol.controls['id'].setValue(this.listarRol.id);
       this.formRol.controls['descripcion'].setValue(this.listarRol.descripcion);
       this.formRol.controls['estado'].setValue(this.listarRol.idEstado.id);
+      this.formRol.controls['jerarquia'].setValue(this.listarRol.idJerarquia.id);
     })
   }
 
@@ -72,21 +87,25 @@ export class ModificarRolComponent implements OnInit {
     rol.id=Number(this.data);
     rol.descripcion=this.formRol.controls['descripcion'].value;
     const idEstado = this.formRol.controls['estado'].value;
+    const idJerarquia = this.formRol.controls['jerarquia'].value;
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
       this.listarEstado = res;
       rol.idEstado= this.listarEstado
-
-      if(rol.descripcion==null || rol.descripcion=="" || rol.idEstado==null){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        this.actualizarRol(rol);
-      }
+      this.servicioJerarquia.listarPorId(idJerarquia).subscribe(resJerar => {
+        this.listJerarquia = resJerar;
+        rol.idJerarquia= this.listJerarquia
+        if(rol.descripcion==null || rol.descripcion=="" || rol.idEstado==null){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'El campo esta vacio!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else{
+          this.actualizarRol(rol);
+        }
+      })
     })
   }
 

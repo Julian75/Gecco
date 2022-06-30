@@ -193,7 +193,6 @@ export class AgregarUsuariosComponent implements OnInit {
           timer: 1500
         })
         this.router.navigate(['/usuarios']);
-
       }, error => {
         Swal.fire({
           position: 'center',

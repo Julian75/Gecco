@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-rol',
   templateUrl: './rol.component.html',
@@ -16,7 +17,7 @@ export class RolComponent implements OnInit {
   dtOptions: any = {};
   public listarRoles: any = [];
 
-  displayedColumns = ['id', 'descripcion','estado', 'opciones'];
+  displayedColumns = ['id', 'descripcion','estado', 'jerarquia','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -102,5 +103,15 @@ export class RolComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  name = 'listaUsuarios.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('usuario');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
   }
 }

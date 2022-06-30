@@ -2,6 +2,7 @@
   <button mat-button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
     <mat-icon>add_circle</mat-icon>
   </button>
+  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><img width="28px" src="../../../../assets/botones/excel.png" alt="" srcset=""></button>
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -22,6 +23,11 @@
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Estado</h3></th>
         <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="jerarquia">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Jerarquia</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
       </ng-container>
 
       <!--Opciones-->

@@ -1,12 +1,19 @@
-<h2 class="dato">Ingresar Nuevo Rol</h2>
+<h2 class="dato">Ingresar Nuevo Estado</h2>
 <form [formGroup]="formEstado">
   <div class="row1">
     <!-- Ingresar Nombre -->
     <div class="nombre2">
       <h2>Descripción</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese descripción del Rol</mat-label>
+      <mat-label>Ingrese descripción del Estado</mat-label>
       <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Observación</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Observacion del Estado</mat-label>
+      <textarea id="observacion" formControlName="observacion" matInput></textarea>
       </mat-form-field>
     </div>
   </div>

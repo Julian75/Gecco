@@ -1,7 +1,16 @@
 <div class="contenedor">
-  <button mat-button class="btn boton botonagregar text-white my-2" (click)="abrirModal()">
-    Agregar Estado al Modulo {{this.modulo}}
+  <h2>LISTA DE ESTADOS DEL MODULO {{modulo | uppercase }}</h2>
+  <button mat-button class="btn bot botonagregar text-white my-2" [routerLink]="['/modulo']" routerLinkActive="router-link-active" >
+    <mat-icon>arrow_back</mat-icon>
   </button>
+  <button mat-button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><img width="28px" src="../../../../../assets/botones/excel.png" alt="" srcset=""></button>
+  <mat-form-field appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field>
   <table datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
@@ -13,6 +22,12 @@
       <ng-container matColumnDef="descripcion">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Descripcion</h1></th>
         <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="observacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h1>Observacion</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.observacion}}</td>
       </ng-container>
 
       <!--Opciones-->

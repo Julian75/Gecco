@@ -1,11 +1,17 @@
 table{
   width: 100%;
-  margin-top: 3% !important;
+  margin-top: 5% !important;
   margin-right: 15%;
   margin-bottom: 3% !important;
   border: 1px solid #000;
   border-bottom: 20%;
 }
+.excelButton{
+  background-color: #6DBE53;
+  color: white;
+}
+
+.excelButton, .pdfButton, .printButton{ position: relative; top: 75px; height: 43px;}
 mat-form-field{
   width: 20%;
   margin-left: 79.5%;

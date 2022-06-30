@@ -55,6 +55,7 @@ import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-d
 import { AgregarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/agregar-opciones-visita/agregar-opciones-visita.component';
 import { ModificarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/modificar-opciones-visita/modificar-opciones-visita.component';
 import { ModificarNovedadesComponent } from './modulos-turnos/novedades/modificar-novedades/modificar-novedades.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { ModificarNovedadesComponent } from './modulos-turnos/novedades/modifica
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   exports: [
     DataTablesModule,

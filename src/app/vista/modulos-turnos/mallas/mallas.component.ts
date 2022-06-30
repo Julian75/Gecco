@@ -11,7 +11,8 @@ import { ModificarNovedadesComponent } from '../novedades/modificar-novedades/mo
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
-
+import * as XLSX from 'xlsx';
+import { NovedadConsultaSevice } from 'src/app/servicios/novedadConsulta.service';
 @Component({
   selector: 'app-mallas',
   templateUrl: './mallas.component.html',
@@ -41,6 +42,7 @@ export class MallasComponent implements OnInit {
     private servicioHistorial: HistorialService,
     private servicioEstado: EstadoService,
     private servicioNovedad: NovedadService,
+    private servicioNovedadConsulta: NovedadConsultaSevice,
     private servicioUsuario: UsuarioService,
     private servicioOficina: OficinasService,
     public dialog: MatDialog
@@ -51,32 +53,109 @@ export class MallasComponent implements OnInit {
   }
 
   public listarTodos () {
-    this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
-      this.listaAsignacionesTurnoVendedores = res;
-      const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
-      this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-      var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
-      var validacion: any = false
-      res.forEach(element => {
-        var malla1 = {
-          listaAsignarTurnoVendedor: {},
-          estado: {},
-          listaSigaApi: {},
-          ideOficina: 0,
-          ideZona: 0,
-          nombreEstado: '',
-          validar: false
-        };
-        var fechaInicio = new Date(element.fechaInicio);
-        var fechaF = new Date(element.fechaFinal);
-        const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-        if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
-          if(horaActual>=element.idTurno.horaInicio){
-            this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
-              var primerObjeto  = resHistorial[0]
-              if(resHistorial.length < 1  ){
-                this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
-                  if(element != null && res != null){
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      if(resUsuario.idRol.idJerarquia.id == 2 ){
+        this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+          this.listaAsignacionesTurnoVendedores = res;
+          const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
+          this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
+          var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+          var validacion: any = false
+          res.forEach(element => {
+            var malla1 = {
+              listaAsignarTurnoVendedor: {},
+              estado: {},
+              listaSigaApi: {},
+              ideOficina: 0,
+              ideZona: 0,
+              nombreEstado: '',
+              validar: false
+            };
+            var fechaInicio = new Date(element.fechaInicio);
+            var fechaF = new Date(element.fechaFinal);
+            const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
+            if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+              if(horaActual>=element.idTurno.horaInicio){
+                this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
+                  var primerObjeto  = resHistorial[0]
+                  if(resHistorial.length < 1  ){
+                    this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
+                      if(element != null && res != null){
+                        malla1.listaAsignarTurnoVendedor = element
+                        malla1.estado = resEstado
+                        malla1.listaSigaApi = {}
+                        malla1.ideOficina = element.idOficina
+                        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                          resOficina.forEach(elementOficinia => {
+                            malla1.ideZona = elementOficinia.ideSubzona
+                            malla1.nombreEstado = 'No_ingreso'
+                            malla1.validar = false
+                            this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+                              for (let index = 0; index < resNovedad.length; index++) {
+                                const elementNovedad = resNovedad[index];
+                                  this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                                      malla1.validar = true
+                                    }
+                                  })
+
+                              }
+                            })
+                          });
+                        })
+                      }
+                    })
+                  }else{
+                    if(element.idTurno.horaInicio >= primerObjeto.hora){
+                      this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
+                        if(element != null && resEstado != null && primerObjeto != null){
+                          malla1.listaAsignarTurnoVendedor = element
+                          malla1.estado = resEstado
+                          malla1.listaSigaApi = primerObjeto
+                          malla1.ideOficina = element.idOficina
+                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                            resOficina.forEach(elementOficinia => {
+                            malla1.ideZona = elementOficinia.ideSubzona
+                            malla1.nombreEstado = 'Cumplio'
+                            malla1.validar = true
+                            })
+                          })
+                        }
+                      })
+                    }else{
+                      this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
+                        if(element != null && resEstado != null && primerObjeto != null){
+                          malla1.listaAsignarTurnoVendedor = element
+                          malla1.estado = resEstado
+                          malla1.listaSigaApi = primerObjeto
+                          malla1.ideOficina = element.idOficina
+                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                            resOficina.forEach(elementOficinia => {
+                              malla1.ideZona = elementOficinia.ideSubzona
+                              malla1.nombreEstado = 'Incumplio'
+                              malla1.validar = false
+                              this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+                                for (let index = 0; index < resNovedad.length; index++) {
+                                  const elementNovedad = resNovedad[index];
+                                    this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                                      if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                                        malla1.validar = true
+                                      }
+                                    })
+
+                                }
+                              })
+                            })
+                          })
+                        }
+                      })
+                    }
+                  }
+
+                })
+              }else{
+                this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
+                  if(element != null && resEstado != null){
                     malla1.listaAsignarTurnoVendedor = element
                     malla1.estado = resEstado
                     malla1.listaSigaApi = {}
@@ -84,146 +163,274 @@ export class MallasComponent implements OnInit {
                     this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
                       resOficina.forEach(elementOficinia => {
                         malla1.ideZona = elementOficinia.ideSubzona
-                        malla1.nombreEstado = 'No_ingreso'
+                        malla1.nombreEstado = 'Aun'
                         malla1.validar = false
-                        this.servicioNovedad.listarTodos().subscribe(resNovedad=>{
-                          resNovedad.forEach(elementNovedad => {
-                            if(elementNovedad.idAsignarTurnoVendedor.idVendedor == element.idVendedor && elementNovedad.idAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                              malla1.validar = true
-                            }
-                          });
-                        })
-                      });
+                      })
                     })
                   }
                 })
-              }else{
-                if(element.idTurno.horaInicio >= primerObjeto.hora){
-                  this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
-                    if(element != null && resEstado != null && primerObjeto != null){
-                      malla1.listaAsignarTurnoVendedor = element
-                      malla1.estado = resEstado
-                      malla1.listaSigaApi = primerObjeto
-                      malla1.ideOficina = element.idOficina
-                      this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                        resOficina.forEach(elementOficinia => {
-                        malla1.ideZona = elementOficinia.ideSubzona
-                        malla1.nombreEstado = 'Cumplio'
-                        malla1.validar = true
-                        })
+              }
+              this.listaMallas.push(malla1)
+            };
+          })
+          this.dataSource = new MatTableDataSource(this.listaMallas);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+      }else if(resUsuario.idRol.idJerarquia.id == 3){
+        this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+          const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
+          this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
+          var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+          var validacion: any = false
+          res.forEach(element => {
+            if(element.ideSubzona  == resUsuario.ideSubzona){
+              var malla1 = {
+                listaAsignarTurnoVendedor: {},
+                estado: {},
+                listaSigaApi: {},
+                ideOficina: 0,
+                ideZona: 0,
+                nombreEstado: '',
+                validar: false
+              };
+              var fechaInicio = new Date(element.fechaInicio);
+              var fechaF = new Date(element.fechaFinal);
+              const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
+              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+                if(horaActual>=element.idTurno.horaInicio){
+                  this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
+                    var primerObjeto  = resHistorial[0]
+                    if(resHistorial.length < 1  ){
+                      this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
+                        if(element != null && res != null){
+                          malla1.listaAsignarTurnoVendedor = element
+                          malla1.estado = resEstado
+                          malla1.listaSigaApi = {}
+                          malla1.ideOficina = element.idOficina
+                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                            resOficina.forEach(elementOficinia => {
+                              malla1.ideZona = elementOficinia.ideSubzona
+                              malla1.nombreEstado = 'No_ingreso'
+                              malla1.validar = false
+                              this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+                                for (let index = 0; index < resNovedad.length; index++) {
+                                  const elementNovedad = resNovedad[index];
+                                    this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                                      if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                                        malla1.validar = true
+                                      }
+                                    })
+
+                                }
+                              })
+                            });
+                          })
+                        }
                       })
+                    }else{
+                      if(element.idTurno.horaInicio >= primerObjeto.hora){
+                        this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
+                          if(element != null && resEstado != null && primerObjeto != null){
+                            malla1.listaAsignarTurnoVendedor = element
+                            malla1.estado = resEstado
+                            malla1.listaSigaApi = primerObjeto
+                            malla1.ideOficina = element.idOficina
+                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                              resOficina.forEach(elementOficinia => {
+                              malla1.ideZona = elementOficinia.ideSubzona
+                              malla1.nombreEstado = 'Cumplio'
+                              malla1.validar = true
+                              })
+                            })
+                          }
+                        })
+                      }else{
+                        this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
+                          if(element != null && resEstado != null && primerObjeto != null){
+                            malla1.listaAsignarTurnoVendedor = element
+                            malla1.estado = resEstado
+                            malla1.listaSigaApi = primerObjeto
+                            malla1.ideOficina = element.idOficina
+                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                              resOficina.forEach(elementOficinia => {
+                                malla1.ideZona = elementOficinia.ideSubzona
+                                malla1.nombreEstado = 'Incumplio'
+                                malla1.validar = false
+                                this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+                                  for (let index = 0; index < resNovedad.length; index++) {
+                                    const elementNovedad = resNovedad[index];
+                                      this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                                        if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                                          malla1.validar = true
+                                        }
+                                      })
+
+                                  }
+                                })
+                              })
+                            })
+                          }
+                        })
+                      }
                     }
+
                   })
                 }else{
-                  this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
-                    if(element != null && resEstado != null && primerObjeto != null){
+                  this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
+                    if(element != null && resEstado != null){
                       malla1.listaAsignarTurnoVendedor = element
                       malla1.estado = resEstado
-                      malla1.listaSigaApi = primerObjeto
+                      malla1.listaSigaApi = {}
                       malla1.ideOficina = element.idOficina
                       this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
                         resOficina.forEach(elementOficinia => {
                           malla1.ideZona = elementOficinia.ideSubzona
-                          malla1.nombreEstado = 'Incumplio'
+                          malla1.nombreEstado = 'Aun'
                           malla1.validar = false
-                          this.servicioNovedad.listarTodos().subscribe(resNovedad=>{
-                            resNovedad.forEach(elementNovedad => {
-                              if(elementNovedad.idAsignarTurnoVendedor.idVendedor == element.idVendedor && elementNovedad.idAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){                            malla1.validar = true
-                              }
-                            });
-                          })
                         })
                       })
                     }
                   })
                 }
-              }
-
-            })
-          }else{
-            this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
-              if(element != null && resEstado != null){
-                malla1.listaAsignarTurnoVendedor = element
-                malla1.estado = resEstado
-                malla1.listaSigaApi = {}
-                malla1.ideOficina = element.idOficina
-                this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                  resOficina.forEach(elementOficinia => {
-                    malla1.ideZona = elementOficinia.ideSubzona
-                    malla1.nombreEstado = 'Aun'
-                    malla1.validar = false
-                  })
-                })
-              }
-            })
-          }
-          this.listaMallas.push(malla1)
-        };
-      })
-      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        if(resUsuario.idRol.idJerarquia.id==2){
+                this.listaMallas.push(malla1)
+              };
+            }
+          })
+          console.log(this.listaMallas)
           this.dataSource = new MatTableDataSource(this.listaMallas);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-        }else if(resUsuario.idRol.idJerarquia.id == 3){
-          validacion = false
-        }else if(resUsuario.idRol.idJerarquia.id == 4){
-          validacion = true
-          this.listarPorOficinas(this.listaMallas)
+        })
+      }else if(resUsuario.idRol.idJerarquia.id == 4){
+        this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+          const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
+          this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
+          var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+          var validacion: any = false
+          res.forEach(element => {
+            if(element.idOficina  == resUsuario.ideOficina){
+              var malla1 = {
+                listaAsignarTurnoVendedor: {},
+                estado: {},
+                listaSigaApi: {},
+                ideOficina: 0,
+                ideZona: 0,
+                nombreEstado: '',
+                validar: false
+              };
+              var fechaInicio = new Date(element.fechaInicio);
+              var fechaF = new Date(element.fechaFinal);
+              const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
+              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+                if(horaActual>=element.idTurno.horaInicio){
+                  this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
+                    var primerObjeto  = resHistorial[0]
+                    if(resHistorial.length < 1  ){
+                      this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
+                        if(element != null && res != null){
+                          malla1.listaAsignarTurnoVendedor = element
+                          malla1.estado = resEstado
+                          malla1.listaSigaApi = {}
+                          malla1.ideOficina = element.idOficina
+                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                            resOficina.forEach(elementOficinia => {
+                              malla1.ideZona = elementOficinia.ideSubzona
+                              malla1.nombreEstado = 'No_ingreso'
+                              malla1.validar = false
+                              this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+                                for (let index = 0; index < resNovedad.length; index++) {
+                                  const elementNovedad = resNovedad[index];
+                                    this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                                      if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                                        malla1.validar = true
+                                      }
+                                    })
 
-          // localStorage.setItem('validacion', validacion)
-          // console.log("olis")
-        }
-      })
-      // if(localStorage.getItem('validacion')=='true'){
-      //   this.listarPorOficinas(this.listaMallas)
-      // }
-      // if(localStorage.getItem('validacion')=='false'){
-      //   // this.listarPorZonas(this.listaMallas)
-      // }
+                                }
+                              })
+                            });
+                          })
+                        }
+                      })
+                    }else{
+                      if(element.idTurno.horaInicio >= primerObjeto.hora){
+                        this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
+                          if(element != null && resEstado != null && primerObjeto != null){
+                            malla1.listaAsignarTurnoVendedor = element
+                            malla1.estado = resEstado
+                            malla1.listaSigaApi = primerObjeto
+                            malla1.ideOficina = element.idOficina
+                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                              resOficina.forEach(elementOficinia => {
+                              malla1.ideZona = elementOficinia.ideSubzona
+                              malla1.nombreEstado = 'Cumplio'
+                              malla1.validar = true
+                              })
+                            })
+                          }
+                        })
+                      }else{
+                        this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
+                          if(element != null && resEstado != null && primerObjeto != null){
+                            malla1.listaAsignarTurnoVendedor = element
+                            malla1.estado = resEstado
+                            malla1.listaSigaApi = primerObjeto
+                            malla1.ideOficina = element.idOficina
+                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                              resOficina.forEach(elementOficinia => {
+                                malla1.ideZona = elementOficinia.ideSubzona
+                                malla1.nombreEstado = 'Incumplio'
+                                malla1.validar = false
+                                this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+                                  for (let index = 0; index < resNovedad.length; index++) {
+                                    const elementNovedad = resNovedad[index];
+                                      this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                                        if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                                          malla1.validar = true
+                                        }
+                                      })
+
+                                  }
+                                })
+                              })
+                            })
+                          }
+                        })
+                      }
+                    }
+
+                  })
+                }else{
+                  this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
+                    if(element != null && resEstado != null){
+                      malla1.listaAsignarTurnoVendedor = element
+                      malla1.estado = resEstado
+                      malla1.listaSigaApi = {}
+                      malla1.ideOficina = element.idOficina
+                      this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+                        resOficina.forEach(elementOficinia => {
+                          malla1.ideZona = elementOficinia.ideSubzona
+                          malla1.nombreEstado = 'Aun'
+                          malla1.validar = false
+                        })
+                      })
+                    }
+                  })
+                }
+                this.listaMallas.push(malla1)
+              };
+            }
+          })
+          console.log(this.listaMallas)
+          this.dataSource = new MatTableDataSource(this.listaMallas);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+      }
+
     })
 
-  }
-
-  // public listarPorZonas(listaMallas:any){
-  //   listaMallas.forEach((elementMalla:any) => {
-  //     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-  //       if(elementMalla.ideZona == resUsuario.ideSubzona){
-  //         this.listaMalla.push(elementMalla)
-  //       }
-  //     })
-  //     this.listaMallas = this.listaMalla
-  //     this.dataSource = new MatTableDataSource(this.listaMallas);
-  //     this.dataSource.paginator = this.paginator;
-  //     this.dataSource.sort = this.sort;
-  //   });
-  // }
-
-  public listarPorOficinas(listaMallas:any){
-    console.log(listaMallas)
-    for (let index = 0; index < listaMallas.length; index++) {
-      const elementMalla = listaMallas[index];
-      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        if(elementMalla.ideOficina == resUsuario.ideOficina){
-          console.log("ki")
-          this.listaMal.push(elementMalla)
-          // this.listaFinal(this.listaMal)
-          // this.dataSource = new MatTableDataSource(this.listaMal);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
-          // console.log(this.listaMal)
-          console.log(this.listaMal)
-        }
-      })
-    }
-
-  }
-
-  public listaFinal(listaOficinasMallas:any){
-    // console.log(listaOficinasMallas)
-    this.dataSource = new MatTableDataSource(listaOficinasMallas);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   existe(idAsignarTurnoVendedor:Number){
@@ -259,5 +466,15 @@ export class MallasComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  name = 'listaUsuarios.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('usuario');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
   }
 }

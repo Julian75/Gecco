@@ -30,13 +30,14 @@ export class ModificarEstadoComponent implements OnInit {
   ngOnInit(): void {this.crearFormulario();
     this.listarporidEstado();
     this.listaModulo();
+    this.crearFormulario();
   }
 
   private crearFormulario() {
     this.formEstado = this.fb.group({
       id: [''],
       descripcion: [null,Validators.required],
-      modulo: [null,Validators.required],
+      observacion: ['',Validators.required],
     });
   }
 
@@ -52,6 +53,7 @@ export class ModificarEstadoComponent implements OnInit {
       this.listarEstadosModulo = res;
       this.formEstado.controls['id'].setValue(this.listarEstadosModulo.id);
       this.formEstado.controls['descripcion'].setValue(this.listarEstadosModulo.descripcion);
+      this.formEstado.controls['observacion'].setValue(this.listarEstadosModulo.observacion);
       this.formEstado.controls['modulo'].setValue(this.listarEstadosModulo.idModulo.id);
     });
   }
@@ -60,12 +62,18 @@ export class ModificarEstadoComponent implements OnInit {
     let esta : Estado = new Estado();
     esta.id=Number(this.estado);
     esta.descripcion=this.formEstado.controls['descripcion'].value;
-    const idModulo = this.formEstado.controls['modulo'].value;
-    this.servicioEstado.listarPorId(idModulo).subscribe(res => {
-      this.listarModulo = res;
-      esta.idModulo= this.listarModulo
-
-      if(esta.descripcion==null || esta.descripcion=="" || esta.id==null){
+    esta.observacion=this.formEstado.controls['observacion'].value;
+    this.servicioEstado.listarPorId(esta.id).subscribe(res=>{
+      esta.idModulo = res.idModulo
+      if(esta.descripcion == res.descripcion && esta.observacion == res.observacion){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'No hubo modificacion!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else if(esta.descripcion == "" || esta.descripcion==null || esta.id == null || esta.id == undefined){
         Swal.fire({
           position: 'center',
           icon: 'error',

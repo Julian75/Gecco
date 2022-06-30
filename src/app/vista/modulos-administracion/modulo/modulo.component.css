@@ -1,16 +1,12 @@
 table{
   width: 100%;
-  margin-top: 3% !important;
+  margin-top: 5% !important;
   margin-right: 15%;
   margin-bottom: 3% !important;
   border: 1px solid #000;
   border-bottom: 20%;
 }
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
+
 h3{
   text-align: center;
   margin-top: 10px;
@@ -29,7 +25,13 @@ th{
   position: relative;
   margin-left: 15px;
 }
+.excelButton{
+  background-color: #6DBE53;
+  color: white;
+  right: 65px;
+}
 
+.excelButton, .pdfButton, .printButton{ position: relative; top: 75px; height: 43px;}
 td {
   border: 1px solid #000;
   text-align: center;
@@ -38,6 +40,11 @@ td {
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
+.btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-.btnver{ background-color: #959595; color: white; }
+mat-form-field{
+  width: 20%;
+  margin-left: 79.5%;
+  margin-top: -15%;
+}

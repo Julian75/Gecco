@@ -4,6 +4,7 @@ import { TipoDocumentoService } from './../../../../servicios/tipoDocumento.serv
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { EstadoService } from 'src/app/servicios/estado.service';
 
 @Component({
   selector: 'app-modificar-tipo-documento',
@@ -15,9 +16,12 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   color = ('primary');
   public idTipoDocumento: any;
   public listaTiposDocumentos: any = [];  // lista de modulos
+  public listarEstado: any = [];
+  public estadosDisponibles:any = [];
 
   constructor(
     private servicioTipoDocumento: TipoDocumentoService,
+    private servicioEstado: EstadoService,
     public dialogRef: MatDialogRef<ModificarTipoDocumentoComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -26,12 +30,26 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   ngOnInit(): void {
     this.crearFormulario();
     this.listarporidTipoDocumento();
+    this.listarEstados()
   }
 
   private crearFormulario() {
     this.formTipoDocumento = this.fb.group({
       id: [''],
       descripcion: [null,Validators.required],
+      estado: [null,Validators.required],
+    });
+  }
+
+  public listarEstados() {
+    this.servicioEstado.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if(element.idModulo.id == 4){
+          this.estadosDisponibles.push(element)
+          console.log(this.estadosDisponibles)
+        }
+      });
+      this.listarEstado = this.estadosDisponibles
     });
   }
 
@@ -39,26 +57,58 @@ export class ModificarTipoDocumentoComponent implements OnInit {
     this.idTipoDocumento = this.data;
     this.servicioTipoDocumento.listarPorId(this.idTipoDocumento).subscribe(res => {
       this.listaTiposDocumentos = res;
+      console.log(res)
       this.formTipoDocumento.controls['id'].setValue(this.listaTiposDocumentos.id);
       this.formTipoDocumento.controls['descripcion'].setValue(this.listaTiposDocumentos.descripcion);
+      this.formTipoDocumento.controls['estado'].setValue(this.listaTiposDocumentos.idEstado.id);
     })
   }
 
   public guardar() {
     let tipoDocumento : TipoDocumento = new TipoDocumento();
     tipoDocumento.id=Number(this.data);
-    tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
-    if(tipoDocumento.descripcion==null || tipoDocumento.descripcion==""){
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'El campo esta vacio!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }else{
-      this.actualizarTipoDocumento(tipoDocumento);
-    }
+    const descripcion = this.formTipoDocumento.controls['descripcion'].value;
+    const estado = this.formTipoDocumento.controls['estado'].value;
+    this.servicioTipoDocumento.listarPorId(tipoDocumento.id).subscribe(res=>{
+      if(descripcion == res.descripcion && estado == res.idEstado.id){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'No hubieron cambios!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else if(descripcion==null || descripcion==""){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'El campo esta vacio!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else{
+        tipoDocumento.descripcion=descripcion
+        this.servicioEstado.listarPorId(estado).subscribe(resEstado=>{
+          tipoDocumento.idEstado = resEstado
+          this.actualizarTipoDocumento(tipoDocumento);
+        })
+      }
+    })
+
+    // tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
+    // tipoDocumento.idEstado=this.formTipoDocumento.controls['estado'].value;
+    // console.log()
+    // if(tipoDocumento.descripcion==null || tipoDocumento.descripcion==""){
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'El campo esta vacio!',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    // }else{
+    //   this.actualizarTipoDocumento(tipoDocumento);
+    // }
   }
 
   public actualizarTipoDocumento(tipoDocumento: TipoDocumento) {
