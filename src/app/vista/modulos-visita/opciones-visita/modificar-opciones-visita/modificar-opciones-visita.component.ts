@@ -46,18 +46,45 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
   public guardar(){
     let opcionVisita : OpcionesVisita = new OpcionesVisita();
     opcionVisita.id = this.formOpcionVisita.value.id;
-    opcionVisita.descripcion = this.formOpcionVisita.value.descripcion;
-    this.servicioOpcionVisita.actualizar(opcionVisita).subscribe(res => {
-      Swal.fire({
-        title: 'Actualizado',
-        text: 'Se actualizó correctamente',
-        icon: 'success',
-        confirmButtonText: 'Ok'
-      }).then((result) => {
-        if (result.value) {
-          this.dialogRef.close();
-        }
-      })
+    const descripcion = this.formOpcionVisita.value.descripcion;
+    this.servicioOpcionVisita.listarPorId(opcionVisita.id).subscribe(res=>{
+      opcionVisita.descripcion = res.descripcion
+      if(descripcion==''){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'El campo esta vacio!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else if (descripcion == opcionVisita.descripcion){
+        Swal.fire({
+          title: 'Actualizado',
+          text: 'No hubieron cambios',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        }).then((result) => {
+          if (result.value) {
+            window.location.reload();
+            this.dialogRef.close();
+          }
+        })
+      }else{
+        opcionVisita.descripcion = descripcion
+        this.servicioOpcionVisita.actualizar(opcionVisita).subscribe(res => {
+          Swal.fire({
+            title: 'Actualizado',
+            text: 'Se actualizó correctamente',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          }).then((result) => {
+            if (result.value) {
+              window.location.reload();
+              this.dialogRef.close();
+            }
+          })
+        })
+      }
     })
   }
 }

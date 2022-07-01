@@ -54,9 +54,9 @@ export class AsignarTurnoComponent implements OnInit {
     }
   }
 
-  name = 'listaUsuarios.xlsx';
+  name = 'listaAsignarTurnoPuntoVenta.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
+    let element = document.getElementById('asignarTurnoPuntoVenta');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

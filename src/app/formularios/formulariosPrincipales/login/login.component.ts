@@ -45,37 +45,29 @@ export class LoginComponent implements OnInit {
   ingresar(){
       this.servicioUsuario.listarTodos().subscribe(res=>{
         const username = this.formLogin.controls['username'].value;
+        console.log(username)
         const password = this.formLogin.controls['password'].value;
+        console.log(password)
         res.forEach(element => {
+          console.log(element)
           if(element.documento == username){
-            const usuario = element
-            // var contrasena = usuario.password.toString();
-            // var cifras = usuario.cifra.toString();
-            // var key = JSON.parse(cifras);
-            // console.log(key)
-            // console.log(contrasena)
-            // let desencriptados = CryptoJS.AES.decrypt(
-            // contrasena, key, {
-            //   keySize: 16,
-            //   iv: key,
-            //   mode: CryptoJS.mode.ECB,
-            //   padding: CryptoJS.pad.Pkcs7
-            // }).toString(CryptoJS.enc.Utf8);
-            // console.log(desencriptados);
-            if(usuario.password == password){
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Bienvenido(a)!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              this.usuario = usuario.documento
-              this.id = usuario.id
-              console.log(this.id)
-              sessionStorage.setItem('usuario',this.usuario)
-              sessionStorage.setItem('id',this.id)
-              this.router.navigate(['/vista']);
+            const contrasena = element.password.toString()
+            var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
+            var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
+            console.log(decryptedData, JSON.stringify(password))
+            if(decryptedData == JSON.stringify(password)){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Bienvenido(a)!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                this.usuario = element.documento
+                this.id = element.id
+                sessionStorage.setItem('usuario',this.usuario)
+                sessionStorage.setItem('id',this.id)
+                this.router.navigate(['/vista']);
             }else if(element.password != password){
               Swal.fire({
                 position: 'center',
@@ -90,6 +82,14 @@ export class LoginComponent implements OnInit {
               position: 'center',
               icon: 'error',
               title: 'Los campos estan vacios!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'No existe ese usuario!',
               showConfirmButton: false,
               timer: 1500
             })

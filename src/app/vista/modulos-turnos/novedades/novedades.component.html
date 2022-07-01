@@ -1,66 +1,28 @@
-<div class="contenedor">
-  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><img width="28px" src="../../../../assets/botones/excel.png" alt="" srcset=""></button>
-  <mat-form-field appearance="standard">
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
-  </mat-form-field>
-    <table datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-        <!-- Position Column -->
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Id</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.id}}</td>
-        </ng-container>
+<h2 class="dato">Reportes Novedades</h2>
+<form [formGroup]="formNovedad" >
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Fecha Inicio</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Ingrese fecha inicio</mat-label>
+      <input type="date" id="fechaInicio" name="fechaInicio" formControlName="fechaInicio" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Fecha Final</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese fecha final</mat-label>
+        <input type="date" id="fechaFinal" name="fechaFinal" formControlName="fechaFinal" matInput >
+        </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="listarTodo()">Insertar Novedad</button>
+    </div>
+  </div>
+</form>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="usuario">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Usuario</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
-        </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="turno">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header ><h3>Turno</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idAsignarTurnoVendedor.idTurno.horaInicio}} | {{element.idAsignarTurnoVendedor.idTurno.horaFinal}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="tipoNovedad">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Tipo Novedad</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idTipoNovedad.descripcion}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Fecha</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="observacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Observacion</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.observacion}}</td>
-        </ng-container>
-
-        <!--Opciones-->
-        <ng-container matColumnDef="opciones">
-          <th mat-header-cell *matHeaderCellDef ><h3>Opciones</h3></th>
-          <td mat-cell *matCellDef="let item">
-            <button mat-button class="btn btnedit mx-5" [routerLink]="['/modificarNovedad', item.id]">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-button class="btn btnremove">
-                <!-- (click)="eliminarTurnos(item.id)" -->
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[2, 5, 10, 25, 100]"
-              aria-label="Select page">
-  </mat-paginator>
-</div>

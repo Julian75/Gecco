@@ -1,11 +1,11 @@
 <div class="contenedor">
-  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><img width="28px" src="../../../../assets/botones/excel.png" alt="" srcset=""></button>
+  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel" style="font-size: 20px;"></i></button>
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
 
-  <table mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+  <table id="mallas" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
       <!-- Position Column -->
       <ng-container matColumnDef="usuarioVendedor">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Nombre Vendedor</h3></th>
@@ -24,7 +24,7 @@
 
       <ng-container matColumnDef="sitioVentaAsistencia">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Sitio Venta Ingresa</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideSitioventa}} </td>
+        <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideSitioventa}} | {{element.listaSigaApi.nom_sitioventa}} </td>
       </ng-container>
 
       <ng-container matColumnDef="oficinaZona">

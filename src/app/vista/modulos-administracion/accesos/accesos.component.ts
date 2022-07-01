@@ -98,6 +98,7 @@ export class AccesosComponent implements OnInit {
             'success'
           )
         })
+        window.location.reload();
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
@@ -120,9 +121,9 @@ export class AccesosComponent implements OnInit {
     }
   }
 
-  name = 'listaUsuarios.xlsx';
+  name = 'listaAccesos.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
+    let element = document.getElementById('accesos');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

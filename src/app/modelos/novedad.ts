@@ -6,6 +6,7 @@ export class Novedad {
   public id: number=0;
   public fecha: Date = new Date();
   public observacion: string="";
+  public hora: string="";
   idAsignarTurnoVendedor !: AsignarTurnoVendedor;
   idTipoNovedad !: TipoNovedades;
   idUsuario !: Usuario;

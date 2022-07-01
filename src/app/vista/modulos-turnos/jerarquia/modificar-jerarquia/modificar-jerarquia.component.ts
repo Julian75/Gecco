@@ -64,7 +64,7 @@ export class ModificarJerarquiaComponent implements OnInit {
           text: 'Se modificó correctamente',
         })
         this.dialogRef.close();
-        this.router.navigate(['/jerarquia']);
+        window.location.reload();
 
       });
     }

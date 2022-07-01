@@ -1,6 +1,6 @@
 table{
   width: 100%;
-  margin-top: 5% !important;
+  margin-top: 3% !important;
   margin-right: 15%;
   margin-bottom: 3% !important;
   border: 1px solid #000;
@@ -28,10 +28,9 @@ th{
 .excelButton{
   background-color: #6DBE53;
   color: white;
-  right: 65px;
 }
 
-.excelButton, .pdfButton, .printButton{ position: relative; top: 75px; height: 43px;}
+.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
 td {
   border: 1px solid #000;
   text-align: center;

@@ -98,7 +98,6 @@ export class MallasComponent implements OnInit {
                                       malla1.validar = true
                                     }
                                   })
-
                               }
                             })
                           });
@@ -467,9 +466,9 @@ export class MallasComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaUsuarios.xlsx';
+  name = 'listaMallas.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
+    let element = document.getElementById('mallas');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

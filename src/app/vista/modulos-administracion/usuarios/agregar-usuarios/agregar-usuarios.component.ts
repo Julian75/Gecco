@@ -116,27 +116,9 @@ export class AgregarUsuariosComponent implements OnInit {
           if(existe == false ){
             usuario.documento = this.formUsuario.controls['documento'].value;
             var contrasena = this.formUsuario.controls['documento'].value;
-            // let _key = CryptoJS.enc.Utf8.parse(this.key);
-            // var get = JSON.stringify(_key)
-            // var get2 = JSON.parse(get)
-            // let contrasena2 = CryptoJS.AES.encrypt(
-            //   JSON.stringify(contrasena), _key, {
-            //     keySize: 16,
-            //     iv: _key,
-            //     mode: CryptoJS.mode.ECB,
-            //     padding: CryptoJS.pad.Pkcs7
-            //   });
-            // this.encriptacion = contrasena2.toString();
-            // console.log(this.encriptacion)
-            // this.desencriptado = CryptoJS.AES.decrypt(
-            //   this.encriptacion, _key, {
-            //     keySize: 16,
-            //     iv: _key,
-            //     mode: CryptoJS.mode.ECB,
-            //     padding: CryptoJS.pad.Pkcs7
-            //   }).toString(CryptoJS.enc.Utf8);
-            //   console.log(this.desencriptado)
-            usuario.password = contrasena;
+            var Encrypt = CryptoJS.AES.encrypt(JSON.stringify(contrasena), 'secret key 123').toString();
+            console.log(Encrypt)
+            usuario.password = Encrypt
             const idEstado = this.formUsuario.controls['estado'].value;
             this.servicioEstado.listarPorId(idEstado).subscribe(res => {
               this.listaEstados = res;

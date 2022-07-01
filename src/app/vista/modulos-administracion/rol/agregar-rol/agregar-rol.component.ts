@@ -103,6 +103,7 @@ export class AgregarRolComponent implements OnInit {
         timer: 1500
       })
       this.dialogRef.close();
+      window.location.reload();
 
     }, error => {
       Swal.fire({

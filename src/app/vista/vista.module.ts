@@ -56,6 +56,7 @@ import { AgregarOpcionesVisitaComponent } from './modulos-visita/opciones-visita
 import { ModificarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/modificar-opciones-visita/modificar-opciones-visita.component';
 import { ModificarNovedadesComponent } from './modulos-turnos/novedades/modificar-novedades/modificar-novedades.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VisitaDetalleComponent,
     AgregarOpcionesVisitaComponent,
     ModificarOpcionesVisitaComponent,
-    ModificarNovedadesComponent
+    ModificarNovedadesComponent,
+    ErrorComponent
   ],
   imports: [
     CommonModule,

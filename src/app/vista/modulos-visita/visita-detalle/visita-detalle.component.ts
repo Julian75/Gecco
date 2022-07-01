@@ -8,6 +8,7 @@ import { OpcionesVisitaService } from 'src/app/servicios/opcionesVisita.service'
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { VisitasService } from 'src/app/servicios/visitas.service';
 import Swal from 'sweetalert2';
+import { VisitaDetalleService } from 'src/app/servicios/visitaDetalle.service';
 
 @Component({
   selector: 'app-visita-detalle',
@@ -31,6 +32,7 @@ export class VisitaDetalleComponent implements OnInit {
     private servicioElementosVisita: ElementosVisitaService,
     private servicioUsuario: UsuarioService,
     private servicioVisita: VisitasService,
+    private servicioVisitaDetalle: VisitaDetalleService,
   ) { }
 
   ngOnInit(): void {
@@ -79,15 +81,13 @@ export class VisitaDetalleComponent implements OnInit {
 
   public guardar(){
     let visita : Visitas = new Visitas();
-    this.servicioUsuario.listarTodos().subscribe(res => {
-      res.forEach(usuario => {
-        if(usuario.documento == Number(sessionStorage.getItem('usuario'))){
-          visita.idUsuario = usuario
-          visita.fechaRegistro = this.fecha
-          console.log(this.lista)
-          this.registrarVisita(visita, this.lista)
-        }
-      })
+    var idUsuario = Number(sessionStorage.getItem('id'))
+    this.servicioUsuario.listarPorId(idUsuario).subscribe(res =>{
+      console.log(res)
+      visita.idUsuario = res
+      visita.fechaRegistro = this.fecha
+      this.registrarVisita(visita, this.lista)
+      console.log(this.lista)
     })
     // this.servicioElementosVisita.listarTodos().subscribe(res=>{
     // })
@@ -155,37 +155,43 @@ export class VisitaDetalleComponent implements OnInit {
 
 
   public registrarVisita(visita: Visitas, lista:any) {
-    // this.servicioVisita.registrar(visita).subscribe(res=>{
-    //   this.registrarVisitaDetalle(lista)
-    // }, error => {
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Hubo un error al agregar!',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    // });
+    this.servicioVisita.registrar(visita).subscribe(res=>{
+      this.registrarVisitaDetalle(lista)
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 
   public registrarVisitaDetalle(lista:any) {
     let visitaDetalle : VisitaDetalle = new VisitaDetalle();
     this.servicioVisita.listarTodos().subscribe(res=>{
       res.forEach(visita => {
-        if(visita.idUsuario.documento == Number(sessionStorage.getItem('usuario'))){
+        if(visita.idUsuario.id == Number(sessionStorage.getItem('id'))){
           this.visitas.push(visita.id)
         }
       })
       let ultimaVisita = this.visitas[this.visitas.length - 1]
       this.servicioVisita.listarPorId(ultimaVisita).subscribe(resVisita=>{
         visitaDetalle.idVisitas = resVisita
+        visitaDetalle.descripcion="nada"
         this.listarOpciones = lista
-        // this.servicioElementosVisita.listarTodos().subscribe(resElemento=>{
-        //   resElemento.forEach(elementElemento => {
-        //     this.listarOpciones.forEach((elementOpcion:any) => {
-        //     });
-        //   });
-        // })
+        for (let i = 0; i < this.lista.length; i++) {
+          const element = this.lista[i];
+          visitaDetalle.idElementosVisita = element.elemento
+          visitaDetalle.idOpcionesVisita = element.opcion
+          console.log(visitaDetalle.idElementosVisita)
+          console.log(visitaDetalle.idOpcionesVisita)
+          this.servicioVisitaDetalle.registrar(visitaDetalle).subscribe(res=>{
+            this.crearFormulario()
+            window.location.reload();
+          })
+        }
       })
       console.log(this.lista)
     })

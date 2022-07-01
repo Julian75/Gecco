@@ -67,6 +67,8 @@ export class AgregarNovedadComponent implements OnInit {
               console.log(novedad.observacion)
               novedad.fecha = this.fecha;
               console.log(novedad.fecha)
+              var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+              novedad.hora = horaActual
               novedad.idTipoNovedad = resTipoNovedad
               console.log(novedad.idTipoNovedad)
               console.log(novedad)
@@ -99,6 +101,7 @@ export class AgregarNovedadComponent implements OnInit {
         timer: 1500
       })
       this.dialogRef.close();
+      window.location.reload();
 
     }, error => {
       Swal.fire({

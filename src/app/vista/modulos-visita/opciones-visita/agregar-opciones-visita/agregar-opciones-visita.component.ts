@@ -42,6 +42,7 @@ export class AgregarOpcionesVisitaComponent implements OnInit {
         confirmButtonText: 'Ok'
       }).then((result) => {
         if (result.value) {
+          window.location.reload();
           this.dialogRef.close();
         }
       }

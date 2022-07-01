@@ -5,8 +5,9 @@ import { ElementosVisita } from 'src/app/modelos/elementosVisita';
 
 export class VisitaDetalle {
     public id: number=0;
+    public descripcion: string="";
     idVisitas !: Visitas
-    idOpciones !: OpcionesVisita
+    idOpcionesVisita !: OpcionesVisita
     idElementosVisita !: ElementosVisita;
 
 }

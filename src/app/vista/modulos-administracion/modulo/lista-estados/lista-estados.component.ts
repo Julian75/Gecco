@@ -96,6 +96,7 @@ export class ListaEstadosComponent implements OnInit {
              'success'
            )
          })
+         window.location.reload();
        } else if (
          /* Read more about handling dismissals below */
          result.dismiss === Swal.DismissReason.cancel
@@ -117,9 +118,9 @@ export class ListaEstadosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaUsuarios.xlsx';
+  name = 'listaModulosEstados.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
+    let element = document.getElementById('modulosEstados');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

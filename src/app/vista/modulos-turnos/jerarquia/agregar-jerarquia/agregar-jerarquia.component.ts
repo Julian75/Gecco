@@ -61,6 +61,7 @@ export class AgregarJerarquiaComponent implements OnInit {
           text: 'La jerarquia '+jerarquia.descripcion+' se guardo correctamente',
         });
         this.dialogRef.close();
+        window.location.reload();
       });
     });
   }

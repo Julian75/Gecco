@@ -11,7 +11,7 @@ export class SidebarComponent implements OnInit {
 
   panelOpenState = false;
   public idRol: any = [];
-  public listaAcceso: any = [];
+  public listaAccessForm: any = [];
   public acceso: any;
 
   constructor(
@@ -24,56 +24,51 @@ export class SidebarComponent implements OnInit {
   }
 
   public listarAccesos () {
-    this.servicioUsuario.listarTodos().subscribe( res =>{
-      res.forEach(element => {
-        if (element.documento == Number(sessionStorage.getItem('usuario'))) {
-          this.idRol = element.idRol.id
-          console.log(this.idRol)
-          this.servicioAcceso.listarTodos().subscribe( res =>{
-            res.forEach(element => {
-              if (element.idRol = this.idRol) {
-                this.listaAcceso.push(element.idModulo.descripcion)
-                console.log(this.listaAcceso)
-                for (let i = 0; i < this.listaAcceso.length; i++) {
-                  if (this.listaAcceso[i] = 'Usuario') {
-                    document.getElementById('Usuario')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Tipo Documento') {
-                    document.getElementById('Tipo Documento')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Rol') {
-                    document.getElementById('Rol')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Modulos') {
-                    document.getElementById('Modulos')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Asignacion Turno') {
-                    document.getElementById('Asignacion Turno')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Novedad') {
-                    document.getElementById('Novedad')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Tipo Turno') {
-                    document.getElementById('Tipo Turno')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Turnos') {
-                    document.getElementById('Turnos')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Asignar Turno Vendedor') {
-                    document.getElementById('Asignar Turno Vendedor')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Jerarquia') {
-                    document.getElementById('Jerarquia')?.setAttribute('style', 'display: block;')
-                  }
-                  if (this.listaAcceso[i] = 'Tipo Novedades') {
-                    document.getElementById('Tipo Novedades')?.setAttribute('style', 'display: block;')
-                  }
-                }
-              }
-            });
-          })
+    const idUsuario = Number(sessionStorage.getItem('id'))
+    this.servicioUsuario.listarPorId(idUsuario).subscribe(res=>{
+      this.idRol = res.idRol.id
+      this.servicioAcceso.listarTodos().subscribe( res =>{
+        res.forEach(element => {
+          if (element.idRol.id == this.idRol) {
+            this.listaAccessForm.push(element.idModulo.id)
+          }
+        });
+        for (let i = 0; i < this.listaAccessForm.length; i++) {
+          if (this.listaAccessForm[i] == 1) {
+            document.getElementById('1')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 2) {
+            document.getElementById('2')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 3) {
+            document.getElementById('3')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 4) {
+            document.getElementById('4')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 5) {
+            document.getElementById('5')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 6) {
+            document.getElementById('6')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 7) {
+            document.getElementById('7')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 10) {
+            document.getElementById('10')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 11) {
+            document.getElementById('11')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 12) {
+            document.getElementById('12')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 13) {
+            document.getElementById('13')?.setAttribute('style', 'display: block;')
+          }
         }
-      });
+      })
     })
   }
 

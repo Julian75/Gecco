@@ -39,6 +39,9 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   public listaSitioVentaTabla:any=[];
   public listaSitioVentasTabla:any=[]
 
+  public encontrado = false;
+  public listarExiste: any = [];
+
 
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -197,19 +200,60 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                         const fechaInicio = new Date(fechaI.getFullYear(), fechaI.getMonth(), fechaI.getDate()+1);
                         const fechaF = new Date(this.formAsignarTurno.controls['fechaFinal'].value);
                         const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                        if(fechaInicio <= fechaFinal){
-                          asignarTurnoVendedor.fechaInicio = fechaInicio
-                          asignarTurnoVendedor.fechaFinal = fechaFinal
-                          this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
-                        }else{
-                          Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Selecciono una fecha menor a la inicial!',
-                            showConfirmButton: false,
-                            timer: 1500
-                          })
-                        }
+                        const fechaIn = new Date(fechaInicio.getFullYear()+"-"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate());
+                        const fechaFn = new Date(fechaFinal.getFullYear()+"-"+(fechaFinal.getMonth()+1)+"-"+fechaFinal.getDate());
+                        this.servicioAsigarTurnoVendedor.listarTodos().subscribe(resTurnoVendedor=>{
+                          this.listarExiste = []
+                          resTurnoVendedor.forEach(elementTurnoVendedor => {
+                            if(elementTurnoVendedor.idVendedor == asignarTurnoVendedor.idVendedor){
+                              const fechaInicios = new Date(elementTurnoVendedor.fechaInicio)
+                              const fechaIGuardado = new Date(fechaInicios.getFullYear(), fechaInicios.getMonth(), fechaInicios.getDate()+1);
+                              const fechaFinals = new Date(elementTurnoVendedor.fechaFinal)
+                              const fechaFGuardado = new Date(fechaFinals.getFullYear(), fechaFinals.getMonth(), fechaFinals.getDate()+1);
+                              console.log(fechaIn, fechaFinals)
+                              if(fechaIn >= fechaIGuardado && fechaFn<=fechaFGuardado){
+                                console.log("holis2")
+                                this.encontrado = true
+                              }else if(fechaIn <= fechaFGuardado){
+                                console.log("holis3")
+                                this.encontrado = true
+                              }else if(fechaFn == fechaIGuardado){
+                                console.log("holis3")
+                                this.encontrado = true
+                              }else{
+                                this.encontrado = false
+                              }
+                              this.listarExiste.push(this.encontrado)
+                            }
+                          });
+                          console.log(this.listarExiste)
+                          const existe = this.listarExiste.includes( true )
+                          console.log(existe)
+                          if(existe == true){
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'error',
+                              title: 'Ese vendedor ya tiene un turno asignado en esas fechas!',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                          }
+                          if(existe == false){
+                            if(fechaInicio <= fechaFinal){
+                              asignarTurnoVendedor.fechaInicio = fechaInicio
+                              asignarTurnoVendedor.fechaFinal = fechaFinal
+                              this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                            }else{
+                              Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Selecciono una fecha menor a la inicial!',
+                                showConfirmButton: false,
+                                timer: 1500
+                              })
+                            }
+                          }
+                        })
                       })
                     }
                   });
@@ -234,7 +278,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.listaSitioVentasTabla = []
       this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
-      this.router.navigate(['/agregarTurnoVendedor']);
+      this.router.navigate(['/asignarTurnoVendedor']);
       this.crearFormulario()
     }, error => {
       Swal.fire({

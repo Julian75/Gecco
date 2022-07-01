@@ -105,9 +105,9 @@ export class JerarquiaComponent implements OnInit {
     }
   }
 
-  name = 'listaUsuarios.xlsx';
+  name = 'jerarquia.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
+    let element = document.getElementById('jerarquia');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

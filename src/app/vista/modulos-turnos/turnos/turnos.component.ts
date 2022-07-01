@@ -88,9 +88,9 @@ export class TurnosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaUsuarios.xlsx';
+  name = 'listaTurnos.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
+    let element = document.getElementById('turnos');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();
