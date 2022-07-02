@@ -48,7 +48,6 @@ export class ModificarEstadoComponent implements OnInit {
 
   public listarporidEstado() {
     this.idEstado = this.estado;
-    console.log(this.idEstado)
     this.servicioEstado.listarPorId(this.idEstado).subscribe(res => {
       this.listarEstadosModulo = res;
       this.formEstado.controls['id'].setValue(this.listarEstadosModulo.id);
@@ -89,7 +88,6 @@ export class ModificarEstadoComponent implements OnInit {
 
   public actualizarEstado(esta: Estado) {
     this.servicioEstado.actualizar(esta).subscribe(res => {
-      console.log("Rol actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

@@ -53,7 +53,6 @@ export class AgregarAccesosComponent implements OnInit {
     const idRol = Number(this.idRol)
     this.servicioRol.listarPorId(idRol).subscribe(res=>{
       accesos.idRol = res
-      console.log(accesos.idRol)
       this.servicioAcceso.listarTodos().subscribe(resAcceso=>{
         if(resAcceso.length === 0){
           const idModulo = this.formaAccesos.controls['modulo'].value;
@@ -62,9 +61,7 @@ export class AgregarAccesosComponent implements OnInit {
             this.registrarAccesos(accesos);
           })
         }else{
-          console.log(resAcceso)
           this.idModulo = this.formaAccesos.controls['modulo'].value;
-          console.log(this.idModulo)
           for (let index = 0; index < resAcceso.length; index++) {
             const element = resAcceso[index];
             if(element.idRol.id == accesos.idRol.id ){
@@ -78,7 +75,6 @@ export class AgregarAccesosComponent implements OnInit {
             this.listarExiste.push(this.encontrado)
           }
           const existe = this.listarExiste.includes( true )
-          console.log(existe)
           if (existe == true){
             Swal.fire({
               position: 'center',
@@ -91,8 +87,6 @@ export class AgregarAccesosComponent implements OnInit {
           if (existe== false){
             this.servicioModulo.listarPorId(this.idModulo).subscribe(res =>{
               accesos.idModulo = res
-              console.log(accesos.idModulo)
-              console.log(accesos)
               this.registrarAccesos(accesos);
             })
           }
@@ -106,7 +100,6 @@ export class AgregarAccesosComponent implements OnInit {
   public listarModulos() {
     this.servicioModulo.listarTodos().subscribe(res => {
       this.listarModulo = res;
-      console.log(res);
     });
   }
 

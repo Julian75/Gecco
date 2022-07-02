@@ -50,7 +50,6 @@ export class AgregarModuloComponent implements OnInit {
 
   public registrarModulo(modulo: Modulo) {
     this.servicioModulo.registrar(modulo).subscribe(res=>{
-      console.log(modulo)
       Swal.fire({
         position: 'center',
         icon: 'success',

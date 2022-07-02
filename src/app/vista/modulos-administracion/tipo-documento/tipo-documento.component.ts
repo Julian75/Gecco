@@ -51,7 +51,6 @@ export class TipoDocumentoComponent implements OnInit {
       width: '500px',
       data: id
     });
-    console.log(id)
   }
 
   eliminarTipoDocumento(id:number){

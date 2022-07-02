@@ -36,7 +36,6 @@ export class ModuloComponent implements OnInit {
   public listarTodos () {
     this.servicioModulo.listarTodos().subscribe( res =>{
       this.listarModulos = res;
-      console.log(res)
       this.dataSource = new MatTableDataSource( this.listarModulos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -54,7 +53,6 @@ export class ModuloComponent implements OnInit {
       width: '500px',
       data: id
     });
-    console.log(id)
   }
 
   eliminarModulo(id:number){

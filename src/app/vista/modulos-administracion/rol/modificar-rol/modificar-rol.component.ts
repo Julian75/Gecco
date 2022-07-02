@@ -66,7 +66,6 @@ export class ModificarRolComponent implements OnInit {
   public listaJerarquia() {
     this.servicioJerarquia.listarTodos().subscribe(resJerar => {
       this.listarJerarquia = resJerar;
-      console.log(resJerar)
     }
     );
   }
@@ -111,7 +110,6 @@ export class ModificarRolComponent implements OnInit {
 
   public actualizarRol(rol: Rol) {
     this.servicioRol.actualizar(rol).subscribe(res => {
-      console.log("Rol actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

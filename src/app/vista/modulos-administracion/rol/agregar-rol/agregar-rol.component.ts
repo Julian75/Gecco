@@ -50,7 +50,6 @@ export class AgregarRolComponent implements OnInit {
       res.forEach(element => {
         if(element.idModulo.id == 3){
           this.estadosDisponibles.push(element)
-          console.log(this.estadosDisponibles)
         }
       });
       this.listarEstado = this.estadosDisponibles
@@ -60,7 +59,6 @@ export class AgregarRolComponent implements OnInit {
   public listarJerarquia(){
     this.servicioJerarquia.listarTodos().subscribe(resjerar => {
       this.listJerarquia = resjerar;
-      console.log(this.listJerarquia)
     }
     )
   }
@@ -94,7 +92,6 @@ export class AgregarRolComponent implements OnInit {
 
   public registrarRol(rol: Rol) {
     this.servicioRol.registrar(rol).subscribe(res=>{
-      console.log(rol)
       Swal.fire({
         position: 'center',
         icon: 'success',

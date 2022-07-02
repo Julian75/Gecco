@@ -13,6 +13,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -30,7 +31,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatDialogModule,
     MatRadioModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatAutocompleteModule
   ],
   exports:[
     MatSidenavModule,
@@ -45,7 +47,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatDialogModule,
     MatRadioModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

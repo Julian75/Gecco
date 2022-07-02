@@ -134,7 +134,6 @@ export class ModificarTurnosComponent implements OnInit {
               turno.horaInicio = this.formTurno.controls['horaInicio'].value;
               turno.horaFinal = this.formTurno.controls['horaFinal'].value;
               const idEstado = this.formTurno.controls['estado'].value;
-              console.log(idEstado)
               this.servicioEstado.listarPorId(idEstado).subscribe(res => {
                 this.listarEstado = res;
                 turno.idEstado= this.listarEstado
@@ -180,7 +179,6 @@ export class ModificarTurnosComponent implements OnInit {
 
   public actualizarTurno(turno: Turnos) {
     this.servicioTurno.actualizar(turno).subscribe(res => {
-      console.log("Turno actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

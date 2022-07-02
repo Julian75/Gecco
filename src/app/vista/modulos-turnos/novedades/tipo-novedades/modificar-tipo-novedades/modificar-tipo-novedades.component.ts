@@ -43,7 +43,6 @@ export class ModificarTipoNovedadesComponent implements OnInit {
     this.idTipoNovedad = this.data;
     this.serviciotipoNovedad.listarPorId(this.idTipoNovedad).subscribe(res => {
       this.listarTipoNovedad = res;
-      console.log(this.listarTipoNovedad);
       this.formTipoNovedad.controls['id'].setValue(this.listarTipoNovedad.id);
       this.formTipoNovedad.controls['descripcion'].setValue(this.listarTipoNovedad.descripcion);
       this.formTipoNovedad.controls['observacion'].setValue(this.listarTipoNovedad.observacion);

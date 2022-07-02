@@ -6,8 +6,9 @@ import { OlvidoContrasenaComponent } from './formularios/formulariosPrincipales/
 import { VistaComponent } from './vista/vista.component';
 import { SidebarComponent } from './vista/componentes-principales/sidebar/sidebar.component';
 import { InicioGeneralComponent } from './vista/componentes-principales/inicio-general/inicio-general.component';
-import { AuthenticationGuardGuard } from './servicios/authentication-guard.guard';
+import { AuthenticationGuardGuard } from './guards/authentication-guard.guard';
 import { ErrorComponent } from './vista/error/error.component';
+import { AutorizacionGuard } from './guards/autorizacion.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: InicioGeneralComponent
+        component: InicioGeneralComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'vista',
@@ -28,19 +30,21 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
-    // canActivate: [AuthenticationGuardGuard]
+    canActivate: [AuthenticationGuardGuard]
   },
   {
     path: 'olvidoContrasena',
-    component: OlvidoContrasenaComponent
+    component: OlvidoContrasenaComponent,
+    canActivate: [AuthenticationGuardGuard]
   },
   {
     path: 'cambiarContrasena',
-    component: CambiarContrasenaComponent
+    component: CambiarContrasenaComponent,
+    canActivate: [AuthenticationGuardGuard]
   },
   // {
   //   path: '**',
-  //   component: ErrorComponent
+  //   component: ErrorComponent,
   // }
 
 ];

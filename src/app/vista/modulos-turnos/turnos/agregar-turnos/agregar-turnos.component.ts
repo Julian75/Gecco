@@ -85,7 +85,6 @@ export class AgregarTurnosComponent implements OnInit {
        let turno : Turnos = new Turnos();
        this.servicioTurnos.listarTodos().subscribe(res => {
         const idTurno = res.length+1
-        console.log(idTurno)
         turno.descripcion = "Turno "+idTurno
         const horaInicio = this.formTurno.controls['horaInicio'].value;
         const horaFinal = this.formTurno.controls['horaFinal'].value;
@@ -102,7 +101,6 @@ export class AgregarTurnosComponent implements OnInit {
           this.listarExiste.push(this.encontrado)
         }
         const existe = this.listarExiste.includes( true )
-        console.log(existe)
         if(existe == false ){
           turno.horaInicio = this.formTurno.controls['horaInicio'].value;
           turno.horaFinal = this.formTurno.controls['horaFinal'].value;

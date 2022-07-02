@@ -34,10 +34,8 @@ export class AsignarTurnoVendedorComponent implements OnInit {
       this.dataSource = new MatTableDataSource( this.listaAsignarTurnoVendedor);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(res)
     })
     this.servicioUsuarioVendedor.listarPorId(13).subscribe(res=>{
-      console.log(res)
     })
   }
   // Filtrado

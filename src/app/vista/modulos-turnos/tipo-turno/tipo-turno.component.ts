@@ -34,7 +34,6 @@ export class TipoTurnoComponent implements OnInit {
   public listarTodos () {
     this.servicioTipoTurno.listarTodos().subscribe( res =>{
       this.listarTipoTurnos = res;
-      console.log(res)
       this.dataSource = new MatTableDataSource( this.listarTipoTurnos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -52,7 +51,6 @@ export class TipoTurnoComponent implements OnInit {
       width: '500px',
       data: id
     });
-    console.log(id)
   }
 
   eliminarTipoTurno(id:number){

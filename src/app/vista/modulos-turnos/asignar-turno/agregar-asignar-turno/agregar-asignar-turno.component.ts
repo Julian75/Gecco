@@ -113,8 +113,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       this.servicioSitioVenta.listarPorId(ultimo).subscribe(res=>{
         this.listarSitioVentas = res
       })
-    }else{
-      console.log("todo igual")
     }
   }
 
@@ -137,8 +135,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
         this.listaSitioVentasTabla = this.listaSitioVentaTabla
         this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
       })
-    }else{
-      console.log("todo igual")
     }
   }
 
@@ -204,7 +200,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
 
   public registrarAsignacionTurno(asignarTurno: AsignarTurno) {
     this.servicioAsignarTurno.registrar(asignarTurno).subscribe(res=>{
-      console.log(asignarTurno)
       Swal.fire({
         position: 'center',
         icon: 'success',

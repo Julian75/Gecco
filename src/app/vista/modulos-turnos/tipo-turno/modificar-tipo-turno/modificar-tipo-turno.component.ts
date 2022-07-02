@@ -59,7 +59,6 @@ export class ModificarTipoTurnoComponent implements OnInit {
     this.idTipoTurno = this.data;
     this.serviciotipoTurno.listarPorId(this.idTipoTurno).subscribe(res => {
       this.listarTipoTurno = res;
-      console.log (this.listarTipoTurno);
       this.formTipoTurno.controls['id'].setValue(this.listarTipoTurno.id);
       this.formTipoTurno.controls['descripcion'].setValue(this.listarTipoTurno.descripcion);
       this.formTipoTurno.controls['estado'].setValue(this.listarTipoTurno.idEstado.id);
@@ -91,7 +90,6 @@ export class ModificarTipoTurnoComponent implements OnInit {
 
   public actualizarRol(tipoTurno: TipoTurno) {
     this.serviciotipoTurno.actualizar(tipoTurno).subscribe(res => {
-      console.log("Rol actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

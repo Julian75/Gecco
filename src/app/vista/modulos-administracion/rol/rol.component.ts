@@ -34,7 +34,6 @@ export class RolComponent implements OnInit {
   public listarTodos () {
     this.servicioRol.listarTodos().subscribe( res =>{
       this.listarRoles = res;
-      console.log(res)
       this.dataSource = new MatTableDataSource( this.listarRoles);
       this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -52,7 +51,6 @@ export class RolComponent implements OnInit {
       width: '500px',
       data: id
     });
-    console.log(id)
   }
 
   eliminarRol(id:number){

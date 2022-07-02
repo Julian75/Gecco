@@ -296,7 +296,6 @@ export class MallasComponent implements OnInit {
               };
             }
           })
-          console.log(this.listaMallas)
           this.dataSource = new MatTableDataSource(this.listaMallas);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -421,7 +420,6 @@ export class MallasComponent implements OnInit {
               };
             }
           })
-          console.log(this.listaMallas)
           this.dataSource = new MatTableDataSource(this.listaMallas);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -454,7 +452,6 @@ export class MallasComponent implements OnInit {
       width: '500px',
       data: id
     });
-    console.log(id)
   }
 
    // Filtrado

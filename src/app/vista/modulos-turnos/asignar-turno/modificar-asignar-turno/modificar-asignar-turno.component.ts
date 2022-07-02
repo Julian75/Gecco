@@ -117,8 +117,6 @@ export class ModificarAsignarTurnoComponent implements OnInit {
         this.listarSitioVentas = this.listaSitioVenta
 
       })
-    }else{
-      console.log("todo igual")
     }
   }
 
@@ -141,8 +139,6 @@ export class ModificarAsignarTurnoComponent implements OnInit {
         this.listaSitioVentasTabla = this.listaSitioVentaTabla
         this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
       })
-    }else{
-      console.log("todo igual")
     }
   }
 
@@ -151,7 +147,6 @@ export class ModificarAsignarTurnoComponent implements OnInit {
       this.idAsignarTurno = params.get('id');
       this.servicioAsignarTurno.listarPorId(this.idAsignarTurno).subscribe(res => {
         this.listarAsignarTurno = res;
-        console.log(this.listarAsignarTurno)
         this.formAsignarTurno.controls['id'].setValue(this.listarAsignarTurno.id);
         this.formAsignarTurno.controls['estado'].setValue(this.listarAsignarTurno.idEstado.id);
         this.servicioOficina.listarTodos().subscribe(res=>{
@@ -170,7 +165,6 @@ export class ModificarAsignarTurnoComponent implements OnInit {
                 res.forEach(element => {
                   if(element.ideSitioventa == this.listarAsignarTurno.idSitioVenta){
                     this.listasitioventa = element
-                    console.log(this.listasitioventa)
                     this.formAsignarTurno.controls['turno'].setValue(this.listarAsignarTurno.idTurnos.id);
                     this.servicioAsignarTurno.listarTodos().subscribe(res=>{
                       for (let index = 0; index < res.length; index++) {
@@ -204,8 +198,6 @@ export class ModificarAsignarTurnoComponent implements OnInit {
         asignarTurno.idSitioVenta = res.idSitioVenta
         asignarTurno.idTurnos = res.idTurnos
         const idOficina = this.formAsignarTurno.controls['oficina'].value
-          // this.servicioOficina.listarTodos().subscribe(res => {
-        console.log(asignarTurno.idOficina)
       })
     });
   }

@@ -47,16 +47,13 @@ export class ModificarAccesosComponent implements OnInit {
   public listarModulos() {
     this.servicioModulo.listarTodos().subscribe(res => {
       this.listarModulo = res;
-      console.log(res);
     })
   }
 
   public listardModulo(){
     this.id=this.acceso
-    console.log(this.id)
     this.servicioAcceso.listarPorId(this.id).subscribe(res => {
       this.listarAccesoModulo = res;
-      console.log(this.listarAccesoModulo)
       this.formaModificarAccesos.controls['id'].setValue(this.listarAccesoModulo.id);
       this.formaModificarAccesos.controls['modulo'].setValue(this.listarAccesoModulo.idModulo.id);
       this.formaModificarAccesos.controls['rol'].setValue(this.listarAccesoModulo.idRol.id);

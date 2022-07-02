@@ -49,7 +49,6 @@ export class AgregarTipoNovedadesComponent implements OnInit {
 
   public registrarTipoNovedades(tipoNovedades: TipoNovedades) {
     this.servicioTipoNovedades.registrar(tipoNovedades).subscribe(res=>{
-      console.log(tipoNovedades)
       Swal.fire({
         position: 'center',
         icon: 'success',

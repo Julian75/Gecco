@@ -42,7 +42,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   public encontrado = false;
   public listarExiste: any = [];
 
-
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
 
@@ -107,10 +106,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.servicioUsuarioVendedor.listarPorId(ultimo).subscribe(res=>{
         this.listarVendedores = res
-        console.log
       })
-    }else{
-      console.log("todo igual")
     }
   }
 
@@ -136,28 +132,22 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                 }
               });
               this.listarTurnos = this.listaTurno
-              console.log(this.listarTurnos)
             })
           }
         }
       })
-    }else{
-      console.log("todo igual")
     }
   }
 
   idVendedor: any
   public idVendedortabla(){
     const listaVendedores = this.idVendedor
-    console.log(listaVendedores)
     this.listaIdVendedor.push(listaVendedores.ideUsuario)
-    console.log(this.listaIdVendedor)
     let ultimo = this.listaIdVendedor[this.listaIdVendedor.length - 1]
     let penultimo = this.listaIdVendedor[this.listaIdVendedor.length - 2]
     if(ultimo != penultimo || penultimo == undefined){
       this.servicioAsigarTurnoVendedor.listarTodos().subscribe(res=>{
         this.listaSitioVentaTabla =[]
-        console.log(res)
         for (let index = 0; index < res.length; index++) {
           const element = res[index];
           if(element.idVendedor == ultimo){
@@ -165,7 +155,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           }
         }
         this.listaSitioVentasTabla = this.listaSitioVentaTabla
-        console.log(this.listaSitioVentasTabla)
         this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
       })
     }
@@ -183,7 +172,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           this.servicioSitioVenta.listarPorId(element.ideOficina).subscribe(resSitioVenta=>{
             const idSitioVenta = this.formAsignarTurno.controls['sitioVenta'].value
             resSitioVenta.forEach(elementSitioVenta => {
-              console.log(elementSitioVenta)
               if(elementSitioVenta.ideSitioventa == idSitioVenta.ideSitioventa){
                 asignarTurnoVendedor.idSitioVenta = Number(elementSitioVenta.ideSitioventa)
                 asignarTurnoVendedor.nombreSitioVenta = elementSitioVenta.nom_sitioventa
@@ -210,15 +198,11 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                               const fechaIGuardado = new Date(fechaInicios.getFullYear(), fechaInicios.getMonth(), fechaInicios.getDate()+1);
                               const fechaFinals = new Date(elementTurnoVendedor.fechaFinal)
                               const fechaFGuardado = new Date(fechaFinals.getFullYear(), fechaFinals.getMonth(), fechaFinals.getDate()+1);
-                              console.log(fechaIn, fechaFinals)
                               if(fechaIn >= fechaIGuardado && fechaFn<=fechaFGuardado){
-                                console.log("holis2")
                                 this.encontrado = true
                               }else if(fechaIn <= fechaFGuardado){
-                                console.log("holis3")
                                 this.encontrado = true
                               }else if(fechaFn == fechaIGuardado){
-                                console.log("holis3")
                                 this.encontrado = true
                               }else{
                                 this.encontrado = false
@@ -226,9 +210,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                               this.listarExiste.push(this.encontrado)
                             }
                           });
-                          console.log(this.listarExiste)
                           const existe = this.listarExiste.includes( true )
-                          console.log(existe)
                           if(existe == true){
                             Swal.fire({
                               position: 'center',
@@ -268,7 +250,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
 
   public registrarAsignacionTurnoVendedor(asignarTurnoVendedor: AsignarTurnoVendedor) {
     this.servicioAsigarTurnoVendedor.registrar(asignarTurnoVendedor).subscribe(res=>{
-      console.log(asignarTurnoVendedor)
       Swal.fire({
         position: 'center',
         icon: 'success',

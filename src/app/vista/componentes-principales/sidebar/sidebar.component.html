@@ -9,11 +9,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button  routerLink="/usuarios">Usuarios</button>
-      <button mat-raised-button id="4" routerLink="/tipoDocumento">Tipos de Documentos</button>
-      <button mat-raised-button id="3" routerLink="/roles">Roles</button>
-      <button mat-raised-button id="Modulos" routerLink="/modulo">Modulos</button>
-      <button mat-raised-button id="Jerarquia" routerLink="/jerarquia">Jerarquía</button>
+      <button mat-raised-button id="1"  routerLink="/usuarios" style="display: none;">Usuarios</button>
+      <button mat-raised-button id="4" routerLink="/tipoDocumento" style="display: none;">Tipos de Documentos</button>
+      <button mat-raised-button id="3" routerLink="/roles" style="display: none;">Roles</button>
+      <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
+      <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true"
@@ -24,13 +24,13 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button id="1" routerLink="/tipoTurnos">Tipos de Turnos</button>
-      <button mat-raised-button id="Tipo Novedades" routerLink="/tipoNovedades">Tipo de Novedades</button>
-      <button mat-raised-button id="2" routerLink="/turnos">Turnos</button>
-      <button mat-raised-button id="6" routerLink="/asignarTurno">Asignar Turno a Punto de Venta</button>
-      <button mat-raised-button id="Asignar Turno Vendedor" routerLink="/asignarTurnoVendedor">Asignar Turno Vendedor</button>
-      <button mat-raised-button id="7" routerLink="/mallas">Malla de Turnos</button>
-      <button mat-raised-button id="novedades" routerLink="/novedades">novedades</button>
+      <button mat-raised-button id="1" routerLink="/tipoTurnos" style="display: none;">Tipos de Turnos</button>
+      <button mat-raised-button id="12" routerLink="/tipoNovedades" style="display: none;">Tipo de Novedades</button>
+      <button mat-raised-button id="2" routerLink="/turnos" style="display: none;">Turnos</button>
+      <button mat-raised-button id="6" routerLink="/asignarTurno" style="display: none;">Asignar Turno a Punto de Venta</button>
+      <button mat-raised-button id="13" routerLink="/asignarTurnoVendedor" style="display: none;">Asignar Turno Vendedor</button>
+      <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos</button>
+      <button mat-raised-button id="novedades" routerLink="/novedades" style="display: none;">Generar Reportes</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true"

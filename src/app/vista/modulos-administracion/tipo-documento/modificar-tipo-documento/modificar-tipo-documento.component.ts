@@ -46,7 +46,6 @@ export class ModificarTipoDocumentoComponent implements OnInit {
       res.forEach(element => {
         if(element.idModulo.id == 4){
           this.estadosDisponibles.push(element)
-          console.log(this.estadosDisponibles)
         }
       });
       this.listarEstado = this.estadosDisponibles
@@ -57,7 +56,6 @@ export class ModificarTipoDocumentoComponent implements OnInit {
     this.idTipoDocumento = this.data;
     this.servicioTipoDocumento.listarPorId(this.idTipoDocumento).subscribe(res => {
       this.listaTiposDocumentos = res;
-      console.log(res)
       this.formTipoDocumento.controls['id'].setValue(this.listaTiposDocumentos.id);
       this.formTipoDocumento.controls['descripcion'].setValue(this.listaTiposDocumentos.descripcion);
       this.formTipoDocumento.controls['estado'].setValue(this.listaTiposDocumentos.idEstado.id);
@@ -97,7 +95,6 @@ export class ModificarTipoDocumentoComponent implements OnInit {
 
     // tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
     // tipoDocumento.idEstado=this.formTipoDocumento.controls['estado'].value;
-    // console.log()
     // if(tipoDocumento.descripcion==null || tipoDocumento.descripcion==""){
     //   Swal.fire({
     //     position: 'center',
@@ -113,7 +110,6 @@ export class ModificarTipoDocumentoComponent implements OnInit {
 
   public actualizarTipoDocumento(tipoDocumento: TipoDocumento) {
     this.servicioTipoDocumento.actualizar(tipoDocumento).subscribe(res => {
-      console.log("Tipo Documento actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

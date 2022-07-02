@@ -44,7 +44,6 @@ export class ListaEstadosComponent implements OnInit {
             this.modulo = element.idModulo.descripcion
           }
         });
-        console.log(this.listarEstadosModulo)
         this.dataSource = new MatTableDataSource(this.listarEstadosModulo);
         this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -67,7 +66,6 @@ export class ListaEstadosComponent implements OnInit {
        width: '500px',
        data: id
      });
-     console.log(id)
    }
 
    eliminarEstado(id:number){

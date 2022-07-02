@@ -37,11 +37,9 @@ export class AgregarTipoTurnoComponent implements OnInit {
 
   public listarEstados() {
     this.servicioEstado.listarTodos().subscribe(res => {
-      // this.listarEstado = res;
       res.forEach(element => {
         if(element.idModulo.id == 1){
           this.estadosDisponibles.push(element)
-          console.log(this.estadosDisponibles)
         }
       });
       this.listarEstado = this.estadosDisponibles
@@ -51,7 +49,6 @@ export class AgregarTipoTurnoComponent implements OnInit {
     let tipoTurno : TipoTurno = new TipoTurno();
     tipoTurno.descripcion=this.formTipoTurno.controls['descripcion'].value;
     const idEstado = this.formTipoTurno.controls['estado'].value;
-    console.log(idEstado)
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
       this.listarEstado = res;
       tipoTurno.idEstado= this.listarEstado
@@ -72,7 +69,6 @@ export class AgregarTipoTurnoComponent implements OnInit {
 
   public registrarTipoTurno(tipoTurno: TipoTurno) {
     this.servicioTipoTurno.registrar(tipoTurno).subscribe(res=>{
-      console.log(tipoTurno)
       Swal.fire({
         position: 'center',
         icon: 'success',

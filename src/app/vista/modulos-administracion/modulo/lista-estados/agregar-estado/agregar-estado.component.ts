@@ -61,7 +61,6 @@ export class AgregarEstadoComponent implements OnInit {
 
   public registrarEstado(estado: Estado) {
     this.servicioEstado.registrar(estado).subscribe(res=>{
-      console.log(estado)
       Swal.fire({
         position: 'center',
         icon: 'success',

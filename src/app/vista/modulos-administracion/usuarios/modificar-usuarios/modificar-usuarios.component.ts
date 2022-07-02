@@ -99,7 +99,6 @@ export class ModificarUsuariosComponent implements OnInit {
       this.idUsuario = params.get('id');
       this.servicioUsuario.listarPorId(this.idUsuario).subscribe(res => {
         this.listarUsuario = res;
-        console.log(res)
         this.formUsuario.controls['id'].setValue(this.listarUsuario.id);
         this.formUsuario.controls['nombre'].setValue(this.listarUsuario.nombre);
         this.formUsuario.controls['apellido'].setValue(this.listarUsuario.apellido);
@@ -119,7 +118,6 @@ export class ModificarUsuariosComponent implements OnInit {
       usuario.id = Number(params.get('id'));
       this.servicioUsuario.listarPorId(usuario.id).subscribe(res=>{
         const listaUsuarios = res
-        console.log(listaUsuarios)
         usuario.nombre = listaUsuarios.nombre
         usuario.apellido = listaUsuarios.apellido
         usuario.correo = listaUsuarios.correo
@@ -158,7 +156,6 @@ export class ModificarUsuariosComponent implements OnInit {
             this.listarExiste.push(this.encontrado)
           }
           const existe = this.listarExiste.includes(true)
-          console.log(existe)
           if(existe == false ){
             usuario.documento = this.formUsuario.controls['documento'].value;
             usuario.nombre = this.formUsuario.controls['nombre'].value;

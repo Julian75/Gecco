@@ -63,7 +63,6 @@ export class ModificarModuloComponent implements OnInit {
 
   public actualizarModulo(modulo: Modulo) {
     this.servicioModulo.actualizar(modulo).subscribe(res => {
-      console.log("Modulo actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

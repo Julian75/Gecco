@@ -89,8 +89,7 @@ export class VisitaDetalleComponent implements OnInit {
       this.registrarVisita(visita, this.lista)
       console.log(this.lista)
     })
-    // this.servicioElementosVisita.listarTodos().subscribe(res=>{
-    // })
+
   }
 
   capturarOpcion(elemento:any,opcion:any){
@@ -117,42 +116,6 @@ export class VisitaDetalleComponent implements OnInit {
       }
     }
   }
-
-
-
-  // capturarOpcion(elemento:any,opcion:any){
-  //   var obj = {
-  //     elemento: {},
-  //     opcion: {}
-  //   }
-  //   // console.log(this.lista.length)
-  //   if(this.lista.length>=1 ){
-  //     console.log("Holis")
-  //     this.lista.forEach((element:any) => {
-  //       if(element.elemento.id == elemento.id){
-  //         // element.elemento = elemento
-  //         // element.opcion = opcion
-  //         console.log(this.lista.indexOf(element))
-  //       }else if(element.elemento.id != elemento.id){
-  //         obj.elemento = elemento
-  //         obj.opcion = opcion
-  //         this.lista.push(obj)
-  //         console.log(this.lista)
-  //       }
-  //     });
-  //   }else{
-  //     console.log("hola")
-  //     obj.elemento = elemento
-  //     obj.opcion = opcion
-  //     this.lista.push(obj)
-  //     console.log(this.lista)
-
-  //   }
-
-  // }
-
-
-
 
   public registrarVisita(visita: Visitas, lista:any) {
     this.servicioVisita.registrar(visita).subscribe(res=>{

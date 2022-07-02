@@ -38,14 +38,12 @@ export class AccesosComponent implements OnInit {
   public listarTodos(){
     this.route.paramMap.subscribe((params: ParamMap) => {
       const id = Number(params.get('id'));
-      // console.log(id);
       this.accessoRol.listarTodos().subscribe( res =>{
         res.forEach(element => {
           if(element.idRol.id == id){
             this.listarAccesoRol.push(element)
             this.Rol = element.idRol.descripcion;
             this.nombreRol = element.idRol.descripcion
-            console.log(this.nombreRol)
           }
         });
         this.dataSource = new MatTableDataSource(this.listarAccesoRol);
@@ -69,7 +67,6 @@ export class AccesosComponent implements OnInit {
       width: '500px',
       data: id
     });
-    console.log(id)
   }
 
   eliminarAcceso(id:number){

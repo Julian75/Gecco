@@ -70,7 +70,6 @@ export class AgregarUsuariosComponent implements OnInit {
         }
       });
       this.listaEstados = this.estadosDisponibles
-      console.log(this.listaEstados)
     });
   }
 
@@ -112,12 +111,10 @@ export class AgregarUsuariosComponent implements OnInit {
             this.listarExiste.push(this.encontrado)
           }
           const existe = this.listarExiste.includes(true)
-          console.log(existe)
           if(existe == false ){
             usuario.documento = this.formUsuario.controls['documento'].value;
             var contrasena = this.formUsuario.controls['documento'].value;
             var Encrypt = CryptoJS.AES.encrypt(JSON.stringify(contrasena), 'secret key 123').toString();
-            console.log(Encrypt)
             usuario.password = Encrypt
             const idEstado = this.formUsuario.controls['estado'].value;
             this.servicioEstado.listarPorId(idEstado).subscribe(res => {
@@ -140,7 +137,6 @@ export class AgregarUsuariosComponent implements OnInit {
                       timer: 1500
                     })
                   }else{
-                    console.log(usuario)
                     this.registrarUsuario(usuario);
                   }
                 })

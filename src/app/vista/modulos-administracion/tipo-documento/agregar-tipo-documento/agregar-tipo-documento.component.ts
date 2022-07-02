@@ -38,7 +38,6 @@ export class AgregarTipoDocumentoComponent implements OnInit {
       res.forEach(element => {
         if(element.idModulo.id == 4){
           this.estadosDisponibles.push(element)
-          console.log(this.estadosDisponibles)
         }
       });
       this.listarEstado = this.estadosDisponibles
@@ -57,7 +56,6 @@ export class AgregarTipoDocumentoComponent implements OnInit {
     let tipoDocumento : TipoDocumento = new TipoDocumento();
     tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
     const idEstado = this.formTipoDocumento.controls['estado'].value;
-    console.log(idEstado)
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
       this.listarEstado = res;
       tipoDocumento.idEstado= this.listarEstado
@@ -77,7 +75,6 @@ export class AgregarTipoDocumentoComponent implements OnInit {
 
   public registrarTipoDocumento(tipoDocumento: TipoDocumento) {
     this.servicioTipoDocumento.registrar(tipoDocumento).subscribe(res=>{
-      console.log(tipoDocumento)
       Swal.fire({
         position: 'center',
         icon: 'success',

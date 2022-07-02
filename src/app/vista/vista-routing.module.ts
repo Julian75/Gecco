@@ -28,6 +28,7 @@ import { AgregarJerarquiaComponent } from './modulos-turnos/jerarquia/agregar-je
 import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
 import { OpcionesVisitaComponent } from './modulos-visita/opciones-visita/opciones-visita.component';
 import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-detalle.component';
+import { AutorizacionGuard } from '../guards/autorizacion.guard';
 
 const routes: Routes = [
   {
@@ -36,122 +37,149 @@ const routes: Routes = [
     children: [
       {
         path: 'inicio',
-        component: InicioGeneralComponent
+        component: InicioGeneralComponent,
+        canActivate: [AutorizacionGuard]
+
       },
       // Apartado de modulos
       {
         path: 'modulo',
-        component: ModuloComponent
+        component: ModuloComponent,
+        canActivate: [AutorizacionGuard]
       },
       // #Apartado Rol
       {
         path: 'roles',
-        component: RolComponent
+        component: RolComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'modificarRol/:id',
-        component: ModificarRolComponent
+        component: ModificarRolComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'visualizarAccessos/:id',
-        component: AccesosComponent
+        component: AccesosComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado de tipo turnos
       {
         path: 'tipoTurnos',
-        component: TipoTurnoComponent
+        component: TipoTurnoComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado de turnos
       {
         path: 'turnos',
-        component: TurnosComponent
+        component: TurnosComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'agregarTurno',
-        component: AgregarTurnosComponent
+        component: AgregarTurnosComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'modificarTurno/:id',
-        component: ModificarTurnosComponent
+        component: ModificarTurnosComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado Tipo Documento
       {
         path: 'tipoDocumento',
-        component: TipoDocumentoComponent
+        component: TipoDocumentoComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado visualizar Estados por modulo
       {
         path: 'visualizarEstados/:id',
-        component: ListaEstadosComponent
+        component: ListaEstadosComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado usuarios
       {
         path: 'usuarios',
-        component: UsuariosComponent
+        component: UsuariosComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'agregarUsuario',
-        component: AgregarUsuariosComponent
+        component: AgregarUsuariosComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'modificarUsuario/:id',
-        component: ModificarUsuariosComponent
+        component: ModificarUsuariosComponent,
+        canActivate: [AutorizacionGuard]
       },
       //Apartado de asignar turno
       {
         path: 'asignarTurno',
-        component: AsignarTurnoComponent
+        component: AsignarTurnoComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'agregarAsignarTurno',
-        component: AgregarAsignarTurnoComponent
+        component: AgregarAsignarTurnoComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'modificarAsignarTurno/:id',
-        component: ModificarAsignarTurnoComponent
+        component: ModificarAsignarTurnoComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado de asignar turno Vendedor
       {
         path: 'asignarTurnoVendedor',
-        component: AsignarTurnoVendedorComponent
+        component: AsignarTurnoVendedorComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'agregarTurnoVendedor',
-        component: AgregarAsignarTurnoVendedorComponent
+        component: AgregarAsignarTurnoVendedorComponent,
+        canActivate: [AutorizacionGuard]
       },
       //Modificar Datos de Usuario
       {
         path: 'modificarDatos',
-        component: ModificarDatosComponent
+        component: ModificarDatosComponent,
+        canActivate: [AutorizacionGuard]
       },
       // //apartado de novedades
       {
         path: 'novedades',
-        component: NovedadesComponent
+        component: NovedadesComponent,
+        canActivate: [AutorizacionGuard]
       },
       // Apartado de tipo Novedades
       {
         path: 'tipoNovedades',
-        component: TipoNovedadesComponent
+        component: TipoNovedadesComponent,
+        canActivate: [AutorizacionGuard]
       },
       //Jerarquía
       {
         path: 'jerarquia',
-        component: JerarquiaComponent
+        component: JerarquiaComponent,
+        canActivate: [AutorizacionGuard]
       },
       // //Modificar Jerarquía
       {
         path: 'mallas',
-        component: MallasComponent
+        component: MallasComponent,
+        canActivate: [AutorizacionGuard]
       },
       //Apartado de Visita
       {
         path: 'opcionesVisita',
-        component: OpcionesVisitaComponent
+        component: OpcionesVisitaComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'visitaDetalle',
-        component: VisitaDetalleComponent
+        component: VisitaDetalleComponent,
+        canActivate: [AutorizacionGuard]
       },
     ]
   },

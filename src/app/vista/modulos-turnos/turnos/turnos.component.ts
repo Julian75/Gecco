@@ -36,7 +36,6 @@ export class TurnosComponent implements OnInit {
       this.dataSource = new MatTableDataSource( this.listarTurnos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(res)
     })
   }
 
