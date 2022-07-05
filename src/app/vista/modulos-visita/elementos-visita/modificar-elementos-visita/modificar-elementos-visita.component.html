@@ -1,0 +1,19 @@
+<h2 class="dato">Modificar Elemento Visita</h2>
+<form [formGroup]="formElementoVisita">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Modifica la descripción del Elemento</mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Modificar Tipo Documento</button>
+    </div>
+  </div>
+</form>

@@ -1,6 +1,7 @@
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Component, OnInit } from '@angular/core';
+import { VisitasSigaService } from 'src/app/servicios/serviciosSiga/visitasSiga.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,14 +14,18 @@ export class SidebarComponent implements OnInit {
   public idRol: any = [];
   public listaAccessForm: any = [];
   public acceso: any;
+  public fecha : Date = new Date();
+  public listaVisita:any = []
 
   constructor(
     private servicioUsuario: UsuarioService,
     private servicioAcceso: AccesoService,
+    private servicioVisita: VisitasSigaService,
   ) { }
 
   ngOnInit(): void {
     this.listarAccesos()
+    this.visitas()
   }
 
   public listarAccesos () {
@@ -69,6 +74,27 @@ export class SidebarComponent implements OnInit {
           }
         }
       })
+    })
+  }
+
+  public visitas(){
+    const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
+    console.log(fechaActual)
+    this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('documento'))).subscribe(res =>{
+      res.forEach(element =>{
+        this.listaVisita.push(element)
+      })
+      let ultimo = this.listaVisita[this.listaVisita.length - 1]
+      var horaFinal = ultimo.hora.split(':')
+      var horaFinal3 = new Date(2022,7,5,horaFinal[0],Number(horaFinal[1])+5)
+      var horaFinal4 = horaFinal3.getHours() + ":" + horaFinal3.getMinutes();
+      var horaActual = new Date().getHours() + ":" + new Date().getMinutes();
+
+      if(horaActual>=ultimo.hora && horaActual<=horaFinal4){
+        document.getElementById('14')?.setAttribute('style', 'display: block;')
+      }else{
+        document.getElementById('14')?.setAttribute('style', 'display: none;')
+      }
     })
   }
 

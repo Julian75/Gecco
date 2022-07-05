@@ -1,6 +1,6 @@
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AsignarTurno } from 'src/app/modelos/asignarTurno';
@@ -12,6 +12,8 @@ import { UsuarioVendedoresService } from 'src/app/servicios/serviciosSiga/usuari
 import { TurnosService } from 'src/app/servicios/turnos.service';
 import Swal from 'sweetalert2';
 import { AsignarTurnoVendedor } from 'src/app/modelos/asignarTurnoVendedor';
+import { map, Observable, startWith } from 'rxjs';
+import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 
 @Component({
   selector: 'app-agregar-asignar-turno-vendedor',
@@ -19,6 +21,8 @@ import { AsignarTurnoVendedor } from 'src/app/modelos/asignarTurnoVendedor';
   styleUrls: ['./agregar-asignar-turno-vendedor.component.css']
 })
 export class AgregarAsignarTurnoVendedorComponent implements OnInit {
+  myControl = new FormControl('');
+  filteredOptions!: Observable<string[]>;
 
   dtOptions: any = {};
   public formAsignarTurno!: FormGroup;
@@ -41,6 +45,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
 
   public encontrado = false;
   public listarExiste: any = [];
+  public identificacion:any;
 
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -106,9 +111,31 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.servicioUsuarioVendedor.listarPorId(ultimo).subscribe(res=>{
         this.listarVendedores = res
+
+        // this.filteredOptions = this.myControl.valueChanges.pipe(
+        //   startWith(''),
+        //   map(value => {
+        //     this.identificacion = typeof value == 'string' ? value : value?.num_identificacion;
+        //     return this.identificacion ? this.identificacion as string : this.listarVendedores.slice();
+        //   }),
+        // );
+        // const filterValue = this.identificacion;
+        // console.log(filterValue)
+        // return this.listarVendedores.filter((vendedores:any) => vendedores.num_identificacion.toowerCase().includes(filterValue));
       })
     }
   }
+
+  displayFn(visitasSigas: VisitasSiga): string {
+    return visitasSigas && visitasSigas.num_identificacion ? visitasSigas.num_identificacion : '';
+  }
+
+  // private _filter(numIdentificacion: string, vendedores:any): VisitasSiga[] {
+  //   console.log("wenas")
+  //   const filterValue = numIdentificacion.toLowerCase();
+
+  //   return vendedores.filter((vendedores:any) => vendedores.num_identificacion.toLowerCase().includes(filterValue));
+  // }
 
   idSitioVenta: any // Id de la oficina capturado - 18
 

@@ -1,6 +1,6 @@
 <mat-drawer-container class="example">
   <mat-drawer mode="side" opened>
-    <img src="../../../assets/logo/LOGO GECCO-ai (4).png" routerLink="/inicio" alt="" class="logo">
+    <img src="assets/logo/LOGO GECCO-ai (4).png" routerLink="/inicio" alt="" class="logo">
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header class="boton">
@@ -30,7 +30,7 @@
       <button mat-raised-button id="6" routerLink="/asignarTurno" style="display: none;">Asignar Turno a Punto de Venta</button>
       <button mat-raised-button id="13" routerLink="/asignarTurnoVendedor" style="display: none;">Asignar Turno Vendedor</button>
       <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos</button>
-      <button mat-raised-button id="novedades" routerLink="/novedades" style="display: none;">Generar Reportes</button>
+      <button mat-raised-button id="novedades" routerLink="/novedades">Generar Reportes</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true"
@@ -41,8 +41,9 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
+      <button mat-raised-button id="Elementos Visita" routerLink="/elementosVisita">Elementos Visita</button>
       <button mat-raised-button id="Opciones Visita" routerLink="/opcionesVisita">Opciones</button>
-      <button mat-raised-button id="Visita Detalle Agregar" routerLink="/visitaDetalle">Agregar Visita Detalle</button>
+      <button mat-raised-button id="14" routerLink="/visitaDetalle" style="display: none;">Agregar Visita Detalle</button>
     </div>
   </mat-expansion-panel>
   </mat-drawer>

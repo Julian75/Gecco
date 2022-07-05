@@ -1,3 +1,5 @@
+
+
 <div class="contenedor">
   <h2 class="dato">Agregar Nueva Asignacion de Turno a Vendedor</h2>
   <form [formGroup]="formAsignarTurno">
@@ -32,12 +34,19 @@
       </div>
       <div class="nombre5">
         <h2>Vendedor</h2>
-        <mat-form-field class="nombre" appearance="fill">
-        <mat-label>Ingrese Vendedor</mat-label>
-        <select matNativeControl id="vendedor" name="vendedor" formControlName="vendedor" [(ngModel)]="idVendedor" (change)="idVendedortabla()">
-          <option></option>
-          <option *ngFor="let item of listarVendedores"  value="{{item.ideUsuario}}" [ngValue]="item">{{item.num_identificacion}} | {{item.nombres}} {{item.apellido1}}</option>
-        </select>
+        <mat-form-field class="example-full-width nombre1" appearance="fill">
+          <mat-label>Ingrese Vendedor</mat-label>
+          <input type="number"
+           placeholder="Pick one"
+           aria-label="Number"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" id="vendedor" name="vendedor" formControlName="vendedor" [(ngModel)]="idVendedor" (change)="idVendedortabla()">
+            <mat-option *ngFor="let item of listarVendedores"  value="{{item.ideUsuario}}" ngValue="item" >
+              {{item.num_identificacion}} | {{item.nombres}} {{item.apellido1}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div class="nombre3">
@@ -123,4 +132,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-

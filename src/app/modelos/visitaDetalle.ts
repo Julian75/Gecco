@@ -9,5 +9,6 @@ export class VisitaDetalle {
     idVisitas !: Visitas
     idOpcionesVisita !: OpcionesVisita
     idElementosVisita !: ElementosVisita;
-
+    public ideSitioventa: number=0;
+    public nomSitioventa: string="";
 }

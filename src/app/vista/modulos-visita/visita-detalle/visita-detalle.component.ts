@@ -7,6 +7,8 @@ import { ElementosVisitaService } from 'src/app/servicios/ElementosVisita.servic
 import { OpcionesVisitaService } from 'src/app/servicios/opcionesVisita.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { VisitasService } from 'src/app/servicios/visitas.service';
+import { VisitasSigaService } from 'src/app/servicios/serviciosSiga/visitasSiga.service';
+import { SitioVentaService } from 'src/app/servicios/serviciosSiga/sitioVenta.service';
 import Swal from 'sweetalert2';
 import { VisitaDetalleService } from 'src/app/servicios/visitaDetalle.service';
 
@@ -24,6 +26,7 @@ export class VisitaDetalleComponent implements OnInit {
   public lista: any = [];
   public fecha: Date = new Date();
   public visitas: any = [];
+  public visitasSiga: any = [];
   public elementos: any = [];
 
   constructor(
@@ -33,6 +36,7 @@ export class VisitaDetalleComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioVisita: VisitasService,
     private servicioVisitaDetalle: VisitaDetalleService,
+    private servicioVisitaSiga: VisitasSigaService,
   ) { }
 
   ngOnInit(): void {
@@ -132,12 +136,24 @@ export class VisitaDetalleComponent implements OnInit {
   }
 
   public registrarVisitaDetalle(lista:any) {
+    this.visitasSiga = []
     let visitaDetalle : VisitaDetalle = new VisitaDetalle();
     this.servicioVisita.listarTodos().subscribe(res=>{
       res.forEach(visita => {
         if(visita.idUsuario.id == Number(sessionStorage.getItem('id'))){
           this.visitas.push(visita.id)
         }
+      })
+      const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
+      var documento = "26552174"
+      console.log(fechaActual)
+      this.servicioVisitaSiga.listarPorId(fechaActual, documento).subscribe( res => {
+        res.forEach(element => {
+          this.visitasSiga.push(element)
+        });
+        let ultimo = this.visitasSiga[this.visitasSiga.length - 1]
+        visitaDetalle.ideSitioventa = ultimo.ideSitioVenta
+        visitaDetalle.nomSitioventa = ultimo.nom_sitioventa
       })
       let ultimaVisita = this.visitas[this.visitas.length - 1]
       this.servicioVisita.listarPorId(ultimaVisita).subscribe(resVisita=>{
@@ -148,8 +164,7 @@ export class VisitaDetalleComponent implements OnInit {
           const element = this.lista[i];
           visitaDetalle.idElementosVisita = element.elemento
           visitaDetalle.idOpcionesVisita = element.opcion
-          console.log(visitaDetalle.idElementosVisita)
-          console.log(visitaDetalle.idOpcionesVisita)
+          console.log(visitaDetalle)
           this.servicioVisitaDetalle.registrar(visitaDetalle).subscribe(res=>{
             this.crearFormulario()
             window.location.reload();
@@ -158,9 +173,5 @@ export class VisitaDetalleComponent implements OnInit {
       })
       console.log(this.lista)
     })
-
   }
-
-
-
 }

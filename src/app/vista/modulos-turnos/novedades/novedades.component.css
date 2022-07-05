@@ -14,13 +14,16 @@ table{
   font-size: 20px;
 }
 h1{
-  text-align: center;
+  text-align: left;
+  margin-left: 5%;
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 20px;
+  font-weight: 700;
 }
 h2{
   margin: 0;
+
 }
 .container{
   width: 80%;
@@ -45,11 +48,15 @@ h2{
   width: 200px;
   height: 40px;
   font-size: large;
-  margin-left: 52%;
+  margin-left: 5%;
 }
 
 .row1{
   border-top: 3px solid #97B4E2;
   padding-top: 3%;
   padding-bottom: 4%;
+}
+
+.contenedor{
+  width: 90% !important; margin-left: 5%; margin-top: 3%;
 }

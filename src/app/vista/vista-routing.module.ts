@@ -29,6 +29,9 @@ import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
 import { OpcionesVisitaComponent } from './modulos-visita/opciones-visita/opciones-visita.component';
 import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-detalle.component';
 import { AutorizacionGuard } from '../guards/autorizacion.guard';
+import { ElementosVisitaComponent } from './modulos-visita/elementos-visita/elementos-visita.component';
+import { AgregarElementosVisitaComponent } from './modulos-visita/elementos-visita/agregar-elementos-visita/agregar-elementos-visita.component';
+import { ModificarElementosVisitaComponent } from './modulos-visita/elementos-visita/modificar-elementos-visita/modificar-elementos-visita.component';
 
 const routes: Routes = [
   {
@@ -50,8 +53,7 @@ const routes: Routes = [
       // #Apartado Rol
       {
         path: 'roles',
-        component: RolComponent,
-        canActivate: [AutorizacionGuard]
+        component: RolComponent
       },
       {
         path: 'modificarRol/:id',
@@ -171,6 +173,23 @@ const routes: Routes = [
         canActivate: [AutorizacionGuard]
       },
       //Apartado de Visita
+      {
+        path: 'elementosVisita',
+        component: ElementosVisitaComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Agregar Elemento Visita
+      {
+        path: 'AgregarElementoVisita',
+        component: AgregarElementosVisitaComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Modificar Elemento Visita
+      {
+        path: 'ModificarElementoVisita',
+        component: ModificarElementosVisitaComponent,
+        canActivate: [AutorizacionGuard]
+      },
       {
         path: 'opcionesVisita',
         component: OpcionesVisitaComponent,
