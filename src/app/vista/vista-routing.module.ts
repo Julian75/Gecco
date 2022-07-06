@@ -53,7 +53,8 @@ const routes: Routes = [
       // #Apartado Rol
       {
         path: 'roles',
-        component: RolComponent
+        component: RolComponent,
+        canActivate: [AutorizacionGuard]
       },
       {
         path: 'modificarRol/:id',

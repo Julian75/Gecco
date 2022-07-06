@@ -165,10 +165,10 @@ export class VisitaDetalleComponent implements OnInit {
           visitaDetalle.idElementosVisita = element.elemento
           visitaDetalle.idOpcionesVisita = element.opcion
           console.log(visitaDetalle)
-          this.servicioVisitaDetalle.registrar(visitaDetalle).subscribe(res=>{
-            this.crearFormulario()
-            window.location.reload();
-          })
+          // this.servicioVisitaDetalle.registrar(visitaDetalle).subscribe(res=>{
+          //   // this.crearFormulario()
+          //   window.location.reload();
+          // })
         }
       })
       console.log(this.lista)

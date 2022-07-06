@@ -1,9 +1,9 @@
+import { UsuariosVendedores } from 'src/app/modelos/modelosSiga/usuariosVendedores';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { AsignarTurno } from 'src/app/modelos/asignarTurno';
 import { AsignarTurnoService } from 'src/app/servicios/asignarTurno.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { AsignarTurnoVendedor } from 'src/app/modelos/asignarTurnoVendedor';
 import { map, Observable, startWith } from 'rxjs';
 import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-agregar-asignar-turno-vendedor',
@@ -21,8 +22,10 @@ import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
   styleUrls: ['./agregar-asignar-turno-vendedor.component.css']
 })
 export class AgregarAsignarTurnoVendedorComponent implements OnInit {
-  myControl = new FormControl('');
-  filteredOptions!: Observable<string[]>;
+  myControl = new FormControl<string | UsuariosVendedores>("");
+
+  options: VisitasSiga[] = []
+  filteredOptions!: Observable<UsuariosVendedores[]>;
 
   dtOptions: any = {};
   public formAsignarTurno!: FormGroup;
@@ -98,7 +101,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   id: any // Id de la oficina capturado - 18
-
   idOficina(){
     this.listarSitioVenta = []
     const listaOficina = this.id
@@ -111,31 +113,44 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.servicioUsuarioVendedor.listarPorId(ultimo).subscribe(res=>{
         this.listarVendedores = res
-
-        // this.filteredOptions = this.myControl.valueChanges.pipe(
-        //   startWith(''),
-        //   map(value => {
-        //     this.identificacion = typeof value == 'string' ? value : value?.num_identificacion;
-        //     return this.identificacion ? this.identificacion as string : this.listarVendedores.slice();
-        //   }),
-        // );
-        // const filterValue = this.identificacion;
-        // console.log(filterValue)
-        // return this.listarVendedores.filter((vendedores:any) => vendedores.num_identificacion.toowerCase().includes(filterValue));
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(""),
+          map(value => {
+            const num_identificacion = typeof value == 'string' ? value : value?.num_identificacion;
+            const nombres = typeof value == 'string' ? value : value?.nombres;
+            const apellido = typeof value == 'string' ? value : value?.apellido1;
+            return num_identificacion ? this._filter(num_identificacion as string, nombres as string, apellido as string, this.listarVendedores) : this.listarVendedores.slice();
+          }),
+        );
       })
     }
   }
+  textoUsuarioVendedor:any
+  cThis = this
+  displayFn(usuariosVendedores: UsuariosVendedores): any {
+    this.textoUsuarioVendedor = usuariosVendedores
+    console.log(usuariosVendedores.nombres)
+    if(this.textoUsuarioVendedor == ""){
+      this.textoUsuarioVendedor = " "
+    }else{
+      this.textoUsuarioVendedor = usuariosVendedores.num_identificacion+" | "+usuariosVendedores.nombres+" "+usuariosVendedores.apellido1
 
-  displayFn(visitasSigas: VisitasSiga): string {
-    return visitasSigas && visitasSigas.num_identificacion ? visitasSigas.num_identificacion : '';
+      return this.textoUsuarioVendedor;
+    }
   }
 
-  // private _filter(numIdentificacion: string, vendedores:any): VisitasSiga[] {
-  //   console.log("wenas")
-  //   const filterValue = numIdentificacion.toLowerCase();
+  public _filter(numIdentificacion: string, nombres: string, apellidos: string, vendedores:any): VisitasSiga[] {
 
-  //   return vendedores.filter((vendedores:any) => vendedores.num_identificacion.toLowerCase().includes(filterValue));
-  // }
+    const filterValue = numIdentificacion;
+    const filterNom = nombres.toLowerCase();
+    const filterApellidos = apellidos.toLowerCase();
+
+    return vendedores.filter((vendedores:any) => (vendedores.num_identificacion.includes(filterValue) || vendedores.nombres.toLowerCase().includes(filterNom) || vendedores.apellido1.toLowerCase().includes(filterApellidos)));
+  }
+
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    console.log(event.option.value);
+  }
 
   idSitioVenta: any // Id de la oficina capturado - 18
 
@@ -166,9 +181,9 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     }
   }
 
-  idVendedor: any
-  public idVendedortabla(){
-    const listaVendedores = this.idVendedor
+  public idVendedortabla(idVendedor:any){
+    console.log("wneu")
+    const listaVendedores = idVendedor
     this.listaIdVendedor.push(listaVendedores.ideUsuario)
     let ultimo = this.listaIdVendedor[this.listaIdVendedor.length - 1]
     let penultimo = this.listaIdVendedor[this.listaIdVendedor.length - 2]

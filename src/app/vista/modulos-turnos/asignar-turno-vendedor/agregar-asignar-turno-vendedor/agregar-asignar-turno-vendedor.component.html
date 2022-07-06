@@ -36,14 +36,14 @@
         <h2>Vendedor</h2>
         <mat-form-field class="example-full-width nombre1" appearance="fill">
           <mat-label>Ingrese Vendedor</mat-label>
-          <input type="number"
+          <input type="text"
            placeholder="Pick one"
-           aria-label="Number"
+           aria-label="text"
            matInput
            [formControl]="myControl"
-           [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" id="vendedor" name="vendedor" formControlName="vendedor" [(ngModel)]="idVendedor" (change)="idVendedortabla()">
-            <mat-option *ngFor="let item of listarVendedores"  value="{{item.ideUsuario}}" ngValue="item" >
+           [matAutocomplete]="auto" >
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="vendedor" name="vendedor" formControlName="vendedor" >
+            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.ideUsuario" >
               {{item.num_identificacion}} | {{item.nombres}} {{item.apellido1}}
             </mat-option>
           </mat-autocomplete>

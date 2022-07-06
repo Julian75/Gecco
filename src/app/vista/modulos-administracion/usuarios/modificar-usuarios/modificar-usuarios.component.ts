@@ -9,6 +9,7 @@ import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-modificar-usuarios',
@@ -62,6 +63,7 @@ export class ModificarUsuariosComponent implements OnInit {
       rol: [null,Validators.required],
       tipoDocumento: [null,Validators.required],
       oficina: [null,Validators.required],
+      contraseña: [null,Validators.required],
     });
   }
 
@@ -108,6 +110,10 @@ export class ModificarUsuariosComponent implements OnInit {
         this.formUsuario.controls['rol'].setValue(this.listarUsuario.idRol.id);
         this.formUsuario.controls['tipoDocumento'].setValue(this.listarUsuario.idTipoDocumento.id);
         this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideOficina);
+        const contrasena = this.listarUsuario.password.toString()
+        var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
+        var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
+        this.formUsuario.controls['contraseña'].setValue(decryptedData.replace(/[ '"]+/g, ''));
       })
     })
   }
@@ -137,10 +143,13 @@ export class ModificarUsuariosComponent implements OnInit {
           const rol = this.formUsuario.controls['rol'].value;
           const tipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
           const oficina = this.formUsuario.controls['oficina'].value;
+          const password = this.formUsuario.controls['contraseña'].value;
+          var bytes  = CryptoJS.AES.decrypt(listaUsuarios.password.toString(), 'secret key 123');
+          var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
           for (let i = 0; i < res.length; i++) {
-            if(res[i].documento == documento && listaUsuarios.nombre == nombre && listaUsuarios.apellido == apellido && listaUsuarios.correo == correo && listaUsuarios.idEstado.id == estado && listaUsuarios.idRol.id == rol && listaUsuarios.idTipoDocumento.id == tipoDocumento && listaUsuarios.ideOficina == oficina ){
+            if(res[i].documento == documento && listaUsuarios.nombre == nombre && listaUsuarios.apellido == apellido && listaUsuarios.correo == correo && listaUsuarios.idEstado.id == estado && listaUsuarios.idRol.id == rol && listaUsuarios.idTipoDocumento.id == tipoDocumento && listaUsuarios.ideOficina == oficina && password == decryptedData.replace(/[ '"]+/g, '')){
               this.encontrado = true
-            }else if(nombre=="" || documento==null || apellido=="" || correo=="" || estado==undefined || estado==null || rol==undefined || rol==null || tipoDocumento==null || tipoDocumento==undefined|| oficina==null || oficina==undefined){
+            }else if(nombre=="" || documento==null || apellido=="" || correo=="" || password == "" || estado==undefined || estado==null || rol==undefined || rol==null || tipoDocumento==null || tipoDocumento==undefined|| oficina==null || oficina==undefined || password==null){
               this.encontrado = true
               Swal.fire({
                 position: 'center',
@@ -161,6 +170,9 @@ export class ModificarUsuariosComponent implements OnInit {
             usuario.nombre = this.formUsuario.controls['nombre'].value;
             usuario.apellido = this.formUsuario.controls['apellido'].value;
             usuario.correo = this.formUsuario.controls['correo'].value;
+            var contrasena = this.formUsuario.controls['contraseña'].value;
+            var Encrypt = CryptoJS.AES.encrypt(JSON.stringify(contrasena), 'secret key 123').toString();
+            usuario.password = Encrypt
             const idEstado = this.formUsuario.controls['estado'].value;
             this.servicioEstado.listarPorId(idEstado).subscribe(res => {
               this.listaEstados = res;
@@ -178,7 +190,7 @@ export class ModificarUsuariosComponent implements OnInit {
                     res.forEach(elementOficina => {
                       usuario.ideOficina = elementOficina.ideOficina
                       usuario.ideSubzona = elementOficina.ideSubzona
-                      if(usuario.nombre,usuario.apellido,usuario.correo,usuario.documento==null || usuario.nombre,usuario.apellido,usuario.correo=="" || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento, usuario.ideOficina==undefined || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento,usuario.ideOficina==null){
+                      if(usuario.nombre,usuario.apellido,usuario.correo,usuario.documento,usuario.password==null || usuario.nombre,usuario.apellido,usuario.correo,usuario.password=="" || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento, usuario.ideOficina==undefined || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento,usuario.ideOficina==null){
                         Swal.fire({
                           position: 'center',
                           icon: 'error',

@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
               Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Digito la contraseña incorrecta!',
+                title: 'Digitó la contraseña incorrecta!',
                 showConfirmButton: false,
                 timer: 1500
               })
@@ -82,14 +82,6 @@ export class LoginComponent implements OnInit {
               position: 'center',
               icon: 'error',
               title: 'Los campos estan vacios!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }else{
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'No existe ese usuario!',
               showConfirmButton: false,
               timer: 1500
             })
