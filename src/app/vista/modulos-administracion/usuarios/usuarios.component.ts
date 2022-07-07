@@ -16,7 +16,7 @@ export class UsuariosComponent implements OnInit {
   dtOptions: any = {};
   public listarUsuarios: any = [];
 
-  displayedColumns = ['id', 'nombre', 'apellido', 'correo', 'documento', 'tipoDocumento', 'estado', 'rol', 'opciones'];
+  displayedColumns = ['id', 'nombre', 'correo', 'tipoDocumento', 'estado', 'rol', 'opciones'];
   dataSource!:MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,46 +37,6 @@ export class UsuariosComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.listarUsuarios);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
-  }
-
-  eliminarUsuario(id:number){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger mx-5'
-      },
-      buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-      title: '¿Estas seguro?',
-      text: "No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, Eliminar!',
-      cancelButtonText: 'No, Cancelar!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.servicioUsuario.eliminar(id).subscribe(res=>{
-          this.listarTodos();
-          swalWithBootstrapButtons.fire(
-            'Eliminado!',
-            'Se elimino el usuario.',
-            'success'
-          )
-        })
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelado!',
-          '',
-          'error'
-        )
-      }
     })
   }
 

@@ -3,12 +3,15 @@
   <mat-icon class="person">person</mat-icon>
   <mat-label class=""><mat-icon>arrow_drop_down</mat-icon></mat-label>
   <mat-select class="flecha">
-    <mat-option [routerLink]="['/modificarUsuario', get]">
+    <mat-option routerLink="/modificarDatos">
       Modificar Perfil
     </mat-option>
     <mat-option >
       <button (click)="salir()">Cerrar Sesion</button>
     </mat-option>
   </mat-select>
+  <span mat-button id="iconMenu" class="iconMenu" >
+    <i class="fa-solid fa-bars"></i>
+  </span>
 </mat-toolbar>
 <router-outlet></router-outlet>

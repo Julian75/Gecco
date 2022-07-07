@@ -21,7 +21,7 @@ hr{
   margin-top: -21.5%;
   border-width: 2px;
 }
-.formulario, .numIdentificacion, .password, button, .olvido, .imgLogin{ position: relative; }
+.formulario, .numIdentificacion, .password, button, .imgLogin{ position: relative; }
 .logo{
   width: 38%;
   margin-top: 8%;
@@ -37,53 +37,130 @@ button{
   font-size: 20px;
 }
 .buttonEnviar{  top: 240px; left: -15%; width: 15%; }
-.olvido{
-  text-decoration: none;
-  color: #00235C;
-  font-size: 20px;
-  font-weight: 700;
-  top: 280px;
-  left: -33%;
-}
 .imgLogin{
   width: 450px;
   top: -19%;
   left: 52%;
 }
 .buttonIniciar{ top: 330px; left: -32%;  width: 20%; }
-@media (min-width: 320px) and (max-width: 768px){
-  .principal{
-    width: 100%;
-    height: 100%;
-  }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
   .formulario{
-    border-radius: 35px;
-    width: 60%;
-    height: 60%;
-    margin: 0% auto;
-    top: 21%;
+    width: 75%;
+    margin-left: 13%;
+    top: 10%;
   }
-  .numIdentificacion{ top: 45px; left: 10%; }
-  .password{ top: 70px; left: 10%;}
-  mat-form-field{ width: 150px; }
   .logo{
+    width: 78%;
+    margin-left: 12%;
+    margin-top: 25%;
+  }
+  mat-form-field{ width: 70%; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 50px; left: 15%; }
+  .password{ top: 70px; left: 15%;}
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{  top: 100px; left: 30%; width: 40%; font-size: 15px;}
+  .buttonIniciar{ top: 150px; left: 15%;  width: 70%; font-size: 15px;}
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .formulario{
+    width: 75%;
+    margin-left: 12%;
+    top: 10%;
+  }
+  .logo{
+    width: 78%;
+    margin-left: 12%;
+    margin-top: 15%;
+  }
+  mat-form-field{ width: 70%; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 190px; left: 15%; }
+  .password{ top: 200px; left: 15%;}
+  .imgLogin{
+    width: 75%;
+    left: 13%;
+    top: -195px;
+  }
+  .buttonEnviar{  top: 210px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 240px; left: 15%;  width: 67%; }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  .formulario{
+    width: 75%;
+    margin-left: 13%;
+    top: 10%;
+  }
+  .logo{
+    width: 78%;
+    margin-left: 12%;
+    margin-top: 10%;
+  }
+  mat-form-field{ width: 180px; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 180px; left: 15%;  width: 70%; }
+  .password{ top: 190px; left: 15%; width: 70%;}
+  .imgLogin{
+    width: 50%;
+    left: 25%;
+    top: -160px;
+  }
+  .buttonEnviar{  top: 190px; left: 30%; width: 35%; }
+  .buttonIniciar{ top: 260px; left: -12%;  width: 50%; }
+}
+/* Tablet pequeña */
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .formulario{
+    width: 75%;
+    margin-left: 13%;
+    top: 10%;
+  }
+  .logo{
+    width: 78%;
+    margin-left: 12%;
+    margin-top: 10%;
+  }
+  mat-form-field{ width: 180px; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 320px; left: 15%;  width: 70%; }
+  .password{ top: 340px; left: 15%; width: 70%;}
+  .imgLogin{
+    width: 70%;
+    left: 17%;
+    top: -150px;
+  }
+  .buttonEnviar{  top: 430px; left: -35%; width: 30%; }
+  .buttonIniciar{ top: 460px; left: 33%;  width: 33%; }
+}
+
+/* Tablet medio */
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  .formulario{
+    width: 70%;
+    margin-left: 15%;
+    top: 10%;
+  }
+  .logo{
+    width: 65%;
+    margin-left: 15%;
+    margin-top: 10%;
+  }
+  hr{ display: none; }
+  .numIdentificacion{ top: 400px; left: 23%; }
+  .password{ top: 430px; left: 23%;}
+  .imgLogin{
     width: 80%;
-    margin-top: 8%;
-    margin-left: 9%;
+    left: 10%;
+    top: -120px;
   }
-  .imgLogin, hr{
-    display: none !important;
-    visibility:hidden !important;
-  }
-  .buttonEnviar{
-    width: 75%;
-    top: 80px;
-    left: 15%;
-  }
-  .buttonIniciar{
-    width: 75%;
-    top: 110px;
-    left: 15%;
-    font-size: 15px;
-  }
+  .buttonEnviar{  top: 530px; left: -20%; width: 30%; }
+  .buttonIniciar{ top: 560px; left: 31%;  width: 33%; }
 }

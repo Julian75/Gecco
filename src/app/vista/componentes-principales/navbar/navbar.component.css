@@ -1,6 +1,7 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
 mat-toolbar{
   background-color: #00235C;
   height: 13%;
@@ -52,4 +53,108 @@ li ul li {
 button{
   border: none;
   background-color: transparent;
+}
+
+.iconMenu{
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  display: none;
+}
+
+@media screen and (min-width: 280px) and (max-width: 359px) {
+  .iconMenu{
+    display: block;
+    position: relative;
+    left: 25%;
+  }
+  .nombre{
+    left: 16%;
+    font-weight: 500;
+  }
+  mat-icon{
+    display: none;
+  }
+  .flecha{
+    display: none;
+
+  }
+}
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .iconMenu{
+    display: block;
+    position: relative;
+    left: 40%;
+  }
+  .nombre{
+    left: 25%;
+    font-weight: 500;
+  }
+  mat-icon{
+    display: none;
+  }
+  .flecha{
+    display: none;
+  }
+}
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  .iconMenu{
+    display: block;
+    position: relative;
+    left: 60%;
+  }
+  .nombre{
+    left: 33%;
+    font-weight: 500;
+  }
+  mat-icon{
+    display: none;
+  }
+  .flecha{
+    display: none;
+  }
+}
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .iconMenu{
+    display: block;
+    position: relative;
+    left: 75%;
+  }
+  .nombre{
+    left: 70%;
+    font-weight: 500;
+  }
+  mat-icon{
+    display: none;
+  }
+  .flecha{
+    display: none;
+  }
+}
+/* Tablet medio - iPad Air*/
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+  .iconMenu{
+    display: none;
+
+  }
+  .flecha{
+    display: flex;
+    position: relative;
+
+  }
+  .nombre{
+    left: 66%;
+    font-weight: 500;
+  }
+  mat-icon{
+    display: none;
+  }
+  mat-toolbar{
+    background-color: #00235C;
+    height: 10%;
+  }
+
 }

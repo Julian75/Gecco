@@ -32,3 +32,45 @@ h2{
   padding-top: 3%;
   padding-bottom: 4%;
 }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .nombre{ width: 95%;}
+  .guardar{
+    margin-left: 5%;
+    width: 96%;
+  }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .nombre{ width: 95%;}
+  .guardar{
+    margin-left: 5%;
+    width: 72%;
+  }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  .guardar{
+    margin-left: 5%;
+    width: 45%;
+  }
+}
+
+/* Tablet pequeña */
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .guardar{
+    margin-left: 5%;
+    width: 45%;
+  }
+}
+
+/* Tablet medio */
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  .guardar{
+    margin-left: 5%;
+    width: 45%;
+  }
+}

@@ -47,3 +47,41 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
+.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar mat-icon{ font-size: 24px; }
+.botonagregar{ margin-left: 2%; }
+#idSpa, #descSpa, #opcSpa{ position: relative; }
+#idSpa{ left: 50px; }
+#descSpa{ left: 125px; }
+#idSp2{ padding-left: 0%; }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  h2{
+    font-size: 13px;
+  }
+  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
+  .botonagregar mat-icon{ font-size: 18px; }
+  .botonagregar{ margin-left: 5%; }
+  .excelButton{ margin-left: -5%; }
+  h3{
+    margin-left: 3%;
+    font-size: 12px;
+  }
+  td { font-size: 11px; height: 0px;}
+  .btnremove, .btnedit, .btnver{
+    width: 20px !important;
+    height: 23px;
+    position: relative;
+    left: 12%;
+  }
+  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
+  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+  button i{ position: relative; top: -15%; }
+  #idSpa{ left: 8px; }
+  #descSpa{ left: 10px; }
+  #opcSpa{ left: 8px; }
+}
+
+

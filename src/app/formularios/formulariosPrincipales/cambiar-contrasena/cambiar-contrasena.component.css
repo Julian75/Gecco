@@ -37,7 +37,10 @@ button{
   color: white;
   font-size: 20px;
 }
-.buttonEnviar{  top: 270px; left: -53.5%; width: 28%; }
+.buttonEnviar{  top: 270px; left: -53.5%; width: 28%;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 100%;}
 .olvido{
   text-decoration: none;
   color: #00235C;
@@ -51,4 +54,366 @@ button{
   top: -19%;
   left: 52%;
 }
-.buttonIniciar{ top: 290px; left: 13.5%;  width: 20%; }
+
+.buttonIniciar{ top: 290px; left: 13.5%;  width: 20%;  display: inline-block;
+  vertical-align: middle;
+  line-height: 100%; }
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .formulario{
+    background-color: #ECECEC;
+    border-radius: 35px;
+    width: 90%;
+    height: 70%;
+    position: relative;
+    top: 10%;
+    border: 5px solid #A9B0B8;
+  }
+  .logo{
+    width: 85%;
+    margin-top: 15%;
+    margin-left: 8%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  mat-form-field{ width: 65%;
+    padding: 0%;
+    margin-left: 45%;
+    display: block;
+   }
+  hr{
+    display: none;
+  }
+  .numIdentificacion{
+    left: -27%;
+    display: block;
+    position: absolute;
+    top: 22%;
+  }
+  .contrasenaNueva {
+    left: -27%;
+    display: block;
+    position: absolute;
+    top: 38%;
+  }
+  .password{
+    left: -27%;
+    display: block;
+    position: absolute;
+    top: 53%;
+  }
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{
+    width: 60%;
+    left: 19%;
+    top: 240px;
+  }
+  .buttonEnviar, span{
+    font-size: 10px;
+    width: 63%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+  .buttonIniciar{
+    width: 63%;
+    left: 19%;
+    top: 265px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .formulario{
+    background-color: #ECECEC;
+    border-radius: 35px;
+    width: 85%;
+    height: 70%;
+    position: relative;
+    top: 10%;
+    border: 5px solid #A9B0B8;
+  }
+  .logo{
+    width: 85%;
+    margin-top: 15%;
+    margin-left: 8%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  mat-form-field{ width: 65%;
+    padding: 0%;
+    margin-left: 45%;
+    display: block;
+   }
+  hr{
+    display: none;
+  }
+  .numIdentificacion{
+    left: -28%;
+    display: block;
+    position: absolute;
+    top: 25%;
+  }
+  .contrasenaNueva {
+    left: -28%;
+    display: block;
+    position: absolute;
+    top: 40%;
+  }
+  .password{
+    left: -28%;
+    display: block;
+    position: absolute;
+    top: 56%;
+  }
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{
+    width: 60%;
+    left: 19%;
+  }
+  .buttonEnviar, span{
+    font-size: 10px;
+    width: 63%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+  .buttonIniciar{
+    width: 63%;
+    left: 19%;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  .formulario{
+    background-color: #ECECEC;
+    border-radius: 35px;
+    width: 60%;
+    height: 70%;
+    position: relative;
+    top: 10%;
+    border: 5px solid #A9B0B8;
+  }
+  .logo{
+    width: 85%;
+    margin-top: 15%;
+    margin-left: 8%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  mat-form-field{ width: 80%;
+    padding: 0%;
+    margin-left: 45%;
+    display: block;
+   }
+  hr{
+    display: none;
+  }
+  .numIdentificacion{
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 25%;
+  }
+  .contrasenaNueva {
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 40%;
+  }
+  .password{
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 56%;
+  }
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{
+    width: 60%;
+    left: 19%;
+  }
+  .buttonEnviar, span{
+    font-size: 10px;
+    width: 62%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+  .buttonIniciar{
+    width: 63%;
+    left: 19%;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+}
+
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .formulario{
+    background-color: #ECECEC;
+    border-radius: 35px;
+    width: 60%;
+    height: 70%;
+    position: relative;
+    top: 10%;
+    border: 5px solid #A9B0B8;
+  }
+  .logo{
+    width: 85%;
+    margin-top: 15%;
+    margin-left: 8%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  mat-form-field{ width: 80%;
+    padding: 0%;
+    margin-left: 45%;
+    display: block;
+   }
+  hr{
+    display: none;
+  }
+  .numIdentificacion{
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 25%;
+  }
+  .contrasenaNueva {
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 40%;
+  }
+  .password{
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 55%;
+  }
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{
+    width: 60%;
+    left: 19%;
+    top: 370px;
+  }
+  .buttonEnviar, span{
+    font-size: 10px;
+    width: 62%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+  .buttonIniciar{
+    width: 63%;
+    left: 19%;
+    top: 420px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+}
+/* Tablet medio - iPad Air*/
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  .formulario{
+    background-color: #ECECEC;
+    border-radius: 35px;
+    width: 60%;
+    height: 70%;
+    position: relative;
+    top: 10%;
+    border: 5px solid #A9B0B8;
+  }
+  .logo{
+    width: 85%;
+    margin-top: 15%;
+    margin-left: 8%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  mat-form-field{ width: 80%;
+    padding: 0%;
+    margin-left: 45%;
+    display: block;
+   }
+  hr{
+    display: none;
+  }
+  .numIdentificacion{
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 25%;
+  }
+  .contrasenaNueva {
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 40%;
+  }
+  .password{
+    left: -35%;
+    display: block;
+    position: absolute;
+    top: 55%;
+  }
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{
+    width: 60%;
+    left: 19%;
+    top: 420px;
+  }
+  .buttonEnviar, span{
+    font-size: 10px;
+    width: 62%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+  .buttonIniciar{
+    width: 63%;
+    left: 19%;
+    top: 470px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 100%;
+  }
+}

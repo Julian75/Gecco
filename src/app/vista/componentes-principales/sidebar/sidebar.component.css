@@ -27,3 +27,44 @@ mat-expansion-panel{
 }
 mat-panel-title{ color: white; font-weight: 700; }
 button{ width: 125%; margin-left: -12%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  mat-drawer{
+    display: none;
+  }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  mat-drawer{
+    display: none;
+  }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  mat-drawer{
+    display: none;
+  }
+}
+
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  mat-drawer{
+    display: none;
+  }
+}
+/* Tablet medio - iPad Air*/
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  .logo{
+    width: 95%;
+    position: relative;
+    top: -2%;
+  }
+  mat-expansion-panel{ position: relative; top: -4.5%; }
+  mat-drawer{
+    background-color: #00235C;
+    width: 22%;
+  }
+}
