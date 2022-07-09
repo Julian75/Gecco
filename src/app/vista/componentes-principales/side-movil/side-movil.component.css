@@ -1,0 +1,137 @@
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .example {
+    height: 100%;
+  }
+  mat-drawer{
+    background-color: #00235C;
+    width: 100%;
+  }
+  .logo{
+    width: 60%;
+    position: relative;
+    top: -6%;
+    margin-left: 18%;
+  }
+  .boton{
+    width: 100%;
+    background: #2e68c7 ! important;
+    color: white;
+    text-align: left;
+    font-size: 15px;
+  }
+  div.dataTables_wrapper{ margin-top: 5%;}
+  mat-icon{ margin-left: 20%; font-size: 35px; margin-top: -8%;}
+  mat-expansion-panel{ border-radius: 0%; }
+  mat-expansion-panel-header:hover{ background: #3d74cc !important; margin:0%}
+  mat-expansion-panel{
+    position: relative;
+    top: -10%;
+  }
+  mat-panel-title{ color: white; font-weight: 700; }
+  button{ width: 125%; margin-left: -8%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  .opciones{ width: 98%; }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .example {
+    height: 100%;
+  }
+  mat-drawer{
+    background-color: #00235C;
+    width: 100%;
+  }
+  .logo{
+    width: 60%;
+    position: relative;
+    top: -6%;
+    margin-left: 18%;
+  }
+  .boton{
+    width: 100%;
+    background: #2e68c7 ! important;
+    color: white;
+    text-align: left;
+    font-size: 15px;
+  }
+  div.dataTables_wrapper{ margin-top: 5%;}
+  mat-icon{ margin-left: 20%; font-size: 35px; margin-top: -8%;}
+  mat-expansion-panel{ border-radius: 0%; }
+  mat-expansion-panel-header:hover{ background: #3d74cc !important; margin:0%}
+  mat-expansion-panel{
+    position: relative;
+    top: -10%;
+  }
+  mat-panel-title{ color: white; font-weight: 700; }
+  button{ width: 125%; margin-left: -8%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  .opciones{ width: 98%; }
+}
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  .example {
+    height: 100%;
+  }
+  mat-drawer{
+    background-color: #00235C;
+    width: 100%;
+  }
+  .logo{
+    width: 40%;
+    position: relative;
+    top: -6%;
+    margin-left: 28%;
+  }
+  .boton{
+    width: 100%;
+    background: #2e68c7 ! important;
+    color: white;
+    text-align: left;
+    font-size: 15px;
+  }
+  div.dataTables_wrapper{ margin-top: 5%;}
+  mat-icon{ margin-left: 20%; font-size: 35px; margin-top: -8%;}
+  mat-expansion-panel{ border-radius: 0%; }
+  mat-expansion-panel-header:hover{ background: #3d74cc !important; margin:0%}
+  mat-expansion-panel{
+    position: relative;
+    top: -10%;
+  }
+  mat-panel-title{ color: white; font-weight: 700; }
+  button{ width: 125%; margin-left: -5%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  .opciones{ width: 98%; }
+}
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .example {
+    height: 100%;
+  }
+  mat-drawer{
+    background-color: #00235C;
+    width: 100%;
+  }
+  .logo{
+    width: 35%;
+    position: relative;
+    top: -6%;
+    margin-left: 32%;
+  }
+  .boton{
+    width: 100%;
+    background: #2e68c7 ! important;
+    color: white;
+    text-align: left;
+    font-size: 15px;
+  }
+  div.dataTables_wrapper{ margin-top: 5%;}
+  mat-icon{ margin-left: 20%; font-size: 35px; margin-top: -8%;}
+  mat-expansion-panel{ border-radius: 0%; }
+  mat-expansion-panel-header:hover{ background: #3d74cc !important; margin:0%}
+  mat-expansion-panel{
+    position: relative;
+    top: -10%;
+  }
+  mat-panel-title{ color: white; font-weight: 700; }
+  button{ width: 125%; margin-left: -4%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  .opciones{ width: 98%; }
+}

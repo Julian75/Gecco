@@ -10,8 +10,9 @@
       <button (click)="salir()">Cerrar Sesion</button>
     </mat-option>
   </mat-select>
-  <span mat-button id="iconMenu" class="iconMenu" >
+
+  <button mat-button id="iconMenu" class="iconMenu" routerLink="/sidebarMovil">
     <i class="fa-solid fa-bars"></i>
-  </span>
+  </button>
 </mat-toolbar>
 <router-outlet></router-outlet>

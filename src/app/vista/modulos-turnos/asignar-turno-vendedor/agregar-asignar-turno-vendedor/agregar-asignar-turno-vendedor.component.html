@@ -1,5 +1,3 @@
-
-
 <div class="contenedor">
   <h2 class="dato">Agregar Nueva Asignacion de Turno a Vendedor</h2>
   <form [formGroup]="formAsignarTurno">
@@ -16,11 +14,17 @@
       <div class="nombre3">
         <h2 class="sitio">Sitio Venta</h2>
         <mat-form-field class="nombre1" appearance="fill">
-        <mat-label>Ingrese Sitio Venta</mat-label>
-        <select matNativeControl id="sitioVenta" name="sitioVenta" formControlName="sitioVenta" [(ngModel)]="idSitioVenta" (change)="idSitiosVentas()">
-          <option ></option>
-          <option *ngFor="let item of listarSitioVentas"  value="{{item.ideSitioventa}}" [ngValue]="item">{{item.ideSitioventa}} | {{item.nom_sitioventa}}</option>
-        </select>
+          <mat-label>Ingrese Sitio Venta</mat-label>
+          <input type="text"
+          aria-label="text"
+          matInput
+          [formControl]="control"
+          [matAutocomplete]="auto2" >
+          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onSelectionChanged2($event)" [displayWith]="displaySf" id="sitioVenta" name="sitioVenta" formControlName="sitioVenta" >
+            <mat-option *ngFor="let item of opcionesFiltradas | async"  [value]="item" ngValue="item.ideSitioventa" >
+              {{item.ideSitioventa}} | {{item.nom_sitioventa}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div class="nombre4">
@@ -34,13 +38,19 @@
       </div>
       <div class="nombre5">
         <h2 class="vendedor1">Vendedor</h2>
-        <mat-form-field class="nombre" appearance="fill">
+        <mat-form-field class="example-full-width ven" appearance="fill">
           <mat-label>Ingrese Vendedor</mat-label>
-          <select matNativeControl id="vendedor" name="vendedor" formControlName="vendedor" [(ngModel)]="idVendedor" (change)="idVendedortabla()">
-            <option></option>
-            <option *ngFor="let item of listarVendedores"  value="{{item.ideUsuario}}" [ngValue]="item">{{item.num_identificacion}} | {{item.nombres}} {{item.apellido1}}</option>
-          </select>
-          </mat-form-field>
+          <input type="text"
+           aria-label="text"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto" >
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="vendedor" name="vendedor" formControlName="vendedor" >
+            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.ideUsuario" >
+              {{item.num_identificacion}} | {{item.nombres}} {{item.apellido1}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </div>
       <div class="nombre3">
         <h2 class="fecha1">Fecha Inicio</h2>
@@ -72,51 +82,51 @@
     <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef id="idSp2"><h3 id="idSpa">Id</h3></th>
-        <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+        <th mat-header-cell *matHeaderCellDef ><h1>Id</h1></th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombreVendedor">
-          <th mat-header-cell *matHeaderCellDef><h3 id="nombreSpa">Nombre Vendedor</h3></th>
+          <th mat-header-cell *matHeaderCellDef><h1>Nombre Vendedor</h1></th>
           <td mat-cell *matCellDef="let element">{{element.nombreVendedor}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombreOficina">
-        <th mat-header-cell *matHeaderCellDef><h3 id="nombreOficSpa">Nombre Oficina</h3></th>
+        <th mat-header-cell *matHeaderCellDef><h1>Nombre Oficina</h1></th>
         <td mat-cell *matCellDef="let element">{{element.nombreOficina}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombreSitioVenta">
-        <th mat-header-cell *matHeaderCellDef><h3 id="nombreSitioVSpa">Nombre Sitio Venta</h3></th>
+        <th mat-header-cell *matHeaderCellDef><h1>Nombre Sitio Venta</h1></th>
         <td mat-cell *matCellDef="let element">{{element.nombreSitioVenta}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="fechaInicio">
-        <th mat-header-cell *matHeaderCellDef><h3 id="fechaISpa">Fecha Inicio</h3></th>
+        <th mat-header-cell *matHeaderCellDef><h1>Fecha Inicio</h1></th>
         <td mat-cell *matCellDef="let element">{{element.fechaInicio}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="fechaFinal">
-        <th mat-header-cell *matHeaderCellDef><h3 id="fechaFSpa">Fecha Final</h3></th>
+        <th mat-header-cell *matHeaderCellDef><h1>Fecha Final</h1></th>
         <td mat-cell *matCellDef="let element">{{element.fechaFinal}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="turno">
-        <th mat-header-cell *matHeaderCellDef rowspan="2"><h3 id="turnoSpa">Turno</h3></th>
+        <th mat-header-cell *matHeaderCellDef rowspan="2"><h1>Turno</h1></th>
         <td mat-cell *matCellDef="let element" >{{element.idTurno.horaInicio}} - {{element.idTurno.horaFinal}} | {{element.idTurno.idTipoTurno.descripcion}}</td>
       </ng-container>
 
       <!--Opciones-->
       <ng-container matColumnDef="opciones">
-        <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
+        <th mat-header-cell *matHeaderCellDef >Opciones</th>
         <td mat-cell *matCellDef="let item">
-          <button class="btn btnremove" (click)="eliminarAsignarTurnoVendedor(item.id)">
+          <button mat-button class="btn btnremove" (click)="eliminarAsignarTurnoVendedor(item.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

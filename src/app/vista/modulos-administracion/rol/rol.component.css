@@ -76,11 +76,11 @@ mat-form-field{
     width: 20px !important;
     height: 23px;
     position: relative;
-    left: 12%;
+    left: 6%;
     margin-top: 8%;
     margin-bottom: 8%;
   }
-  .btnver{ left: 2%; }
+  .btnver{ left: 1%; }
   .excelButton{ margin-left: -5%; }
   .botonagregar, .excelButton{
     width: 38px;
@@ -115,7 +115,7 @@ mat-form-field{
     width: 27px !important;
     height: 26px;
     position: relative;
-    left: 12%;
+    left: 8%;
     margin-top: 8%;
     margin-bottom: 8%;
   }
@@ -143,7 +143,7 @@ mat-form-field{
     width: 40px !important;
     height: 30px;
   }
-  .btnedit{ position: relative; left: 4%; }
+  .btnedit{ position: relative; left: 3%; }
   .btnremove{ position: relative; left: 1%; }
   .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }

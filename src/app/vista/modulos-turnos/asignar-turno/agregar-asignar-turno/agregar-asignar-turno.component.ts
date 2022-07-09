@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AsignarTurno } from './../../../../modelos/asignarTurno';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { TurnosService } from 'src/app/servicios/turnos.service';
 import { SitioVentaService} from 'src/app/servicios/serviciosSiga/sitioVenta.service';
@@ -9,6 +9,10 @@ import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.servic
 import { AsignarTurnoService } from 'src/app/servicios/asignarTurno.service';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
+import { SitioVenta } from 'src/app/modelos/modelosSiga/sitioVenta';
+import { map, Observable, startWith } from 'rxjs';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 
 @Component({
   selector: 'app-agregar-asignar-turno',
@@ -16,6 +20,10 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./agregar-asignar-turno.component.css']
 })
 export class AgregarAsignarTurnoComponent implements OnInit {
+  myControl = new FormControl<string | SitioVenta>("");
+  options: SitioVenta[] = []
+  filteredOptions!: Observable<SitioVenta[]>;
+
   dtOptions: any = {};
   public formAsignarTurno!: FormGroup;
   public listarEstado: any = [];
@@ -112,16 +120,47 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       this.listaSitioVenta = []
       this.servicioSitioVenta.listarPorId(ultimo).subscribe(res=>{
         this.listarSitioVentas = res
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(""),
+          map(value => {
+            // const num_identificacion = typeof value == 'string' ? value : value?.ideSitioventa;
+            const nombres = typeof value == 'string' ? value : value?.nom_sitioventa;
+            return nombres ? this._filter(nombres as string, this.listarSitioVentas) : this.listarSitioVentas.slice();
+          }),
+        );
       })
     }
   }
 
-  idSitioVenta: any // Id de la oficina capturado - 18
+  textoUsuarioVendedor:any
+  displayFn(sitioVenta: SitioVenta): any {
+    this.textoUsuarioVendedor = sitioVenta
+    if(this.textoUsuarioVendedor == ""){
+      this.textoUsuarioVendedor = " "
+    }else{
+      this.textoUsuarioVendedor = sitioVenta.nom_sitioventa
 
-  public idSitiosVentas(){
-    const listaSitioVenta = this.idSitioVenta
+      return this.textoUsuarioVendedor;
+    }
+  }
+
+  public _filter(nombres: string, vendedores:any): VisitasSiga[] {
+
+    const filterNom = nombres.toLowerCase();
+
+    return vendedores.filter((vendedores:any) => (vendedores.nom_sitioventa.toLowerCase().includes(filterNom)));
+  }
+
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    console.log(event.option.value);
+    this.idSitiosVentas(event.option.value)
+  }
+
+  public idSitiosVentas(idSitioventa:any){
+    const listaSitioVenta = idSitioventa
     this.listaIdSitioVenta.push(listaSitioVenta.ideSitioventa)
     let ultimo = this.listaIdSitioVenta[this.listaIdSitioVenta.length - 1]
+    localStorage.setItem("v", ultimo)
     let penultimo = this.listaIdSitioVenta[this.listaIdSitioVenta.length - 2]
     if(ultimo != penultimo || penultimo == undefined){
       this.servicioAsignarTurno.listarTodos().subscribe(res=>{
@@ -151,11 +190,11 @@ export class AgregarAsignarTurnoComponent implements OnInit {
               if(element.ideOficina == idOficina.ideOficina){
                 asignarTurno.idOficina = element.ideOficina
                 asignarTurno.nombreOficina = element.nom_oficina
-                const idSitioVenta = this.formAsignarTurno.controls['sitioVenta'].value
+                const idSitioVenta = Number(localStorage.getItem("v"))
                 this.servicioSitioVenta.listarTodos().subscribe(res => {
                   for (let index = 0; index < res.length; index++) {
                     const element = res[index];
-                    if(element.ideSitioventa == idSitioVenta.ideSitioventa){
+                    if(element.ideSitioventa == idSitioVenta){
                       asignarTurno.idSitioVenta = element.ideSitioventa
                       asignarTurno.nombreSitioVenta = element.nom_sitioventa
                       const idTurno = this.formAsignarTurno.controls['turno'].value
@@ -210,6 +249,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       this.listaSitioVentasTabla = []
       this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
       this.router.navigate(['/asignarTurno']);
+      localStorage.removeItem("v")
     }, error => {
       Swal.fire({
         position: 'center',

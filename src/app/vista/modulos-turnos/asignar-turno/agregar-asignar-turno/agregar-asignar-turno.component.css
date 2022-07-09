@@ -52,6 +52,7 @@ td {
 .btnremove{ width: 64px; height: 36px; }
 .btnremove { position: relative; left: 15px; }
 
+mat-option{ font-size: 10.5px; }
 h2{
 margin: 0;
 }

@@ -32,6 +32,7 @@ import { AutorizacionGuard } from '../guards/autorizacion.guard';
 import { ElementosVisitaComponent } from './modulos-visita/elementos-visita/elementos-visita.component';
 import { AgregarElementosVisitaComponent } from './modulos-visita/elementos-visita/agregar-elementos-visita/agregar-elementos-visita.component';
 import { ModificarElementosVisitaComponent } from './modulos-visita/elementos-visita/modificar-elementos-visita/modificar-elementos-visita.component';
+import { SideMovilComponent } from './componentes-principales/side-movil/side-movil.component';
 
 const routes: Routes = [
   {
@@ -199,6 +200,11 @@ const routes: Routes = [
       {
         path: 'visitaDetalle',
         component: VisitaDetalleComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'sidebarMovil',
+        component: SideMovilComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

@@ -59,7 +59,7 @@ export class MallasComponent implements OnInit {
           this.listaAsignacionesTurnoVendedores = res;
           const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
           this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-          var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+          var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
           var validacion: any = false
           res.forEach(element => {
             var malla1 = {
@@ -71,11 +71,13 @@ export class MallasComponent implements OnInit {
               nombreEstado: '',
               validar: false
             };
+            var horaFinal = element.idTurno.horaInicio.split(':')
+            var horaAsignada = new Date(Number(horaFinal[0]),Number(horaFinal[1]))
             var fechaInicio = new Date(element.fechaInicio);
             var fechaF = new Date(element.fechaFinal);
             const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
             if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
-              if(horaActual>=element.idTurno.horaInicio){
+              if( horaActual >= horaAsignada){
                 this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                   var primerObjeto  = resHistorial[0]
                   if(resHistorial.length < 1  ){
@@ -180,7 +182,7 @@ export class MallasComponent implements OnInit {
         this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
           const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
           this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-          var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+          var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
           var validacion: any = false
           res.forEach(element => {
             if(element.ideSubzona  == resUsuario.ideSubzona){
@@ -193,11 +195,13 @@ export class MallasComponent implements OnInit {
                 nombreEstado: '',
                 validar: false
               };
+              var horaFinal = element.idTurno.horaInicio.split(':')
+              var horaAsignada = new Date(Number(horaFinal[0]),Number(horaFinal[1]))
               var fechaInicio = new Date(element.fechaInicio);
               var fechaF = new Date(element.fechaFinal);
               const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
               if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
-                if(horaActual>=element.idTurno.horaInicio){
+                if( horaActual >= horaAsignada){
                   this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                     var primerObjeto  = resHistorial[0]
                     if(resHistorial.length < 1  ){
@@ -304,7 +308,7 @@ export class MallasComponent implements OnInit {
         this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
           const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
           this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-          var horaActual = this.fecha.getHours() + ":"+ this.fecha.getMinutes();
+          var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
           var validacion: any = false
           res.forEach(element => {
             if(element.idOficina  == resUsuario.ideOficina){
@@ -317,11 +321,13 @@ export class MallasComponent implements OnInit {
                 nombreEstado: '',
                 validar: false
               };
+              var horaFinal = element.idTurno.horaInicio.split(':')
+              var horaAsignada = new Date(Number(horaFinal[0]),Number(horaFinal[1]))
               var fechaInicio = new Date(element.fechaInicio);
               var fechaF = new Date(element.fechaFinal);
               const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
               if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
-                if(horaActual>=element.idTurno.horaInicio){
+                if( horaActual >= horaAsignada){
                   this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                     var primerObjeto  = resHistorial[0]
                     if(resHistorial.length < 1  ){

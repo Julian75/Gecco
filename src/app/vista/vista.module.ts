@@ -60,6 +60,7 @@ import { ErrorComponent } from './error/error.component';
 import { ElementosVisitaComponent } from './modulos-visita/elementos-visita/elementos-visita.component';
 import { AgregarElementosVisitaComponent } from './modulos-visita/elementos-visita/agregar-elementos-visita/agregar-elementos-visita.component';
 import { ModificarElementosVisitaComponent } from './modulos-visita/elementos-visita/modificar-elementos-visita/modificar-elementos-visita.component';
+import { SideMovilComponent } from './componentes-principales/side-movil/side-movil.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { ModificarElementosVisitaComponent } from './modulos-visita/elementos-vi
     ElementosVisitaComponent,
     AgregarElementosVisitaComponent,
     ModificarElementosVisitaComponent,
+    SideMovilComponent,
   ],
   imports: [
     CommonModule,

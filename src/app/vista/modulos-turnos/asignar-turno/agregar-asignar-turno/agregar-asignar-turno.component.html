@@ -17,10 +17,16 @@
         <h2 class="sitio">Sitio Venta</h2>
         <mat-form-field class="nombre1" appearance="fill">
         <mat-label>Ingrese Sitio Venta</mat-label>
-        <select matNativeControl id="sitioVenta" name="sitioVenta" formControlName="sitioVenta" [(ngModel)]="idSitioVenta" (change)="idSitiosVentas()">
-          <option></option>
-          <option *ngFor="let item of listarSitioVentas"  value="{{item.ideSitioventa}}" [ngValue]="item">{{item.ideSitioventa}} | {{item.nom_sitioventa}}</option>
-        </select>
+          <input type="text"
+           aria-label="text"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto" >
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="sitioVenta" name="sitioVenta" formControlName="sitioVenta" >
+            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.ideSitioventa" >
+              {{item.ideSitioventa}} | {{item.nom_sitioventa}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div class="nombre4">
