@@ -18,20 +18,20 @@ h3{
   background-color: #97B4E2;
   width: 10%;
 }
-.bot{background-color: #00235C;}
+
 th{
   background-color: #00235C;
   color: #fff;
   position: relative;
   margin-left: 15px;
 }
-h2{ font-weight: 700; }
 .excelButton{
   background-color: #6DBE53;
   color: white;
 }
 
 .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+.botonagregar{ position: relative; margin-left: 1.3%; }
 td {
   border: 1px solid #000;
   text-align: center;
@@ -39,11 +39,134 @@ td {
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
-.boton{ background-color: #00235C; left: 12px;}
+.boton{ background-color: #00235C; }
+.btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
 mat-form-field{
   width: 20%;
   margin-left: 79.5%;
   margin-top: -15%;
+}
+.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .botonvolver{ width: 64px; height: 36px; }
+.botonagregar mat-icon{ font-size: 24px; }
+.botonvolver{ background-color: #00235C; left: 12px;}
+#idSp{ left: 46px; }
+#desSp{ left: 107px; }
+#obsSp{ left: 108px; }
+#opcSp{ text-align: center; left: 8px;}
+#idSp, #desSp, #obsSp, #opcSp{ position: relative; }
+#idSp2{ padding-left: 0%; }
+.excelButton{ margin-left: -1%; font-size: 20px; }
+.excelButton i{ position: relative; top: -3px; }
+h2{ font-weight: 700; }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  h2{
+    font-size: 13px;
+  }
+  .botonagregar, .excelButton, .botonagregar2, .botonvolver{ width: 38px; height: 30px; }
+  .botonagregar mat-icon, .botonvolver mat-icon{ font-size: 18px; }
+  .excelButton{ margin-left: -5%; }
+  h3{
+    margin-left: 3%;
+    font-size: 12px;
+  }
+  td { font-size: 11px; height: 0px;}
+  .btnremove, .btnedit, .btnver{
+    width: 20px !important;
+    height: 23px;
+    position: relative;
+    left: 12%;
+  }
+  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
+  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+  button i{ position: relative; top: -15%; }
+  #idSp2{ padding-left: 0%; }
+  #opcSp2{ padding-right: 0%; }
+  #idSp{ left: 9px; }
+  #desSp{ left: 7px; }
+  #obsSp{ left: 5px; }
+  #opcSp{ left: 0px;}
+  .excelButton{ font-size: 15px; }
+  .excelButton i{ top: -2px; }
+  .botonvolver mat-icon{ margin-left: -6px; }
+  .botonagregar{ margin-left: 5%; }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  h2{
+    font-size: 13px;
+  }
+  .botonagregar, .excelButton, .botonagregar2, .botonvolver{ width: 38px; height: 30px; }
+  .botonagregar mat-icon{ font-size: 18px; }
+  .excelButton{ margin-left: -5%; }
+  h3{
+    margin-left: 3%;
+    font-size: 13px;
+  }
+  td { font-size: 12px; height: 0px;}
+  .btnremove, .btnedit, .btnver{
+    width: 27px !important;
+    height: 26px;
+    position: relative;
+    left: 7%;
+  }
+  td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
+  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+  .botonvolver mat-icon{ font-size: 18px; }
+  button i{ position: relative; top: -15%; }
+  #idSp2{ padding-left: 0%; }
+  #opcSp2{ padding-right: 0%; }
+  #idSp{ left: 10px; }
+  #desSp{ left: 10px; }
+  #obsSp{ left: 10px; }
+  #opcSp{ left: 0px;}
+  .excelButton{ font-size: 15px; }
+  .excelButton i{ top: -2px; }
+  .botonagregar{ margin-left: 3%; }
+  .botonvolver mat-icon{ margin-left: -6px; }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  td { font-size: 14px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #idSp2{ padding-left: 0%; }
+  #opcSp2{ padding-right: 0%; }
+  #idSp{ left: 11px; }
+  #desSp{ left: 17px; }
+  #obsSp{ left: 15px; }
+  #opcSp{ left: 0px;}
+  .botonagregar{ margin-left: 4.5%; }
+}
+
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #idSp2{ padding-left: 0%; }
+  #opcSp2{ padding-right: 0%; }
+  #idSp{ left: 18px; }
+  #desSp{ left: 51px; }
+  #obsSp{ left: 49px; }
+  #opcSp{ left: 0px;}
+  .botonagregar{ margin-left: 2.5%; }
+}
+
+/* Tablet medio - iPad Air*/
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #idSp2{ padding-left: 0%; }
+  #opcSp2{ padding-right: 0%; }
+  #idSp{ left: 13px; }
+  #desSp{ left: 31px; }
+  #obsSp{ left: 31px; }
+  #opcSp{ left: 0px;}
+  .botonagregar{ margin-left: 3.5%; }
 }

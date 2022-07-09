@@ -1,9 +1,9 @@
-import { UsuariosVendedores } from 'src/app/modelos/modelosSiga/usuariosVendedores';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { AsignarTurno } from 'src/app/modelos/asignarTurno';
 import { AsignarTurnoService } from 'src/app/servicios/asignarTurno.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
@@ -12,9 +12,6 @@ import { UsuarioVendedoresService } from 'src/app/servicios/serviciosSiga/usuari
 import { TurnosService } from 'src/app/servicios/turnos.service';
 import Swal from 'sweetalert2';
 import { AsignarTurnoVendedor } from 'src/app/modelos/asignarTurnoVendedor';
-import { map, Observable, startWith } from 'rxjs';
-import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-agregar-asignar-turno-vendedor',
@@ -22,10 +19,6 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./agregar-asignar-turno-vendedor.component.css']
 })
 export class AgregarAsignarTurnoVendedorComponent implements OnInit {
-  myControl = new FormControl<string | UsuariosVendedores>("");
-
-  options: VisitasSiga[] = []
-  filteredOptions!: Observable<UsuariosVendedores[]>;
 
   dtOptions: any = {};
   public formAsignarTurno!: FormGroup;
@@ -46,9 +39,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   public listaSitioVentaTabla:any=[];
   public listaSitioVentasTabla:any=[]
 
-  public encontrado = false;
-  public listarExiste: any = [];
-  public identificacion:any;
 
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -101,6 +91,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   id: any // Id de la oficina capturado - 18
+
   idOficina(){
     this.listarSitioVenta = []
     const listaOficina = this.id
@@ -113,43 +104,11 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.servicioUsuarioVendedor.listarPorId(ultimo).subscribe(res=>{
         this.listarVendedores = res
-        this.filteredOptions = this.myControl.valueChanges.pipe(
-          startWith(""),
-          map(value => {
-            const num_identificacion = typeof value == 'string' ? value : value?.num_identificacion;
-            const nombres = typeof value == 'string' ? value : value?.nombres;
-            const apellido = typeof value == 'string' ? value : value?.apellido1;
-            return num_identificacion ? this._filter(num_identificacion as string, nombres as string, apellido as string, this.listarVendedores) : this.listarVendedores.slice();
-          }),
-        );
+        console.log
       })
-    }
-  }
-  textoUsuarioVendedor:any
-  cThis = this
-  displayFn(usuariosVendedores: UsuariosVendedores): any {
-    this.textoUsuarioVendedor = usuariosVendedores
-    console.log(usuariosVendedores.nombres)
-    if(this.textoUsuarioVendedor == ""){
-      this.textoUsuarioVendedor = " "
     }else{
-      this.textoUsuarioVendedor = usuariosVendedores.num_identificacion+" | "+usuariosVendedores.nombres+" "+usuariosVendedores.apellido1
-
-      return this.textoUsuarioVendedor;
+      console.log("todo igual")
     }
-  }
-
-  public _filter(numIdentificacion: string, nombres: string, apellidos: string, vendedores:any): VisitasSiga[] {
-
-    const filterValue = numIdentificacion;
-    const filterNom = nombres.toLowerCase();
-    const filterApellidos = apellidos.toLowerCase();
-
-    return vendedores.filter((vendedores:any) => (vendedores.num_identificacion.includes(filterValue) || vendedores.nombres.toLowerCase().includes(filterNom) || vendedores.apellido1.toLowerCase().includes(filterApellidos)));
-  }
-
-  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
   }
 
   idSitioVenta: any // Id de la oficina capturado - 18
@@ -174,22 +133,28 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                 }
               });
               this.listarTurnos = this.listaTurno
+              console.log(this.listarTurnos)
             })
           }
         }
       })
+    }else{
+      console.log("todo igual")
     }
   }
 
-  public idVendedortabla(idVendedor:any){
-    console.log("wneu")
-    const listaVendedores = idVendedor
+  idVendedor: any
+  public idVendedortabla(){
+    const listaVendedores = this.idVendedor
+    console.log(listaVendedores)
     this.listaIdVendedor.push(listaVendedores.ideUsuario)
+    console.log(this.listaIdVendedor)
     let ultimo = this.listaIdVendedor[this.listaIdVendedor.length - 1]
     let penultimo = this.listaIdVendedor[this.listaIdVendedor.length - 2]
     if(ultimo != penultimo || penultimo == undefined){
       this.servicioAsigarTurnoVendedor.listarTodos().subscribe(res=>{
         this.listaSitioVentaTabla =[]
+        console.log(res)
         for (let index = 0; index < res.length; index++) {
           const element = res[index];
           if(element.idVendedor == ultimo){
@@ -197,6 +162,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           }
         }
         this.listaSitioVentasTabla = this.listaSitioVentaTabla
+        console.log(this.listaSitioVentasTabla)
         this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
       })
     }
@@ -210,10 +176,10 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
         if(element.ideOficina == idOficina.ideOficina){
           asignarTurnoVendedor.idOficina = Number(element.ideOficina)
           asignarTurnoVendedor.nombreOficina = element.nom_oficina
-          asignarTurnoVendedor.ideSubzona = element.ideSubzona
           this.servicioSitioVenta.listarPorId(element.ideOficina).subscribe(resSitioVenta=>{
             const idSitioVenta = this.formAsignarTurno.controls['sitioVenta'].value
             resSitioVenta.forEach(elementSitioVenta => {
+              console.log(elementSitioVenta)
               if(elementSitioVenta.ideSitioventa == idSitioVenta.ideSitioventa){
                 asignarTurnoVendedor.idSitioVenta = Number(elementSitioVenta.ideSitioventa)
                 asignarTurnoVendedor.nombreSitioVenta = elementSitioVenta.nom_sitioventa
@@ -226,58 +192,21 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                       const idTurno = this.formAsignarTurno.controls['turno'].value
                       this.servicioTurnos.listarPorId(idTurno).subscribe(resTurno=>{
                         asignarTurnoVendedor.idTurno = resTurno
-                        const fechaI = new Date(this.formAsignarTurno.controls['fechaInicio'].value);
-                        const fechaInicio = new Date(fechaI.getFullYear(), fechaI.getMonth(), fechaI.getDate()+1);
-                        const fechaF = new Date(this.formAsignarTurno.controls['fechaFinal'].value);
-                        const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                        const fechaIn = new Date(fechaInicio.getFullYear()+"-"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate());
-                        const fechaFn = new Date(fechaFinal.getFullYear()+"-"+(fechaFinal.getMonth()+1)+"-"+fechaFinal.getDate());
-                        this.servicioAsigarTurnoVendedor.listarTodos().subscribe(resTurnoVendedor=>{
-                          this.listarExiste = []
-                          resTurnoVendedor.forEach(elementTurnoVendedor => {
-                            if(elementTurnoVendedor.idVendedor == asignarTurnoVendedor.idVendedor){
-                              const fechaInicios = new Date(elementTurnoVendedor.fechaInicio)
-                              const fechaIGuardado = new Date(fechaInicios.getFullYear(), fechaInicios.getMonth(), fechaInicios.getDate()+1);
-                              const fechaFinals = new Date(elementTurnoVendedor.fechaFinal)
-                              const fechaFGuardado = new Date(fechaFinals.getFullYear(), fechaFinals.getMonth(), fechaFinals.getDate()+1);
-                              if(fechaIn >= fechaIGuardado && fechaFn<=fechaFGuardado){
-                                this.encontrado = true
-                              }else if(fechaIn <= fechaFGuardado){
-                                this.encontrado = true
-                              }else if(fechaFn == fechaIGuardado){
-                                this.encontrado = true
-                              }else{
-                                this.encontrado = false
-                              }
-                              this.listarExiste.push(this.encontrado)
-                            }
-                          });
-                          const existe = this.listarExiste.includes( true )
-                          if(existe == true){
-                            Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: 'Ese vendedor ya tiene un turno asignado en esas fechas!',
-                              showConfirmButton: false,
-                              timer: 1500
-                            })
-                          }
-                          if(existe == false){
-                            if(fechaInicio <= fechaFinal){
-                              asignarTurnoVendedor.fechaInicio = fechaInicio
-                              asignarTurnoVendedor.fechaFinal = fechaFinal
-                              this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
-                            }else{
-                              Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: 'Selecciono una fecha menor a la inicial!',
-                                showConfirmButton: false,
-                                timer: 1500
-                              })
-                            }
-                          }
-                        })
+                        const fechaInicio = this.formAsignarTurno.controls['fechaInicio'].value;
+                        const fechaFinal = this.formAsignarTurno.controls['fechaFinal'].value;
+                        if(fechaInicio < fechaFinal){
+                          asignarTurnoVendedor.fechaInicio = fechaInicio
+                          asignarTurnoVendedor.fechaFinal = fechaFinal
+                          this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                        }else{
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Selecciono una fecha menor a la inicial!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        }
                       })
                     }
                   });
@@ -292,6 +221,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
 
   public registrarAsignacionTurnoVendedor(asignarTurnoVendedor: AsignarTurnoVendedor) {
     this.servicioAsigarTurnoVendedor.registrar(asignarTurnoVendedor).subscribe(res=>{
+      console.log(asignarTurnoVendedor)
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -301,7 +231,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.listaSitioVentasTabla = []
       this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
-      this.router.navigate(['/asignarTurnoVendedor']);
+      this.router.navigate(['/agregarTurnoVendedor']);
       this.crearFormulario()
     }, error => {
       Swal.fire({

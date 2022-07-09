@@ -1,4 +1,3 @@
-
 .tit{
   text-align: center;
   margin-top: -35px;
@@ -17,9 +16,6 @@ h1{
 .boton{ background-color: #00235C; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-
-
-
 h2{
 margin: 0;
 }
@@ -50,7 +46,6 @@ font-size: large;
 margin-left: 59.5%;
 margin-bottom: 5%;
 }
-
 .row1{
 border-top: 3px solid #97B4E2;
 padding-top: 3%;
@@ -70,3 +65,36 @@ h3{
 }
 a{ text-decoration: none; }
 mat-radio-button{ color:black; margin-bottom: 2%; }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  ul{ margin-left: -18%; }
+  mat-radio-button{ margin-bottom: 5%; }
+  .guardar{ margin-left: 5%; }
+  mat-radio-button{ position: relative; left: 15px; }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  ul{ margin-left: -18%; }
+  mat-radio-button{ margin-bottom: 5%; }
+  .guardar{ margin-left: 15%; }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  ul{ margin-left: -18%; }
+  mat-radio-button{ margin-bottom: 5%; }
+}
+
+/* Tablet pequeña */
+@media screen and (min-width: 721px) and (max-width: 768px){
+  ul{ margin-left: -18%; }
+  mat-radio-button{ margin-bottom: 5%; }
+}
+
+/* Tablet medio */
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  ul{ margin-left: -18%; }
+  mat-radio-button{ margin-bottom: 5%; }
+}

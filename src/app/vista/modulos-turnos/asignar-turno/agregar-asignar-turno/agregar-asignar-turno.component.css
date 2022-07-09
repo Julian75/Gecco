@@ -1,53 +1,103 @@
+.example-container {
+  max-width: 100%;
+  overflow: auto;
+  margin-top: 3% !important;
+  border-bottom: 20%;
+  box-shadow: 1px none #000;
+  margin-bottom: 3% !important;
+}
 table{
-    width: 100%;
-    margin-top: 3% !important;
-    margin-right: 15%;
-    margin-bottom: 3% !important;
-    border: 1px solid #000;
-    border-bottom: 20%;
-  }
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+}
 
-  .tit{
-    text-align: center;
-    margin-top: -35px;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-  h1{
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
+h3{
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 
-  .btnVisualizar{
-    background-color: #97B4E2;
-    width: 10%;
-  }
+.tit{
+  text-align: center;
+  margin-top: -35px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 
-  th{
-    background-color: #00235C;
-    color: #fff;
-    position: relative;
-    margin-left: 15px;
-  }
+.btnVisualizar{
+  background-color: #97B4E2;
+  width: 10%;
+}
 
-  td {
-    border: 1px solid #000;
-    text-align: center;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 6%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
+th{
+  background-color: #00235C;
+  color: #fff;
+  position: relative;
+  margin-left: 15px;
+}
 
+td {
+  border: 1px solid #000;
+  text-align: center;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 6%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }
 
+.btnremove{ width: 64px; height: 36px; }
+.btnremove { position: relative; left: 15px; }
 
 h2{
-  margin: 0;
+margin: 0;
 }
+.container{
+width: 80%;
+background-color: white;
+margin-left: 10%;
+padding-top: 40px;
+padding-bottom: 40px;
+padding-left: 40px;
+padding-right: 40px;
+border-radius: 15px;
+margin-top: 10%;
+box-shadow: 1px 2px 10px #959595;
+}
+.nombre, .estado, .nombre1{
+width: 250px;
+}
+.nombre2, .estado2{ margin-left: 5%; margin-top: 2.5%; }
+.nombre3{ margin-left: 55%; margin-top: -9%;}
+.nombre4{ margin-left: 5%; margin-top: 2.5%;}
+.guardar{
+background-color: #00235C ;
+color: white;
+width: 200px;
+height: 40px;
+font-size: large;
+margin-left: 59.5%;
+top: -260%;
+}
+
+.row1{
+border-top: 3px solid #97B4E2;
+padding-top: 3%;
+padding-bottom: 4%;
+}
+.contenedor{
+width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+#idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ position: relative; }
+#idSp2{ padding-left: 0%; }
+#turSp2{ padding-right: 0%; }
+th.mat-header-cell{ padding-right: 15px; }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
 .container{
   width: 80%;
   background-color: white;
@@ -60,22 +110,28 @@ h2{
   margin-top: 10%;
   box-shadow: 1px 2px 10px #959595;
 }
-.nombre, .estado, .nombre1{
-  width: 250px;
+.nombre{
+  width: 225px;
+  margin-left: -5%;
 }
-.nombre2, .estado2{ margin-left: 5%; margin-top: 2.5%; }
-.nombre3{ margin-left: 55%; margin-top: -9%;}
-.nombre4{ margin-left: 5%; margin-top: 2.5%;}
+.nombre1{
+  width: 225px;
+  margin-left: -120%;
+
+}
+.tur{
+  width: 225px;
+  margin-left: -5%;
+}
 .guardar{
-  background-color: #00235C ;
+  background-color: #00235C;
   color: white;
-  width: 200px;
+  width: 225px;
   height: 40px;
   font-size: large;
-  margin-left: 59.5%;
-  top: -260%;
+  margin-left: 2%;
+  top: 0%;
 }
-
 .row1{
   border-top: 3px solid #97B4E2;
   padding-top: 3%;
@@ -83,4 +139,349 @@ h2{
 }
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.oficina2{
+  width: 100%;
+  margin-left: -5%;
+}
+.sitio{
+  width: 100%;
+  margin-left: -120%;
+  margin-top: 10%;
+}
+.tit{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.Turno{
+  width: 100%;
+  margin-left: -5%;
+  top: -2%;
+}
+.nombre4{ margin-left: 5%; margin-top: -4%;}
+  h3{
+    margin-left: 3%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 12px;
+  }
+  td { font-size: 11px; height: 0px;}
+  #idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ left: 7px; }
+  .btnremove{
+    width: 20px !important;
+    height: 23px;
+    position: relative;
+    left: 32%;
+  }
+  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+.container{
+  width: 80%;
+  background-color: white;
+  margin-left: 10%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+  margin-top: 10%;
+  box-shadow: 1px 2px 10px #959595;
+}
+.nombre{
+  width: 290px;
+  margin-left: -5%;
+}
+.nombre1{
+  width: 290px;
+  margin-left: -120%;
+
+}
+.tur{
+  width: 290px;
+  margin-left: -5%;
+}
+.guardar{
+  background-color: #00235C;
+  color: white;
+  width: 180px;
+  height: 40px;
+  font-size: large;
+  margin-left: 40%;
+  top: 0%;
+}
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }
+.oficina2{
+  width: 100%;
+  margin-left: -5%;
+}
+.sitio{
+  width: 100%;
+  margin-left: -120%;
+  margin-top: 10%;
+}
+.tit{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.Turno{
+  width: 100%;
+  margin-left: -5%;
+  top: -2%;
+}
+.nombre4{ margin-left: 5%; margin-top: -4%;}
+  h3{
+    margin-left: 3%;
+    font-size: 13px;
+  }
+  td { font-size: 12px; height: 0px;}
+  #idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ left: 7px; }
+  .btnremove{
+    width: 20px !important;
+    height: 23px;
+    position: relative;
+    left: 30%;
+  }
+  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+.container{
+  width: 80%;
+  background-color: white;
+  margin-left: 10%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+  margin-top: 10%;
+  box-shadow: 1px 2px 10px #959595;
+}
+.nombre{
+  width: 410px;
+}
+.nombre1{
+  width: 410px;
+  margin-left: -111%;
+
+}
+.tur{
+  width: 410px;
+}
+.guardar{
+  background-color: #00235C;
+  color: white;
+  width: 180px;
+  height: 40px;
+  font-size: large;
+  top: 0%;
+
+}
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }
+.oficina2{
+  width: 100%;
+}
+.sitio{
+  width: 100%;
+  margin-left: -111%;
+  margin-top: 15%;
+}
+.tit{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.Turno{
+  width: 100%;
+  margin-top: 3%;
+}
+.nombre4{ margin-left: 5%; margin-top: -4%;}
+  td { font-size: 14px; height: 0px;}
+  #idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ left: 7px; }
+  .btnremove{
+    width: 64px; height: 36px;
+    position: relative;
+    left: 19%;
+  }
+}
+
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+.container{
+  width: 80%;
+  background-color: white;
+  margin-left: 10%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+  margin-top: 10%;
+  box-shadow: 1px 2px 10px #959595;
+}
+.nombre{
+  width: 250px;
+}
+.tur{
+  width: 250px;
+}
+.nombre1{
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  margin-left: 10%;
+}
+.guardar{
+  background-color: #00235C;
+  color: white;
+  width: 180px;
+  height: 40px;
+  font-size: large;
+  margin-left: 71%;
+  top: -205%;
+}
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }
+.oficina2{
+  width: 100%;
+}
+.sitio{
+  width: 100%;
+  margin-left: 10%;
+  margin-top: -37%;
+}
+.title{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.Turno{
+  width: 100%;
+  margin-top: 3%;
+}
+.nombre4{ margin-left: 5%; margin-top: -4%;}
+  td { font-size: 16px; height: 0px;}
+  #idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ left: 8px; }
+  .btnremove{
+    width: 64px; height: 36px;
+    position: relative;
+    left: 19%;
+  }
+}
+
+/* Tablet medio - iPad Air*/
+@media screen and (min-width: 769px) and (max-width: 1023px){
+.container{
+  width: 80%;
+  background-color: white;
+  margin-left: 10%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+  margin-top: 10%;
+  box-shadow: 1px 2px 10px #959595;
+}
+.nombre{
+  width: 210px;
+}
+.tur{
+  width: 210px;
+}
+
+.nombre1{
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  margin-left: 10%;
+  width: 210px;
+}
+.guardar{
+  background-color: #00235C;
+  color: white;
+  width: 150px;
+  height: 40px;
+  font-size: large;
+  margin-left: 71%;
+  top: -205%;
+}
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+.boton{ background-color: #00235C; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }
+.oficina2{
+  width: 100%;
+}
+.sitio{
+  width: 100%;
+  margin-left: 10%;
+  margin-top: -45%;
+}
+.title{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.Turno{
+  width: 100%;
+  margin-top: 3%;
+}
+.nombre4{ margin-left: 5%; margin-top: -4%;}
+  td { font-size: 16px; height: 0px;}
+  #idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #turSp{ left: 8px; }
+  .btnremove{
+    width: 64px; height: 36px;
+    position: relative;
+    left: 19%;
+  }
 }

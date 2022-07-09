@@ -1,56 +1,58 @@
 <!-- Tabla de asignacion de turnos a los puntos de venta -->
 <div class="contenedor">
-    <button mat-button class="btn boton botonagregar text-white my-2" routerLink="/agregarAsignarTurno">
+    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarAsignarTurno">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button mat-raised-button class="excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel" style="font-size: 20px;"></i></button>
+    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
     <mat-form-field appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
-    <table id="asignarTurnoPuntoVenta" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+      <table id="asignarTurnoPuntoVenta" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Id</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
+          <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Estado</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Estado</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="horaInicio">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Hora Inicio</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="iniSp">Hora Inicio</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idTurnos.horaInicio}}</td>
         </ng-container>
 
         <ng-container matColumnDef="horaFinal">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Hora Final</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="finSp">Hora Final</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idTurnos.horaFinal}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="nombreOficina">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Nombre Oficina</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="ofcSp">Nombre Oficina</h3></th>
           <td mat-cell *matCellDef="let element">{{element.nombreOficina}}</td>
         </ng-container>
 
         <ng-container matColumnDef="nombreSitioVenta">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Nombre Sitio Venta</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="sitSp">Nombre Sitio Venta</h3></th>
           <td mat-cell *matCellDef="let element">{{element.nombreSitioVenta}}</td>
         </ng-container>
 
         <ng-container matColumnDef="tipoTurno">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Tipo Turno</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idTurnos.idTipoTurno.descripcion}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="turSp2"><h3 id="turSp">Tipo Turno</h3></th>
+          <td mat-cell *matCellDef="let element" id="turSp2">{{element.idTurnos.idTipoTurno.descripcion}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+      </table>
+    </section>
     <mat-paginator [length]="100"
               [pageSize]="10"
               [pageSizeOptions]="[5, 10, 25, 100]"

@@ -1,74 +1,75 @@
 <div class="contenedor">
-  <button mat-raised-button class="excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel" style="font-size: 20px;"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
+  <section class="example-container mat-elevation-z8" tabindex="0">
+    <table id="mallas" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+        <!-- Position Column -->
+        <ng-container matColumnDef="usuarioVendedor">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="nombreVSpa">Nombre Vendedor</h3></th>
+          <td mat-cell *matCellDef="let element" id="idSp2">{{element.listaAsignarTurnoVendedor.idVendedor}} | {{element.listaAsignarTurnoVendedor.nombreVendedor}}</td>
+        </ng-container>
 
-  <table id="mallas" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-      <!-- Position Column -->
-      <ng-container matColumnDef="usuarioVendedor">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Nombre Vendedor</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idVendedor}} | {{element.listaAsignarTurnoVendedor.nombreVendedor}}</td>
-      </ng-container>
+        <ng-container matColumnDef="oficina">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficinaSpa">Oficina</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idOficina}} | {{element.listaAsignarTurnoVendedor.nombreOficina}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="oficina">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Oficina</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idOficina}} | {{element.listaAsignarTurnoVendedor.nombreOficina}}</td>
-      </ng-container>
+        <ng-container matColumnDef="sitioVenta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="sitioVASpa">Sitio Venta Asignado</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idSitioVenta}} | {{element.listaAsignarTurnoVendedor.nombreSitioVenta}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="sitioVenta">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Sitio Venta Asignado</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idSitioVenta}} | {{element.listaAsignarTurnoVendedor.nombreSitioVenta}}</td>
-      </ng-container>
+        <ng-container matColumnDef="sitioVentaAsistencia">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="sitioVISpa">Sitio Venta Ingresa</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideSitioventa}} | {{element.listaSigaApi.nom_sitioventa}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="sitioVentaAsistencia">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Sitio Venta Ingresa</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideSitioventa}} | {{element.listaSigaApi.nom_sitioventa}} </td>
-      </ng-container>
+        <ng-container matColumnDef="oficinaZona">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficinaZSpa">Oficina-Zona</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideOficina}} | {{element.listaSigaApi.ideSubzona}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="oficinaZona">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Oficina-Zona</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaSigaApi.ideOficina}} | {{element.listaSigaApi.ideSubzona}}</td>
-      </ng-container>
+        <ng-container matColumnDef="horaIngreso">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaASpa">Hora Asignada</h3></th>
+          <td mat-cell class="hora" *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idTurno.horaInicio}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="horaIngreso">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Hora Asignada</h3></th>
-        <td mat-cell class="hora" *matCellDef="let element">{{element.listaAsignarTurnoVendedor.idTurno.horaInicio}}</td>
-      </ng-container>
+        <ng-container matColumnDef="horaIngresoSiga">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaISpa">Hora Ingreso</h3></th>
+          <td mat-cell class="hora" *matCellDef="let element">{{element.listaSigaApi.hora}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="horaIngresoSiga">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Hora Ingreso</h3></th>
-        <td mat-cell class="hora" *matCellDef="let element">{{element.listaSigaApi.hora}}</td>
-      </ng-container>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaASpa">Fechas Asignadas</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.fechaInicio}} | {{element.listaAsignarTurnoVendedor.fechaFinal}}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Fechas Asignadas</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.listaAsignarTurnoVendedor.fechaInicio}} | {{element.listaAsignarTurnoVendedor.fechaFinal}}</td>
-      </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSpa">Estado</h3></th>
+          <td mat-cell class="hora" *matCellDef="let element" id="{{element.nombreEstado}}">{{element.estado.descripcion}}</td>
+        </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Estado</h3></th>
-        <td mat-cell class="hora" *matCellDef="let element" id="{{element.nombreEstado}}">{{element.estado.descripcion}}</td>
-      </ng-container>
+        <!--Opciones-->
+        <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
+          <td mat-cell *matCellDef="let item">
+            <button class="btn btnedit mx3" *ngIf="item.validar != true && item.estado.id!=17" style="margin-left: 20px;" (click)="agregarNovedad(item.listaAsignarTurnoVendedor.id, item.estado.id)">
+              <mat-icon>playlist_add_circle</mat-icon>
+            </button>
+            <button class="btn btnver mx3" *ngIf="item.validar == true && item.estado.id!=15" style="margin-left: 20px;" (click)="visualizarNovedad(item.listaAsignarTurnoVendedor.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-      <!--Opciones-->
-      <ng-container matColumnDef="opciones">
-        <th mat-header-cell *matHeaderCellDef ><h3>Opciones</h3></th>
-        <td mat-cell *matCellDef="let item">
-          <button mat-button class="btn btnedit mx3" *ngIf="item.validar != true && item.estado.id!=17" style="margin-left: 20px;" (click)="agregarNovedad(item.listaAsignarTurnoVendedor.id, item.estado.id)">
-            <mat-icon>playlist_add_circle</mat-icon>
-          </button>
-          <button mat-button class="btn btnver mx3" *ngIf="item.validar == true && item.estado.id!=15" style="margin-left: 20px;" (click)="visualizarNovedad(item.listaAsignarTurnoVendedor.id)">
-            <mat-icon>visibility</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
   <mat-paginator [length]="500"
               [pageSize]="50"
               [pageSizeOptions]="[5, 10, 25, 100]"
