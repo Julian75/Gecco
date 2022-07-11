@@ -340,6 +340,8 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.listaSitioVentasTabla = []
       this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
+      sessionStorage.removeItem("s")
+      sessionStorage.removeItem("v")
       this.router.navigate(['/asignarTurnoVendedor']);
       this.crearFormulario()
     }, error => {

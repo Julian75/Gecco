@@ -160,26 +160,25 @@ export class AgregarUsuariosComponent implements OnInit {
 
   }
 
-
-    public registrarUsuario(usuario: Usuario) {
-      this.servicioUsuarios.registrar(usuario).subscribe(res=>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Usuario Registrado!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(['/usuarios']);
-      }, error => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Hubo un error al agregar!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      });
-   }
+  public registrarUsuario(usuario: Usuario) {
+    this.servicioUsuarios.registrar(usuario).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.router.navigate(['/usuarios']);
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
 
 }

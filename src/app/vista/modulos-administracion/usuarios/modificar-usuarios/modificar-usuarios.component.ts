@@ -31,6 +31,7 @@ export class ModificarUsuariosComponent implements OnInit {
 
   public encontrado = false;
   public listarExiste: any = [];
+  public contrasenaDesencru:any;
 
   constructor(
     private servicioUsuario: UsuarioService,
@@ -63,7 +64,7 @@ export class ModificarUsuariosComponent implements OnInit {
       rol: [null,Validators.required],
       tipoDocumento: [null,Validators.required],
       oficina: [null,Validators.required],
-      contraseña: [null,Validators.required],
+      contrasena: [null,Validators.required],
     });
   }
 
@@ -111,9 +112,15 @@ export class ModificarUsuariosComponent implements OnInit {
         this.formUsuario.controls['tipoDocumento'].setValue(this.listarUsuario.idTipoDocumento.id);
         this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideOficina);
         const contrasena = this.listarUsuario.password.toString()
+        console.log(contrasena)
         var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
+        console.log(bytes)
         var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
-        this.formUsuario.controls['contraseña'].setValue(decryptedData.replace(/[ '"]+/g, ''));
+        console.log(decryptedData)
+        this.contrasenaDesencru = decryptedData.slice(1, -1)
+        console.log(this.contrasenaDesencru)
+        this.formUsuario.controls['contrasena'].setValue(this.contrasenaDesencru);
+
       })
     })
   }
@@ -143,11 +150,14 @@ export class ModificarUsuariosComponent implements OnInit {
           const rol = this.formUsuario.controls['rol'].value;
           const tipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
           const oficina = this.formUsuario.controls['oficina'].value;
-          const password = this.formUsuario.controls['contraseña'].value;
-          var bytes  = CryptoJS.AES.decrypt(listaUsuarios.password.toString(), 'secret key 123');
+          const password = this.formUsuario.controls['contrasena'].value;
+          console.log(password)
+          var bytes  = CryptoJS.AES.decrypt(usuario.password.toString(), 'secret key 123');
           var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
+          var contrasenaDesencrip = decryptedData.slice(1, -1)
+          console.log(contrasenaDesencrip)
           for (let i = 0; i < res.length; i++) {
-            if(res[i].documento == documento && listaUsuarios.nombre == nombre && listaUsuarios.apellido == apellido && listaUsuarios.correo == correo && listaUsuarios.idEstado.id == estado && listaUsuarios.idRol.id == rol && listaUsuarios.idTipoDocumento.id == tipoDocumento && listaUsuarios.ideOficina == oficina && password == decryptedData.replace(/[ '"]+/g, '')){
+            if(res[i].documento == documento && res[i].nombre == nombre && res[i].apellido == apellido && res[i].correo == correo && res[i].idEstado.id == estado && res[i].idRol.id == rol && res[i].idTipoDocumento.id == tipoDocumento && res[i].ideOficina == oficina && password == contrasenaDesencrip){
               this.encontrado = true
             }else if(nombre=="" || documento==null || apellido=="" || correo=="" || password == "" || estado==undefined || estado==null || rol==undefined || rol==null || tipoDocumento==null || tipoDocumento==undefined|| oficina==null || oficina==undefined || password==null){
               this.encontrado = true
@@ -170,9 +180,9 @@ export class ModificarUsuariosComponent implements OnInit {
             usuario.nombre = this.formUsuario.controls['nombre'].value;
             usuario.apellido = this.formUsuario.controls['apellido'].value;
             usuario.correo = this.formUsuario.controls['correo'].value;
-            var contrasena = this.formUsuario.controls['contraseña'].value;
-            var Encrypt = CryptoJS.AES.encrypt(JSON.stringify(contrasena), 'secret key 123').toString();
-            usuario.password = Encrypt
+            var contrasena = this.formUsuario.controls['contrasena'].value;
+            var Encrypt = CryptoJS.AES.encrypt(contrasena, 'secret key 123');
+            usuario.password = String(Encrypt)
             const idEstado = this.formUsuario.controls['estado'].value;
             this.servicioEstado.listarPorId(idEstado).subscribe(res => {
               this.listaEstados = res;
@@ -199,6 +209,7 @@ export class ModificarUsuariosComponent implements OnInit {
                           timer: 1500
                         })
                       }else{
+                        console.log(usuario)
                         this.actualizarUsuario(usuario);
                       }
                     });
@@ -210,7 +221,7 @@ export class ModificarUsuariosComponent implements OnInit {
           if(existe == true){
             Swal.fire({
               position: 'center',
-              icon: 'error',
+              icon: 'success',
               title: 'No hubieron cambios o ya existe un usuario con ese número de documento!',
               showConfirmButton: false,
               timer: 2000

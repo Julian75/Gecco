@@ -22,7 +22,10 @@ export class MallasComponent implements OnInit {
   dtOptions: any = {};
   public listaAsignacionesTurnoVendedores: any = [];
   public listaMal: any = [];
+  public listaEstado: any = [];
+  public listaMa: any = [];
   public listaMallas: any = [];
+  public listaMallasFiltrado: any = [];
   public usuario: any = [];
   public fecha: Date = new Date();
   public fechaActual:any
@@ -50,6 +53,7 @@ export class MallasComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarTodos();
+    this.listarEstados();
   }
 
   public listarTodos () {
@@ -81,95 +85,28 @@ export class MallasComponent implements OnInit {
                 this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                   var primerObjeto  = resHistorial[0]
                   if(resHistorial.length < 1  ){
-                    this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
-                      if(element != null && res != null){
-                        malla1.listaAsignarTurnoVendedor = element
-                        malla1.estado = resEstado
-                        malla1.listaSigaApi = {}
-                        malla1.ideOficina = element.idOficina
-                        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                          resOficina.forEach(elementOficinia => {
-                            malla1.ideZona = elementOficinia.ideSubzona
-                            malla1.nombreEstado = 'No_ingreso'
-                            malla1.validar = false
-                            this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
-                              for (let index = 0; index < resNovedad.length; index++) {
-                                const elementNovedad = resNovedad[index];
-                                  this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                                      malla1.validar = true
-                                    }
-                                  })
-                              }
-                            })
-                          });
-                        })
-                      }
-                    })
+                    this.noIngreso(element, res, malla1)
                   }else{
-                    if(element.idTurno.horaInicio >= primerObjeto.hora){
-                      this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
-                        if(element != null && resEstado != null && primerObjeto != null){
-                          malla1.listaAsignarTurnoVendedor = element
-                          malla1.estado = resEstado
-                          malla1.listaSigaApi = primerObjeto
-                          malla1.ideOficina = element.idOficina
-                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                            resOficina.forEach(elementOficinia => {
-                            malla1.ideZona = elementOficinia.ideSubzona
-                            malla1.nombreEstado = 'Cumplio'
-                            malla1.validar = true
-                            })
-                          })
-                        }
-                      })
+                    var horaAsignadaArray = element.idTurno.horaInicio.split(':')
+                    var horaI = primerObjeto.hora.split(':')
+                    var horaAdicional = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+5)
+                    var horaAsignada = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
+                    var horaIngreso = new Date(Number(horaI[0]),Number(horaI[1]))
+                    console.log(primerObjeto, element)
+                    if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
+                      this.cumplioMayor(element, primerObjeto, malla1)
+                    }else if(horaIngreso>=horaAsignada && horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                      this.cumplioMenor(element, primerObjeto, malla1)
+                    }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
+                      this.ingresoSitioDiferente(element, primerObjeto, malla1)
                     }else{
-                      this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
-                        if(element != null && resEstado != null && primerObjeto != null){
-                          malla1.listaAsignarTurnoVendedor = element
-                          malla1.estado = resEstado
-                          malla1.listaSigaApi = primerObjeto
-                          malla1.ideOficina = element.idOficina
-                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                            resOficina.forEach(elementOficinia => {
-                              malla1.ideZona = elementOficinia.ideSubzona
-                              malla1.nombreEstado = 'Incumplio'
-                              malla1.validar = false
-                              this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
-                                for (let index = 0; index < resNovedad.length; index++) {
-                                  const elementNovedad = resNovedad[index];
-                                    this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                                      if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                                        malla1.validar = true
-                                      }
-                                    })
-
-                                }
-                              })
-                            })
-                          })
-                        }
-                      })
+                      this.noCumplio(element, primerObjeto, malla1)
                     }
                   }
 
                 })
               }else{
-                this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
-                  if(element != null && resEstado != null){
-                    malla1.listaAsignarTurnoVendedor = element
-                    malla1.estado = resEstado
-                    malla1.listaSigaApi = {}
-                    malla1.ideOficina = element.idOficina
-                    this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                      resOficina.forEach(elementOficinia => {
-                        malla1.ideZona = elementOficinia.ideSubzona
-                        malla1.nombreEstado = 'Aun'
-                        malla1.validar = false
-                      })
-                    })
-                  }
-                })
+                this.aunNoEsHora(element, malla1)
               }
               this.listaMallas.push(malla1)
             };
@@ -205,96 +142,27 @@ export class MallasComponent implements OnInit {
                   this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                     var primerObjeto  = resHistorial[0]
                     if(resHistorial.length < 1  ){
-                      this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
-                        if(element != null && res != null){
-                          malla1.listaAsignarTurnoVendedor = element
-                          malla1.estado = resEstado
-                          malla1.listaSigaApi = {}
-                          malla1.ideOficina = element.idOficina
-                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                            resOficina.forEach(elementOficinia => {
-                              malla1.ideZona = elementOficinia.ideSubzona
-                              malla1.nombreEstado = 'No_ingreso'
-                              malla1.validar = false
-                              this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
-                                for (let index = 0; index < resNovedad.length; index++) {
-                                  const elementNovedad = resNovedad[index];
-                                    this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                                      if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                                        malla1.validar = true
-                                      }
-                                    })
-
-                                }
-                              })
-                            });
-                          })
-                        }
-                      })
+                      this.noIngreso(element, res, malla1)
                     }else{
-                      if(element.idTurno.horaInicio >= primerObjeto.hora){
-                        this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
-                          if(element != null && resEstado != null && primerObjeto != null){
-                            malla1.listaAsignarTurnoVendedor = element
-                            malla1.estado = resEstado
-                            malla1.listaSigaApi = primerObjeto
-                            malla1.ideOficina = element.idOficina
-                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                              resOficina.forEach(elementOficinia => {
-                              malla1.ideZona = elementOficinia.ideSubzona
-                              malla1.nombreEstado = 'Cumplio'
-                              malla1.validar = true
-                              })
-                            })
-                          }
-                        })
+                      var horaAsignadaArray = element.idTurno.horaInicio.split(':')
+                      var horaI = primerObjeto.hora.split(':')
+                      var horaAdicional = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+5)
+                      var horaAsignada = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
+                      var horaIngreso = new Date(Number(horaI[0]),Number(horaI[1]))
+                      if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
+                        this.cumplioMayor(element, primerObjeto, malla1)
+                      }else if(horaIngreso>=horaAsignada && horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                        this.cumplioMenor(element, primerObjeto, malla1)
+                      }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
+                        this.ingresoSitioDiferente(element, primerObjeto, malla1)
                       }else{
-                        this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
-                          if(element != null && resEstado != null && primerObjeto != null){
-                            malla1.listaAsignarTurnoVendedor = element
-                            malla1.estado = resEstado
-                            malla1.listaSigaApi = primerObjeto
-                            malla1.ideOficina = element.idOficina
-                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                              resOficina.forEach(elementOficinia => {
-                                malla1.ideZona = elementOficinia.ideSubzona
-                                malla1.nombreEstado = 'Incumplio'
-                                malla1.validar = false
-                                this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
-                                  for (let index = 0; index < resNovedad.length; index++) {
-                                    const elementNovedad = resNovedad[index];
-                                      this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                                        if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                                          malla1.validar = true
-                                        }
-                                      })
-
-                                  }
-                                })
-                              })
-                            })
-                          }
-                        })
+                        this.noCumplio(element, primerObjeto, malla1)
                       }
                     }
 
                   })
                 }else{
-                  this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
-                    if(element != null && resEstado != null){
-                      malla1.listaAsignarTurnoVendedor = element
-                      malla1.estado = resEstado
-                      malla1.listaSigaApi = {}
-                      malla1.ideOficina = element.idOficina
-                      this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                        resOficina.forEach(elementOficinia => {
-                          malla1.ideZona = elementOficinia.ideSubzona
-                          malla1.nombreEstado = 'Aun'
-                          malla1.validar = false
-                        })
-                      })
-                    }
-                  })
+                  this.aunNoEsHora(element, malla1)
                 }
                 this.listaMallas.push(malla1)
               };
@@ -331,96 +199,27 @@ export class MallasComponent implements OnInit {
                   this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                     var primerObjeto  = resHistorial[0]
                     if(resHistorial.length < 1  ){
-                      this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
-                        if(element != null && res != null){
-                          malla1.listaAsignarTurnoVendedor = element
-                          malla1.estado = resEstado
-                          malla1.listaSigaApi = {}
-                          malla1.ideOficina = element.idOficina
-                          this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                            resOficina.forEach(elementOficinia => {
-                              malla1.ideZona = elementOficinia.ideSubzona
-                              malla1.nombreEstado = 'No_ingreso'
-                              malla1.validar = false
-                              this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
-                                for (let index = 0; index < resNovedad.length; index++) {
-                                  const elementNovedad = resNovedad[index];
-                                    this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                                      if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                                        malla1.validar = true
-                                      }
-                                    })
-
-                                }
-                              })
-                            });
-                          })
-                        }
-                      })
+                      this.noIngreso(element, res, malla1)
                     }else{
-                      if(element.idTurno.horaInicio >= primerObjeto.hora){
-                        this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
-                          if(element != null && resEstado != null && primerObjeto != null){
-                            malla1.listaAsignarTurnoVendedor = element
-                            malla1.estado = resEstado
-                            malla1.listaSigaApi = primerObjeto
-                            malla1.ideOficina = element.idOficina
-                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                              resOficina.forEach(elementOficinia => {
-                              malla1.ideZona = elementOficinia.ideSubzona
-                              malla1.nombreEstado = 'Cumplio'
-                              malla1.validar = true
-                              })
-                            })
-                          }
-                        })
+                      var horaAsignadaArray = element.idTurno.horaInicio.split(':')
+                      var horaI = primerObjeto.hora.split(':')
+                      var horaAdicional = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+5)
+                      var horaAsignada = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
+                      var horaIngreso = new Date(Number(horaI[0]),Number(horaI[1]))
+                      if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
+                        this.cumplioMayor(element, primerObjeto, malla1)
+                      }else if(horaIngreso>=horaAsignada && horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                        this.cumplioMenor(element, primerObjeto, malla1)
+                      }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
+                        this.ingresoSitioDiferente(element, primerObjeto, malla1)
                       }else{
-                        this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
-                          if(element != null && resEstado != null && primerObjeto != null){
-                            malla1.listaAsignarTurnoVendedor = element
-                            malla1.estado = resEstado
-                            malla1.listaSigaApi = primerObjeto
-                            malla1.ideOficina = element.idOficina
-                            this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                              resOficina.forEach(elementOficinia => {
-                                malla1.ideZona = elementOficinia.ideSubzona
-                                malla1.nombreEstado = 'Incumplio'
-                                malla1.validar = false
-                                this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
-                                  for (let index = 0; index < resNovedad.length; index++) {
-                                    const elementNovedad = resNovedad[index];
-                                      this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                                        if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
-                                          malla1.validar = true
-                                        }
-                                      })
-
-                                  }
-                                })
-                              })
-                            })
-                          }
-                        })
+                        this.noCumplio(element, primerObjeto, malla1)
                       }
                     }
 
                   })
                 }else{
-                  this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
-                    if(element != null && resEstado != null){
-                      malla1.listaAsignarTurnoVendedor = element
-                      malla1.estado = resEstado
-                      malla1.listaSigaApi = {}
-                      malla1.ideOficina = element.idOficina
-                      this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
-                        resOficina.forEach(elementOficinia => {
-                          malla1.ideZona = elementOficinia.ideSubzona
-                          malla1.nombreEstado = 'Aun'
-                          malla1.validar = false
-                        })
-                      })
-                    }
-                  })
+                  this.aunNoEsHora(element, malla1)
                 }
                 this.listaMallas.push(malla1)
               };
@@ -446,6 +245,16 @@ export class MallasComponent implements OnInit {
     })
   }
 
+  public listarEstados(){
+    this.servicioEstado.listarTodos().subscribe(res =>{
+      res.forEach(element => {
+        if(element.idModulo.id == 7){
+          this.listaEstado.push(element)
+        }
+      });
+    })
+  }
+
   public agregarNovedad(idAsignarTurnoV:number, idE:number){
     const dialogRef = this.dialog.open(AgregarNovedadComponent, {
       width: '500px',
@@ -461,12 +270,20 @@ export class MallasComponent implements OnInit {
   }
 
    // Filtrado
-   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+   descripcion:any
+   applyFilter() {
+    this.listaMallasFiltrado = []
+    if(this.descripcion==""){
+      this.dataSource = new MatTableDataSource(this.listaMallas);
+    }else{
+      const filterValue = this.descripcion.descripcion;
+      this.dataSource.filter = filterValue.trim().toString();
+      this.listaMallas.forEach((element:any) => {
+        if(element.estado.descripcion == filterValue){
+          this.listaMallasFiltrado.push(element)
+        }
+      });
+      this.dataSource = new MatTableDataSource(this.listaMallasFiltrado);
     }
   }
   name = 'listaMallas.xlsx';
@@ -478,5 +295,152 @@ export class MallasComponent implements OnInit {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  // Metodos para malla de turnos
+
+  //Cuando no ingreso
+  public noIngreso(element:any, res:any, malla1:any){
+    this.servicioEstado.listarPorId(18).subscribe(resEstado=>{
+      if(element != null && res != null){
+        malla1.listaAsignarTurnoVendedor = element
+        malla1.estado = resEstado
+        malla1.listaSigaApi = {}
+        malla1.ideOficina = element.idOficina
+        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+          resOficina.forEach(elementOficinia => {
+            malla1.ideZona = elementOficinia.ideSubzona
+            malla1.nombreEstado = 'No_ingreso'
+            malla1.validar = false
+            this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+              for (let index = 0; index < resNovedad.length; index++) {
+                const elementNovedad = resNovedad[index];
+                  this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                      malla1.validar = true
+                    }
+                  })
+              }
+            })
+          });
+        })
+      }
+    })
+  }
+
+  // Cumplio pero en horario mayor al asignado
+  public cumplioMayor(element:any, primerObjeto:any, malla1:any){
+    this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
+      if(element != null && resEstado != null && primerObjeto != null){
+        malla1.listaAsignarTurnoVendedor = element
+        malla1.estado = resEstado
+        malla1.listaSigaApi = primerObjeto
+        malla1.ideOficina = element.idOficina
+        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+          resOficina.forEach(elementOficinia => {
+          malla1.ideZona = elementOficinia.ideSubzona
+          malla1.nombreEstado = 'Cumplio'
+          malla1.validar = true
+          console.log(malla1)
+          })
+        })
+      }
+    })
+  }
+
+  //Cumplio pero en horario menor al asignado
+  public cumplioMenor(element:any, primerObjeto:any, malla1:any){
+    this.servicioEstado.listarPorId(15).subscribe(resEstado=>{
+      if(element != null && resEstado != null && primerObjeto != null){
+        malla1.listaAsignarTurnoVendedor = element
+        malla1.estado = resEstado
+        malla1.listaSigaApi = primerObjeto
+        malla1.ideOficina = element.idOficina
+        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+          resOficina.forEach(elementOficinia => {
+          malla1.ideZona = elementOficinia.ideSubzona
+          malla1.nombreEstado = 'Cumplio'
+          malla1.validar = true
+          })
+        })
+      }
+    })
+  }
+
+  // Ingreso a punto de venta diferente
+  public ingresoSitioDiferente(element:any, primerObjeto:any, malla1:any){
+    this.servicioEstado.listarPorId(25).subscribe(resEstado=>{
+      if(element != null && resEstado != null && primerObjeto != null){
+        malla1.listaAsignarTurnoVendedor = element
+        malla1.estado = resEstado
+        malla1.listaSigaApi = primerObjeto
+        malla1.ideOficina = element.idOficina
+        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+          resOficina.forEach(elementOficinia => {
+            malla1.ideZona = elementOficinia.ideSubzona
+            malla1.nombreEstado = 'Incumplio'
+            malla1.validar = false
+            this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+              for (let index = 0; index < resNovedad.length; index++) {
+                const elementNovedad = resNovedad[index];
+                  this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                      malla1.validar = true
+                    }
+                  })
+              }
+            })
+          })
+        })
+      }
+    })
+  }
+
+  // No cumplio
+  public noCumplio(element:any, primerObjeto:any, malla1:any){
+    this.servicioEstado.listarPorId(16).subscribe(resEstado=>{
+      if(element != null && resEstado != null && primerObjeto != null){
+        malla1.listaAsignarTurnoVendedor = element
+        malla1.estado = resEstado
+        malla1.listaSigaApi = primerObjeto
+        malla1.ideOficina = element.idOficina
+        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+          resOficina.forEach(elementOficinia => {
+            malla1.ideZona = elementOficinia.ideSubzona
+            malla1.nombreEstado = 'Incumplio'
+            malla1.validar = false
+            this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
+              for (let index = 0; index < resNovedad.length; index++) {
+                const elementNovedad = resNovedad[index];
+                  this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
+                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                      malla1.validar = true
+                    }
+                  })
+              }
+            })
+          })
+        })
+      }
+    })
+  }
+
+  // Aun no es hora de ingreso
+  public aunNoEsHora(element:any, malla1:any){
+    this.servicioEstado.listarPorId(17).subscribe(resEstado=>{
+      if(element != null && resEstado != null){
+        malla1.listaAsignarTurnoVendedor = element
+        malla1.estado = resEstado
+        malla1.listaSigaApi = {}
+        malla1.ideOficina = element.idOficina
+        this.servicioOficina.listarPorId(element.idOficina).subscribe(resOficina=>{
+          resOficina.forEach(elementOficinia => {
+            malla1.ideZona = elementOficinia.ideSubzona
+            malla1.nombreEstado = 'Aun'
+            malla1.validar = false
+          })
+        })
+      }
+    })
   }
 }

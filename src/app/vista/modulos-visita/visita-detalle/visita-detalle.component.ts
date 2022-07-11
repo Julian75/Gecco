@@ -69,6 +69,8 @@ export class VisitaDetalleComponent implements OnInit {
       id: 0,
       lol: [null,Validators.required],
       opcion: [null,Validators.required],
+      ideSitioventa: [null,Validators.required],
+      nomSitioventa: [null,Validators.required],
     });
   }
 
@@ -145,33 +147,52 @@ export class VisitaDetalleComponent implements OnInit {
         }
       })
       const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
-      var documento = "26552174"
+      var documento = String(sessionStorage.getItem('usuario'))
       console.log(fechaActual)
       this.servicioVisitaSiga.listarPorId(fechaActual, documento).subscribe( res => {
         res.forEach(element => {
           this.visitasSiga.push(element)
         });
         let ultimo = this.visitasSiga[this.visitasSiga.length - 1]
-        visitaDetalle.ideSitioventa = ultimo.ideSitioVenta
+        visitaDetalle.ideSitioventa = Number(ultimo.ideSitioVenta)
         visitaDetalle.nomSitioventa = ultimo.nom_sitioventa
+        let ultimaVisita = this.visitas[this.visitas.length - 1]
+        this.servicioVisita.listarPorId(ultimaVisita).subscribe(resVisita=>{
+          visitaDetalle.idVisitas = resVisita
+          visitaDetalle.descripcion= "Visita "+resVisita.id
+          this.listarOpciones = lista
+          console.log(this.lista)
+          for (let i = 0; i < this.lista.length; i++) {
+            const element = this.lista[i];
+            visitaDetalle.idElementosVisita = element.elemento
+            visitaDetalle.idOpcionesVisita = element.opcion
+            this.registrarVisitaDetal(visitaDetalle);
+          }
+        })
       })
-      let ultimaVisita = this.visitas[this.visitas.length - 1]
-      this.servicioVisita.listarPorId(ultimaVisita).subscribe(resVisita=>{
-        visitaDetalle.idVisitas = resVisita
-        visitaDetalle.descripcion="nada"
-        this.listarOpciones = lista
-        for (let i = 0; i < this.lista.length; i++) {
-          const element = this.lista[i];
-          visitaDetalle.idElementosVisita = element.elemento
-          visitaDetalle.idOpcionesVisita = element.opcion
-          console.log(visitaDetalle)
-          // this.servicioVisitaDetalle.registrar(visitaDetalle).subscribe(res=>{
-          //   // this.crearFormulario()
-          //   window.location.reload();
-          // })
-        }
-      })
-      console.log(this.lista)
     })
   }
+
+  public registrarVisitaDetal(visitaDetalle: VisitaDetalle) {
+    this.servicioVisitaDetalle.registrar(visitaDetalle).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Visita Detalle Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      console.log(visitaDetalle)
+
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
 }

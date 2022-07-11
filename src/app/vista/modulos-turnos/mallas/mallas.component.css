@@ -34,7 +34,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 th{
@@ -52,6 +52,7 @@ th{
 td {
   border: 1px solid #000;
   text-align: center;
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -66,7 +67,11 @@ mat-form-field{
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ position: relative; }
-#nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
+#oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 11px; }
+#nombreVSpa{left: 20px;}
+#sitioVASpa{left: 17px;}
+#sitioVISpa{ left: 25px;}
+#oficinaSpa{ left: 50px; }
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño - Galaxy Fold*/
@@ -115,7 +120,8 @@ mat-form-field{
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
+  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
+  #oficinaSpa{ left: 10px;}
   .excelButton i{ top: -3px; font-size: 15px;}
 }
 /* Movil grande - Surface Duo*/
@@ -129,7 +135,8 @@ mat-form-field{
     margin-bottom: 8%;
   }
   td button mat-icon{ margin-top: -1px; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
+  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
+  #oficinaSpa{ left: 13px;}
 }
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
@@ -142,7 +149,8 @@ mat-form-field{
     margin-bottom: 8%;
   }
   td button mat-icon{ margin-top: -1px; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
+  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
+  #oficinaSpa{ left: 15px;}
 }
 /* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
@@ -155,6 +163,7 @@ mat-form-field{
     margin-bottom: 8%;
   }
   td button mat-icon{ margin-top: -1px; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
+  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
+  #oficinaSpa{ left: 15px;}
 
 }

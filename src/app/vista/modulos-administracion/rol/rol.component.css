@@ -119,6 +119,15 @@ mat-form-field{
     margin-top: 8%;
     margin-bottom: 8%;
   }
+  .edi{
+    margin-left: -10%;
+  }
+  .remo{
+    margin-left: -6%;
+  }
+  .ver{
+    margin-left: -6%;
+  }
   td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }

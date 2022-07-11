@@ -72,28 +72,39 @@ export class SidebarComponent implements OnInit {
           if (this.listaAccessForm[i] == 13) {
             document.getElementById('13')?.setAttribute('style', 'display: block;')
           }
+          if (this.listaAccessForm[i] == 14) {
+            document.getElementById('14')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 16) {
+            document.getElementById('16')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 17) {
+            document.getElementById('17')?.setAttribute('style', 'display: block;')
+          }
         }
       })
     })
   }
 
   public visitas(){
-    const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
+    const fechaActual = (this.fecha.getDate())+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
     console.log(fechaActual)
-    this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('documento'))).subscribe(res =>{
+    this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('usuario'))).subscribe(res =>{
+      console.log(res)
       res.forEach(element =>{
         this.listaVisita.push(element)
       })
-      let ultimo = this.listaVisita[this.listaVisita.length - 1]
+      console.log(this.listaVisita)
+      let ultimo = this.listaVisita[0]
       var horaFinal = ultimo.hora.split(':')
-      var horaFinal3 = new Date(2022,7,5,horaFinal[0],Number(horaFinal[1])+5)
-      var horaFinal4 = horaFinal3.getHours() + ":" + horaFinal3.getMinutes();
-      var horaActual = new Date().getHours() + ":" + new Date().getMinutes();
+      var hora = new Date(horaFinal[0],Number(horaFinal[1]))
+      var horaFinal3 = new Date(horaFinal[0],Number(horaFinal[1])+5)
+      var horaActual = new Date(this.fecha.getHours(), this.fecha.getMinutes());
 
-      if(horaActual>=ultimo.hora && horaActual<=horaFinal4){
-        document.getElementById('14')?.setAttribute('style', 'display: block;')
+      if(horaActual>=hora && horaActual<=horaFinal3){
+        document.getElementById('15')?.setAttribute('style', 'display: block;')
       }else{
-        document.getElementById('14')?.setAttribute('style', 'display: none;')
+        document.getElementById('15')?.setAttribute('style', 'display: none;')
       }
     })
   }
