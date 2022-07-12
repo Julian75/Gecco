@@ -61,7 +61,11 @@ export class AgregarTurnosComponent implements OnInit {
 
   public listarTipoTurnos() {
     this.servicioTipoTurno.listarTodos().subscribe(res => {
-      this.listarTipoTurno = res;
+      res.forEach(element => {
+        if(element.idEstado.id == 1){
+          this.listarTipoTurno.push(element);
+        }
+      });
     });
   }
 

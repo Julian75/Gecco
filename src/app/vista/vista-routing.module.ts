@@ -33,6 +33,10 @@ import { ElementosVisitaComponent } from './modulos-visita/elementos-visita/elem
 import { AgregarElementosVisitaComponent } from './modulos-visita/elementos-visita/agregar-elementos-visita/agregar-elementos-visita.component';
 import { ModificarElementosVisitaComponent } from './modulos-visita/elementos-visita/modificar-elementos-visita/modificar-elementos-visita.component';
 import { SideMovilComponent } from './componentes-principales/side-movil/side-movil.component';
+import { ReportesVisitaDetalleComponent } from './modulos-visita/reportes-visita-detalle/reportes-visita-detalle.component';
+import { TablaConfiguracionComponent } from './modulo-configuracion/tabla-configuracion/tabla-configuracion.component';
+import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/modificar-tabla-configuracion/modificar-tabla-configuracion.component';
+import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
 
 const routes: Routes = [
   {
@@ -207,6 +211,28 @@ const routes: Routes = [
         component: SideMovilComponent,
         canActivate: [AutorizacionGuard]
       },
+      {
+        path: 'reportesVisitaDetalle',
+        component: ReportesVisitaDetalleComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Confiracion de cambios
+      {
+        path: 'configuraciones',
+        component: TablaConfiguracionComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarConfiguracion',
+        component: AgregarConfiguracionComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarConfiguraciones/:id',
+        component: ModificarTablaConfiguracionComponent,
+        canActivate: [AutorizacionGuard]
+      },
+
     ]
   },
 ];

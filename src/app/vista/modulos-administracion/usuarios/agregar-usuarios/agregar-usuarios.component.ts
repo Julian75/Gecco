@@ -81,7 +81,11 @@ export class AgregarUsuariosComponent implements OnInit {
 
   public listarRoles() {
     this.servicioRoles.listarTodos().subscribe(res => {
-      this.listaRoles = res;
+      res.forEach(element => {
+        if(element.idEstado.id == 7){
+          this.listaRoles.push(element);
+        }
+      });
     });
   }
 

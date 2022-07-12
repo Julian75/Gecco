@@ -97,9 +97,9 @@ export class SidebarComponent implements OnInit {
       console.log(this.listaVisita)
       let ultimo = this.listaVisita[0]
       var horaFinal = ultimo.hora.split(':')
-      var hora = new Date(horaFinal[0],Number(horaFinal[1]))
-      var horaFinal3 = new Date(horaFinal[0],Number(horaFinal[1])+5)
-      var horaActual = new Date(this.fecha.getHours(), this.fecha.getMinutes());
+      var hora = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1]))
+      var horaFinal3 = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1])+5)
+      var horaActual = new Date(1928,6,25,this.fecha.getHours(), this.fecha.getMinutes());
 
       if(horaActual>=hora && horaActual<=horaFinal3){
         document.getElementById('15')?.setAttribute('style', 'display: block;')

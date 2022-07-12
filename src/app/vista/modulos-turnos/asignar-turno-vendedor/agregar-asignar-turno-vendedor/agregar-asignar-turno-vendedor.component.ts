@@ -16,6 +16,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { SitioVenta } from 'src/app/modelos/modelosSiga/sitioVenta';
+import { TurnoVendedorDTOSevice } from 'src/app/servicios/turnoVendedorDTO.service';
 
 @Component({
   selector: 'app-agregar-asignar-turno-vendedor',
@@ -54,6 +55,8 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   public listarExiste: any = [];
   public identificacion:any;
 
+  public listaGuardado: any = [];
+
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
 
@@ -66,6 +69,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     private servicioSitioVenta : SitioVentaService,
     private servicioUsuarioVendedor: UsuarioVendedoresService,
     private servicioAsigarTurnoVendedor: AsignarTurnoVendedorService,
+    private servicioTurnoVendedorDTO: TurnoVendedorDTOSevice,
     private router: Router,
   ) { }
 
@@ -109,13 +113,11 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     this.listarSitioVenta = []
     const listaOficina = this.id
     this.listaIdOficinas.push(listaOficina.ideOficina)
-    console.log(this.listaIdOficinas)
     let ultimo = this.listaIdOficinas[this.listaIdOficinas.length - 1]
     let penultimo = this.listaIdOficinas[this.listaIdOficinas.length - 2]
     if(ultimo != penultimo || penultimo == undefined){
       this.servicioSitioVenta.listarPorId(ultimo).subscribe(res=>{
         this.listarSitioVentas = res
-        console.log(res)
         this.opcionesFiltradas = this.control.valueChanges.pipe(
           startWith(""),
           map(value => {
@@ -126,12 +128,10 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       })
       this.servicioUsuarioVendedor.listarPorId(ultimo).subscribe(res=>{
         this.listarVendedores = res
-        console.log(this.listarVendedores)
         this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(""),
           map(value => {
             const num_identificacion = typeof value == 'string' ? value : value?.num_identificacion;
-            console.log(num_identificacion)
             const nombres = typeof value == 'string' ? value : value?.nombres;
             const apellido = typeof value == 'string' ? value : value?.apellido1;
             return num_identificacion ? this._filter(num_identificacion as string, nombres as string, apellido as string, this.listarVendedores) : this.listarVendedores.slice();
@@ -144,7 +144,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   textoSitioVenta:any
   displaySf(sitioVent: SitioVenta): any {
     this.textoSitioVenta = sitioVent
-    console.log(sitioVent)
     if(this.textoSitioVenta == ""){
       this.textoSitioVenta = " "
     }else{
@@ -161,14 +160,12 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   onSelectionChanged2(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
     this.idSitiosVentas(event.option.value)
   }
 
   textoUsuarioVendedor:any
   displayFn(usuariosVendedores: UsuariosVendedores): any {
     this.textoUsuarioVendedor = usuariosVendedores
-    console.log(usuariosVendedores.nombres)
     if(this.textoUsuarioVendedor == ""){
       this.textoUsuarioVendedor = " "
     }else{
@@ -188,7 +185,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
     this.idVendedortabla(event.option.value)
   }
 
@@ -208,7 +204,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           if (element.idSitioVenta == ultimo){
             this.servicioTurnos.listarTodos().subscribe(res=>{
               res.forEach(turnos => {
-                if(turnos.id == element.idTurnos.id){
+                if(turnos.id == element.idTurnos.id && turnos.idEstado.id == 3){
                   this.listaTurno.push(element);
                 }
               });
@@ -242,6 +238,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   public guardar() {
+    this.listaGuardado = []
     let asignarTurnoVendedor : AsignarTurnoVendedor = new AsignarTurnoVendedor();
     const idOficina = this.formAsignarTurno.controls['oficina'].value
     this.servicioOficina.listarTodos().subscribe(res => {
@@ -269,14 +266,14 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                         const fechaInicio = new Date(fechaI.getFullYear(), fechaI.getMonth(), fechaI.getDate()+1);
                         const fechaF = new Date(this.formAsignarTurno.controls['fechaFinal'].value);
                         const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                        const fechaIn = new Date(fechaInicio.getFullYear()+"-"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate());
-                        const fechaFn = new Date(fechaFinal.getFullYear()+"-"+(fechaFinal.getMonth()+1)+"-"+fechaFinal.getDate());
+                        const fechaIn = new Date(fechaInicio.getFullYear()+"-"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate()); // Fecha inicio que asignaran
+                        const fechaFn = new Date(fechaFinal.getFullYear()+"-"+(fechaFinal.getMonth()+1)+"-"+fechaFinal.getDate());// Fecha final que asignaran
                         this.servicioAsigarTurnoVendedor.listarTodos().subscribe(resTurnoVendedor=>{
                           this.listarExiste = []
                           resTurnoVendedor.forEach(elementTurnoVendedor => {
                             if(elementTurnoVendedor.idVendedor == asignarTurnoVendedor.idVendedor){
                               const fechaInicios = new Date(elementTurnoVendedor.fechaInicio)
-                              const fechaIGuardado = new Date(fechaInicios.getFullYear(), fechaInicios.getMonth(), fechaInicios.getDate()+1);
+                              const fechaIGuardado = new Date(fechaInicios.getFullYear(), fechaInicios.getMonth(), fechaInicios.getDate()+1); // Fechas guardado
                               const fechaFinals = new Date(elementTurnoVendedor.fechaFinal)
                               const fechaFGuardado = new Date(fechaFinals.getFullYear(), fechaFinals.getMonth(), fechaFinals.getDate()+1);
                               if(fechaIn >= fechaIGuardado && fechaFn<=fechaFGuardado){
@@ -293,19 +290,111 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                           });
                           const existe = this.listarExiste.includes( true )
                           if(existe == true){
-                            Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: 'Ese vendedor ya tiene un turno asignado en esas fechas!',
-                              showConfirmButton: false,
-                              timer: 1500
+                            console.log("wenas 3")
+                            this.servicioTurnoVendedorDTO.listarPorId(asignarTurnoVendedor.idVendedor).subscribe(resTurnosVendedores=>{
+                              resTurnosVendedores.forEach(elementTurnoVendedor => {
+                                this.listaGuardado.push(elementTurnoVendedor)
+                              })
+                              if(this.listaGuardado.length>1){
+
+                              }else{
+                                this.listaGuardado.forEach((elementGuardadouno:any) => {
+                                  var fechaInicioAlmacenada = new Date(elementGuardadouno.fecha_inicio)
+                                  var fechaInicioAlmacenada1 = new Date(fechaInicioAlmacenada.getFullYear(), fechaInicioAlmacenada.getMonth(), fechaInicioAlmacenada.getDate()+1)
+                                  var fechaFinalAlmacenada = new Date(elementGuardadouno.fecha_final)
+                                  var fechaFinalAlmacenada1 = new Date(fechaFinalAlmacenada.getFullYear(), fechaFinalAlmacenada.getMonth(), fechaFinalAlmacenada.getDate()+1)
+                                  if(fechaIn >= fechaInicioAlmacenada1  && fechaFn>= fechaFinalAlmacenada1){
+                                    if(elementGuardadouno.id_turno == asignarTurnoVendedor.idTurno.id){
+                                      Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Ya tiene asignado ese turno!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                      })
+                                    }else{
+                                      // this.servicioTurnos.listarPorId(elementTurnoVendedor.id_turno).subscribe(resTurno=>{
+                                      //   var horaIsplit = resTurno.horaInicio.split(':')
+                                      //   var horaFsplit = resTurno.horaFinal.split(':')
+                                      //   var hora = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
+                                      // })
+                                    }
+                                  }
+                                });
+                                // if(fechaIn >= fechaInicioAlmacenada1  && fechaFn>= fechaFinalAlmacenada1){
+                                //   if(elementTurnoVendedor.id_turno == asignarTurnoVendedor.idTurno.id){
+                                //     Swal.fire({
+                                //       position: 'center',
+                                //       icon: 'error',
+                                //       title: 'Ya tiene asignado ese turno!',
+                                //       showConfirmButton: false,
+                                //       timer: 1500
+                                //     })
+                                //   }else{
+                                //     this.servicioTurnos.listarPorId(elementTurnoVendedor.id_turno).subscribe(resTurno=>{
+                                //       var horaIsplit = resTurno.horaInicio.split(':')
+                                //       var horaFsplit = resTurno.horaFinal.split(':')
+                                //       var hora = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
+                                //       console.log(hora)
+                                //       hora.setHours(Number(horaFsplit[0])-Number(horaIsplit[0]),Number(horaFsplit[1])-Number(horaIsplit[1])) //hora asiganada-resta
+                                //       var horaDiferencia = new Date(1982,6,20,8,0) //tiempo de 8 horas
+
+                                //       // var horaInicioNueva = new Date(1982,6,20,Number(fechaInicio.getHours()), Number(fechaInicio.getMinutes())) //hora inicio nueva
+                                //       // var horaFinalNueva = new Date(1982,6,20,Number(fechaFinal.getHours()), Number(fechaFinal.getMinutes())) //hora final nueva
+                                //       // var horaNuevasplitI = asignarTurnoVendedor.idTurno.horaInicio.split(':')
+                                //       // var horaNuevasplitF = asignarTurnoVendedor.idTurno.horaFinal.split(':')
+                                //       // var horaNuevaI = new Date(1982,6,20,Number(horaNuevasplitI[0]), Number(horaNuevasplitI[1])) //hora inicio asignada
+                                //       // var horaNuevaF = new Date(1982,6,20,Number(horaNuevasplitF[0]), Number(horaNuevasplitF[1])) //hora inicio asignada
+                                //       // var horaNueva = new Date(1982,6,20,Number(horaNuevasplitF[0]), Number(horaNuevasplitF[1])) //hora inicio asignada
+                                //       // horaNueva.setHours(Number(horaNuevaF.getHours())-Number(horaNuevaI.getHours()),Number(horaNuevaF.getMinutes())-Number(horaNuevaI.getMinutes()))
+
+                                //       // var horaDiferenciaNueva = new Date(1982,6,20,Number(horaNuevasplitF[0]), Number(horaNuevasplitF[1])) //resta de horas con la que ingreso y con la 8 horas que debe cumplir
+                                //       // if(hora<horaDiferencia){
+                                //       //   if(fechaInicio <= fechaFinal){
+                                //       //     if(fechaInicio){
+                                //       //       this.listaGuardado.push(elementTurnoVendedor)
+                                //       //     }
+                                //       //     // if(this.listaGuardado.length>1){
+                                //       //     //   console.log("aqui etre")
+                                //       //     // }else{
+                                //       //     //   horaDiferencia.setHours(Number(horaDiferencia.getHours())-Number(horaDiferenciaNueva.getHours()),Number(horaDiferencia.getMinutes())-Number(horaDiferenciaNueva.getMinutes()))
+                                //       //     //   console.log(horaNueva, horaDiferencia)
+                                //       //     //   if(horaNueva>=horaDiferencia && horaNueva<=horaDiferencia){
+
+                                //       //     //   }
+                                //       //     //   asignarTurnoVendedor.fechaInicio = new Date(fechaInicio)
+                                //       //     //   asignarTurnoVendedor.fechaFinal = new Date(fechaFinal)
+                                //       //     //   // this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                                //       //     // }
+                                //       //   }else{
+                                //       //     Swal.fire({
+                                //       //       position: 'center',
+                                //       //       icon: 'error',
+                                //       //       title: 'Selecciono una fecha menor a la inicial!',
+                                //       //       showConfirmButton: false,
+                                //       //       timer: 1500
+                                //       //     })
+                                //       //   }
+                                //       // }else{
+                                //       //   Swal.fire({
+                                //       //     position: 'center',
+                                //       //     icon: 'error',
+                                //       //     title: 'Durante esas fechas tiene ya asignado un turno completo',
+                                //       //     showConfirmButton: false,
+                                //       //     timer: 1500
+                                //       //   })
+                                //       // }
+                                //     })
+                                //   }
+                                // }
+                              }
                             })
                           }
                           if(existe == false){
                             if(fechaInicio <= fechaFinal){
                               asignarTurnoVendedor.fechaInicio = fechaInicio
                               asignarTurnoVendedor.fechaFinal = fechaFinal
-                              this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                              // this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
                             }else{
                               Swal.fire({
                                 position: 'center',
@@ -377,7 +466,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
         this.servicioAsigarTurnoVendedor.eliminar(id).subscribe(res=>{
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Tipo de turno.',
+            'Se elimino la asignación de turno.',
             'success'
           )
           this.listaSitioVentasTabla = []

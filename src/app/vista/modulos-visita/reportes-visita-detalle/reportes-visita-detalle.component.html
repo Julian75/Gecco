@@ -1,0 +1,28 @@
+<div class="contenedor">
+    <h1 class="dato">Reportes Novedades</h1>
+    <form [formGroup]="formVisitaDetalle" >
+      <div class="row1">
+        <!-- Ingresar Nombre -->
+        <div class="nombre2">
+          <h2>Fecha Inicio</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese fecha inicio</mat-label>
+          <input type="date" id="fechaInicio" name="fechaInicio" formControlName="fechaInicio" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre2">
+          <h2>Fecha Final</h2>
+            <mat-form-field class="nombre" appearance="fill">
+            <mat-label>Ingrese fecha final</mat-label>
+            <input type="date" id="fechaFinal" name="fechaFinal" formControlName="fechaFinal" matInput >
+            </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Boton de guardar datos -->
+        <div class="guardar2">
+          <button mat-raised-button class="guardar" (click)="listarTodo()">Insertar Novedad</button>
+        </div>
+      </div>
+    </form>
+  </div>

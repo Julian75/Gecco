@@ -89,13 +89,13 @@ export class MallasComponent implements OnInit {
                   }else{
                     var horaAsignadaArray = element.idTurno.horaInicio.split(':')
                     var horaI = primerObjeto.hora.split(':')
-                    var horaAdicional = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+5)
+                    var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+5)
                     var horaAsignada = new Date(Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
-                    var horaIngreso = new Date(Number(horaI[0]),Number(horaI[1]))
-                    console.log(primerObjeto, element)
+                    var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
+                    console.log(horaIngreso, horaAsignada)
                     if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
                       this.cumplioMayor(element, primerObjeto, malla1)
-                    }else if(horaIngreso>=horaAsignada && horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                    }else if(horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
                       this.cumplioMenor(element, primerObjeto, malla1)
                     }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
                       this.ingresoSitioDiferente(element, primerObjeto, malla1)
@@ -111,6 +111,7 @@ export class MallasComponent implements OnInit {
               this.listaMallas.push(malla1)
             };
           })
+          console.log(this.listaMallas)
           this.dataSource = new MatTableDataSource(this.listaMallas);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -151,7 +152,7 @@ export class MallasComponent implements OnInit {
                       var horaIngreso = new Date(Number(horaI[0]),Number(horaI[1]))
                       if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
                         this.cumplioMayor(element, primerObjeto, malla1)
-                      }else if(horaIngreso>=horaAsignada && horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                      }else if(horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
                         this.cumplioMenor(element, primerObjeto, malla1)
                       }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
                         this.ingresoSitioDiferente(element, primerObjeto, malla1)
@@ -208,7 +209,7 @@ export class MallasComponent implements OnInit {
                       var horaIngreso = new Date(Number(horaI[0]),Number(horaI[1]))
                       if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
                         this.cumplioMayor(element, primerObjeto, malla1)
-                      }else if(horaIngreso>=horaAsignada && horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                      }else if(horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
                         this.cumplioMenor(element, primerObjeto, malla1)
                       }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
                         this.ingresoSitioDiferente(element, primerObjeto, malla1)
@@ -341,7 +342,6 @@ export class MallasComponent implements OnInit {
           malla1.ideZona = elementOficinia.ideSubzona
           malla1.nombreEstado = 'Cumplio'
           malla1.validar = true
-          console.log(malla1)
           })
         })
       }

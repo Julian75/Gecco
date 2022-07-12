@@ -1,0 +1,35 @@
+<h2 class="dato">Ingresar Nueva Configuracion</h2>
+<form [formGroup]="formConfiguracion">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese descripción </mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+        <h2>Nombre</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Nombre </mat-label>
+        <input id="descripcion" formControlName="nombre" matInput>
+        </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Valor</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Valor </mat-label>
+      <input id="descripcion" formControlName="valor" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Insertar Configuración</button>
+    </div>
+  </div>
+</form>
+
+

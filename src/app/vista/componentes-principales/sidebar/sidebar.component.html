@@ -45,6 +45,18 @@
       <button mat-raised-button id="16" routerLink="/elementosVisita" style="display: none;">Elementos Visita</button>
       <button mat-raised-button id="17" routerLink="/opcionesVisita" style="display: none;">Opciones Visita</button>
       <button mat-raised-button id="15" routerLink="/visitaDetalle" style="display: none;" >Agregar Visita Detalle</button>
+      <button mat-raised-button id="18" routerLink="/reportesVisitaDetalle" style="display: none;">Reportes Visita</button>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Configuración
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="" routerLink="/configuraciones" >Configuracion</button>
     </div>
   </mat-expansion-panel>
   </mat-drawer>

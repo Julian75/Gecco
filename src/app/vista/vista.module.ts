@@ -61,6 +61,10 @@ import { ElementosVisitaComponent } from './modulos-visita/elementos-visita/elem
 import { AgregarElementosVisitaComponent } from './modulos-visita/elementos-visita/agregar-elementos-visita/agregar-elementos-visita.component';
 import { ModificarElementosVisitaComponent } from './modulos-visita/elementos-visita/modificar-elementos-visita/modificar-elementos-visita.component';
 import { SideMovilComponent } from './componentes-principales/side-movil/side-movil.component';
+import { ReportesVisitaDetalleComponent } from './modulos-visita/reportes-visita-detalle/reportes-visita-detalle.component';
+import { TablaConfiguracionComponent } from './modulo-configuracion/tabla-configuracion/tabla-configuracion.component';
+import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/modificar-tabla-configuracion/modificar-tabla-configuracion.component';
+import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +125,10 @@ import { SideMovilComponent } from './componentes-principales/side-movil/side-mo
     AgregarElementosVisitaComponent,
     ModificarElementosVisitaComponent,
     SideMovilComponent,
+    ReportesVisitaDetalleComponent,
+    TablaConfiguracionComponent,
+    ModificarTablaConfiguracionComponent,
+    AgregarConfiguracionComponent,
   ],
   imports: [
     CommonModule,

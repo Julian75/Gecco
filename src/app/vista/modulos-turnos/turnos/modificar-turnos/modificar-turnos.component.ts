@@ -65,7 +65,11 @@ export class ModificarTurnosComponent implements OnInit {
 
   public listaTipoTurno() {
     this.servicioTipoTurno.listarTodos().subscribe(res => {
-      this.listarTipoTurno =  res
+      res.forEach(element => {
+        if(element.idEstado.id == 1){
+          this.listarTipoTurno.push(element);
+        }
+      });
     });
   }
 
