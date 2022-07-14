@@ -359,3 +359,47 @@ h2{
   }
 
 }
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+
+  .estadoT{
+    margin-top: -58%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 61%;
+    margin-top: 2%;
+  }
+}
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .estadoT{
+    margin-top: -54%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 60%;
+    margin-top: 2%;
+  }
+}
+/* Portatil Grande */
+@media screen and (min-width: 1441px){
+
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 59%;
+    margin-top: 2%;
+  }
+}

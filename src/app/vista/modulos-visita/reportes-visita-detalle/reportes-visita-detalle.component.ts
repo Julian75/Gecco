@@ -75,12 +75,14 @@ export class ReportesVisitaDetalleComponent implements OnInit {
             this.listaVisitaDetalleCompleta.forEach((element:any) => {
 
               var objeto = {
-                id: element.id,
                 descripcion: element.descripcion,
                 elementoVisita: element.idElementosVisita.descripcion,
                 opcionesVisita: element.idOpcionesVisita.descripcion,
                 fechaVisita: element.idVisitas.fechaRegistro,
                 nombreUsuario: element.idVisitas.idUsuario.nombre+" "+element.idVisitas.idUsuario.apellido,
+                idSitioVenta: element.ideSitioventa,
+                nombreSitioVenta: element.nomSitioventa
+
               }
               this.lista.push(objeto)
             })

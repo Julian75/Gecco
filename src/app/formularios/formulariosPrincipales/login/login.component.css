@@ -235,20 +235,20 @@ button{
     margin-top: 7%;
   }
   hr{ display: block;  margin-top: -23%; }
-  .numIdentificacion{ top: 150px; left: -35%; width: 35%; }
-  .password{ top: 150px; left: 10%; width: 35%;}
+  .numIdentificacion{ top: 165px; left: -35%; width: 35%; }
+  .password{ top: 185px; left: 10%; width: 35%;}
   .imgLogin{
     width: 50%;
     left: 50%;
-    top: -80px;
+    top: -100px;
   }
   button{
-    top: 230px;
+    top: 275px;
     left: -22.8%;
     width: 30%;
   }
   .olvido{
-    top: 240px;
+    top: 300px;
     left: 16%;
     display: block;
   }
@@ -266,21 +266,21 @@ button{
     margin-left: 10%;
     margin-top: 7%;
   }
-  hr{ display: block;  margin-top: -23%; }
-  .numIdentificacion{ top: 150px; left: -35%; width: 35%; }
-  .password{ top: 150px; left: 10%; width: 35%;}
+  hr{ display: block;  margin-top: -22%; }
+  .numIdentificacion{ top: 165px; left: -35%; width: 35%; }
+  .password{ top: 180px; left: 10%; width: 35%;}
   .imgLogin{
     width: 50%;
     left: 50%;
-    top: -80px;
+    top: -100px;
   }
   button{
-    top: 250px;
+    top: 277px;
     left: -22.8%;
     width: 30%;
   }
   .olvido{
-    top: 270px;
+    top: 310px;
     left: 16%;
     display: block;
   }
@@ -298,20 +298,20 @@ button{
     margin-top: 7%;
   }
   hr{ display: block;  margin-top: -21%; }
-  .numIdentificacion{ top: 150px; left: -35%; width: 35%; }
-  .password{ top: 150px; left: 10%; width: 35%;}
+  .numIdentificacion{ top: 180px; left: -35%; width: 35%; }
+  .password{ top: 210px; left: 10%; width: 35%;}
   .imgLogin{
     width: 50%;
     left: 50%;
-    top: -80px;
+    top: -100px;
   }
   button{
-    top: 265px;
+    top: 335px;
     left: -22.8%;
     width: 30%;
   }
   .olvido{
-    top: 315px;
+    top: 380px;
     left: 19%;
     display: block;
   }

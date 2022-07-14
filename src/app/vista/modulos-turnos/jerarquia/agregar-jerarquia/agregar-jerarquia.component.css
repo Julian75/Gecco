@@ -74,3 +74,26 @@ h2{
     width: 45%;
   }
 }
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .guardar{
+    margin-left: 55%;
+    width: 45%;
+  }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .guardar{
+    margin-left: 55%;
+    width: 45%;
+  }
+}
+
+/* Portatil Grande */
+@media screen and (min-width: 1441px){
+  .guardar{
+    margin-left: 55%;
+    width: 45%;
+  }
+}

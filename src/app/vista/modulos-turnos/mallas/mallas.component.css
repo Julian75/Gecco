@@ -6,6 +6,13 @@
   box-shadow: 1px none #000;
   margin-bottom: 3% !important;
 }
+table{
+  width: 100%;
+}
+.complete{
+  right: 22%;
+  top: -45px;
+}
 .btnVisualizar{
   background-color: #97B4E2;
   width: 10%;

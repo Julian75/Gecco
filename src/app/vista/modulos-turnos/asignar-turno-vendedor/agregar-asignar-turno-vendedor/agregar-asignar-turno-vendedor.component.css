@@ -599,41 +599,100 @@ th.mat-header-cell{ padding-right: 15px; }
 }
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
+  .sitio{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: -20%;
   }
-  .nombre{
-    width: 218px;
-    margin-left: -4%;
-  }
-  .nombre1{
-    width: 218px;
-    margin-left: 30%;
-  }
-  .tur{
-    width: 218px;
-    margin-left: -4%;
+  .Turno{
+    width: 100%;
+    margin-top: -45%;
   }
   .ven{
-    width: 218px;
-    margin-left: 56%;
+    width: 28%;
+  }
+  .fecha1{
+    width: 100%;
+    margin-top: -20%;
+  }
+  .fecha2{
+    width: 100%;
+    margin-top: -45%;
+
   }
   .fec1{
-    width: 218px;
-    margin-left: -65%;
+    width: 48%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 74%;
+    top: -25%;
+  }
+  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
+}
+/* Portatil Medio */
+@media screen and (min-width: 1366px) and (max-width: 1440px){
+  .sitio{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: -19%;
+  }
+  .Turno{
+    width: 100%;
+    margin-top: -42%;
+  }
+  .ven{
+    width: 28%;
+  }
+  .fecha1{
+    width: 100%;
+    margin-top: -18%;
+  }
+  .fecha2{
+    width: 100%;
+    margin-top: -42%;
+  }
+  .fec1{
+    width: 45%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 74%;
+    top: -25%;
+  }
+  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
+}
+/* portatil grande */
+@media screen and (min-width: 1441px){
+
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 150px;
+    height: 40px;
+    font-size: large;
+    margin-left: 78%;
+    top: 0%;
+  }
+  .fec1{
+    width: 38%;
+  }
+  .ven{
+    width: 24%;
+  }
+  .tur{
+    width: 90%;
   }
   .fec2{
-    width: 218px;
-    margin-left: 56%;
+    width: 90%;
   }
   .guardar{
     background-color: #00235C;
@@ -641,61 +700,9 @@ th.mat-header-cell{ padding-right: 15px; }
     width: 150px;
     height: 40px;
     font-size: large;
-    margin-left: 66%;
+    margin-left: 84%;
     top: 0%;
   }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
-  .oficina2{
-    width: 100%;
-    margin-left: -4%;
-    margin-top: -4%;
-  }
-  .sitio{
-    width: 100%;
-    margin-left: 30%;
-    margin-top: -20%;
-  }
-  .tit{
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-  .Turno{
-    width: 100%;
-    margin-top: 3%;
-    margin-left: -4%;
-  }
-  .vendedor1{
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -16%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-left: -65%;
-    margin-top: 15%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -13%;
-  }
-  .nombre4{ margin-left: 5%; margin-top: -4%;}
-  .btnremove{
-    width: 64px; height: 36px;
-    position: relative;
-    left: 12%;
-  }
+
   #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
 }

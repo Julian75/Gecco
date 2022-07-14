@@ -226,3 +226,38 @@ h2{
     padding-bottom: 4%;
   }
 }
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 215px;
+    height: 40px;
+    font-size: large;
+    margin-left: 52%;
+  }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 215px;
+    height: 40px;
+    font-size: large;
+    margin-left: 52%;
+  }
+}
+
+/* Portatil Grande */
+@media screen and (min-width: 1441px){
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 215px;
+    height: 40px;
+    font-size: large;
+    margin-left: 52%;
+  }
+}

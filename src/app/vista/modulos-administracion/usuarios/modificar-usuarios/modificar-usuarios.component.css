@@ -102,6 +102,15 @@ h2{
     margin-left: 55%;
     margin-top: -66%;
   }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 61%;
+    margin-top: 3%;
+  }
 }
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
@@ -109,11 +118,29 @@ h2{
     margin-left: 55%;
     margin-top: -62%;
   }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 61%;
+    margin-top: 2%;
+  }
 }
 
 /* portatil grande */
 @media screen and (min-width: 1441px) and (max-width: 1920px){
   .nombre3{
     margin-left: 55%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: large;
+    margin-left: 60%;
+    margin-top: 2%;
   }
 }

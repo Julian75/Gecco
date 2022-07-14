@@ -4,7 +4,7 @@ import { AccesoService } from 'src/app/servicios/Acceso.service';
 import {MatDialog , MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { Accesos } from 'src/app/modelos/accesos';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ModuloService } from 'src/app/servicios/modulo.service';
 import { RolService } from 'src/app/servicios/rol.service';
 
@@ -23,6 +23,7 @@ export class AgregarAccesosComponent implements OnInit {
   public listarExiste: any = [];
   public idModulo: any;
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private servicioModulo: ModuloService,
     private servicioRol: RolService,
@@ -114,7 +115,7 @@ export class AgregarAccesosComponent implements OnInit {
       })
       this.dialogRef.close();
       window.location.reload();
-
+      this.router.navigate(['/tablaAccesos']);
     }, error => {
       Swal.fire({
         position: 'center',

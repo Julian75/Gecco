@@ -12,4 +12,5 @@ export class AsignarTurnoVendedor {
   public nombreSitioVenta: string="";
   public idVendedor: number=0;
   public nombreVendedor: string="";
+  public estado: string="";
 }

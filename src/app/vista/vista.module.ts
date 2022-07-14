@@ -66,6 +66,7 @@ import { TablaConfiguracionComponent } from './modulo-configuracion/tabla-config
 import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/modificar-tabla-configuracion/modificar-tabla-configuracion.component';
 import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
 import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cierre.component';
+import { SolicitudEliminarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/solicitud-eliminar-turno-vendedor/solicitud-eliminar-turno-vendedor.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cie
     ModificarTablaConfiguracionComponent,
     AgregarConfiguracionComponent,
     MallasCierreComponent,
+    SolicitudEliminarTurnoVendedorComponent,
   ],
   imports: [
     CommonModule,

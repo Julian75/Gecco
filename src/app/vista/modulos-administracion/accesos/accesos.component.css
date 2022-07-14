@@ -149,3 +149,41 @@ mat-form-field{
   #rolSpa{ left: 28px; }
   .excelButton i{ top: 1px;}
 }
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .excelButton{ margin-left: -2%; }
+  td { font-size: 16px; height: 0px;}
+  .botonagregar{ margin-left: 1%;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSpa{ left: 45px; }
+  #moduloSpa{ left: 158px; }
+  #rolSpa{ left: 55px; }
+  .excelButton i{ top: 1px;}
+}
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .excelButton{ margin-left: -2%; }
+  td { font-size: 16px; height: 0px;}
+  .botonagregar{ margin-left: 0.5%;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSpa{ left: 50px; }
+  #moduloSpa{ left: 170px; }
+  #rolSpa{ left: 65px; }
+  .excelButton i{ top: 1px;}
+}
+
+/* Portatil Grande */
+@media screen and (min-width: 1441px){
+  .excelButton{ margin-left: -1%; }
+  td { font-size: 16px; height: 0px; margin-left: 0%;}
+  .botonagregar{ margin-left: 1%;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSpa{ left: 64px; }
+  #moduloSpa{ left: 210px; }
+  #rolSpa{ left: 80px; }
+  .excelButton i{ top: 1px;}
+
+}
+td.mat-cell:first-of-type{
+  padding-left: 0%;
+ }

@@ -98,8 +98,6 @@ export class NovedadesComponent implements OnInit {
               this.lista = []
               this.listaNovedadCompleta.forEach((element:any) => {
                 var objeto = {
-                  id: Number(element.id),
-                  observacion: element.observacion,
                   fecha: element.fecha,
                   hora: element.hora,
                   idVendedor: element.idAsignarTurnoVendedor.idVendedor,
@@ -112,7 +110,8 @@ export class NovedadesComponent implements OnInit {
                   documentoGeneroReporte: element.idUsuario.documento,
                   nombresGeneroReporte: element.idUsuario.nombre,
                   apellidosGeneroReporte: element.idUsuario.apellido,
-                  estado: element.estado
+                  estado: element.estado,
+                  observacion: element.observacion
                 }
                 this.lista.push(objeto)
               });

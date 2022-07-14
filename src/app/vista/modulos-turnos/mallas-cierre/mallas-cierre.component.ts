@@ -14,6 +14,10 @@ import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.servic
 import * as XLSX from 'xlsx';
 import { NovedadConsultaSevice } from 'src/app/servicios/novedadConsulta.service';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { map, Observable, startWith } from 'rxjs';
+import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mallas-cierre',
@@ -141,7 +145,7 @@ export class MallasCierreComponent implements OnInit {
           this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
             const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
             this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
             res.forEach(element => {
               if(element.ideSubzona  == resUsuario.ideSubzona){
                 var malla1 = {
@@ -203,7 +207,7 @@ export class MallasCierreComponent implements OnInit {
           this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
             const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
             this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
             res.forEach(element => {
               if(element.idOficina  == resUsuario.ideOficina){
                 var malla1 = {
@@ -264,7 +268,6 @@ export class MallasCierreComponent implements OnInit {
             this.dataSource.sort = this.sort;
           })
         }
-
       })
     })
 
@@ -477,4 +480,5 @@ export class MallasCierreComponent implements OnInit {
       }
     })
   }
+
 }

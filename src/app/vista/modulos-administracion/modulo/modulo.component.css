@@ -138,4 +138,29 @@ mat-form-field{
   #descSpa{ left: 45px; }
   #rolSpa{ left: 15px; }
 }
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSpa{ left: 30px; }
+  #descSpa{ left: 120px; }
+  #rolSpa{ left: 15px; }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSpa{ left: 35px; }
+  #descSpa{ left: 130px; }
+  #rolSpa{ left: 15px; }
+}
+/* Portatil Grande */
+@media screen and (min-width: 1441px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 22%; margin-left: 68%; margin-top: -3%; }
+  #idSpa{ left: 45px; }
+  #descSpa{ left: 170px; }
+  #rolSpa{ left: 15px; }
+}
 

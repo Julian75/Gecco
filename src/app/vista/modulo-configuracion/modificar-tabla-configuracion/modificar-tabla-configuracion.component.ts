@@ -40,7 +40,6 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
 
   public listarporidConfiguracion() {
     this.id = this.data;
-    console.log(this.id);
     this.servicioConfiguracion.listarPorId(this.id).subscribe(res => {
       this.formConfiguracion.setValue(res);
     })

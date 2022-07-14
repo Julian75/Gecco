@@ -72,14 +72,23 @@ export class SideMovilComponent implements OnInit {
           if (this.listaAccessForm[i] == 13) {
             document.getElementById('1313')?.setAttribute('style', 'display: block;')
           }
-          if (this.listaAccessForm[i] == 13) {
+          if (this.listaAccessForm[i] == 14) {
             document.getElementById('1414')?.setAttribute('style', 'display: block;')
           }
-          if (this.listaAccessForm[i] == 13) {
+          if (this.listaAccessForm[i] == 16) {
             document.getElementById('1616')?.setAttribute('style', 'display: block;')
           }
-          if (this.listaAccessForm[i] == 13) {
+          if (this.listaAccessForm[i] == 17) {
             document.getElementById('1717')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 18) {
+            document.getElementById('1818')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 19) {
+            document.getElementById('1919')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 20) {
+            document.getElementById('2020')?.setAttribute('style', 'display: block;')
           }
         }
       })
@@ -97,9 +106,9 @@ export class SideMovilComponent implements OnInit {
       console.log(this.listaVisita)
       let ultimo = this.listaVisita[0]
       var horaFinal = ultimo.hora.split(':')
-      var hora = new Date(horaFinal[0],Number(horaFinal[1]))
-      var horaFinal3 = new Date(horaFinal[0],Number(horaFinal[1])+5)
-      var horaActual = new Date(this.fecha.getHours(), this.fecha.getMinutes());
+      var hora = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1]))
+      var horaFinal3 = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1])+5)
+      var horaActual = new Date(1928,6,25,this.fecha.getHours(), this.fecha.getMinutes());
 
       if(horaActual>=hora && horaActual<=horaFinal3){
         document.getElementById('1515')?.setAttribute('style', 'display: block;')

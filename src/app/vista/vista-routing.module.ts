@@ -68,6 +68,11 @@ const routes: Routes = [
         canActivate: [AutorizacionGuard]
       },
       {
+        path: 'tablaAccesos',
+        component: AccesosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
         path: 'visualizarAccessos/:id',
         component: AccesosComponent,
         canActivate: [AutorizacionGuard]

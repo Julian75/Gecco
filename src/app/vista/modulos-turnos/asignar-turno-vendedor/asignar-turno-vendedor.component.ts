@@ -1,10 +1,14 @@
+import { SolicitudEliminarTurnoVendedorComponent } from './solicitud-eliminar-turno-vendedor/solicitud-eliminar-turno-vendedor.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 import { UsuarioVendedoresService } from 'src/app/servicios/serviciosSiga/usuariosVendedores.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 @Component({
   selector: 'app-asignar-turno-vendedor',
   templateUrl: './asignar-turno-vendedor.component.html',
@@ -21,7 +25,7 @@ export class AsignarTurnoVendedorComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioAsignarTurnoVendedor: AsignarTurnoVendedorService,
-    private servicioUsuarioVendedor: UsuarioVendedoresService,
+    private servicioUsuarioVendedor: UsuarioVendedoresService
   ) { }
 
   ngOnInit(): void {
@@ -57,4 +61,5 @@ export class AsignarTurnoVendedorComponent implements OnInit {
 
     XLSX.writeFile(book, this.name);
   }
+
 }

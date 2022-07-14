@@ -84,6 +84,15 @@ export class SidebarComponent implements OnInit {
           if (this.listaAccessForm[i] == 17) {
             document.getElementById('17')?.setAttribute('style', 'display: block;')
           }
+          if (this.listaAccessForm[i] == 18) {
+            document.getElementById('18')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 19) {
+            document.getElementById('19')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 20) {
+            document.getElementById('20')?.setAttribute('style', 'display: block;')
+          }
         }
       })
     })

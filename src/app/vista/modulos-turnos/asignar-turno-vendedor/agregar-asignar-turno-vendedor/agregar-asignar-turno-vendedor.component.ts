@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material/dialog';
+import { SolicitudEliminarTurnoVendedorComponent } from './../solicitud-eliminar-turno-vendedor/solicitud-eliminar-turno-vendedor.component';
 import { UsuariosVendedores } from 'src/app/modelos/modelosSiga/usuariosVendedores';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +19,7 @@ import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { SitioVenta } from 'src/app/modelos/modelosSiga/sitioVenta';
 import { TurnoVendedorDTOSevice } from 'src/app/servicios/turnoVendedorDTO.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
   selector: 'app-agregar-asignar-turno-vendedor',
@@ -37,6 +40,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   public listarVendedores: any = [];
   public listarSitioVenta:any=[];
   public listarEstado: any = [];
+  public listaOf: any = [];
   public listaOficinas: any = [];
   public listarTurnos: any = [];
   public listaTurno: any = [];
@@ -57,6 +61,10 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
 
   public listaGuardado: any = [];
   public listadoVendedorFecha: any = [];
+  public elementGuardadouno1: any = [];
+  public listaTurnosAsigVen: any = [];
+
+
 
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -67,11 +75,14 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     private servicioEstado : EstadoService,
     private servicioOficina : OficinasService,
     private servicioTurnos : TurnosService,
+    private servicioUsuario : UsuarioService,
     private servicioSitioVenta : SitioVentaService,
     private servicioUsuarioVendedor: UsuarioVendedoresService,
     private servicioAsigarTurnoVendedor: AsignarTurnoVendedorService,
     private servicioTurnoVendedorDTO: TurnoVendedorDTOSevice,
     private router: Router,
+    public dialog: MatDialog,
+    private servicioAsignarTurnoVendedor: AsignarTurnoVendedorService,
   ) { }
 
   ngOnInit(): void {
@@ -105,7 +116,25 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
 
   public listarOficinas() {
     this.servicioOficina.listarTodos().subscribe(res => {
-      this.listaOficinas = res
+      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        if(resUsuario.idRol.idJerarquia.id == 2){
+          this.listaOficinas = res
+        }else if(resUsuario.idRol.idJerarquia.id == 3){
+          res.forEach(element => {
+            if(element.ideSubzona == resUsuario.ideSubzona){
+              this.listaOf.push(element)
+            }
+          });
+          this.listaOficinas = this.listaOf
+        }else if(resUsuario.idRol.idJerarquia.id == 4){
+          res.forEach(element => {
+            if(element.ideOficina == resUsuario.ideOficina){
+              this.listaOf.push(element)
+            }
+          });
+          this.listaOficinas = this.listaOf
+        }
+      })
     });
   }
 
@@ -315,78 +344,152 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                                     if(this.listaGuardado){
                                       this.listadoVendedorFecha.push(elementGuardadouno)
                                     }
-                                    console.log(this.listadoVendedorFecha)
                                   }
                                 }
                               })
-                              if(this.listaGuardado.length==2){
+                              console.log(this.listadoVendedorFecha)
+                              if(this.listadoVendedorFecha.length==2){
+                                this.listaTurnosAsigVen=[]
+                                this.listadoVendedorFecha.forEach((elementGuardadouno:any) => {
+                                  this.elementGuardadouno1.push(elementGuardadouno)
+                                })
+                                if(this.elementGuardadouno1[0] == asignarTurnoVendedor.idTurno.id || this.elementGuardadouno1[1] == asignarTurnoVendedor.idTurno.id){
+                                  Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Ya tiene asignado ese turno!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                  })
+                                }else{
+                                  console.log(this.elementGuardadouno1[0])
+                                  this.servicioTurnos.listarTodos().subscribe(resTurnoVarios=>{
+                                    resTurnoVarios.forEach(elementTurnoVarios => {
+                                      if(elementTurnoVarios.id == this.elementGuardadouno1[0].id_turno || elementTurnoVarios.id == this.elementGuardadouno1[1].id_turno){
+                                        this.listaTurnosAsigVen.push(elementTurnoVarios)
+                                      }
+                                    });
+                                    console.log(this.listaTurnosAsigVen)
+                                    var horaIsplit1 = this.listaTurnosAsigVen[0].horaInicio.split(':') //Split de Hora inicio almacenada 1
+                                    var horaFsplit1 = this.listaTurnosAsigVen[0].horaFinal.split(':') //Split de Hora final almacenada 1
+                                    var horaIsplit2 = this.listaTurnosAsigVen[1].horaInicio.split(':') //Split de Hora inicio almacenada 2
+                                    var horaFsplit2 = this.listaTurnosAsigVen[1].horaFinal.split(':') //Split de Hora final almacenada 2
+
+                                    var horaAlmanecanada1 = new Date(1982,6,20,Number(horaIsplit1[0]), Number(horaIsplit1[1]))
+                                    horaAlmanecanada1.setHours(Number(horaFsplit1[0])-Number(horaIsplit1[0]), Number(horaFsplit1[1])-Number(horaIsplit1[1]))
+                                    var horaAlmanecanada2 = new Date(1982,6,20,Number(horaIsplit2[0]), Number(horaIsplit2[1]))
+                                    horaAlmanecanada2.setHours(Number(horaFsplit2[0])-Number(horaIsplit2[0]), Number(horaFsplit2[1])-Number(horaIsplit2[1]))
+
+                                    var horaAlmanecanadaSuma = new Date(1982,6,20,Number(horaIsplit1[0]), Number(horaIsplit1[1]))
+                                    horaAlmanecanadaSuma.setHours(Number(horaAlmanecanada1.getHours())+Number(horaAlmanecanada2.getHours()), Number(horaAlmanecanada1.getMinutes())+Number(horaAlmanecanada2.getMinutes()))
+
+                                    var horaOchoHoras = new Date(1982,6,20,8,0) //tiempo de 8 horas
+                                    var tiempoFaltante = new Date(1982,6,20,8,0)
+                                    tiempoFaltante.setHours(Number(horaOchoHoras.getHours())-Number(horaAlmanecanadaSuma.getHours()),Number(horaOchoHoras.getMinutes())-Number(horaAlmanecanadaSuma.getMinutes())) //tiempo faltante para ingresar nuevo turno
+
+                                    if(tiempoFaltante.getHours() <= 0 ){
+                                      Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'No se podra asignar un nuevo turno porque ya en esas fecha cumple las 8 horas exactas.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                      })
+                                    }else{
+                                      this.servicioTurnos.listarPorId(asignarTurnoVendedor.idTurno.id).subscribe(resTurnoNuevo=>{
+                                        var horaIsplitNueva = resTurnoNuevo.horaInicio.split(':') //Split de Hora inicio nueva
+                                        var horaFsplitNueva = resTurnoNuevo.horaFinal.split(':') //Split de Hora final nueva
+                                        var horaInicioNueva = new Date(1982,6,20,Number(horaIsplitNueva[0]), Number(horaIsplitNueva[1])) //hora inicio nueva
+                                        var horaFinalNueva = new Date(1982,6,20,Number(horaFsplitNueva[0]), Number(horaFsplitNueva[1])) //hora final nueva
+                                        var horaNueva = new Date(1982,6,20,Number(horaIsplitNueva[0]), Number(horaIsplitNueva[1]))
+                                        horaNueva.setHours(Number(horaFsplitNueva[0])-Number(horaIsplitNueva[0]),Number(horaFsplitNueva[1])-Number(horaIsplitNueva[1])) //hora Nueva
+                                        if(horaNueva>=tiempoFaltante && horaNueva<=tiempoFaltante){
+                                          if(horaInicioNueva<=horaFinalNueva){
+                                            asignarTurnoVendedor.fechaInicio = new Date(fechaInicio)
+                                            asignarTurnoVendedor.fechaFinal = new Date(fechaFinal)
+                                            this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                                          }
+                                        }else if(horaAlmanecanadaSuma>=horaOchoHoras){
+                                          Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: 'Durante esas fechas tiene ya asignado turnos completo',
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                          })
+                                        }else{
+                                          Swal.fire({
+                                              position: 'center',
+                                              icon: 'error',
+                                              title: 'No sera posible asignar ese turno porque excede las 8 horas!',
+                                              showConfirmButton: false,
+                                              timer: 2000
+                                          })
+                                        }
+                                      })
+                                    }
+                                  })
+                                }
+                              }else if(this.listadoVendedorFecha.length>=3){
                                 Swal.fire({
                                   position: 'center',
-                                  icon: 'success',
-                                  title: 'Aun no esta validado!',
+                                  icon: 'error',
+                                  title: 'No se podra asignar un cuarto turno durante esas fechas.',
                                   showConfirmButton: false,
                                   timer: 1500
                                 })
                               }else{
-                                this.listaGuardado.forEach((elementGuardadouno:any) => {
-                                  var fechaInicioAlmacenada = new Date(elementGuardadouno.fecha_inicio)
-                                  var fechaInicioAlmacenada1 = new Date(fechaInicioAlmacenada.getFullYear(), fechaInicioAlmacenada.getMonth(), fechaInicioAlmacenada.getDate()+1)
-                                  var fechaFinalAlmacenada = new Date(elementGuardadouno.fecha_final)
-                                  var fechaFinalAlmacenada1 = new Date(fechaFinalAlmacenada.getFullYear(), fechaFinalAlmacenada.getMonth(), fechaFinalAlmacenada.getDate()+1)
-                                  if(fechaInicio >= fechaInicioAlmacenada1  && fechaFinal<= fechaFinalAlmacenada1){
-                                    if(elementGuardadouno.id_turno == asignarTurnoVendedor.idTurno.id){
-                                      Swal.fire({
-                                        position: 'center',
-                                        icon: 'error',
-                                        title: 'Ya tiene asignado ese turno!',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                      })
-                                    }else{
-                                      this.servicioTurnos.listarPorId(elementGuardadouno.id_turno).subscribe(resTurno=>{
-                                        var horaIsplit = resTurno.horaInicio.split(':') //Split de Hora inicio almacenada
-                                        var horaFsplit = resTurno.horaFinal.split(':') //Split de Hora final almacenada
-                                        var horaIni = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1])) //Hora inicio almacenada
-                                        var horaFin = new Date(1982,6,20,Number(horaFsplit[0]), Number(horaFsplit[1])) //Hora final almacenada
-                                        var hora = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
-                                        console.log(hora)
-                                        hora.setHours(Number(horaFsplit[0])-Number(horaIsplit[0]),Number(horaFsplit[1])-Number(horaIsplit[1])) //hora almacenada
-                                        var horaOchoHoras = new Date(1982,6,20,8,0) //tiempo de 8 horas
-                                        var tiempoFaltante = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
-                                        tiempoFaltante.setHours(Number(horaOchoHoras.getHours())-Number(hora.getHours()),Number(horaOchoHoras.getMinutes())-Number(hora.getMinutes())) //tiempo faltante para ingresar nuevo turno
-                                        this.servicioTurnos.listarPorId(asignarTurnoVendedor.idTurno.id).subscribe(resTurnoNuevo=>{
-                                          var horaIsplitNueva = resTurnoNuevo.horaInicio.split(':') //Split de Hora inicio nueva
-                                          var horaFsplitNueva = resTurnoNuevo.horaFinal.split(':') //Split de Hora final nueva
-                                          var horaInicioNueva = new Date(1982,6,20,Number(horaIsplitNueva[0]), Number(horaIsplitNueva[1])) //hora inicio nueva
-                                          var horaFinalNueva = new Date(1982,6,20,Number(horaFsplitNueva[0]), Number(horaFsplitNueva[1])) //hora final nueva
-                                          var horaNueva = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
-                                          horaNueva.setHours(Number(horaFsplitNueva[0])-Number(horaIsplitNueva[0]),Number(horaFsplitNueva[1])-Number(horaIsplitNueva[1])) //hora Nueva
-                                          if(horaNueva>=tiempoFaltante && horaNueva<=tiempoFaltante){
-                                            if(horaInicioNueva<=horaFinalNueva){
-                                              asignarTurnoVendedor.fechaInicio = new Date(fechaInicio)
-                                              asignarTurnoVendedor.fechaFinal = new Date(fechaFinal)
-                                              this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
-                                            }
-                                          }else if(hora>=horaOchoHoras){
-                                            Swal.fire({
+                                this.listadoVendedorFecha.forEach((elementGuardadouno:any) => {
+                                  if(elementGuardadouno.id_turno == asignarTurnoVendedor.idTurno.id){
+                                    Swal.fire({
+                                      position: 'center',
+                                      icon: 'error',
+                                      title: 'Ya tiene asignado ese turno!',
+                                      showConfirmButton: false,
+                                      timer: 1500
+                                    })
+                                  }else{
+                                    this.servicioTurnos.listarPorId(elementGuardadouno.id_turno).subscribe(resTurno=>{
+                                      var horaIsplit = resTurno.horaInicio.split(':') //Split de Hora inicio almacenada
+                                      var horaFsplit = resTurno.horaFinal.split(':') //Split de Hora final almacenada
+                                      var hora = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
+                                      console.log(hora)
+                                      hora.setHours(Number(horaFsplit[0])-Number(horaIsplit[0]),Number(horaFsplit[1])-Number(horaIsplit[1])) //hora almacenada
+                                      var horaOchoHoras = new Date(1982,6,20,8,0) //tiempo de 8 horas
+                                      var tiempoFaltante = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
+                                      tiempoFaltante.setHours(Number(horaOchoHoras.getHours())-Number(hora.getHours()),Number(horaOchoHoras.getMinutes())-Number(hora.getMinutes())) //tiempo faltante para ingresar nuevo turno
+                                      this.servicioTurnos.listarPorId(asignarTurnoVendedor.idTurno.id).subscribe(resTurnoNuevo=>{
+                                        var horaIsplitNueva = resTurnoNuevo.horaInicio.split(':') //Split de Hora inicio nueva
+                                        var horaFsplitNueva = resTurnoNuevo.horaFinal.split(':') //Split de Hora final nueva
+                                        var horaInicioNueva = new Date(1982,6,20,Number(horaIsplitNueva[0]), Number(horaIsplitNueva[1])) //hora inicio nueva
+                                        var horaFinalNueva = new Date(1982,6,20,Number(horaFsplitNueva[0]), Number(horaFsplitNueva[1])) //hora final nueva
+                                        var horaNueva = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
+                                        horaNueva.setHours(Number(horaFsplitNueva[0])-Number(horaIsplitNueva[0]),Number(horaFsplitNueva[1])-Number(horaIsplitNueva[1])) //hora Nueva
+                                        if(horaNueva>=tiempoFaltante && horaNueva<=tiempoFaltante){
+                                          if(horaInicioNueva<=horaFinalNueva){
+                                            asignarTurnoVendedor.fechaInicio = new Date(fechaInicio)
+                                            asignarTurnoVendedor.fechaFinal = new Date(fechaFinal)
+                                            this.registrarAsignacionTurnoVendedor(asignarTurnoVendedor)
+                                          }
+                                        }else if(hora>=horaOchoHoras){
+                                          Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: 'Durante esas fechas tiene ya asignado un turno completo',
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                          })
+                                        }else{
+                                          Swal.fire({
                                               position: 'center',
                                               icon: 'error',
-                                              title: 'Durante esas fechas tiene ya asignado un turno completo',
+                                              title: 'No sera posible asignar ese turno porque excede las 8 horas!',
                                               showConfirmButton: false,
                                               timer: 2000
-                                            })
-                                          }else{
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                title: 'No sera posible asignar ese turno porque excede las 8 horas!',
-                                                showConfirmButton: false,
-                                                timer: 2000
-                                            })
-                                          }
-                                        })
+                                          })
+                                        }
                                       })
-                                    }
+                                    })
                                   }
                                 });
                               }
@@ -447,44 +550,50 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   public eliminarAsignarTurnoVendedor(id:number){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger mx-5'
-      },
-      buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-      title: '¿Estas seguro?',
-      text: "No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, Eliminar!',
-      cancelButtonText: 'No, Cancelar!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.servicioAsigarTurnoVendedor.eliminar(id).subscribe(res=>{
-          swalWithBootstrapButtons.fire(
-            'Eliminado!',
-            'Se elimino la asignación de turno.',
-            'success'
-          )
-          this.listaSitioVentasTabla = []
-          this.dataSource = new MatTableDataSource(this.listaSitioVentasTabla);
-          this.router.navigate(['/agregarTurnoVendedor']);
-          this.crearFormulario()
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      if(resUsuario.idRol.idJerarquia.id == 2){
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger mx-5'
+          },
+          buttonsStyling: false
         })
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelado!',
-          '',
-          'error'
-        )
+
+        swalWithBootstrapButtons.fire({
+          title: '¿Estas seguro?',
+          text: "No podrás revertir esto!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Si, Eliminar!',
+          cancelButtonText: 'No, Cancelar!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.servicioAsignarTurnoVendedor.eliminar(id).subscribe(res=>{
+              swalWithBootstrapButtons.fire(
+                'Eliminado!',
+                'Se eliminó la asignación de turno a ese vendedor.',
+                'success'
+              )
+            })
+            this.router.navigate(['/asignarTurnoVendedor']);
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelado!',
+              '',
+              'error'
+            )
+          }
+        })
+      }else if(resUsuario.idRol.idJerarquia.id == 3 || resUsuario.idRol.idJerarquia.id==4){
+        const dialogRef = this.dialog.open(SolicitudEliminarTurnoVendedorComponent, {
+          width: '500px',
+          data: id
+        });
       }
     })
   }

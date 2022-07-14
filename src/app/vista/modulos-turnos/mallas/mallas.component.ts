@@ -1,3 +1,4 @@
+import { Modulo } from './../../../modelos/modulo';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
@@ -14,6 +15,7 @@ import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.servic
 import * as XLSX from 'xlsx';
 import { NovedadConsultaSevice } from 'src/app/servicios/novedadConsulta.service';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+
 @Component({
   selector: 'app-mallas',
   templateUrl: './mallas.component.html',
@@ -142,7 +144,7 @@ export class MallasComponent implements OnInit {
           this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
             const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
             this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
             res.forEach(element => {
               if(element.ideSubzona  == resUsuario.ideSubzona){
                 var malla1 = {
@@ -207,7 +209,7 @@ export class MallasComponent implements OnInit {
           this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
             const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
             this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
             res.forEach(element => {
               if(element.idOficina  == resUsuario.ideOficina){
                 var malla1 = {
@@ -237,7 +239,6 @@ export class MallasComponent implements OnInit {
                           this.listaHistorial.push(elementHistorial)
                         }
                       });
-                      console.log(this.listaHistorial.length)
                       if(this.listaHistorial.length>=1){
                         var primerObjeto  = this.listaHistorial[0]
                         var horaAsignadaArray = element.idTurno.horaInicio.split(':')
@@ -270,7 +271,6 @@ export class MallasComponent implements OnInit {
             this.dataSource.sort = this.sort;
           })
         }
-
       })
     })
 
