@@ -112,6 +112,7 @@ export class NovedadesComponent implements OnInit {
                   documentoGeneroReporte: element.idUsuario.documento,
                   nombresGeneroReporte: element.idUsuario.nombre,
                   apellidosGeneroReporte: element.idUsuario.apellido,
+                  estado: element.estado
                 }
                 this.lista.push(objeto)
               });

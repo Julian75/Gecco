@@ -10,4 +10,5 @@ export class Novedad {
   idAsignarTurnoVendedor !: AsignarTurnoVendedor;
   idTipoNovedad !: TipoNovedades;
   idUsuario !: Usuario;
+  public estado: string="";
 }

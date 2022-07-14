@@ -37,6 +37,7 @@ import { ReportesVisitaDetalleComponent } from './modulos-visita/reportes-visita
 import { TablaConfiguracionComponent } from './modulo-configuracion/tabla-configuracion/tabla-configuracion.component';
 import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/modificar-tabla-configuracion/modificar-tabla-configuracion.component';
 import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
+import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cierre.component';
 
 const routes: Routes = [
   {
@@ -172,10 +173,15 @@ const routes: Routes = [
         component: JerarquiaComponent,
         canActivate: [AutorizacionGuard]
       },
-      // //Modificar Jerarquía
+      // //Mallas
       {
         path: 'mallas',
         component: MallasComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'mallasCierre',
+        component: MallasCierreComponent,
         canActivate: [AutorizacionGuard]
       },
       //Apartado de Visita

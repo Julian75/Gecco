@@ -16,6 +16,7 @@ import * as XLSX from 'xlsx';
 })
 export class JerarquiaComponent implements OnInit {
   dtOptions: any = {};
+  color = ('primary');
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -23,7 +24,7 @@ export class JerarquiaComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private jerarquiaService: JerarquiaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
 
   ) { }
 
@@ -115,4 +116,6 @@ export class JerarquiaComponent implements OnInit {
 
     XLSX.writeFile(book, this.name);
   }
+
+
 }

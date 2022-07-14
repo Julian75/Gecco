@@ -25,7 +25,6 @@ export class NavbarComponent implements OnInit {
       res.forEach(usuario => {
         if(usuario.documento == Number(sessionStorage.getItem('usuario'))){
           this.usuario = usuario;
-          console.log(this.usuario);
         }
       })
     })

@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
             var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
             console.log(decryptedData, JSON.stringify(password))
             if(decryptedData == JSON.stringify(password)){
+              if(element.idEstado.id == 11){
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
@@ -68,6 +69,15 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem('usuario',this.usuario)
                 sessionStorage.setItem('id',this.id)
                 this.router.navigate(['/vista']);
+              }else{
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Usuario inactivo!!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
             }else if(element.password != password){
               Swal.fire({
                 position: 'center',

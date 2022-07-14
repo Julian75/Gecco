@@ -174,3 +174,18 @@
     #opcSp{ left: -1px; }
     .btnedit{  margin-left: 5.5%;}
   }
+
+  /* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  td { font-size: 15px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #tamañoOpc{ padding-right: 0px; }
+  #nombreSp{ left: 20px; }
+  #correoSp{ left: 68px; }
+  #tipoDocSp{ left: 10px; }
+  #estadoSp{ left: 8px; }
+  #rolSp{ left: 13px; }
+  #opcSp{ left: -1px; }
+  .btnedit{  margin-left: 5.5%;}
+}
+

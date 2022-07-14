@@ -222,3 +222,102 @@ button{
     display: block;
   }
 }
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .formulario{
+    width: 70%;
+    margin-left: 15%;
+    top: 10%;
+  }
+  .logo{
+    width: 35%;
+    margin-left: 10%;
+    margin-top: 7%;
+  }
+  hr{ display: block;  margin-top: -23%; }
+  .numIdentificacion{ top: 150px; left: -35%; width: 35%; }
+  .password{ top: 150px; left: 10%; width: 35%;}
+  .imgLogin{
+    width: 50%;
+    left: 50%;
+    top: -80px;
+  }
+  button{
+    top: 230px;
+    left: -22.8%;
+    width: 30%;
+  }
+  .olvido{
+    top: 240px;
+    left: 16%;
+    display: block;
+  }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .formulario{
+    width: 70%;
+    margin-left: 15%;
+    top: 10%;
+  }
+  .logo{
+    width: 35%;
+    margin-left: 10%;
+    margin-top: 7%;
+  }
+  hr{ display: block;  margin-top: -23%; }
+  .numIdentificacion{ top: 150px; left: -35%; width: 35%; }
+  .password{ top: 150px; left: 10%; width: 35%;}
+  .imgLogin{
+    width: 50%;
+    left: 50%;
+    top: -80px;
+  }
+  button{
+    top: 250px;
+    left: -22.8%;
+    width: 30%;
+  }
+  .olvido{
+    top: 270px;
+    left: 16%;
+    display: block;
+  }
+}
+/* portatil grande */
+@media screen and (min-width: 1441px){
+  .formulario{
+    width: 70%;
+    margin-left: 15%;
+    top: 10%;
+  }
+  .logo{
+    width: 35%;
+    margin-left: 10%;
+    margin-top: 7%;
+  }
+  hr{ display: block;  margin-top: -21%; }
+  .numIdentificacion{ top: 150px; left: -35%; width: 35%; }
+  .password{ top: 150px; left: 10%; width: 35%;}
+  .imgLogin{
+    width: 50%;
+    left: 50%;
+    top: -80px;
+  }
+  button{
+    top: 265px;
+    left: -22.8%;
+    width: 30%;
+  }
+  .olvido{
+    top: 315px;
+    left: 19%;
+    display: block;
+  }
+}
+
+
+
+
+

@@ -65,6 +65,7 @@ import { ReportesVisitaDetalleComponent } from './modulos-visita/reportes-visita
 import { TablaConfiguracionComponent } from './modulo-configuracion/tabla-configuracion/tabla-configuracion.component';
 import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/modificar-tabla-configuracion/modificar-tabla-configuracion.component';
 import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
+import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cierre.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-co
     TablaConfiguracionComponent,
     ModificarTablaConfiguracionComponent,
     AgregarConfiguracionComponent,
+    MallasCierreComponent,
   ],
   imports: [
     CommonModule,

@@ -14,12 +14,13 @@ import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.servic
 import * as XLSX from 'xlsx';
 import { NovedadConsultaSevice } from 'src/app/servicios/novedadConsulta.service';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+
 @Component({
-  selector: 'app-mallas',
-  templateUrl: './mallas.component.html',
-  styleUrls: ['./mallas.component.css']
+  selector: 'app-mallas-cierre',
+  templateUrl: './mallas-cierre.component.html',
+  styleUrls: ['./mallas-cierre.component.css']
 })
-export class MallasComponent implements OnInit {
+export class MallasCierreComponent implements OnInit {
   dtOptions: any = {};
   public listaAsignacionesTurnoVendedores: any = [];
   public listaMal: any = [];
@@ -89,7 +90,7 @@ export class MallasComponent implements OnInit {
                 nombreEstado: '',
                 validar: false
               };
-              var horaFinal = element.idTurno.horaInicio.split(':')
+              var horaFinal = element.idTurno.horaFinal.split(':')
               var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
 
               var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
@@ -104,25 +105,23 @@ export class MallasComponent implements OnInit {
                     resHistorial.forEach((elementHistorial:any) => {
                       var horaIngresoSigaSplit = elementHistorial.hora.split(":")
                       var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
-                      if(elementHistorial.operacion == "I" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
+                      if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
                         this.listaHistorial.push(elementHistorial)
                       }
                     });
                     if(this.listaHistorial.length>=1){
                       var primerObjeto  = this.listaHistorial[0]
-                      var horaAsignadaArray = element.idTurno.horaInicio.split(':')
+                      var horaAsignadaArray = element.idTurno.horaFinal.split(':')
                       var horaI = primerObjeto.hora.split(':')
                       var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
                       var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
                       var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
-                      if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
-                        this.cumplioMayor(element, primerObjeto, malla1)
-                      }else if(horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
-                        this.cumplioMenor(element, primerObjeto, malla1)
+                      if(horaIngreso<horaAsignada){
+                        this.noCumplio(element, primerObjeto, malla1)
                       }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
                         this.ingresoSitioDiferente(element, primerObjeto, malla1)
-                      }else{
-                        this.noCumplio(element, primerObjeto, malla1)
+                      }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                        this.cumplioMayor(element, primerObjeto, malla1)
                       }
                     }else{
                       this.noIngreso(element, res, malla1)
@@ -154,7 +153,7 @@ export class MallasComponent implements OnInit {
                   nombreEstado: '',
                   validar: false
                 };
-                var horaFinal = element.idTurno.horaInicio.split(':')
+                var horaFinal = element.idTurno.horaFinal.split(':')
                 var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
                 var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
               var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
@@ -168,25 +167,22 @@ export class MallasComponent implements OnInit {
                       resHistorial.forEach((elementHistorial:any) => {
                         var horaIngresoSigaSplit = elementHistorial.hora.split(":")
                         var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
-                        if(elementHistorial.operacion == "I" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
+                        if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
                           this.listaHistorial.push(elementHistorial)
                         }
                       });
                       if(this.listaHistorial.length>=1){
                         var primerObjeto  = this.listaHistorial[0]
-                        var horaAsignadaArray = element.idTurno.horaInicio.split(':')
+                        var horaAsignadaArray = element.idTurno.horaFinal.split(':')
                         var horaI = primerObjeto.hora.split(':')
-                        var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
                         var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
                         var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
-                        if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
-                          this.cumplioMayor(element, primerObjeto, malla1)
-                        }else if(horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
-                          this.cumplioMenor(element, primerObjeto, malla1)
+                        if(horaIngreso<horaAsignada){
+                          this.noCumplio(element, primerObjeto, malla1)
                         }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
                           this.ingresoSitioDiferente(element, primerObjeto, malla1)
-                        }else{
-                          this.noCumplio(element, primerObjeto, malla1)
+                        }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                          this.cumplioMayor(element, primerObjeto, malla1)
                         }
                       }else{
                         this.noIngreso(element, res, malla1)
@@ -219,7 +215,7 @@ export class MallasComponent implements OnInit {
                   nombreEstado: '',
                   validar: false
                 };
-                var horaFinal = element.idTurno.horaInicio.split(':')
+                var horaFinal = element.idTurno.horaFinal.split(':')
                 var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
                 var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
                 var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
@@ -233,26 +229,24 @@ export class MallasComponent implements OnInit {
                       resHistorial.forEach((elementHistorial:any) => {
                         var horaIngresoSigaSplit = elementHistorial.hora.split(":")
                         var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
-                        if(elementHistorial.operacion == "I" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
+                        if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
                           this.listaHistorial.push(elementHistorial)
                         }
                       });
                       console.log(this.listaHistorial.length)
                       if(this.listaHistorial.length>=1){
                         var primerObjeto  = this.listaHistorial[0]
-                        var horaAsignadaArray = element.idTurno.horaInicio.split(':')
+                        var horaAsignadaArray = element.idTurno.horaFinal.split(':')
                         var horaI = primerObjeto.hora.split(':')
                         var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
                         var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
                         var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
-                        if(horaIngreso>=horaAsignada && horaIngreso<=horaAdicional && primerObjeto.ideSitioventa == element.idSitioVenta){
-                          this.cumplioMayor(element, primerObjeto, malla1)
-                        }else if(horaIngreso<horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
-                          this.cumplioMenor(element, primerObjeto, malla1)
+                        if(horaIngreso<horaAsignada){
+                          this.noCumplio(element, primerObjeto, malla1)
                         }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
                           this.ingresoSitioDiferente(element, primerObjeto, malla1)
-                        }else{
-                          this.noCumplio(element, primerObjeto, malla1)
+                        }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                          this.cumplioMayor(element, primerObjeto, malla1)
                         }
                       }else{
                         this.noIngreso(element, res, malla1)

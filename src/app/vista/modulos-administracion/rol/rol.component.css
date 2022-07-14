@@ -191,3 +191,40 @@ mat-form-field{
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
 }
+
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #idSp{ margin-left: 50%; }
+  #idSp2{ padding-left: 0%; }
+  #desSp{ margin-left: 10%; }
+  #estSp{ left: 60%; }
+  #jerSp{ left: 60%; }
+  #opcSp2{ padding-right: 0%; }
+  .excelButton i{ top: 2px; }
+}
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #idSp{ margin-left: 50%; }
+  #idSp2{ padding-left: 0%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ left: 60%; }
+  #jerSp{ left: 60%; }
+  #opcSp2{ padding-right: 0%; }
+  .excelButton i{ top: 2px; }
+}
+/* portatil grande */
+@media screen and (min-width: 1441px){
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  #idSp{ margin-left: 100%; }
+  #idSp2{ padding-left: 0%; }
+  #desSp{ margin-left: 50%; }
+  #estSp{ left: 100%; }
+  #jerSp{ left: 80%; }
+  #opcSp2{ padding-right: 0%; }
+  .excelButton i{ top: 2px; }
+}

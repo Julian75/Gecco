@@ -28,6 +28,7 @@ export class VisitaDetalleComponent implements OnInit {
   public visitas: any = [];
   public visitasSiga: any = [];
   public elementos: any = [];
+  public nomSitioventa:any= [];
 
   constructor(
     private fb: FormBuilder,
@@ -82,6 +83,14 @@ export class VisitaDetalleComponent implements OnInit {
     this.servicioElementosVisita.listarTodos().subscribe( res =>{
       this.listarElementosVisita = res;
       console.log(res)
+    })
+    const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
+    var documento = String(sessionStorage.getItem('usuario'))
+    this.servicioVisitaSiga.listarPorId(fechaActual, documento).subscribe( res => {
+      res.forEach(element => {
+        this.visitasSiga.push(element)
+      });
+      this.nomSitioventa = this.visitasSiga[this.visitasSiga.length - 1]
     })
   }
 

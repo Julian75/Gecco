@@ -77,13 +77,9 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
               text: 'La configuración se modificó correctamente',
               icon: 'success',
               confirmButtonText: 'Ok'
-            }).then((result) => {
-              if (result.value) {
-                this.dialogRef.close();
-                window.location.reload();
-              }
-            }
-            );
+            })
+            this.dialogRef.close();
+            window.location.reload();
           }
         );
       }

@@ -14,6 +14,7 @@
       <button mat-raised-button id="3" routerLink="/roles" style="display: none;">Roles</button>
       <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
       <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
+      <button mat-raised-button id="" routerLink="/configuraciones" >Configuracion</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true"
@@ -29,7 +30,8 @@
       <button mat-raised-button id="2" routerLink="/turnos" style="display: none;">Turnos</button>
       <button mat-raised-button id="6" routerLink="/asignarTurno" style="display: none;">Asignar Turno a Punto de Venta</button>
       <button mat-raised-button id="13" routerLink="/asignarTurnoVendedor" style="display: none;">Asignar Turno Vendedor</button>
-      <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos</button>
+      <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos Ingreso</button>
+      <button mat-raised-button id="" routerLink="/mallasCierre">Malla de Turnos Cierre</button>
       <button mat-raised-button id="14" routerLink="/novedades" style="display: none;">Generar Reportes</button>
 
     </div>
@@ -46,17 +48,6 @@
       <button mat-raised-button id="17" routerLink="/opcionesVisita" style="display: none;">Opciones Visita</button>
       <button mat-raised-button id="15" routerLink="/visitaDetalle" style="display: none;" >Agregar Visita Detalle</button>
       <button mat-raised-button id="18" routerLink="/reportesVisitaDetalle" style="display: none;">Reportes Visita</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Configuración
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="" routerLink="/configuraciones" >Configuracion</button>
     </div>
   </mat-expansion-panel>
   </mat-drawer>
