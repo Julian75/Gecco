@@ -316,41 +316,4 @@ mat-form-field{
     position: static;
   }
 }
-/* Portatil Grande */
-@media screen and (min-width: 1441px){
-  td { font-size: 15px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #tamañoOpc{ padding-right: 0px; }
-  #nombreSp{ left: 20px; }
-  #correoSp{ left: 68px; }
-  #tipoDocSp{ left: 10px; }
-  #estadoSp{ left: 8px; }
-  #rolSp{ left: 13px; }
-  #opcSp{ left: -1px; }
-  .btnedit{  margin-left: 5.5%;}
-  .id{
-    margin: 80%;
-  }
-  .descri{
-    margin-left: 160px;
-  }
-  .nom{
-    margin-left: 105px;
-  }
-  .val{
-    margin-left: 100px;
-  }
-  .botonagregar{
-    margin-left: -13.8%;
-  }
-  .excelButton{
-    margin-left: 5.8%;
-    position: static;
-  }
-
-}
-
-td.mat-cell:first-of-type{
-  padding-left: 0%;
-}
 

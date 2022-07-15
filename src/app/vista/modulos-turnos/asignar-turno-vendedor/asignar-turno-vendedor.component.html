@@ -2,6 +2,9 @@
     <button class="btn boton botonagregar text-white my-2" routerLink="/agregarTurnoVendedor">
       <mat-icon>add_circle</mat-icon>
     </button>
+    <button class="btn btn-primary text-white my-2" (click)="botonActualizar()">
+      <mat-icon>sync</mat-icon>
+    </button>
     <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
     <mat-form-field appearance="standard">
       <mat-label>Buscar</mat-label>

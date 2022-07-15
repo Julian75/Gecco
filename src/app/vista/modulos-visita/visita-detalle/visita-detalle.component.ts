@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ElementosVisita } from './../../../modelos/elementosVisita';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -38,6 +39,7 @@ export class VisitaDetalleComponent implements OnInit {
     private servicioVisita: VisitasService,
     private servicioVisitaDetalle: VisitaDetalleService,
     private servicioVisitaSiga: VisitasSigaService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -192,7 +194,9 @@ export class VisitaDetalleComponent implements OnInit {
         timer: 1500
       })
       console.log(visitaDetalle)
-
+      localStorage.setItem('visita', 'false')
+      window.location.reload();
+      this.router.navigate(['/vista']);
     }, error => {
       Swal.fire({
         position: 'center',

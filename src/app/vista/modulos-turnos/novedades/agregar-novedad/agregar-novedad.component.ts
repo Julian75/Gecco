@@ -56,6 +56,7 @@ export class AgregarNovedadComponent implements OnInit {
       let novedad : Novedad = new Novedad();
       novedad.idAsignarTurnoVendedor = res
       novedad.estado = this.lista[1]
+      novedad.tipoMalla = this.lista[2]
       this.servicioUsuario.listarTodos().subscribe(resUsuario=>{
         resUsuario.forEach(elementUsuario => {
           if(elementUsuario.documento == Number(sessionStorage.getItem('usuario'))){

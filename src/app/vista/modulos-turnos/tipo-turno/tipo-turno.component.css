@@ -156,14 +156,6 @@ mat-form-field{
   #rolSpa{ left: 15px; }
 }
 
-/* Escritorio */
-@media screen and (min-width: 1441px){
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 68%; margin-top: -3%; }
-  #idSpa{ margin-left: 100%; }
-  #descSpa{ margin-left: 100%; }
-  #rolSpa{ left: 15px; }
-}
 
 
 

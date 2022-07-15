@@ -89,7 +89,8 @@ export class MallasComponent implements OnInit {
                 ideOficina: 0,
                 ideZona: 0,
                 nombreEstado: '',
-                validar: false
+                validar: false,
+                tipoMalla: 'Malla Ingreso'
               };
               var horaFinal = element.idTurno.horaInicio.split(':')
               var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
@@ -99,7 +100,7 @@ export class MallasComponent implements OnInit {
               var fechaInicio = new Date(element.fechaInicio);
               var fechaF = new Date(element.fechaFinal);
               const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
                 if( horaActual >= horaAsignada){
                   this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                     this.listaHistorial=[]
@@ -154,7 +155,8 @@ export class MallasComponent implements OnInit {
                   ideOficina: 0,
                   ideZona: 0,
                   nombreEstado: '',
-                  validar: false
+                  validar: false,
+                  tipoMalla: 'Malla Ingreso'
                 };
                 var horaFinal = element.idTurno.horaInicio.split(':')
                 var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
@@ -163,7 +165,7 @@ export class MallasComponent implements OnInit {
                 var fechaInicio = new Date(element.fechaInicio);
                 var fechaF = new Date(element.fechaFinal);
                 const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
                   if( horaActual >= horaAsignada){
                     this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                       this.listaHistorial=[]
@@ -219,7 +221,8 @@ export class MallasComponent implements OnInit {
                   ideOficina: 0,
                   ideZona: 0,
                   nombreEstado: '',
-                  validar: false
+                  validar: false,
+                  tipoMalla: 'Malla Ingreso'
                 };
                 var horaFinal = element.idTurno.horaInicio.split(':')
                 var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
@@ -228,7 +231,7 @@ export class MallasComponent implements OnInit {
                 var fechaInicio = new Date(element.fechaInicio);
                 var fechaF = new Date(element.fechaFinal);
                 const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
                   if( horaActual >= horaAsignada){
                     this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                       this.listaHistorial=[]
@@ -296,10 +299,10 @@ export class MallasComponent implements OnInit {
     })
   }
 
-  public agregarNovedad(idAsignarTurnoV:number, idE:string){
+  public agregarNovedad(idAsignarTurnoV:number, idE:string, tipoMalla:string){
     const dialogRef = this.dialog.open(AgregarNovedadComponent, {
       width: '500px',
-      data: {idAsignarTurnoVendedor: idAsignarTurnoV, idEstado:idE},
+      data: {idAsignarTurnoVendedor: idAsignarTurnoV, idEstado:idE, tipoMalla: tipoMalla},
     });
   }
 

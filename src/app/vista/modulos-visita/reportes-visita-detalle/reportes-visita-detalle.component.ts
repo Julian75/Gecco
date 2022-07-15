@@ -20,7 +20,7 @@ export class ReportesVisitaDetalleComponent implements OnInit {
   public lista: any = [];
   public listaVisitaDetalleCompleta:any = [];
   public listarExiste : any = [];
-  public encontrar = false
+  public encontrar : any = [];
   public listaVisita: any = [];
   public content: any;
   color = ('primary');
@@ -47,33 +47,54 @@ export class ReportesVisitaDetalleComponent implements OnInit {
   public listarTodo(){
     this.listarVisitaDetalle = []
     this.listaVisita = []
-    const fechaI = this.formVisitaDetalle.controls['fechaInicio'].value
-    const fechaF = this.formVisitaDetalle.controls['fechaFinal'].value;
+    this.listaVisitaDetalleCompleta = []
+    const fechaI = new Date(this.formVisitaDetalle.controls['fechaInicio'].value)
+    fechaI.setDate(fechaI.getDate() + 1)
+    const fechaF = new Date(this.formVisitaDetalle.controls['fechaFinal'].value);
+    fechaF.setDate(fechaF.getDate() + 1)
     const idUsuario = Number(sessionStorage.getItem('id'));
-    this.servicioUsuario.listarPorId(idUsuario).subscribe( (dataUsuario: any) => {
-      this.servicioVisita.listarTodos().subscribe( (dataVisita: any) => {
-        dataVisita.forEach((element:any) => {
-          if(fechaI <= element.fechaRegistro && fechaF == element.fechaRegistro){
-            this.listaVisita.push(element)
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'No se encontraron visitas en ese rango de fechas',
-            })
+    if(fechaI>fechaF){
+      Swal.fire({
+        title: 'Por favor seleccione una fecha válida',
+        text: '',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
+    }else{
+      this.servicioVisita.listarTodos().subscribe(dataVisita => {
+        dataVisita.forEach(elementVisita => {
+          var fechaRegistro = new Date(elementVisita.fechaRegistro)
+          fechaRegistro.setDate(fechaRegistro.getDate() + 1)
+          if(fechaI <= fechaRegistro && fechaF >= fechaRegistro){
+            this.listaVisita.push(elementVisita)
+            console.log(this.listaVisita)
+            this.encontrar = true
+          }else if(fechaI>fechaF){
+            this.encontrar = false
           }
+          this.listarExiste.push(this.encontrar)
         })
-        this.listaVisita.forEach((elementVisi:any) => {
+        const existe = this.listarExiste.includes(true)
+        console.log(existe)
+        if(existe == true){
           this.servicioVisitaDetalle.listarTodos().subscribe( (dataVisitaDetalle: any) => {
-            dataVisitaDetalle.forEach((elementVisitadetalle:any) => {
-              if(elementVisitadetalle.idVisitas.id == elementVisi.id){
-                this.listarVisitaDetalle.push(elementVisitadetalle)
+            dataVisitaDetalle.forEach((element:any) => {
+              this.listaVisita.forEach((element2:any) => {
+                if(element.idVisitas.id == element2.id){
+                  this.listarVisitaDetalle.push(element)
+                  console.log(this.listarVisitaDetalle)
+                }
               }
-            })
-            this.listaVisitaDetalleCompleta = this.listarVisitaDetalle
+              )
+            }
+            )
+            this.listarVisitaDetalle.forEach((element:any) => {
+              this.listaVisitaDetalleCompleta.push(element)
+            }
+            )
             this.lista = []
+            console.log(this.lista)
             this.listaVisitaDetalleCompleta.forEach((element:any) => {
-
               var objeto = {
                 descripcion: element.descripcion,
                 elementoVisita: element.idElementosVisita.descripcion,
@@ -85,10 +106,11 @@ export class ReportesVisitaDetalleComponent implements OnInit {
 
               }
               this.lista.push(objeto)
-            })
-            if(this.lista.length == 0){
+            });
+            console.log(this.lista)
+            if( this.lista.length == 0 ){
               Swal.fire({
-                title: 'No hay registros',
+                title: 'Visita registrada pero no hizo el conteo',
                 text: '',
                 icon: 'warning',
                 confirmButtonText: 'Ok'
@@ -97,9 +119,18 @@ export class ReportesVisitaDetalleComponent implements OnInit {
               this.exportToExcel(this.lista);
             }
           })
-        })
+        }else{
+          Swal.fire({
+            title: 'No hay registros en la fecha seleccionada',
+            text: '',
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+          })
+        }
+
       })
-    })
+    }
+
   }
 
   name = 'ReporteVisitaDetalle.xlsx';

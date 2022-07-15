@@ -216,15 +216,3 @@ mat-form-field{
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
 }
-/* portatil grande */
-@media screen and (min-width: 1441px){
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 68%; margin-top: -3%; }
-  #idSp{ margin-left: 100%; }
-  #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 50%; }
-  #estSp{ left: 100%; }
-  #jerSp{ left: 80%; }
-  #opcSp2{ padding-right: 0%; }
-  .excelButton i{ top: 2px; }
-}

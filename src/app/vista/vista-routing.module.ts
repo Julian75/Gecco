@@ -38,6 +38,7 @@ import { TablaConfiguracionComponent } from './modulo-configuracion/tabla-config
 import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/modificar-tabla-configuracion/modificar-tabla-configuracion.component';
 import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
 import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cierre.component';
+import { TablaAprobacionComponent } from './modulos-administracion/tabla-aprobacion/tabla-aprobacion.component';
 
 const routes: Routes = [
   {
@@ -243,7 +244,12 @@ const routes: Routes = [
         component: ModificarTablaConfiguracionComponent,
         canActivate: [AutorizacionGuard]
       },
-
+      //Aprobacion
+      {
+        path: 'aprobacion',
+        component: TablaAprobacionComponent,
+        canActivate: [AutorizacionGuard]
+      },
     ]
   },
 ];

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
+import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
 
 @Component({
   selector: 'app-jerarquia',
@@ -17,6 +18,7 @@ import * as XLSX from 'xlsx';
 export class JerarquiaComponent implements OnInit {
   dtOptions: any = {};
   color = ('primary');
+  public fecha: Date = new Date();
 
   displayedColumns = ['id', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -25,7 +27,7 @@ export class JerarquiaComponent implements OnInit {
   constructor(
     private jerarquiaService: JerarquiaService,
     public dialog: MatDialog,
-
+    private asignarTurnoVendedorSevicio: AsignarTurnoVendedorService,
   ) { }
 
 
@@ -50,7 +52,6 @@ export class JerarquiaComponent implements OnInit {
   }
 
   modificarJerarquia(id: number, descripcion: String): void {
-    console.log(id, descripcion);
     const dialogRef = this.dialog.open(ModificarJerarquiaComponent, {
       width: '500px',
       data: id
@@ -115,6 +116,27 @@ export class JerarquiaComponent implements OnInit {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  documentos: any = []
+  documentito:any;
+  public aleatorio(){
+    this.asignarTurnoVendedorSevicio.listarTodos().subscribe(res=>{
+      res.forEach(element => {
+        this.documentos.push(element.nombreVendedor)
+      });
+      var horaLimite = new Date(1982,2,12,this.fecha.getHours(), this.fecha.getMinutes()+1, this.fecha.getSeconds())
+      var inter = setInterval(() => {
+        var horaActual = new Date(1982,2,12,new Date().getHours(), new Date().getMinutes(), new Date().getSeconds())
+          if (horaActual<horaLimite) {
+            var random = Math.floor(Math.random()*this.documentos.length)
+            var valor = this.documentos[random]
+            this.documentito = valor
+          }else{
+            clearInterval(inter)
+          }
+        },100)
+    })
   }
 
 

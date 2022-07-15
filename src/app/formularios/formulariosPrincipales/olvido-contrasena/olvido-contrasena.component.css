@@ -210,24 +210,3 @@ button{
   .buttonEnviar{ top: 275px; left: -23%; width: 30%; }
   .buttonIniciar{ top: 360px; left: -53%; width: 30%; }
 }
-/* Portatil Grande */
-@media screen and (min-width: 1441px) and (max-width: 1920px){
-  .formulario{
-    width: 70%;
-    margin-left: 15%;
-    top: 10%;
-  }
-  .logo{
-    width: 35%;
-    margin-left: 10%;
-    margin-top: 7%;
-  }
-  hr{ display: block;  margin-top: -19%; }
-  .numIdentificacion{ top: 185px; left: -35%; width: 35%; }
-  .password{ top: 210px; left: 10%; width: 35%;}
-  .imgLogin{ width: 50%; left: 50%; top: -80px;
-  }
-  .buttonEnviar{top: 325px; left: -20%; width: 25%;
- }
-  .buttonIniciar{ top: 430px; left: -45%; width: 25%; }
-}

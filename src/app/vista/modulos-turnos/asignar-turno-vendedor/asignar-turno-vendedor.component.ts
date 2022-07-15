@@ -1,3 +1,4 @@
+import { AsignarTurnoVendedor } from './../../../modelos/asignarTurnoVendedor';
 import { SolicitudEliminarTurnoVendedorComponent } from './solicitud-eliminar-turno-vendedor/solicitud-eliminar-turno-vendedor.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -18,6 +19,8 @@ export class AsignarTurnoVendedorComponent implements OnInit {
 
   dtOptions: any = {};
   public listaAsignarTurnoVendedor: any = [];
+  public listaAsigVen: any = [];
+
 
   displayedColumns = ['id', 'nombreVendedor', 'nombreOficina', 'nombreSitioVenta', 'fechaInicio', 'fechaFinal', 'turno'];
   dataSource!:MatTableDataSource<any>;
@@ -34,14 +37,61 @@ export class AsignarTurnoVendedorComponent implements OnInit {
 
   public listarTodos () {
     this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
-      this.listaAsignarTurnoVendedor = res;
+      res.forEach(element => {
+        if(element.estado != "Eliminado"){
+          this.listaAsigVen.push(element)
+        }
+      });
+      this.listaAsignarTurnoVendedor = this.listaAsigVen;
       this.dataSource = new MatTableDataSource( this.listaAsignarTurnoVendedor);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
-    this.servicioUsuarioVendedor.listarPorId(13).subscribe(res=>{
+  }
+
+  public botonActualizar(){
+    this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+      res.forEach(element => {
+        if(element.estado == ""){
+          let asignarTurnoVendedor : AsignarTurnoVendedor = new AsignarTurnoVendedor();
+          asignarTurnoVendedor.estado = "Disponible"
+          asignarTurnoVendedor.fechaFinal = element.fechaFinal
+          asignarTurnoVendedor.fechaInicio = element.fechaInicio
+          asignarTurnoVendedor.id = element.id
+          asignarTurnoVendedor.idOficina = element.idOficina
+          asignarTurnoVendedor.idSitioVenta = element.idSitioVenta
+          asignarTurnoVendedor.idTurno = element.idTurno
+          asignarTurnoVendedor.idVendedor = element.idVendedor
+          asignarTurnoVendedor.ideSubzona = element.ideSubzona
+          asignarTurnoVendedor.nombreOficina = element.nombreOficina
+          asignarTurnoVendedor.nombreSitioVenta = element.nombreSitioVenta
+          asignarTurnoVendedor.nombreVendedor = element.nombreVendedor
+          this.actualizarTurnoVendedor(asignarTurnoVendedor)
+        }
+      });
     })
   }
+
+  public actualizarTurnoVendedor(asignarTurnoVendedor: AsignarTurnoVendedor){
+    this.servicioAsignarTurnoVendedor.actualizar(asignarTurnoVendedor).subscribe(res => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al modificar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -285,37 +285,7 @@ button{
     display: block;
   }
 }
-/* portatil grande */
-@media screen and (min-width: 1441px){
-  .formulario{
-    width: 70%;
-    margin-left: 15%;
-    top: 10%;
-  }
-  .logo{
-    width: 35%;
-    margin-left: 10%;
-    margin-top: 7%;
-  }
-  hr{ display: block;  margin-top: -21%; }
-  .numIdentificacion{ top: 180px; left: -35%; width: 35%; }
-  .password{ top: 210px; left: 10%; width: 35%;}
-  .imgLogin{
-    width: 50%;
-    left: 50%;
-    top: -100px;
-  }
-  button{
-    top: 335px;
-    left: -22.8%;
-    width: 30%;
-  }
-  .olvido{
-    top: 380px;
-    left: 19%;
-    display: block;
-  }
-}
+
 
 
 

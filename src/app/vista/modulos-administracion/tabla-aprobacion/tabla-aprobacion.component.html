@@ -1,0 +1,66 @@
+<div class="contenedor">
+    <h2>Lista de Solicitudes</h2>
+    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+
+      <table id="accesos" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="id" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="idSpa">Id</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="solicitante">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="soliciSpa">Solicitante</h3></th>
+              <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="vendedor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="vendedorSpa">Vendedor</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idAsignarTurnoVendedor.nombreVendedor}}</td>
+        </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="turno">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="turnvenSpa">Turno del Vendedor</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idAsignarTurnoVendedor.idTurno.horaInicio}} - {{element.idAsignarTurnoVendedor.idTurno.horaFinal}}</td>
+        </ng-container>
+
+          <!--Opciones-->
+        <ng-container matColumnDef="observacion">
+          <th mat-header-cell *matHeaderCellDef ><h3 id="ObSpa">Observacion</h3></th>
+          <td mat-cell *matCellDef="let item">
+            <button class="btn btnver" (click)="visualizarObservacion(item.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef ><h3 id="OpcSpa">Opciones</h3></th>
+          <td mat-cell *matCellDef="let item">
+            <button class="btn boton" (click)="aceptado(item.id, item.idAsignarTurnoVendedor.id)">
+              Aceptar
+            </button>
+            <button class="btn btnremove" (click)="rechazado(item.id, item.idAsignarTurnoVendedor.id)">
+              Rechazar
+            </button>
+          </td>
+        </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[2, 5, 10, 25, 100]"
+              aria-label="Select page">
+    </mat-paginator>
+</div>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +24,7 @@ export class SidebarComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioAcceso: AccesoService,
     private servicioVisita: VisitasSigaService,
-    private servicioConfiguracion: ConfiguracionService,
+    private servicioConfiguracion: ConfiguracionService
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +43,13 @@ export class SidebarComponent implements OnInit {
           }
         });
         for (let i = 0; i < this.listaAccessForm.length; i++) {
+          if(this.listaAccessForm[i] == 5 || this.listaAccessForm[i] == 4 || this.listaAccessForm[i] == 3 || this.listaAccessForm[i] == 10 || this.listaAccessForm[i] == 11 || this.listaAccessForm[i] == 19 || this.listaAccessForm[i] == 21){
+            document.getElementById('Administracion')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 1 || this.listaAccessForm[i] == 12 || this.listaAccessForm[i] == 2 || this.listaAccessForm[i] == 6 || this.listaAccessForm[i] == 13 || this.listaAccessForm[i] == 7 || this.listaAccessForm[i] == 20 || this.listaAccessForm[i] == 14){
+            document.getElementById('Malla')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 16 || this.listaAccessForm[i] == 17 || this.listaAccessForm[i] == 18){
+            document.getElementById('Visita')?.setAttribute('style', 'display: block;')
+          }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('1')?.setAttribute('style', 'display: block;')
           }
@@ -93,6 +101,9 @@ export class SidebarComponent implements OnInit {
           if (this.listaAccessForm[i] == 20) {
             document.getElementById('20')?.setAttribute('style', 'display: block;')
           }
+          if (this.listaAccessForm[i] == 21) {
+            document.getElementById('21')?.setAttribute('style', 'display: block;')
+          }
         }
       })
     })
@@ -122,7 +133,14 @@ export class SidebarComponent implements OnInit {
         var horaActual = new Date(1928,6,25,this.fecha.getHours(), this.fecha.getMinutes());
 
         if(horaActual>=hora && horaActual<=horaFinal3){
+          document.getElementById('Visita')?.setAttribute('style', 'display: block;')
           document.getElementById('15')?.setAttribute('style', 'display: block;')
+          if(localStorage.getItem('visita') == 'false'){
+            document.getElementById('15')?.setAttribute('style', 'display: none;')
+            document.getElementById('Visita')?.setAttribute('style', 'display: none;')
+          }if(localStorage.getItem('visita')==null){
+            localStorage.setItem('visita', 'true')
+          }
         }else{
           document.getElementById('15')?.setAttribute('style', 'display: none;')
         }

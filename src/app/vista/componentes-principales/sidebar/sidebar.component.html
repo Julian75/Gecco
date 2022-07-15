@@ -1,7 +1,7 @@
 <mat-drawer-container class="example">
   <mat-drawer mode="side" opened>
     <img src="assets/logo/LOGO GECCO-ai (4).png" routerLink="/inicio" alt="" class="logo">
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="Administracion" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -15,9 +15,10 @@
       <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
       <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
       <button mat-raised-button id="19" routerLink="/configuraciones" style="display: none;">Configuracion</button>
+      <button mat-raised-button id="21" routerLink="/aprobacion" style="display: none;">Aprobacion</button>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="Malla" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -33,10 +34,9 @@
       <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos Ingreso</button>
       <button mat-raised-button id="20" routerLink="/mallasCierre" style="display: none;">Malla de Turnos Cierre</button>
       <button mat-raised-button id="14" routerLink="/novedades" style="display: none;">Generar Reporte Novedad</button>
-
     </div>
   </mat-expansion-panel>
-   <mat-expansion-panel (opened)="panelOpenState = true"
+   <mat-expansion-panel style="display: none;" id="Visita" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >

@@ -2,6 +2,7 @@
 export class NovedadConsulta {
   public id: number=0;
   public observacion: string="";
+  public tipo_malla: string="";
   public fecha: Date = new Date();
   public id_asignar_turno_vendedor: number=0;
   public id_tipo_novedad: number=0;

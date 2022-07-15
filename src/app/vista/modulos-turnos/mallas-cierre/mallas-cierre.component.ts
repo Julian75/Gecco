@@ -92,7 +92,8 @@ export class MallasCierreComponent implements OnInit {
                 ideOficina: 0,
                 ideZona: 0,
                 nombreEstado: '',
-                validar: false
+                validar: false,
+                tipoMalla: 'Malla Cierre'
               };
               var horaFinal = element.idTurno.horaFinal.split(':')
               var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
@@ -102,7 +103,7 @@ export class MallasCierreComponent implements OnInit {
               var fechaInicio = new Date(element.fechaInicio);
               var fechaF = new Date(element.fechaFinal);
               const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
                 if( horaActual >= horaAsignada){
                   this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                     this.listaHistorial=[]
@@ -114,7 +115,7 @@ export class MallasCierreComponent implements OnInit {
                       }
                     });
                     if(this.listaHistorial.length>=1){
-                      var primerObjeto  = this.listaHistorial[0]
+                      var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
                       var horaAsignadaArray = element.idTurno.horaFinal.split(':')
                       var horaI = primerObjeto.hora.split(':')
                       var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
@@ -155,7 +156,8 @@ export class MallasCierreComponent implements OnInit {
                   ideOficina: 0,
                   ideZona: 0,
                   nombreEstado: '',
-                  validar: false
+                  validar: false,
+                  tipoMalla: 'Malla Cierre'
                 };
                 var horaFinal = element.idTurno.horaFinal.split(':')
                 var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
@@ -164,7 +166,7 @@ export class MallasCierreComponent implements OnInit {
                 var fechaInicio = new Date(element.fechaInicio);
                 var fechaF = new Date(element.fechaFinal);
                 const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
                   if( horaActual >= horaAsignada){
                     this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                       this.listaHistorial=[]
@@ -176,7 +178,7 @@ export class MallasCierreComponent implements OnInit {
                         }
                       });
                       if(this.listaHistorial.length>=1){
-                        var primerObjeto  = this.listaHistorial[0]
+                        var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
                         var horaAsignadaArray = element.idTurno.horaFinal.split(':')
                         var horaI = primerObjeto.hora.split(':')
                         var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
@@ -217,7 +219,8 @@ export class MallasCierreComponent implements OnInit {
                   ideOficina: 0,
                   ideZona: 0,
                   nombreEstado: '',
-                  validar: false
+                  validar: false,
+                  tipoMalla: 'Malla Cierre'
                 };
                 var horaFinal = element.idTurno.horaFinal.split(':')
                 var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
@@ -226,7 +229,7 @@ export class MallasCierreComponent implements OnInit {
                 var fechaInicio = new Date(element.fechaInicio);
                 var fechaF = new Date(element.fechaFinal);
                 const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal){
+                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
                   if( horaActual >= horaAsignada){
                     this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
                       this.listaHistorial=[]
@@ -239,7 +242,7 @@ export class MallasCierreComponent implements OnInit {
                       });
                       console.log(this.listaHistorial.length)
                       if(this.listaHistorial.length>=1){
-                        var primerObjeto  = this.listaHistorial[0]
+                        var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
                         var horaAsignadaArray = element.idTurno.horaFinal.split(':')
                         var horaI = primerObjeto.hora.split(':')
                         var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
@@ -293,10 +296,10 @@ export class MallasCierreComponent implements OnInit {
     })
   }
 
-  public agregarNovedad(idAsignarTurnoV:number, idE:string){
+  public agregarNovedad(idAsignarTurnoV:number, idE:string, tipoMalla:string){
     const dialogRef = this.dialog.open(AgregarNovedadComponent, {
       width: '500px',
-      data: {idAsignarTurnoVendedor: idAsignarTurnoV, idEstado:idE},
+      data: {idAsignarTurnoVendedor: idAsignarTurnoV, idEstado:idE, tipoMalla:tipoMalla},
     });
   }
 

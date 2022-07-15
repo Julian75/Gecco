@@ -20,6 +20,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { SitioVenta } from 'src/app/modelos/modelosSiga/sitioVenta';
 import { TurnoVendedorDTOSevice } from 'src/app/servicios/turnoVendedorDTO.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { AccesoService } from 'src/app/servicios/Acceso.service';
 
 @Component({
   selector: 'app-agregar-asignar-turno-vendedor',
@@ -48,6 +49,8 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   public listarSitioVentas: any = [];
   public estadosDisponibles: any = [];
   public listaIdOficinas: any = [];
+  public listaAcceso:any = [];
+  public acceso:any = 0;
 
   public listaVendedores:any =[];
   public listaIdVendedor:any=[];
@@ -80,9 +83,9 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     private servicioUsuarioVendedor: UsuarioVendedoresService,
     private servicioAsigarTurnoVendedor: AsignarTurnoVendedorService,
     private servicioTurnoVendedorDTO: TurnoVendedorDTOSevice,
+    private servicioAcceso: AccesoService,
     private router: Router,
     public dialog: MatDialog,
-    private servicioAsignarTurnoVendedor: AsignarTurnoVendedorService,
   ) { }
 
   ngOnInit(): void {
@@ -257,7 +260,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
         this.listaSitioVentaTabla =[]
         for (let index = 0; index < res.length; index++) {
           const element = res[index];
-          if(element.idVendedor == ultimo){
+          if(element.idVendedor == ultimo && element.estado != "Eliminado"){
             this.listaSitioVentaTabla.push(element)
           }
         }
@@ -276,6 +279,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
       res.forEach(element => {
         if(element.ideOficina == idOficina.ideOficina){
           asignarTurnoVendedor.idOficina = Number(element.ideOficina)
+          asignarTurnoVendedor.estado = "Disponible"
           asignarTurnoVendedor.nombreOficina = element.nom_oficina
           asignarTurnoVendedor.ideSubzona = element.ideSubzona
           this.servicioSitioVenta.listarPorId(element.ideOficina).subscribe(resSitioVenta=>{
@@ -551,50 +555,82 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
 
   public eliminarAsignarTurnoVendedor(id:number){
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-      if(resUsuario.idRol.idJerarquia.id == 2){
-        const swalWithBootstrapButtons = Swal.mixin({
-          customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger mx-5'
-          },
-          buttonsStyling: false
-        })
-
-        swalWithBootstrapButtons.fire({
-          title: '¿Estas seguro?',
-          text: "No podrás revertir esto!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Si, Eliminar!',
-          cancelButtonText: 'No, Cancelar!',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.servicioAsignarTurnoVendedor.eliminar(id).subscribe(res=>{
-              swalWithBootstrapButtons.fire(
-                'Eliminado!',
-                'Se eliminó la asignación de turno a ese vendedor.',
-                'success'
-              )
-            })
-            this.router.navigate(['/asignarTurnoVendedor']);
-          } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-          ) {
-            swalWithBootstrapButtons.fire(
-              'Cancelado!',
-              '',
-              'error'
-            )
+      this.servicioAcceso.listarTodos().subscribe(resAcceso=>{
+        resAcceso.forEach(element => {
+          if(element.idRol = resUsuario.idRol){
+            this.listaAcceso.push(element)
           }
-        })
-      }else if(resUsuario.idRol.idJerarquia.id == 3 || resUsuario.idRol.idJerarquia.id==4){
-        const dialogRef = this.dialog.open(SolicitudEliminarTurnoVendedorComponent, {
-          width: '500px',
-          data: id
         });
-      }
+        this.listaAcceso.forEach((elementAcceso:any) => {
+          if(elementAcceso.idModulo.id == 21){
+            this.acceso = elementAcceso.idModulo.id
+          }
+        });
+        if(this.acceso == 21){
+          let asignarTurno : AsignarTurnoVendedor = new AsignarTurnoVendedor();
+          const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger mx-5'
+            },
+            buttonsStyling: false
+          })
+
+          swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro?',
+            text: "No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.servicioAsigarTurnoVendedor.listarPorId(id).subscribe(res=>{
+                asignarTurno.id = res.id
+                asignarTurno.fechaFinal = res.fechaFinal
+                asignarTurno.fechaInicio = res.fechaInicio
+                asignarTurno.idOficina = res.idOficina
+                asignarTurno.idSitioVenta = res.idSitioVenta
+                asignarTurno.idTurno = res.idTurno
+                asignarTurno.idVendedor = res.idVendedor
+                asignarTurno.ideSubzona = res.ideSubzona
+                asignarTurno.nombreOficina = res.nombreOficina
+                asignarTurno.nombreSitioVenta = res.nombreSitioVenta
+                asignarTurno.nombreVendedor = res.nombreVendedor
+                asignarTurno.estado = "Eliminado"
+                this.modificarAsignarTurnoVendedor(asignarTurno)
+                swalWithBootstrapButtons.fire(
+                  'Eliminado!',
+                  'Se eliminó la asignación de turno a ese vendedor.',
+                  'success'
+                )
+              })
+              this.router.navigate(['/asignarTurnoVendedor']);
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelado!',
+                '',
+                'error'
+              )
+            }
+          })
+        }else{
+          const dialogRef = this.dialog.open(SolicitudEliminarTurnoVendedorComponent, {
+            width: '500px',
+            data: id
+          });
+        }
+      })
+    })
+  }
+
+  public modificarAsignarTurnoVendedor(asignarTurnoVendedor:AsignarTurnoVendedor){
+    this.servicioAsigarTurnoVendedor.actualizar(asignarTurnoVendedor).subscribe(res => {
+
     })
   }
 

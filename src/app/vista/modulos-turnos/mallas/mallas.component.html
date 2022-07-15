@@ -60,7 +60,7 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx3" *ngIf="item.validar != true && item.estado.id!=17" style="margin-left: 20px;" (click)="agregarNovedad(item.listaAsignarTurnoVendedor.id, item.estado.descripcion)">
+            <button class="btn btnedit mx3" *ngIf="item.validar != true && item.estado.id!=17" style="margin-left: 20px;" (click)="agregarNovedad(item.listaAsignarTurnoVendedor.id, item.estado.descripcion, item.tipoMalla)">
               <mat-icon>playlist_add_circle</mat-icon>
             </button>
             <button class="btn btnver mx3" *ngIf="item.validar == true && item.estado.id!=15" style="margin-left: 20px;" (click)="visualizarNovedad(item.listaAsignarTurnoVendedor.id)">
