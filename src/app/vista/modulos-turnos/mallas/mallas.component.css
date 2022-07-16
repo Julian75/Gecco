@@ -172,5 +172,34 @@ mat-form-field{
   td button mat-icon{ margin-top: -1px; }
   #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
   #oficinaSpa{ left: 15px;}
+}
 
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .excelButton{ margin-left: -2.2%; }
+  td { font-size: 14px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  .btnremove, .btnedit, .btnver, .btnVisualizar, .botonagregar{
+    margin-top: 8%;
+    margin-bottom: 8%;
+  }
+  td button mat-icon{ margin-top: -1px; }
+  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #opcSpa{ left: 12px; }
+  #estadoSpa{ left: 20px; }
+  #oficinaSpa{ left: 45px;}
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .excelButton{ margin-left: -2.2%; }
+  td { font-size: 14px; height: 0px;}
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  .btnremove, .btnedit, .btnver, .btnVisualizar, .botonagregar{
+    margin-top: 8%;
+    margin-bottom: 8%;
+  }
+  td button mat-icon{ margin-top: -1px; }
+  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #opcSpa{ left: 12px; }
+  #estadoSpa{ left: 20px; }
+  #oficinaSpa{ left: 45px;}
 }
