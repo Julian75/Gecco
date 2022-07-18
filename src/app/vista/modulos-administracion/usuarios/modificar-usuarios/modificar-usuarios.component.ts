@@ -135,16 +135,16 @@ export class ModificarUsuariosComponent implements OnInit {
       usuario.id = Number(params.get('id'));
       this.servicioUsuario.listarPorId(usuario.id).subscribe(res=>{
         const listaUsuarios = res
-        usuario.nombre = listaUsuarios.nombre
-        usuario.apellido = listaUsuarios.apellido
-        usuario.correo = listaUsuarios.correo
-        usuario.documento = listaUsuarios.documento
-        usuario.idEstado = listaUsuarios.idEstado
-        usuario.idRol = listaUsuarios.idRol
-        usuario.password = listaUsuarios.password
-        usuario.idTipoDocumento = listaUsuarios.idTipoDocumento
-        usuario.ideOficina = listaUsuarios.ideOficina
-        usuario.ideSubzona = listaUsuarios.ideSubzona
+        usuario.nombre = res.nombre
+        usuario.apellido = res.apellido
+        usuario.correo = res.correo
+        usuario.documento = res.documento
+        usuario.idEstado = res.idEstado
+        usuario.idRol = res.idRol
+        usuario.password = res.password
+        usuario.idTipoDocumento = res.idTipoDocumento
+        usuario.ideOficina = res.ideOficina
+        usuario.ideSubzona = res.ideSubzona
         this.servicioUsuario.listarTodos().subscribe(res=>{
           const documento = this.formUsuario.controls['documento'].value;
           const nombre = this.formUsuario.controls['nombre'].value;
@@ -190,15 +190,15 @@ export class ModificarUsuariosComponent implements OnInit {
             const idEstado = this.formUsuario.controls['estado'].value;
             this.servicioEstado.listarPorId(idEstado).subscribe(res => {
               this.listaEstados = res;
-              usuario.idEstado= this.listaEstados
+              usuario.idEstado= res
               const idRol = this.formUsuario.controls['rol'].value;
               this.servicioRoles.listarPorId(idRol).subscribe(res => {
                 this.listaRoles = res;
-                usuario.idRol= this.listaRoles
+                usuario.idRol= res
                 const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
                 this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
                   this.listaTipoDocumentos = res;
-                  usuario.idTipoDocumento = this.listaTipoDocumentos
+                  usuario.idTipoDocumento = res
                   const ideOficina = this.formUsuario.controls['oficina'].value;
                   this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
                     res.forEach(elementOficina => {
@@ -249,6 +249,7 @@ export class ModificarUsuariosComponent implements OnInit {
       })
       this.router.navigate(['/usuarios']);
     }, error => {
+      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',

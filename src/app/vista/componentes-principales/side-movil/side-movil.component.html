@@ -1,7 +1,7 @@
 <mat-drawer-container class="example">
   <mat-drawer mode="side" opened>
     <img src="assets/logo/LOGO GECCO-ai (4).png" routerLink="/inicio" alt="" class="logo">
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="Administracion2" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -15,9 +15,10 @@
       <button mat-raised-button id="1010" routerLink="/modulo" style="display: none;">Modulos</button>
       <button mat-raised-button id="1111" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
       <button mat-raised-button id="1919" routerLink="/configuraciones" style="display: none;">Configuracion</button>
+      <button mat-raised-button id="2121" routerLink="/aprobacion" style="display: none;">Aprobacion</button>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="Malla2" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -36,7 +37,7 @@
 
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="Visita2" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >

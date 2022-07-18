@@ -124,12 +124,12 @@
 
       <!--Opciones-->
       <ng-container matColumnDef="opciones">
-        <th mat-header-cell *matHeaderCellDef >Opciones</th>
+        <th mat-header-cell *matHeaderCellDef ><h1>Opciones</h1></th>
         <td mat-cell *matCellDef="let item">
           <button mat-button class="btn btnremove" *ngIf="item.estado == 'Disponible'" (click)="eliminarAsignarTurnoVendedor(item.id)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-button class="btn btn-warning" *ngIf="item.estado == 'Pendiente'">
+          <button mat-raised-button class="btn btn-warning mx-3" style="background-color: #FFCA2C; cursor: not-allowed;" *ngIf="item.estado == 'Pendiente'">
             <mat-icon>schedule_send</mat-icon>
           </button>
         </td>

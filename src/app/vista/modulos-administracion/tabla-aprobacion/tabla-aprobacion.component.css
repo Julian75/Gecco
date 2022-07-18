@@ -30,9 +30,8 @@ th{
 .excelButton{
   background-color: #6DBE53;
   color: white;
+  position: relative; left: 15px;
 }
-
-.excelButton{ position: relative; left: 15px; }
 td {
   border: 1px solid #000;
   text-align: center;
@@ -41,240 +40,137 @@ td {
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; color: white; }
-.btnver{ background-color: #959595; color: white; margin-top: 5%; margin-bottom: 5%; }
+.btnver{ background-color: #959595; color: white; }
 .btnremove{ background-color: #DA161A; color: white; margin-left: 3%;}
 mat-form-field{
   width: 20%;
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
-.botonagregar mat-icon{ font-size: 24px; }
-#nombreSp,#correoSp,#tipoDocSp,#estadoSp,#rolSp,#opcSp{ position: relative; }
-
+.excelButton, .boton, .btnremove, .btnver{ width: 64px; height: 36px; }
+#id2{ padding-left: 0%; }
+#idSpa,#soliciSpa,#vendedorSpa,#turnvenSpa,#ObSpa,#OpcSpa{ position: relative; }
+#idSpa{ left: 20px; }
+#soliciSpa{ left: 40px; }
+#turnvenSpa{ left: 63px; }
+#vendedorSpa{ left: 98px;}
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
-.btnver mat-icon{ position: relative; top: 3px; }
+button mat-icon{ position: relative; top: -1%; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   h3{
-    margin-left: 5%;
-    font-size: 1.6px;
-  }
-  #idSpa{
-    margin-left: 12%;
+    margin-left: 3%;
     font-size: 13px;
-    font-size: 12px;
   }
-  #soliciSpa{
-    margin-left: 12%;
-    font-size: 12px;
-  }
-  #vendedorSpa{
-    margin-left: 12%;
-    font-size: 12px;
-  }
-  #turnvenSpa{
-    margin-left: 14%;
-    font-size: 12px;
-  }
-  #ObSpa{
-    margin-left: 1%;
-    font-size: 12px;
-  }
-  #OpcSpa{
-    margin-left: 20%;
-    font-size: 12px;
-  }
+  td { font-size: 12px; height: 0px;}
+  .btnver, .btnremove, .boton{ width: 18px !important; height: 20px; }
+  td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
   .excelButton{
     width: 38px;
     height: 30px;
     margin-top: 8%;
     margin-bottom: 8%;
+    margin-left: -5%;
   }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   .excelButton i{ top: -8px; font-size: 15px;}
+  #idSpa, #soliciSpa, #turnvenSpa, #vendedorSpa{ left: 8px; }
+  #ObSpa{ padding-right: 5px; }
+  #OpcSpa{ left: 10px; }
+  .boton, .btnremove{ margin-left: 43%; }
 }
 
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
   h3{
-    margin-left: 5%;
-    font-size: 1.6px;
+    margin-left: 3%;
+    font-size: 14px;
   }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{
-    margin-left: 12%;
-    font-size: 13px;
-  }
-  #soliciSpa{
-    margin-left: 12%;
-    font-size: 13px;
-  }
-  #vendedorSpa{
-    margin-left: 12%;
-    font-size: 13px;
-  }
-  #turnvenSpa{
-    margin-left: 14%;
-    font-size: 13px;
-  }
-  #ObSpa{
-    margin-left: 1%;
-    font-size: 13px;
-  }
-  #OpcSpa{
-    margin-left: 20%;
-    font-size: 13px;
-  }
+  td { font-size: 13px; height: 0px;}
+  .btnver, .btnremove, .boton{ width: 18px !important; height: 20px; }
+  td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
   .excelButton{
     width: 38px;
+    height: 30px;
+    margin-top: 8%;
+    margin-bottom: 8%;
+    margin-left: -5%;
   }
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
+  .excelButton i{ top: -8px; font-size: 15px;}
+  #idSpa, #soliciSpa, #turnvenSpa, #vendedorSpa{ left: 8px; }
+  #ObSpa{ padding-right: 5px; }
+  #OpcSpa{ left: 10px; }
+  .boton, .btnremove{ margin-left: 43%; }
 }
-
 
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
   h3{
-    margin-left: 5%;
-    font-size: 1.6px;
+    margin-left: 3%;
+    font-size: 19px;
   }
+  .boton, .btnremove, .btnver{
+    width: 40px !important;
+    height: 30px;
+  }
+  td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{
-    margin-left: 12%;
-    font-size: 19px;
-  }
-  #soliciSpa{
-    margin-left: 12%;
-    font-size: 19px;
-  }
-  #vendedorSpa{
-    margin-left: 12%;
-    font-size: 19px;
-  }
-  #turnvenSpa{
-    margin-left: 14%;
-    font-size: 19px;
-  }
-  #ObSpa{
-    margin-left: 1%;
-    font-size: 19px;
-  }
-  #OpcSpa{
-    margin-left: 20%;
-    font-size: 19px;
-  }
+  .excelButton{ margin-left: -2%; }
+  #idSpa, #soliciSpa, #turnvenSpa, #vendedorSpa{ left: 8px; }
+  #ObSpa{ padding-right: 5px; }
+  #OpcSpa{ left: 10px; }
+  .boton, .btnremove{ margin-left: 43%; margin-top: 5%;}
+  #opc2{ padding-bottom: 1%; }
+  td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
 }
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 1024px){
-  #idSpa{
-    margin-left: 56%;
-    font-size: 20px;
-  }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #soliciSpa{
-    margin-left: 14%;
-    font-size: 20px;
-  }
-  #vendedorSpa{
-    margin-left: 14%;
-    font-size: 20px;
-  }
-  #turnvenSpa{
-    margin-left: 7%;
-    font-size: 20px;
-  }
-  #ObSpa{
-    margin-left: -31%;
-    font-size: 20px;
-  }
-  #OpcSpa{
-    margin-left: 20%;
-    font-size: 20px;
-  }
+  .excelButton{ margin-left: -2%; }
+  #idSpa, #soliciSpa, #turnvenSpa{ left: 8px; }
+  #vendedorSpa{ left: 30px;}
+  #ObSpa{ padding-right: 3px; }
+  #OpcSpa{ left: 13px; }
+  .boton, .btnremove{ margin-left: 25%; margin-top: 5%;}
+  #opc2{ padding-bottom: 1%; }
 }
 
 /* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
-  #idSpa{
-    margin-left: 12%;
-    font-size: 20px;
-  }
-  #soliciSpa{
-    margin-left: 14%;
-    font-size: 20px;
-  }
-  #vendedorSpa{
-    margin-left: 17%;
-    font-size: 20px;
-  }
-  #turnvenSpa{
-    margin-left: 13%;
-    font-size: 20px;
-  }
-  #ObSpa{
-    margin-left: 0%;
-    font-size: 20px;
-  }
-  #OpcSpa{
-    margin-left: 4%;
-    font-size: 20px;
-  }
+  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+  .excelButton{ margin-left: -2%; }
+  #idSpa, #soliciSpa, #turnvenSpa, #vendedorSpa{ left: 8px; }
+  #ObSpa{ padding-right: 3px; }
+  #OpcSpa{ left: 13px; }
+  .boton, .btnremove{ margin-left: 28%; margin-top: 5%;}
+  #opc2{ padding-bottom: 1%; }
 }
 /* Portatil Pequeño */
 @media screen and (min-width: 1025px) and (max-width: 1366px){
-  #idSpa{
-    margin-left: 63%;
-    font-size: 20px;
-  }
-  #soliciSpa{
-    margin-left: 34%;
-    font-size: 20px;
-  }
-  #vendedorSpa{
-    margin-left: 26%;
-    font-size: 20px;
-  }
-  #turnvenSpa{
-    margin-left: 15%;
-    font-size: 20px;
-  }
-  #ObSpa{
-    margin-left: -52%;
-    font-size: 20px;
-  }
-  #OpcSpa{
-    margin-left: 20%;
-    font-size: 20px;
-  }
+  .excelButton{ margin-left: -2%; }
+  #idSpa{ left: 13px; }
+  #soliciSpa{ left: 23px; }
+  #turnvenSpa{ left: 30px; }
+  #vendedorSpa{ left: 70px; }
+  #ObSpa{ padding-right: 3px; }
+  #OpcSpa{ left: 13px; }
+  .boton, .btnremove{ margin-left: 11%; margin-top: 5%;}
+  #opc2{ padding-bottom: 1%; }
 }
 
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
-  #idSpa{
-    margin-left: 80%;
-    font-size: 20px;
-  }
-  #soliciSpa{
-    margin-left: 45%;
-    font-size: 20px;
-  }
-  #vendedorSpa{
-    margin-left: 55%;
-    font-size: 20px;
-  }
-  #turnvenSpa{
-    margin-left: 30%;
-    font-size: 20px;
-  }
-  #ObSpa{
-    margin-left: -41%;
-    font-size: 20px;
-  }
-  #OpcSpa{
-    margin-left: 20%;
-    font-size: 20px;
-  }
+  .excelButton{ margin-left: -2%; }
+  #idSpa{ left: 14px; }
+  #soliciSpa{ left: 27px; }
+  #turnvenSpa{ left: 38px; }
+  #vendedorSpa{ left: 78px; }
+  #ObSpa{ padding-right: 3px; }
+  #OpcSpa{ left: 13px; }
+  .boton, .btnremove{ margin-left: 11%; margin-top: 5%;}
+  #opc2{ padding-bottom: 1%; }
 }
 

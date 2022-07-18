@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ParamMap, ActivatedRoute } from '@angular/router';
+import { ParamMap, ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
@@ -28,7 +28,8 @@ export class AccesosComponent implements OnInit {
     public dialog: MatDialog,
     public accesoServicio : AccesoService,
     private route: ActivatedRoute,
-    private accessoRol : AccesoService
+    private accessoRol : AccesoService,
+    private router: Router,
 
   ) { }
 
@@ -95,7 +96,7 @@ export class AccesosComponent implements OnInit {
             'success'
           )
         })
-        window.location.reload();
+        this.router.navigate(['/roles']);
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel

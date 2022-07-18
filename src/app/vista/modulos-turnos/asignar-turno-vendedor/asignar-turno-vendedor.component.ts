@@ -49,49 +49,6 @@ export class AsignarTurnoVendedorComponent implements OnInit {
     })
   }
 
-  public botonActualizar(){
-    this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
-      res.forEach(element => {
-        if(element.estado == ""){
-          let asignarTurnoVendedor : AsignarTurnoVendedor = new AsignarTurnoVendedor();
-          asignarTurnoVendedor.estado = "Disponible"
-          asignarTurnoVendedor.fechaFinal = element.fechaFinal
-          asignarTurnoVendedor.fechaInicio = element.fechaInicio
-          asignarTurnoVendedor.id = element.id
-          asignarTurnoVendedor.idOficina = element.idOficina
-          asignarTurnoVendedor.idSitioVenta = element.idSitioVenta
-          asignarTurnoVendedor.idTurno = element.idTurno
-          asignarTurnoVendedor.idVendedor = element.idVendedor
-          asignarTurnoVendedor.ideSubzona = element.ideSubzona
-          asignarTurnoVendedor.nombreOficina = element.nombreOficina
-          asignarTurnoVendedor.nombreSitioVenta = element.nombreSitioVenta
-          asignarTurnoVendedor.nombreVendedor = element.nombreVendedor
-          this.actualizarTurnoVendedor(asignarTurnoVendedor)
-        }
-      });
-    })
-  }
-
-  public actualizarTurnoVendedor(asignarTurnoVendedor: AsignarTurnoVendedor){
-    this.servicioAsignarTurnoVendedor.actualizar(asignarTurnoVendedor).subscribe(res => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Actualizado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al modificar!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
-  }
-
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

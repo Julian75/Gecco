@@ -72,7 +72,7 @@ mat-form-field{
 }
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
-.excelButton{ margin-left: -1%; }
+.excelButton{ margin-left: -2%; }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ position: relative; }
 #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 11px; }
@@ -180,22 +180,21 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   .excelButton{ margin-left: -2.2%; }
   td { font-size: 14px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   .btnremove, .btnedit, .btnver, .btnVisualizar, .botonagregar{
     margin-top: 8%;
     margin-bottom: 8%;
   }
   td button mat-icon{ margin-top: -1px; }
-  #nombreVSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #opcSpa{ left: 12px; }
+  #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #opcSpa{ left: 12px; }
+  #nombreVSpa{ left: 16px; }
   #estadoSpa{ left: 15px; }
-  #oficinaSpa{ left: 45px;}
+  #oficinaSpa{ left: 48px;}
 }
 
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   .excelButton{ margin-left: -2.2%; }
   td { font-size: 14px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   .btnremove, .btnedit, .btnver, .btnVisualizar, .botonagregar{
     margin-top: 8%;
     margin-bottom: 8%;

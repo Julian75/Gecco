@@ -49,14 +49,15 @@ mat-form-field{
 }
 .botonagregar, .excelButton, .botonagregar2, .btnremove{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
-.botonagregar{ margin-left: 2%; }
+.botonagregar{ margin-left: 1%; }
 #idSpa, #moduloSpa, #rolSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 70px; }
+#idSpa{ left: 50px; }
 #moduloSpa{ left: 220px; }
 #rolSpa{ left: 65px; }
 #OpcSpa{ left: 0px; }
 .excelButton{ margin-left: -1%; }
-.excelButton i{ position: relative; top: -3px; font-size: 20px;}
+.excelButton i{ position: relative; top: 1px; font-size: 20px;}
+#sp2{ padding-left: 0%; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
@@ -85,7 +86,7 @@ mat-form-field{
   #idSpa{ left: -5px; }
   #moduloSpa{ left: 20px; }
   #rolSpa{ left: 8px; }
-  .excelButton i{ font-size: 15px;}
+  .excelButton i{ font-size: 15px; top: -3px;}
 }
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
@@ -114,7 +115,7 @@ mat-form-field{
   #idSpa{ left: 5px; }
   #moduloSpa{ left: 50px; }
   #rolSpa{ left: 15px; }
-  .excelButton i{ font-size: 15px;}
+  .excelButton i{ font-size: 15px; top: -3px;}
 }
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){

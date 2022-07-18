@@ -71,7 +71,7 @@ mat-form-field{
 }
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
-.excelButton{ margin-left: -1%; }
+.excelButton{ margin-left: -2%; }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ position: relative; }
 #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 11px; }

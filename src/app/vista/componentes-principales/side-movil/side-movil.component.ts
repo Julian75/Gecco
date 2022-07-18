@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../servicios/configuracion.service';
 import { Component, OnInit } from '@angular/core';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { VisitasSigaService } from 'src/app/servicios/serviciosSiga/visitasSiga.service';
@@ -14,17 +15,19 @@ export class SideMovilComponent implements OnInit {
   public listaAccessForm: any = [];
   public acceso: any;
   public fecha : Date = new Date();
-  public listaVisita:any = []
+  public listaVisita:any = [];
+  public valor: any;
 
   constructor(
     private servicioUsuario: UsuarioService,
     private servicioAcceso: AccesoService,
     private servicioVisita: VisitasSigaService,
+    private servicioConfiguracion: ConfiguracionService,
   ) { }
 
   ngOnInit(): void {
     this.listarAccesos()
-    // this.visitas()
+    this.visitas()
   }
 
   public listarAccesos () {
@@ -39,6 +42,13 @@ export class SideMovilComponent implements OnInit {
           }
         });
         for (let i = 0; i < this.listaAccessForm.length; i++) {
+          if(this.listaAccessForm[i] == 5 || this.listaAccessForm[i] == 4 || this.listaAccessForm[i] == 3 || this.listaAccessForm[i] == 10 || this.listaAccessForm[i] == 11 || this.listaAccessForm[i] == 19 || this.listaAccessForm[i] == 21){
+            document.getElementById('Administracion2')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 1 || this.listaAccessForm[i] == 12 || this.listaAccessForm[i] == 2 || this.listaAccessForm[i] == 6 || this.listaAccessForm[i] == 13 || this.listaAccessForm[i] == 7 || this.listaAccessForm[i] == 20 || this.listaAccessForm[i] == 14){
+            document.getElementById('Malla2')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 16 || this.listaAccessForm[i] == 17 || this.listaAccessForm[i] == 18){
+            document.getElementById('Visita2')?.setAttribute('style', 'display: block;')
+          }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('111')?.setAttribute('style', 'display: block;')
           }
@@ -90,31 +100,49 @@ export class SideMovilComponent implements OnInit {
           if (this.listaAccessForm[i] == 20) {
             document.getElementById('2020')?.setAttribute('style', 'display: block;')
           }
+          if (this.listaAccessForm[i] == 2121) {
+            document.getElementById('2121')?.setAttribute('style', 'display: block;')
+          }
         }
       })
     })
   }
 
   public visitas(){
-    const fechaActual = (this.fecha.getDate())+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
-    console.log(fechaActual)
-    this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('usuario'))).subscribe(res =>{
-      console.log(res)
-      res.forEach(element =>{
-        this.listaVisita.push(element)
-      })
-      console.log(this.listaVisita)
-      let ultimo = this.listaVisita[0]
-      var horaFinal = ultimo.hora.split(':')
-      var hora = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1]))
-      var horaFinal3 = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1])+5)
-      var horaActual = new Date(1928,6,25,this.fecha.getHours(), this.fecha.getMinutes());
+    this.servicioConfiguracion.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if (element.nombre == "tiempo_max_visita") {
+          this.valor = Number(element.valor);
+        }
+      });
+      console.log(this.valor)
+      const fechaActual = (this.fecha.getDate())+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
+      console.log(fechaActual)
+      this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('usuario'))).subscribe(res =>{
+        console.log(res)
+        res.forEach(element =>{
+          this.listaVisita.push(element)
+        })
+        console.log(this.listaVisita)
+        let ultimo = this.listaVisita[0]
+        var horaFinal = ultimo.hora.split(':')
+        var hora = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1]))
+        var horaFinal3 = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1])+this.valor)
+        var horaActual = new Date(1928,6,25,this.fecha.getHours(), this.fecha.getMinutes());
 
-      if(horaActual>=hora && horaActual<=horaFinal3){
-        document.getElementById('1515')?.setAttribute('style', 'display: block;')
-      }else{
-        document.getElementById('1515')?.setAttribute('style', 'display: none;')
-      }
+        if(horaActual>=hora && horaActual<=horaFinal3){
+          document.getElementById('Visita2')?.setAttribute('style', 'display: block;')
+          document.getElementById('1515')?.setAttribute('style', 'display: block;')
+          if(localStorage.getItem('visita') == 'false'){
+            document.getElementById('15')?.setAttribute('style', 'display: none;')
+            document.getElementById('Visita2')?.setAttribute('style', 'display: none;')
+          }if(localStorage.getItem('visita')==null){
+            localStorage.setItem('visita', 'true')
+          }
+        }else{
+          document.getElementById('1515')?.setAttribute('style', 'display: none;')
+        }
+      })
     })
   }
 

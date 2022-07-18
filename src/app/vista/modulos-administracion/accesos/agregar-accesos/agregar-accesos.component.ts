@@ -114,8 +114,7 @@ export class AgregarAccesosComponent implements OnInit {
         timer: 1500
       })
       this.dialogRef.close();
-      window.location.reload();
-      this.router.navigate(['/tablaAccesos']);
+      this.router.navigate(['/roles']);
     }, error => {
       Swal.fire({
         position: 'center',

@@ -110,7 +110,6 @@ export class SidebarComponent implements OnInit {
   }
 
   public visitas(){
-
     this.servicioConfiguracion.listarTodos().subscribe(res => {
       res.forEach(element => {
         if (element.nombre == "tiempo_max_visita") {

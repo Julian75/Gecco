@@ -1,41 +1,41 @@
 <div class="contenedor">
+  <button class="btn botonagregar text-white my-2" (click)="abrirModal()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
     <button class="btn excelButton" ><i class="fa-solid fa-file-excel"></i></button>
-    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal()">
-      <mat-icon>add_circle</mat-icon>
-    </button>
-    <!-- <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
-    </mat-form-field> -->
+    </mat-form-field>
     <section class="example-container mat-elevation-z8" tabindex="0">
 
       <table datatable [dtOptions]="dtOptions" id="usuario" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
           <!-- Position Column -->
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header ><h3 class="id">Id</h3></th>
-            <td mat-cell *matCellDef="let element" >{{element.id}}</td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="descripcion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 class="descri">Descripcion</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Descripcion</h3></th>
             <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 class="nom">Nombre</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nomSpa">Nombre</h3></th>
             <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
           </ng-container>
 
           <ng-container matColumnDef="valor">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 class="val">Valor</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSpa">Valor</h3></th>
             <td mat-cell *matCellDef="let element">{{element.valor}}</td>
           </ng-container>
 
           <!--Opciones-->
           <ng-container matColumnDef="opciones">
-            <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSp">Opciones</h3></th>
+            <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSpa">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="tamañoOpc">
               <button class="btn btnedit me-2" (click)="abrirModalModificar(item.id)">
                 <mat-icon>edit</mat-icon>
