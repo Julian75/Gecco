@@ -28,8 +28,8 @@
     position: relative;
     top: -10%;
   }
-  mat-panel-title{ color: white; font-weight: 700; }
-  button{ width: 125%; margin-left: -8%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  mat-panel-title{ color: white; font-weight: 400; }
+  button{ width: 125%; margin-left: -8%; border-radius: 0%; background-color: white; text-align: left; font-weight: 400;}
   .opciones{ width: 98%; }
 }
 
@@ -63,8 +63,8 @@
     position: relative;
     top: -10%;
   }
-  mat-panel-title{ color: white; font-weight: 700; }
-  button{ width: 125%; margin-left: -8%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  mat-panel-title{ color: white; font-weight: 400; }
+  button{ width: 125%; margin-left: -8%; border-radius: 0%; background-color: white; text-align: left; font-weight: 400;}
   .opciones{ width: 98%; }
 }
 /* Movil grande - Surface Duo*/
@@ -97,8 +97,8 @@
     position: relative;
     top: -10%;
   }
-  mat-panel-title{ color: white; font-weight: 700; }
-  button{ width: 125%; margin-left: -5%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  mat-panel-title{ color: white; font-weight: 400; }
+  button{ width: 125%; margin-left: -5%; border-radius: 0%; background-color: white; text-align: left; font-weight: 400;}
   .opciones{ width: 98%; }
 }
 /* Tablet pequeña - iPad Mini*/
@@ -131,7 +131,7 @@
     position: relative;
     top: -10%;
   }
-  mat-panel-title{ color: white; font-weight: 700; }
-  button{ width: 125%; margin-left: -4%; border-radius: 0%; background-color: white; text-align: left; font-weight: 700;}
+  mat-panel-title{ color: white; font-weight: 400; }
+  button{ width: 125%; margin-left: -4%; border-radius: 0%; background-color: white; text-align: left; font-weight: 400;}
   .opciones{ width: 98%; }
 }

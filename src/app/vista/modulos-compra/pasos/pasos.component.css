@@ -1,0 +1,31 @@
+mat-card{
+    width: 200px;
+    height: 200px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    top: 5%;
+    left: 5%;
+}
+
+h2{
+    font-weight: 700px;
+    font-size: 30px;
+}
+
+#card2{
+    left: 25%;
+    top: -20.5%;
+}
+
+#card3{
+    left: 45%;
+    top: -46%;
+}
+
+#card4{
+    left: 65%;
+    top: -71.5%;
+}
+
+#card5{top: -65%;}

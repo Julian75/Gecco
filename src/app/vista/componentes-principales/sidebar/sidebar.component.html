@@ -50,6 +50,20 @@
       <button mat-raised-button id="18" routerLink="/reportesVisitaDetalle" style="display: none;">Generar Reporte Visita</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Compra
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button routerLink="/articulos">Articulos</button>
+      <button mat-raised-button routerLink="/solicitud">Lista de Solicitudes</button>
+      <button mat-raised-button routerLink="/generarSolicitud">Generar Solicitud</button>
+      <button mat-raised-button routerLink="/proveedores">Proveedores</button>
+    </div>
+  </mat-expansion-panel>
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

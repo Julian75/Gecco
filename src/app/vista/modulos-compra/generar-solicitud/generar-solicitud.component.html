@@ -1,0 +1,93 @@
+<div class="contenedor">
+
+  <h2 class="dato">Ingresar Nueva Solicitud de Compra</h2>
+  <form [formGroup]="formSolicitud">
+    <!-- id	idArticulos	idSolicitud	valor unitario	cantidad	valor total	observacion 	idestado
+    1	1	1	10000	10	100000		Solicitado -->
+    <div class="row1">
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Articulo</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese Articulo</mat-label>
+          <input type="text"
+          aria-label="text"
+          matInput
+          [formControl]="articulos"
+          [matAutocomplete]="auto2" >
+          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo" >
+            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
+              {{item.descripcion}}
+              <button *ngIf="">Agregar un articulo</button>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="nombre3">
+        <h2>Cantidad</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Cantidad del articulo</mat-label>
+        <input type="number" id="cantidad" formControlName="cantidad" name="cantidad" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Observacion</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese observación del articulo</mat-label>
+        <textarea id="observacion" formControlName="observacion" matInput></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardar" (click)="guardar()">Agregar Articulo</button>
+        <button mat-raised-button class="guardar" (click)="eliminarArticulo()">Eliminar Articulo</button>
+        <!-- <button mat-raised-button class="guardar" (click)="Limpiar()">Limpiar</button> -->
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="articulo">
+        <th mat-header-cell *matHeaderCellDef> Articulo </th>
+        <td mat-cell *matCellDef="let element"> {{element.articulo.descripcion}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="observacion">
+        <th mat-header-cell *matHeaderCellDef> Observacion </th>
+        <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+  </form>
+</div>

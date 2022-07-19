@@ -50,7 +50,7 @@ export class OlvidoContrasenaComponent implements OnInit {
               <body>
                 <h3 style="color: black;">Has realizado una solicitud para el cambio de contraseña</h3>
                 <h3 style="color: black;">Para completar tu cambio de contraseña, oprime el boton de abajo!!</h3>
-                <a href="http://localhost:4200/cambiarContrasena"
+                <a href="http://10.192.110.105:4200/cambiarContrasena"
                 style="text-decoration: none;
                     padding: 10px;
                     font-weight: 600;
@@ -62,20 +62,20 @@ export class OlvidoContrasenaComponent implements OnInit {
                     pointer-events: all;
                     "
                 >Cambiar contraseña</a>
-                <img src="../../../../assets/formularios/logo suchance.png" style="width: 400px;">
+                <img src="./assets/formularios/logo suchance.png" style="width: 400px;">
                 <img src="cid:logo" style="width: 400px;">
               </body>
             </html>`,
             attachments: [
               {
                   filename: 'GECCO.png',
-                  path: '../../../../assets/logo/GECCO.png',
+                  path: './assets/logo/GECCO.png',
                   cid: 'logo'
               }
           ]
           }
           console.log(parametros)
-          this.httpclien.post('http://localhost:3500/envio',parametros).subscribe(resp=>{
+          this.httpclien.post('http://10.192.110.105:3500/envio',parametros).subscribe(resp=>{
             console.log(resp)
           })
             Swal.fire({

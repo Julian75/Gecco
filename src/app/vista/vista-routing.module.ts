@@ -39,6 +39,13 @@ import { ModificarTablaConfiguracionComponent } from './modulo-configuracion/mod
 import { AgregarConfiguracionComponent } from './modulo-configuracion/agregar-configuracion/agregar-configuracion.component';
 import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cierre.component';
 import { TablaAprobacionComponent } from './modulos-administracion/tabla-aprobacion/tabla-aprobacion.component';
+import { ArticulosComponent } from './modulos-compra/articulos/articulos.component';
+import { GenerarSolicitudComponent } from './modulos-compra/generar-solicitud/generar-solicitud.component';
+import { ListaSolicitudesComponent } from './modulos-compra/lista-solicitudes/lista-solicitudes.component';
+import { PasosComponent } from './modulos-compra/pasos/pasos.component';
+import { ProveedorComponent } from './modulos-compra/proveedor/proveedor.component';
+import { AgregarProveedorComponent } from './modulos-compra/proveedor/agregar-proveedor/agregar-proveedor.component';
+import { ModificarProveedorComponent } from './modulos-compra/proveedor/modificar-proveedor/modificar-proveedor.component';
 
 const routes: Routes = [
   {
@@ -242,6 +249,43 @@ const routes: Routes = [
       {
         path: 'aprobacion',
         component: TablaAprobacionComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      // Apartado de compras
+      {
+        path: 'articulos',
+        component: ArticulosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'solicitud',
+        component: ListaSolicitudesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'generarSolicitud',
+        component: GenerarSolicitudComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'pasos',
+        component: PasosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      // Proveedores
+      {
+        path: 'proveedores',
+        component: ProveedorComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarProveedor',
+        component: AgregarProveedorComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarProveedor/:id',
+        component: ModificarProveedorComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

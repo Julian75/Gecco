@@ -50,7 +50,6 @@ import { ModificarJerarquiaComponent } from './modulos-turnos/jerarquia/modifica
 import { MallasComponent } from './modulos-turnos/mallas/mallas.component';
 import { AgregarNovedadComponent } from './modulos-turnos/novedades/agregar-novedad/agregar-novedad.component';
 import { OpcionesVisitaComponent } from './modulos-visita/opciones-visita/opciones-visita.component';
-import { VisitasComponent } from './modulos-visita/visitas/visitas.component';
 import { VisitaDetalleComponent } from './modulos-visita/visita-detalle/visita-detalle.component';
 import { AgregarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/agregar-opciones-visita/agregar-opciones-visita.component';
 import { ModificarOpcionesVisitaComponent } from './modulos-visita/opciones-visita/modificar-opciones-visita/modificar-opciones-visita.component';
@@ -69,6 +68,16 @@ import { MallasCierreComponent } from './modulos-turnos/mallas-cierre/mallas-cie
 import { SolicitudEliminarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/solicitud-eliminar-turno-vendedor/solicitud-eliminar-turno-vendedor.component';
 import { TablaAprobacionComponent } from './modulos-administracion/tabla-aprobacion/tabla-aprobacion.component';
 import { ObservacionAprobacionComponent } from './modulos-administracion/tabla-aprobacion/observacion-aprobacion/observacion-aprobacion.component';
+import { ArticulosComponent } from './modulos-compra/articulos/articulos.component';
+import { AgregarArticulosComponent } from './modulos-compra/articulos/agregar-articulos/agregar-articulos.component';
+import { ModificarArticulosComponent } from './modulos-compra/articulos/modificar-articulos/modificar-articulos.component';
+import { GenerarSolicitudComponent } from './modulos-compra/generar-solicitud/generar-solicitud.component';
+import { ListaSolicitudesComponent } from './modulos-compra/lista-solicitudes/lista-solicitudes.component';
+import { PasosComponent } from './modulos-compra/pasos/pasos.component';
+import { VisualizarDetalleSolicitudComponent } from './modulos-compra/lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
+import { ProveedorComponent } from './modulos-compra/proveedor/proveedor.component';
+import { AgregarProveedorComponent } from './modulos-compra/proveedor/agregar-proveedor/agregar-proveedor.component';
+import { ModificarProveedorComponent } from './modulos-compra/proveedor/modificar-proveedor/modificar-proveedor.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +128,6 @@ import { ObservacionAprobacionComponent } from './modulos-administracion/tabla-a
     MallasComponent,
     AgregarNovedadComponent,
     OpcionesVisitaComponent,
-    VisitasComponent,
     VisitaDetalleComponent,
     AgregarOpcionesVisitaComponent,
     ModificarOpcionesVisitaComponent,
@@ -137,6 +145,16 @@ import { ObservacionAprobacionComponent } from './modulos-administracion/tabla-a
     SolicitudEliminarTurnoVendedorComponent,
     TablaAprobacionComponent,
     ObservacionAprobacionComponent,
+    ArticulosComponent,
+    AgregarArticulosComponent,
+    ModificarArticulosComponent,
+    GenerarSolicitudComponent,
+    ListaSolicitudesComponent,
+    PasosComponent,
+    VisualizarDetalleSolicitudComponent,
+    ProveedorComponent,
+    AgregarProveedorComponent,
+    ModificarProveedorComponent,
   ],
   imports: [
     CommonModule,
