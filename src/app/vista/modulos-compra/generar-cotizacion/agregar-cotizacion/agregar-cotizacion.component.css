@@ -21,10 +21,10 @@ h2{
 .guardar{
   background-color: #00235C ;
   color: white;
-  width: 38%;
+  width: 200px;
   height: 40px;
   font-size: large;
-  margin-left: 63%;
+  margin-left: 52%;
 }
 
 .row1{
@@ -32,45 +32,78 @@ h2{
   padding-top: 3%;
   padding-bottom: 4%;
 }
-
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .nombre{ width: 95%;}
   .guardar{
-    margin-left: 5%;
-    width: 96%;
+    width: 170px;
+    margin-left: 2%;
+  }
+  .nombre{
+    width: 165px;
   }
 }
 
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
-  .nombre{ width: 95%;}
   .guardar{
-    margin-left: 14%;
-    width: 72%;
+    width: 200px;
+    margin-left: 5%;
+  }
+  .nombre{
+    width: 230px;
   }
 }
 
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
   .guardar{
+    width: 170px;
     margin-left: 5%;
-    width: 45%;
+  }
+  .nombre{
+    width: 360px;
   }
 }
 
-/* Tablet pequeña */
+/* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
   .guardar{
+    width: 170px;
     margin-left: 5%;
-    width: 45%;
+  }
+  .nombre{
+    width: 420px;
   }
 }
 
-/* Tablet medio */
+/* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .guardar{
+    width: 170px;
     margin-left: 5%;
-    width: 45%;
+  }
+  .nombre{
+    width: 420px;
+  }
+}
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .guardar{
+    width: 170px;
+    margin-left: 5%;
+  }
+  .nombre{
+    width: 250px;
+  }
+}
+
+/* Portatil Medio - PENDIENTE*/
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .guardar{
+    width: 170px;
+    margin-left: -2%;
+  }
+  .nombre{
+    width: 165px;
   }
 }

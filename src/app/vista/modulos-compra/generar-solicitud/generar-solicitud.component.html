@@ -59,7 +59,7 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
+                        (change)="$event ? toggle($event, row) : null"
                         [checked]="selection.isSelected(row)"
                         [aria-label]="checkboxLabel(row)">
           </mat-checkbox>
@@ -89,5 +89,6 @@
           (click)="selection.toggle(row)">
       </tr>
     </table>
+    <button mat-raised-button class="guardar" (click)="generarSolicitud()">Generar Solicitud</button>
   </form>
 </div>

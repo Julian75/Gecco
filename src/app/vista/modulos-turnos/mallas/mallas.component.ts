@@ -360,7 +360,7 @@ export class MallasComponent implements OnInit {
               for (let index = 0; index < resNovedad.length; index++) {
                 const elementNovedad = resNovedad[index];
                   this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta && elementNovedad.tipo_malla == 'Malla Ingreso'){
                       malla1.validar = true
                     }
                   })
@@ -427,7 +427,7 @@ export class MallasComponent implements OnInit {
               for (let index = 0; index < resNovedad.length; index++) {
                 const elementNovedad = resNovedad[index];
                   this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta && elementNovedad.tipo_malla == 'Malla Ingreso'){
                       malla1.validar = true
                     }
                   })
@@ -456,7 +456,7 @@ export class MallasComponent implements OnInit {
               for (let index = 0; index < resNovedad.length; index++) {
                 const elementNovedad = resNovedad[index];
                   this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
-                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta){
+                    if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta && elementNovedad.tipo_malla == 'Malla Ingreso'){
                       malla1.validar = true
                     }
                   })

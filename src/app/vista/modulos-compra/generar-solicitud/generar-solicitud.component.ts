@@ -6,6 +6,13 @@ import { ArticuloService } from 'src/app/servicios/articulo.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Solicitud } from 'src/app/modelos/solicitud';
+import { EstadoService } from 'src/app/servicios/estado.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { SolicitudService } from 'src/app/servicios/solicitud.service';
+import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
+import Swal from 'sweetalert2';
+import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
 
 @Component({
   selector: 'app-generar-solicitud',
@@ -22,17 +29,25 @@ export class GenerarSolicitudComponent implements OnInit {
   public listaArticulo: any = [];
   public articulosDisponibles:any = [];
   public listadoArtSel: any = [];
+  public listadoArtSel2: any = [];
+
+  public listadoSolicitud: any = [];
+
+  public list: any = {};
   public listaRow: any = [];
-  public listaR: any = [];
-  public listaRo: any = [];
-  public listaRow2: any = [];
-  public listaRow3: any = [];
+
+  public fecha: Date = new Date();
 
   color = ('primary');
 
   constructor(
     private fb: FormBuilder,
-    private servicioArticulo: ArticuloService
+    private servicioArticulo: ArticuloService,
+    private servicioEstado: EstadoService,
+    private servicioUsuario: UsuarioService,
+    private servicioSolicitud: SolicitudService,
+    private servicioDetalleSolicitud: DetalleSolicitudService
+
   ){}
 
 
@@ -67,15 +82,19 @@ export class GenerarSolicitudComponent implements OnInit {
     });
   }
   public guardar() {
-    console.log(this.articulo)
     var encontrado = false
     const listaEncontrado: any = []
     const cantidad = this.formSolicitud.controls['cantidad'].value
     const observacion = this.formSolicitud.controls['observacion'].value
     if(this.articulo == undefined || cantidad == null || observacion == null){
-      console.log('nou')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'El campo esta vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }else{
-      console.log(cantidad, observacion)
       var obj = {
         articulo: this.articulo,
         cantidad: cantidad,
@@ -101,53 +120,10 @@ export class GenerarSolicitudComponent implements OnInit {
           console.log("ya exuste")
         }
       }
-      console.log(this.listadoArtSel)
       this.dataSource = new MatTableDataSource( this.listadoArtSel);
     }
-    // let articulo : Articulo = new Articulo();
-    // articulo.descripcion=this.formArticulo.controls['descripcion'].value;
-    // const idEstado = this.formArticulo.controls['estado'].value;
-    // this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-    //   articulo.idEstado = res
-    //   if(articulo.descripcion==null || articulo.descripcion==""){
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'El campo esta vacio!',
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     })
-    //   }else{
-    //     this.registrarArticulo(articulo);
-    //   }
-    // })
-
   }
 
-  // public registrarArticulo(articulo: Articulo) {
-    // this.servicioArticulos.registrar(articulo).subscribe(res=>{
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'success',
-    //     title: 'Articulo Registrado!',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    //   this.dialogRef.close();
-    //   window.location.reload();
-
-    // }, error => {
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Hubo un error al agregar!',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-  // });
-  // validacion:true;
-
-  // public id!: any;
   textoArticulo:any
   displayFn(articulo: Articulo): any {
     this.textoArticulo = articulo
@@ -170,36 +146,7 @@ export class GenerarSolicitudComponent implements OnInit {
   capturarArticulo(event:MatAutocompleteSelectedEvent){
     this.articulo = event.option.value
   }
-  //   var encontrado = false
-  //   const listaEncontrado: any = []
-  //   var obj = {
-  //     articulo: articulo,
-  //     seleccion: event.checked
-  //   }
-  //   if(this.listaArticulo.length<1){
-  //     this.listaArticulo.push(obj)
-  //   }else if(this.listaArticulos.length>=1){
-  //     this.listaArticulo.forEach((element:any) => {
-  //       if(element.articulo.id == obj.articulo.id){
-  //         if(element.seleccion == true && obj.seleccion == false){
-  //           encontrado = true
-  //         }
-  //         encontrado = true
-  //       }else if(element.articulo.id != obj.articulo.id){
-  //         encontrado = false
-  //       }
-  //       listaEncontrado.push(encontrado)
-  //     });
-  //     console.log(listaEncontrado)
-  //     const existe = listaEncontrado.includes( true )
-  //     console.log(existe)
-  //     if(existe == false){
-  //       this.listaArticulo.push(obj)
-  //     }if(existe == true){
-  //       this.listaArticulo.splice(this.listaArticulo.indexOf(obj.articulo),1)
-  //     }
-  //   }
-  // }
+
   displayedColumns: string[] = ['select', 'articulo', 'cantidad', 'observacion'];
   dataSource = new MatTableDataSource<Articulo>();
   selection = new SelectionModel<Articulo>(true, []);
@@ -213,13 +160,51 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
+  seleccionados:any
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
       return;
     }
-
     this.selection.select(...this.dataSource.data);
+  }
+
+  toggle(event:any, row: any) {
+    this.list = row
+    console.log(this.list.articulo.id)
+
+    console.log(event.checked, this.list.id)
+    var obj = {
+      articulo: [],
+      seleccionado: Boolean
+    }
+    var encontrado = false
+    const listaEncontrado: any = []
+    if(this.listaRow.length>=1 ){
+      for (let index = 0; index < this.listaRow.length; index++) {
+        const element = this.listaRow[index];
+        if(element.articulo.articulo.id == this.list.articulo.id){
+          console.log(element.seleccionado, event.checked)
+          if(element.seleccionado == true && event.checked == false){
+            var posicion = this.listaRow.indexOf(element)
+            this.listaRow.splice(posicion, 1)
+            break
+          }
+        }else if(element.articulo.articulo.id != this.list.articulo.id && event.checked == true){
+          obj.articulo = this.list
+          obj.seleccionado = event.checked
+          this.listaRow.push(obj)
+          break
+        }
+      }
+    }else{
+      if(event.checked == true){
+        obj.articulo = this.list
+        obj.seleccionado = event.checked
+        this.listaRow.push(obj)
+      }
+    }
+    console.log(this.listaRow)
   }
 
   /** The label for the checkbox on the passed row */
@@ -229,56 +214,107 @@ export class GenerarSolicitudComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    this.servicioArticulo.listarTodos().subscribe(res=>{
-      res.forEach(element => {
-        if(element.id == row.id && this.selection.isSelected(row) == true){
-          this.listaRo.push(element)
-        }
-      });
-      this.listaR = this.listaRo
-    })
-    if(this.listaRow.length<1){
-      if(this.selection.isSelected(row) == true){
-        this.listaR.forEach((element:any) => {
-          this.listaRow.push(element)
-        });
-      }
-      this.listaRow2 = this.listaRow
-    }else if(this.listaRow.length>=1){
-      this.listaRow.forEach((element:any) => {
-        this.listaR.forEach((elementR:any) => {
-          if(element.articulo.id == elementR.id){
-            if(element.seleccion==true && this.selection.isSelected(elementR) == false){
-              encontrado = true
-            }
-            encontrado = true
-          }else if(element.articulo.id != elementR.id){
-            encontrado = false
-          }
-        });
-        listaEncontrado.push(encontrado)
-      });
-      const existe = listaEncontrado.includes( true )
-      if(existe == false){
-        this.listaR.forEach((elementR:any) => {
-          this.listaRow.push(elementR)
-        });
-      }if(existe == true){
-        this.listaRow.splice(this.listaArticulo.indexOf(row),1)
-      }
-      this.listaRow2 = this.listaRow
-    }
-    this.listaRow3 = this.listaRow2
-
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1},`+this.selection.isSelected(row)+` estas son: `+row;
   }
 
   public eliminarArticulo(){
-    console.log(this.listaRow3)
+  //   this.listaRow.forEach((elementRow:any) => {
+  //     console.log(elementRow.articulo.articulo)
+  //     this.listadoArtSel.forEach((elementTabla:any) => {
+  //       console.log(elementTabla.articulo)
+  //       if(elementTabla.articulo.id != elementRow.articulo.articulo.id){
+  //         this.listadoArtSel2.push(elementTabla)
+  //       }
+  //     });
+  //   });
+  //   this.listadoArtSel = []
+  //   this.listadoArtSel = this.listadoArtSel2
+  //   console.log(this.listadoArtSel)
+  //   this.dataSource = new MatTableDataSource( this.listadoArtSel);
   }
 
   public limpiar(){
     this.listadoArtSel = []
+  }
+
+  public generarSolicitud(){
+    let solicitud : Solicitud = new Solicitud();
+    solicitud.fecha = this.fecha
+    this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+      solicitud.idEstado = resEstado
+      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        solicitud.idUsuario = resUsuario
+        this.registrarSolicitud(solicitud)
+      })
+    })
+  }
+
+  public registrarSolicitud(solicitud: Solicitud){
+    this.servicioSolicitud.registrar(solicitud).subscribe(res=>{
+      this.detalleSolicitud()
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
+  public detalleSolicitud(){
+    var usuarios: any = []
+    this.servicioSolicitud.listarTodos().subscribe(resSolicitudes=>{
+      resSolicitudes.forEach(element => {
+        if(element.idUsuario.id == Number(sessionStorage.getItem('id'))){
+          usuarios.push(element)
+        }
+      });
+      console.log(usuarios)
+      for (let index = 0; index < usuarios.length; index++) {
+        const element = usuarios[index];
+        if(usuarios.indexOf(element) == usuarios.length-1){
+          this.listadoSolicitud.push(element)
+        }
+      }
+      this.listadoArtSel.forEach((element:any) => {
+        let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+        detalleSolicitud.idArticulos = element.articulo
+        this.listadoSolicitud.forEach((elementSolicitud:any) => {
+          detalleSolicitud.idSolicitud = elementSolicitud
+          detalleSolicitud.valorUnitario = 0
+          detalleSolicitud.cantidad = element.cantidad
+          detalleSolicitud.valorTotal = 0
+          detalleSolicitud.observacion = element.observacion
+          this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+            detalleSolicitud.idEstado = resEstado
+            console.log(detalleSolicitud)
+            this.registrarDetalleSolicitud(detalleSolicitud)
+          })
+        });
+      });
+    })
+  }
+
+  public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
+    this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se registro un solicitud!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 
 }

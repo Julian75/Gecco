@@ -88,42 +88,21 @@ h2{
 /* Tablet medio */
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .nombre2, .nombre4{ margin-top: 9%;}
-  .nombre3{ margin-left: 55%; margin-top: -101%;}
+  .nombre3{ margin-left: 55%; margin-top: -107%;}
 
   .guardar{
     margin-left: 34%;
     margin-top: 7%;
   }
-}
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  .nombre3{ margin-left: 55%; margin-top: -52.5%;}
-
-  .guardar{
-    margin-left: 60%;
-    margin-top: 7%;
+  .nombre1{
+    width: 227px;
   }
-}
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .nombre3{  margin-left: 55%;
-    margin-top: -49%;}
-
-  .guardar{
-    margin-left: 60%;
+  .nombre{
+    width: 227px;
   }
 }
 
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .nombre3{  margin-left: 55%;
-    margin-top: -49%;}
 
-  .guardar{
-    margin-left: 60%;
-  }
-
-}
 /* portatil grande */
 @media screen and (min-width: 1441px){
   .nombre4{

@@ -1,3 +1,4 @@
+import { GenerarCotizacionComponent } from './modulos-compra/generar-cotizacion/generar-cotizacion.component';
 import { ModificarRolComponent } from './modulos-administracion/rol/modificar-rol/modificar-rol.component';
 import { RolComponent } from './modulos-administracion/rol/rol.component';
 import { UsuariosComponent } from './modulos-administracion/usuarios/usuarios.component';
@@ -270,6 +271,11 @@ const routes: Routes = [
       {
         path: 'pasos',
         component: PasosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'generarCotizacion',
+        component: GenerarCotizacionComponent,
         canActivate: [AutorizacionGuard]
       },
       // Proveedores

@@ -107,7 +107,7 @@ h2{
     width: 50%;
     height: 40px;
     font-size: large;
-    margin-left: 26%;
+    margin-left: 0%;
     width: 75%;
     font-size: revert;
   }
@@ -146,7 +146,7 @@ h2{
     background-color: #00235C;
     color: white;
     height: 40px;
-    margin-left: 50%;
+    margin-left: 5%;
     width: 50%;
     font-size: revert;
   }

@@ -45,6 +45,7 @@ h2{
   .nombre4{ margin-left: 0%;}
   .guardar{
     margin-left: 9%;
+    width: 173px;
   }
 
   .guardar2{ padding-bottom: 10%; }
@@ -69,7 +70,7 @@ h2{
   .nombre3{ margin-left: 55%; margin-top: -125%;}
   .guardar{
     margin-left: 54%;
-    margin-top: 7%;
+    margin-top: 8%;
   }
 
   .guardar2{ padding-bottom: 10%; }
@@ -82,18 +83,21 @@ h2{
 
   .guardar{
     margin-left: 57%;
-    margin-top: 9%;
+    margin-top: 10%;
   }
 }
 
 /* Tablet medio */
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .nombre2, .nombre4{ margin-top: 9%;}
-  .nombre3{ margin-left: 55%; margin-top: -128%;}
-
+  .nombre3{ margin-left: 55%; margin-top: -136.5%;}
+  .nombre1{
+    width: 230px;
+  }
+  .nombre{ width: 230px; }
   .guardar{
     margin-left: 59%;
-    margin-top: 11%;
+    margin-top: 13%;
   }
 }
 /* Portatil Pequeño */

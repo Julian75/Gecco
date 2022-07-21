@@ -78,6 +78,9 @@ import { VisualizarDetalleSolicitudComponent } from './modulos-compra/lista-soli
 import { ProveedorComponent } from './modulos-compra/proveedor/proveedor.component';
 import { AgregarProveedorComponent } from './modulos-compra/proveedor/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './modulos-compra/proveedor/modificar-proveedor/modificar-proveedor.component';
+import { RechazoSolicitudComponent } from './modulos-compra/lista-solicitudes/rechazo-solicitud/rechazo-solicitud.component';
+import { GenerarCotizacionComponent } from './modulos-compra/generar-cotizacion/generar-cotizacion.component';
+import { AgregarCotizacionComponent } from './modulos-compra/generar-cotizacion/agregar-cotizacion/agregar-cotizacion.component';
 
 @NgModule({
   declarations: [
@@ -155,6 +158,9 @@ import { ModificarProveedorComponent } from './modulos-compra/proveedor/modifica
     ProveedorComponent,
     AgregarProveedorComponent,
     ModificarProveedorComponent,
+    RechazoSolicitudComponent,
+    GenerarCotizacionComponent,
+    AgregarCotizacionComponent,
   ],
   imports: [
     CommonModule,

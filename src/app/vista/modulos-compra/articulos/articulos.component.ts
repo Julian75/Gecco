@@ -1,3 +1,4 @@
+import { EstadoService } from 'src/app/servicios/estado.service';
 import { ModificarArticulosComponent } from './modificar-articulos/modificar-articulos.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -24,6 +25,7 @@ export class ArticulosComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioArticulo: ArticuloService,
+    private servicioEstado: EstadoService,
     public dialog: MatDialog
   ) { }
 

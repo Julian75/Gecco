@@ -46,7 +46,7 @@ h2{
 @media screen and (min-width: 360px) and (max-width: 493px){
   .nombre{ width: 95%;}
   .guardar{
-    margin-left: 5%;
+    margin-left: 14%;
     width: 72%;
   }
 }

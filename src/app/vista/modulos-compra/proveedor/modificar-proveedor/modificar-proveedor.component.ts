@@ -16,6 +16,8 @@ export class ModificarProveedorComponent implements OnInit {
   public listaDocumentos:any =[]
   public listaEstado:any = []
   public idProveedor:any = []
+  public listaExiste: any = []
+  public encontrado: any
   color = ('primary');
   constructor(
     private fb: FormBuilder,
@@ -95,19 +97,37 @@ export class ModificarProveedorComponent implements OnInit {
           (dataEstado)=>{
             this.formProveedor.value.idEstado = dataEstado;
             console.log(this.formProveedor.value);
-            this.serviceProveedor.actualizar(this.formProveedor.value).subscribe(
+            this.serviceProveedor.listarTodos().subscribe(
               (data)=>{
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Proveedor modificado',
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-                this.router.navigate(['/proveedores']);
-              }
-            )
-        }
-        )
+                data.forEach(element => {
+                  if (element.documento == this.formProveedor.value.documento && element.direccion == this.formProveedor.value.direccion && element.nombre == this.formProveedor.value.nombre && element.telefono == this.formProveedor.value.telefono && element.idEstado.id == this.formProveedor.value.idEstado.id && element.idTipoDocumento.id == this.formProveedor.value.idTipoDocumento.id) {
+                    this.serviceProveedor.actualizar(this.formProveedor.value).subscribe(
+                      (data)=>{
+                        Swal.fire({
+                          title: 'Proveedor modificado',
+                          text: 'No hubieron cambios en el proveedor, pero se modificó correctamente',
+                          icon: 'success',
+                          confirmButtonText: 'Ok'
+                        })
+                        this.router.navigate(['/proveedores']);
+                      })
+                  }else{
+                    this.serviceProveedor.actualizar(this.formProveedor.value).subscribe(
+                      (data)=>{
+                        Swal.fire({
+                          title: 'Proveedor modificado',
+                          text: 'Se modificó correctamente',
+                          icon: 'success',
+                          confirmButtonText: 'Ok'
+                        })
+                        this.router.navigate(['/proveedores']);
+                      }
+                    )
+                  }
+                })
+              })
+          })
+
       })
     }else{
       Swal.fire({

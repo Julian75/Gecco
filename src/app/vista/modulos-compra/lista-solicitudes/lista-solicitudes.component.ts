@@ -1,3 +1,9 @@
+import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
+import { UsuarioService } from './../../../servicios/usuario.service';
+import { Correo } from './../../../modelos/correo';
+import { CorreoService } from './../../../servicios/Correo.service';
+import { EstadoService } from './../../../servicios/estado.service';
+import { Solicitud } from './../../../modelos/solicitud';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { VisualizarDetalleSolicitudComponent } from './visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
+import { RechazoSolicitudComponent } from './rechazo-solicitud/rechazo-solicitud.component';
 
 @Component({
   selector: 'app-lista-solicitudes',
@@ -14,7 +21,10 @@ import { VisualizarDetalleSolicitudComponent } from './visualizar-detalle-solici
   styleUrls: ['./lista-solicitudes.component.css']
 })
 export class ListaSolicitudesComponent implements OnInit {
+
   public listaSolicitudes: any = [];
+  public listaDetalleSolicitud: any = [];
+
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -22,16 +32,21 @@ export class ListaSolicitudesComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private solicitudService: SolicitudService,
+    private servicioEstado: EstadoService,
+    private servicioUsuario: UsuarioService,
+    private servicioCorreo: CorreoService,
+    private servicioSolicitudDetalle: DetalleSolicitudService,
   ) { }
 
 
   ngOnInit(): void {
     this.listarSolicitudes();
   }
+
   public listarSolicitudes(){
     this.solicitudService.listarTodos().subscribe(res => {
       res.forEach(element => {
-        if (element.idEstado.descripcion == 'Solicitado') {
+        if (element.idEstado.id == 28) {
          this.listaSolicitudes.push(element);
         }
       })
@@ -47,6 +62,104 @@ export class ListaSolicitudesComponent implements OnInit {
       data: {id: id}
     });
   }
+
+  public aceptar(id:number){
+    let solicitud : Solicitud = new Solicitud();
+    this.solicitudService.listarPorId(id).subscribe(res => {
+      this.servicioEstado.listarPorId(29).subscribe(resEstado => {
+        solicitud.id = res.id
+        solicitud.fecha = res.fecha
+        solicitud.idUsuario = res.idUsuario
+        solicitud.idEstado = resEstado
+        this.actualizarSolicitud(solicitud);
+      })
+    })
+  }
+
+  public actualizarSolicitud(solicitud: Solicitud){
+    this.solicitudService.actualizar(solicitud).subscribe(res =>{
+      this.crearCorreo(solicitud.idUsuario.id)
+    }, error => {
+      console.log(error)
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al modificar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+ }
+ public crearCorreo(id:number){
+  let correo : Correo = new Correo();
+  this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+    this.servicioUsuario.listarPorId(id).subscribe(resUsuario => {
+      correo.to = resUsuario.correo
+      correo.subject = "Aceptacion de Solicitud"
+      correo.messaje = "<!doctype html>"
+      +"<html>"
+      +"<head>"
+      +"<meta charset='utf-8'>"
+      +"</head>"
+      +"<body>"
+      +"<h3 style='color: black;'>Su solicitud ha sido viable por lo cual a sido Aceptada.</h3>"
+      +"<br>"
+      +"<table style='border: 1px solid #000; text-align: center;'>"
+      +"<tr>"
+      +"<th style='border: 1px solid #000;'>Articulo</th>"
+      +"<th style='border: 1px solid #000;'>Cantidad</th>"
+      +"<th style='border: 1px solid #000;'>Observacion</th>";
+      +"</tr>";
+      resSolicitud.forEach(element => {
+        if (element.idSolicitud.id == 4) {
+          this.listaDetalleSolicitud.push(element)
+          correo.messaje += "<tr>"
+          correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+          correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+          correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+          correo.messaje += "</tr>";
+        }
+      });
+      correo.messaje += "</table>"
+      +"<br>"
+      +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+      +"</body>"
+      +"</html>";
+
+      this.enviarCorreo(correo);
+    })
+  })
+}
+
+public enviarCorreo(correo: Correo){
+  this.servicioCorreo.enviar(correo).subscribe(res =>{
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Correo enviado al usuario de la solicitud!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    window.location.reload()
+  }, error => {
+    console.log(error)
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Hubo un error al enviar el Correo!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  });
+}
+
+ rechazarSolicitud(id: number){
+  const dialogRef = this.dialog.open(RechazoSolicitudComponent, {
+    width: '500px',
+    data: id
+    });
+  }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

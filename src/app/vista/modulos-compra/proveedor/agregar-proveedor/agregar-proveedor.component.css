@@ -65,49 +65,269 @@ h2{
     padding-bottom: 4%;
   }
 
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
+  .dato{
+    margin-left: 0%;
+  }
   .nombre{
-    width: 95%;
+    width: 225px;
   }
   .guardar{
-    width: 100%;
+    width: 60%;
     font-size: 13px;
+    margin-left: 18%;
+    margin-top: 51%;
+  }
+
+  .documento{
+    width: 80%;
     margin-left: 0%;
+    margin-top: -1%;
+  }
+  .direccion{
+    width: 222px;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .tele{
+    width: 223px;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .obser{
+    width: 224px;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .esta{
+    margin-left: 0%;
+    margin-top: 0.5%;
+    width: 80%;
+  }
+  .tipoDo{
+    width: 80%;
+    margin-left: 0%;
+  }
+  .nombre1{
+    margin-left: 0%;
+    margin-top: 0.5%;
+    width: 80%;
   }
 }
 
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
+  .dato{
+    margin-left: 0%;
+  }
   .nombre{
-    width: 95%;
+    width: 290px;
   }
   .guardar{
-    width: 100%;
+    width: 60%;
+    font-size: 13px;
+    margin-left: 21%;
+    margin-top: 45%;
+  }
+  .documento{
+    width: 80%;
     margin-left: 0%;
+    margin-top: -1%;
+  }
+  .direccion{
+    width: 222px;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .tele{
+    width: 223px;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .obser{
+    width: 224px;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .esta{
+    margin-left: 0%;
+    margin-top: 0.5%;
+    width: 80%;
+  }
+  .tipoDo{
+    width: 80%;
+    margin-left: 0%;
+  }
+  .nombre1{
+    margin-left: 0%;
+    margin-top: 0.5%;
+    width: 80%;
   }
 }
 
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
-  .guardar{
-    width: 60%;
+  .tipoDo{
+    width: 80%;
     margin-left: 5%;
+  }
+  .nombre{
+    width: 194px;
+  }
+  .documento{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -24%;
+  }
+  .direccion{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 0%;
+  }
+  .nombre1{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -24%;
+  }
+  .esta{
+    margin-left: 55%;
+    margin-top: -24%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 40%;
+    height: 40px;
+    font-size: large;
+    margin-left: 60.5%;
+    top: -78px;
+  }
+  .dato{
+    margin-left: 0%;
+  }
+  .tele{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 0%;
+  }
+  .obser{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 0%;
   }
 }
 
+
+
 /* Tablet pequeña */
 @media screen and (min-width: 721px) and (max-width: 768px){
-  .guardar{
-    width: 60%;
+  .tipoDo{
+    width: 80%;
     margin-left: 5%;
+    margin-top: 4%;
+  }
+  .nombre{
+    width: 194px;
+  }
+  .documento{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -17%;
+  }
+  .direccion{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 4%;
+  }
+  .nombre1{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -16%;
+  }
+  .esta{
+    margin-left: 55%;
+    margin-top: -17%;
+
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 30%;
+    height: 40px;
+    font-size: large;
+    margin-left: 56.5%;
+    top: -78px;
+  }
+  .dato{
+    margin-left: 0%;
+  }
+  .tele{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 4%;
+  }
+  .obser{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 5%;
   }
 }
 
 /* Tablet medio */
 @media screen and (min-width: 769px) and (max-width: 1023px){
-  .guardar{
-    width: 60%;
+  .tipoDo{
+    width: 80%;
     margin-left: 5%;
+    margin-top: 4%;
+  }
+  .nombre{
+    width: 194px;
+  }
+  .documento{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -17%;
+  }
+  .direccion{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 4%;
+  }
+  .nombre1{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -20%;
+  }
+  .esta{
+    margin-left: 55%;
+    margin-top: -17%;
+
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 30%;
+    height: 40px;
+    font-size: large;
+    margin-left: 56.5%;
+    top: -78px;
+  }
+  .dato{
+    margin-left: 0%;
+  }
+  .tele{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 4%;
+  }
+  .obser{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 5%;
   }
 }

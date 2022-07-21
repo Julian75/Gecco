@@ -43,16 +43,15 @@
   .contenedor{
     width: 90% !important; margin-left: 5%; margin-top: 3%;
   }
-  .boton{ background-color: #00235C; }
-  .btnver{ background-color: #959595; color: white; }
-  .btnedit{ background-color: #97B4E2; color: white; }
+  .boton{ background-color: #00235C; color: white;}
+  .btnedit{ background-color: #959595; color: white; }
   .btnremove{ background-color: #DA161A; color: white; }
   mat-form-field{
     width: 20%;
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
   #idSp{ left: 30px; }
@@ -73,7 +72,7 @@
     td{ font-size: 11px;}
     .botonagregar, .excelButton, .btnver{ width: 38px; height: 30px; }
     .botonagregar mat-icon{ font-size: 18px; }
-    .btnremove, .btnedit, .btnver{
+    .btnremove, .btnedit, .btnver, .boton{
       width: 20px !important;
       height: 23px;
       position: relative;
@@ -112,7 +111,7 @@
     .botonagregar, .excelButton{ width: 38px; height: 30px; }
     .botonagregar mat-icon{ font-size: 18px; }
     .excelButton{ margin-left: -5%; }
-    .btnremove, .btnedit, .btnver{
+    .btnremove, .btnedit, .btnver, .boton{
       width: 27px !important;
       height: 26px;
       position: relative;
@@ -149,12 +148,12 @@
       font-size: 19px;
     }
     td{ font-size: 16px;}
-    .btnedit, .btnremove, .btnver{
+    .btnedit, .btnremove, .btnver, .boton{
       width: 40px !important;
       height: 30px;
     }
     .btnedit{ position: relative; left: 3%; }
-    .btnremove{ position: relative; left: 1%; }
+    .btnremove{ position: relative; right: 3%; }
     .btnver{ position: relative; left: -2%; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
     td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
@@ -164,7 +163,7 @@
     #estSp{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton{ font-size: 20px; }
+    .excelButton{ font-size: 20px; top: -3px;}
   }
 
   /* Tablet pequeña - iPad Mini*/

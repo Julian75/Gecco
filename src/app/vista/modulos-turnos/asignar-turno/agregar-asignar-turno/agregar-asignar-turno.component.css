@@ -216,6 +216,7 @@ th.mat-header-cell{ padding-right: 15px; }
   font-size: large;
   margin-left: 40%;
   top: 0%;
+  margin-left: 0%;
 }
 .row1{
   border-top: 3px solid #97B4E2;
@@ -296,6 +297,7 @@ th.mat-header-cell{ padding-right: 15px; }
   height: 40px;
   font-size: large;
   top: 0%;
+  margin-left: 5%;
 
 }
 .row1{

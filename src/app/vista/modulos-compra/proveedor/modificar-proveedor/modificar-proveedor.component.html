@@ -3,7 +3,7 @@
     <form [formGroup]="formProveedor">
       <div class="row1">
         <!-- Ingresar Dirección -->
-        <div class="nombre2">
+        <div class="tipoDo">
             <h2>Tipo Documento</h2>
             <mat-form-field class="nombre" [color]="color" appearance="fill">
                 <mat-label>Ingrese estado del tipo documento</mat-label>
@@ -16,7 +16,7 @@
           <h2>Documento</h2>
           <mat-form-field class="nombre" [color]="color" appearance="fill">
           <mat-label>Ingrese Documento </mat-label>
-          <input id="descripcion" formControlName="documento" matInput>
+          <input id="descripcion" formControlName="documento" matInput readonly>
           </mat-form-field>
         </div>
         <div class="direccion">
