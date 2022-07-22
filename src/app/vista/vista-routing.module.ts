@@ -43,10 +43,11 @@ import { TablaAprobacionComponent } from './modulos-administracion/tabla-aprobac
 import { ArticulosComponent } from './modulos-compra/articulos/articulos.component';
 import { GenerarSolicitudComponent } from './modulos-compra/generar-solicitud/generar-solicitud.component';
 import { ListaSolicitudesComponent } from './modulos-compra/lista-solicitudes/lista-solicitudes.component';
-import { PasosComponent } from './modulos-compra/pasos/pasos.component';
 import { ProveedorComponent } from './modulos-compra/proveedor/proveedor.component';
 import { AgregarProveedorComponent } from './modulos-compra/proveedor/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './modulos-compra/proveedor/modificar-proveedor/modificar-proveedor.component';
+import { ListaCotizacionesComponent } from './modulos-compra/lista-cotizaciones/lista-cotizaciones.component';
+import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-realizadas/solicitudes-realizadas.component';
 
 const routes: Routes = [
   {
@@ -269,13 +270,13 @@ const routes: Routes = [
         canActivate: [AutorizacionGuard]
       },
       {
-        path: 'pasos',
-        component: PasosComponent,
+        path: 'generarCotizacion',
+        component: GenerarCotizacionComponent,
         canActivate: [AutorizacionGuard]
       },
       {
-        path: 'generarCotizacion',
-        component: GenerarCotizacionComponent,
+        path: 'solicitudesRealizadas',
+        component: SolicitudesRealizadasComponent,
         canActivate: [AutorizacionGuard]
       },
       // Proveedores
@@ -292,6 +293,11 @@ const routes: Routes = [
       {
         path: 'modificarProveedor/:id',
         component: ModificarProveedorComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'listaCotizaciones',
+        component: ListaCotizacionesComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

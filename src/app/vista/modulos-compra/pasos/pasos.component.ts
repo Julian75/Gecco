@@ -1,5 +1,6 @@
 import { SolicitudService } from './../../../servicios/solicitud.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pasos',
@@ -12,6 +13,7 @@ export class PasosComponent implements OnInit {
 
   constructor(
     private servicioSolicitud: SolicitudService,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -19,27 +21,33 @@ export class PasosComponent implements OnInit {
   }
 
   public estado(){
-    this.servicioSolicitud.listarPorId(2).subscribe(res => {
+    this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(res => {
       console.log(res)
-      if (res.idEstado.descripcion == "Solicitado") {
+      if (res.idEstado.descripcion == "Viable") {
         document.getElementById("card1")?.setAttribute("style", "background-color: green;")
         document.getElementById("card2")?.setAttribute("style", "background-color: red;")
         document.getElementById("card3")?.setAttribute("style", "background-color: red;")
         document.getElementById("card4")?.setAttribute("style", "background-color: red;")
         document.getElementById("card5")?.setAttribute("style", "background-color: red;")
-      }else if(res.idEstado.descripcion == "Cotizacion"){
+      }else if(res.idEstado.descripcion == "Cotización"){
         document.getElementById("card1")?.setAttribute("style", "background-color: green;")
         document.getElementById("card2")?.setAttribute("style", "background-color: green;")
         document.getElementById("card3")?.setAttribute("style", "background-color: red;")
         document.getElementById("card4")?.setAttribute("style", "background-color: red;")
         document.getElementById("card5")?.setAttribute("style", "background-color: red;")
-      }else if(res.idEstado.descripcion == "Pendiente"){
+      }else if(res.idEstado.descripcion == "Rechazo cotización"){
+        document.getElementById("card1")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: red;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: red;")
+        document.getElementById("card5")?.setAttribute("style", "background-color: red;")
+      }else if(res.idEstado.descripcion == "Finalizado"){
         document.getElementById("card1")?.setAttribute("style", "background-color: green;")
         document.getElementById("card2")?.setAttribute("style", "background-color: green;")
         document.getElementById("card3")?.setAttribute("style", "background-color: green;")
         document.getElementById("card4")?.setAttribute("style", "background-color: red;")
         document.getElementById("card5")?.setAttribute("style", "background-color: red;")
-      }else if(res.idEstado.descripcion == "Finalizado"){
+      }else if(res.idEstado.descripcion == "Registro"){
         document.getElementById("card1")?.setAttribute("style", "background-color: green;")
         document.getElementById("card2")?.setAttribute("style", "background-color: green;")
         document.getElementById("card3")?.setAttribute("style", "background-color: green;")

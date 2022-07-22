@@ -198,3 +198,17 @@ h2{ font-weight: 700; }
   .botonagregar{ margin-left: 0.5%; }
   .excelButton{margin-left: -2%; font-size: 20px;}
 }
+
+/* Portatil Grande */
+@media screen and (min-width: 1441px) {
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSp2{ padding-left: 0%; }
+  #opcSp2{ padding-right: 0%; }
+  #idSp{ left: 40px; }
+  #desSp{ left: 120px; }
+  #obsSp{ left: 115px; }
+  #opcSp{ left: -12px;}
+  .botonagregar{ margin-left: 0.5%; }
+  .excelButton{margin-left: -1%; font-size: 20px;}
+}

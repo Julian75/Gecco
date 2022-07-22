@@ -4,15 +4,18 @@
     <!-- Ingresar Nombre -->
     <div class="nombre2">
       <h2>Cotizacion</h2>
-      <!-- <mat-form-field type="file" class="nombre" [color]="color" appearance="fill">
-      </mat-form-field> -->
-    </div>
-  </div>
-  <div class="row">
-    <!-- Boton de guardar datos -->
-    <div class="guardar2">
-      <button mat-raised-button class="guardar" (click)="guardar()">Insertar Cotizacion</button>
+      <button id="selectButton" mat-raised-button (click)="fileInput.click()" style="margin-top: 15px;">Selecciona archivo</button>
+      <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" /><br>
+      <span *ngIf="fileName" style="position: relative; top: 15px;"><strong style="margin-right: 5px;">Cantidad de archivos: </strong>{{fileName}}</span><br>
+      <h4 *ngIf="fileName" style="position:relative; top:20px"><strong>Nombres de los archivos seleccionados:</strong></h4>
+      <ul style="margin-top:5%;">
+        <li style="margin-top: 5px;" *ngFor="let item of listaArchivos2">{{item}}</li>
+      </ul>
+      <button id="uploadButton" class="guardar" mat-raised-button *ngIf="selectedFiles" [disabled]="!selectedFiles" (click)="guardar()" style="margin-top: 15px;">
+          Guardar Cotización
+      </button>
     </div>
   </div>
 </form>
+
 

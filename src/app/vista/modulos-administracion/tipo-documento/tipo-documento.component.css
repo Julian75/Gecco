@@ -154,3 +154,12 @@ mat-form-field{
   #descripSp{ margin-left: -40%;}
   #opcSp{ left: 8px; }
 }
+
+/* Portatil Grande */
+@media screen and (min-width: 1441px) {
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSp{ left: 59px; }
+  #descripSp{ margin-left: 2%;}
+  #opcSp{ left: 8px; }
+}

@@ -1,5 +1,7 @@
 <div class="contenedor">
     <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+    <button *ngIf="estadoSolicitud == 31" class="btn pdfButton"><mat-icon>picture_as_pdf</mat-icon></button>
+    <!-- (click)="exportPdf()" -->
     <mat-form-field appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -24,19 +26,9 @@
         <td mat-cell *matCellDef="let element">{{element.idSolicitud.fecha}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="valorUnitario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Valor Unitario</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.valorUnitario}}</td>
-        </ng-container>
-
         <ng-container matColumnDef="cantidad">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Cantidad</h3></th>
             <td mat-cell *matCellDef="let element">{{element.cantidad}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Valor Total</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.valorTotal}}</td>
         </ng-container>
 
         <ng-container matColumnDef="observacion">

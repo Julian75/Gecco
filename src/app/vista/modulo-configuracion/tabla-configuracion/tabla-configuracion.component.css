@@ -53,8 +53,8 @@ mat-form-field{
 #valSpa{ left: 35px; }
 #opcSpa{ left: 10px; }
 #idSp2{ padding-left: 0%; }
-.excelButton{ margin-left: -1%;  }
-.excelButton i{ position: relative; top: 1px; font-size: 20px;}
+.excelButton{ margin-left: -1%; font-size: 20px; }
+.excelButton i{ position: relative; top: -2px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

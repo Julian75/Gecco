@@ -15,8 +15,9 @@ import { SolicitudService } from 'src/app/servicios/solicitud.service';
 })
 export class VisualizarDetalleSolicitudComponent implements OnInit {
   public idSolicitud: any;
+  public estadoSolicitud: any;
   public listarDetalle: any = [];
-  displayedColumns = ['id', 'articulo','solicitud', 'valorUnitario','cantidad','total','observacion','estado'];
+  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -33,6 +34,7 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
   public listarDetalleSolicitud() {
     this.idSolicitud = this.data;
     this.servicelistaSolicitud.listarPorId(this.idSolicitud.id).subscribe( res => {
+      this.estadoSolicitud = res.idEstado.id
       this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
         resDetalle.forEach(element => {
           if (element.idSolicitud.id == res.id) {

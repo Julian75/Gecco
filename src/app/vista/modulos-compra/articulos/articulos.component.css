@@ -133,10 +133,10 @@ mat-form-field{
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  #idSp{ left: 7px; }
+  #idSp{ left: 13px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #desSp{ left: 25px; }
+  #estSp{ left: 18px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
@@ -158,23 +158,23 @@ mat-form-field{
   .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
-  #idSp{ left: 7px; }
+  #idSp{ left: 16px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #desSp{ left: 34px; }
+  #estSp{ left: 25px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
-  .excelButton{ font-size: 20px; }
+  .excelButton{ font-size: 17px; }
 }
 
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 15px; }
+  #idSp{ left: 22px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 30px; }
-  #estSp{ left: 25px; }
+  #desSp{ left: 57px; }
+  #estSp{ left: 40px; }
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -184,10 +184,10 @@ mat-form-field{
 @media screen and (min-width: 769px) and (max-width: 1023px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 10px; }
+  #idSp{ left: 17px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 12px; }
-  #estSp{ left: 11px; }
+  #desSp{ left: 42px; }
+  #estSp{ left: 24px; }
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -197,10 +197,10 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ margin-left: 50%; }
+  #idSp{ margin-left: 25%; }
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: 10%; }
-  #estSp{ left: 60%; }
+  #estSp{ left: 71px; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -212,7 +212,20 @@ mat-form-field{
   #idSp{ margin-left: 50%; }
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: 25%; }
-  #estSp{ left: 60%; }
+  #estSp{ left: 75px; }
+  #jerSp{ left: 60%; }
+  #opcSp2{ padding-right: 0%; }
+  .excelButton i{ top: 2px; }
+}
+
+/* Portatil Grande */
+@media screen and (min-width: 1441px) {
+  td { font-size: 16px; height: 0px;}
+  mat-form-field{ width: 22%; margin-left: 77%; }
+  #idSp{ left: 45px; }
+  #idSp2{ padding-left: 0%; }
+  #desSp{ margin-left: 52%; }
+  #estSp{ left: 93px; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }

@@ -1,0 +1,19 @@
+<h2 class="dato">Rechazo de Cotización</h2>
+<form [formGroup]="formRechazoCotizacion">
+  <div class="row1">
+    <!-- Ingresar Observacion -->
+    <div class="nombre2">
+      <h2>Observacion</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Escribe la razon del rechazo</mat-label>
+      <input id="observacion" formControlName="observacion" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Rechazar</button>
+    </div>
+  </div>
+</form>

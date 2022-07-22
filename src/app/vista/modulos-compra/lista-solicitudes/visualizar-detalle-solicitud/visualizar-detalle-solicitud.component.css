@@ -33,9 +33,9 @@
   .excelButton{
     background-color: #6DBE53;
     color: white;
+    position: relative; left: 25px;
   }
-
-  .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+  .pdfButton{ background-color: #DA161A; color: white; margin-left: 5%; }
   td {
     border: 1px solid #000;
     text-align: center;
@@ -45,14 +45,12 @@
   }
   .boton{ background-color: #00235C; }
   .btnver{ background-color: #959595; color: white; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
   mat-form-field{
     width: 20%;
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .pdfButton{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
   #idSp{ left: 30px; }

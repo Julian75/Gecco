@@ -1,6 +1,6 @@
 mat-card{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -8,24 +8,30 @@ mat-card{
     left: 5%;
 }
 
+div{
+    height: 378px;
+}
+
 h2{
     font-weight: 700px;
-    font-size: 30px;
+    font-size: 27px;
 }
 
 #card2{
-    left: 25%;
-    top: -20.5%;
+    left: 38%;
+    top: -128px;
 }
 
 #card3{
-    left: 45%;
-    top: -46%;
+    left: 71%;
+    top: -278px;
 }
 
 #card4{
-    left: 65%;
-    top: -71.5%;
+    top: -245px;
 }
 
-#card5{top: -65%;}
+#card5{
+    left: 38%;
+    top: -395px;
+}

@@ -78,7 +78,7 @@ export class ListaSolicitudesComponent implements OnInit {
 
   public actualizarSolicitud(solicitud: Solicitud){
     this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario.id)
+      this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
     }, error => {
       console.log(error)
       Swal.fire({
@@ -90,10 +90,10 @@ export class ListaSolicitudesComponent implements OnInit {
       })
     });
  }
- public crearCorreo(id:number){
+ public crearCorreo(idUsuario:number, idSolicitud:number){
   let correo : Correo = new Correo();
   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-    this.servicioUsuario.listarPorId(id).subscribe(resUsuario => {
+    this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
       correo.to = resUsuario.correo
       correo.subject = "Aceptacion de Solicitud"
       correo.messaje = "<!doctype html>"
@@ -111,7 +111,7 @@ export class ListaSolicitudesComponent implements OnInit {
       +"<th style='border: 1px solid #000;'>Observacion</th>";
       +"</tr>";
       resSolicitud.forEach(element => {
-        if (element.idSolicitud.id == 4) {
+        if (element.idSolicitud.id == idSolicitud) {
           this.listaDetalleSolicitud.push(element)
           correo.messaje += "<tr>"
           correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
