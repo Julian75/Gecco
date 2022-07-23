@@ -36,15 +36,9 @@
               <button class="btn btnedit me-2 edi" (click)="verSolicitud(item.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button class="btn boton me-2" (click)="aceptar(item.id)">
-                <mat-icon>check_circle</mat-icon>
+              <button class="btn btnedit2 me-2 edi" (click)="verPasos(item.id, item.idEstado.id)">
+                <mat-icon>insights</mat-icon>
               </button>
-              <button class="btn btnremove me-2" (click)="rechazarSolicitud(item.id)">
-                <mat-icon>cancel</mat-icon>
-              </button>
-              <!-- <button class="btn btnremove me-2 remo" (click)="eliminarRol(item.id)">
-                <mat-icon>delete</mat-icon>
-              </button>  -->
             </td>
           </ng-container>
 

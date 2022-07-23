@@ -22,6 +22,7 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
+    public dialogRef: MatDialogRef<VisualizarDetalleSolicitudComponent>,
     private servicelistaSolicitud: SolicitudService,
     private serviceDetalleSolicitud: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -67,5 +68,9 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  public volver(){
+    this.dialogRef.close();
   }
 }

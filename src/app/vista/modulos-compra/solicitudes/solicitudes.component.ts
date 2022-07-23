@@ -1,32 +1,32 @@
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
 import { Correo } from './../../../modelos/correo';
 import { CorreoService } from './../../../servicios/Correo.service';
 import { EstadoService } from './../../../servicios/estado.service';
 import { Solicitud } from './../../../modelos/solicitud';
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, Inject, OnInit,ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
-import { VisualizarDetalleSolicitudComponent } from './visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
-import { RechazoSolicitudComponent } from './rechazo-solicitud/rechazo-solicitud.component';
+import { VisualizarDetalleSolicitudComponent } from '../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
+import { RechazoSolicitudComponent } from '../lista-solicitudes/rechazo-solicitud/rechazo-solicitud.component';
 import { PasosComponent } from '../pasos/pasos.component';
-import { AccesoService } from 'src/app/servicios/Acceso.service';
 
 @Component({
-  selector: 'app-lista-solicitudes',
-  templateUrl: './lista-solicitudes.component.html',
-  styleUrls: ['./lista-solicitudes.component.css']
+  selector: 'app-solicitudes',
+  templateUrl: './solicitudes.component.html',
+  styleUrls: ['./solicitudes.component.css']
 })
-export class ListaSolicitudesComponent implements OnInit {
+export class SolicitudesComponent implements OnInit {
 
   public listaSolicitudes: any = [];
   public listaDetalleSolicitud: any = [];
-  public habilitar: any = false;
+  public idSolicitud:any ;
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -34,12 +34,14 @@ export class ListaSolicitudesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialogRef: MatDialogRef<SolicitudesComponent>,
     private solicitudService: SolicitudService,
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
     private servicioCorreo: CorreoService,
-    private servicioAccesos: AccesoService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
+    private route: ActivatedRoute,
   ) { }
 
 
@@ -48,48 +50,16 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
   public listarSolicitudes(){
-    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-      this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
-        resAccesos.forEach(element => {
-          if(element.idModulo.id == 24 && resUsuario.idRol.id == element.idRol.id){
-            this.habilitar = true
-          }
-        })
-        if(this.habilitar == true){
-          this.solicitudService.listarTodos().subscribe(res => {
-            res.forEach(element => {
-              if (element.idEstado.id == 36 || element.idEstado.id == 37) {
-               this.listaSolicitudes.push(element);
-              }
-            })
-            this.dataSource = new MatTableDataSource(this.listaSolicitudes);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
-        }else if(this.habilitar == false){
-          this.solicitudService.listarTodos().subscribe(res => {
-            res.forEach(element => {
-              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37) {
-               this.listaSolicitudes.push(element);
-              }
-            })
-            this.dataSource = new MatTableDataSource(this.listaSolicitudes);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
+    this.solicitudService.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if (element.id == Number(this.data) ) {
+          this.listaSolicitudes.push(element);
         }
       })
+      this.dataSource = new MatTableDataSource(this.listaSolicitudes);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
-
-
-  }
-
-  verPasos(id: number, idEstado: number){
-    const dialogRef = this.dialog.open(PasosComponent, {
-      width: '700px',
-      height: '430px',
-      data: {idSolicitud:id, idEstado: idEstado}
-    });
   }
 
   verSolicitud(id: number){
@@ -214,5 +184,9 @@ public enviarCorreo(correo: Correo){
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  public volver(){
+    this.dialogRef.close();
   }
 }

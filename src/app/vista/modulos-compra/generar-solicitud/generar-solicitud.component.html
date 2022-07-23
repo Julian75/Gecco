@@ -7,7 +7,7 @@
     <div class="row1">
       <!-- Ingresar Nombre -->
       <div class="nombre2">
-        <h2>Articulo</h2>
+        <h2 class="articulo">Articulo</h2>
         <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Ingrese Articulo</mat-label>
           <input type="text"
@@ -24,15 +24,15 @@
         </mat-form-field>
       </div>
       <div class="nombre3">
-        <h2>Cantidad</h2>
+        <h2 class="can">Cantidad</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
         <mat-label>Ingrese Cantidad del articulo</mat-label>
         <input type="number" id="cantidad" formControlName="cantidad" name="cantidad" matInput>
         </mat-form-field>
       </div>
       <div class="nombre4">
-        <h2>Observacion</h2>
-        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <h2 class="obs">Observacion</h2>
+        <mat-form-field class="ob" [color]="color" appearance="fill">
         <mat-label>Ingrese observación del articulo</mat-label>
         <textarea id="observacion" formControlName="observacion" matInput></textarea>
         </mat-form-field>
@@ -42,11 +42,11 @@
       <!-- Boton de guardar datos -->
       <div class="guardar2">
         <button mat-raised-button class="guardar" (click)="guardar()">Agregar Articulo</button>
-        <button mat-raised-button class="guardar" (click)="eliminarArticulo()">Eliminar Articulo</button>
+        <button mat-raised-button class="guardar3" (click)="eliminarArticulo()">Eliminar Articulo</button>
         <!-- <button mat-raised-button class="guardar" (click)="Limpiar()">Limpiar</button> -->
       </div>
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla">
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -68,19 +68,19 @@
 
       <!-- Position Column -->
       <ng-container matColumnDef="articulo">
-        <th mat-header-cell *matHeaderCellDef> Articulo </th>
+        <th mat-header-cell *matHeaderCellDef><h3 class="ar">Articulo</h3></th>
         <td mat-cell *matCellDef="let element"> {{element.articulo.descripcion}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="cantidad">
-        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <th mat-header-cell *matHeaderCellDef><h3 class="cant"> Cantidad </h3></th>
         <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="observacion">
-        <th mat-header-cell *matHeaderCellDef> Observacion </th>
+        <th mat-header-cell *matHeaderCellDef><h3 class="o"> Observacion </h3></th>
         <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
       </ng-container>
 
@@ -89,6 +89,6 @@
           (click)="selection.toggle(row)">
       </tr>
     </table>
-    <button mat-raised-button class="guardar" (click)="generarSolicitud()">Generar Solicitud</button>
+    <button mat-raised-button class="guardar4" (click)="generarSolicitud()">Generar Solicitud</button>
   </form>
 </div>

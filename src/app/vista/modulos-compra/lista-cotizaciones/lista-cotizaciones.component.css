@@ -11,6 +11,7 @@ table{
   height: 100%;
   border: 1px solid #000;
 }
+.botonvolver{ background-color: #00235C; left: 12px;}
 
 h3{
   text-align: center;
@@ -35,7 +36,7 @@ th{
   color: white;
 }
 
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+.excelButton, .pdfButton, .printButton{ position: relative; left: 40px; }
 td {
   border: 1px solid #000;
   text-align: center;
@@ -51,7 +52,7 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .botonvolver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
 #idSp{ left: 30px; }

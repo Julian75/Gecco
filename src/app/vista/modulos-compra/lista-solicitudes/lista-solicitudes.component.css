@@ -46,12 +46,13 @@
   .boton{ background-color: #00235C; color: white;}
   .btnedit{ background-color: #959595; color: white; }
   .btnremove{ background-color: #DA161A; color: white; }
+  .btnedit2{ background-color: #97B4E2; color: white; }
   mat-form-field{
     width: 20%;
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton{ width: 64px; height: 36px; }
+  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .btnedit2{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
   #idSp{ left: 30px; }

@@ -149,15 +149,10 @@ mat-form-field{
     font-size: 19px;
   }
   td{ font-size: 16px;}
-  .btnedit, .btnremove, .btnver{
-    width: 40px !important;
-    height: 30px;
-  }
   .btnedit{ position: relative; left: 3%; }
   .btnremove{ position: relative; left: 1%; }
   .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
   #idSp{ left: 16px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 34px; }

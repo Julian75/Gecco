@@ -33,6 +33,7 @@ export class GenerarSolicitudComponent implements OnInit {
 
   public listadoSolicitud: any = [];
 
+  public listaNumeros: any = [];
   public list: any = {};
   public listaRow: any = [];
 
@@ -218,19 +219,50 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   public eliminarArticulo(){
-  //   this.listaRow.forEach((elementRow:any) => {
-  //     console.log(elementRow.articulo.articulo)
-  //     this.listadoArtSel.forEach((elementTabla:any) => {
-  //       console.log(elementTabla.articulo)
-  //       if(elementTabla.articulo.id != elementRow.articulo.articulo.id){
-  //         this.listadoArtSel2.push(elementTabla)
-  //       }
-  //     });
-  //   });
-  //   this.listadoArtSel = []
-  //   this.listadoArtSel = this.listadoArtSel2
-  //   console.log(this.listadoArtSel)
-  //   this.dataSource = new MatTableDataSource( this.listadoArtSel);
+    // this.listadoArtSel2 = []
+    // for (let index = 0; index < this.listadoArtSel.length; index++) {
+    //   const elementArtSel = this.listadoArtSel[index];
+    //   console.log(elementArtSel.articulo.id)
+    //   for (let index = 0; index < this.listaRow.length; index++) {
+    //     const elementRow = this.listaRow[index];
+    //     if(elementArtSel.articulo.id != elementRow.articulo.articulo.id){
+    //       this.listaNumeros.push(elementArtSel.articulo.id)
+    //     }
+    //   }
+    // }
+    // console.log(this.listaNumeros)
+    // let result = this.listaNumeros.filter((item:any,index:any)=>{
+    //   return this.listaNumeros.indexOf(item) === index;
+    // })
+    // console.log(result)
+    // for (let index = 0; index < this.listaRow.length; index++) {
+    //   const elementRow = this.listaRow[index];
+    //   console.log(elementRow.articulo.articulo)
+    //   for (let index = 0; index < this.listadoArtSel.length; index++) {
+    //     const elementArtSel = this.listadoArtSel[index];
+    //     console.log(elementArtSel.articulo.id)
+    //     // if(elementArtSel.articulo.id != elementRow.articulo.articulo.id){
+    //     //   this.listadoArtSel2.push(elementArtSel)
+    //     //   break
+    //     // }
+    //   }
+
+    // }
+    // this.listadoArtSel = []
+    // this.listadoArtSel = this.listadoArtSel2
+    // this.dataSource = new MatTableDataSource( this.listadoArtSel);
+    // console.log(this.listadoArtSel2)
+    // this.listaRow.forEach((elementRow:any) => {
+    //   this.listadoArtSel.forEach((elementTabla:any) => {
+    //     if(elementTabla.articulo.id != elementRow.articulo.articulo.id){
+    //       this.listadoArtSel2.push(elementTabla)
+    //     }
+    //   });
+    // });
+    // console.log(this.listadoArtSel2)
+    // this.listadoArtSel = []
+    // this.listadoArtSel = this.listadoArtSel2
+    // console.log(this.listadoArtSel2)
   }
 
   public limpiar(){

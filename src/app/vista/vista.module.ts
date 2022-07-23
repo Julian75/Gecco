@@ -84,6 +84,7 @@ import { AgregarCotizacionComponent } from './modulos-compra/generar-cotizacion/
 import { ListaCotizacionesComponent } from './modulos-compra/lista-cotizaciones/lista-cotizaciones.component';
 import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-realizadas/solicitudes-realizadas.component';
 import { RechazoCotizacionComponent } from './modulos-compra/lista-cotizaciones/rechazo-cotizacion/rechazo-cotizacion.component';
+import { SolicitudesComponent } from './modulos-compra/solicitudes/solicitudes.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import { RechazoCotizacionComponent } from './modulos-compra/lista-cotizaciones/
     ListaCotizacionesComponent,
     SolicitudesRealizadasComponent,
     RechazoCotizacionComponent,
+    SolicitudesComponent,
   ],
   imports: [
     CommonModule,

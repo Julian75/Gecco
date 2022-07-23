@@ -97,9 +97,8 @@ export class AgregarCotizacionComponent implements OnInit {
       } else if (event instanceof HttpResponse) {
         this.fileInfos = this.servicioSubirPdf.listarTodos();
       }
-      console.log("bien")
-      // this.dialogRef.close();
-      // window.location.reload();
+      this.dialogRef.close();
+      window.location.reload();
     },
     err => {
       this.progressInfo[index].value = 0;

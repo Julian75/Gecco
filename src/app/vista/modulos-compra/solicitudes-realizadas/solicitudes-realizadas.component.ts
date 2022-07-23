@@ -67,7 +67,7 @@ export class SolicitudesRealizadasComponent implements OnInit {
     const dialogRef = this.dialog.open(PasosComponent, {
       width: '700px',
       height: '430px',
-      data: id
+      data: {id: id}
     });
   }
 

@@ -11,11 +11,11 @@ import { CorreoService } from './../../../servicios/Correo.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
 import { EstadoService } from './../../../servicios/estado.service';
 import { SolicitudService } from './../../../servicios/solicitud.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
@@ -41,6 +41,8 @@ export class ListaCotizacionesComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioCorreo: CorreoService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialogRef: MatDialogRef<ListaCotizacionesComponent>,
   ) { }
 
 
@@ -51,7 +53,7 @@ export class ListaCotizacionesComponent implements OnInit {
   public listarSolicitudes(){
     this.servicioCotizacion.listarTodos().subscribe(res => {
       res.forEach(element => {
-        if (element.idEstado.id == 31) {
+        if (element.idSolicitud.id == Number(this.data)) {
          this.listaCotizaciones.push(element);
         }
       })
@@ -269,6 +271,10 @@ export class ListaCotizacionesComponent implements OnInit {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  public volver(){
+    this.dialogRef.close();
   }
 
 }

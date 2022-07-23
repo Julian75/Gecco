@@ -146,16 +146,19 @@
       font-size: 19px;
     }
     td{ font-size: 16px;}
-    .btnedit, .btnremove, .btnver{
-      width: 40px !important;
-      height: 30px;
+    .btnedit{
+      position: relative;
+      top: 6px;
+      left: 6%;
     }
-    .btnedit{ position: relative; left: 3%; }
-    .btnremove{ position: relative; left: 1%; margin-top: 8%; margin-bottom: 8%; }
+    .btnremove{
+      position: relative;
+      top: 11px;
+      left: 6%;
+      margin-bottom: 18%;
+    }
     .btnver{ position: relative; left: -2%; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
-    .excelButton i{ position: relative; top: -15%; }
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 8px; }
@@ -163,25 +166,24 @@
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton{ font-size: 20px; }
+    .excelButton i{ position: relative; top: -3px; font-size: 20px;}
+
   }
 
   /* Tablet pequeña - iPad Mini*/
   @media screen and (min-width: 721px) and (max-width: 768px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    .btnremove, .btnedit, .btnver{
-      width: 27px !important;
-      height: 26px;
+    .btnedit{
       position: relative;
-      left: 8%;
-      margin-top: 8%;
-      margin-bottom: 8%;
+      top: 5%;
+      left: 6%;
     }
-    .edi{
-      margin-left: -4%;
-    }
-    .remo{
-      margin-left: 5%;
+    .btnremove{
+      position: relative;
+      top: 12%;
+      left: 6%;
+      margin-bottom: 18%;
     }
     #idSp{ left: 10px; }
     #idSp2{ padding-left: 0%; }
@@ -190,27 +192,22 @@
     #jerSp{ left: 28px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton i{ top: 2px; }
-    td button mat-icon{ font-size: 18px; margin-left: -12px; margin-top: -2px; }
   }
 
   /* Tablet medio - iPad Air*/
   @media screen and (min-width: 769px) and (max-width: 1023px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    td button mat-icon{ font-size: 18px; margin-left: -12px; margin-top: -2px; }
-    .btnremove, .btnedit, .btnver{
-      width: 27px !important;
-      height: 26px;
+    .btnedit{
       position: relative;
-      left: 8%;
-      margin-top: 8%;
-      margin-bottom: 8%;
+      top: 5%;
+      left: 6%;
     }
-    .edi{
-      margin-left: -4%;
-    }
-    .remo{
-      margin-left: 5%;
+    .btnremove{
+      position: relative;
+      top: 12%;
+      left: 6%;
+      margin-bottom: 18%;
     }
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
@@ -239,6 +236,19 @@
   }
   /* Portatil Medio */
   @media screen and (min-width: 1367px) and (max-width: 1440px){
+    td { font-size: 16px; height: 0px;}
+    mat-form-field{ width: 22%; margin-left: 77%; }
+    #idSp{ margin-left: -22%; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ margin-left: -7%; }
+    #estSp{ left: 14%; }
+    #jerSp{ left: 60%; }
+    #opcSp2{ padding-right: 0%; }
+    .excelButton i{ top: 2px; }
+  }
+
+  /* Portatil Grande */
+  @media screen and (min-width: 1441px) {
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 22%; margin-left: 77%; }
     #idSp{ margin-left: -22%; }

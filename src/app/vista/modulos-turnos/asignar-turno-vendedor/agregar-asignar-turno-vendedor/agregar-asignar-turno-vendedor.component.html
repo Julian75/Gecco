@@ -82,7 +82,7 @@
     <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef ><h1>Id</h1></th>
+        <th mat-header-cell *matHeaderCellDef ><h1 id="idtable">Id</h1></th>
         <td mat-cell *matCellDef="let element">{{element.id}}</td>
       </ng-container>
 

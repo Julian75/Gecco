@@ -88,3 +88,348 @@ padding-bottom: 4%;
 .contenedor{ width: 80% !important; margin-left: 10%; margin-top: 4%; }
 mat-option{ font-size: 10.5px; }
 .btnremove{ width: 64px; height: 36px; }
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .articulo{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -12px;
+  }
+  .nombre1{
+    width: 226px;
+    left: -12px;
+  }
+  .can{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -89px;
+    top: 8px;
+  }
+  .nombre{
+    width: 223px;
+    left: -89px;
+    top: 8px;
+  }
+  .obs{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -164px;
+    top: 18px;
+  }
+  .ob{
+    width: 223px;
+    left: -163px;
+    top: 18px;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 222px;
+    height: 40px;
+    font-size: large;
+    margin-left: 1%;
+    top: 11%;
+  }
+
+  .guardar3{
+    background-color: #00235C;
+    color: white;
+    width: 222px;
+    height: 40px;
+    font-size: large;
+    margin-left: 1%;
+    top: 20%;
+  }
+
+  .tabla{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 20px;
+  }
+
+  .guardar4{
+    background-color: #00235C;
+    color: white;
+    width: 222px;
+    height: 40px;
+    font-size: large;
+    margin-left: 1%;
+    position: relative;
+    top: 12px;
+  }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .articulo{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -12px;
+  }
+  .nombre1{
+    width: 286px;
+    left: -12px;
+  }
+  .can{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -112px;
+    top: 8px;
+  }
+  .nombre{
+    width: 286px;
+    left: -112px;
+    top: 8px;
+  }
+  .obs{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -207px;
+    top: 18px;
+  }
+  .ob{
+    width: 286px;
+    left: -208px;
+    top: 18px;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 1%;
+    top: 11%;
+  }
+  .guardar3{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 1%;
+    top: 20%;
+  }
+  .tabla{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 20px;
+  }
+  .guardar4{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 1%;
+    position: relative;
+    top: 12px;
+  }
+  .ar{
+    width: 100%;
+    position: relative;
+    left: -4px;
+    top: 8px;
+    margin-left: 11px;
+  }
+  .cant{
+    width: 100%;
+    position: relative;
+    left: -7px;
+    top: 9px;
+    margin-left: 11px;
+  }
+  .o{
+    width: 100%;
+    position: relative;
+    left: 14px;
+    top: 9px;
+  }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  .articulo{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 17px;
+  }
+  .nombre1{
+    width: 396px;
+    left: 14px;
+  }
+  .can{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -137px;
+    top: 28px;
+  }
+  .nombre{
+    width: 391px;
+    left: -135px;
+    top: 29px;
+  }
+  .obs{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -279px;
+    top: 56px;
+  }
+  .ob{
+    width: 388px;
+    left: -279px;
+    top: 58px;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 9%;
+    top: 47%;
+  }
+  .guardar3{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 9%;
+    top: 58%;
+  }
+  .tabla{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 35px;
+  }
+  .guardar4{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 0%;
+    position: relative;
+    top: 12px;
+  }
+  .ar{
+    width: 100%;
+    position: relative;
+    left: -4px;
+    top: 8px;
+    margin-left: 11px;
+  }
+  .cant{
+    width: 100%;
+    position: relative;
+    left: -7px;
+    top: 9px;
+    margin-left: 11px;
+  }
+  .o{
+    width: 100%;
+    position: relative;
+    left: 14px;
+    top: 9px;
+  }
+}
+
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .articulo{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 17px;
+  }
+  .nombre1{
+    width: 268px;
+    left: 14px;
+  }
+  .can{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 113px;
+    top: -45px;
+  }
+  .nombre{
+    width: 268px;
+    left: 111px;
+    top: -44px;
+  }
+  .obs{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -404px;
+    top: 7px;
+  }
+  .ob{
+    width: 268px;
+    left: -409px;
+    top: 9px;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 135px;
+    height: 40px;
+    font-size: inherit;
+    margin-left: 58%;
+    top: -95%;
+  }
+  .guardar3{
+    background-color: #00235C;
+    color: white;
+    width: 155px;
+    height: 40px;
+    font-size: large;
+    margin-left: 81%;
+    top: -146%;
+  }
+  .tabla{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 35px;
+  }
+  .guardar4{
+    background-color: #00235C;
+    color: white;
+    width: 288px;
+    height: 40px;
+    font-size: large;
+    margin-left: 0%;
+    position: relative;
+    top: 12px;
+  }
+  .ar{
+    width: 100%;
+    position: relative;
+    left: -4px;
+    top: 8px;
+    margin-left: 11px;
+  }
+  .cant{
+    width: 100%;
+    position: relative;
+    left: -7px;
+    top: 9px;
+    margin-left: 11px;
+  }
+}

@@ -99,6 +99,12 @@ th.mat-header-cell{ padding-right: 15px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
+  h1{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
   .container{
     width: 80%;
     background-color: white;
@@ -203,6 +209,19 @@ th.mat-header-cell{ padding-right: 15px; }
 }
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
+  h1{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    position: relative;
+    left: 7px;
+  }
+  #idtable{
+    width: 100%;
+    position: relative;
+    left: -5px;
+  }
   .container{
     width: 80%;
     background-color: white;
@@ -307,6 +326,19 @@ th.mat-header-cell{ padding-right: 15px; }
 }
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
+  h1{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    position: relative;
+    left: 7px;
+  }
+  #idtable{
+    width: 100%;
+    position: relative;
+    left: -5px;
+  }
   .container{
     width: 80%;
     background-color: white;

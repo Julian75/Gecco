@@ -48,6 +48,7 @@ import { AgregarProveedorComponent } from './modulos-compra/proveedor/agregar-pr
 import { ModificarProveedorComponent } from './modulos-compra/proveedor/modificar-proveedor/modificar-proveedor.component';
 import { ListaCotizacionesComponent } from './modulos-compra/lista-cotizaciones/lista-cotizaciones.component';
 import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-realizadas/solicitudes-realizadas.component';
+import { SolicitudesComponent } from './modulos-compra/solicitudes/solicitudes.component';
 
 const routes: Routes = [
   {
@@ -267,11 +268,6 @@ const routes: Routes = [
       {
         path: 'generarSolicitud',
         component: GenerarSolicitudComponent,
-        canActivate: [AutorizacionGuard]
-      },
-      {
-        path: 'generarCotizacion',
-        component: GenerarCotizacionComponent,
         canActivate: [AutorizacionGuard]
       },
       {

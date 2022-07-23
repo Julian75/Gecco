@@ -1,11 +1,11 @@
 import { AgregarCotizacionComponent } from './agregar-cotizacion/agregar-cotizacion.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { VisualizarDetalleSolicitudComponent } from './../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
 import { SolicitudService } from './../../../servicios/solicitud.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -25,6 +25,8 @@ export class GenerarCotizacionComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private solicitudService: SolicitudService,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialogRef: MatDialogRef<GenerarCotizacionComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class GenerarCotizacionComponent implements OnInit {
   public listarSolicitudes(){
     this.solicitudService.listarTodos().subscribe(res => {
       res.forEach(element => {
-        if (element.idEstado.id == 29) {
+        if (element.id == Number(this.data)) {
          this.listaSolicitudes.push(element);
         }
       })
@@ -76,6 +78,10 @@ export class GenerarCotizacionComponent implements OnInit {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  public volver(){
+    this.dialogRef.close();
   }
 
 }
