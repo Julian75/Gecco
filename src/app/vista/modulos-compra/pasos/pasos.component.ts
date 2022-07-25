@@ -1,3 +1,4 @@
+import { ModificarSolicitudComponent } from './../lista-solicitudes/modificar-solicitud/modificar-solicitud.component';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { GenerarCotizacionComponent } from './../generar-cotizacion/generar-cotizacion.component';
 import { SolicitudesComponent } from './../solicitudes/solicitudes.component';
@@ -18,6 +19,7 @@ export class PasosComponent implements OnInit {
 
   public listaEstado: any = [];
   public lista: any = [];
+  public listarExiste: any = [];
   public habilitar = false
 
   constructor(
@@ -91,43 +93,64 @@ export class PasosComponent implements OnInit {
   }
 
   public solicitudes(){
+    this.listarExiste = []
+    for (const [key, value] of Object.entries(this.data)) {
+      this.lista.push(value)
+    }
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
       this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
-        resAccesos.forEach(element => {
-          if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id){
-            this.habilitar = true
+        this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
+          for (let index = 0; index < resAccesos.length; index++) {
+            const element = resAccesos[index];
+            if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id  ){
+              this.habilitar = true
+            }else if(resSolicitud.idUsuario.id == resUsuario.id){
+              this.habilitar = false
+            }
+            this.listarExiste.push(this.habilitar)
           }
-        });
-        if(this.habilitar == true){
-          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-            if(res.idEstado.id == 28){
-              const dialogRef = this.dialog.open(SolicitudesComponent, {
-                width: '1000px',
-                height: '430px',
-                data: this.lista[0]
-              });
-            }else if(res.idEstado.id == 30){
-              console.log("modificar solicitud")
-            }
-          })
-        }else if(this.habilitar == false){
-          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-            if(res.idEstado.id == 28){
-              Swal.fire({
-                position: 'center',
-                icon: 'warning',
-                title: 'Aún no se ha validado la solicitud!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }if(res.idEstado.id == 30){
-              console.log("modificar soliticud")
-            }
-          })
-        }
+          console.log(this.listarExiste)
+          const existe = this.listarExiste.includes( true )
+          if(existe == true){
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 28){
+                const dialogRef = this.dialog.open(SolicitudesComponent, {
+                  width: '1000px',
+                  height: '430px',
+                  data: this.lista[0]
+                });
+              }else if(res.idEstado.id == 30){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha modificado la solicitud!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
+            })
+          }else if(existe == false){
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 28){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha validado la solicitud!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }if(res.idEstado.id == 30){
+                const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
+                  width: '2500px',
+                  height: '700px',
+                  data: this.lista[0]
+                });
+              }
+            })
+          }
+        })
       })
     })
-
   }
 
   public solicitudes2(){

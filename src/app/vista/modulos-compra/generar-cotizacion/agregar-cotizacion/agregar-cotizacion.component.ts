@@ -177,10 +177,13 @@ export class AgregarCotizacionComponent implements OnInit {
       });
       this.servicioCotizacion.listarPorId(Number(this.idCotizacion)).subscribe(resCotizacion=>{
         this.listaArchivos2.forEach((element:any) => {
-          let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
-          cotizacionPdf.idCotizacion = resCotizacion
-          cotizacionPdf.nombrePdf = element
-          this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
+          this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
+            let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+            cotizacionPdf.idCotizacion = resCotizacion
+            cotizacionPdf.idEstado = resEstado
+            cotizacionPdf.nombrePdf = element
+            this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
+          })
         })
       });
     })

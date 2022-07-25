@@ -1,3 +1,5 @@
+import { CotizacionPdf } from './../../../modelos/cotizacionPdf';
+import { CotizacionPdfService } from './../../../servicios/cotizacionPdf.service';
 import { SubirPdfService } from './../../../servicios/subirPdf.service';
 import { Observable } from 'rxjs';
 import { RechazoCotizacionComponent } from './rechazo-cotizacion/rechazo-cotizacion.component';
@@ -27,7 +29,9 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 })
 export class ListaCotizacionesComponent implements OnInit {
   public listaCotizaciones: any = [];
+  public listaCotizacionesPdf: any = [];
   public listaDetalleSolicitud: any = [];
+  public listaPdf:any = [];
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -40,6 +44,8 @@ export class ListaCotizacionesComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
     private servicioCorreo: CorreoService,
+    private servicioCotizacionPdf: CotizacionPdfService,
+    private servicioPdf: SubirPdfService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<ListaCotizacionesComponent>,
@@ -57,10 +63,16 @@ export class ListaCotizacionesComponent implements OnInit {
          this.listaCotizaciones.push(element);
         }
       })
-      console.log(this.listaCotizaciones)
-      this.dataSource = new MatTableDataSource(this.listaCotizaciones);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf => {
+        resCotizacionPdf.forEach(element => {
+          if(element.idCotizacion.id == this.listaCotizaciones[0].id){
+            this.listaCotizacionesPdf.push(element)
+          }
+        });
+        this.dataSource = new MatTableDataSource(this.listaCotizacionesPdf);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
     })
   }
 
@@ -71,17 +83,53 @@ export class ListaCotizacionesComponent implements OnInit {
     });
   }
 
-  public aceptar(idSolicitud:number, idCotizacion:number){
-    let solicitud : Solicitud = new Solicitud();
-    this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud => {
-      this.servicioEstado.listarPorId(34).subscribe(resEstado => {
-        solicitud.id = resSolicitud.id
-        solicitud.fecha = resSolicitud.fecha
-        solicitud.idUsuario = resSolicitud.idUsuario
-        solicitud.idEstado = resEstado
-        this.actualizarSolicitud(solicitud, idCotizacion);
+  public aceptar(idSolicitud:number, idCotizacion:number, idCotizacionPdf:number){
+    let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+    this.servicioCotizacionPdf.listarPorId(idCotizacionPdf).subscribe(resCotizacionPdf=>{
+      cotizacionPdf.id = resCotizacionPdf.id
+      cotizacionPdf.nombrePdf = resCotizacionPdf.nombrePdf
+      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion
+      this.servicioEstado.listarPorId(39).subscribe(resEsta=>{
+        cotizacionPdf.idEstado = resEsta
+        this.actualizaCotizacionPdf(cotizacionPdf, idCotizacion);
+        console.log(cotizacionPdf)
+        let solicitud : Solicitud = new Solicitud();
+        this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud => {
+          this.servicioEstado.listarPorId(34).subscribe(resEstado => {
+            solicitud.id = resSolicitud.id
+            solicitud.fecha = resSolicitud.fecha
+            solicitud.idUsuario = resSolicitud.idUsuario
+            solicitud.idEstado = resEstado
+            this.actualizarSolicitud(solicitud, idCotizacion);
+          })
+        })
       })
     })
+
+  }
+
+  public actualizaCotizacionPdf(cotizaciPdf: CotizacionPdf, idCotizacion: number){
+    this.servicioCotizacionPdf.actualizar(cotizaciPdf).subscribe(res=>{
+      let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+      this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacion=>{
+        resCotizacion.forEach(element => {
+          if(element.idCotizacion.id == idCotizacion && element.idEstado.id == 38){
+            cotizacionPdf.id = element.id
+            cotizacionPdf.nombrePdf = element.nombrePdf
+            cotizacionPdf.idCotizacion = element.idCotizacion
+            this.servicioEstado.listarPorId(40).subscribe(resEstado=>{
+              cotizacionPdf.idEstado = resEstado
+              console.log(cotizacionPdf)
+              this.actualizaCotizacionPdf2(cotizacionPdf);
+            })
+          }
+        });
+      })
+    })
+  }
+
+  public actualizaCotizacionPdf2(cotizacionPdf: CotizacionPdf){
+    this.servicioCotizacionPdf.actualizar(cotizacionPdf).subscribe(res=>{})
   }
 
   public actualizarSolicitud(solicitud: Solicitud, idCotizacion:number){
@@ -245,12 +293,28 @@ export class ListaCotizacionesComponent implements OnInit {
     });
   }
 
-
   rechazarSolicitud(id: number){
     const dialogRef = this.dialog.open(RechazoCotizacionComponent, {
       width: '500px',
       data: id
     });
+  }
+
+  public descargarPdf(id: number){
+    this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
+      console.log(res.nombrePdf)
+      this.servicioPdf.listarTodos().subscribe(resPdf => {
+        this.listaPdf.push(resPdf)
+        console.log(resPdf)
+        for(const i in resPdf){
+          console.log(this.listaPdf[0][i].name)
+          if (res.nombrePdf == this.listaPdf[0][i].name) {
+            console.log(this.listaPdf[0][i])
+            window.location.href = this.listaPdf[0][i].url
+          }
+        }
+      })
+    })
   }
 
   // Filtrado

@@ -1,37 +1,37 @@
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Observable, startWith, map } from 'rxjs';
-import { Articulo } from '../../../modelos/articulo';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ArticuloService } from 'src/app/servicios/articulo.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Solicitud } from 'src/app/modelos/solicitud';
-import { EstadoService } from 'src/app/servicios/estado.service';
-import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { SolicitudService } from 'src/app/servicios/solicitud.service';
-import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
-import Swal from 'sweetalert2';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
+import { Solicitud } from 'src/app/modelos/solicitud';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
+import { SolicitudService } from 'src/app/servicios/solicitud.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { EstadoService } from 'src/app/servicios/estado.service';
+import { ArticuloService } from 'src/app/servicios/articulo.service';
+import { Observable, startWith, map } from 'rxjs';
+import { Articulo } from './../../../../modelos/articulo';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-generar-solicitud',
-  templateUrl: './generar-solicitud.component.html',
-  styleUrls: ['./generar-solicitud.component.css']
+  selector: 'app-modificar-solicitud',
+  templateUrl: './modificar-solicitud.component.html',
+  styleUrls: ['./modificar-solicitud.component.css']
 })
-export class GenerarSolicitudComponent implements OnInit {
+export class ModificarSolicitudComponent implements OnInit {
+
   public formSolicitud!: FormGroup;
   public articulos = new FormControl<string | Articulo>("");
-  options: Articulo[] = []
   filteredOptions!: Observable<Articulo[]>;
-  public seleccionadas!: FormGroup;
   public listaArticulos: any = [];
+  public listaArticulosDetalle: any = [];
   public listaArticulo: any = [];
   public articulosDisponibles:any = [];
   public listadoArtSel: any = [];
-  public listadoArtSel2: any = [];
 
   public listadoSolicitud: any = [];
 
@@ -39,20 +39,17 @@ export class GenerarSolicitudComponent implements OnInit {
   public list: any = {};
   public listaRow: any = [];
 
-  public fecha: Date = new Date();
+  color = ('primary');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-  color = ('primary');
 
   constructor(
     private fb: FormBuilder,
     private servicioArticulo: ArticuloService,
     private servicioEstado: EstadoService,
-    private servicioUsuario: UsuarioService,
     private servicioSolicitud: SolicitudService,
-    private servicioDetalleSolicitud: DetalleSolicitudService
-
+    private servicioDetalleSolicitud: DetalleSolicitudService,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ){}
 
 
@@ -70,6 +67,19 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   public listarArticulos() {
+    this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
+      resDetalleSolicitud.forEach(element => {
+        if(element.idSolicitud.id == Number(this.data)){
+          this.listaArticulosDetalle.push(element)
+        }
+      });
+      console.log(this.listaArticulosDetalle)
+      this.listadoArtSel = this.listaArticulosDetalle
+      console.log(this.listadoArtSel)
+      this.dataSource = new MatTableDataSource( this.listadoArtSel);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
     this.servicioArticulo.listarTodos().subscribe(res => {
       res.forEach(element => {
         if(element.idEstado.id == 26){
@@ -101,7 +111,7 @@ export class GenerarSolicitudComponent implements OnInit {
       })
     }else{
       var obj = {
-        articulo: this.articulo,
+        idArticulos: this.articulo,
         cantidad: cantidad,
         observacion: observacion
       }
@@ -109,10 +119,10 @@ export class GenerarSolicitudComponent implements OnInit {
         this.listadoArtSel.push(obj)
       }else if(this.listadoArtSel.length>=1){
         this.listadoArtSel.forEach((element:any) => {
-          if(element.articulo.id == obj.articulo.id){
+          if(element.idArticulos.id == obj.idArticulos.id){
             encontrado = true
           }
-          else if(element.articulo.id != obj.articulo.id){
+          else if(element.idArticulos.id != obj.idArticulos.id){
             encontrado = false
           }
           listaEncontrado.push(encontrado)
@@ -122,12 +132,16 @@ export class GenerarSolicitudComponent implements OnInit {
         if(existe == false){
           this.listadoArtSel.push(obj)
         }else if(existe == true){
-          console.log("ya exuste")
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ese elemento ya existe.',
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       }
       this.dataSource = new MatTableDataSource( this.listadoArtSel);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     }
   }
 
@@ -179,7 +193,7 @@ export class GenerarSolicitudComponent implements OnInit {
 
   toggle(event:any, row: any) {
     this.list = row
-    console.log(this.list.articulo.id)
+    console.log(event, row, this.listaRow)
 
     console.log(event.checked, this.list.id)
     var obj = {
@@ -232,8 +246,7 @@ export class GenerarSolicitudComponent implements OnInit {
     }else{
       this.listaRow.forEach((element:any) => {
         for (let i in this.listadoArtSel) {
-          console.log()
-          if (this.listadoArtSel[i].articulo.id == element.articulo.articulo.id) {
+          if (this.listadoArtSel[i].idArticulos.id == element.articulo.idArticulos.id) {
             this.listadoArtSel.splice(i, 1)
           }
         }
@@ -247,20 +260,21 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
-    let solicitud : Solicitud = new Solicitud();
-    solicitud.fecha = this.fecha
-    this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-      solicitud.idEstado = resEstado
-      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        solicitud.idUsuario = resUsuario
-        this.registrarSolicitud(solicitud)
+    this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+      let solicitud : Solicitud = new Solicitud();
+      solicitud.id = resSolicitud.id
+      solicitud.fecha = resSolicitud.fecha
+      this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+        solicitud.idEstado = resEstado
+        solicitud.idUsuario = resSolicitud.idUsuario
+        this.actualizarSolicitud(solicitud, solicitud.id)
       })
     })
   }
 
-  public registrarSolicitud(solicitud: Solicitud){
-    this.servicioSolicitud.registrar(solicitud).subscribe(res=>{
-      this.detalleSolicitud()
+  public actualizarSolicitud(solicitud: Solicitud, idSolicitud:number){
+    this.servicioSolicitud.actualizar(solicitud).subscribe(res=>{
+      this.detalleSolicitud(idSolicitud)
     }, error => {
       Swal.fire({
         position: 'center',
@@ -272,56 +286,47 @@ export class GenerarSolicitudComponent implements OnInit {
     });
   }
 
-  public detalleSolicitud(){
-    var usuarios: any = []
-    this.servicioSolicitud.listarTodos().subscribe(resSolicitudes=>{
-      resSolicitudes.forEach(element => {
-        if(element.idUsuario.id == Number(sessionStorage.getItem('id'))){
-          usuarios.push(element)
-        }
-      });
-      console.log(usuarios)
-      for (let index = 0; index < usuarios.length; index++) {
-        const element = usuarios[index];
-        if(usuarios.indexOf(element) == usuarios.length-1){
-          this.listadoSolicitud.push(element)
-        }
-      }
-      this.listadoArtSel.forEach((element:any) => {
-        let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
-        detalleSolicitud.idArticulos = element.articulo
-        this.listadoSolicitud.forEach((elementSolicitud:any) => {
-          detalleSolicitud.idSolicitud = elementSolicitud
-          detalleSolicitud.valorUnitario = 0
-          detalleSolicitud.cantidad = element.cantidad
-          detalleSolicitud.valorTotal = 0
-          detalleSolicitud.observacion = element.observacion
-          this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-            detalleSolicitud.idEstado = resEstado
-            console.log(detalleSolicitud)
-            this.registrarDetalleSolicitud(detalleSolicitud)
+  public detalleSolicitud(idSolicitud:number){
+    var validar = true
+    this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
+      resDetalleSolicitud.forEach(element => {
+        if(element.idSolicitud.id == idSolicitud){
+          this.servicioDetalleSolicitud.eliminar(element.id).subscribe(resDetalleSolicitud=>{
+            console.log("listo")
           })
-        });
+        }
       });
     })
-  }
-
-  public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
-    this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se registro un solicitud!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al agregar!',
-        showConfirmButton: false,
-        timer: 1500
+    console.log(this.listadoArtSel)
+    this.listadoArtSel.forEach((element:any) => {
+      let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+      detalleSolicitud.idArticulos = element.idArticulos
+      this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
+        detalleSolicitud.idSolicitud = resSolicitud
+        detalleSolicitud.valorUnitario = 0
+        detalleSolicitud.cantidad = element.cantidad
+        detalleSolicitud.valorTotal = 0
+        detalleSolicitud.observacion = element.observacion
+        this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+          detalleSolicitud.idEstado = resEstado
+          this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se registro la solicitud!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }, error => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Hubo un error al agregar!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          });
+        })
       })
     });
   }

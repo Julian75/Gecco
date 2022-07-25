@@ -1,6 +1,6 @@
 <div class="contenedor">
 
-  <h2 class="dato">Ingresar Nueva Solicitud de Compra</h2>
+  <h2 class="dato">Modificar Solicitud de Compra</h2>
 
   <form [formGroup]="formSolicitud">
     <!-- id	idArticulos	idSolicitud	valor unitario	cantidad	valor total	observacion 	idestado
@@ -30,7 +30,7 @@
           <!-- Position Column -->
           <ng-container matColumnDef="articulo">
             <th mat-header-cell *matHeaderCellDef><h3 class="ar">Articulo</h3></th>
-            <td mat-cell *matCellDef="let element"> {{element.articulo.descripcion}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.idArticulos.descripcion}} </td>
           </ng-container>
 
           <!-- Name Column -->
@@ -52,7 +52,7 @@
         </table>
       </section>
       <button mat-raised-button class="guardar4" (click)="generarSolicitud()">Generar Solicitud</button>
-      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
+      <mat-paginator [length]="100" [pageSize]="6" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
 
       <!-- Ingresar Nombre -->

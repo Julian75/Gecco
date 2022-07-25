@@ -19,6 +19,10 @@ export class SubirPdfService {
     return this.http.get(`${this.path}/files`);
   }
 
+  public listarPorId(nombreArchivo: String){
+    return this.http.get(this.path+'/files/'+nombreArchivo);
+  }
+
   public subirArchivo(file: File): Observable<HttpEvent<any>>{
     const formData: FormData = new FormData();
     formData.append('files', file);
