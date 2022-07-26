@@ -1,3 +1,6 @@
+import { OrdenCompraComponent } from './../orden-compra/orden-compra.component';
+import { OrdenCompra } from './../../../modelos/ordenCompra';
+import { AgregarCotizacionComponent } from './../generar-cotizacion/agregar-cotizacion/agregar-cotizacion.component';
 import { ModificarSolicitudComponent } from './../lista-solicitudes/modificar-solicitud/modificar-solicitud.component';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { GenerarCotizacionComponent } from './../generar-cotizacion/generar-cotizacion.component';
@@ -9,6 +12,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { ListaCotizacionesComponent } from '../lista-cotizaciones/lista-cotizaciones.component';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import Swal from 'sweetalert2';
+import { AprobacionRegistroComponent } from '../aprobacion-registro/aprobacion-registro.component';
 
 @Component({
   selector: 'app-pasos',
@@ -76,13 +80,20 @@ export class PasosComponent implements OnInit {
         document.getElementById("card3")?.setAttribute("style", "background-color: green;")
         document.getElementById("card4")?.setAttribute("style", "background-color: blue;")
         document.getElementById("card5")?.setAttribute("style", "background-color: gray;")
-      }else if(res.idEstado.descripcion == "Registro"){
+      }else if(res.idEstado.id == 37){
+        document.getElementById("card1")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card5")?.setAttribute("style", "background-color: blue;")
+      }else if(res.idEstado.id == 46){
         document.getElementById("card1")?.setAttribute("style", "background-color: green;")
         document.getElementById("card2")?.setAttribute("style", "background-color: green;")
         document.getElementById("card3")?.setAttribute("style", "background-color: green;")
         document.getElementById("card4")?.setAttribute("style", "background-color: green;")
         document.getElementById("card5")?.setAttribute("style", "background-color: green;")
-      }else{
+      }
+      else{
         document.getElementById("card1")?.setAttribute("style", "background-color: gray;")
         document.getElementById("card2")?.setAttribute("style", "background-color: gray;")
         document.getElementById("card3")?.setAttribute("style", "background-color: gray;")
@@ -209,7 +220,10 @@ export class PasosComponent implements OnInit {
         }else if(this.habilitar == false){
           this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
             if(res.idEstado.id == 35){
-              console.log("modificar cotizacion")
+              const dialogRef = this.dialog.open(AgregarCotizacionComponent, {
+                width: '450px',
+                data: this.lista[0]
+              });
             }
             if(res.idEstado.id == 36){
               Swal.fire({
@@ -228,11 +242,96 @@ export class PasosComponent implements OnInit {
 
   // Card registro
   public solicitudes4(){
-
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
+        resAccesos.forEach(element => {
+          if(element.idModulo.id == 24 && resUsuario.idRol.id == element.idRol.id){
+            this.habilitar = true
+          }
+        });
+        if(this.habilitar == true){
+          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+            if(res.idEstado.id == 34){
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Aún no se ha hecho un registro!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          })
+        }else if(this.habilitar == false){
+          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+            if(res.idEstado.id == 34){
+              const dialogRef = this.dialog.open(OrdenCompraComponent, {
+                width: '1000px',
+                height: '650px',
+                data: this.lista[0]
+              });
+            }
+          })
+        }
+      })
+    })
   }
 
   // Card aprobacion
   public solicitudes5(){
-
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
+        resAccesos.forEach(element => {
+          if(element.idModulo.id == 24 && resUsuario.idRol.id == element.idRol.id){
+            this.habilitar = true
+          }
+        });
+        if(this.habilitar == true){
+          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+            if(res.idEstado.id == 34){
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Aún no se ha hecho un registro!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else if(res.idEstado.id == 37){
+              const dialogRef = this.dialog.open(AprobacionRegistroComponent, {
+                width: '1000px',
+                height: '650px',
+                data: this.lista[0]
+              });
+            }else if(res.idEstado.id == 46){
+              console.log("Debe generar la requisicion")
+            }
+          })
+        }else if(this.habilitar == false){
+          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+            if(res.idEstado.id == 37){
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Aún no se ha validado su registro!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else if(res.idEstado.id == 47){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'modifica tu registro porque fue rechazado',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              // const dialogRef = this.dialog.open(, {
+              //   width: '1000px',
+              //   height: '650px',
+              //   data: this.lista[0]
+              // });
+            }
+          })
+        }
+      })
+    })
   }
 }

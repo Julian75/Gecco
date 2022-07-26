@@ -1,4 +1,3 @@
-import { GenerarCotizacionComponent } from './modulos-compra/generar-cotizacion/generar-cotizacion.component';
 import { ModificarRolComponent } from './modulos-administracion/rol/modificar-rol/modificar-rol.component';
 import { RolComponent } from './modulos-administracion/rol/rol.component';
 import { UsuariosComponent } from './modulos-administracion/usuarios/usuarios.component';
@@ -48,7 +47,7 @@ import { AgregarProveedorComponent } from './modulos-compra/proveedor/agregar-pr
 import { ModificarProveedorComponent } from './modulos-compra/proveedor/modificar-proveedor/modificar-proveedor.component';
 import { ListaCotizacionesComponent } from './modulos-compra/lista-cotizaciones/lista-cotizaciones.component';
 import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-realizadas/solicitudes-realizadas.component';
-import { SolicitudesComponent } from './modulos-compra/solicitudes/solicitudes.component';
+import { RaspaListoComponent } from './modulos-raspita/raspa-listo/raspa-listo.component';
 
 const routes: Routes = [
   {
@@ -296,6 +295,13 @@ const routes: Routes = [
         component: ListaCotizacionesComponent,
         canActivate: [AutorizacionGuard]
       },
+      // Raspita
+      {
+        path: 'raspalisto',
+        component: RaspaListoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+
     ]
   },
 ];

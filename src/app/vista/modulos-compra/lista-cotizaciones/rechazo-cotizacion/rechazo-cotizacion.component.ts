@@ -1,3 +1,5 @@
+import { CotizacionPdf } from './../../../../modelos/cotizacionPdf';
+import { CotizacionPdfService } from './../../../../servicios/cotizacionPdf.service';
 import { Cotizacion } from './../../../../modelos/cotizacion';
 import { CotizacionService } from './../../../../servicios/cotizacion.service';
 import { Solicitud } from './../../../../modelos/solicitud';
@@ -22,10 +24,12 @@ export class RechazoCotizacionComponent implements OnInit {
 
   public formRechazoCotizacion!: FormGroup;
   public listaDetalleSolicitud: any = [];
+  public listaCotizacionesPdf: any = [];
 
   constructor(
     private solicitudService: SolicitudService,
     private servicioCotizacion: CotizacionService,
+    private servicioCotizacionPdf: CotizacionPdfService,
     private servicioEstado: EstadoService,
     private servicioCorreo: CorreoService,
     private servicioUsuario: UsuarioService,
@@ -47,9 +51,13 @@ export class RechazoCotizacionComponent implements OnInit {
   }
 
   public guardar(){
-    this.servicioCotizacion.listarPorId(Number(this.data)).subscribe(resCotizacion=>{
-      let solicitud : Solicitud = new Solicitud();
-      this.servicioEstado.listarPorId(35).subscribe(resEstado => {
+    let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+    this.servicioCotizacionPdf.listarPorId(Number(this.data)).subscribe(resCotizacionPdf=>{
+      cotizacionPdf.id = resCotizacionPdf.id
+      cotizacionPdf.nombrePdf = resCotizacionPdf.nombrePdf
+      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion
+      this.servicioEstado.listarPorId(40).subscribe(resEstado=>{
+        cotizacionPdf.idEstado = resEstado
         const observacion = this.formRechazoCotizacion.controls['observacion'].value;
         if(observacion == "" || observacion == null){
           Swal.fire({
@@ -60,13 +68,107 @@ export class RechazoCotizacionComponent implements OnInit {
             timer: 1500
           })
         }else{
-          solicitud.id = resCotizacion.idSolicitud.id
-          solicitud.fecha = resCotizacion.idSolicitud.fecha
-          solicitud.idUsuario = resCotizacion.idSolicitud.idUsuario
-          solicitud.idEstado = resEstado
-          this.actualizarSolicitud(solicitud, resCotizacion.id);
+          this.actualizarCotizacionPdf(cotizacionPdf);
         }
       })
+    })
+  }
+
+  public actualizarCotizacionPdf(cotizacionPdf: CotizacionPdf){
+    this.servicioCotizacionPdf.actualizar(cotizacionPdf).subscribe(res=>{
+      this.crearCorreo(cotizacionPdf.idCotizacion.idUsuario.id, cotizacionPdf.idCotizacion.idSolicitud.id, cotizacionPdf.nombrePdf, cotizacionPdf.idCotizacion.id)
+    })
+  }
+
+
+  public crearCorreo(idUsuarioCotizacion:number, idSolicitud:number, nombrePdf: String, idCotizacion: number){
+    let correo : Correo = new Correo();
+    const observacion = this.formRechazoCotizacion.controls['observacion'].value;
+    this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+      this.servicioUsuario.listarPorId(idUsuarioCotizacion).subscribe(resUsuario => {
+        correo.to = resUsuario.correo
+        correo.subject = "Cancelacion de la Cotizacion: "+nombrePdf
+        correo.messaje = "<!doctype html>"
+        +"<html>"
+        +"<head>"
+        +"<meta charset='utf-8'>"
+        +"</head>"
+        +"<body>"
+        +"<h3 style='color: black;'>Su cotización ha sido rechaza porque:</h3>"
+        +"<h3 style='color: black;'>"+observacion+"</h3>"
+        +"<br>"
+        +"<table style='border: 1px solid #000; text-align: center;'>"
+        +"<tr>"
+        +"<th style='border: 1px solid #000;'>Articulo</th>"
+        +"<th style='border: 1px solid #000;'>Cantidad</th>"
+        +"<th style='border: 1px solid #000;'>Observacion</th>";
+        +"</tr>";
+        resSolicitud.forEach(element => {
+          if (element.idSolicitud.id == idSolicitud) {
+            this.listaDetalleSolicitud.push(element)
+            correo.messaje += "<tr>"
+            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+            correo.messaje += "</tr>";
+          }
+        });
+        correo.messaje += "</table>"
+        +"<br>"
+        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+        +"</body>"
+        +"</html>";
+
+        this.enviarCorreo(correo, idCotizacion);
+      })
+    })
+  }
+
+  public enviarCorreo(correo:any, idCotizacion:number){
+    this.servicioCorreo.enviar(correo).subscribe(res =>{
+      this.verificarRechazos(idCotizacion);
+    }, error => {
+      console.log(error)
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al enviar el Correo!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
+  public verificarRechazos(idCotizacion:number){
+    //Verificar los Rechazos de las CotizacionesPdf
+    this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf => {
+      resCotizacionPdf.forEach(elementCotizacionPdf => {
+        if(elementCotizacionPdf.idCotizacion.id == idCotizacion){
+          this.listaCotizacionesPdf.push(elementCotizacionPdf)
+        }
+      });
+      var contador = 0
+      for (let i = 0; i < this.listaCotizacionesPdf.length; i++) {
+        const element = this.listaCotizacionesPdf[i];
+        this.servicioCotizacionPdf.listarPorId(element.id).subscribe(resCotizacioPdf2=>{
+          console.log(resCotizacioPdf2)
+          if (resCotizacioPdf2.idEstado.id == 40) {
+            contador += 1
+            if (contador == this.listaCotizacionesPdf.length) {
+              this.servicioCotizacion.listarPorId(idCotizacion).subscribe(resCotizacion=>{
+                let solicitud : Solicitud = new Solicitud();
+                this.servicioEstado.listarPorId(35).subscribe(resEstado => {
+                  solicitud.id = resCotizacion.idSolicitud.id
+                  solicitud.fecha = resCotizacion.idSolicitud.fecha
+                  solicitud.idUsuario = resCotizacion.idSolicitud.idUsuario
+                  solicitud.idEstado = resEstado
+                  this.actualizarSolicitud(solicitud, resCotizacion.id);
+                })
+              })
+            }
+          }
+        })
+      }
     })
   }
 
@@ -91,11 +193,11 @@ export class RechazoCotizacionComponent implements OnInit {
 
   public actualizarCotizacion(cotizacion: Cotizacion, idUsuarioSolicitud:number, idSolicitud:number){
     this.servicioCotizacion.actualizar(cotizacion).subscribe(res =>{
-      this.crearCorreo(cotizacion.idUsuario.id, cotizacion.id, idUsuarioSolicitud, idSolicitud)
+      this.crearCorreo2(cotizacion.idUsuario.id, cotizacion.id, idUsuarioSolicitud, idSolicitud)
     })
   }
 
-  public crearCorreo(idUsuarioCotizacion:number, idCotizacion:number, idUsuarioSolicitud:number, idSolicitud:number){
+  public crearCorreo2(idUsuarioCotizacion:number, idCotizacion:number, idUsuarioSolicitud:number, idSolicitud:number){
     let correo : Correo = new Correo();
     const observacion = this.formRechazoCotizacion.controls['observacion'].value;
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
@@ -108,8 +210,10 @@ export class RechazoCotizacionComponent implements OnInit {
         +"<meta charset='utf-8'>"
         +"</head>"
         +"<body>"
-        +"<h3 style='color: black;'>Su cotización ha sido rechaza porque:</h3>"
-        +"<h3 style='color: black;'>"+observacion+"</h3>"
+        +"<h3 style='color: black;'>Todas sus cotizaciones se han rechazado y se ha enviado un correo por cada cotizacion"
+        +"que subio dando el motivo de su rechazo, se ha habilitado de nuevo la posibilidad de que vuelva a subir otras cotizaciones.</h3>"
+        +"<br>"
+        +"<h3 style='color: black;'>Estos son todos los articulos que usted ha pedido.</h3>"
         +"<br>"
         +"<table style='border: 1px solid #000; text-align: center;'>"
         +"<tr>"
@@ -133,14 +237,14 @@ export class RechazoCotizacionComponent implements OnInit {
         +"</body>"
         +"</html>";
 
-        this.enviarCorreo(correo, idUsuarioSolicitud, idSolicitud);
+        this.enviarCorreo2(correo, idUsuarioSolicitud, idSolicitud);
       })
     })
   }
 
-  public enviarCorreo(correo:any, idUsuarioSolicitud:number, idSolicitud:number){
+  public enviarCorreo2(correo:any, idUsuarioSolicitud:number, idSolicitud:number){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
-      this.crearCorreo2(idUsuarioSolicitud, idSolicitud)
+      this.crearCorreo3(idUsuarioSolicitud, idSolicitud)
     }, error => {
       console.log(error)
       Swal.fire({
@@ -153,7 +257,7 @@ export class RechazoCotizacionComponent implements OnInit {
     });
   }
 
-  public crearCorreo2(idUsuarioSolicitud:number, idSolicitud:number){
+  public crearCorreo3(idUsuarioSolicitud:number, idSolicitud:number){
     let correo : Correo = new Correo();
     const observacion = this.formRechazoCotizacion.controls['observacion'].value;
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
@@ -167,7 +271,10 @@ export class RechazoCotizacionComponent implements OnInit {
         +"</head>"
         +"<body>"
         +"<h3 style='color: black;'>Su cotización ha sido rechaza porque:</h3>"
-        +"<h3 style='color: black;'>"+observacion+"</h3>"
+        +"<h3 style='color: black;'>Todas sus cotizaciones se han rechazado y se ha enviado un correo por cada cotizacion"
+        +"que subio dando el motivo de su rechazo, se ha habilitado de nuevo la posibilidad de que vuelva a subir otras cotizaciones.</h3>"
+        +"<br>"
+        +"<h3 style='color: black;'>Estos son todos los articulos que usted ha pedido.</h3>"
         +"<br>"
         +"<table style='border: 1px solid #000; text-align: center;'>"
         +"<tr>"
@@ -191,12 +298,12 @@ export class RechazoCotizacionComponent implements OnInit {
         +"</body>"
         +"</html>";
 
-        this.enviarCorreo2(correo);
+        this.enviarCorreo3(correo);
       })
     })
   }
 
-  public enviarCorreo2(correo:any){
+  public enviarCorreo3(correo:any){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
       Swal.fire({
         position: 'center',

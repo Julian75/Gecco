@@ -1,0 +1,89 @@
+<div class="contenedor">
+
+  <h2 class="dato">Ingresar Nueva Solicitud de Compra</h2>
+  <form [formGroup]="formProveedor">
+    <!-- id idArticulos idSolicitud valor unitario  cantidad  valor total observacion   idestado
+    1 1 1 10000 10  100000    Solicitado -->
+      <div class="row1">
+          <!-- Ingresar Nombre -->
+          <div class="nombre2">
+              <h2 class="articulo">Proveedor</h2>
+              <mat-form-field class="nombre1" appearance="fill">
+              <mat-label>Ingrese Proveedor</mat-label>
+              <input type="text"
+              aria-label="text"
+              matInput
+              [formControl]="proveedores"
+              [matAutocomplete]="auto2"  >
+              <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarProveedor($event)" [displayWith]="displayFn">
+                  <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id"  >
+                  {{item.nombre}}
+                  </mat-option>
+              </mat-autocomplete>
+              </mat-form-field>
+          </div>
+          <div class="nombre3">
+              <ul>
+                <li >
+                  <h3>¿Anticipo?</h3>
+                </li>
+                <mat-radio-group aria-label="Select an option" style="margin-left: -35px;" >
+                    <mat-radio-button style="margin-left: 5%;" *ngFor="let opcion of opciones" [value]="opcion" value="{{opcion}}" (change)="capturarOpcion(opcion);">{{opcion}}</mat-radio-button>
+                </mat-radio-group>
+              </ul>
+              <mat-form-field class="nombre" appearance="fill" id="anticipo" style="display: none;">
+                  <mat-label>Ingrese anticipo en porcentaje</mat-label>
+                  <input type="number" id="antici" formControlName="antici" matInput>
+              </mat-form-field>
+            </div>
+      </div>
+  </form>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla">
+      <!-- Position Column -->
+      <ng-container matColumnDef="articulo">
+        <th mat-header-cell *matHeaderCellDef><h3 class="ar">Articulo</h3></th>
+        <td mat-cell *matCellDef="let element"> {{element.solicitudDetalle.idArticulos.descripcion}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef><h3 class="cant"> Cantidad </h3></th>
+        <td mat-cell *matCellDef="let element"> {{element.solicitudDetalle.cantidad}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="valorUnitario">
+        <th mat-header-cell *matHeaderCellDef><h3 class="o"> Valor Unitario </h3></th>
+        <td mat-cell *matCellDef="let element">
+          <input type="number"  name="valor" id="precio" (keyup)="valorUnitario($event, element.solicitudDetalle)">
+      </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="valorTotal">
+        <th mat-header-cell *matHeaderCellDef><h3 class="v"> Valor Total </h3></th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngFor="let item of lista">
+              <div *ngIf="element.solicitudDetalle.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion == item.posicion">
+                  {{item.valorUnitario}}
+              </div>
+              <div *ngIf="element.solicitudDetalle.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion != item.posicion">
+                  {{item.valorUnitario}}
+              </div>
+          </div>
+          <!-- {{item.valorUnitario}} -->
+      </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+    <p>Subtotal: {{subtotal}}</p>
+    <p>Valor anticipo: {{anticipoVal2}} %</p>
+    <p>Total: {{total}}</p>
+
+    <button mat-raised-button class="guardar4" (click)="generarOrden()"> Generar Orden de Compra</button>
+
+</div>

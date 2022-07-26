@@ -3,19 +3,11 @@
   height: 87%;
   background-color: #ECECEC;
 }
-.cuadro{
-  width: 30%;
-  height: 58%;
-  background-color: rgb(255, 255, 255);
-  border-radius: 100%;
-  position: relative;
-  top: 20%;
-  left: 15%;
-}
 .imagen-inicio{
-  width: 100%;
+  width: 50%;
   position: relative;
   top: 15%;
+  left: 25%;
 }
 h1{
   width: 30%;

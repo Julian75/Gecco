@@ -86,6 +86,10 @@ import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-rea
 import { RechazoCotizacionComponent } from './modulos-compra/lista-cotizaciones/rechazo-cotizacion/rechazo-cotizacion.component';
 import { SolicitudesComponent } from './modulos-compra/solicitudes/solicitudes.component';
 import { ModificarSolicitudComponent } from './modulos-compra/lista-solicitudes/modificar-solicitud/modificar-solicitud.component';
+import { OrdenCompraComponent } from './modulos-compra/orden-compra/orden-compra.component';
+import { AprobacionRegistroComponent } from './modulos-compra/aprobacion-registro/aprobacion-registro.component';
+import { RechazarRegistroComponent } from './modulos-compra/aprobacion-registro/rechazar-registro/rechazar-registro.component';
+import { RaspaListoComponent } from './modulos-raspita/raspa-listo/raspa-listo.component';
 
 @NgModule({
   declarations: [
@@ -171,6 +175,10 @@ import { ModificarSolicitudComponent } from './modulos-compra/lista-solicitudes/
     RechazoCotizacionComponent,
     SolicitudesComponent,
     ModificarSolicitudComponent,
+    OrdenCompraComponent,
+    AprobacionRegistroComponent,
+    RechazarRegistroComponent,
+    RaspaListoComponent,
   ],
   imports: [
     CommonModule,

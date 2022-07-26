@@ -1,32 +1,38 @@
+import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { CotizacionPdfService } from './../../../servicios/cotizacionPdf.service';
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
 import { Correo } from './../../../modelos/correo';
 import { CorreoService } from './../../../servicios/Correo.service';
 import { EstadoService } from './../../../servicios/estado.service';
 import { Solicitud } from './../../../modelos/solicitud';
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, Inject, OnInit,ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
-import { VisualizarDetalleSolicitudComponent } from './visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
-import { RechazoSolicitudComponent } from './rechazo-solicitud/rechazo-solicitud.component';
+import { VisualizarDetalleSolicitudComponent } from '../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
+import { RechazoSolicitudComponent } from '../lista-solicitudes/rechazo-solicitud/rechazo-solicitud.component';
 import { PasosComponent } from '../pasos/pasos.component';
-import { AccesoService } from 'src/app/servicios/Acceso.service';
+import { SubirPdfService } from './../../../servicios/subirPdf.service';
+import { OrdenCompra } from 'src/app/modelos/ordenCompra';
 
 @Component({
-  selector: 'app-lista-solicitudes',
-  templateUrl: './lista-solicitudes.component.html',
-  styleUrls: ['./lista-solicitudes.component.css']
+  selector: 'app-aprobacion-registro',
+  templateUrl: './aprobacion-registro.component.html',
+  styleUrls: ['./aprobacion-registro.component.css']
 })
-export class ListaSolicitudesComponent implements OnInit {
+export class AprobacionRegistroComponent implements OnInit {
 
   public listaSolicitudes: any = [];
   public listaDetalleSolicitud: any = [];
-  public habilitar: any = false;
+  public idSolicitud:any ;
+  public listaPdf: any = [];
+  public listaOrdenCompra: any = [];
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -34,12 +40,17 @@ export class ListaSolicitudesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialogRef: MatDialogRef<AprobacionRegistroComponent>,
     private solicitudService: SolicitudService,
+    private servicioCotizacionPdf: CotizacionPdfService,
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
     private servicioCorreo: CorreoService,
-    private servicioAccesos: AccesoService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
+    private servicioOrdenCompra: OrdenCompraService,
+    private servicioPdf: SubirPdfService,
+    private route: ActivatedRoute,
   ) { }
 
 
@@ -48,48 +59,23 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
   public listarSolicitudes(){
-    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-      this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
-        resAccesos.forEach(element => {
-          if(element.idModulo.id == 24 && resUsuario.idRol.id == element.idRol.id){
-            this.habilitar = true
-          }
-        })
-        if(this.habilitar == true){
-          this.solicitudService.listarTodos().subscribe(res => {
-            res.forEach(element => {
-              if (element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 34) {
-               this.listaSolicitudes.push(element);
-              }
-            })
-            this.dataSource = new MatTableDataSource(this.listaSolicitudes);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
-        }else if(this.habilitar == false){
-          this.solicitudService.listarTodos().subscribe(res => {
-            res.forEach(element => {
-              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37) {
-               this.listaSolicitudes.push(element);
-              }
-            })
-            this.dataSource = new MatTableDataSource(this.listaSolicitudes);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
+    this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf=>{
+      resCotizacionPdf.forEach(element => {
+        if(element.idCotizacion.idSolicitud.id == Number(this.data) && element.idEstado.id == 39){
+          this.listaSolicitudes.push(element)
         }
+      });
+      this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+        resOrdenCompra.forEach(elementOrdenCompra => {
+          if (elementOrdenCompra.idSolicitud.id == Number(this.data)) {
+            this.listaOrdenCompra.push(elementOrdenCompra)
+          }
+        });
+        this.dataSource = new MatTableDataSource(this.listaSolicitudes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     })
-
-
-  }
-
-  verPasos(id: number, idEstado: number){
-    const dialogRef = this.dialog.open(PasosComponent, {
-      width: '700px',
-      height: '430px',
-      data: {idSolicitud:id, idEstado: idEstado}
-    });
   }
 
   verSolicitud(id: number){
@@ -102,7 +88,7 @@ export class ListaSolicitudesComponent implements OnInit {
   public aceptar(id:number){
     let solicitud : Solicitud = new Solicitud();
     this.solicitudService.listarPorId(id).subscribe(res => {
-      this.servicioEstado.listarPorId(29).subscribe(resEstado => {
+      this.servicioEstado.listarPorId(46).subscribe(resEstado => {
         solicitud.id = res.id
         solicitud.fecha = res.fecha
         solicitud.idUsuario = res.idUsuario
@@ -126,6 +112,7 @@ export class ListaSolicitudesComponent implements OnInit {
       })
     });
  }
+
  public crearCorreo(idUsuario:number, idSolicitud:number){
   let correo : Correo = new Correo();
   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
@@ -169,6 +156,22 @@ export class ListaSolicitudesComponent implements OnInit {
 
 public enviarCorreo(correo: Correo){
   this.servicioCorreo.enviar(correo).subscribe(res =>{
+    let ordenCompra : OrdenCompra = new OrdenCompra();
+    this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenCompra=>{
+      ordenCompra.id = resOrdenCompra.id
+      ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
+      ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
+      ordenCompra.idProveedor = resOrdenCompra.idProveedor
+      this.servicioEstado.listarPorId(44).subscribe(resEstado=>{
+        ordenCompra.idEstado = resEstado
+        this.actualizarOrdenCompra(ordenCompra);
+      })
+    })
+  })
+}
+
+public actualizarOrdenCompra(ordenCompra: OrdenCompra){
+  this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(res=>{
     Swal.fire({
       position: 'center',
       icon: 'success',
@@ -196,6 +199,24 @@ public enviarCorreo(correo: Correo){
     });
   }
 
+  //Descargar Cotizacion Individualmente
+  public descargarPdf(id: number){
+    this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
+      console.log(res.nombrePdf)
+      this.servicioPdf.listarTodos().subscribe(resPdf => {
+        this.listaPdf.push(resPdf)
+        console.log(resPdf)
+        for(const i in resPdf){
+          console.log(this.listaPdf[0][i].name)
+          if (res.nombrePdf == this.listaPdf[0][i].name) {
+            console.log(this.listaPdf[0][i])
+            window.location.href = this.listaPdf[0][i].url
+          }
+        }
+      })
+    })
+  }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -215,4 +236,9 @@ public enviarCorreo(correo: Correo){
 
     XLSX.writeFile(book, this.name);
   }
+
+  public volver(){
+    this.dialogRef.close();
+  }
+
 }

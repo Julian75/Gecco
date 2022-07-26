@@ -42,10 +42,10 @@
             <!-- <button class="btn btnedit me-2 edi" (click)="verSolicitud(item.idSolicitud.id)">
               <mat-icon>visibility</mat-icon>
             </button> -->
-            <button class="btn boton me-2" (click)="aceptar(item.idCotizacion.idSolicitud.id, item.idCotizacion.id, item.id)">
+            <button *ngIf="item.idEstado.id != 39 && item.idEstado.id != 40" class="btn boton me-2" (click)="aceptar(item.idCotizacion.idSolicitud.id, item.idCotizacion.id, item.id)">
               <mat-icon>check_circle</mat-icon>
             </button>
-            <button class="btn btnremove me-2" (click)="rechazarSolicitud(item.id)">
+            <button *ngIf="item.idEstado.id != 39 && item.idEstado.id != 40" class="btn btnremove me-2" (click)="rechazarSolicitud(item.id)">
               <mat-icon>cancel</mat-icon>
             </button>
           </td>

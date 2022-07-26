@@ -65,6 +65,17 @@
       <button mat-raised-button routerLink="/solicitud">Lista de Solicitudes</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Raspa
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button [routerLink]="['/raspalisto']" >Visado Premio</button>
+    </div>
+  </mat-expansion-panel>
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

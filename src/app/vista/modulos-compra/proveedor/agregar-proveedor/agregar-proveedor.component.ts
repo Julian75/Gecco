@@ -51,7 +51,7 @@ export class AgregarProveedorComponent implements OnInit {
     this.servicioEstado.listarTodos().subscribe(
       (data)=>{
         data.forEach(element => {
-          if (element.idModulo.id == 24) {
+          if (element.idModulo.id == 26) {
             this.listaEstado.push(element);
           }
         })
@@ -61,6 +61,8 @@ export class AgregarProveedorComponent implements OnInit {
   public guardar(){
     const idEstado = this.formProveedor.value.idEstado;
     const idTipoDocumento = this.formProveedor.value.idTipoDocumento;
+    const telefono = this.formProveedor.value.telefono;
+
     if (this.formProveedor.valid) {
       this.servicioDocumento.listarPorId(idTipoDocumento).subscribe(
         (dataDocumento)=>{
@@ -110,29 +112,5 @@ export class AgregarProveedorComponent implements OnInit {
       })
     }
   }
-
-  //   if(this.formProveedor.valid){
-  //     this.servicioProveedor.registrar(this.formProveedor.value).subscribe(
-  //       (data)=>{
-  //         Swal.fire({
-  //           title: 'Registro exitoso',
-  //           text: 'El proveedor se registró correctamente',
-  //           icon: 'success',
-  //           confirmButtonText: 'Ok'
-  //         }).then((result) => {
-  //           if (result.isConfirmed) {
-  //             this.formProveedor.reset();
-  //           }
-  //         })
-  //       }
-  //     )
-  //   }else{
-  //     Swal.fire({
-  //       title: 'Error',
-  //       text: 'Debe completar todos los campos',
-  //       icon: 'error',
-  //       confirmButtonText: 'Ok'
-  //     })
-  //   }
-  }
+}
 

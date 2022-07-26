@@ -1,0 +1,21 @@
+<div class="contenedor">
+  <h2 class="dato">Visado Premio</h2>
+  <form [formGroup]="formRaspita">
+    <div class="row1">
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Raspa</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese raspita</mat-label>
+        <input id="raspita" formControlName="raspita" matInput (keyup)="guardarRaspa($event, $event.key)">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardar" (click)="reporte()">Generar Reporte</button>
+      </div>
+    </div>
+  </form>
+</div>

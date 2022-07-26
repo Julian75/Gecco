@@ -58,15 +58,15 @@ export class ListaCotizacionesComponent implements OnInit {
 
   public listarSolicitudes(){
     this.servicioCotizacion.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if (element.idSolicitud.id == Number(this.data)) {
-         this.listaCotizaciones.push(element);
+      res.forEach(elementCotizacion => {
+        if (elementCotizacion.idSolicitud.id == Number(this.data)) {
+         this.listaCotizaciones.push(elementCotizacion);
         }
       })
       this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf => {
-        resCotizacionPdf.forEach(element => {
-          if(element.idCotizacion.id == this.listaCotizaciones[0].id){
-            this.listaCotizacionesPdf.push(element)
+        resCotizacionPdf.forEach(elementCotizacionPdf => {
+          if(elementCotizacionPdf.idCotizacion.idSolicitud.id == this.listaCotizaciones[0].idSolicitud.id && elementCotizacionPdf.idCotizacion.idEstado.id == 31 ){
+            this.listaCotizacionesPdf.push(elementCotizacionPdf)
           }
         });
         this.dataSource = new MatTableDataSource(this.listaCotizacionesPdf);
@@ -76,6 +76,8 @@ export class ListaCotizacionesComponent implements OnInit {
     })
   }
 
+
+  //Abrir Modal de detalle Solicitud p mano XD
   verSolicitud(id: number){
     const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
       width: '1000px',
@@ -83,6 +85,7 @@ export class ListaCotizacionesComponent implements OnInit {
     });
   }
 
+  //Aceptacion de cotizacion Pdf
   public aceptar(idSolicitud:number, idCotizacion:number, idCotizacionPdf:number){
     let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
     this.servicioCotizacionPdf.listarPorId(idCotizacionPdf).subscribe(resCotizacionPdf=>{
@@ -293,6 +296,7 @@ export class ListaCotizacionesComponent implements OnInit {
     });
   }
 
+  //Rechazo de cotizacion Pdf
   rechazarSolicitud(id: number){
     const dialogRef = this.dialog.open(RechazoCotizacionComponent, {
       width: '500px',
@@ -300,6 +304,7 @@ export class ListaCotizacionesComponent implements OnInit {
     });
   }
 
+  //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
     this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
       console.log(res.nombrePdf)

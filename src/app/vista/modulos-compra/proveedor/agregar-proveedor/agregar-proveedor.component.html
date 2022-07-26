@@ -1,67 +1,67 @@
 <div class="contenedor">
-    <h2 class="dato">Agregar nuevo proveedor</h2>
-    <form [formGroup]="formProveedor">
-      <div class="row1">
-        <!-- Ingresar Dirección -->
-        <div class="tipoDo">
-            <h2>Tipo Documento</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-                <mat-label>Ingrese estado del tipo documento</mat-label>
-                <select matNativeControl id="estado" name="estado" formControlName="idTipoDocumento">
-                  <option *ngFor="let item of listaDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
-                </select>
-            </mat-form-field>
-        </div>
-        <div class="documento">
-          <h2>Documento</h2>
+  <h2 class="dato">Agregar nuevo proveedor</h2>
+  <form [formGroup]="formProveedor">
+    <div class="row1">
+      <!-- Ingresar Dirección -->
+      <div class="tipoDo">
+        <h2>Documento</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Documento </mat-label>
+        <input type="number" id="descripcion" formControlName="documento" matInput>
+        </mat-form-field>
+      </div>
+      <div class="documento">
+        <h2>Tipo Documento</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+            <mat-label>Ingrese estado del tipo documento</mat-label>
+            <select matNativeControl id="estado" name="estado" formControlName="idTipoDocumento">
+              <option *ngFor="let item of listaDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
+            </select>
+        </mat-form-field>
+      </div>
+      <div class="direccion">
+          <h2>Dirección</h2>
           <mat-form-field class="nombre" [color]="color" appearance="fill">
-          <mat-label>Ingrese Documento </mat-label>
-          <input id="descripcion" formControlName="documento" matInput>
+          <mat-label>Ingrese Dirección </mat-label>
+          <input id="descripcion" formControlName="direccion" matInput>
           </mat-form-field>
-        </div>
-        <div class="direccion">
-            <h2>Dirección</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-            <mat-label>Ingrese Dirección </mat-label>
-            <input id="descripcion" formControlName="direccion" matInput>
-            </mat-form-field>
-        </div>
-        <div class="nombre1">
-            <h2>Nombre</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-            <mat-label>Ingrese Nombre </mat-label>
-            <input id="descripcion" formControlName="nombre" matInput>
-            </mat-form-field>
-        </div>
-        <div class="tele">
-            <h2>Teléfono</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-            <mat-label>Ingrese teléfono </mat-label>
-            <input id="descripcion" formControlName="telefono" matInput>
-            </mat-form-field>
-        </div>
-        <div class="esta">
-            <h2>Estado</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-                <mat-label>Ingrese estado</mat-label>
-                <select matNativeControl id="idEstado" name="idEstado" formControlName="idEstado">
-                  <option *ngFor="let item of listaEstado"  value="{{item.id}}">{{item.descripcion}}</option>
-                </select>
-            </mat-form-field>
-        </div>
-        <div class="obser">
-            <h2>Observación</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-            <mat-label>Ingrese Observación</mat-label>
-            <input id="descripcion" formControlName="observacion" matInput>
-            </mat-form-field>
-        </div>
       </div>
-      <div class="row">
-        <!-- Boton de guardar datos -->
-        <div class="guardar2">
-          <button mat-raised-button class="guardar" (click)="guardar()" >Insertar</button>
-        </div>
+      <div class="nombre1">
+          <h2>Nombre</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese Nombre </mat-label>
+          <input id="descripcion" formControlName="nombre" matInput>
+          </mat-form-field>
       </div>
-    </form>
-  </div>
+      <div class="tele">
+          <h2>Teléfono</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese teléfono </mat-label>
+          <input type="number" id="descripcion" formControlName="telefono" matInput>
+          </mat-form-field>
+      </div>
+      <div class="esta">
+          <h2>Estado</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+              <mat-label>Ingrese estado</mat-label>
+              <select matNativeControl id="idEstado" name="idEstado" formControlName="idEstado">
+                <option *ngFor="let item of listaEstado"  value="{{item.id}}">{{item.descripcion}}</option>
+              </select>
+          </mat-form-field>
+      </div>
+      <div class="obser">
+          <h2>Observación</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese Observación</mat-label>
+          <input id="descripcion" formControlName="observacion" matInput>
+          </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardar" (click)="guardar()" >Insertar</button>
+      </div>
+    </div>
+  </form>
+</div>
