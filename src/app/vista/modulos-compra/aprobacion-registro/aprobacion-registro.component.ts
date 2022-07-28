@@ -1,3 +1,4 @@
+import { CotizacionService } from './../../../servicios/cotizacion.service';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CotizacionPdfService } from './../../../servicios/cotizacionPdf.service';
@@ -20,6 +21,7 @@ import { RechazoSolicitudComponent } from '../lista-solicitudes/rechazo-solicitu
 import { PasosComponent } from '../pasos/pasos.component';
 import { SubirPdfService } from './../../../servicios/subirPdf.service';
 import { OrdenCompra } from 'src/app/modelos/ordenCompra';
+import { RechazarRegistroComponent } from './rechazar-registro/rechazar-registro.component';
 
 @Component({
   selector: 'app-aprobacion-registro',
@@ -50,6 +52,7 @@ export class AprobacionRegistroComponent implements OnInit {
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
     private servicioPdf: SubirPdfService,
+    private servicioCotizacion: CotizacionService,
     private route: ActivatedRoute,
   ) { }
 
@@ -85,7 +88,7 @@ export class AprobacionRegistroComponent implements OnInit {
     });
   }
 
-  public aceptar(id:number){
+  public aceptar(id:number, idCotizacion:number){
     let solicitud : Solicitud = new Solicitud();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(46).subscribe(resEstado => {
@@ -93,14 +96,15 @@ export class AprobacionRegistroComponent implements OnInit {
         solicitud.fecha = res.fecha
         solicitud.idUsuario = res.idUsuario
         solicitud.idEstado = resEstado
-        this.actualizarSolicitud(solicitud);
+        this.actualizarSolicitud(solicitud, idCotizacion);
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud){
+  public actualizarSolicitud(solicitud: Solicitud, idCotizacion: number){
     this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
+      this.actualOrdenCompra(solicitud.idUsuario.id, solicitud.id, idCotizacion)
+      // this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
     }, error => {
       console.log(error)
       Swal.fire({
@@ -113,19 +117,50 @@ export class AprobacionRegistroComponent implements OnInit {
     });
  }
 
- public crearCorreo(idUsuario:number, idSolicitud:number){
+ public actualOrdenCompra(idUsuario: number, idSolicitud: number, idCotizacion:number){
+  let ordenCompra : OrdenCompra = new OrdenCompra();
+  console.log(this.listaOrdenCompra[0].id)
+    this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenCompra=>{
+      ordenCompra.id = resOrdenCompra.id
+      ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
+      ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
+      ordenCompra.idProveedor = resOrdenCompra.idProveedor
+      ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
+      this.servicioEstado.listarPorId(44).subscribe(resEstado=>{
+        ordenCompra.idEstado = resEstado
+        this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud, idCotizacion);
+      })
+    })
+ }
+
+ public actualizarOrdenCompra(ordenCompra: OrdenCompra, idUsuario:number, idSolicitud: number, idCotizacion:number){
+  this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(res=>{
+    this.crearCorreo(idUsuario, idSolicitud, idCotizacion)
+  }, error => {
+    console.log(error)
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Hubo un error al enviar el Correo!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  });
+}
+
+ public crearCorreo(idUsuario:number, idSolicitud:number, idCotizacion:number){
   let correo : Correo = new Correo();
   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
       correo.to = resUsuario.correo
-      correo.subject = "Aceptacion de Solicitud"
+      correo.subject = "Aceptacion de Registro"
       correo.messaje = "<!doctype html>"
       +"<html>"
       +"<head>"
       +"<meta charset='utf-8'>"
       +"</head>"
       +"<body>"
-      +"<h3 style='color: black;'>Su solicitud ha sido viable por lo cual a sido Aceptada.</h3>"
+      +"<h3 style='color: black;'>Su orden de compra ha sido aprobada.</h3>"
       +"<br>"
       +"<table style='border: 1px solid #000; text-align: center;'>"
       +"<tr>"
@@ -149,53 +184,75 @@ export class AprobacionRegistroComponent implements OnInit {
       +"</body>"
       +"</html>";
 
-      this.enviarCorreo(correo);
+      this.enviarCorreo(correo, idCotizacion, idSolicitud);
     })
   })
 }
 
-public enviarCorreo(correo: Correo){
-  this.servicioCorreo.enviar(correo).subscribe(res =>{
-    let ordenCompra : OrdenCompra = new OrdenCompra();
-    this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenCompra=>{
-      ordenCompra.id = resOrdenCompra.id
-      ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
-      ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
-      ordenCompra.idProveedor = resOrdenCompra.idProveedor
-      this.servicioEstado.listarPorId(44).subscribe(resEstado=>{
-        ordenCompra.idEstado = resEstado
-        this.actualizarOrdenCompra(ordenCompra);
+  public enviarCorreo(correo: Correo, idCotizacion:number, idSolicitud:number){
+    this.servicioCotizacion.listarPorId(idCotizacion).subscribe(resCotizacion=>{
+      this.servicioCorreo.enviar(correo).subscribe(res =>{
+        let correo : Correo = new Correo();
+        this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+          this.servicioUsuario.listarPorId(resCotizacion.idUsuario.id).subscribe(resUsuario => {
+            correo.to = resUsuario.correo
+            correo.subject = "Aceptacion de Registro"
+            correo.messaje = "<!doctype html>"
+            +"<html>"
+            +"<head>"
+            +"<meta charset='utf-8'>"
+            +"</head>"
+            +"<body>"
+            +"<h3 style='color: black;'>Su orden de compra ha sido aprobada.</h3>"
+            +"<br>"
+            +"<table style='border: 1px solid #000; text-align: center;'>"
+            +"<tr>"
+            +"<th style='border: 1px solid #000;'>Articulo</th>"
+            +"<th style='border: 1px solid #000;'>Cantidad</th>"
+            +"<th style='border: 1px solid #000;'>Observacion</th>";
+            +"</tr>";
+            resSolicitud.forEach(element => {
+              if (element.idSolicitud.id == idSolicitud) {
+                this.listaDetalleSolicitud.push(element)
+                correo.messaje += "<tr>"
+                correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+                correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+                correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+                correo.messaje += "</tr>";
+              }
+            });
+            correo.messaje += "</table>"
+            +"<br>"
+            +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+            +"</body>"
+            +"</html>";
+
+            this.enviarCorreo2(correo);
+          })
+        })
       })
     })
-  })
-}
+  }
 
-public actualizarOrdenCompra(ordenCompra: OrdenCompra){
-  this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(res=>{
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Correo enviado al usuario de la solicitud!',
-      showConfirmButton: false,
-      timer: 1500
+  public enviarCorreo2(correo: Correo){
+    this.servicioCorreo.enviar(correo).subscribe(res =>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Correo enviado al usuario de la solicitud y cotizacion!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload()
+      this.dialogRef.close();
     })
-    window.location.reload()
-  }, error => {
-    console.log(error)
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Hubo un error al enviar el Correo!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-  });
-}
+  }
 
- rechazarSolicitud(id: number){
-  const dialogRef = this.dialog.open(RechazoSolicitudComponent, {
+
+ rechazarSolicitud(id: number, idCotizacion:number){
+  const dialogRef = this.dialog.open(RechazarRegistroComponent, {
     width: '500px',
-    data: id
+    data: {idSolicitud: id, idCotizacion:idCotizacion}
     });
   }
 

@@ -1,7 +1,7 @@
 import { RouterModule } from '@angular/router';
 import { VistaModule } from './vista/vista.module';
 import { MaterialModule } from './material/material.module';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,8 @@ import { CambiarContrasenaComponent } from './formularios/formulariosPrincipales
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModificarDatosComponent } from './formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,13 +34,14 @@ import { ModificarDatosComponent } from './formularios/formulariosPrincipales/mo
     VistaModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     DataTablesModule,
     RouterModule,
     HttpClientModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]
 })
