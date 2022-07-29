@@ -77,7 +77,7 @@ export class AgregarCotizacionComponent implements OnInit {
     this.listaArchivos = event.target.files
     for (let index = 0; index < this.listaArchivos.length; index++) {
       const element = this.listaArchivos[index];
-      this.listaArchivos2.push(element.name)
+      this.listaArchivos2.push(this.data+""+element.name)
     }
   }
 
@@ -89,7 +89,7 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: file.name };
+    this.progressInfo[index] = { value: 0, fileName: this.data+""+file.name };
 
     this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
       if (event.type === HttpEventType.UploadProgress) {
@@ -97,6 +97,7 @@ export class AgregarCotizacionComponent implements OnInit {
       } else if (event instanceof HttpResponse) {
         this.fileInfos = this.servicioSubirPdf.listarTodos();
       }
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       this.dialogRef.close();
       window.location.reload();
     },
@@ -114,6 +115,7 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   public guardar(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let cotizacion : Cotizacion = new Cotizacion();
     this.servicioEstado.listarPorId(31).subscribe(resEstado=>{
       cotizacion.idEstado = resEstado
@@ -137,6 +139,7 @@ export class AgregarCotizacionComponent implements OnInit {
             });
             const existe2 = this.listarExiste.includes( true )
             if(existe2 == true){
+              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
               Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -211,10 +214,8 @@ export class AgregarCotizacionComponent implements OnInit {
       solicitud.idUsuario = resSolicitud.idUsuario
       this.servicioEstado.listarPorId(36).subscribe(resEstado=>{
         solicitud.idEstado = resEstado
-        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-          solicitud.idUsuario = resUsuario
+        solicitud.idUsuario = resSolicitud.idUsuario
           this.actualizarSolic(solicitud)
-        })
       })
     })
   }

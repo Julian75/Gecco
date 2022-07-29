@@ -83,7 +83,6 @@ import { GenerarCotizacionComponent } from './modulos-compra/generar-cotizacion/
 import { AgregarCotizacionComponent } from './modulos-compra/generar-cotizacion/agregar-cotizacion/agregar-cotizacion.component';
 import { ListaCotizacionesComponent } from './modulos-compra/lista-cotizaciones/lista-cotizaciones.component';
 import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-realizadas/solicitudes-realizadas.component';
-import { RechazoCotizacionComponent } from './modulos-compra/lista-cotizaciones/rechazo-cotizacion/rechazo-cotizacion.component';
 import { SolicitudesComponent } from './modulos-compra/solicitudes/solicitudes.component';
 import { ModificarSolicitudComponent } from './modulos-compra/lista-solicitudes/modificar-solicitud/modificar-solicitud.component';
 import { OrdenCompraComponent } from './modulos-compra/orden-compra/orden-compra.component';
@@ -91,6 +90,7 @@ import { AprobacionRegistroComponent } from './modulos-compra/aprobacion-registr
 import { RechazarRegistroComponent } from './modulos-compra/aprobacion-registro/rechazar-registro/rechazar-registro.component';
 import { RaspaListoComponent } from './modulos-raspita/raspa-listo/raspa-listo.component';
 import { ModificarOrdenCompraComponent } from './modulos-compra/orden-compra/modificar-orden-compra/modificar-orden-compra.component';
+import { VisualizarRegistroComponent } from './modulos-compra/aprobacion-registro/visualizar-registro/visualizar-registro.component';
 
 @NgModule({
   declarations: [
@@ -173,7 +173,6 @@ import { ModificarOrdenCompraComponent } from './modulos-compra/orden-compra/mod
     AgregarCotizacionComponent,
     ListaCotizacionesComponent,
     SolicitudesRealizadasComponent,
-    RechazoCotizacionComponent,
     SolicitudesComponent,
     ModificarSolicitudComponent,
     OrdenCompraComponent,
@@ -181,6 +180,7 @@ import { ModificarOrdenCompraComponent } from './modulos-compra/orden-compra/mod
     RechazarRegistroComponent,
     RaspaListoComponent,
     ModificarOrdenCompraComponent,
+    VisualizarRegistroComponent,
   ],
   imports: [
     CommonModule,

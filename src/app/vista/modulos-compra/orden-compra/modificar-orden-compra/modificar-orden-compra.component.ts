@@ -1,20 +1,18 @@
+import { DetalleSolicitud } from './../../../../modelos/detalleSolicitud';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Observable, startWith } from 'rxjs';
-import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
+import { Observable} from 'rxjs';
 import { OrdenCompra } from 'src/app/modelos/ordenCompra';
 import { Proveedor } from 'src/app/modelos/proveedor';
 import { Solicitud } from 'src/app/modelos/solicitud';
 import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
-import { ProveedorService } from 'src/app/servicios/proveedor.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
@@ -30,21 +28,19 @@ export class ModificarOrdenCompraComponent implements OnInit {
   public lista: any = []
   public list: any = [];
   public listaRow: any = [];
-  options: Proveedor[] = []
   public opciones: any = ['Si', 'No'];
   filteredOptions!: Observable<Proveedor[]>;
-  public seleccionadas!: FormGroup;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   color = ('primary');
   constructor(
     private fb: FormBuilder,
-    private servicioProveedor: ProveedorService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
     private servicioEstado: EstadoService,
     private servicioSolicitud: SolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<ModificarOrdenCompraComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
 
@@ -72,6 +68,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
       })
       if(resordenCompra.anticipoPorcentaje != 0){
         document.getElementById('antici')?.setAttribute('value', String(resordenCompra.anticipoPorcentaje))
+        console.log(resordenCompra)
         this.opciones = ['Si']
         this.anticipoVal2 = resordenCompra.anticipoPorcentaje
         this.total = resordenCompra.valorAnticipo
@@ -81,7 +78,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
         this.opciones = ['No']
         this.anticipoVal2 = 0
         this.descuento = 0
-        this.subtotal = resordenCompra.valorAnticipo
+        this.subtotal = resordenCompra.subtotal
         this.total = resordenCompra.valorAnticipo
       }
       document.getElementById('proveedortra')?.setAttribute('value', resordenCompra.idProveedor.nombre)
@@ -133,6 +130,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
     }
     this.subtotal = 0
     this.listaRow.forEach((element:any) => {
+      console.log(element)
       this.subtotal += element.valorTotal
 
     });
@@ -166,12 +164,12 @@ export class ModificarOrdenCompraComponent implements OnInit {
         this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
           solicitud.idEstado = resEstado
           solicitud.idUsuario = resSolicitud.idUsuario
-          this.actualizarSolicitud(solicitud, idSolicitud)
+          this.actualizarSolicitud(solicitud, solicitud.id)
         })
     })
   }
 
-  public actualizarSolicitud(solicitud:Solicitud, idSolicitud:number){
+  public actualizarSolicitud(solicitud:Solicitud, idSolicitud){
     this.servicioSolicitud.actualizar(solicitud).subscribe(resSolicitud=>{
       for (const [key, value] of Object.entries(this.data)) {
         this.list.push(value)
@@ -187,7 +185,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
         ordenCompra.idSolicitud = solicitud
         this.servicioEstado.listarPorId(43).subscribe(resEstado=>{
           ordenCompra.idEstado = resEstado
-          // this.actualizarOrdenCompra(ordenCompra)
+          this.actualizarOrdenCompra(ordenCompra, idSolicitud)
         })
       })
     }, error => {
@@ -199,6 +197,39 @@ export class ModificarOrdenCompraComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+    })
+  }
+
+  public actualizarOrdenCompra(ordenCompra: OrdenCompra, idSolicitud){
+    this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(resOrdenCOmpra=>{
+      this.listaRow.forEach(element => {
+        let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud()
+        detalleSolicitud.id = element.id
+        detalleSolicitud.cantidad = element.cantidad
+        detalleSolicitud.idArticulos = element.idArticulos
+        detalleSolicitud.idSolicitud = element.idSolicitud
+        detalleSolicitud.observacion = element.observacion
+        detalleSolicitud.valorTotal = element.valorTotal
+        detalleSolicitud.valorUnitario = element.valorUnitario
+        this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
+          detalleSolicitud.idEstado = resEstado
+          this.actualizarDetalleSolicitud(detalleSolicitud)
+        })
+      });
+    })
+  }
+
+  public actualizarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
+    this.servicioDetalleSolicitud.actualizar(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se ha modificado su orden de compra con exito.',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload()
+      this.dialogRef.close();
     })
   }
 

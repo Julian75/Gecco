@@ -1,6 +1,6 @@
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
 import { Solicitud } from 'src/app/modelos/solicitud';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -50,6 +50,7 @@ export class ModificarSolicitudComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialogRef: MatDialogRef<ModificarSolicitudComponent>,
   ){}
 
 
@@ -260,6 +261,7 @@ export class ModificarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
       let solicitud : Solicitud = new Solicitud();
       solicitud.id = resSolicitud.id
@@ -310,13 +312,16 @@ export class ModificarSolicitudComponent implements OnInit {
         this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
           detalleSolicitud.idEstado = resEstado
           this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Se registro la solicitud!',
+              title: 'Se modifico la solicitud!',
               showConfirmButton: false,
               timer: 1500
             })
+            window.location.reload()
+            this.dialogRef.close();
           }, error => {
             Swal.fire({
               position: 'center',

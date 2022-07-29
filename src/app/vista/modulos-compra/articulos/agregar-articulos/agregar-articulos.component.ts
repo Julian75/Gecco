@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class AgregarArticulosComponent implements OnInit {
   public formArticulo!: FormGroup;
   public listarEstado: any = [];
+  public listarExiste: any = [];
   public estadosDisponibles:any = [];
   color = ('primary');
   constructor(
@@ -49,10 +50,13 @@ export class AgregarArticulosComponent implements OnInit {
     });
   }
 
+  aprobar:boolean = false
   public guardar() {
+    this.aprobar = false
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
     const idEstado = this.formArticulo.controls['estado'].value;
+
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
       articulo.idEstado = res
       if(articulo.descripcion==null || articulo.descripcion==""){
@@ -64,7 +68,28 @@ export class AgregarArticulosComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.registrarArticulo(articulo);
+        this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
+          resArticulos.forEach(element => {
+            if(element.descripcion == articulo.descripcion){
+              this.aprobar = true
+            }else{
+              this.aprobar = false
+            }
+            this.listarExiste.push(this.aprobar);
+          });
+          const existe = this.listarExiste.includes( true );
+          if(existe == true){
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Ese articulo ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            this.registrarArticulo(articulo);
+          }
+        })
       }
     })
 

@@ -1,3 +1,4 @@
+import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 import { ModificarOrdenCompraComponent } from './../orden-compra/modificar-orden-compra/modificar-orden-compra.component';
 import { OrdenCompraComponent } from './../orden-compra/orden-compra.component';
@@ -15,6 +16,9 @@ import { ListaCotizacionesComponent } from '../lista-cotizaciones/lista-cotizaci
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import Swal from 'sweetalert2';
 import { AprobacionRegistroComponent } from '../aprobacion-registro/aprobacion-registro.component';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-pasos',
@@ -27,9 +31,11 @@ export class PasosComponent implements OnInit {
   public lista: any = [];
   public listarExiste: any = [];
   public habilitar = false
+  public habilitar2 = false
 
   constructor(
     private servicioSolicitud: SolicitudService,
+    private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioAccesos: AccesoService,
     private servicioUsuario: UsuarioService,
     private servicioOrdenCompra: OrdenCompraService,
@@ -228,20 +234,50 @@ export class PasosComponent implements OnInit {
             }
           })
         }else if(this.habilitar == false){
-          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-            if(res.idEstado.id == 35){
-              const dialogRef = this.dialog.open(AgregarCotizacionComponent, {
-                width: '450px',
-                data: this.lista[0]
-              });
-            }
-            if(res.idEstado.id == 36){
-              Swal.fire({
-                position: 'center',
-                icon: 'warning',
-                title: 'Aún no se ha validado la cotización!',
-                showConfirmButton: false,
-                timer: 1500
+          this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
+            resAccesos.forEach(element => {
+              if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id){
+                this.habilitar2 = true
+              }
+            });
+            if(this.habilitar2 == true){
+              this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+                if(res.idEstado.id == 35){
+                  const dialogRef = this.dialog.open(AgregarCotizacionComponent, {
+                    width: '450px',
+                    data: this.lista[0]
+                  });
+                }
+                if(res.idEstado.id == 36){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Aún no se ha validado la cotización!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
+              })
+            }else{
+              this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+                if(res.idEstado.id == 35){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Aún no se ha agregado otra cotización ya que fue rechazada.!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
+                if(res.idEstado.id == 36){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Aún no se ha validado la cotización!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
               })
             }
           })
@@ -312,7 +348,113 @@ export class PasosComponent implements OnInit {
                 data: this.lista[0]
               });
             }else if(res.idEstado.id == 46){
-              console.log("Debe generar la requisicion")
+              this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                resOrdenCompra.forEach(element => {
+                  if(element.idSolicitud.id == this.lista[0]){
+                    var body = []
+                    this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
+                      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
+                        resDetalle.forEach(element => {
+                          if(element.idSolicitud.id == resOrden.idSolicitud.id){
+                            var now = new Array
+                            now.push(element.idArticulos.descripcion)
+                            now.push(element.cantidad)
+                            now.push(element.valorUnitario)
+                            now.push(element.valorTotal)
+                            body.push(now)
+                          }
+                        });
+                        console.log(body)
+                        this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+
+                          const pdfDefinition: any = {
+                            content: [
+                              {
+                                text: 'Nombre Empresa: Apuestas Nacionales de Colombia',
+                                bold: true,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Lider de Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Fecha: '+res.idSolicitud.fecha,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Proveedor: '+res.idProveedor.nombre,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Orden Compra: '+res.id,
+                                relativePosition: {x: 250, y: -25},
+                                margin: [0, 0, 0, 20]
+                              },
+                              // {
+                              //   image: await this.getBase64ImageFromURL(
+                              //     'C:\Users\PROGRAMADOR\GECCO\src\assets\logo'
+                              //   ),
+                              //   width: 150
+                              // },
+                              {
+                                text: 'Requisición',
+                                bold: true,
+                                fontSize: 20,
+                                alignment: 'center',
+                                margin: [0, 0, 0, 20]
+                              },{
+                                table: {
+                                  widths: ['*', '*', '*', '*'],
+                                  body: [
+                                    [
+                                      'Articulo',
+                                      'Cantidad',
+                                      'Valor Unitario',
+                                      'Valor Total'
+                                    ],
+                                  ]
+                                },
+                                margin: [0, 0, 0, 0.3]
+                              },
+                              {
+                                table: {
+                                  widths: ['*', '*', '*', '*'],
+                                  body: body
+                                },
+                                margin: [0, 0, 0, 40]
+                              },
+                              {
+                                text: 'SubTotal: '+ res.subtotal +' COP',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                              {
+                                text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                              {
+                                text: 'Descuento: '+ res.descuento +' COP',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                              {
+                                text: 'Total: '+ res.valorAnticipo +' COP',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                            ]
+                          }
+                          const pdf = pdfMake.createPdf(pdfDefinition);
+                          pdf.open();
+                        })
+                      })
+                    })
+                  }
+                })
+              })
+
             }
           })
         }else if(this.habilitar == false){
@@ -325,7 +467,116 @@ export class PasosComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
-            }else if(res.idEstado.id == 47){
+            }else if(res.idEstado.id == 46){
+              this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                resOrdenCompra.forEach(element => {
+                  if(element.idSolicitud.id == this.lista[0]){
+                    var body = []
+                    this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
+                      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
+                        resDetalle.forEach(element => {
+                          if(element.idSolicitud.id == resOrden.idSolicitud.id){
+                            var now = new Array
+                            now.push(element.idArticulos.descripcion)
+                            now.push(element.cantidad)
+                            now.push(element.valorUnitario)
+                            now.push(element.valorTotal)
+                            body.push(now)
+                          }
+                        });
+                        console.log(body)
+                        this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+
+                          const pdfDefinition: any = {
+                            content: [
+                              {
+                                text: 'Nombre Empresa: Apuestas Nacionales de Colombia',
+                                bold: true,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Lider de Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Fecha: '+res.idSolicitud.fecha,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Proveedor: '+res.idProveedor.nombre,
+                                margin: [0, 0, 0, 10]
+                              },
+                              {
+                                text: 'Orden Compra: '+res.id,
+                                relativePosition: {x: 250, y: -25},
+                                margin: [0, 0, 0, 20]
+                              },
+                              {
+                                image: await this.getBase64ImageFromURL(
+                                  'assets/logo/GECCO 2.png'
+                                ),
+                                relativePosition: {x: 350, y: -120},
+                                width: 150
+                              },
+                              {
+                                text: 'Requisición',
+                                bold: true,
+                                fontSize: 20,
+                                alignment: 'center',
+                                margin: [0, 0, 0, 20]
+                              },{
+                                table: {
+                                  widths: ['*', '*', '*', '*'],
+                                  body: [
+                                    [
+                                      'Articulo',
+                                      'Cantidad',
+                                      'Valor Unitario',
+                                      'Valor Total'
+                                    ],
+                                  ]
+                                },
+                                margin: [0, 0, 0, 0.3]
+                              },
+                              {
+                                table: {
+                                  widths: ['*', '*', '*', '*'],
+                                  body: body
+                                },
+                                margin: [0, 0, 0, 40]
+                              },
+                              {
+                                text: 'SubTotal: '+ res.subtotal +' COP',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                              {
+                                text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                              {
+                                text: 'Descuento: '+ res.descuento +' COP',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                              {
+                                text: 'Total: '+ res.valorAnticipo +' COP',
+                                relativePosition: {x: 350, y: -25},
+                                margin: [0, 0, 0, 20],
+                              },
+                            ]
+                          }
+                          const pdf = pdfMake.createPdf(pdfDefinition);
+                          pdf.open();
+                        })
+                      })
+                    })
+                  }
+                })
+              })
+            }
+            else if(res.idEstado.id == 47){
               this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
                 resOrdenCompra.forEach(element => {
                   if(element.idSolicitud.id == this.lista[0]){
@@ -343,4 +594,25 @@ export class PasosComponent implements OnInit {
       })
     })
   }
+
+  getBase64ImageFromURL(url) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        resolve(dataURL);
+      };
+      img.onerror = error => {
+        reject(error);
+      };
+      img.src = url;
+    });
+  }
+
 }

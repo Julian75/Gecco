@@ -70,6 +70,7 @@ export class SolicitudesComponent implements OnInit {
   }
 
   public aceptar(id:number){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud = new Solicitud();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(29).subscribe(resEstado => {
@@ -101,14 +102,14 @@ export class SolicitudesComponent implements OnInit {
   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
       correo.to = resUsuario.correo
-      correo.subject = "Aceptacion de Solicitud"
+      correo.subject = "Aceptación de Solicitud"
       correo.messaje = "<!doctype html>"
       +"<html>"
       +"<head>"
       +"<meta charset='utf-8'>"
       +"</head>"
       +"<body>"
-      +"<h3 style='color: black;'>Su solicitud ha sido viable por lo cual a sido Aceptada.</h3>"
+      +"<h3 style='color: black;'>Su solicitud ha sido viable por lo cual a sido aceptada.</h3>"
       +"<br>"
       +"<table style='border: 1px solid #000; text-align: center;'>"
       +"<tr>"
@@ -139,6 +140,7 @@ export class SolicitudesComponent implements OnInit {
 
 public enviarCorreo(correo: Correo){
   this.servicioCorreo.enviar(correo).subscribe(res =>{
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     Swal.fire({
       position: 'center',
       icon: 'success',

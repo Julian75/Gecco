@@ -68,7 +68,6 @@
           <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo" >
             <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
               {{item.descripcion}}
-              <button *ngIf="">Agregar un articulo</button>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -93,7 +92,7 @@
       <div class="guardar2">
         <button mat-raised-button class="guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
         <button mat-raised-button class="guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
-        <!-- <button mat-raised-button class="guardar" (click)="Limpiar()">Limpiar</button> -->
+        <button mat-raised-button class="guardar6" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
       </div>
     </div>
 

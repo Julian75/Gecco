@@ -1,3 +1,4 @@
+import { OrdenCompraService } from './../../../servicios/ordenCompra.service';
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
 import { Correo } from './../../../modelos/correo';
@@ -16,9 +17,6 @@ import { VisualizarDetalleSolicitudComponent } from './visualizar-detalle-solici
 import { RechazoSolicitudComponent } from './rechazo-solicitud/rechazo-solicitud.component';
 import { PasosComponent } from '../pasos/pasos.component';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
-// import pdfMake from 'pdfmake/build/pdfmake';
-// import pdfFonts from 'pdfmake/build/vfs_fonts';
-// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-lista-solicitudes',
@@ -43,6 +41,7 @@ export class ListaSolicitudesComponent implements OnInit {
     private servicioCorreo: CorreoService,
     private servicioAccesos: AccesoService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
+    private servicioOrdenCompra: OrdenCompraService,
   ) { }
 
 
@@ -85,43 +84,6 @@ export class ListaSolicitudesComponent implements OnInit {
     })
   }
 
-  public descargarPdf(){
-    // const pdfDefinition: any = {
-    //   content: [
-    //     {
-    //       text: 'Hola mundo',
-    //       table: {
-    //         widths: ['*', 200, 'auto'],
-    //         body: [
-    //           [
-    //             'col 1',
-    //             'col 2',
-    //             'col 3'
-    //           ],
-    //           [
-    //             'campo 1',
-    //             'campo 2',
-    //             'campo 3',
-    //           ],
-    //           [
-    //             'campo 4',
-    //             'campo 5',
-    //             'campo 6',
-    //           ],
-    //           [
-    //             'campo 7',
-    //             'campo 8',
-    //             'campo 9',
-    //           ]
-    //         ]
-    //       }
-    //     }
-    //   ]
-    // }
-
-    // const pdf = pdfMake.createPdf(pdfDefinition);
-    // pdf.open();
-  }
 
   verPasos(id: number, idEstado: number){
     const dialogRef = this.dialog.open(PasosComponent, {

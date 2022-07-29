@@ -7,6 +7,15 @@
   margin-bottom: 3% !important;
   margin-left: 40%;
 }
+.spiner{
+  background-color: rgba(90, 90, 90, 0.247);
+  width: 100%;
+  height: 687px;
+  z-index: 50px;
+  position: absolute;
+  top: 100px;
+  left: 0%;
+}
 table{
   width: 100%;
   height: 100%;

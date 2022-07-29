@@ -32,6 +32,7 @@ export class GenerarSolicitudComponent implements OnInit {
   public articulosDisponibles:any = [];
   public listadoArtSel: any = [];
   public listadoArtSel2: any = [];
+  public listarExiste: any = [];
 
   public listadoSolicitud: any = [];
 
@@ -69,6 +70,7 @@ export class GenerarSolicitudComponent implements OnInit {
     });
   }
 
+  articlo: any
   public listarArticulos() {
     this.servicioArticulo.listarTodos().subscribe(res => {
       res.forEach(element => {
@@ -81,9 +83,11 @@ export class GenerarSolicitudComponent implements OnInit {
         startWith(""),
         map(value => {
           const descripcion = typeof value == 'string' ? value : value?.descripcion;
+          this.articlo = value
           return descripcion ? this._filter(descripcion as string, this.listaArticulos) : this.listaArticulos.slice();
         }),
       );
+
     });
   }
   public guardar() {
@@ -142,10 +146,11 @@ export class GenerarSolicitudComponent implements OnInit {
     }
   }
 
+  num:any
   public _filter(descripcion: string, listaArticulos: any): Articulo[] {
 
     const filterValue = descripcion.toLowerCase();
-
+    this.num = (listaArticulos.filter((listaArticulos:any) => (listaArticulos.descripcion.toLowerCase().includes(filterValue)))).length
     return listaArticulos.filter((listaArticulos:any) => (listaArticulos.descripcion.toLowerCase().includes(filterValue)));
   }
 
@@ -242,6 +247,72 @@ export class GenerarSolicitudComponent implements OnInit {
     }
   }
 
+  aprobar:boolean = false
+  public agregarArticulo() {
+    this.aprobar = false
+    let articulo : Articulo = new Articulo();
+    articulo.descripcion=this.articlo;
+
+    console.log(articulo.descripcion)
+    this.servicioEstado.listarPorId(26).subscribe(res => {
+      articulo.idEstado = res
+      if(articulo.descripcion==null || articulo.descripcion==""){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'El campo esta vacio!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else{
+        this.servicioArticulo.listarTodos().subscribe(resArticulos=>{
+          resArticulos.forEach(element => {
+            if(element.descripcion == articulo.descripcion){
+              this.aprobar = true
+            }else{
+              this.aprobar = false
+            }
+            this.listarExiste.push(this.aprobar);
+          });
+          const existe = this.listarExiste.includes( true );
+          if(existe == true){
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Ese articulo ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            this.registrarArticulo(articulo);
+          }
+        })
+      }
+    })
+
+  }
+
+  public registrarArticulo(articulo: Articulo) {
+    this.servicioArticulo.registrar(articulo).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Articulo Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload();
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
   public limpiar(){
     this.listadoArtSel = []
   }
@@ -315,6 +386,7 @@ export class GenerarSolicitudComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      window.location.reload();
     }, error => {
       Swal.fire({
         position: 'center',

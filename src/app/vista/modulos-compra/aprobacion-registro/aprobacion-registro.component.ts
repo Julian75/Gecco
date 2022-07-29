@@ -1,3 +1,4 @@
+import { VisualizarRegistroComponent } from './visualizar-registro/visualizar-registro.component';
 import { CotizacionService } from './../../../servicios/cotizacion.service';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -53,6 +54,7 @@ export class AprobacionRegistroComponent implements OnInit {
     private servicioOrdenCompra: OrdenCompraService,
     private servicioPdf: SubirPdfService,
     private servicioCotizacion: CotizacionService,
+    private servicioSolicitud: SolicitudService,
     private route: ActivatedRoute,
   ) { }
 
@@ -81,11 +83,27 @@ export class AprobacionRegistroComponent implements OnInit {
     })
   }
 
+  aprobar:boolean = true
   verSolicitud(id: number){
-    const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
-      width: '1000px',
-      data: {id: id}
-    });
+    this.servicioSolicitud.listarPorId(id).subscribe(resSolicitud=>{
+      if(resSolicitud.idEstado.id == 37){
+        this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+          resOrdenCompra.forEach(element => {
+            if(element.idSolicitud.id == id){
+              const dialogRef = this.dialog.open(VisualizarRegistroComponent, {
+                width: '1000px',
+                data: element.id
+              });
+            }
+          });
+        })
+      }else{
+        const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
+          width: '1000px',
+          data: {id: id}
+        });
+      }
+    })
   }
 
   public aceptar(id:number, idCotizacion:number){

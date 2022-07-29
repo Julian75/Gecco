@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';
 import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 

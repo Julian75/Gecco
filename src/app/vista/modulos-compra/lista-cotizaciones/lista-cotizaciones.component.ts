@@ -1,8 +1,8 @@
+import { PasosComponent } from './../pasos/pasos.component';
 import { CotizacionPdf } from './../../../modelos/cotizacionPdf';
 import { CotizacionPdfService } from './../../../servicios/cotizacionPdf.service';
 import { SubirPdfService } from './../../../servicios/subirPdf.service';
 import { Observable } from 'rxjs';
-import { RechazoCotizacionComponent } from './rechazo-cotizacion/rechazo-cotizacion.component';
 import { Cotizacion } from './../../../modelos/cotizacion';
 import { CotizacionService } from './../../../servicios/cotizacion.service';
 import { Correo } from './../../../modelos/correo';
@@ -31,7 +31,7 @@ export class ListaCotizacionesComponent implements OnInit {
   public listaCotizaciones: any = [];
   public listaCotizacionesPdf: any = [];
   public listaDetalleSolicitud: any = [];
-  public listaPdf:any = [];
+  public listaPdf:any = []
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -49,6 +49,7 @@ export class ListaCotizacionesComponent implements OnInit {
     private servicioSolicitudDetalle: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<ListaCotizacionesComponent>,
+    public dialogRef2: MatDialogRef<PasosComponent>,
   ) { }
 
 
@@ -87,6 +88,7 @@ export class ListaCotizacionesComponent implements OnInit {
 
   //Aceptacion de cotizacion Pdf
   public aceptar(idSolicitud:number, idCotizacion:number, idCotizacionPdf:number){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
     this.servicioCotizacionPdf.listarPorId(idCotizacionPdf).subscribe(resCotizacionPdf=>{
       cotizacionPdf.id = resCotizacionPdf.id
@@ -183,7 +185,7 @@ export class ListaCotizacionesComponent implements OnInit {
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
       this.servicioUsuario.listarPorId(idUsuarioCotizacion).subscribe(resUsuario => {
         correo.to = resUsuario.correo
-        correo.subject = "Aceptacion de Cotización"
+        correo.subject = "Aceptación de Cotización"
         correo.messaje = "<!doctype html>"
         +"<html>"
         +"<head>"
@@ -239,14 +241,14 @@ export class ListaCotizacionesComponent implements OnInit {
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
       this.servicioUsuario.listarPorId(idUsuarioSolicitud).subscribe(resUsuario => {
         correo.to = resUsuario.correo
-        correo.subject = "Aceptacion de Cotización"
+        correo.subject = "Aceptación de Cotización"
         correo.messaje = "<!doctype html>"
         +"<html>"
         +"<head>"
         +"<meta charset='utf-8'>"
         +"</head>"
         +"<body>"
-        +"<h3 style='color: black;'>Su cotización ha sido aprobada.</h3>"
+        +"<h3 style='color: black;'>La cotización ha sido aprobada.</h3>"
         +"<br>"
         +"<table style='border: 1px solid #000; text-align: center;'>"
         +"<tr>"
@@ -277,6 +279,7 @@ export class ListaCotizacionesComponent implements OnInit {
 
   public enviarCorreo2(correo: Correo){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -284,6 +287,9 @@ export class ListaCotizacionesComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      window.location.reload()
+      this.dialogRef.close();
+      this.dialogRef2.close();
     }, error => {
       console.log(error)
       Swal.fire({
@@ -297,10 +303,99 @@ export class ListaCotizacionesComponent implements OnInit {
   }
 
   //Rechazo de cotizacion Pdf
-  rechazarSolicitud(id: number){
-    const dialogRef = this.dialog.open(RechazoCotizacionComponent, {
-      width: '500px',
-      data: id
+
+  public rechazarSolicitud(cotizaPdf:any){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    this.servicioCotizacionPdf.listarPorId(cotizaPdf.id).subscribe(resCotizacionPdf=>{
+      let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+      cotizacionPdf.id = resCotizacionPdf.id
+      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion
+      cotizacionPdf.nombrePdf = resCotizacionPdf.nombrePdf
+      this.servicioEstado.listarPorId(40).subscribe(resEstado=>{
+        cotizacionPdf.idEstado = resEstado
+        this.actualizarCotizacionPdf(cotizacionPdf, cotizaPdf);
+      })
+    })
+  }
+
+  public actualizarCotizacionPdf(cotizacionPdf: CotizacionPdf, cotizaPdf:any){
+    this.listaCotizacionesPdf = []
+    this.servicioCotizacionPdf.actualizar(cotizacionPdf).subscribe(res=>{
+      this.servicioCotizacionPdf.listarTodos().subscribe(resPdf=>{
+        resPdf.forEach(element => {
+          if(element.idCotizacion.id == cotizaPdf.idCotizacion.id && element.idCotizacion.idEstado.id == 31){
+            this.listaCotizacionesPdf.push(element)
+          }
+        });
+        console.log(this.listaCotizacionesPdf)
+        var contador = 0
+        for (let i = 0; i < this.listaCotizacionesPdf.length; i++) {
+          const element = this.listaCotizacionesPdf[i];
+          if(element.idEstado.id == 40){
+            contador += 1
+            console.log(contador)
+            if(contador == this.listaCotizacionesPdf.length){
+              console.log("hola")
+              let solicitud : Solicitud = new Solicitud();
+              this.servicioSolicitud.listarPorId(cotizaPdf.idCotizacion.idSolicitud.id).subscribe(resSolicitud=>{
+                solicitud.id = resSolicitud.id
+                solicitud.fecha = resSolicitud.fecha
+                solicitud.idUsuario = resSolicitud.idUsuario
+                this.servicioEstado.listarPorId(35).subscribe(resEstado=>{
+                  solicitud.idEstado = resEstado
+                  this.actualizarEstado(solicitud, cotizaPdf);
+                })
+              })
+            }else{
+              this.dialogRef.close();
+              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+              const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
+                width: '1000px',
+                height: '430px',
+                data: cotizaPdf.idCotizacion.idSolicitud.id
+              });
+            }
+          }
+        }
+      })
+    })
+  }
+
+  public actualizarEstado(solicitud: Solicitud, cotizaPdf:any){
+    this.servicioSolicitud.actualizar(solicitud).subscribe(res=>{
+      let cotizacion : Cotizacion = new Cotizacion();
+      this.servicioCotizacion.listarPorId(cotizaPdf.idCotizacion.id).subscribe(resCotizacion=>{
+        cotizacion.id = resCotizacion.id
+        cotizacion.idSolicitud = resCotizacion.idSolicitud
+        cotizacion.idUsuario = resCotizacion.idUsuario
+        this.servicioEstado.listarPorId(32).subscribe(resEstado=>{
+          cotizacion.idEstado = resEstado
+          this.actualizarCotizacion2(cotizacion);
+        })
+      })
+    })
+  }
+
+  public actualizarCotizacion2(cotizacion:Cotizacion){
+    this.servicioCotizacion.actualizar(cotizacion).subscribe(res=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se ha rechazado todas las cotizaciones',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.dialogRef.close();
+    }, error => {
+      console.log(error)
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al rechazar las cotizaciones!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     });
   }
 
