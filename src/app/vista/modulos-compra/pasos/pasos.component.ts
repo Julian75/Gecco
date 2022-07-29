@@ -1,3 +1,5 @@
+import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
+import { ModificarOrdenCompraComponent } from './../orden-compra/modificar-orden-compra/modificar-orden-compra.component';
 import { OrdenCompraComponent } from './../orden-compra/orden-compra.component';
 import { OrdenCompra } from './../../../modelos/ordenCompra';
 import { AgregarCotizacionComponent } from './../generar-cotizacion/agregar-cotizacion/agregar-cotizacion.component';
@@ -30,6 +32,7 @@ export class PasosComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioAccesos: AccesoService,
     private servicioUsuario: UsuarioService,
+    private servicioOrdenCompra: OrdenCompraService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     private router: Router,
     public dialog: MatDialog,
@@ -86,7 +89,14 @@ export class PasosComponent implements OnInit {
         document.getElementById("card3")?.setAttribute("style", "background-color: green;")
         document.getElementById("card4")?.setAttribute("style", "background-color: green;")
         document.getElementById("card5")?.setAttribute("style", "background-color: blue;")
-      }else if(res.idEstado.id == 46){
+      }else if(res.idEstado.id == 47){
+        document.getElementById("card1")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card5")?.setAttribute("style", "background-color: red;")
+      }
+      else if(res.idEstado.id == 46){
         document.getElementById("card1")?.setAttribute("style", "background-color: green;")
         document.getElementById("card2")?.setAttribute("style", "background-color: green;")
         document.getElementById("card3")?.setAttribute("style", "background-color: green;")
@@ -316,18 +326,17 @@ export class PasosComponent implements OnInit {
                 timer: 1500
               })
             }else if(res.idEstado.id == 47){
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'modifica tu registro porque fue rechazado',
-                showConfirmButton: false,
-                timer: 1500
+              this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                resOrdenCompra.forEach(element => {
+                  if(element.idSolicitud.id == this.lista[0]){
+                    const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
+                      width: '1000px',
+                      height: '650px',
+                      data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
+                    });
+                  }
+                });
               })
-              // const dialogRef = this.dialog.open(, {
-              //   width: '1000px',
-              //   height: '650px',
-              //   data: this.lista[0]
-              // });
             }
           })
         }

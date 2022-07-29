@@ -79,7 +79,6 @@ export class RechazarRegistroComponent implements OnInit {
   public rechazarSolicitud(solicitud: Solicitud){
     this.solicitudService.actualizar(solicitud).subscribe(res =>{
       this.actualOrdenCompra(solicitud.idUsuario.id, solicitud.id)
-      // this.crearCorreo(solicitud.idUsuario.id, solicitud.id);
     })
   }
 
@@ -87,21 +86,21 @@ export class RechazarRegistroComponent implements OnInit {
     let ordenCompra : OrdenCompra = new OrdenCompra();
     this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
       resOrdenCompra.forEach(elementOrdenCompra => {
-        if (elementOrdenCompra.idSolicitud.id == Number(this.data)) {
-          this.listaOrdenCompra.push(elementOrdenCompra)
+        if (elementOrdenCompra.idSolicitud.id == idSolicitud) {
+          console.log(elementOrdenCompra.id)
+          this.servicioOrdenCompra.listarPorId(elementOrdenCompra.id).subscribe(resOrdenCompra=>{
+            ordenCompra.id = resOrdenCompra.id
+            ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
+            ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
+            ordenCompra.idProveedor = resOrdenCompra.idProveedor
+            ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
+            this.servicioEstado.listarPorId(45).subscribe(resEstado=>{
+              ordenCompra.idEstado = resEstado
+              this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud);
+            })
+          })
         }
       });
-      this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenCompra=>{
-        ordenCompra.id = resOrdenCompra.id
-        ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
-        ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
-        ordenCompra.idProveedor = resOrdenCompra.idProveedor
-        ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
-        this.servicioEstado.listarPorId(45).subscribe(resEstado=>{
-          ordenCompra.idEstado = resEstado
-          this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud);
-        })
-      })
     })
    }
 

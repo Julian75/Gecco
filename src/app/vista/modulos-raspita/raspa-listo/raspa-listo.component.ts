@@ -8,6 +8,7 @@ import { Raspas } from './../../../modelos/raspas';
 import Swal from 'sweetalert2';
 import * as FileSaver from 'file-saver';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import { SigaRaspasService } from 'src/app/servicios/sigaRaspas.service';
 
 @Component({
   selector: 'app-raspa-listo',
@@ -19,7 +20,12 @@ export class RaspaListoComponent implements OnInit {
   public listarExisteGecco: any = [];
   public listarExisteSiga: any = [];
   public listaRaspasSiga: any = [];
+  public listaSiga: any = [];
+  public listaGecco: any = [];
   public lista: any = [];
+  public lista2: any = [];
+  public lista3: any = [];
+
   public fecha: Date = new Date();
   color = ('primary');
   constructor(
@@ -27,6 +33,7 @@ export class RaspaListoComponent implements OnInit {
     public servicioRaspasDTO: RaspasDTOService,
     public servicioRaspaGecco: RaspasService,
     public servicioRaspaGeccoConsulta: ConsultasGeneralesService,
+    public servicioSigaRaspaGecco: SigaRaspasService
   ) { }
 
 
@@ -77,6 +84,9 @@ export class RaspaListoComponent implements OnInit {
                     raspita.estado = element.ideEstado
                     raspita.ideOficina = element.ideOficina
                     raspita.raspa = codRaspa
+                    raspita.nombres = element.nombres
+                    raspita.apellido1 = element.apellido1
+                    raspita.emision_raspa = element.emision_raspa
                     const swalWithBootstrapButtons = Swal.mixin({
                       customClass: {
                         confirmButton: 'btn btn-success',
@@ -152,8 +162,8 @@ export class RaspaListoComponent implements OnInit {
     })
   }
 
+  num:any
   public reporte() {
-    var verificar = false
     this.lista=[]
     var fechaActual = ""
     if(this.fecha.getMonth()+1<=9){
@@ -163,43 +173,13 @@ export class RaspaListoComponent implements OnInit {
     }
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioRaspasDTO.listarTodos(fechaActual).subscribe(resRaspaSiga=>{
-      for (let index = 0; index < resRaspaSiga.length; index++) {
-        const elementSiga = resRaspaSiga[index];
-        this.servicioRaspaGecco.listarTodos().subscribe(resRaspaGecco=>{
-          for (let index = 0; index < resRaspaGecco.length; index++) {
-            const elementGecco = resRaspaGecco[index];
-            if (elementSiga.raspa != elementGecco.raspa) {
-              var objeto = {
-                fechaVenta: elementSiga.fec_venta,
-                fechaPago: elementSiga.fec_pago,
-                idOficina: elementSiga.ideOficina,
-                idEstado: elementSiga.ideEstado,
-                raspa: elementSiga.raspa
-              }
-              this.lista.push(objeto)
-            }else if(elementSiga.raspa == elementGecco.raspa){
-              Swal.fire({
-                title: 'Ya estan',
-                text: '',
-                icon: 'warning',
-                confirmButtonText: 'Ok'
-              })
-            }
-            break
-          }
+        this.listaRaspasSiga = resRaspaSiga
+        this.servicioSigaRaspaGecco.registrar(this.listaRaspasSiga).subscribe(resRaspaSigaGecco=>{
+          this.servicioRaspaGeccoConsulta.listarRaspaConsultaNoGecco().subscribe(resListaNoSiga=>{
+            this.lista = resListaNoSiga
+            this.exportToExcel(this.lista);
+          })
         })
-      }
-      if (this.lista.length == 0){
-        Swal.fire({
-          title: 'No se encontraron resultados',
-          text: '',
-          icon: 'warning',
-          confirmButtonText: 'Ok'
-        })
-        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      }else{
-        this.exportToExcel(this.lista);
-      }
     })
   }
 
@@ -223,6 +203,9 @@ export class RaspaListoComponent implements OnInit {
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    this.servicioSigaRaspaGecco.eliminar().subscribe(resVacio=>{
+    })
+
   }
 
 }

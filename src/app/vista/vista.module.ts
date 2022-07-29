@@ -90,6 +90,7 @@ import { OrdenCompraComponent } from './modulos-compra/orden-compra/orden-compra
 import { AprobacionRegistroComponent } from './modulos-compra/aprobacion-registro/aprobacion-registro.component';
 import { RechazarRegistroComponent } from './modulos-compra/aprobacion-registro/rechazar-registro/rechazar-registro.component';
 import { RaspaListoComponent } from './modulos-raspita/raspa-listo/raspa-listo.component';
+import { ModificarOrdenCompraComponent } from './modulos-compra/orden-compra/modificar-orden-compra/modificar-orden-compra.component';
 
 @NgModule({
   declarations: [
@@ -179,6 +180,7 @@ import { RaspaListoComponent } from './modulos-raspita/raspa-listo/raspa-listo.c
     AprobacionRegistroComponent,
     RechazarRegistroComponent,
     RaspaListoComponent,
+    ModificarOrdenCompraComponent,
   ],
   imports: [
     CommonModule,

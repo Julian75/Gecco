@@ -91,8 +91,8 @@ export class OrdenCompraComponent implements OnInit {
   subtotal:any
   anticipoVal:any
   anticipoVal2:any
-  tot:any
   total:any
+  descuento:any
   valorUnitario(valor:any, solicitudDetalle:any){
     this.ultimaPosicion = 0
     var validaro = false
@@ -142,19 +142,21 @@ export class OrdenCompraComponent implements OnInit {
     this.anticipoVal = 0
     this.anticipoVal2 = 0
     this.total = 0
+    this.descuento = 0
     var anticipo = this.formProveedor.controls['antici'].value;
     if(anticipo == null){
       this.anticipoVal = 0
       this.anticipoVal2 = 0
+      this.descuento = 0
       this.total = this.subtotal
     }else if(anticipo!=null){
-      this.anticipoVal = anticipo/100
       this.anticipoVal2 = anticipo
-      this.tot = this.subtotal * this.anticipoVal2 /100
-      this.total = this.subtotal - this.tot
+      this.descuento = (this.subtotal * this.anticipoVal2)/100
+      this.total = this.subtotal - this.descuento
     }
 
   }
+
 
   generarOrden(){
     var idSolicitud  = 0
@@ -202,6 +204,8 @@ export class OrdenCompraComponent implements OnInit {
       this.servicioEstado.listarPorId(43).subscribe(resEstado=>{
         ordenCompra.idEstado = resEstado
         ordenCompra.valorAnticipo = this.total
+        ordenCompra.subtotal = this.subtotal
+        ordenCompra.descuento = this.descuento
         this.registrarOrdenCompra(ordenCompra)
       })
     })

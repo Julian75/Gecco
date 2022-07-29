@@ -18,4 +18,8 @@ export class ConsultasGeneralesService {
   public listarRaspaGeco(id: number){
     return this.http.get<ConsultaRaspa[]>(this.path+"/ObtenerRaspa?raspa='"+id+"'");
   }
+
+  public listarRaspaConsultaNoGecco(){
+    return this.http.get<ConsultaRaspa[]>(this.path+"/ObtenerRaspasSiga");
+  }
 }

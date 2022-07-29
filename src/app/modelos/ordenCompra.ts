@@ -8,5 +8,7 @@ export class OrdenCompra {
   idProveedor !: Proveedor;
   idEstado !: Estado;
   public anticipoPorcentaje: number=0;
+  public subtotal: number=0;
+  public descuento: number=0;
   public valorAnticipo: number=0;
 }

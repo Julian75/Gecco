@@ -1,9 +1,9 @@
-export class ConsultaRaspa {
+export class SigaRaspas {
   public id: number=0;
   public fec_venta: Date = new Date();
-  public estado: number=0;
+  public ideEstado: number=0;
   public fec_pago: Date = new Date();
-  public ide_oficina: number=0;
+  public ideOficina: number=0;
   public raspa: string="";
   public emision_raspa: string="";
   public nombres: string="";
