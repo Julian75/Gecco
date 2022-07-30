@@ -66,20 +66,18 @@ export class ModificarOrdenCompraComponent implements OnInit {
         id: resordenCompra.id,
         antici: resordenCompra.anticipoPorcentaje,
       })
+      this.total = resordenCompra.valorAnticipo
+      this.subtotal = resordenCompra.subtotal
       if(resordenCompra.anticipoPorcentaje != 0){
         document.getElementById('antici')?.setAttribute('value', String(resordenCompra.anticipoPorcentaje))
         console.log(resordenCompra)
         this.opciones = ['Si']
         this.anticipoVal2 = resordenCompra.anticipoPorcentaje
-        this.total = resordenCompra.valorAnticipo
-        this.subtotal = resordenCompra.subtotal
         this.descuento = resordenCompra.descuento
       }else if(resordenCompra.anticipoPorcentaje == 0){
         this.opciones = ['No']
         this.anticipoVal2 = 0
         this.descuento = 0
-        this.subtotal = resordenCompra.subtotal
-        this.total = resordenCompra.valorAnticipo
       }
       document.getElementById('proveedortra')?.setAttribute('value', resordenCompra.idProveedor.nombre)
       this.servicioSolicitud.listarPorId(resordenCompra.idSolicitud.id).subscribe(resSolicitud=>{
@@ -130,22 +128,16 @@ export class ModificarOrdenCompraComponent implements OnInit {
     }
     this.subtotal = 0
     this.listaRow.forEach((element:any) => {
-      console.log(element)
       this.subtotal += element.valorTotal
 
     });
-    console.log(this.subtotal)
-    this.anticipoVal = 0
-    this.anticipoVal2 = 0
-    this.total = 0
-    var anticipo = this.formProveedor.controls['antici'].value;
-    if(anticipo == null){
+    if(this.anticipoVal2 == 0){
       this.anticipoVal = 0
       this.anticipoVal2 = 0
       this.total = this.subtotal
-    }else if(anticipo!=null){
-      this.anticipoVal = anticipo/100
-      this.anticipoVal2 = anticipo
+    }else if(this.anticipoVal2!=0){
+      this.anticipoVal = this.anticipoVal2/100
+      this.anticipoVal2 = this.anticipoVal2
       this.descuento = this.subtotal * this.anticipoVal
       this.total = this.subtotal - this.descuento
 
@@ -153,6 +145,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
   }
 
   generarOrden(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var idSolicitud  = 0
     this.listaRow.forEach((element:any) => {
       idSolicitud = element.idSolicitud.id
@@ -228,6 +221,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       window.location.reload()
       this.dialogRef.close();
     })

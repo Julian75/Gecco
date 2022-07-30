@@ -51,7 +51,8 @@ export class OrdenCompraComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioSolicitud: SolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<OrdenCompraComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -159,6 +160,7 @@ export class OrdenCompraComponent implements OnInit {
 
 
   generarOrden(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var idSolicitud  = 0
     this.lista.forEach((element:any) => {
       idSolicitud = element.solicitudDetalle.idSolicitud.id
@@ -206,6 +208,7 @@ export class OrdenCompraComponent implements OnInit {
         ordenCompra.valorAnticipo = this.total
         ordenCompra.subtotal = this.subtotal
         ordenCompra.descuento = this.descuento
+        console.log(this.subtotal, this.descuento)
         this.registrarOrdenCompra(ordenCompra)
       })
     })
@@ -254,6 +257,9 @@ export class OrdenCompraComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      window.location.reload()
+      this.dialogRef.close();
     }, error => {
       console.log(error)
       Swal.fire({

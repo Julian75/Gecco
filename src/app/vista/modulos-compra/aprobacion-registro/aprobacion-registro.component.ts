@@ -107,6 +107,7 @@ export class AprobacionRegistroComponent implements OnInit {
   }
 
   public aceptar(id:number, idCotizacion:number){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud = new Solicitud();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(46).subscribe(resEstado => {
@@ -144,6 +145,8 @@ export class AprobacionRegistroComponent implements OnInit {
       ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
       ordenCompra.idProveedor = resOrdenCompra.idProveedor
       ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
+      ordenCompra.descuento = resOrdenCompra.descuento
+      ordenCompra.subtotal = resOrdenCompra.subtotal
       this.servicioEstado.listarPorId(44).subscribe(resEstado=>{
         ordenCompra.idEstado = resEstado
         this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud, idCotizacion);
@@ -254,6 +257,7 @@ export class AprobacionRegistroComponent implements OnInit {
 
   public enviarCorreo2(correo: Correo){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',

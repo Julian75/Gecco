@@ -308,15 +308,30 @@ export class PasosComponent implements OnInit {
             }
           })
         }else if(this.habilitar == false){
-          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-            if(res.idEstado.id == 34){
-              const dialogRef = this.dialog.open(OrdenCompraComponent, {
-                width: '1000px',
-                height: '650px',
-                data: this.lista[0]
-              });
+          resAccesos.forEach(element => {
+            if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id){
+              this.habilitar2 = true
             }
-          })
+          });
+          if(this.habilitar2 == true){
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 34){
+                const dialogRef = this.dialog.open(OrdenCompraComponent, {
+                  width: '1000px',
+                  height: '650px',
+                  data: this.lista[0]
+                });
+              }
+            })
+          }else if(this.habilitar2 == false){
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'Aún no se ha hecho un registro!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
         }
       })
     })
@@ -348,247 +363,180 @@ export class PasosComponent implements OnInit {
                 data: this.lista[0]
               });
             }else if(res.idEstado.id == 46){
-              this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
-                resOrdenCompra.forEach(element => {
-                  if(element.idSolicitud.id == this.lista[0]){
-                    var body = []
-                    this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
-                      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
-                        resDetalle.forEach(element => {
-                          if(element.idSolicitud.id == resOrden.idSolicitud.id){
-                            var now = new Array
-                            now.push(element.idArticulos.descripcion)
-                            now.push(element.cantidad)
-                            now.push(element.valorUnitario)
-                            now.push(element.valorTotal)
-                            body.push(now)
-                          }
-                        });
-                        console.log(body)
-                        this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
-
-                          const pdfDefinition: any = {
-                            content: [
-                              {
-                                text: 'Nombre Empresa: Apuestas Nacionales de Colombia',
-                                bold: true,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Lider de Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Fecha: '+res.idSolicitud.fecha,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Proveedor: '+res.idProveedor.nombre,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Orden Compra: '+res.id,
-                                relativePosition: {x: 250, y: -25},
-                                margin: [0, 0, 0, 20]
-                              },
-                              // {
-                              //   image: await this.getBase64ImageFromURL(
-                              //     'C:\Users\PROGRAMADOR\GECCO\src\assets\logo'
-                              //   ),
-                              //   width: 150
-                              // },
-                              {
-                                text: 'Requisición',
-                                bold: true,
-                                fontSize: 20,
-                                alignment: 'center',
-                                margin: [0, 0, 0, 20]
-                              },{
-                                table: {
-                                  widths: ['*', '*', '*', '*'],
-                                  body: [
-                                    [
-                                      'Articulo',
-                                      'Cantidad',
-                                      'Valor Unitario',
-                                      'Valor Total'
-                                    ],
-                                  ]
-                                },
-                                margin: [0, 0, 0, 0.3]
-                              },
-                              {
-                                table: {
-                                  widths: ['*', '*', '*', '*'],
-                                  body: body
-                                },
-                                margin: [0, 0, 0, 40]
-                              },
-                              {
-                                text: 'SubTotal: '+ res.subtotal +' COP',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                              {
-                                text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                              {
-                                text: 'Descuento: '+ res.descuento +' COP',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                              {
-                                text: 'Total: '+ res.valorAnticipo +' COP',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                            ]
-                          }
-                          const pdf = pdfMake.createPdf(pdfDefinition);
-                          pdf.open();
-                        })
-                      })
-                    })
-                  }
-                })
-              })
-
+              this.requisicion();
             }
           })
         }else if(this.habilitar == false){
-          this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-            if(res.idEstado.id == 37){
-              Swal.fire({
-                position: 'center',
-                icon: 'warning',
-                title: 'Aún no se ha validado su registro!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }else if(res.idEstado.id == 46){
-              this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
-                resOrdenCompra.forEach(element => {
-                  if(element.idSolicitud.id == this.lista[0]){
-                    var body = []
-                    this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
-                      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
-                        resDetalle.forEach(element => {
-                          if(element.idSolicitud.id == resOrden.idSolicitud.id){
-                            var now = new Array
-                            now.push(element.idArticulos.descripcion)
-                            now.push(element.cantidad)
-                            now.push(element.valorUnitario)
-                            now.push(element.valorTotal)
-                            body.push(now)
-                          }
-                        });
-                        console.log(body)
-                        this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
-
-                          const pdfDefinition: any = {
-                            content: [
-                              {
-                                text: 'Nombre Empresa: Apuestas Nacionales de Colombia',
-                                bold: true,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Lider de Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Fecha: '+res.idSolicitud.fecha,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Proveedor: '+res.idProveedor.nombre,
-                                margin: [0, 0, 0, 10]
-                              },
-                              {
-                                text: 'Orden Compra: '+res.id,
-                                relativePosition: {x: 250, y: -25},
-                                margin: [0, 0, 0, 20]
-                              },
-                              {
-                                image: await this.getBase64ImageFromURL(
-                                  'assets/logo/GECCO 2.png'
-                                ),
-                                relativePosition: {x: 350, y: -120},
-                                width: 150
-                              },
-                              {
-                                text: 'Requisición',
-                                bold: true,
-                                fontSize: 20,
-                                alignment: 'center',
-                                margin: [0, 0, 0, 20]
-                              },{
-                                table: {
-                                  widths: ['*', '*', '*', '*'],
-                                  body: [
-                                    [
-                                      'Articulo',
-                                      'Cantidad',
-                                      'Valor Unitario',
-                                      'Valor Total'
-                                    ],
-                                  ]
-                                },
-                                margin: [0, 0, 0, 0.3]
-                              },
-                              {
-                                table: {
-                                  widths: ['*', '*', '*', '*'],
-                                  body: body
-                                },
-                                margin: [0, 0, 0, 40]
-                              },
-                              {
-                                text: 'SubTotal: '+ res.subtotal +' COP',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                              {
-                                text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                              {
-                                text: 'Descuento: '+ res.descuento +' COP',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                              {
-                                text: 'Total: '+ res.valorAnticipo +' COP',
-                                relativePosition: {x: 350, y: -25},
-                                margin: [0, 0, 0, 20],
-                              },
-                            ]
-                          }
-                          const pdf = pdfMake.createPdf(pdfDefinition);
-                          pdf.open();
-                        })
-                      })
-                    })
-                  }
+          resAccesos.forEach(element => {
+            if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id){
+              this.habilitar2 = true
+            }
+          });
+          if(this.habilitar2 == true){
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 37){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha validado su registro!',
+                  showConfirmButton: false,
+                  timer: 1500
                 })
+              }else if(res.idEstado.id == 46){
+                this.requisicion();
+              }
+              else if(res.idEstado.id == 47){
+                this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                  resOrdenCompra.forEach(element => {
+                    if(element.idSolicitud.id == this.lista[0]){
+                      const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
+                        width: '1000px',
+                        height: '650px',
+                        data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
+                      });
+                    }
+                  });
+                })
+              }
+            })
+          }else{
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 37){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha validado su registro!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }else if(res.idEstado.id == 47){
+                this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                  resOrdenCompra.forEach(element => {
+                    if(element.idSolicitud.id == this.lista[0]){
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Aún no se ha modificado el registro!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    }
+                  });
+                })
+              }else if(res.idEstado.id == 46){
+                this.requisicion();
+              }
+            })
+          }
+        }
+      })
+    })
+  }
+
+  public requisicion(){
+    this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+      resOrdenCompra.forEach(element => {
+        if(element.idSolicitud.id == this.lista[0]){
+          var body = []
+          this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
+            this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
+              resDetalle.forEach(element => {
+                if(element.idSolicitud.id == resOrden.idSolicitud.id){
+                  var now = new Array
+                  now.push(element.idArticulos.descripcion)
+                  now.push(element.cantidad)
+                  now.push(element.valorUnitario)
+                  now.push(element.valorTotal)
+                  body.push(now)
+                }
+              });
+              console.log(body)
+              this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+
+                const pdfDefinition: any = {
+                  content: [
+                    {
+                      text: 'Nombre Empresa: Apuestas Nacionales de Colombia',
+                      bold: true,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Lider de Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Fecha: '+res.idSolicitud.fecha,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Proveedor: '+res.idProveedor.nombre,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Orden Compra: '+res.id,
+                      relativePosition: {x: 250, y: -25},
+                      margin: [0, 0, 0, 20]
+                    },
+                    {
+                      image: await this.getBase64ImageFromURL(
+                        'assets/logo/GECCO 2.png'
+                      ),
+                      relativePosition: {x: 350, y: -120},
+                      width: 150
+                    },
+                    {
+                      text: 'Requisición',
+                      bold: true,
+                      fontSize: 20,
+                      alignment: 'center',
+                      margin: [0, 0, 0, 20]
+                    },{
+                      table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: [
+                          [
+                            'Articulo',
+                            'Cantidad',
+                            'Valor Unitario',
+                            'Valor Total'
+                          ],
+                        ]
+                      },
+                      margin: [0, 0, 0, 0.3]
+                    },
+                    {
+                      table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: body
+                      },
+                      margin: [0, 0, 0, 40]
+                    },
+                    {
+                      text: 'SubTotal: '+ res.subtotal +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Descuento: '+ res.descuento +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Total: '+ res.valorAnticipo +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                  ]
+                }
+                const pdf = pdfMake.createPdf(pdfDefinition);
+                pdf.open();
               })
-            }
-            else if(res.idEstado.id == 47){
-              this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
-                resOrdenCompra.forEach(element => {
-                  if(element.idSolicitud.id == this.lista[0]){
-                    const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
-                      width: '1000px',
-                      height: '650px',
-                      data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
-                    });
-                  }
-                });
-              })
-            }
+            })
           })
         }
       })

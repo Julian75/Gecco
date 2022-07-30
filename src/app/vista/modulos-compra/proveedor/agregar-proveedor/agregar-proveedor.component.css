@@ -344,7 +344,7 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
 .documento{
   width: 250px;
   margin-left: 55%;
-  margin-top: -13%;
+  margin-top: -12%;
 }
 
 .direccion{
@@ -355,11 +355,11 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
 .nombre1{
   width: 250px;
   margin-left: 55%;
-  margin-top: -13%;
+  margin-top: -12%;
 }
 .esta{
   margin-left: 55%;
-  margin-top: -13%;
+  margin-top: -12%;
 
 }
 .guardar{
@@ -387,56 +387,110 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
 }
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
-.tipoDo{
-  width: 100%;
-  margin-left: 5%;
-  margin-top: 0%;
-}
-.nombre{
-  width: 261px;
-}
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -11%;
-}
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 2%;
-}
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -11%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -12%;
+  .tipoDo{
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 0%;
+  }
+  .nombre{
+    width: 261px;
+  }
+  .documento{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -12%;
+  }
 
-}
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 28%;
-  height: 40px;
-  font-size: large;
-  margin-left: 55.5%;
-  top: -93px;
-}
-.dato{
-  margin-left: 0%;
-}
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 3%;
-}
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 5%;
-}
+  .direccion{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 2%;
+  }
+  .nombre1{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -12%;
+  }
+  .esta{
+    margin-left: 55%;
+    margin-top: -12%;
+
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 30%;
+    height: 40px;
+    font-size: large;
+    margin-left: 55.5%;
+    top: -93px;
+  }
+  .dato{
+    margin-left: 0%;
+  }
+  .tele{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 3%;
+  }
+  .obser{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
+  }
+  /* Portatil Medio */
+  @media screen and (min-width: 1367px) and (max-width: 1440px){
+  .tipoDo{
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 0%;
+  }
+  .nombre{
+    width: 261px;
+  }
+  .documento{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -11%;
+  }
+  .direccion{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 2%;
+  }
+  .nombre1{
+    width: 250px;
+    margin-left: 55%;
+    margin-top: -11%;
+  }
+  .esta{
+    margin-left: 55%;
+    margin-top: -11%;
+
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 28%;
+    height: 40px;
+    font-size: large;
+    margin-left: 55.5%;
+    top: -93px;
+  }
+  .dato{
+    margin-left: 0%;
+  }
+  .tele{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 3%;
+  }
+  .obser{
+    width: 250px;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
 }
 /* Portatil Grande */
 @media screen and (min-width: 1441px){

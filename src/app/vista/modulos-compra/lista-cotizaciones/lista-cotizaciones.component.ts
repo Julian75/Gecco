@@ -386,7 +386,9 @@ export class ListaCotizacionesComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      window.location.reload()
       this.dialogRef.close();
+      this.dialogRef2.close();
     }, error => {
       console.log(error)
       Swal.fire({

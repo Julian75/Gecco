@@ -36,7 +36,7 @@
       <button mat-raised-button id="14" routerLink="/novedades" style="display: none;">Generar Reporte Novedad</button>
     </div>
   </mat-expansion-panel>
-   <mat-expansion-panel style="display: none;" id="Visita" (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="Visita" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -50,7 +50,7 @@
       <button mat-raised-button id="18" routerLink="/reportesVisitaDetalle" style="display: none;">Generar Reporte Visita</button>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
+  <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -75,7 +75,7 @@
     <div class="opciones">
       <button mat-raised-button [routerLink]="['/raspalisto']" >Visado Premio</button>
     </div>
-  </mat-expansion-panel>
+  </mat-expansion-panel> -->
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

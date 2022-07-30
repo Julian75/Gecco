@@ -50,6 +50,7 @@ export class RechazarRegistroComponent implements OnInit {
   }
 
   public guardar(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     for (const [key, value] of Object.entries(this.data)) {
       this.lista.push(value)
     }
@@ -94,6 +95,8 @@ export class RechazarRegistroComponent implements OnInit {
             ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
             ordenCompra.idProveedor = resOrdenCompra.idProveedor
             ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
+            ordenCompra.descuento = resOrdenCompra.descuento
+            ordenCompra.subtotal = resOrdenCompra.subtotal
             this.servicioEstado.listarPorId(45).subscribe(resEstado=>{
               ordenCompra.idEstado = resEstado
               this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud);
@@ -214,6 +217,7 @@ export class RechazarRegistroComponent implements OnInit {
 
   public enviarCorreo2(correo: Correo){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',

@@ -151,6 +151,8 @@ export class RaspaListoComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      this.crearFormulario();
+      window.location.reload()
     }, error => {
       Swal.fire({
         position: 'center',

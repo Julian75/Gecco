@@ -77,7 +77,7 @@ export class AgregarCotizacionComponent implements OnInit {
     this.listaArchivos = event.target.files
     for (let index = 0; index < this.listaArchivos.length; index++) {
       const element = this.listaArchivos[index];
-      this.listaArchivos2.push(this.data+""+element.name)
+      this.listaArchivos2.push(element.name)
     }
   }
 
@@ -89,7 +89,7 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: this.data+""+file.name };
+    this.progressInfo[index] = { value: 0, fileName: file.name };
 
     this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
       if (event.type === HttpEventType.UploadProgress) {
