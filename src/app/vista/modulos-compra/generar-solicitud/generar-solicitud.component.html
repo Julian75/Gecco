@@ -11,14 +11,14 @@
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? toggleAllRows() : null"
+            <th mat-header-cell *matHeaderCellDef id="chet">
+              <mat-checkbox id="chetbox" (change)="$event ? toggleAllRows() : null"
                             [checked]="selection.hasValue() && isAllSelected()"
                             [indeterminate]="selection.hasValue() && !isAllSelected()"
                             [aria-label]="checkboxLabel()">
               </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let row">
+            <td id="chet2" mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()"
                             (change)="$event ? toggle($event, row) : null"
                             [checked]="selection.isSelected(row)"
@@ -29,20 +29,20 @@
 
           <!-- Position Column -->
           <ng-container matColumnDef="articulo">
-            <th mat-header-cell *matHeaderCellDef><h3 class="ar">Articulo</h3></th>
+            <th mat-header-cell *matHeaderCellDef><h3 id="arti">Articulo</h3></th>
             <td mat-cell *matCellDef="let element"> {{element.articulo.descripcion}} </td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="cantidad">
-            <th mat-header-cell *matHeaderCellDef><h3 class="cant"> Cantidad </h3></th>
+            <th mat-header-cell *matHeaderCellDef><h3 id="cant"> Cantidad </h3></th>
             <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
           </ng-container>
 
           <!-- Weight Column -->
           <ng-container matColumnDef="observacion">
-            <th mat-header-cell *matHeaderCellDef><h3 class="o"> Observacion </h3></th>
-            <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+            <th mat-header-cell *matHeaderCellDef id="obse"><h3 id="obser"> Observacion </h3></th>
+            <td mat-cell *matCellDef="let element" id="obse2"> {{element.observacion}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -51,8 +51,8 @@
           </tr>
         </table>
       </section>
-      <button mat-raised-button class="guardar4" (click)="generarSolicitud()">Generar Solicitud</button>
-      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
+      <button  mat-raised-button class="guardar4" (click)="generarSolicitud()">Generar Solicitud</button>
+      <mat-paginator  [length]="100" [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
 
       <!-- Ingresar Nombre -->
@@ -90,9 +90,9 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button mat-raised-button class="guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button mat-raised-button class="guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
-        <button mat-raised-button class="guardar6" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
+        <button class="btn guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
+        <button class="btn guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+        <button class="btn guardar6" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
       </div>
     </div>
 

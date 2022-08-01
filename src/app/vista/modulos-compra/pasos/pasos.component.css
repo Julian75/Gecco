@@ -1,11 +1,20 @@
+
 mat-card{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     align-items: center;
     display: flex;
     justify-content: center;
-    top: 5%;
+    top: 11%;
     left: 5%;
+    color: #575757;
+}
+a{ text-decoration: none}
+mat-icon{ color: #575757;
+    left: 36px;
+    top: 55px;
+    font-size: 25px;
+    position: absolute;
 }
 
 div{
@@ -14,24 +23,46 @@ div{
 
 h2{
     font-weight: 700px;
-    font-size: 27px;
+    font-size: 18px;
+    position: absolute;
+    top: 17px;
 }
 
 #card2{
     left: 38%;
-    top: -128px;
+    top: -58px;
 }
 
 #card3{
     left: 71%;
-    top: -278px;
+    top: -161px;
 }
 
 #card4{
-    top: -245px;
+    top: -283px;
+    position: relative;
+    margin-top: 209px;
 }
 
 #card5{
     left: 38%;
-    top: -395px;
+    top: -382px;
+}
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+    mat-card{
+        width: 70px;
+        height: 70px;
+        top: 11%;
+        left: 2%;
+    }
+    h2{
+        font-size: 18px;
+        top: 15px;
+    }
+    #card2{
+        left: 55%;
+        top: -29px;
+    }
 }

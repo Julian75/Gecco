@@ -192,13 +192,16 @@ export class ModificarUsuariosComponent implements OnInit {
               this.listaEstados = res;
               usuario.idEstado= res
               const idRol = this.formUsuario.controls['rol'].value;
+              console.log("hola")
               this.servicioRoles.listarPorId(idRol).subscribe(res => {
                 this.listaRoles = res;
                 usuario.idRol= res
+                console.log("hola3")
                 const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
                 this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
                   this.listaTipoDocumentos = res;
                   usuario.idTipoDocumento = res
+                  console.log("hola4")
                   const ideOficina = this.formUsuario.controls['oficina'].value;
                   this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
                     res.forEach(elementOficina => {
@@ -240,6 +243,7 @@ export class ModificarUsuariosComponent implements OnInit {
 
   public actualizarUsuario(usuario: Usuario) {
     this.servicioUsuario.actualizar(usuario).subscribe(res => {
+      console.log(res)
       Swal.fire({
         position: 'center',
         icon: 'success',

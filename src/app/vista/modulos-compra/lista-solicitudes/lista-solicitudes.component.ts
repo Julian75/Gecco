@@ -87,8 +87,8 @@ export class ListaSolicitudesComponent implements OnInit {
 
   verPasos(id: number, idEstado: number){
     const dialogRef = this.dialog.open(PasosComponent, {
-      width: '700px',
-      height: '430px',
+      width: '500px',
+      height: '400px',
       data: {idSolicitud:id, idEstado: idEstado}
     });
   }

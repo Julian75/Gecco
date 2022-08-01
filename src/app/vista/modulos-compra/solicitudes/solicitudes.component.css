@@ -66,8 +66,8 @@ mat-form-field{
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
 #idSp{ left: 30px; }
-#desSp{ left: 55px; }
-#estSp{ left: 60px; }
+#desSp{ left: 31px; }
+#estSp{ left: 40px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -81,7 +81,7 @@ mat-form-field{
     font-size: 12px;
   }
   td{ font-size: 11px;}
-  .botonagregar, .excelButton, .btnver{ width: 38px; height: 30px; }
+  .excelButton, .botonvolver{ width: 38px; height: 30px; }
   .botonagregar mat-icon{ font-size: 18px; }
   .btnremove, .btnedit, .btnver, .boton{
     width: 20px !important;
