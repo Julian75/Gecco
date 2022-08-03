@@ -25,7 +25,7 @@
           <div class="nombre3">
               <ul>
                 <li >
-                  <h3>¿Anticipo?</h3>
+                  <h3 class="antic">¿Anticipo?</h3>
                 </li>
                 <mat-radio-group aria-label="Select an option" style="margin-left: -35px;" >
                     <mat-radio-button style="margin-left: 5%;" *ngFor="let opcion of opciones" [value]="opcion" value="{{opcion}}" (change)="capturarOpcion(opcion);">{{opcion}}</mat-radio-button>
@@ -38,6 +38,7 @@
             </div>
       </div>
   </form>
+  <section class="example-container mat-elevation-z8" tabindex="0">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla">
       <!-- Position Column -->
       <ng-container matColumnDef="articulo">
@@ -80,10 +81,11 @@
           (click)="selection.toggle(row)">
       </tr>
     </table>
-    <p>Subtotal: {{subtotal}}</p>
-      <p>Valor anticipo: {{anticipoVal2}} %</p>
-      <p>Descuento: {{descuento}} COP</p>
-      <p>Total: {{total}}</p>
+  </section>
+      <p class="sub">Subtotal: {{subtotal}}</p>
+      <p class="val">Valor anticipo: {{anticipoVal2}} %</p>
+      <p class="des">Descuento: {{descuento}} COP</p>
+      <p class="to">Total: {{total}}</p>
 
     <button mat-raised-button class="guardar4" (click)="generarOrden()"> Generar Orden de Compra</button>
 

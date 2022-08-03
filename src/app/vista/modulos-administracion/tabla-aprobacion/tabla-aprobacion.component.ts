@@ -1,3 +1,6 @@
+import { EliminacionTurnoVendedor2 } from './../../../modelos/eliminacionTurnoVendedor2';
+import { AsignarTurnoVendedor2 } from './../../../modelos/asignarTurnoVendedor2';
+import { ModificarService } from './../../../servicios/modificar.service';
 import { AsignarTurnoVendedor } from './../../../modelos/asignarTurnoVendedor';
 import { AsignarTurnoVendedorService } from './../../../servicios/asignarTurnoVendedor.service';
 import { EliminacionTurnoVendedor } from './../../../modelos/eliminacionTurnoVendedor';
@@ -28,6 +31,7 @@ export class TablaAprobacionComponent implements OnInit {
   constructor(
     private servicioEliminacion: EliminacionTurnoVendedorService,
     private servicioAsignarTurno: AsignarTurnoVendedorService,
+    private servicioAsignarTurn2: ModificarService,
     public dialog: MatDialog
   ) {}
 
@@ -76,11 +80,11 @@ export class TablaAprobacionComponent implements OnInit {
   }
 
   public aceptado(idEliminacion:number, idAsignarTurnoVendedor:number) {
-    let eliminacionTurno : EliminacionTurnoVendedor = new EliminacionTurnoVendedor();
+    let eliminacionTurno : EliminacionTurnoVendedor2 = new EliminacionTurnoVendedor2();
     this.servicioEliminacion.listarPorId(idEliminacion).subscribe(res => {
       eliminacionTurno.id = res.id
-      eliminacionTurno.idAsignarTurnoVendedor = res.idAsignarTurnoVendedor
-      eliminacionTurno.idUsuario = res.idUsuario
+      eliminacionTurno.idAsignarTurnoVendedor = res.idAsignarTurnoVendedor.id
+      eliminacionTurno.idUsuario = res.idUsuario.id
       eliminacionTurno.observacion = res.observacion
       eliminacionTurno.estado = "Aceptado"
       this.modificarEliminacionTurno(eliminacionTurno);
@@ -88,8 +92,8 @@ export class TablaAprobacionComponent implements OnInit {
     })
   }
 
-  public modificarEliminacionTurno(eliminacionTurn:EliminacionTurnoVendedor){
-    this.servicioEliminacion.actualizar(eliminacionTurn).subscribe(res => {
+  public modificarEliminacionTurno(eliminacionTurn:EliminacionTurnoVendedor2){
+    this.servicioAsignarTurn2.actualizarEliminacion(eliminacionTurn).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -109,31 +113,31 @@ export class TablaAprobacionComponent implements OnInit {
   }
 
   public eliminarTurno(turnoAsignado:number){
-    let asignarTurno : AsignarTurnoVendedor = new AsignarTurnoVendedor();
+    let asignarTurno : AsignarTurnoVendedor2 = new AsignarTurnoVendedor2();
     this.servicioAsignarTurno.listarPorId(turnoAsignado).subscribe(res => {
       asignarTurno.id = res.id
       asignarTurno.fechaFinal = res.fechaFinal
       asignarTurno.fechaInicio = res.fechaInicio
       asignarTurno.idOficina = res.idOficina
       asignarTurno.idSitioVenta = res.idSitioVenta
-      asignarTurno.idTurno = res.idTurno
+      asignarTurno.idTurno = res.idTurno.id
       asignarTurno.idVendedor = res.idVendedor
       asignarTurno.ideSubzona = res.ideSubzona
       asignarTurno.nombreOficina = res.nombreOficina
       asignarTurno.nombreSitioVenta = res.nombreSitioVenta
       asignarTurno.nombreVendedor = res.nombreVendedor
       asignarTurno.estado = "Eliminado"
-      this.servicioAsignarTurno.actualizar(asignarTurno).subscribe(res => {})
+      this.servicioAsignarTurn2.actualizarAsignarTurnoVendedor(asignarTurno).subscribe(res => {})
       window.location.reload()
     })
   }
 
   public rechazado(idEliminar:number, idAsignarTurnoVendedor:number){
-    let eliminacionTurno : EliminacionTurnoVendedor = new EliminacionTurnoVendedor();
+    let eliminacionTurno : EliminacionTurnoVendedor2 = new EliminacionTurnoVendedor2();
     this.servicioEliminacion.listarPorId(idEliminar).subscribe(res => {
       eliminacionTurno.id = res.id
-      eliminacionTurno.idAsignarTurnoVendedor = res.idAsignarTurnoVendedor
-      eliminacionTurno.idUsuario = res.idUsuario
+      eliminacionTurno.idAsignarTurnoVendedor = res.idAsignarTurnoVendedor.id
+      eliminacionTurno.idUsuario = res.idUsuario.id
       eliminacionTurno.observacion = res.observacion
       eliminacionTurno.estado = "Rechazado"
       this.modificarEliminacionTurnoRechazado(eliminacionTurno);
@@ -141,8 +145,8 @@ export class TablaAprobacionComponent implements OnInit {
     })
   }
 
-  public modificarEliminacionTurnoRechazado(eliminacionTurn:EliminacionTurnoVendedor){
-    this.servicioEliminacion.actualizar(eliminacionTurn).subscribe(res => {
+  public modificarEliminacionTurnoRechazado(eliminacionTurn:EliminacionTurnoVendedor2){
+    this.servicioAsignarTurn2.actualizarEliminacion(eliminacionTurn).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -162,21 +166,21 @@ export class TablaAprobacionComponent implements OnInit {
   }
 
   public modificarAsignarTurno(turnoAsignado:any){
-    let asignarTurno : AsignarTurnoVendedor = new AsignarTurnoVendedor();
+    let asignarTurno : AsignarTurnoVendedor2 = new AsignarTurnoVendedor2();
     this.servicioAsignarTurno.listarPorId(turnoAsignado).subscribe(res => {
       asignarTurno.id = res.id
       asignarTurno.fechaFinal = res.fechaFinal
       asignarTurno.fechaInicio = res.fechaInicio
       asignarTurno.idOficina = res.idOficina
       asignarTurno.idSitioVenta = res.idSitioVenta
-      asignarTurno.idTurno = res.idTurno
+      asignarTurno.idTurno = res.idTurno.id
       asignarTurno.idVendedor = res.idVendedor
       asignarTurno.ideSubzona = res.ideSubzona
       asignarTurno.nombreOficina = res.nombreOficina
       asignarTurno.nombreSitioVenta = res.nombreSitioVenta
       asignarTurno.nombreVendedor = res.nombreVendedor
       asignarTurno.estado = "Disponible"
-      this.servicioAsignarTurno.actualizar(asignarTurno).subscribe(res => {})
+      this.servicioAsignarTurn2.actualizarAsignarTurnoVendedor(asignarTurno).subscribe(res => {})
       window.location.reload()
     })
   }

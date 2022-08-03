@@ -93,6 +93,10 @@ import { ModificarOrdenCompraComponent } from './modulos-compra/orden-compra/mod
 import { VisualizarRegistroComponent } from './modulos-compra/aprobacion-registro/visualizar-registro/visualizar-registro.component';
 import { ProcesoComponent } from './modulos-compra/proceso/proceso.component';
 import { ListadoObservacionComponent } from './modulos-compra/listado-observacion/listado-observacion.component';
+import { CategoriasArticuloComponent } from './modulos-compra/articulos/categorias-articulo/categorias-articulo.component';
+import { AgregarCategoriaComponent } from './modulos-compra/articulos/categorias-articulo/agregar-categoria/agregar-categoria.component';
+import { ModificarCategoriaComponent } from './modulos-compra/articulos/categorias-articulo/modificar-categoria/modificar-categoria.component';
+import { ComentariosSolicitudComponent } from './modulos-compra/comentarios-solicitud/comentarios-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -185,6 +189,10 @@ import { ListadoObservacionComponent } from './modulos-compra/listado-observacio
     VisualizarRegistroComponent,
     ProcesoComponent,
     ListadoObservacionComponent,
+    CategoriasArticuloComponent,
+    AgregarCategoriaComponent,
+    ModificarCategoriaComponent,
+    ComentariosSolicitudComponent,
   ],
   imports: [
     CommonModule,

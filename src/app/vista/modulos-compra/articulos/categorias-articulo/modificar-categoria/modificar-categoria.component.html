@@ -1,29 +1,20 @@
-<h2 class="dato">Modificar Articulo</h2>
-<form [formGroup]="formArticulo">
+<h2 class="dato">Modificar Categoria</h2>
+<form [formGroup]="formCategoria">
   <div class="row1">
     <!-- Ingresar Nombre -->
     <div class="nombre2">
       <h2>Descripción</h2>
       <mat-form-field class="nombre" appearance="fill">
-      <mat-label>Modifique la descripción del articulo</mat-label>
+      <mat-label>Modifique la descripción de la categoria</mat-label>
       <input id="descripcion" formControlName="descripcion" matInput>
       </mat-form-field>
     </div>
     <div class="nombre2">
       <h2>Estado Articulo</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Modifique Estado del Articulo</mat-label>
+      <mat-label>Modifique Estado de la Categoria</mat-label>
       <select matNativeControl id="estado" name="estado" formControlName="estado">
         <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
-      </mat-form-field>
-    </div>
-    <div class="nombre2">
-      <h2>Categoria</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Modifique Categoria del Articulo</mat-label>
-      <select matNativeControl id="categoria" name="categoria" formControlName="categoria">
-        <option *ngFor="let item of listaCategorias"  value="{{item.id}}">{{item.descripcion}}</option>
       </select>
       </mat-form-field>
     </div>
@@ -31,7 +22,7 @@
   <div class="row">
     <!-- Boton de guardar datos -->
     <div class="guardar2">
-      <button mat-raised-button class="guardar" (click)="guardar()">Modificar Articulo</button>
+      <button mat-raised-button class="guardar" (click)="guardar()">Modificar Categoria</button>
     </div>
   </div>
 </form>

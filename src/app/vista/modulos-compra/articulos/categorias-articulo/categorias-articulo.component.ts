@@ -1,30 +1,30 @@
+import { CategoriaService } from './../../../../servicios/Categoria.service';
+import { ModificarCategoriaComponent } from './modificar-categoria/modificar-categoria.component';
+import { AgregarCategoriaComponent } from './agregar-categoria/agregar-categoria.component';
 import { EstadoService } from 'src/app/servicios/estado.service';
-import { ModificarArticulosComponent } from './modificar-articulos/modificar-articulos.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
 import { ArticuloService } from 'src/app/servicios/articulo.service';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 
-
 @Component({
-  selector: 'app-articulos',
-  templateUrl: './articulos.component.html',
-  styleUrls: ['./articulos.component.css']
+  selector: 'app-categorias-articulo',
+  templateUrl: './categorias-articulo.component.html',
+  styleUrls: ['./categorias-articulo.component.css']
 })
-export class ArticulosComponent implements OnInit {
+export class CategoriasArticuloComponent implements OnInit {
   public listaArticulos: any = [];
 
-  displayedColumns = ['id', 'descripcion','estado', 'categoria','opciones'];
+  displayedColumns = ['id', 'descripcion','estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
-    private servicioArticulo: ArticuloService,
+    private servicioCategoria: CategoriaService,
     private servicioEstado: EstadoService,
     public dialog: MatDialog
   ) { }
@@ -35,9 +35,9 @@ export class ArticulosComponent implements OnInit {
   }
 
   public listarTodos () {
-    this.servicioArticulo.listarTodos().subscribe( res =>{
+    this.servicioCategoria.listarTodos().subscribe( res =>{
       res.forEach(element => {
-        if(element.idEstado.id == 26){
+        if(element.idEstado.id == 49){
           this.listaArticulos.push(element)
         }
       });
@@ -48,13 +48,13 @@ export class ArticulosComponent implements OnInit {
   }
 
   abrirModal(): void {
-    const dialogRef = this.dialog.open(AgregarArticulosComponent, {
+    const dialogRef = this.dialog.open(AgregarCategoriaComponent, {
       width: '500px',
     });
   }
 
   modificarRol(id: number): void {
-    const dialogRef = this.dialog.open(ModificarArticulosComponent, {
+    const dialogRef = this.dialog.open(ModificarCategoriaComponent, {
       width: '500px',
       data: id
     });
@@ -79,11 +79,10 @@ export class ArticulosComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.servicioArticulo.eliminar(id).subscribe(res=>{
-          this.listarTodos();
+        this.servicioCategoria.eliminar(id).subscribe(res=>{
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Articulo.',
+            'Se elimino la categoria.',
             'success'
           )
         })
@@ -120,4 +119,5 @@ export class ArticulosComponent implements OnInit {
 
     XLSX.writeFile(book, this.name);
   }
+
 }

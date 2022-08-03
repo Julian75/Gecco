@@ -44,11 +44,11 @@
       <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="estado">
+      <ng-container matColumnDef="opciones">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="opc">Opciones</h3></th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btnremove me-2" (click)="formularioObservacion(element.idSolicitud.id)">
-            <mat-icon>cancel</mat-icon>
+          <button *ngIf="element.idEstado.id==28" class="btn formulario me-2" (click)="formularioObservacion(element)">
+            <mat-icon>contact_support</mat-icon>
           </button>
         </td>
       </ng-container>

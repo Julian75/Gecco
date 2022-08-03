@@ -1,3 +1,5 @@
+import { AsignarTurnoVendedor2 } from './../../../../modelos/asignarTurnoVendedor2';
+import { ModificarService } from './../../../../servicios/modificar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SolicitudEliminarTurnoVendedorComponent } from './../solicitud-eliminar-turno-vendedor/solicitud-eliminar-turno-vendedor.component';
 import { UsuariosVendedores } from 'src/app/modelos/modelosSiga/usuariosVendedores';
@@ -75,6 +77,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private servicioAsignarTurno : AsignarTurnoService,
+    private servicioAsignarTurno2: ModificarService,
     private servicioEstado : EstadoService,
     private servicioOficina : OficinasService,
     private servicioTurnos : TurnosService,
@@ -567,7 +570,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           }
         });
         if(this.acceso == 21){
-          let asignarTurno : AsignarTurnoVendedor = new AsignarTurnoVendedor();
+          let asignarTurno : AsignarTurnoVendedor2 = new AsignarTurnoVendedor2();
           const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
               confirmButton: 'btn btn-success',
@@ -592,7 +595,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                 asignarTurno.fechaInicio = res.fechaInicio
                 asignarTurno.idOficina = res.idOficina
                 asignarTurno.idSitioVenta = res.idSitioVenta
-                asignarTurno.idTurno = res.idTurno
+                asignarTurno.idTurno = res.idTurno.id
                 asignarTurno.idVendedor = res.idVendedor
                 asignarTurno.ideSubzona = res.ideSubzona
                 asignarTurno.nombreOficina = res.nombreOficina
@@ -628,8 +631,8 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     })
   }
 
-  public modificarAsignarTurnoVendedor(asignarTurnoVendedor:AsignarTurnoVendedor){
-    this.servicioAsigarTurnoVendedor.actualizar(asignarTurnoVendedor).subscribe(res => {
+  public modificarAsignarTurnoVendedor(asignarTurnoVendedor:AsignarTurnoVendedor2){
+    this.servicioAsignarTurno2.actualizarAsignarTurnoVendedor(asignarTurnoVendedor).subscribe(res => {
 
     })
   }

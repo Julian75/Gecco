@@ -1,0 +1,147 @@
+h2{
+  margin: 0;
+}
+.container{
+  width: 80%;
+  background-color: white;
+  margin-left: 10%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+  margin-top: 10%;
+  box-shadow: 1px 2px 10px #959595;
+}
+.nombre, .estado{
+  width: 250px;
+}
+.nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
+.estado2{ width: 300px; }
+.guardar{
+  background-color: #00235C ;
+  color: white;
+  width: 190px;
+  height: 40px;
+  font-size: large;
+  margin-left: 58%;
+}
+
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  h2{
+    font-size: 1.4em;
+  }
+  mat-form-field{
+    margin-top: 5%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 172px;
+    height: 40px;
+    font-size: large;
+    margin-left: 4%;
+  }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  h2{
+    font-size: 1.4em;
+  }
+  mat-form-field{
+    margin-top: 5%;
+  }
+  .nombre, .estado{
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 171px;
+    height: 40px;
+    font-size: large;
+    margin-left: 6%;
+  }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  h2{
+    font-size: 1.4em;
+  }
+  mat-form-field{
+    margin-top: 5%;
+  }
+  .nombre, .estado{
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 171px;
+    height: 40px;
+    font-size: large;
+    margin-left: 5%;
+
+  }
+}
+
+/* Tablet pequeña - iPad Mini*/
+@media screen and (min-width: 721px) and (max-width: 768px){
+  h2{
+    font-size: 1.4em;
+  }
+  mat-form-field{
+    margin-top: 5%;
+  }
+  .nombre, .estado{
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 171px;
+    height: 40px;
+    font-size: large;
+    margin-left: 5%;
+  }
+}
+
+/* Tablet medio - iPad Air*/
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  h2{
+    font-size: 1.4em;
+  }
+  mat-form-field{
+    margin-top: 5%;
+  }
+  .nombre, .estado{
+    margin-left: 0%;
+    margin-top: 0%;
+  }
+  .guardar{
+    background-color: #00235C;
+    color: white;
+    width: 171px;
+    height: 40px;
+    font-size: large;
+    margin-left: 5%;
+  }
+}

@@ -1,3 +1,4 @@
+import { CategoriaService } from './../../../../servicios/Categoria.service';
 import { Articulo } from '../../../../modelos/articulo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -19,12 +20,15 @@ export class ModificarArticulosComponent implements OnInit {
   public listaArticulo : any = [];
   public listarEstado : any = [];
   public estadosDisponibles : any = [];
+  public categoriasDisponibles : any = [];
+  public listaCategorias : any = [];
   public listaEstados: any = [];
   color = ('primary');
 
   constructor(
     private servicioArticulo: ArticuloService,
     private servicioEstado: EstadoService,
+    private servicioCategoria: CategoriaService,
     public dialogRef: MatDialogRef<ModificarArticulosComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -36,6 +40,7 @@ export class ModificarArticulosComponent implements OnInit {
     this.crearFormulario();
     this.listarporidArticulo();
     this.listaEstado();
+    this.listarCategorias();
   }
 
   private crearFormulario() {
@@ -43,6 +48,18 @@ export class ModificarArticulosComponent implements OnInit {
       id: [''],
       descripcion: [null,Validators.required],
       estado: [null,Validators.required],
+      categoria: [null,Validators.required],
+    });
+  }
+
+  public listarCategorias() {
+    this.servicioCategoria.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if(element.idEstado.id == 49){
+          this.categoriasDisponibles.push(element)
+        }
+      });
+      this.listaCategorias = this.categoriasDisponibles
     });
   }
 
@@ -64,6 +81,7 @@ export class ModificarArticulosComponent implements OnInit {
       this.formArticulo.controls['id'].setValue(this.listaArticulo.id);
       this.formArticulo.controls['descripcion'].setValue(this.listaArticulo.descripcion);
       this.formArticulo.controls['estado'].setValue(this.listaArticulo.idEstado.id);
+      this.formArticulo.controls['categoria'].setValue(this.listaArticulo.idCategoria.id);
     })
   }
 
@@ -74,26 +92,31 @@ export class ModificarArticulosComponent implements OnInit {
     const idEstado = this.formArticulo.controls['estado'].value;
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
       articulo.idEstado = res
-      if(articulo.descripcion==null || articulo.descripcion=="" || articulo.idEstado==null){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        this.actualizarArticulo(articulo);
-      }
+      const idCategoria= this.formArticulo.controls['categoria'].value;
+      this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
+        articulo.idCategoria = resCategoria
+        if(articulo.descripcion==null || articulo.descripcion=="" || articulo.idEstado==null){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'El campo esta vacio!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else{
+          this.actualizarArticulo(articulo);
+        }
+      })
     })
   }
 
   public actualizarArticulo(articulo: Articulo) {
+    console.log(articulo)
     this.servicioArticulo.actualizar(articulo).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Rol modificado!',
+        title: 'Articulo modificado!',
         showConfirmButton: false,
         timer: 1500
       })

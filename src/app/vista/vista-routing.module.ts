@@ -1,3 +1,5 @@
+import { ComentariosSolicitudComponent } from './modulos-compra/comentarios-solicitud/comentarios-solicitud.component';
+import { CategoriasArticuloComponent } from './modulos-compra/articulos/categorias-articulo/categorias-articulo.component';
 import { ModificarRolComponent } from './modulos-administracion/rol/modificar-rol/modificar-rol.component';
 import { RolComponent } from './modulos-administracion/rol/rol.component';
 import { UsuariosComponent } from './modulos-administracion/usuarios/usuarios.component';
@@ -265,6 +267,11 @@ const routes: Routes = [
         canActivate: [AutorizacionGuard]
       },
       {
+        path: 'categoria',
+        component: CategoriasArticuloComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
         path: 'generarSolicitud',
         component: GenerarSolicitudComponent,
         canActivate: [AutorizacionGuard]
@@ -272,6 +279,11 @@ const routes: Routes = [
       {
         path: 'solicitudesRealizadas',
         component: SolicitudesRealizadasComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'comentariosSolicitud',
+        component: ComentariosSolicitudComponent,
         canActivate: [AutorizacionGuard]
       },
       // Proveedores

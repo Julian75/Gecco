@@ -5,9 +5,18 @@
     <div class="nombre2">
       <h2>Comentario</h2>
       <mat-radio-group aria-label="Seleccione una opción">
-        <mat-radio-button value="1">Si</mat-radio-button>
-        <mat-radio-button value="2">No</mat-radio-button>
+        <mat-radio-button (change)="capturarOpcion(1)" value="1">Si</mat-radio-button>
+        <mat-radio-button (change)="capturarOpcion(2)" value="2">No</mat-radio-button>
       </mat-radio-group>
+    </div>
+    <div class="nombre2" *ngIf="aprobar==true">
+      <h2>Usuarios</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Seleccione el usuario</mat-label>
+      <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+        <option *ngFor="let item of listarUsuarios"  value="{{item.idUsuario.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}}</option>
+      </select>
+      </mat-form-field>
     </div>
   </div>
   <div class="row">

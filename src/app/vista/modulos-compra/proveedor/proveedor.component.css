@@ -11,7 +11,9 @@
     height: 100%;
     border: 1px solid #000;
   }
-
+  #nomSp{left: 26px; position: relative; }
+  #obSp {left: 24px; position: relative; }
+  #estaSp {left: 15px; position: relative; }
   h3{
     text-align: center;
     margin-top: 10px;
@@ -56,8 +58,8 @@
   .botonagregar mat-icon{ font-size: 24px; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
   #idSp{ left: 15px; }
-  #desSp{ left: 20px; }
-  #estSp{ left: 23px; }
+  #desSp{ left: 22px; }
+  #estSp{ left: 24px; }
   #jerSp{ left: 70px; }
   #opcSp{ padding-right: 0%; }
   .excelButton{ margin-left: -1%;  }
@@ -81,6 +83,9 @@
       margin-top: 8%;
       margin-bottom: 8%;
     }
+    #estaSp{left: 8px; position: relative;}
+    #obSp{left: 8px; position: relative; }
+    #nomSp { left: 8px; position: relative; }
     .btnver{ left: 1%; }
     .excelButton{ margin-left: -5%; }
     .botonagregar, .excelButton{
@@ -112,6 +117,9 @@
     .botonagregar, .excelButton{ width: 38px; height: 30px; }
     .botonagregar mat-icon{ font-size: 18px; }
     .excelButton{ margin-left: -5%; }
+    #estaSp{left: 8px; position: relative;}
+    #obSp{left: 8px; position: relative; }
+    #nomSp { left: 8px; position: relative; }
     .btnremove, .btnedit, .btnver{
       width: 27px !important;
       height: 26px;
@@ -145,6 +153,9 @@
       margin-left: 3%;
       font-size: 19px;
     }
+    #estaSp{left: 8px; position: relative;}
+    #obSp{left: 8px; position: relative; }
+    #nomSp { left: 8px; position: relative; }
     td{ font-size: 16px;}
     .btnedit{
       position: relative;
@@ -185,6 +196,9 @@
       left: 6%;
       margin-bottom: 18%;
     }
+    #estaSp{left: 10px; position: relative;}
+    #obSp{left: 10px; position: relative; }
+    #nomSp { left: 10px; position: relative; }
     #idSp{ left: 10px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 9px; }
@@ -209,6 +223,9 @@
       left: 6%;
       margin-bottom: 18%;
     }
+    #estaSp{left: 10px; position: relative;}
+    #obSp{left: 10px; position: relative; }
+    #nomSp { left: 10px; position: relative; }
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 9px; }
@@ -261,17 +278,4 @@
       margin-bottom: 8%;
       margin-left: 2%;
     }
-  }
-
-  /* Portatil Grande */
-  @media screen and (min-width: 1441px) {
-    td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 22%; margin-left: 77%; }
-    #idSp{ margin-left: -22%; }
-    #idSp2{ padding-left: 0%; }
-    #desSp{ margin-left: -7%; }
-    #estSp{ left: 14%; }
-    #jerSp{ left: 60%; }
-    #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
   }

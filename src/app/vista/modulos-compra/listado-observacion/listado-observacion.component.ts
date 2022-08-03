@@ -17,12 +17,13 @@ export class ListadoObservacionComponent implements OnInit {
   public idSolicitud: any;
   public estadoSolicitud: any;
   public listarDetalle: any = [];
-  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado'];
+  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     public dialogRef: MatDialogRef<VisualizarDetalleSolicitudComponent>,
+    public dialogRef2: MatDialogRef<ListadoObservacionComponent>,
     private servicelistaSolicitud: SolicitudService,
     private serviceDetalleSolicitud: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -35,7 +36,8 @@ export class ListadoObservacionComponent implements OnInit {
 
   public listarDetalleSolicitud() {
     this.idSolicitud = this.data;
-    this.servicelistaSolicitud.listarPorId(this.idSolicitud).subscribe( res => {
+    console.log(this.idSolicitud)
+    this.servicelistaSolicitud.listarPorId(this.idSolicitud.id).subscribe( res => {
       this.estadoSolicitud = res.idEstado.id
       this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
         resDetalle.forEach(element => {
@@ -71,10 +73,11 @@ export class ListadoObservacionComponent implements OnInit {
     // XLSX.writeFile(book, this.name);
   }
 
-  public formularioObservacion(idSolicitud: number){
+  public formularioObservacion(idDetalleSolicitud: number){
+    this.dialogRef2.close();
     const dialogRef = this.dialog.open(ProcesoComponent, {
       width: '400px',
-      data: {id:idSolicitud}
+      data: idDetalleSolicitud
     });
   }
 

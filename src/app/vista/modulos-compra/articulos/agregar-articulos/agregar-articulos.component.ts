@@ -1,3 +1,4 @@
+import { CategoriaService } from './../../../../servicios/Categoria.service';
 import { Articulo } from './../../../../modelos/articulo';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EstadoService } from 'src/app/servicios/estado.service';
@@ -16,25 +17,41 @@ export class AgregarArticulosComponent implements OnInit {
   public listarEstado: any = [];
   public listarExiste: any = [];
   public estadosDisponibles:any = [];
+  public categoriasDisponibles:any = [];
+  public listaCategorias:any = [];
   color = ('primary');
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AgregarArticulosComponent>,
     private servicioArticulos: ArticuloService,
-    private servicioEstado : EstadoService
+    private servicioEstado : EstadoService,
+    private servicioCategoria : CategoriaService
   ) { }
 
 
   ngOnInit(): void {
     this.crearFormulario();
     this.listarEstados();
+    this.listarCategorias();
   }
 
   private crearFormulario() {
     this.formArticulo = this.fb.group({
       id: 0,
       descripcion: [null,Validators.required],
-      estado: [null,Validators.required]
+      estado: [null,Validators.required],
+      categoria: [null,Validators.required]
+    });
+  }
+
+  public listarCategorias() {
+    this.servicioCategoria.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if(element.idEstado.id == 49){
+          this.categoriasDisponibles.push(element)
+        }
+      });
+      this.listaCategorias = this.categoriasDisponibles
     });
   }
 
@@ -56,6 +73,7 @@ export class AgregarArticulosComponent implements OnInit {
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
     const idEstado = this.formArticulo.controls['estado'].value;
+    const idCategoria = this.formArticulo.controls['categoria'].value;
 
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
       articulo.idEstado = res
@@ -68,27 +86,30 @@ export class AgregarArticulosComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
-          resArticulos.forEach(element => {
-            if(element.descripcion == articulo.descripcion){
-              this.aprobar = true
+        this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria=>{
+          articulo.idCategoria = resCategoria
+          this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
+            resArticulos.forEach(element => {
+              if(element.descripcion == articulo.descripcion){
+                this.aprobar = true
+              }else{
+                this.aprobar = false
+              }
+              this.listarExiste.push(this.aprobar);
+            });
+            const existe = this.listarExiste.includes( true );
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Ese articulo ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              })
             }else{
-              this.aprobar = false
+              this.registrarArticulo(articulo);
             }
-            this.listarExiste.push(this.aprobar);
-          });
-          const existe = this.listarExiste.includes( true );
-          if(existe == true){
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Ese articulo ya existe!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }else{
-            this.registrarArticulo(articulo);
-          }
+          })
         })
       }
     })

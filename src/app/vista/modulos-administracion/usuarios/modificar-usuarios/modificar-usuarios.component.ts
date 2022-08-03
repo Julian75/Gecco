@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Usuario } from 'src/app/modelos/usuario';
+import { Usuario2 } from 'src/app/modelos/usuario2';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { RolService } from 'src/app/servicios/rol.service';
 import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
@@ -10,6 +11,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
 import * as CryptoJS from 'crypto-js';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-modificar-usuarios',
@@ -36,9 +38,10 @@ export class ModificarUsuariosComponent implements OnInit {
   constructor(
     private servicioUsuario: UsuarioService,
     private servicioEstado: EstadoService,
+    private servicioModificar: ModificarService,
     private servicioTipoDocumento: TipoDocumentoService,
     private servicioRoles: RolService,
-    private servicioOficinas : OficinasService,
+    private servicioOficinas: OficinasService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -130,7 +133,7 @@ export class ModificarUsuariosComponent implements OnInit {
   }
 
   public guardar() {
-    let usuario : Usuario = new Usuario();
+    let usuario : Usuario2 = new Usuario2();
     this.route.paramMap.subscribe((params: ParamMap) => {
       usuario.id = Number(params.get('id'));
       this.servicioUsuario.listarPorId(usuario.id).subscribe(res=>{
@@ -139,10 +142,10 @@ export class ModificarUsuariosComponent implements OnInit {
         usuario.apellido = res.apellido
         usuario.correo = res.correo
         usuario.documento = res.documento
-        usuario.idEstado = res.idEstado
-        usuario.idRol = res.idRol
+        usuario.idEstado = res.idEstado.id
+        usuario.idRol = res.idRol.id
         usuario.password = res.password
-        usuario.idTipoDocumento = res.idTipoDocumento
+        usuario.idTipoDocumento = res.idTipoDocumento.id
         usuario.ideOficina = res.ideOficina
         usuario.ideSubzona = res.ideSubzona
         this.servicioUsuario.listarTodos().subscribe(res=>{
@@ -190,17 +193,17 @@ export class ModificarUsuariosComponent implements OnInit {
             const idEstado = this.formUsuario.controls['estado'].value;
             this.servicioEstado.listarPorId(idEstado).subscribe(res => {
               this.listaEstados = res;
-              usuario.idEstado= res
+              usuario.idEstado= res.id
               const idRol = this.formUsuario.controls['rol'].value;
               console.log("hola")
               this.servicioRoles.listarPorId(idRol).subscribe(res => {
                 this.listaRoles = res;
-                usuario.idRol= res
+                usuario.idRol= res.id
                 console.log("hola3")
                 const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
                 this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
                   this.listaTipoDocumentos = res;
-                  usuario.idTipoDocumento = res
+                  usuario.idTipoDocumento = res.id
                   console.log("hola4")
                   const ideOficina = this.formUsuario.controls['oficina'].value;
                   this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
@@ -241,8 +244,8 @@ export class ModificarUsuariosComponent implements OnInit {
     })
   }
 
-  public actualizarUsuario(usuario: Usuario) {
-    this.servicioUsuario.actualizar(usuario).subscribe(res => {
+  public actualizarUsuario(usuario: Usuario2) {
+    this.servicioModificar.actualizarUsuario(usuario).subscribe(res => {
       console.log(res)
       Swal.fire({
         position: 'center',
@@ -256,11 +259,12 @@ export class ModificarUsuariosComponent implements OnInit {
       console.log(error)
       Swal.fire({
         position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al modificar!',
+        icon: 'success',
+        title: 'Usuario modificado!',
         showConfirmButton: false,
         timer: 1500
       })
+      this.router.navigate(['/usuarios']);
     });
  }
 
