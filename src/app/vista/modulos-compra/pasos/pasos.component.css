@@ -7,10 +7,10 @@ mat-card{
     justify-content: center;
     top: 11%;
     left: 5%;
-    color: #575757;
+    color: black;
 }
 a{ text-decoration: none}
-mat-icon{ color: #575757;
+mat-icon{ color: black;
     left: 36px;
     top: 55px;
     font-size: 25px;
@@ -23,30 +23,33 @@ div{
 
 h2{
     font-weight: 700px;
-    font-size: 18px;
+    font-size: 14px;
     position: absolute;
     top: 17px;
 }
 
+#card1{ left: 38%; top: -67px; }
+#card0{ left: 5%; top: 9%;}
+
 #card2{
-    left: 38%;
-    top: -58px;
+    left: 71%;
+    top: -167px;
 }
 
 #card3{
-    left: 71%;
-    top: -161px;
+    left: 5%;
+    top: -107px;
 }
 
 #card4{
-    top: -283px;
     position: relative;
-    margin-top: 209px;
+    left: 38%;
+    top: -54%
 }
 
 #card5{
-    left: 38%;
-    top: -382px;
+    left: 72%;
+    top: -303px;
 }
 
 /* Movil pequeño - Galaxy Fold*/
@@ -54,15 +57,40 @@ h2{
     mat-card{
         width: 70px;
         height: 70px;
-        top: 11%;
+        top: 6%;
         left: 2%;
     }
-    h2{
-        font-size: 18px;
-        top: 15px;
+    #card0{ left: 4%; top: 6%; }
+    #card1{ left: 58%; top: -51px; }
+    h2{ font-size: 18px; top: 15px; }
+    #card2{ left: 2%; top: -2px; }
+    #card3{ left: 60%; top: -71px; }
+    #card5{ left: 60%; top: -95px; }
+    mat-icon{ font-size: 23px; top: 35px; left: 25px; }
+}
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+    mat-card{
+        width: 85px;
+        height: 85px;
+        top: 3%;
+        left: 4%;
     }
-    #card2{
-        left: 55%;
-        top: -29px;
+    h2{ font-size: 14px; top: 9px; }
+    #card2{ left: 58%; top: -74px; }
+    #card3{ left: 58%; top: -34px; }
+    #card4{ top: -327px; }
+    #card5{ left: 29%; top: -286px; }
+    mat-icon{ font-size: 23px; top: 43px; left: 28px; }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+    mat-card{
+        left: 3%;
     }
+    #card3{ left: 72%; top: -156px; }
+    #card4{ top: -298px; }
+    #card5{ left: 38%; top: -399px; }
+    #card2{ top: -57px; }
 }

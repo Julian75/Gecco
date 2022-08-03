@@ -55,12 +55,12 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .btnedit2, .botonvolver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 30px; }
-#desSp{ left: 90px; }
-#estSp{ left: 60px; }
+#idSp{ left: 25px; }
+#desSp{ left: 41px; }
+#estSp{ left: 50px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
-.excelButton{ margin-left: -1%;  }
+.excelButton{ margin-left: -2%;  }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #idSp2{ padding-left: 0%; }
 
@@ -81,6 +81,8 @@ mat-form-field{
     margin-top: 8%;
     margin-bottom: 8%;
   }
+  .botonvolver{ width: 38px; height: 30px; top: 7px; position: relative; left: 2px;}
+  mat-icon{ font-size: 18px; margin-left: -5px; margin-top: -1px;}
   .btnver{ left: 1%; }
   .excelButton{ margin-left: -5%; }
   .excelButton{
@@ -107,9 +109,12 @@ mat-form-field{
     font-size: 13px;
   }
   td{ font-size: 12px;}
-  .botonagregar, .excelButton{ width: 38px; height: 30px; }
+  .botonagregar, .excelButton, .botonvolver{ width: 38px; height: 30px; }
+  mat-icon{font-size: 18px;
+    margin-left: -5px;
+    margin-top: -1px;}
   .botonagregar mat-icon{ font-size: 18px; }
-  .excelButton{ margin-left: -7%; }
+  .excelButton{ margin-left: -11%; }
   .btnremove, .btnedit, .btnver, .boton{
     width: 27px !important;
     height: 26px;
@@ -131,10 +136,10 @@ mat-form-field{
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  #idSp{ left: 11px; }
+  #idSp{ left: 8px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 13px; }
-  #estSp{ left: 15px; }
+  #desSp{ left: 8px; }
+  #estSp{ left: 7px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
@@ -151,28 +156,37 @@ mat-form-field{
     width: 40px !important;
     height: 30px;
   }
-  .btnedit{ position: relative; left: 3%; }
-  .btnremove{ position: relative; right: 3%; }
+  .btnedit{ position: relative;
+    left: 5%;
+    top: 5px; }
+  .btnremove{
+    position: relative;
+    right: -5%;
+    margin-top: 16px;
+    margin-bottom: 7px; }
+
+  #opcSp{    padding-right: 0%;
+    right: 4px;}
   .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
-  #idSp{ left: 12px; }
+  #idSp{ left: 8px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 14px; }
-  #estSp{ left: 21px; }
+  #desSp{ left: 7px; }
+  #estSp{ left: 6px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
-  .excelButton{ font-size: 16px; top: -3px; margin-left: -24px;}
+  .excelButton{ font-size: 16px; top: 0px; margin-left: -24px;}
 }
 
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 22px; }
+  #idSp{ left: 12px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 37px; }
-  #estSp{ left: 36px; }
+  #desSp{ left: 22px; }
+  #estSp{ left: 18px; }
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -183,10 +197,10 @@ mat-form-field{
 @media screen and (min-width: 769px) and (max-width: 1023px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 17px; }
+  #idSp{ left: 14px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 26px; }
-  #estSp{ left: 30px; }
+  #desSp{ left: 24px; }
+  #estSp{ left: 20px; }
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -197,10 +211,10 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ margin-left: 50%; }
+  #idSp{ margin-left: -3%; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 56px; }
-  #estSp{ left: 50%; }
+  #desSp{ left: 53px; }
+  #estSp{ left: 70%; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -210,26 +224,14 @@ mat-form-field{
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{  left: 40px; }
+  #idSp{  left: 26px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 70px; }
-  #estSp{ left: 80px; }
+  #desSp{ left: 53px; }
+  #estSp{ left: 50px; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
     .excelButton{ margin-left: -24px; }
 }
-/* Portatil Grande */
-@media screen and (min-width: 1441px) {
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 50px; }
-  #idSp2{ padding-left: 0%; }
-  #desSp{ left: 84px; }
-  #estSp{ left: 104px; }
-  #jerSp{ left: 60%; }
-  #opcSp2{ padding-right: 0%; }
-  .excelButton i{ top: 2px; }
-    .excelButton{ margin-left: -24px; }
-}
+
 

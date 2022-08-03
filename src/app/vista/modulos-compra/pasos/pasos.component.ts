@@ -1,3 +1,6 @@
+import { ListadoObservacionComponent } from './../listado-observacion/listado-observacion.component';
+import { ProcesoComponent } from './../proceso/proceso.component';
+import { VisualizarDetalleSolicitudComponent } from './../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 import { ModificarOrdenCompraComponent } from './../orden-compra/modificar-orden-compra/modificar-orden-compra.component';
@@ -54,62 +57,72 @@ export class PasosComponent implements OnInit {
     }
     this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
       if(res.idEstado.id == 28){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #009AE4;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #009AE4;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if (res.idEstado.id == 29) {
-        document.getElementById("card1")?.setAttribute("style", "background-color: green;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #009AE4;")
         document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if (res.idEstado.id == 30) {
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #FF5555;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if(res.idEstado.id == 36){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card2")?.setAttribute("style", "background-color: #0AC590;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card3")?.setAttribute("style", "background-color: #009AE4;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if(res.idEstado.id == 35){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card2")?.setAttribute("style", "background-color: #0AC590;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card3")?.setAttribute("style", "background-color: #FF5555;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if(res.idEstado.id == 34){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card2")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card3")?.setAttribute("style", "background-color: #0AC590;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #009AE4;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if(res.idEstado.id == 37){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card2")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card3")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card4")?.setAttribute("style", "background-color: #0AC590;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #009AE4;")
       }else if(res.idEstado.id == 47){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card2")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card3")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card4")?.setAttribute("style", "background-color: #0AC590;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #FF5555;")
       }
       else if(res.idEstado.id == 46){
-        document.getElementById("card1")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card2")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card3")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card4")?.setAttribute("style", "background-color: #0AC590;")
-        document.getElementById("card5")?.setAttribute("style", "background-color: #0AC590;")
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card5")?.setAttribute("style", "background-color: #AEEA00;")
       }
       else{
+        document.getElementById("card0")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
@@ -119,7 +132,7 @@ export class PasosComponent implements OnInit {
     })
   }
 
-  public solicitudes(){
+  public solicitudes0(){
     this.listarExiste = []
     for (const [key, value] of Object.entries(this.data)) {
       this.lista.push(value)
@@ -141,19 +154,10 @@ export class PasosComponent implements OnInit {
           if(existe == true){
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
               if(res.idEstado.id == 28){
-                const dialogRef = this.dialog.open(SolicitudesComponent, {
+                const dialogRef = this.dialog.open(ListadoObservacionComponent, {
                   width: '1000px',
-                  height: '430px',
-                  data: this.lista[0]
+                  data: {id:this.lista[0]}
                 });
-              }else if(res.idEstado.id == 30){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'warning',
-                  title: 'Aún no se ha modificado la solicitud!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
               }
             })
           }else if(existe == false){
@@ -162,22 +166,77 @@ export class PasosComponent implements OnInit {
                 Swal.fire({
                   position: 'center',
                   icon: 'warning',
-                  title: 'Aún no se ha validado la solicitud!',
+                  title: 'Aún no ha dicidido si desea una opinión.!',
                   showConfirmButton: false,
                   timer: 1500
                 })
-              }if(res.idEstado.id == 30){
-                const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
-                  width: '2500px',
-                  height: '700px',
-                  data: this.lista[0]
-                });
               }
             })
           }
         })
       })
     })
+  }
+
+  public solicitudes(){
+    // this.listarExiste = []
+    // for (const [key, value] of Object.entries(this.data)) {
+    //   this.lista.push(value)
+    // }
+    // this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+    //   this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
+    //     this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
+    //       for (let index = 0; index < resAccesos.length; index++) {
+    //         const element = resAccesos[index];
+    //         if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id  ){
+    //           this.habilitar = true
+    //         }else if(resSolicitud.idUsuario.id == resUsuario.id){
+    //           this.habilitar = false
+    //         }
+    //         this.listarExiste.push(this.habilitar)
+    //       }
+    //       console.log(this.listarExiste)
+    //       const existe = this.listarExiste.includes( true )
+    //       if(existe == true){
+    //         this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+    //           if(res.idEstado.id == 28){
+    //             const dialogRef = this.dialog.open(SolicitudesComponent, {
+    //               width: '1000px',
+    //               height: '430px',
+    //               data: this.lista[0]
+    //             });
+    //           }else if(res.idEstado.id == 30){
+    //             Swal.fire({
+    //               position: 'center',
+    //               icon: 'warning',
+    //               title: 'Aún no se ha modificado la solicitud!',
+    //               showConfirmButton: false,
+    //               timer: 1500
+    //             })
+    //           }
+    //         })
+    //       }else if(existe == false){
+    //         this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+    //           if(res.idEstado.id == 28){
+    //             Swal.fire({
+    //               position: 'center',
+    //               icon: 'warning',
+    //               title: 'Aún no se ha validado la solicitud!',
+    //               showConfirmButton: false,
+    //               timer: 1500
+    //             })
+    //           }if(res.idEstado.id == 30){
+    //             const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
+    //               width: '2500px',
+    //               height: '700px',
+    //               data: this.lista[0]
+    //             });
+    //           }
+    //         })
+    //       }
+    //     })
+    //   })
+    // })
   }
 
   public solicitudes2(){

@@ -15,11 +15,11 @@ export class RaspasDTOService {
      )
    { }
 
-  public listarTodos(fecha:string){
-    return this.http.get<RaspasDTO[]>(this.path+'/Obtener?fecActual='+fecha);
+  public listarTodos(fechaInicial:string, fecha:string){
+    return this.http.get<RaspasDTO[]>(this.path+'/Obtener?fecInicio='+fechaInicial+'&fecActual='+fecha);
   }
 
-  public listarPorId(fecha:string, id: string){
-    return this.http.get<RaspasDTO[]>(this.path+'/Obtener?fecActual='+fecha+'&raspa='+id);
+  public listarPorId(fechaInicial:string, fecha:string, id: string){
+    return this.http.get<RaspasDTO[]>(this.path+'/Obtener?fecInicio='+fechaInicial+'&fecActual='+fecha+'&raspa='+id);
   }
 }

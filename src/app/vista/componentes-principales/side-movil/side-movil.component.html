@@ -51,5 +51,31 @@
       <button mat-raised-button id="1818" routerLink="/reportesVisitaDetalle" style="display: none;">Generar Reporte Visita</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Compra
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="2222" routerLink="/articulos" style="display: none;">Articulos</button>
+      <button mat-raised-button id="2626" routerLink="/proveedores" style="display: none;" >Proveedores</button>
+      <button mat-raised-button id="2929" routerLink="/solicitudesRealizadas" style="display: none;" >Solicitudes Realizadas</button>
+      <button mat-raised-button  id="3030" routerLink="/generarSolicitud" style="display: none;" >Generar Solicitud</button>
+      <button mat-raised-button  id="2323" routerLink="/solicitud" style="display: none;">Lista de Solicitudes</button>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel style="display: none;" id="Raspa2" (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Raspa
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="2828" [routerLink]="['/raspalisto']" style="display: none;">Visado Premio</button>
+    </div>
+  </mat-expansion-panel>
   </mat-drawer>
 </mat-drawer-container>

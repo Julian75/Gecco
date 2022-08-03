@@ -18,6 +18,7 @@ import { SigaRaspasService } from 'src/app/servicios/sigaRaspas.service';
 export class RaspaListoComponent implements OnInit {
   public formRaspita!: FormGroup;
   public listarExisteGecco: any = [];
+  public listaCompleta: any = [];
   public listarExisteSiga: any = [];
   public listaRaspasSiga: any = [];
   public listaSiga: any = [];
@@ -45,6 +46,8 @@ export class RaspaListoComponent implements OnInit {
     this.formRaspita = this.fb.group({
       id: 0,
       raspita: [null,Validators.required],
+      fechaInicio: [null,Validators.required],
+      fechaFinal: [null,Validators.required],
     });
   }
 
@@ -55,13 +58,22 @@ export class RaspaListoComponent implements OnInit {
       var fechaActual = ""
       const codRaspa = this.formRaspita.controls['raspita'].value;
       if(this.fecha.getMonth()+1<=9){
-        fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+this.fecha.getDate()
+        if(this.fecha.getDate() <= 9){
+          fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+("0"+this.fecha.getDate())
+        }else{
+          fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+this.fecha.getDate()
+        }
       }else{
-        fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+this.fecha.getDate()
+        if(this.fecha.getDate() <= 9){
+          fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+("0"+this.fecha.getDate())
+        }else{
+          fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+this.fecha.getDate()
+        }
       }
+      var fechaInicio = '20220701'
       this.existeRaspaSiga = false
       this.existeRaspaGecco = false
-      this.servicioRaspasDTO.listarPorId(fechaActual, codRaspa).subscribe(resRaspaDTo=>{
+      this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
         if(resRaspaDTo.length<1){
           Swal.fire({
             position: 'center',
@@ -74,7 +86,7 @@ export class RaspaListoComponent implements OnInit {
           this.servicioRaspaGeccoConsulta.listarRaspaGeco(codRaspa).subscribe(resRaspaGecco=>{
             console.log(resRaspaGecco)
             if(resRaspaGecco.length<1){
-              this.servicioRaspasDTO.listarPorId(fechaActual, codRaspa).subscribe(resRaspaDTo=>{
+              this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
                 console.log(resRaspaDTo)
                 resRaspaDTo.forEach(element => {
                   let raspita : Raspas = new Raspas();
@@ -147,7 +159,7 @@ export class RaspaListoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Se ha resgitrado el raspita!',
+        title: 'Se ha registrado el raspita!',
         showConfirmButton: false,
         timer: 1500
       })
@@ -167,22 +179,86 @@ export class RaspaListoComponent implements OnInit {
   num:any
   public reporte() {
     this.lista=[]
-    var fechaActual = ""
-    if(this.fecha.getMonth()+1<=9){
-      fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+this.fecha.getDate()
-    }else{
-      fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+this.fecha.getDate()
+    // var fechaActual = ""
+    const fechaI = new Date(this.formRaspita.controls['fechaInicio'].value);
+    const fechaF = new Date(this.formRaspita.controls['fechaFinal'].value);
+    fechaI.setDate(fechaI.getDate()+1)
+    fechaF.setDate(fechaF.getDate()+1)
+    var fechaInicio = fechaI.getFullYear()+""+(fechaI.getMonth()+1)+""+fechaI.getDate()
+    var fechaFinal = fechaF.getFullYear()+""+(fechaF.getMonth()+1)+""+fechaF.getDate()
+    if(fechaI.getMonth()<=9 ){
+      if(fechaI.getDate()<=9){
+        fechaInicio = fechaI.getFullYear()+""+("0"+(fechaI.getMonth()+1))+""+("0"+fechaI.getDate())
+      }else{
+        fechaInicio = fechaI.getFullYear()+""+("0"+(fechaI.getMonth()+1))+""+fechaI.getDate()
+      }
     }
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    this.servicioRaspasDTO.listarTodos(fechaActual).subscribe(resRaspaSiga=>{
-        this.listaRaspasSiga = resRaspaSiga
-        this.servicioSigaRaspaGecco.registrar(this.listaRaspasSiga).subscribe(resRaspaSigaGecco=>{
-          this.servicioRaspaGeccoConsulta.listarRaspaConsultaNoGecco().subscribe(resListaNoSiga=>{
-            this.lista = resListaNoSiga
-            this.exportToExcel(this.lista);
-          })
+    if(fechaF.getMonth()<=9){
+      if(fechaF.getDate()<=9){
+        fechaFinal = fechaF.getFullYear()+""+("0"+(fechaF.getMonth()+1))+""+("0"+fechaF.getDate())
+      }else{
+        fechaFinal = fechaF.getFullYear()+""+("0"+(fechaF.getMonth()+1))+""+fechaF.getDate()
+      }
+    }
+    console.log(fechaI.getFullYear())
+    if(fechaI.getFullYear() == 1970 || fechaF.getFullYear() == 1970){
+      Swal.fire({
+        title: 'Las fechas no pueden estar vacias!',
+        text: '',
+        icon: 'warning',
+        confirmButtonText: 'Ok'
+      })
+      this.crearFormulario();
+    }else{
+      if(fechaI>fechaF){
+        Swal.fire({
+          title: 'Fechas inválidas!',
+          text: '',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
         })
-    })
+        this.crearFormulario();
+      }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+        this.servicioRaspasDTO.listarTodos(fechaInicio, fechaFinal).subscribe(resRaspaSiga=>{
+          this.listaRaspasSiga = resRaspaSiga
+          if(this.listaRaspasSiga.length == 0){
+            Swal.fire({
+              title: 'No existen datos entre el rango de fechas!',
+              text: '',
+              icon: 'warning',
+              confirmButtonText: 'Ok'
+            })
+            this.crearFormulario();
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          }else{
+            this.servicioSigaRaspaGecco.registrar(this.listaRaspasSiga).subscribe(resRaspaSigaGecco=>{
+              this.servicioRaspaGeccoConsulta.listarRaspaConsultaNoGecco().subscribe(resListaNoSiga=>{
+                this.lista = resListaNoSiga
+                this.lista.forEach(element => {
+                  var fechaPago = new Date(element.fec_pago)
+                  fechaPago.setDate(fechaPago.getDate()+2)
+                  var fechaVenta = new Date(element.fec_venta)
+                  fechaVenta.setDate(fechaVenta.getDate()+2)
+                  var obj = {
+                    id: element.id,
+                    estado: element.estado,
+                    fecha_pago: fechaPago,
+                    fecha_venta: fechaVenta,
+                    ideOficina: element.ide_oficina,
+                    raspa: element.raspa,
+                    emision_raspa: element.emision_raspa,
+                    nombre_cajero: element.nombres+" "+element.apellido1
+                  }
+                  this.listaCompleta.push(obj)
+                });
+                this.exportToExcel(this.listaCompleta);
+              })
+            })
+          }
+        })
+      }
+    }
   }
 
   name = 'raspas.xlsx';
@@ -204,6 +280,7 @@ export class RaspaListoComponent implements OnInit {
       type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    this.crearFormulario();
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     this.servicioSigaRaspaGecco.eliminar().subscribe(resVacio=>{
     })

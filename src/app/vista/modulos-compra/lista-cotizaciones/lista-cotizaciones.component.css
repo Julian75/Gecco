@@ -64,9 +64,9 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .botonvolver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 30px; }
-#desSp{ left: 90px; }
-#estSp{ left: 60px; }
+#idSp{ left: 25px; }
+#desSp{ left: 50px; }
+#estSp{ left: 48px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -80,7 +80,13 @@ mat-form-field{
     font-size: 12px;
   }
   td{ font-size: 11px;}
-  .botonagregar, .excelButton, .btnver{ width: 38px; height: 30px; }
+  .botonagregar, .excelButton, .btnver, .botonvolver{ width: 38px; height: 30px; }
+  .botonvolver{ width: 38px; height: 30px; position: relative; top: 5px; left: 2px;}
+  mat-icon{
+    font-size: 18px;
+    margin-left: -5px;
+    margin-top: -1px;
+  }
   .botonagregar mat-icon{ font-size: 18px; }
   .btnremove, .btnedit, .btnver, .boton{
     width: 20px !important;
@@ -160,15 +166,27 @@ mat-form-field{
     width: 40px !important;
     height: 30px;
   }
-  .btnedit{ position: relative; left: 3%; }
-  .btnremove{ position: relative; right: 3%; }
+  .botonvolver{ position: relative; top: -5px; left: 2px;}
+  .btnedit{ position: relative;
+    left: 3%;
+    margin-left: 3px;
+    top: 3px;
+    margin-top: 4px; }
+  .btnremove{     position: relative;
+    left: 4%;
+    margin-bottom: 9px;
+    margin-top: 8px; }
+    .boton{     position: relative;
+      left: 4%;
+      margin-bottom: 9px;
+      margin-top: -4px; }
   .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
-  #idSp{ left: 15px; }
+  #idSp{ left: 8px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 12px; }
-  #estSp{ left: 22px; }
+  #estSp{ left: 7px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton{ font-size: 16px; top: -3px; margin-left: -24px;}

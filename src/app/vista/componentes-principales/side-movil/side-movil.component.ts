@@ -48,6 +48,8 @@ export class SideMovilComponent implements OnInit {
             document.getElementById('Malla2')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 16 || this.listaAccessForm[i] == 17 || this.listaAccessForm[i] == 18){
             document.getElementById('Visita2')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 28){
+            document.getElementById('Raspa2')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('111')?.setAttribute('style', 'display: block;')
@@ -102,6 +104,24 @@ export class SideMovilComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 2121) {
             document.getElementById('2121')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 28) {
+            document.getElementById('2828')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 29) {
+            document.getElementById('2929')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 30) {
+            document.getElementById('3030')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 22) {
+            document.getElementById('2222')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 26) {
+            document.getElementById('2626')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 23) {
+            document.getElementById('2323')?.setAttribute('style', 'display: block;')
           }
         }
       })

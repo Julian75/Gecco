@@ -1,0 +1,20 @@
+<h2 class="dato">¿Desea adquirir una opinion más a fondo en la solicitud?</h2>
+<form [formGroup]="formComentario">
+  <div class="row1">
+    <!-- Ingresar Observacion -->
+    <div class="nombre2">
+      <h2>Comentario</h2>
+      <mat-radio-group aria-label="Seleccione una opción">
+        <mat-radio-button value="1">Si</mat-radio-button>
+        <mat-radio-button value="2">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Comentario</button>
+    </div>
+  </div>
+</form>
+<div id="snipper" class="spiner" style="text-align: center; display: none;"><img src="/assets/PVtR.gif" width="150px" style="position: relative; top: 35%; left:45%;" alt="" srcset=""></div>

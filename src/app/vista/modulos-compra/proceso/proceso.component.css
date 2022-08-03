@@ -41,6 +41,10 @@ h2{
   padding-top: 3%;
   padding-bottom: 4%;
 }
+mat-radio-button{
+  margin-left: 5%;
+  margin-top: 3%;
+}
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
