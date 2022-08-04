@@ -1,0 +1,24 @@
+<h2 class="dato">Agregar Comentario</h2>
+<form [formGroup]="formAddComment">
+  <div class="row1">
+    <!-- Ingresar Observacion -->
+    <div class="nombre2">
+      <h2>Comentario</h2>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput id="comentario" formControlName="comentario" placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+      <!-- <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Escribe el comentario adicional</mat-label>
+        <textarea mat-input id="comentario" formControlName="comentario" ></textarea>
+      </mat-form-field> -->
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Agregar Comentario</button>
+    </div>
+  </div>
+</form>
+<div id="snipper" class="spiner" style="text-align: center; display: none;"><img src="/assets/PVtR.gif" width="150px" style="position: relative; top: 35%; left:45%;" alt="" srcset=""></div>

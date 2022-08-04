@@ -4,6 +4,7 @@ import { HttpResponse, HttpEventType } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsuarioService } from './../../../../servicios/usuario.service';
 import { Solicitud } from './../../../../modelos/solicitud';
+import { Solicitud2 } from './../../../../modelos/solicitud2';
 import { CotizacionService } from './../../../../servicios/cotizacion.service';
 import { SolicitudService } from './../../../../servicios/solicitud.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,6 +14,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-agregar-cotizacion',
@@ -50,6 +52,7 @@ export class AgregarCotizacionComponent implements OnInit {
     private fb: FormBuilder,
     private servicioSolicitud : SolicitudService,
     private servicioCotizacion : CotizacionService,
+    private servicioModificar : ModificarService,
     private servicioUsuario : UsuarioService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<AgregarCotizacionComponent>,

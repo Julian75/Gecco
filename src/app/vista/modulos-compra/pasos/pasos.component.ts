@@ -63,6 +63,20 @@ export class PasosComponent implements OnInit {
         document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
+      }else if(res.idEstado.id == 56){
+        document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #009AE4;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
+      }else if(res.idEstado.id == 54){
+        document.getElementById("card0")?.setAttribute("style", "background-color: #009AE4;")
+        document.getElementById("card1")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card2")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card3")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card4")?.setAttribute("style", "background-color: #DBDBDB;")
+        document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
       }else if (res.idEstado.id == 29) {
         document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
@@ -158,17 +172,54 @@ export class PasosComponent implements OnInit {
                   width: '1000px',
                   data: {id:this.lista[0]}
                 });
-              }
-            })
-          }else if(existe == false){
-            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-              if(res.idEstado.id == 28){
+              }else if(res.idEstado.id == 54){
                 Swal.fire({
                   position: 'center',
                   icon: 'warning',
-                  title: 'Aún no ha dicidido si desea una opinión.!',
+                  title: 'Aún no se ha hecho los comentarios solicitados',
                   showConfirmButton: false,
                   timer: 1500
+                })
+              }
+            })
+          }else if(existe == false){
+            this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
+              resAccesos.forEach(element => {
+                if(element.idModulo.id == 32){
+                  this.habilitar2 = true
+                }
+              });
+              if(this.habilitar2 == true){
+                this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+                  if(res.idEstado.id == 54){
+                    this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
+                      const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
+                        width: '1000px',
+                        data: resSolicitud
+                      });
+                    })
+                  }
+                })
+              }else{
+                this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+                  if(res.idEstado.id == 28){
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'warning',
+                      title: 'Aún no ha decidido si desea una opinión.!',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                  }
+                  if(res.idEstado.id == 54){
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'warning',
+                      title: 'Aún no se ha hecho los comentarios solicitados',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                  }
                 })
               }
             })
@@ -179,64 +230,64 @@ export class PasosComponent implements OnInit {
   }
 
   public solicitudes(){
-    // this.listarExiste = []
-    // for (const [key, value] of Object.entries(this.data)) {
-    //   this.lista.push(value)
-    // }
-    // this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-    //   this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
-    //     this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
-    //       for (let index = 0; index < resAccesos.length; index++) {
-    //         const element = resAccesos[index];
-    //         if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id  ){
-    //           this.habilitar = true
-    //         }else if(resSolicitud.idUsuario.id == resUsuario.id){
-    //           this.habilitar = false
-    //         }
-    //         this.listarExiste.push(this.habilitar)
-    //       }
-    //       console.log(this.listarExiste)
-    //       const existe = this.listarExiste.includes( true )
-    //       if(existe == true){
-    //         this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-    //           if(res.idEstado.id == 28){
-    //             const dialogRef = this.dialog.open(SolicitudesComponent, {
-    //               width: '1000px',
-    //               height: '430px',
-    //               data: this.lista[0]
-    //             });
-    //           }else if(res.idEstado.id == 30){
-    //             Swal.fire({
-    //               position: 'center',
-    //               icon: 'warning',
-    //               title: 'Aún no se ha modificado la solicitud!',
-    //               showConfirmButton: false,
-    //               timer: 1500
-    //             })
-    //           }
-    //         })
-    //       }else if(existe == false){
-    //         this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-    //           if(res.idEstado.id == 28){
-    //             Swal.fire({
-    //               position: 'center',
-    //               icon: 'warning',
-    //               title: 'Aún no se ha validado la solicitud!',
-    //               showConfirmButton: false,
-    //               timer: 1500
-    //             })
-    //           }if(res.idEstado.id == 30){
-    //             const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
-    //               width: '2500px',
-    //               height: '700px',
-    //               data: this.lista[0]
-    //             });
-    //           }
-    //         })
-    //       }
-    //     })
-    //   })
-    // })
+    this.listarExiste = []
+    for (const [key, value] of Object.entries(this.data)) {
+      this.lista.push(value)
+    }
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
+        this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
+          for (let index = 0; index < resAccesos.length; index++) {
+            const element = resAccesos[index];
+            if(element.idModulo.id == 23 && resUsuario.idRol.id == element.idRol.id  ){
+              this.habilitar = true
+            }else if(resSolicitud.idUsuario.id == resUsuario.id){
+              this.habilitar = false
+            }
+            this.listarExiste.push(this.habilitar)
+          }
+          console.log(this.listarExiste)
+          const existe = this.listarExiste.includes( true )
+          if(existe == true){
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 56){
+                const dialogRef = this.dialog.open(SolicitudesComponent, {
+                  width: '1000px',
+                  height: '430px',
+                  data: this.lista[0]
+                });
+              }else if(res.idEstado.id == 30){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha modificado la solicitud!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
+            })
+          }else if(existe == false){
+            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+              if(res.idEstado.id == 56){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha validado la solicitud!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }if(res.idEstado.id == 30){
+                const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
+                  width: '2500px',
+                  height: '700px',
+                  data: this.lista[0]
+                });
+              }
+            })
+          }
+        })
+      })
+    })
   }
 
   public solicitudes2(){

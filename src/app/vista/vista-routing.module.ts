@@ -1,3 +1,4 @@
+import { ListaProcesoComponent } from './modulos-compra/lista-proceso/lista-proceso.component';
 import { ComentariosSolicitudComponent } from './modulos-compra/comentarios-solicitud/comentarios-solicitud.component';
 import { CategoriasArticuloComponent } from './modulos-compra/articulos/categorias-articulo/categorias-articulo.component';
 import { ModificarRolComponent } from './modulos-administracion/rol/modificar-rol/modificar-rol.component';
@@ -284,6 +285,11 @@ const routes: Routes = [
       {
         path: 'comentariosSolicitud',
         component: ComentariosSolicitudComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'proceso',
+        component: ListaProcesoComponent,
         canActivate: [AutorizacionGuard]
       },
       // Proveedores

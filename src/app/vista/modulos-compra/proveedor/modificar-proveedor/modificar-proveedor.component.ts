@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Proveedor2 } from 'src/app/modelos/proveedor2';
 import { EstadoService } from 'src/app/servicios/estado.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { ProveedorService } from 'src/app/servicios/proveedor.service';
 import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
 import Swal from 'sweetalert2';
@@ -18,6 +20,8 @@ export class ModificarProveedorComponent implements OnInit {
   public idProveedor:any = []
   public listaExiste: any = []
   public encontrado: any
+  public pro : any = []
+  public pro2 : any = []
   color = ('primary');
   constructor(
     private fb: FormBuilder,
@@ -26,6 +30,7 @@ export class ModificarProveedorComponent implements OnInit {
     private serviceProveedor: ProveedorService,
     private serviceTipoDocumento: TipoDocumentoService,
     private serviceEstado: EstadoService,
+    private servicioModificar: ModificarService,
   ) { }
 
 
@@ -79,7 +84,7 @@ export class ModificarProveedorComponent implements OnInit {
     this.serviceEstado.listarTodos().subscribe(
       (data)=>{
         data.forEach(element => {
-          if (element.idModulo.id == 24) {
+          if (element.idModulo.id == 26) {
             this.listaEstado.push(element);
           }
         })
@@ -87,47 +92,45 @@ export class ModificarProveedorComponent implements OnInit {
     )
   }
   public guardar(){
+    this.pro2 = []
     const idEstado = this.formProveedor.value.idEstado;
     const idTipoDocumento = this.formProveedor.value.idTipoDocumento;
     if (this.formProveedor.valid) {
       this.serviceTipoDocumento.listarPorId(idTipoDocumento).subscribe(
         (dataDocumento)=>{
-        this.formProveedor.value.idTipoDocumento = dataDocumento;
-        this.serviceEstado.listarPorId(idEstado).subscribe(
-          (dataEstado)=>{
-            this.formProveedor.value.idEstado = dataEstado;
-            console.log(this.formProveedor.value);
-            this.serviceProveedor.listarTodos().subscribe(
-              (data)=>{
-                data.forEach(element => {
-                  if (element.documento == this.formProveedor.value.documento && element.direccion == this.formProveedor.value.direccion && element.nombre == this.formProveedor.value.nombre && element.telefono == this.formProveedor.value.telefono && element.idEstado.id == this.formProveedor.value.idEstado.id && element.idTipoDocumento.id == this.formProveedor.value.idTipoDocumento.id) {
-                    this.serviceProveedor.actualizar(this.formProveedor.value).subscribe(
-                      (data)=>{
-                        Swal.fire({
-                          title: 'Proveedor modificado',
-                          text: 'No hubieron cambios en el proveedor, pero se modificó correctamente',
-                          icon: 'success',
-                          confirmButtonText: 'Ok'
-                        })
-                        this.router.navigate(['/proveedores']);
-                      })
-                  }else{
-                    this.serviceProveedor.actualizar(this.formProveedor.value).subscribe(
-                      (data)=>{
-                        Swal.fire({
-                          title: 'Proveedor modificado',
-                          text: 'Se modificó correctamente',
-                          icon: 'success',
-                          confirmButtonText: 'Ok'
-                        })
-                        this.router.navigate(['/proveedores']);
-                      }
-                    )
-                  }
-                })
-              })
-          })
-
+        this.formProveedor.value.idTipoDocumento = dataDocumento.id;
+        this.serviceProveedor.listarTodos().subscribe( data => {
+          data.forEach(element => {
+            if (this.formProveedor.value.idEstado == element.idEstado.id && this.formProveedor.value.idTipoDocumento == element.idTipoDocumento.id && this.formProveedor.value.documento == element.documento ) {
+              this.pro=true
+            }else{
+              this.pro=false
+            }
+            this.pro2.push(this.pro)
+          }
+          );
+          const existe  = this.pro2.includes(true)
+          console.log(existe)
+          if (existe == true) {
+            this.servicioModificar.actualizarProveedor(this.formProveedor.value).subscribe(data=>{
+            })
+            Swal.fire({
+              icon: 'success',
+              title: 'Exito',
+              text: 'No hubieron cambios, pero se modificó el proveedor!',
+            })
+            this.router.navigate(['/proveedores']);
+          }else {
+            this.servicioModificar.actualizarProveedor(this.formProveedor.value).subscribe(data=>{
+            })
+            Swal.fire({
+              icon: 'success',
+              title: 'Exito',
+              text: 'Proveedor modificado correctamente!',
+            })
+            this.router.navigate(['/proveedores']);
+          }
+        })
       })
     }else{
       Swal.fire({

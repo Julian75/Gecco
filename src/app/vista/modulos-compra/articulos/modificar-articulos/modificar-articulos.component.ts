@@ -1,5 +1,6 @@
 import { CategoriaService } from './../../../../servicios/Categoria.service';
 import { Articulo } from '../../../../modelos/articulo';
+import { Articulo2 } from '../../../../modelos/articulo2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EstadoService } from 'src/app/servicios/estado.service';
@@ -7,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ArticuloService } from 'src/app/servicios/articulo.service';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-modificar-articulos',
@@ -29,6 +31,7 @@ export class ModificarArticulosComponent implements OnInit {
     private servicioArticulo: ArticuloService,
     private servicioEstado: EstadoService,
     private servicioCategoria: CategoriaService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarArticulosComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -86,15 +89,15 @@ export class ModificarArticulosComponent implements OnInit {
   }
 
   public guardar() {
-    let articulo : Articulo = new Articulo();
+    let articulo : Articulo2 = new Articulo2();
     articulo.id=Number(this.data);
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
     const idEstado = this.formArticulo.controls['estado'].value;
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      articulo.idEstado = res
+      articulo.idEstado = res.id
       const idCategoria= this.formArticulo.controls['categoria'].value;
       this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
-        articulo.idCategoria = resCategoria
+        articulo.idCategoria = resCategoria.id
         if(articulo.descripcion==null || articulo.descripcion=="" || articulo.idEstado==null){
           Swal.fire({
             position: 'center',
@@ -110,9 +113,9 @@ export class ModificarArticulosComponent implements OnInit {
     })
   }
 
-  public actualizarArticulo(articulo: Articulo) {
+  public actualizarArticulo(articulo: Articulo2) {
     console.log(articulo)
-    this.servicioArticulo.actualizar(articulo).subscribe(res => {
+    this.servicioModificar.actualizarArticulos(articulo).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -125,11 +128,13 @@ export class ModificarArticulosComponent implements OnInit {
     }, error => {
       Swal.fire({
         position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al modificar!',
+        icon: 'success',
+        title: 'Articulo modificado!',
         showConfirmButton: false,
         timer: 1500
       })
+      this.dialogRef.close();
+      window.location.reload();
     });
  }
 

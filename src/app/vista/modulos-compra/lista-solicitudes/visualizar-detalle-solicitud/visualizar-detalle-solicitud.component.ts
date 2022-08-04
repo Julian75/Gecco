@@ -1,3 +1,5 @@
+import { AgregarComentarioComponent } from './../../comentarios-solicitud/agregar-comentario/agregar-comentario.component';
+import { GestionProcesoService } from './../../../../servicios/gestionProceso.service';
 import { Component, OnInit,ViewChild, Inject } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,38 +18,71 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
   public idSolicitud: any;
   public estadoSolicitud: any;
   public listarDetalle: any = [];
-  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado'];
+  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado' ,'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     public dialogRef: MatDialogRef<VisualizarDetalleSolicitudComponent>,
     private servicelistaSolicitud: SolicitudService,
+    private serviceGestionProceso: GestionProcesoService,
     private serviceDetalleSolicitud: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.listarDetalleSolicitud();
   }
 
+  aprobar:boolean = false
   public listarDetalleSolicitud() {
     this.idSolicitud = this.data;
     this.servicelistaSolicitud.listarPorId(this.idSolicitud.id).subscribe( res => {
-      this.estadoSolicitud = res.idEstado.id
-      this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
-        resDetalle.forEach(element => {
-          if (element.idSolicitud.id == res.id) {
-            this.listarDetalle.push(element);
-          }
+      if (res.idEstado.id == 54) {
+        this.aprobar = true
+        this.serviceGestionProceso.listarTodos().subscribe(resGestionProceso=>{
+          resGestionProceso.forEach(elementGestionProceso => {
+            if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
+              this.listarDetalle.push(elementGestionProceso.idDetalleSolicitud)
+            }
+          });
+          console.log(this.listarDetalle)
+          this.dataSource = new MatTableDataSource( this.listarDetalle);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         })
-        this.dataSource = new MatTableDataSource( this.listarDetalle);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
+        this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
+          resDetalle.forEach(element => {
+            if (element.idSolicitud.id == res.id) {
+              this.listarDetalle.push(element);
+            }
+          })
+        })
+      }else{
+        this.aprobar = false
+        this.estadoSolicitud = res.idEstado.id
+        this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
+          resDetalle.forEach(element => {
+            if (element.idSolicitud.id == res.id) {
+              this.listarDetalle.push(element);
+            }
+          })
+          this.dataSource = new MatTableDataSource( this.listarDetalle);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
+      }
     })
+
   }
 
+  public abrirModal(idDetalleSolicitud){
+    const dialogRef = this.dialog.open(AgregarComentarioComponent, {
+      width: '500px',
+      data: idDetalleSolicitud
+    });
+  }
 
   // Filtrado
   applyFilter(event: Event) {

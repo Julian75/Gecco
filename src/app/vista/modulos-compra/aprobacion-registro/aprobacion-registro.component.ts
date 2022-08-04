@@ -9,6 +9,8 @@ import { Correo } from './../../../modelos/correo';
 import { CorreoService } from './../../../servicios/Correo.service';
 import { EstadoService } from './../../../servicios/estado.service';
 import { Solicitud } from './../../../modelos/solicitud';
+import { Solicitud2 } from './../../../modelos/solicitud2';
+import { OrdenCompra2 } from './../../../modelos/ordenCompra2';
 import { Component, Inject, OnInit,ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -23,6 +25,7 @@ import { PasosComponent } from '../pasos/pasos.component';
 import { SubirPdfService } from './../../../servicios/subirPdf.service';
 import { OrdenCompra } from 'src/app/modelos/ordenCompra';
 import { RechazarRegistroComponent } from './rechazar-registro/rechazar-registro.component';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-aprobacion-registro',
@@ -55,6 +58,7 @@ export class AprobacionRegistroComponent implements OnInit {
     private servicioPdf: SubirPdfService,
     private servicioCotizacion: CotizacionService,
     private servicioSolicitud: SolicitudService,
+    private servicioModificar: ModificarService,
     private route: ActivatedRoute,
   ) { }
 
@@ -108,21 +112,21 @@ export class AprobacionRegistroComponent implements OnInit {
 
   public aceptar(id:number, idCotizacion:number){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(46).subscribe(resEstado => {
         solicitud.id = res.id
         solicitud.fecha = res.fecha
-        solicitud.idUsuario = res.idUsuario
-        solicitud.idEstado = resEstado
+        solicitud.idUsuario = res.idUsuario.id
+        solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud, idCotizacion);
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud, idCotizacion: number){
-    this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.actualOrdenCompra(solicitud.idUsuario.id, solicitud.id, idCotizacion)
+  public actualizarSolicitud(solicitud: Solicitud2, idCotizacion: number){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
+      this.actualOrdenCompra(solicitud.idUsuario, solicitud.id, idCotizacion)
       // this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
     }, error => {
       console.log(error)
@@ -137,25 +141,25 @@ export class AprobacionRegistroComponent implements OnInit {
  }
 
  public actualOrdenCompra(idUsuario: number, idSolicitud: number, idCotizacion:number){
-  let ordenCompra : OrdenCompra = new OrdenCompra();
+  let ordenCompra : OrdenCompra2 = new OrdenCompra2();
   console.log(this.listaOrdenCompra[0].id)
     this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenCompra=>{
       ordenCompra.id = resOrdenCompra.id
       ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
       ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
-      ordenCompra.idProveedor = resOrdenCompra.idProveedor
-      ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
+      ordenCompra.idProveedor = resOrdenCompra.idProveedor.id
+      ordenCompra.idSolicitud = resOrdenCompra.idSolicitud.id
       ordenCompra.descuento = resOrdenCompra.descuento
       ordenCompra.subtotal = resOrdenCompra.subtotal
       this.servicioEstado.listarPorId(44).subscribe(resEstado=>{
-        ordenCompra.idEstado = resEstado
+        ordenCompra.idEstado = resEstado.id
         this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud, idCotizacion);
       })
     })
  }
 
- public actualizarOrdenCompra(ordenCompra: OrdenCompra, idUsuario:number, idSolicitud: number, idCotizacion:number){
-  this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(res=>{
+ public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idUsuario:number, idSolicitud: number, idCotizacion:number){
+  this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(res=>{
     this.crearCorreo(idUsuario, idSolicitud, idCotizacion)
   }, error => {
     console.log(error)

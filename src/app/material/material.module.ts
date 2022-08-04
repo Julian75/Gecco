@@ -16,6 +16,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [],
@@ -36,7 +38,8 @@ import {MatCardModule} from '@angular/material/card';
     MatSortModule,
     MatAutocompleteModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule
   ],
   exports:[
     MatSidenavModule,
@@ -54,7 +57,8 @@ import {MatCardModule} from '@angular/material/card';
     MatSortModule,
     MatAutocompleteModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule
   ]
 })
 export class MaterialModule { }

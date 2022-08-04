@@ -7,7 +7,6 @@ import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
 import { GestionProcesoService } from './../../../servicios/gestionProceso.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { GestionProceso } from './../../../modelos/gestionProceso';
-import { Proceso } from './../../../modelos/proceso';
 import { ProcesoService } from './../../../servicios/proceso.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';

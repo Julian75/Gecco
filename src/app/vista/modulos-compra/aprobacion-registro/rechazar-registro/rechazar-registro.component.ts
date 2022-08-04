@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Correo } from './../../../../modelos/correo';
 import { Solicitud } from './../../../../modelos/solicitud';
+import { Solicitud2 } from './../../../../modelos/solicitud2';
+import { OrdenCompra2 } from './../../../../modelos/ordenCompra2';
 import { UsuarioService } from './../../../../servicios/usuario.service';
 import { CorreoService } from './../../../../servicios/Correo.service';
 import { EstadoService } from './../../../../servicios/estado.service';
@@ -12,6 +14,7 @@ import { SolicitudService } from './../../../../servicios/solicitud.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-rechazar-registro',
@@ -31,6 +34,7 @@ export class RechazarRegistroComponent implements OnInit {
     private servicioCorreo: CorreoService,
     private servicioUsuario: UsuarioService,
     private servicioCotizacion: CotizacionService,
+    private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     public dialogRef: MatDialogRef<RechazarRegistroComponent>,
     private servicioOrdenCompra: OrdenCompraService,
@@ -54,7 +58,7 @@ export class RechazarRegistroComponent implements OnInit {
     for (const [key, value] of Object.entries(this.data)) {
       this.lista.push(value)
     }
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(this.lista[0]).subscribe(res => {
       this.servicioEstado.listarPorId(47).subscribe(resEstado => {
         const observacion = this.formSolicitud.controls['observacion'].value;
@@ -69,22 +73,22 @@ export class RechazarRegistroComponent implements OnInit {
         }else{
           solicitud.id = res.id
           solicitud.fecha = res.fecha
-          solicitud.idUsuario = res.idUsuario
-          solicitud.idEstado = resEstado
+          solicitud.idUsuario = res.idUsuario.id
+          solicitud.idEstado = resEstado.id
           this.rechazarSolicitud(solicitud);
         }
       })
     })
   }
 
-  public rechazarSolicitud(solicitud: Solicitud){
-    this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.actualOrdenCompra(solicitud.idUsuario.id, solicitud.id)
+  public rechazarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
+      this.actualOrdenCompra(solicitud.idUsuario, solicitud.id)
     })
   }
 
   public actualOrdenCompra(idUsuario: number, idSolicitud: number){
-    let ordenCompra : OrdenCompra = new OrdenCompra();
+    let ordenCompra : OrdenCompra2 = new OrdenCompra2();
     this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
       resOrdenCompra.forEach(elementOrdenCompra => {
         if (elementOrdenCompra.idSolicitud.id == idSolicitud) {
@@ -93,12 +97,12 @@ export class RechazarRegistroComponent implements OnInit {
             ordenCompra.id = resOrdenCompra.id
             ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
             ordenCompra.valorAnticipo = resOrdenCompra.valorAnticipo
-            ordenCompra.idProveedor = resOrdenCompra.idProveedor
-            ordenCompra.idSolicitud = resOrdenCompra.idSolicitud
+            ordenCompra.idProveedor = resOrdenCompra.idProveedor.id
+            ordenCompra.idSolicitud = resOrdenCompra.idSolicitud.id
             ordenCompra.descuento = resOrdenCompra.descuento
             ordenCompra.subtotal = resOrdenCompra.subtotal
             this.servicioEstado.listarPorId(45).subscribe(resEstado=>{
-              ordenCompra.idEstado = resEstado
+              ordenCompra.idEstado = resEstado.id
               this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud);
             })
           })
@@ -107,8 +111,8 @@ export class RechazarRegistroComponent implements OnInit {
     })
    }
 
-   public actualizarOrdenCompra(ordenCompra: OrdenCompra, idUsuario:number, idSolicitud: number){
-    this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(res=>{
+   public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idUsuario:number, idSolicitud: number){
+    this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(res=>{
       this.crearCorreo(idUsuario, idSolicitud)
     }, error => {
       console.log(error)

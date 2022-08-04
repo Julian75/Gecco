@@ -1,0 +1,29 @@
+<h2 class="dato">Ingresar Nueva Asignación Categoria</h2>
+<form [formGroup]="formAsigCat">
+  <div class="row1">
+    <div class="nombre2">
+      <h2>Categoria</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Categoria</mat-label>
+      <select matNativeControl id="categoria" name="categoria" formControlName="categoria">
+        <option *ngFor="let item of listaCategorias"  value="{{item.id}}">{{item.descripcion}}</option>
+      </select>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Usuario</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Usuario</mat-label>
+      <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+        <option *ngFor="let item of listaUsuarios"  value="{{item.id}}">{{item.nombre}} {{item.apellido}}</option>
+      </select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Insertar Asignación</button>
+    </div>
+  </div>
+</form>

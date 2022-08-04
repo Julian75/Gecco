@@ -1,4 +1,8 @@
+
 <div class="contenedor">
+  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+    <mat-icon>add_circle</mat-icon>
+  </button>
   <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
@@ -13,28 +17,25 @@
           <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
         </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Fecha</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Categoria</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.idCategoria.descripcion}}</td>
         </ng-container>
 
         <ng-container matColumnDef="usuario">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Usuario</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="catSp">Usuario</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estaSp">Estado</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
         </ng-container>
 
         <!--Opciones-->
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button class="btn btnedit2 me-2 edi" (click)="verPasos(item.id)">
-              <mat-icon>insights</mat-icon>
+            <button class="btn btnedit me-2 edi" (click)="modificarProceso(item.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button class="btn btnremove me-2 remo" (click)="eliminarProceso(item.id)">
+              <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>
@@ -49,3 +50,4 @@
               aria-label="Select page">
   </mat-paginator>
 </div>
+

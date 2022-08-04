@@ -97,6 +97,10 @@ import { CategoriasArticuloComponent } from './modulos-compra/articulos/categori
 import { AgregarCategoriaComponent } from './modulos-compra/articulos/categorias-articulo/agregar-categoria/agregar-categoria.component';
 import { ModificarCategoriaComponent } from './modulos-compra/articulos/categorias-articulo/modificar-categoria/modificar-categoria.component';
 import { ComentariosSolicitudComponent } from './modulos-compra/comentarios-solicitud/comentarios-solicitud.component';
+import { ListaProcesoComponent } from './modulos-compra/lista-proceso/lista-proceso.component';
+import { AgregarProcesoComponent } from './modulos-compra/lista-proceso/agregar-proceso/agregar-proceso.component';
+import { ModificarProcesoComponent } from './modulos-compra/lista-proceso/modificar-proceso/modificar-proceso.component';
+import { AgregarComentarioComponent } from './modulos-compra/comentarios-solicitud/agregar-comentario/agregar-comentario.component';
 
 @NgModule({
   declarations: [
@@ -193,6 +197,10 @@ import { ComentariosSolicitudComponent } from './modulos-compra/comentarios-soli
     AgregarCategoriaComponent,
     ModificarCategoriaComponent,
     ComentariosSolicitudComponent,
+    ListaProcesoComponent,
+    AgregarProcesoComponent,
+    ModificarProcesoComponent,
+    AgregarComentarioComponent,
   ],
   imports: [
     CommonModule,

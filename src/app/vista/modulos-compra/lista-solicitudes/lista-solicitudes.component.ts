@@ -71,7 +71,7 @@ export class ListaSolicitudesComponent implements OnInit {
         }else if(this.habilitar == false){
           this.solicitudService.listarTodos().subscribe(res => {
             res.forEach(element => {
-              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46) {
+              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57) {
                this.listaSolicitudes.push(element);
               }
             })

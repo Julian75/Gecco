@@ -1,4 +1,5 @@
 import { Categoria } from './../../../../../modelos/categoria';
+import { Categoria2 } from './../../../../../modelos/categoria2';
 import { CategoriaService } from './../../../../../servicios/Categoria.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -6,6 +7,7 @@ import { EstadoService } from 'src/app/servicios/estado.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-modificar-categoria',
@@ -25,6 +27,7 @@ export class ModificarCategoriaComponent implements OnInit {
   constructor(
     private servicioEstado: EstadoService,
     private servicioCategoria: CategoriaService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarCategoriaComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -68,12 +71,12 @@ export class ModificarCategoriaComponent implements OnInit {
   }
 
   public guardar() {
-    let categoria : Categoria = new Categoria();
+    let categoria : Categoria2 = new Categoria2();
     categoria.id=Number(this.data);
     categoria.descripcion=this.formCategoria.controls['descripcion'].value;
     const idEstado = this.formCategoria.controls['estado'].value;
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      categoria.idEstado = res
+      categoria.idEstado = res.id
       if(categoria.descripcion==null || categoria.descripcion=="" || categoria.idEstado==null){
         Swal.fire({
           position: 'center',
@@ -88,8 +91,8 @@ export class ModificarCategoriaComponent implements OnInit {
     })
   }
 
-  public actualizarCategoria(categoria: Categoria) {
-    this.servicioCategoria.actualizar(categoria).subscribe(res => {
+  public actualizarCategoria(categoria: Categoria2) {
+    this.servicioModificar.actualizarCategoria(categoria).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

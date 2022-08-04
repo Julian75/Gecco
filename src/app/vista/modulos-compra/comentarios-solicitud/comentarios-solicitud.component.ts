@@ -1,3 +1,6 @@
+import { map } from 'rxjs';
+import { GestionProcesoService } from './../../../servicios/gestionProceso.service';
+import { ProcesoService } from './../../../servicios/proceso.service';
 import { PasosComponent } from './../pasos/pasos.component';
 import { VisualizarDetalleSolicitudComponent } from './../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
 import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
@@ -20,6 +23,7 @@ import * as XLSX from 'xlsx';
 export class ComentariosSolicitudComponent implements OnInit {
 
   public listaSolicitudes: any = [];
+  public listaSolicitudes2: any = [];
   public listaDetalleSolicitud: any = [];
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
@@ -29,10 +33,7 @@ export class ComentariosSolicitudComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private solicitudService: SolicitudService,
-    private servicioEstado: EstadoService,
-    private servicioUsuario: UsuarioService,
-    private servicioCorreo: CorreoService,
-    private servicioSolicitudDetalle: DetalleSolicitudService,
+    private gestionProcesoService: GestionProcesoService,
   ) { }
 
 
@@ -41,23 +42,27 @@ export class ComentariosSolicitudComponent implements OnInit {
   }
 
   public listarSolicitudes(){
-    this.solicitudService.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if (element.idUsuario.id == Number(sessionStorage.getItem("id"))) {
-         this.listaSolicitudes.push(element);
+    this.gestionProcesoService.listarTodos().subscribe(resGestionProceso=>{
+      resGestionProceso.forEach(element => {
+        if(element.idProceso.idUsuario.id == Number(sessionStorage.getItem("id"))){
+          this.solicitudService.listarTodos().subscribe(resSolicitud => {
+            resSolicitud.forEach(elementSolicitud => {
+              if (elementSolicitud.id == element.idDetalleSolicitud.idSolicitud.id) {
+                this.listaSolicitudes.push(elementSolicitud);
+              }
+            })
+            let lista = this.listaSolicitudes.map(item=>{
+              return [item.id, item]
+            })
+            var solMapArr = new Map(lista)
+            this.listaSolicitudes2 = [...solMapArr.values()]
+            this.dataSource = new MatTableDataSource( this.listaSolicitudes2);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          })
         }
-      })
-      this.dataSource = new MatTableDataSource(this.listaSolicitudes);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      });
     })
-  }
-
-  verSolicitud(id: number){
-    const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
-      width: '1000px',
-      data: {id: id}
-    });
   }
 
   verPasos(id: number){
