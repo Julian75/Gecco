@@ -78,14 +78,14 @@ export class AgregarComentarioComponent implements OnInit {
         this.servicioGestionProceso.listarTodos().subscribe(resGestionProc=>{
           this.servicioGestionProceso.listarTodos().subscribe(resGesProc=>{
             resGesProc.forEach(elementGestionProceso => {
-              if(elementGestionProceso.idDetalleSolicitud.id == resDetalleSolicitud.id){
+              if(elementGestionProceso.idDetalleSolicitud.id == resDetalleSolicitud.id && elementGestionProceso.idEstado.id == 50){
                 let gestionProceso : GestionProceso = new GestionProceso();
                 gestionProceso.id = elementGestionProceso.id
                 gestionProceso.idDetalleSolicitud = elementGestionProceso.idDetalleSolicitud
                 gestionProceso.idProceso = elementGestionProceso.idProceso
                 this.servicioEstado.listarPorId(58).subscribe(resEstado=>{
                   gestionProceso.idEstado = resEstado
-                  gestionProceso.comentario = comentario
+                  gestionProceso.comentario = "Comentario: "+comentario+". "
                   console.log(gestionProceso)
                   this.servicioGestionProceso.actualizar(gestionProceso).subscribe(resGestionProceso=>{
                     let solicitudDetalle : DetalleSolicitud = new DetalleSolicitud();
@@ -125,51 +125,7 @@ export class AgregarComentarioComponent implements OnInit {
                         const existe = this.listaExiste.includes( true );
                         console.log(existe)
                         if(existe == true){
-                          this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe( res => {
-                            this.servicioGestionProceso.listarTodos().subscribe(resGestionProceso=>{
-                              resGestionProceso.forEach(elementGestionProceso => {
-                                if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 50){
-                                  this.aprobadito = true
-                                }else if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 58){
-                                  this.aprobadito = false
-                                }
-                                if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id != Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 50){
-                                  this.aprobadi = true
-                                }else if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id != Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 58){
-                                  this.aprobadi = true
-                                }
-                                this.listaExiste3.push(this.aprobadito)
-                                this.listaExiste4.push(this.aprobadi)
-                              });
-                              const aprobo = this.listaExiste3.includes( true );
-                              console.log(aprobo)
-                              const impropio = this.listaExiste3.includes( true );
-                              console.log(impropio)
-                              if(aprobo == true){
-                                const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
-                                  width: '1000px',
-                                  data: {id:resDetalleSolicitud.idSolicitud.id}
-                                });
-                              }else{
-                                if(impropio == true){
-                                  Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Ya se agrego los comentarios pero faltan algunas por comentar desde otro usuario!',
-                                    showConfirmButton: false,
-                                    timer: 3500
-                                  })
-                                  this.dialogRef.close();
-                                  this.visul.close();
-                                  this.pasos.close();
-                                  window.location.reload();
-                                }
-                              }
-                            })
-                          })
-
-                          console.log("Holismas de uno")
-
+                          this.metodo(resDetalleSolicitud)
                         }else{
                           console.log("Holissolouno")
                           this.listaRestante.forEach(elementGestionProcesoR => {
@@ -203,18 +159,7 @@ export class AgregarComentarioComponent implements OnInit {
                               })
                             })
                           }else{
-                            console.log("Holi si esta relacionado")
-                            Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: 'Ya se agrego los comentarios pero faltan algunas por comentar desde otro usuario!',
-                              showConfirmButton: false,
-                              timer: 3500
-                            })
-                            this.dialogRef.close();
-                            this.visul.close();
-                            this.pasos.close();
-                            window.location.reload();
+                            this.metodo(resDetalleSolicitud)
                           }
                         }
                       })
@@ -227,6 +172,74 @@ export class AgregarComentarioComponent implements OnInit {
         })
       })
     }
+  }
+
+  public metodo(resDetalleSolicitud){
+    this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe( res => {
+      this.servicioGestionProceso.listarTodos().subscribe(resGestionProceso=>{
+        resGestionProceso.forEach(elementGestionProceso => {
+          if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 50){
+            this.aprobadito = true
+          }else if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 58){
+            this.aprobadito = false
+          }
+          if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id != Number(sessionStorage.getItem('id')) && elementGestionProceso.idDetalleSolicitud.idEstado.id == 54){
+            this.aprobadi = true
+          }else if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id != Number(sessionStorage.getItem('id')) && elementGestionProceso.idDetalleSolicitud.idEstado.id == 57){
+            this.aprobadi = false
+          }
+          this.listaExiste3.push(this.aprobadito)
+          this.listaExiste4.push(this.aprobadi)
+        });
+        const aprobo = this.listaExiste3.includes( true );
+        console.log(aprobo)
+        const impropio = this.listaExiste4.includes( true );
+        console.log(impropio)
+        if(aprobo == true){
+          const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
+            width: '1000px',
+            data: {id:resDetalleSolicitud.idSolicitud.id}
+          });
+        }else{
+          if(impropio == true){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Ya se agrego los comentarios pero faltan algunas por comentar desde otro usuario!',
+              showConfirmButton: false,
+              timer: 5000
+            })
+            this.dialogRef.close();
+            this.visul.close();
+            this.pasos.close();
+            window.location.reload();
+          }else{
+            this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe(resSolicitud=>{
+              let solicitud : Solicitud = new Solicitud();
+              solicitud.id = resSolicitud.id
+              solicitud.fecha = resSolicitud.fecha
+              solicitud.idUsuario = resSolicitud.idUsuario
+              this.servicioEstado.listarPorId(57).subscribe(resEstado=>{
+                solicitud.idEstado = resEstado
+                this.solicitudService.actualizar(solicitud).subscribe(resSolicitud=>{
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Ya todo fue actualizado!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  this.dialogRef.close();
+                  this.visul.close();
+                  this.pasos.close();
+                  window.location.reload();
+                })
+              })
+            })
+          }
+        }
+      })
+    })
   }
 
 

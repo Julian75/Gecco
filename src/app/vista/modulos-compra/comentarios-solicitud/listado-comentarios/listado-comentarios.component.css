@@ -6,69 +6,6 @@
   box-shadow: 1px none #000;
   margin-bottom: 3% !important;
 }
-.solpiner{
-  background-color: rgba(90, 90, 90, 0.247);
-  width: 100%;
-  height: 689px;
-  z-index: 50px;
-  position: absolute;
-  top: 100px;
-}
-.loader {
-  width: 108px;
-  height: 108px;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  border: 3px solid;
-  border-color: #FFF #FFF transparent transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-  margin-top: 250px;
-  margin-left: 550px;
-}
-.loader::after,
-.loader::before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  border: 3px solid;
-  border-color: transparent transparent #00235C #00235C;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  box-sizing: border-box;
-  animation: rotationBack 0.5s linear infinite;
-  transform-origin: center center;
-}
-.loader::before {
-  width: 92px;
-  height: 92px;
-  border-color: #FFF #FFF transparent transparent;
-  animation: rotation 1.5s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes rotationBack {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
 table{
   width: 100%;
   height: 100%;
@@ -86,6 +23,7 @@ h3{
   background-color: #97B4E2;
   width: 10%;
 }
+.botonvolver{ background-color: #00235C; left: 12px;}
 
 th{
   background-color: #00235C;
@@ -96,10 +34,9 @@ th{
 .excelButton{
   background-color: #6DBE53;
   color: white;
+  position: relative; left: 25px;
 }
-.botonvolver{ background-color: #00235C; left: 12px;}
-
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+.botonagregar{ background-color: #959595; color: white; margin-left: 5%; }
 td {
   border: 1px solid #000;
   text-align: center;
@@ -107,20 +44,21 @@ td {
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
-.boton{ background-color: #00235C; color: white;}
-.btnedit{ background-color: #959595; color: white; }
-.btnremove{ background-color: #DA161A; color: white; }
-.btnedit2{ background-color: #97B4E2; color: white; }
+.boton{ background-color: #00235C; }
+.btnver{ background-color: #959595; color: white; }
 mat-form-field{
   width: 20%;
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.excelButton, .btnremove, .btnedit, .btnver, .boton, .btnedit2, .botonvolver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .pdfButton, .botonvolver{ width: 64px; height: 36px; }
+.botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 30px; }
-#desSp{ left: 31px; }
+#idSp{ left: 20px; }
+#desSp{ left: 40px; }
 #estSp{ left: 40px; }
+#obSp{ left: 50px; position: relative;}
+#estaSp{ left: 42px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -133,10 +71,16 @@ mat-form-field{
     margin-left: 3%;
     font-size: 12px;
   }
+
   td{ font-size: 11px;}
-  .excelButton, .botonvolver{ width: 38px; height: 30px; }
-  .botonvolver mat-icon{ font-size: 18px; margin-left: -5px; margin-top: -1px; }
-  .btnremove, .btnedit, .btnver, .boton{
+  .botonvolver, .excelButton, .btnver{ width: 38px; height: 30px; }
+  .botonvolver mat-icon{
+    font-size: 16px;
+    left: -5px;
+    position: relative;
+  }
+  .botonagregar mat-icon{ font-size: 18px; }
+  .btnremove, .btnedit, .btnver{
     width: 20px !important;
     height: 23px;
     position: relative;
@@ -146,19 +90,23 @@ mat-form-field{
   }
   .btnver{ left: 1%; }
   .excelButton{ margin-left: -5%; }
-  .excelButton{
+  .botonagregar, .excelButton{
     width: 38px;
     height: 30px;
     margin-top: 8%;
     margin-bottom: 8%;
+    position: relative;
+    left: 20px;
   }
+  .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
-  #idSp{ left: 7px; }
+  #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
   #estSp{ left: 8px; }
+  #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
@@ -171,16 +119,29 @@ mat-form-field{
     font-size: 13px;
   }
   td{ font-size: 12px;}
-  .botonvolver, .excelButton{ width: 38px; height: 30px; }
-  .botonvolver mat-icon{ font-size: 18px; margin-left: -5px; margin-top: -1px; }
+  .botonagregar, .excelButton{ width: 38px; height: 30px; }
+  .botonagregar mat-icon{ font-size: 18px; }
   .excelButton{ margin-left: -5%; }
-  .btnremove, .btnedit, .btnver, .boton{
+  .btnremove, .btnedit, .btnver{
     width: 27px !important;
     height: 26px;
     position: relative;
     left: 8%;
     margin-top: 8%;
     margin-bottom: 8%;
+  }
+  .botonvolver{
+    width: 38px;
+    height: 30px;
+  }
+  mat-icon{
+    left: -6px;
+    position: relative;
+    top: -2px;
+    font-size: 21px;
+  }
+  .edi{
+    margin-left: -10%;
   }
   .remo{
     margin-left: -6%;
@@ -189,41 +150,55 @@ mat-form-field{
     margin-left: -6%;
   }
   td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
-  .botonvolver mat-icon{ font-size: 18px; margin-left: -5px; margin-top: -1px; }
+  .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  #idSp{ left: 9px; }
+  #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
-  #desSp, #estSp, #jerSp{ left: 8px; }
+  #desSp{ left: 8px; }
+  #estSp{ left: 8px; }
+  #estaSp{left: 20px; position: relative;}
+  #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
 }
 
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
-  .btnedit, .btnremove, .btnver, .boton{
+  h3{
+    margin-left: 3%;
+    font-size: 20px;
+  }
+  td{ font-size: 14px;}
+  .btnedit, .btnremove, .btnver{
     width: 40px !important;
     height: 30px;
   }
-  .boton, .btnedit, .btnremove{ margin-bottom: 5%; margin-top: 5%; }
+  .btnedit{ position: relative; left: 3%; }
+  .btnremove{ position: relative; left: 1%; }
+  .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
-  #idSp{ left: 10px; }
+  #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
-  #estSp, #jerSp, #desSp{ left: 8px; }
+  #desSp{ left: 8px; }
+  #estSp{ left: 8px; }
+  #estaSp{left: 20px; position: relative;}
+  #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
-  .excelButton{ font-size: 20px;}
-  .excelButton i{ top: -2px; }
+  .excelButton{ font-size: 20px; }
+  .excelButton i{ top: -3px; }
 }
 
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 8px; }
+  #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 15px; }
-  #estSp{ left: 11px; }
+  #desSp{ left: 12px; }
+  #estSp{ left: 8px; }
+  #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -235,8 +210,9 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 17px; }
-  #estSp{ left: 15px; }
+  #desSp{ left: 12px; }
+  #estSp{ left: 11px; }
+  #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -244,25 +220,27 @@ mat-form-field{
 
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
-  td { font-size: 16px; height: 0px;}
+  td { font-size: 15px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ margin-left: -21px; }
+  #idSp{ left: 19px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 11px; }
-  #estSp{ left: 37px; }
+  #desSp{ left: 36px; }
+  #estSp{ left: 47%; }
   #jerSp{ left: 60%; }
+  #estaSp{left: 49px; position: relative;}
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
 }
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
-  td { font-size: 16px; height: 0px;}
+  td { font-size: 15px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ margin-left: -22%; }
+  #idSp{ left: 19px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 17%; }
-  #estSp{ left: 59%; }
+  #desSp{ left: 36px; }
+  #estSp{ left: 47%; }
   #jerSp{ left: 60%; }
+  #estaSp{left: 49px; position: relative;}
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
 }

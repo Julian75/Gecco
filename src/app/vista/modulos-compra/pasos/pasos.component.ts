@@ -1,3 +1,4 @@
+import { AprobarComentarioComponent } from './../comentarios-solicitud/aprobar-comentario/aprobar-comentario.component';
 import { ListadoObservacionComponent } from './../listado-observacion/listado-observacion.component';
 import { ProcesoComponent } from './../proceso/proceso.component';
 import { VisualizarDetalleSolicitudComponent } from './../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
@@ -21,6 +22,7 @@ import Swal from 'sweetalert2';
 import { AprobacionRegistroComponent } from '../aprobacion-registro/aprobacion-registro.component';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { SolicitudConformeComponent } from '../solicitud-conforme/solicitud-conforme.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -56,7 +58,7 @@ export class PasosComponent implements OnInit {
       this.lista.push(value)
     }
     this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-      if(res.idEstado.id == 28){
+      if(res.idEstado.id == 28 || res.idEstado.id == 57){
         document.getElementById("card0")?.setAttribute("style", "background-color: #009AE4;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #DBDBDB;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #DBDBDB;")
@@ -127,7 +129,7 @@ export class PasosComponent implements OnInit {
         document.getElementById("card4")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #FF5555;")
       }
-      else if(res.idEstado.id == 46){
+      else if(res.idEstado.id == 46 || res.idEstado.id == 60){
         document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
@@ -180,6 +182,13 @@ export class PasosComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 })
+              }else if(res.idEstado.id == 57){
+                this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
+                  const dialogRef = this.dialog.open(AprobarComentarioComponent, {
+                    width: '1000px',
+                    data: resSolicitud
+                  });
+                })
               }
             })
           }else if(existe == false){
@@ -216,6 +225,15 @@ export class PasosComponent implements OnInit {
                       position: 'center',
                       icon: 'warning',
                       title: 'Aún no se ha hecho los comentarios solicitados',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                  }
+                  if(res.idEstado.id == 57){
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'warning',
+                      title: 'Falta validar si desea más comentarios o no.',
                       showConfirmButton: false,
                       timer: 1500
                     })
@@ -534,6 +552,12 @@ export class PasosComponent implements OnInit {
                   });
                 })
               }else if(res.idEstado.id == 46){
+                const dialogRef = this.dialog.open(SolicitudConformeComponent, {
+                  width: '1000px',
+                  height: '650px',
+                  data: this.lista[0]
+                });
+              }else if(res.idEstado.id == 60){
                 this.requisicion();
               }
             })
@@ -551,7 +575,7 @@ export class PasosComponent implements OnInit {
           this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
             this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
               resDetalle.forEach(element => {
-                if(element.idSolicitud.id == resOrden.idSolicitud.id){
+                if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
                   var now = new Array
                   now.push(element.idArticulos.descripcion)
                   now.push(element.cantidad)
@@ -562,7 +586,6 @@ export class PasosComponent implements OnInit {
               });
               console.log(body)
               this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
-
                 const pdfDefinition: any = {
                   content: [
                     {

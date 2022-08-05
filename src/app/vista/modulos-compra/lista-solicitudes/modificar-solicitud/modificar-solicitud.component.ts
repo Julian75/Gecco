@@ -70,7 +70,9 @@ export class ModificarSolicitudComponent implements OnInit {
   public listarArticulos() {
     this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
       resDetalleSolicitud.forEach(element => {
-        if(element.idSolicitud.id == Number(this.data)){
+        if(element.idSolicitud.id == Number(this.data) && element.idEstado.id == 57){
+          this.listaArticulosDetalle.push(element)
+        }else if(element.idSolicitud.id == Number(this.data) && element.idEstado.id == 56){
           this.listaArticulosDetalle.push(element)
         }
       });
@@ -289,51 +291,60 @@ export class ModificarSolicitudComponent implements OnInit {
   }
 
   public detalleSolicitud(idSolicitud:number){
-    var validar = true
     this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
-      resDetalleSolicitud.forEach(element => {
-        if(element.idSolicitud.id == idSolicitud){
-          this.servicioDetalleSolicitud.eliminar(element.id).subscribe(resDetalleSolicitud=>{
-            console.log("listo")
+      resDetalleSolicitud.forEach(elementDetalleSolicitud => {
+        if(elementDetalleSolicitud.idSolicitud.id == idSolicitud){
+          let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+          detalleSolicitud.id = elementDetalleSolicitud.id
+          detalleSolicitud.cantidad = elementDetalleSolicitud.cantidad
+          detalleSolicitud.idArticulos = elementDetalleSolicitud.idArticulos
+          detalleSolicitud.idSolicitud = elementDetalleSolicitud.idSolicitud
+          detalleSolicitud.observacion = elementDetalleSolicitud.observacion
+          detalleSolicitud.valorTotal = elementDetalleSolicitud.valorTotal
+          detalleSolicitud.valorUnitario = elementDetalleSolicitud.valorUnitario
+          this.servicioEstado.listarPorId(59).subscribe(resEstado=>{
+            detalleSolicitud.idEstado = resEstado
+            this.servicioDetalleSolicitud.actualizar(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+
+            })
           })
         }
+      })
+      this.listadoArtSel.forEach((element:any) => {
+        let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+        detalleSolicitud.idArticulos = element.idArticulos
+        this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
+          detalleSolicitud.idSolicitud = resSolicitud
+          detalleSolicitud.valorUnitario = 0
+          detalleSolicitud.cantidad = element.cantidad
+          detalleSolicitud.valorTotal = 0
+          detalleSolicitud.observacion = element.observacion
+          this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+            detalleSolicitud.idEstado = resEstado
+            this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
+              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se modifico la solicitud!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              window.location.reload()
+              this.dialogRef.close();
+            }, error => {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Hubo un error al agregar!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            });
+          })
+        })
       });
     })
-    console.log(this.listadoArtSel)
-    this.listadoArtSel.forEach((element:any) => {
-      let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
-      detalleSolicitud.idArticulos = element.idArticulos
-      this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-        detalleSolicitud.idSolicitud = resSolicitud
-        detalleSolicitud.valorUnitario = 0
-        detalleSolicitud.cantidad = element.cantidad
-        detalleSolicitud.valorTotal = 0
-        detalleSolicitud.observacion = element.observacion
-        this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-          detalleSolicitud.idEstado = resEstado
-          this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
-            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Se modifico la solicitud!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            window.location.reload()
-            this.dialogRef.close();
-          }, error => {
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Hubo un error al agregar!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          });
-        })
-      })
-    });
   }
 
 }

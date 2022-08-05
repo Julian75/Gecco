@@ -47,7 +47,7 @@ export class VisualizarRegistroComponent implements OnInit {
       this.servicelistaSolicitud.listarPorId(resOrdenCompra.idSolicitud.id).subscribe( res => {
         this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
           resDetalle.forEach(element => {
-            if (element.idSolicitud.id == res.id) {
+            if (element.idSolicitud.id == res.id  && element.idEstado.id != 59) {
               this.listarDetalle.push(element);
             }
           })

@@ -41,7 +41,7 @@ export class ListadoObservacionComponent implements OnInit {
       this.estadoSolicitud = res.idEstado.id
       this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
         resDetalle.forEach(element => {
-          if (element.idSolicitud.id == res.id) {
+          if (element.idSolicitud.id == res.id && element.idEstado.id == 28 ) {
             this.listarDetalle.push(element);
           }
         })

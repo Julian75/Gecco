@@ -9,5 +9,6 @@ export class TurnoVendedorDTO {
   public nombre_sitio_venta: string="";
   public id_vendedor: number=0;
   public nombre_vendedor: string="";
+  public estado: string="";
   public id_turno: number=0;
 }

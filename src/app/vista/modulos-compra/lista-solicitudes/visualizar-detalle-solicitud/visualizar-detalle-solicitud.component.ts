@@ -18,7 +18,8 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
   public idSolicitud: any;
   public estadoSolicitud: any;
   public listarDetalle: any = [];
-  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado' ,'opciones'];
+  public listaExiste: any = [];
+  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion' ,'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -36,6 +37,7 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
   }
 
   aprobar:boolean = false
+  aprobar2:boolean = false
   public listarDetalleSolicitud() {
     this.idSolicitud = this.data;
     this.servicelistaSolicitud.listarPorId(this.idSolicitud.id).subscribe( res => {
@@ -43,34 +45,55 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
         this.aprobar = true
         this.serviceGestionProceso.listarTodos().subscribe(resGestionProceso=>{
           resGestionProceso.forEach(elementGestionProceso => {
-            if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
+            if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 50){
+              console.log(elementGestionProceso)
               this.listarDetalle.push(elementGestionProceso.idDetalleSolicitud)
+              console.log(this.listarDetalle)
             }
           });
+          console.log("Holissss")
           console.log(this.listarDetalle)
           this.dataSource = new MatTableDataSource( this.listarDetalle);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-        })
-        this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
-          resDetalle.forEach(element => {
-            if (element.idSolicitud.id == res.id) {
-              this.listarDetalle.push(element);
-            }
-          })
         })
       }else{
         this.aprobar = false
         this.estadoSolicitud = res.idEstado.id
         this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {
           resDetalle.forEach(element => {
-            if (element.idSolicitud.id == res.id) {
-              this.listarDetalle.push(element);
+            if (element.idSolicitud.id == res.id && element.idEstado.id == 28) {
+              this.aprobar2 = true
+            }else if (element.idSolicitud.id == res.id && element.idEstado.id == 57 ) {
+              this.aprobar2 = false
             }
+            this.listaExiste.push(this.aprobar2)
           })
-          this.dataSource = new MatTableDataSource( this.listarDetalle);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          const existe = this.listaExiste.includes( true );
+          if(existe == true){
+            resDetalle.forEach(element => {
+              if (element.idSolicitud.id == res.id && element.idEstado.id == 28) {
+                this.listarDetalle.push(element);
+              }
+            })
+            console.log("HOlsi")
+            this.dataSource = new MatTableDataSource( this.listarDetalle);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }else if(existe == false){
+            resDetalle.forEach(element => {
+              if (element.idSolicitud.id == res.id && element.idEstado.id == 57) {
+                this.listarDetalle.push(element);
+              }else if (element.idSolicitud.id == res.id && element.idEstado.id == 56) {
+                this.listarDetalle.push(element);
+              }
+            })
+            console.log(this.listarDetalle)
+            console.log("HOlsi2")
+            this.dataSource = new MatTableDataSource( this.listarDetalle);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
         })
       }
     })

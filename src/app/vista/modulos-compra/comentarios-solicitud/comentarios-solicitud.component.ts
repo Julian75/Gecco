@@ -1,12 +1,6 @@
 import { map } from 'rxjs';
 import { GestionProcesoService } from './../../../servicios/gestionProceso.service';
-import { ProcesoService } from './../../../servicios/proceso.service';
 import { PasosComponent } from './../pasos/pasos.component';
-import { VisualizarDetalleSolicitudComponent } from './../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
-import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
-import { CorreoService } from './../../../servicios/Correo.service';
-import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { EstadoService } from 'src/app/servicios/estado.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -47,7 +41,7 @@ export class ComentariosSolicitudComponent implements OnInit {
         if(element.idProceso.idUsuario.id == Number(sessionStorage.getItem("id"))){
           this.solicitudService.listarTodos().subscribe(resSolicitud => {
             resSolicitud.forEach(elementSolicitud => {
-              if (elementSolicitud.id == element.idDetalleSolicitud.idSolicitud.id) {
+              if (elementSolicitud.id == element.idDetalleSolicitud.idSolicitud.id && element.idDetalleSolicitud.idEstado.id == 54) {
                 this.listaSolicitudes.push(elementSolicitud);
               }
             })

@@ -9,7 +9,7 @@
   </mat-form-field>
   <section class="example-container mat-elevation-z8" tabindex="0">
 
-    <table id="rol" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+    <table id="rol" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
@@ -24,7 +24,7 @@
 
         <ng-container matColumnDef="usuario">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Usuario</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}}</td>
+          <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
         </ng-container>
 
         <ng-container matColumnDef="estado">
@@ -39,10 +39,10 @@
             <button class="btn btnedit me-2 edi" (click)="verSolicitud(item.id)">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button class="btn boton me-2" (click)="aceptar(item.id)">
+            <button class="btn boton btne me-2" (click)="aceptar(item.id)">
               <mat-icon>check_circle</mat-icon>
             </button>
-            <button class="btn btnremove me-2" (click)="rechazarSolicitud(item.id)">
+            <button class="btn btnremove btne me-2" (click)="rechazar(item.id)">
               <mat-icon>cancel</mat-icon>
             </button>
           </td>

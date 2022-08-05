@@ -101,6 +101,9 @@ import { ListaProcesoComponent } from './modulos-compra/lista-proceso/lista-proc
 import { AgregarProcesoComponent } from './modulos-compra/lista-proceso/agregar-proceso/agregar-proceso.component';
 import { ModificarProcesoComponent } from './modulos-compra/lista-proceso/modificar-proceso/modificar-proceso.component';
 import { AgregarComentarioComponent } from './modulos-compra/comentarios-solicitud/agregar-comentario/agregar-comentario.component';
+import { AprobarComentarioComponent } from './modulos-compra/comentarios-solicitud/aprobar-comentario/aprobar-comentario.component';
+import { ListadoComentariosComponent } from './modulos-compra/comentarios-solicitud/listado-comentarios/listado-comentarios.component';
+import { SolicitudConformeComponent } from './modulos-compra/solicitud-conforme/solicitud-conforme.component';
 
 @NgModule({
   declarations: [
@@ -201,6 +204,9 @@ import { AgregarComentarioComponent } from './modulos-compra/comentarios-solicit
     AgregarProcesoComponent,
     ModificarProcesoComponent,
     AgregarComentarioComponent,
+    AprobarComentarioComponent,
+    ListadoComentariosComponent,
+    SolicitudConformeComponent,
   ],
   imports: [
     CommonModule,

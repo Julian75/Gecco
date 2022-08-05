@@ -84,7 +84,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
         console.log(resSolicitud)
         this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
           resDetalleSolicitud.forEach(element => {
-            if(element.idSolicitud.id == resSolicitud.id){
+            if(element.idSolicitud.id == resSolicitud.id  && element.idEstado.id != 59){
               this.listaRow.push(element)
             };
           })

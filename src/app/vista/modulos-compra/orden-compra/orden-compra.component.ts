@@ -72,7 +72,7 @@ export class OrdenCompraComponent implements OnInit {
   public listarTodos(){
     this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
       resDetalleSolicitud.forEach(element => {
-        if(element.idSolicitud.id == Number(this.data)){
+        if(element.idSolicitud.id == Number(this.data) && element.idEstado.id != 59){
           var obj = {
             solicitudDetalle: element,
             cantidad: 0
