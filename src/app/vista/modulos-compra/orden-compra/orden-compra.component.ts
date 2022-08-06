@@ -19,6 +19,9 @@ import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { Solicitud } from 'src/app/modelos/solicitud';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
 
 @Component({
   selector: 'app-orden-compra',
@@ -51,6 +54,7 @@ export class OrdenCompraComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioSolicitud: SolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
+    private servicioModificar: ModificarService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<OrdenCompraComponent>,
   ) { }
@@ -166,19 +170,19 @@ export class OrdenCompraComponent implements OnInit {
       idSolicitud = element.solicitudDetalle.idSolicitud.id
     })
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-        let solicitud : Solicitud = new Solicitud();
+        let solicitud : Solicitud2 = new Solicitud2();
         solicitud.id = resSolicitud.id
         solicitud.fecha = resSolicitud.fecha
         this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
-          solicitud.idEstado = resEstado
-          solicitud.idUsuario = resSolicitud.idUsuario
+          solicitud.idEstado = resEstado.id
+          solicitud.idUsuario = resSolicitud.idUsuario.id
           this.actualizarSolicitud(solicitud, idSolicitud)
         })
     })
   }
 
-  public actualizarSolicitud(solicitud:Solicitud, idSolicitud:number){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(resSolicitud=>{
+  public actualizarSolicitud(solicitud:Solicitud2, idSolicitud:number){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
       this.realizarRegistro(idSolicitud)
     }, error => {
       console.log(error)
@@ -233,13 +237,13 @@ export class OrdenCompraComponent implements OnInit {
     const cantidad = this.formProveedor.controls['antici'].value
     console.log(cantidad, this.lista)
     this.lista.forEach((element:any) => {
-      let solicitudDetalle : DetalleSolicitud = new DetalleSolicitud();
+      let solicitudDetalle : DetalleSolicitud2 = new DetalleSolicitud2();
       solicitudDetalle.id = element.solicitudDetalle.id
       solicitudDetalle.cantidad = element.solicitudDetalle.cantidad
-      solicitudDetalle.idArticulos = element.solicitudDetalle.idArticulos
+      solicitudDetalle.idArticulos = element.solicitudDetalle.idArticulos.id
       this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
-        solicitudDetalle.idEstado = resEstado
-        solicitudDetalle.idSolicitud = element.solicitudDetalle.idSolicitud
+        solicitudDetalle.idEstado = resEstado.id
+        solicitudDetalle.idSolicitud = element.solicitudDetalle.idSolicitud.id
         solicitudDetalle.observacion = element.solicitudDetalle.observacion
         solicitudDetalle.valorUnitario = element.cantidad
         solicitudDetalle.valorTotal = element.valorUnitario
@@ -248,8 +252,8 @@ export class OrdenCompraComponent implements OnInit {
     });
   }
 
-  public actualizarSolicitudDetalle(solicitudDetalle: DetalleSolicitud){
-    this.servicioDetalleSolicitud.actualizar(solicitudDetalle).subscribe(res=>{
+  public actualizarSolicitudDetalle(solicitudDetalle: DetalleSolicitud2){
+    this.servicioModificar.actualizarDetalleSolicitud(solicitudDetalle).subscribe(res=>{
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -294,8 +298,10 @@ export class OrdenCompraComponent implements OnInit {
   capturarOpcion(op:any){
     if(op == "Si"){
       document.getElementById('anticipo')?.setAttribute('style', 'display: block;')
+      document.getElementById('tablita')?.setAttribute('style', 'margin-top: -50px;')
     }else{
       document.getElementById('anticipo')?.setAttribute('style', 'display: none;')
+      document.getElementById('tablita')?.setAttribute('style', 'margin-top: 0px;')
     }
   }
   textoProveedor:any

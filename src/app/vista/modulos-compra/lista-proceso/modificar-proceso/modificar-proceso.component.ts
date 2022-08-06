@@ -2,10 +2,12 @@ import { Proceso } from './../../../../modelos/proceso';
 import { UsuarioService } from './../../../../servicios/usuario.service';
 import { CategoriaService } from './../../../../servicios/Categoria.service';
 import { ProcesoService } from './../../../../servicios/proceso.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Proceso2 } from 'src/app/modelos/proceso2';
 
 @Component({
   selector: 'app-modificar-proceso',
@@ -28,6 +30,7 @@ export class ModificarProcesoComponent implements OnInit {
     private servicioProceso: ProcesoService,
     private servicioCategoria : CategoriaService,
     private servicioUsuario : UsuarioService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -83,15 +86,15 @@ export class ModificarProcesoComponent implements OnInit {
   public guardar() {
     this.listarExiste = []
     this.aprobar = false
-    let proceso : Proceso = new Proceso();
+    let proceso : Proceso2 = new Proceso2();
     proceso.id = Number(this.data)
     const idCategoria = this.formAsigCat.controls['categoria'].value;
     const idUsuario = this.formAsigCat.controls['usuario'].value;
 
     this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
-      proceso.idCategoria = resCategoria
+      proceso.idCategoria = resCategoria.id
       this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario=>{
-        proceso.idUsuario = resUsuario
+        proceso.idUsuario = resUsuario.id
         this.servicioProceso.listarPorId(proceso.id).subscribe(resProces=>{
           if(resProces.idCategoria.id == idCategoria && resProces.idUsuario.id){
             Swal.fire({
@@ -133,8 +136,8 @@ export class ModificarProcesoComponent implements OnInit {
 
   }
 
-  public modificarProceso(proceso: Proceso) {
-    this.servicioProceso.actualizar(proceso).subscribe(res=>{
+  public modificarProceso(proceso: Proceso2) {
+    this.servicioModificar.actualizarProceso(proceso).subscribe(res=>{
       Swal.fire({
         position: 'center',
         icon: 'success',

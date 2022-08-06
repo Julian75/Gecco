@@ -4,4 +4,5 @@ export class GestionProceso2 {
   public idProceso : number=0;
   public idDetalleSolicitud: number=0;
   public idEstado: number=0;
+  public idUsuario: number=0;
 }

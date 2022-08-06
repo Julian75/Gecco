@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../../servicios/usuario.service';
 import { PasosComponent } from './../pasos/pasos.component';
 import { Solicitud } from 'src/app/modelos/solicitud';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
@@ -12,6 +13,9 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
 
 @Component({
   selector: 'app-proceso',
@@ -38,6 +42,8 @@ export class ProcesoComponent implements OnInit {
     private serviceProceso: ProcesoService,
     private serviceEstado: EstadoService,
     private serviceGestionProceso: GestionProcesoService,
+    private servicioUsuario: UsuarioService,
+    private servicioModificar: ModificarService,
     private servicioSolicitud: SolicitudService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
     private fb: FormBuilder,
@@ -89,7 +95,10 @@ export class ProcesoComponent implements OnInit {
               gestionProceso.idDetalleSolicitud = this.listaDetalleSolicitud
               this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
                 gestionProceso.idEstado = resEstado
-                this.registrarGestionProceso(gestionProceso, this.listaDetalleSolicitud.id, "siquiere")
+                this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                  gestionProceso.idUsuario = resUsuario
+                  this.registrarGestionProceso(gestionProceso, this.listaDetalleSolicitud.id, "siquiere")
+                })
               })
             }
           });
@@ -109,23 +118,23 @@ export class ProcesoComponent implements OnInit {
 
   public actualizarDetalleSolicitud(idDetalleSolicitud:number, informacion){
     console.log(informacion)
-    let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+    let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
     this.servicioDetalleSolicitud.listarPorId(idDetalleSolicitud).subscribe(resDetalleSolicitud=>{
       detalleSolicitud.id = resDetalleSolicitud.id
       detalleSolicitud.cantidad = resDetalleSolicitud.cantidad
-      detalleSolicitud.idArticulos = resDetalleSolicitud.idArticulos
-      detalleSolicitud.idSolicitud = resDetalleSolicitud.idSolicitud
+      detalleSolicitud.idArticulos = resDetalleSolicitud.idArticulos.id
+      detalleSolicitud.idSolicitud = resDetalleSolicitud.idSolicitud.id
       detalleSolicitud.observacion = resDetalleSolicitud.observacion
       detalleSolicitud.valorTotal = resDetalleSolicitud.valorTotal
       detalleSolicitud.valorUnitario = resDetalleSolicitud.valorUnitario
       if(informacion == 'siquiere'){
         this.serviceEstado.listarPorId(54).subscribe(resEstado=>{
-          detalleSolicitud.idEstado = resEstado
+          detalleSolicitud.idEstado = resEstado.id
           this.actualizarDetaSol(detalleSolicitud)
         })
       }else if(informacion == 'noquiere'){
         this.serviceEstado.listarPorId(56).subscribe(resEstado=>{
-          detalleSolicitud.idEstado = resEstado
+          detalleSolicitud.idEstado = resEstado.id
           this.actualizarDetaSol(detalleSolicitud)
         })
       }
@@ -134,11 +143,11 @@ export class ProcesoComponent implements OnInit {
 
   validar: boolean = false
   comentario: boolean = false
-  public actualizarDetaSol(detalleSolicitud: DetalleSolicitud){
-    this.servicioDetalleSolicitud.actualizar(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+  public actualizarDetaSol(detalleSolicitud: DetalleSolicitud2){
+    this.servicioModificar.actualizarDetalleSolicitud(detalleSolicitud).subscribe(resDetalleSolicitud=>{
       this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
         resDetalleSolicitud.forEach(element => {
-          if(element.idSolicitud.id == detalleSolicitud.idSolicitud.id){
+          if(element.idSolicitud.id == detalleSolicitud.idSolicitud){
             this.listaDetalleSolicitudes.push(element)
           }
         });
@@ -160,34 +169,35 @@ export class ProcesoComponent implements OnInit {
         const comentarioVal = this.listaComentarios.includes( true )
         if (existe==false) {
           if(comentarioVal == true){
-            this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud.id)).subscribe(res => {
-              let solicitud : Solicitud = new Solicitud();
+            this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud)).subscribe(res => {
+              let solicitud : Solicitud2 = new Solicitud2();
               solicitud.id = res.id
               solicitud.fecha = res.fecha
-              solicitud.idUsuario = res.idUsuario
+              solicitud.idUsuario = res.idUsuario.id
               this.serviceEstado.listarPorId(54).subscribe(resEstado=>{
-                solicitud.idEstado = resEstado
+                solicitud.idEstado = resEstado.id
                 this.actualizarSolicitud(solicitud)
               })
             })
           }else{
-            this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud.id)).subscribe(res => {
-              let solicitud : Solicitud = new Solicitud();
+            this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud)).subscribe(res => {
+              let solicitud : Solicitud2 = new Solicitud2();
               solicitud.id = res.id
               solicitud.fecha = res.fecha
-              solicitud.idUsuario = res.idUsuario
+              solicitud.idUsuario = res.idUsuario.id
               this.serviceEstado.listarPorId(56).subscribe(resEstado=>{
-                solicitud.idEstado = resEstado
+                solicitud.idEstado = resEstado.id
                 this.actualizarSolicitud(solicitud)
               })
             })
           }
         }else{
-          this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud.id)).subscribe(res => {
+          this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud)).subscribe(res => {
             if(res.idEstado.id == 28){
+              this.dialogRef.close();
               const dialogRef = this.dialog.open(ListadoObservacionComponent, {
                 width: '1000px',
-                data: {id:detalleSolicitud.idSolicitud.id}
+                data: {id:detalleSolicitud.idSolicitud}
               });
             }
           })
@@ -197,9 +207,9 @@ export class ProcesoComponent implements OnInit {
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(resSolicitud=>{
-      if(solicitud.idEstado.id == 54){
+  public actualizarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
+      if(solicitud.idEstado == 54){
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -207,7 +217,7 @@ export class ProcesoComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-      }else if(solicitud.idEstado.id == 56){
+      }else if(solicitud.idEstado == 56){
         Swal.fire({
           position: 'center',
           icon: 'success',

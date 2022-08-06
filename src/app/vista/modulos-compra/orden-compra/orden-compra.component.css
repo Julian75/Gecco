@@ -1,11 +1,8 @@
 .example-container {
-  width: 160px;
-  overflow: auto;
+  max-width: 100%;
   position: relative;
-  top: 65px !important;
   border-bottom: 20%;
   box-shadow: 1px none #000;
-  margin-bottom: 3% !important;
 }
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
@@ -128,9 +125,11 @@ margin-top: 10%;
 box-shadow: 1px 2px 10px #959595;
 }
 .nombre, .estado, .nombre1{
-width: 250px;
+width: 230px;
 }
-.nombre{ position: absolute; top: 240px; left: 890px; }
+.nombre{ position: relative;
+  top: -60px;
+  left: 196px; }
 .nombre2, .estado2{ margin-left: 5%; margin-top: 2.5%; }
 .nombre3{ margin-left: 40%; margin-top: -12.4%; margin-bottom: -30px;}
 .nombre4{ margin-left: 73.5%; margin-top: -9.4%;}
@@ -1164,152 +1163,3 @@ mat-option{ font-size: 10.5px; }
   }
 }
 
-/* Portatil Grande */
-@media screen and (min-width: 1441px) {
-  .example-container{
-    width: 724px;
-    overflow: auto;
-    position: relative;
-    top: 43px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: -1% !important;
-  }
-  h3{
-    font-size: 12px;
-  }
-  .ar{
-    position: relative;
-    top: 5px;
-    left: -5px;
-  }
-  .v{
-    position: relative;
-    top: 5px;
-    left: 13px;
-  }
-  .o{
-    position: relative;
-    left: 32px;
-    top: 5px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -10px;
-    position: relative;
-    top: 5px;
-  }
-  td{
-    font-size: 11px;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
-    top: -23px;
-  }
-  .nombre1{
-    width: 345px;
-    left: -15px;
-    top: -21px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -285px;
-    top: 56px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -288px;
-    top: 44px;
-  }
-  .nombre{
-    width: 234px;
-    left: 552px;
-    top: 283px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-    width: 724px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -35px;
-    margin-bottom: -34px;
-  }
-
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 239px;
-    height: 40px;
-    font-size: large;
-    margin-left: 0%;
-    position: relative;
-    top: 80px;
-  }
-  .sub{
-    position: relative;
-    top: 75px;
-  }
-  .val{
-    position: relative;
-    top: 72px;
-  }
-  .des{
-    position: relative;
-    top: 66px;
-  }
-  .to{
-    position: relative;
-    top: 64px;
-  }
-}

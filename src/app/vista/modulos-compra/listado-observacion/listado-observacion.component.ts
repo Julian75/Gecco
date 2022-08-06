@@ -24,6 +24,7 @@ export class ListadoObservacionComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<VisualizarDetalleSolicitudComponent>,
     public dialogRef2: MatDialogRef<ListadoObservacionComponent>,
+    public pasos: MatDialogRef<ProcesoComponent>,
     private servicelistaSolicitud: SolicitudService,
     private serviceDetalleSolicitud: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,

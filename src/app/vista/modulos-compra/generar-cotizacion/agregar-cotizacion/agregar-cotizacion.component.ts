@@ -210,21 +210,21 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   public actualizarSolicitud(idSolicitud: any){
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     solicitud.id=Number(idSolicitud);
     this.servicioSolicitud.listarPorId(solicitud.id).subscribe(resSolicitud=>{
       solicitud.fecha = resSolicitud.fecha
-      solicitud.idUsuario = resSolicitud.idUsuario
+      solicitud.idUsuario = resSolicitud.idUsuario.id
       this.servicioEstado.listarPorId(36).subscribe(resEstado=>{
-        solicitud.idEstado = resEstado
-        solicitud.idUsuario = resSolicitud.idUsuario
+        solicitud.idEstado = resEstado.id
+        solicitud.idUsuario = resSolicitud.idUsuario.id
           this.actualizarSolic(solicitud)
       })
     })
   }
 
-  public actualizarSolic(solicitud: Solicitud){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(res => {
+  public actualizarSolic(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

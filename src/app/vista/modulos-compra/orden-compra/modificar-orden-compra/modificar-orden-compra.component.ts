@@ -16,6 +16,10 @@ import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { OrdenCompra2 } from 'src/app/modelos/ordenCompra2';
+import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
 
 @Component({
   selector: 'app-modificar-orden-compra',
@@ -39,6 +43,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioSolicitud: SolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
+    private servicioModificar: ModificarService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ModificarOrdenCompraComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -74,10 +79,12 @@ export class ModificarOrdenCompraComponent implements OnInit {
         this.opciones = ['Si']
         this.anticipoVal2 = resordenCompra.anticipoPorcentaje
         this.descuento = resordenCompra.descuento
+        document.getElementById('tablita')?.setAttribute('style', 'margin-top: -50px;')
       }else if(resordenCompra.anticipoPorcentaje == 0){
         this.opciones = ['No']
         this.anticipoVal2 = 0
         this.descuento = 0
+        document.getElementById('tablita')?.setAttribute('style', 'margin-top: 0px;')
       }
       document.getElementById('proveedortra')?.setAttribute('value', resordenCompra.idProveedor.nombre)
       this.servicioSolicitud.listarPorId(resordenCompra.idSolicitud.id).subscribe(resSolicitud=>{
@@ -151,33 +158,33 @@ export class ModificarOrdenCompraComponent implements OnInit {
       idSolicitud = element.idSolicitud.id
     })
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-        let solicitud : Solicitud = new Solicitud();
+        let solicitud : Solicitud2 = new Solicitud2();
         solicitud.id = resSolicitud.id
         solicitud.fecha = resSolicitud.fecha
         this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
-          solicitud.idEstado = resEstado
-          solicitud.idUsuario = resSolicitud.idUsuario
+          solicitud.idEstado = resEstado.id
+          solicitud.idUsuario = resSolicitud.idUsuario.id
           this.actualizarSolicitud(solicitud, solicitud.id)
         })
     })
   }
 
-  public actualizarSolicitud(solicitud:Solicitud, idSolicitud){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(resSolicitud=>{
+  public actualizarSolicitud(solicitud:Solicitud2, idSolicitud){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
       for (const [key, value] of Object.entries(this.data)) {
         this.list.push(value)
       }
       this.servicioOrdenCompra.listarPorId(this.list[1]).subscribe(resOrdenCompra=>{
-        let ordenCompra : OrdenCompra = new OrdenCompra();
+        let ordenCompra : OrdenCompra2 = new OrdenCompra2();
         ordenCompra.id = resOrdenCompra.id
         ordenCompra.subtotal = this.subtotal
         ordenCompra.descuento = this.descuento
         ordenCompra.valorAnticipo = this.total
         ordenCompra.anticipoPorcentaje = this.anticipoVal2
-        ordenCompra.idProveedor = resOrdenCompra.idProveedor
-        ordenCompra.idSolicitud = solicitud
+        ordenCompra.idProveedor = resOrdenCompra.idProveedor.id
+        ordenCompra.idSolicitud = solicitud.id
         this.servicioEstado.listarPorId(43).subscribe(resEstado=>{
-          ordenCompra.idEstado = resEstado
+          ordenCompra.idEstado = resEstado.id
           this.actualizarOrdenCompra(ordenCompra, idSolicitud)
         })
       })
@@ -193,27 +200,27 @@ export class ModificarOrdenCompraComponent implements OnInit {
     })
   }
 
-  public actualizarOrdenCompra(ordenCompra: OrdenCompra, idSolicitud){
-    this.servicioOrdenCompra.actualizar(ordenCompra).subscribe(resOrdenCOmpra=>{
+  public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idSolicitud){
+    this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(resOrdenCOmpra=>{
       this.listaRow.forEach(element => {
-        let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud()
+        let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2()
         detalleSolicitud.id = element.id
         detalleSolicitud.cantidad = element.cantidad
-        detalleSolicitud.idArticulos = element.idArticulos
-        detalleSolicitud.idSolicitud = element.idSolicitud
+        detalleSolicitud.idArticulos = element.idArticulos.id
+        detalleSolicitud.idSolicitud = element.idSolicitud.id
         detalleSolicitud.observacion = element.observacion
         detalleSolicitud.valorTotal = element.valorTotal
         detalleSolicitud.valorUnitario = element.valorUnitario
         this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
-          detalleSolicitud.idEstado = resEstado
+          detalleSolicitud.idEstado = resEstado.id
           this.actualizarDetalleSolicitud(detalleSolicitud)
         })
       });
     })
   }
 
-  public actualizarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
-    this.servicioDetalleSolicitud.actualizar(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+  public actualizarDetalleSolicitud(detalleSolicitud: DetalleSolicitud2){
+    this.servicioModificar.actualizarDetalleSolicitud(detalleSolicitud).subscribe(resDetalleSolicitud=>{
       Swal.fire({
         position: 'center',
         icon: 'success',

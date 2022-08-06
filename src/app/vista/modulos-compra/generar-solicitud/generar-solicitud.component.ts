@@ -58,13 +58,14 @@ export class GenerarSolicitudComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.crearFormulario();
     this.listarArticulos();
-    this.crearFormulario()
   }
 
   private crearFormulario() {
     this.formSolicitud = this.fb.group({
       id: 0,
+      articulo: [null,Validators.required],
       cantidad: [null,Validators.required],
       observacion: [null,Validators.required],
     });
@@ -73,6 +74,7 @@ export class GenerarSolicitudComponent implements OnInit {
   articlo: any
   public listarArticulos() {
     this.servicioArticulo.listarTodos().subscribe(res => {
+      this.articulosDisponibles = []
       res.forEach(element => {
         if(element.idEstado.id == 26){
           this.articulosDisponibles.push(element)
@@ -111,6 +113,10 @@ export class GenerarSolicitudComponent implements OnInit {
       }
       if(this.listadoArtSel.length<1){
         this.listadoArtSel.push(obj)
+        this.crearFormulario();
+        this.articulos = new FormControl<string | Articulo>("");
+        this.listarArticulos();
+
       }else if(this.listadoArtSel.length>=1){
         this.listadoArtSel.forEach((element:any) => {
           if(element.articulo.id == obj.articulo.id){
@@ -125,8 +131,20 @@ export class GenerarSolicitudComponent implements OnInit {
         console.log(existe)
         if(existe == false){
           this.listadoArtSel.push(obj)
+          this.crearFormulario();
+          this.articulos = new FormControl<string | Articulo>("");
+          this.listarArticulos();
         }else if(existe == true){
-          console.log("ya exuste")
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Este articulo ya esta agregado!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.crearFormulario();
+          this.articulos = new FormControl<string | Articulo>("");
+          this.listarArticulos();
         }
       }
       this.dataSource = new MatTableDataSource( this.listadoArtSel);
@@ -331,6 +349,13 @@ export class GenerarSolicitudComponent implements OnInit {
 
   public registrarSolicitud(solicitud: Solicitud){
     this.servicioSolicitud.registrar(solicitud).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se registro la solicitud!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       this.detalleSolicitud()
     }, error => {
       Swal.fire({
@@ -379,13 +404,7 @@ export class GenerarSolicitudComponent implements OnInit {
 
   public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
     this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se registro un solicitud!',
-        showConfirmButton: false,
-        timer: 1500
-      })
+
       window.location.reload();
     }, error => {
       Swal.fire({

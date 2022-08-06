@@ -11,11 +11,14 @@ import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { ArticuloService } from 'src/app/servicios/articulo.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { Observable, startWith, map } from 'rxjs';
 import { Articulo } from './../../../../modelos/articulo';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
 
 @Component({
   selector: 'app-modificar-solicitud',
@@ -49,6 +52,7 @@ export class ModificarSolicitudComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioSolicitud: SolicitudService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<ModificarSolicitudComponent>,
   ){}
@@ -265,19 +269,19 @@ export class ModificarSolicitudComponent implements OnInit {
   public generarSolicitud(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-      let solicitud : Solicitud = new Solicitud();
+      let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
       solicitud.fecha = resSolicitud.fecha
       this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-        solicitud.idEstado = resEstado
-        solicitud.idUsuario = resSolicitud.idUsuario
+        solicitud.idEstado = resEstado.id
+        solicitud.idUsuario = resSolicitud.idUsuario.id
         this.actualizarSolicitud(solicitud, solicitud.id)
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud, idSolicitud:number){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(res=>{
+  public actualizarSolicitud(solicitud: Solicitud2, idSolicitud:number){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res=>{
       this.detalleSolicitud(idSolicitud)
     }, error => {
       Swal.fire({
@@ -294,17 +298,17 @@ export class ModificarSolicitudComponent implements OnInit {
     this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
       resDetalleSolicitud.forEach(elementDetalleSolicitud => {
         if(elementDetalleSolicitud.idSolicitud.id == idSolicitud){
-          let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+          let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
           detalleSolicitud.id = elementDetalleSolicitud.id
           detalleSolicitud.cantidad = elementDetalleSolicitud.cantidad
-          detalleSolicitud.idArticulos = elementDetalleSolicitud.idArticulos
-          detalleSolicitud.idSolicitud = elementDetalleSolicitud.idSolicitud
+          detalleSolicitud.idArticulos = elementDetalleSolicitud.idArticulos.id
+          detalleSolicitud.idSolicitud = elementDetalleSolicitud.idSolicitud.id
           detalleSolicitud.observacion = elementDetalleSolicitud.observacion
           detalleSolicitud.valorTotal = elementDetalleSolicitud.valorTotal
           detalleSolicitud.valorUnitario = elementDetalleSolicitud.valorUnitario
           this.servicioEstado.listarPorId(59).subscribe(resEstado=>{
-            detalleSolicitud.idEstado = resEstado
-            this.servicioDetalleSolicitud.actualizar(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+            detalleSolicitud.idEstado = resEstado.id
+            this.servicioModificar.actualizarDetalleSolicitud(detalleSolicitud).subscribe(resDetalleSolicitud=>{
 
             })
           })

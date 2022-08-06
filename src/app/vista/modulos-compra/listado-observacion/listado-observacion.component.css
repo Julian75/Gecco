@@ -54,16 +54,23 @@ mat-form-field{
 .botonagregar, .excelButton, .botonvolver, .formulario{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 20px; }
-#desSp{ left: 40px; }
-#estSp{ left: 40px; }
+#idSp{ left: 15px; }
+#desSp{ left: 22px; }
+#estSp{ left: 28px; }
 #obSp{ left: 50px; position: relative;}
-#estaSp{ left: 42px; position: relative;}
+#estaSp{ left: 23px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
+#opc{ position: relative; left: 40px;}
 .excelButton{ margin-left: -1%;  }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #idSp2{ padding-left: 0%; }
+.formulario{
+  width: 64px;
+  height: 36px;
+  position: relative;
+  left: 13px;
+}
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
@@ -101,15 +108,27 @@ mat-form-field{
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
+  td button mat-icon{ font-size: 10px; margin-left: -7px; }
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
   #estSp{ left: 8px; }
-  #estaSp{left: 20px; position: relative;}
+  #estaSp{left: 8px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
+  .formulario{
+    width: 18px !important;
+    height: 20px;
+    position: relative;
+    left: 6%;
+    top: 1px;
+    margin-bottom: 7px;
+  }
+  th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+    padding-right: 0px;
+  }
+  #opc{ position: relative; left: 9px;}
 }
 
 /* Movil medio - Samsung Galaxy S8 */
@@ -149,7 +168,7 @@ mat-form-field{
   .ver{
     margin-left: -6%;
   }
-  td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
+  td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
@@ -157,10 +176,22 @@ mat-form-field{
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
   #estSp{ left: 8px; }
-  #estaSp{left: 20px; position: relative;}
+  #estaSp{left: 8px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
+  #opc{ position: relative; left: 9px;}
+  .formulario{
+    width: 18px !important;
+    height: 20px;
+    position: relative;
+    left: 4%;
+    top: 1px;
+    margin-bottom: 7px;
+  }
+  th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+    padding-right: 0px;
+  }
 }
 
 /* Movil grande - Surface Duo*/
@@ -178,16 +209,24 @@ mat-form-field{
   .btnremove{ position: relative; left: 1%; }
   .btnver{ position: relative; left: -2%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  td button mat-icon{ font-size: 18px; margin-left: -4px; margin-top: -1px; }
+  td button mat-icon{ font-size: 21px; margin-left: 0px; margin-top: 1px; }
   #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
-  #estaSp{left: 20px; position: relative;}
+  #desSp{ left: 6px; }
+  #estSp{ left: 6px; }
+  #estaSp{left: 8px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton{ font-size: 20px; }
   .excelButton i{ top: -3px; }
+  #opc{ position: relative; left: 18px;}
+  .formulario{
+    width: 64px;
+    height: 36px;
+    position: relative;
+    left: 14px;
+  }
+
 }
 
 /* Tablet pequeña - iPad Mini*/
@@ -196,12 +235,19 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 12px; }
+  #desSp{ left: 10px; }
   #estSp{ left: 8px; }
-  #estaSp{left: 20px; position: relative;}
+  #estaSp{left: 10px; position: relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
+  #opc{ position: relative; left: 18px;}
+  .formulario{
+    width: 64px;
+    height: 36px;
+    position: relative;
+    left: 14px;
+  }
 }
 
 /* Tablet medio - iPad Air*/
@@ -212,35 +258,56 @@ mat-form-field{
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 12px; }
   #estSp{ left: 11px; }
-  #estaSp{left: 20px; position: relative;}
+  #estaSp{left: 10px; position: relative;}
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
+  #opc{ position: relative; left: 18px;}
+  .formulario{
+    width: 64px;
+    height: 36px;
+    position: relative;
+    left: 14px;
+  }
 }
 
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 15px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 19px; }
+  #idSp{ left: 14px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 36px; }
-  #estSp{ left: 47%; }
+  #desSp{ left: 24px; }
+  #estSp{ left: 29%; }
   #jerSp{ left: 60%; }
-  #estaSp{left: 49px; position: relative;}
+  #estaSp{left: 23px; position: relative;}
+  #opc{ position: relative; left: 34px;}
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
+  .formulario{
+    width: 64px;
+    height: 36px;
+    position: relative;
+    left: 10px;
+  }
 }
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 15px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 19px; }
+  #idSp{ left: 14px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 36px; }
-  #estSp{ left: 47%; }
+  #desSp{ left: 23px; }
+  #estSp{ left: 29%; }
   #jerSp{ left: 60%; }
-  #estaSp{left: 49px; position: relative;}
+  #estaSp{left: 23px; position: relative;}
+  #opc{ position: relative; left: 34px;}
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
+  .formulario{
+    width: 64px;
+    height: 36px;
+    position: relative;
+    left: 10px;
+  }
 }

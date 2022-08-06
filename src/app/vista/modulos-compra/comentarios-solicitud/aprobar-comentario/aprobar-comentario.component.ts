@@ -3,6 +3,7 @@ import { DetalleSolicitudService } from './../../../../servicios/detalleSolicitu
 import { EstadoService } from './../../../../servicios/estado.service';
 import { Solicitud } from './../../../../modelos/solicitud';
 import { SolicitudService } from './../../../../servicios/solicitud.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { ListadoComentariosComponent } from './../listado-comentarios/listado-comentarios.component';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,6 +12,8 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
 
 @Component({
   selector: 'app-aprobar-comentario',
@@ -32,6 +35,7 @@ export class AprobarComentarioComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
     private servicioEstado: EstadoService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<AprobarComentarioComponent>,
     // public dialogRef2: MatDialogRef<PasosComponent>,
@@ -60,19 +64,19 @@ export class AprobarComentarioComponent implements OnInit {
 
   public aceptar(idSolicitud: number){
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-      let solicitud : Solicitud = new Solicitud();
+      let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
       solicitud.fecha = resSolicitud.fecha
-      solicitud.idUsuario = resSolicitud.idUsuario
+      solicitud.idUsuario = resSolicitud.idUsuario.id
       this.servicioEstado.listarPorId(56).subscribe(resEstado=>{
-        solicitud.idEstado = resEstado
+        solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud)
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(resSolicitud=>{
+  public actualizarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -94,34 +98,34 @@ export class AprobarComentarioComponent implements OnInit {
 
   public rechazar(idSolicitud: number){
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-      let solicitud : Solicitud = new Solicitud();
+      let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
       solicitud.fecha = resSolicitud.fecha
-      solicitud.idUsuario = resSolicitud.idUsuario
+      solicitud.idUsuario = resSolicitud.idUsuario.id
       this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-        solicitud.idEstado = resEstado
+        solicitud.idEstado = resEstado.id
         this.actualizarSolicitud2(solicitud)
       })
     })
   }
 
-  public actualizarSolicitud2(solicitud: Solicitud){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(resSolicitud=>{
+  public actualizarSolicitud2(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
       this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
         for (let index = 0; index < resDetalleSolicitud.length; index++) {
           const element = resDetalleSolicitud[index];
           console.log(element)
-          if(element.idSolicitud.id == solicitud.id  && element.idEstado.id == 57){
-            let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
+          if((element.idSolicitud.id == solicitud.id  && element.idEstado.id == 57) || (element.idSolicitud.id == solicitud.id  && element.idEstado.id == 56)){
+            let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
             detalleSolicitud.id = element.id
             detalleSolicitud.cantidad = element.cantidad
-            detalleSolicitud.idArticulos = element.idArticulos
-            detalleSolicitud.idSolicitud = element.idSolicitud
+            detalleSolicitud.idArticulos = element.idArticulos.id
+            detalleSolicitud.idSolicitud = element.idSolicitud.id
             detalleSolicitud.observacion = element.observacion
             detalleSolicitud.valorTotal = element.valorTotal
             detalleSolicitud.valorUnitario = element.valorUnitario
             this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-              detalleSolicitud.idEstado = resEstado
+              detalleSolicitud.idEstado = resEstado.id
               this.actualizarDetalleSolicitud(detalleSolicitud)
             })
           }
@@ -138,8 +142,8 @@ export class AprobarComentarioComponent implements OnInit {
     });
   }
 
-  public actualizarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
-    this.servicioDetalleSolicitud.actualizar(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+  public actualizarDetalleSolicitud(detalleSolicitud: DetalleSolicitud2){
+    this.servicioModificar.actualizarDetalleSolicitud(detalleSolicitud).subscribe(resDetalleSolicitud=>{
       Swal.fire({
         position: 'center',
         icon: 'success',

@@ -40,50 +40,52 @@
               </div>
         </div>
     </form>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla" id="tabla">
-        <!-- Position Column -->
-        <ng-container matColumnDef="articulo">
-          <th mat-header-cell *matHeaderCellDef><h3 class="ar">Articulo</h3></th>
-          <td mat-cell *matCellDef="let element"> {{element.idArticulos.descripcion}} </td>
-        </ng-container>
+      <section id="tablita" class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla" id="tabla">
+          <!-- Position Column -->
+          <ng-container matColumnDef="articulo">
+            <th mat-header-cell *matHeaderCellDef><h3 class="ar">Articulo</h3></th>
+            <td mat-cell *matCellDef="let element"> {{element.idArticulos.descripcion}} </td>
+          </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="cantidad">
-          <th mat-header-cell *matHeaderCellDef><h3 class="cant"> Cantidad </h3></th>
-          <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
-        </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef><h3 class="cant"> Cantidad </h3></th>
+            <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+          </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="valorUnitario">
-          <th mat-header-cell *matHeaderCellDef><h3 class="o"> Valor Unitario </h3></th>
-          <td mat-cell *matCellDef="let element">
-            <input type="number"  name="valor" id="val" value="{{element.valorUnitario}}" (keyup)="valorUnitario($event, element)" >
+          <!-- Weight Column -->
+          <ng-container matColumnDef="valorUnitario">
+            <th mat-header-cell *matHeaderCellDef><h3 class="o"> Valor Unitario </h3></th>
+            <td mat-cell *matCellDef="let element">
+              <input type="number"  name="valor" id="val" value="{{element.valorUnitario}}" (keyup)="valorUnitario($event, element)" >
+            </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="valorTotal">
+            <th mat-header-cell *matHeaderCellDef><h3 class="v"> Valor Total </h3></th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="lista.length<1">
+                {{element.valorTotal}}
+              </div>
+              <div *ngFor="let item of lista">
+                  <div *ngIf="element.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion == item.posicion">
+                      {{item.valorUnitario}}
+                  </div>
+                  <div *ngIf="element.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion != item.posicion">
+                      {{item.valorUnitario}}
+                  </div>
+              </div>
           </td>
-        </ng-container>
+          </ng-container>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="valorTotal">
-          <th mat-header-cell *matHeaderCellDef><h3 class="v"> Valor Total </h3></th>
-          <td mat-cell *matCellDef="let element">
-            <div *ngIf="lista.length<1">
-              {{element.valorTotal}}
-            </div>
-            <div *ngFor="let item of lista">
-                <div *ngIf="element.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion == item.posicion">
-                    {{item.valorUnitario}}
-                </div>
-                <div *ngIf="element.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion != item.posicion">
-                    {{item.valorUnitario}}
-                </div>
-            </div>
-        </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-            (click)="selection.toggle(row)">
-        </tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="selection.toggle(row)">
+          </tr>
+        </table>
+      </section>
 
       <p>Subtotal: {{subtotal}}</p>
       <p>Valor anticipo: {{anticipoVal2}} %</p>

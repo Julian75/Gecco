@@ -259,8 +259,8 @@ export class ModificarUsuariosComponent implements OnInit {
       console.log(error)
       Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: 'Usuario modificado!',
+        icon: 'error',
+        title: 'Error al modificar Usuario!',
         showConfirmButton: false,
         timer: 1500
       })

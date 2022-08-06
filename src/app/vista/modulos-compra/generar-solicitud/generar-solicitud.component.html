@@ -64,8 +64,8 @@
           aria-label="text"
           matInput
           [formControl]="articulos"
-          [matAutocomplete]="auto2" >
-          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo" >
+          [matAutocomplete]="auto2">
+          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo">
             <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
               {{item.descripcion}}
             </mat-option>

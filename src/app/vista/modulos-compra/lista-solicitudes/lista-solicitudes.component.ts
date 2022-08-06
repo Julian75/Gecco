@@ -17,6 +17,8 @@ import { VisualizarDetalleSolicitudComponent } from './visualizar-detalle-solici
 import { RechazoSolicitudComponent } from './rechazo-solicitud/rechazo-solicitud.component';
 import { PasosComponent } from '../pasos/pasos.component';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-lista-solicitudes',
@@ -40,6 +42,7 @@ export class ListaSolicitudesComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioCorreo: CorreoService,
     private servicioAccesos: AccesoService,
+    private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
   ) { }
@@ -101,21 +104,21 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
   public aceptar(id:number){
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(29).subscribe(resEstado => {
         solicitud.id = res.id
         solicitud.fecha = res.fecha
-        solicitud.idUsuario = res.idUsuario
-        solicitud.idEstado = resEstado
+        solicitud.idUsuario = res.idUsuario.id
+        solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud);
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud){
-    this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
+  public actualizarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
+      this.crearCorreo(solicitud.idUsuario, solicitud.id)
     }, error => {
       console.log(error)
       Swal.fire({
@@ -148,7 +151,7 @@ export class ListaSolicitudesComponent implements OnInit {
       +"<th style='border: 1px solid #000;'>Observacion</th>";
       +"</tr>";
       resSolicitud.forEach(element => {
-        if (element.idSolicitud.id == idSolicitud) {
+        if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
           this.listaDetalleSolicitud.push(element)
           correo.messaje += "<tr>"
           correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";

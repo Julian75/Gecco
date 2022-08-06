@@ -35,6 +35,7 @@ export class PasosComponent implements OnInit {
   public listaEstado: any = [];
   public lista: any = [];
   public listarExiste: any = [];
+  public listarExiste2: any = [];
   public habilitar = false
   public habilitar2 = false
 
@@ -114,7 +115,7 @@ export class PasosComponent implements OnInit {
         document.getElementById("card3")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #009AE4;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #DBDBDB;")
-      }else if(res.idEstado.id == 37){
+      }else if(res.idEstado.id == 37 || res.idEstado.id == 46){
         document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
@@ -128,8 +129,7 @@ export class PasosComponent implements OnInit {
         document.getElementById("card3")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card4")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card5")?.setAttribute("style", "background-color: #FF5555;")
-      }
-      else if(res.idEstado.id == 46 || res.idEstado.id == 60){
+      }else if(res.idEstado.id == 60){
         document.getElementById("card0")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card1")?.setAttribute("style", "background-color: #AEEA00;")
         document.getElementById("card2")?.setAttribute("style", "background-color: #AEEA00;")
@@ -150,6 +150,7 @@ export class PasosComponent implements OnInit {
 
   public solicitudes0(){
     this.listarExiste = []
+    this.listarExiste2 = []
     for (const [key, value] of Object.entries(this.data)) {
       this.lista.push(value)
     }
@@ -165,7 +166,6 @@ export class PasosComponent implements OnInit {
             }
             this.listarExiste.push(this.habilitar)
           }
-          console.log(this.listarExiste)
           const existe = this.listarExiste.includes( true )
           if(existe == true){
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
@@ -193,12 +193,18 @@ export class PasosComponent implements OnInit {
             })
           }else if(existe == false){
             this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
-              resAccesos.forEach(element => {
-                if(element.idModulo.id == 32){
+              for (let index = 0; index < resAccesos.length; index++) {
+                const element = resAccesos[index];
+                if(element.idModulo.id == 32 && resUsuario.idRol.id == element.idRol.id  ){
                   this.habilitar2 = true
+                }else if(resSolicitud.idUsuario.id == resUsuario.id){
+                  this.habilitar2 = false
                 }
-              });
-              if(this.habilitar2 == true){
+                this.listarExiste2.push(this.habilitar2)
+              }
+              console.log(this.listarExiste2)
+              const existe2 = this.listarExiste2.includes( true )
+              if(existe2 == true){
                 this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
                   if(res.idEstado.id == 54){
                     this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
@@ -209,13 +215,13 @@ export class PasosComponent implements OnInit {
                     })
                   }
                 })
-              }else{
+              }else if(existe2 == false){
                 this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
                   if(res.idEstado.id == 28){
                     Swal.fire({
                       position: 'center',
                       icon: 'warning',
-                      title: 'Aún no ha decidido si desea una opinión.!',
+                      title: 'El de compras aún no ha decidido si desea una opinión!',
                       showConfirmButton: false,
                       timer: 1500
                     })
@@ -491,6 +497,14 @@ export class PasosComponent implements OnInit {
                 data: this.lista[0]
               });
             }else if(res.idEstado.id == 46){
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Aún no se ha validado si desea finalizar la solicitud.!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else if(res.idEstado.id == 60){
               this.requisicion();
             }
           })
@@ -511,6 +525,14 @@ export class PasosComponent implements OnInit {
                   timer: 1500
                 })
               }else if(res.idEstado.id == 46){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Aún no se ha validado si desea finalizar la solicitud.!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }else if(res.idEstado.id == 60){
                 this.requisicion();
               }
               else if(res.idEstado.id == 47){

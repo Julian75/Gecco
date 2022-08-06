@@ -13,6 +13,7 @@ import { CorreoService } from './../../../servicios/Correo.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
 import { EstadoService } from './../../../servicios/estado.service';
 import { SolicitudService } from './../../../servicios/solicitud.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,6 +22,9 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { CotizacionPdf2 } from 'src/app/modelos/cotizacionPdf2';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
+import { Cotizacion2 } from 'src/app/modelos/cotizacion2';
 
 @Component({
   selector: 'app-lista-cotizaciones',
@@ -47,6 +51,7 @@ export class ListaCotizacionesComponent implements OnInit {
     private servicioCotizacionPdf: CotizacionPdfService,
     private servicioPdf: SubirPdfService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<ListaCotizacionesComponent>,
     public dialogRef2: MatDialogRef<PasosComponent>,
@@ -89,22 +94,22 @@ export class ListaCotizacionesComponent implements OnInit {
   //Aceptacion de cotizacion Pdf
   public aceptar(idSolicitud:number, idCotizacion:number, idCotizacionPdf:number){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+    let cotizacionPdf : CotizacionPdf2 = new CotizacionPdf2();
     this.servicioCotizacionPdf.listarPorId(idCotizacionPdf).subscribe(resCotizacionPdf=>{
       cotizacionPdf.id = resCotizacionPdf.id
       cotizacionPdf.nombrePdf = resCotizacionPdf.nombrePdf
-      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion
+      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion.id
       this.servicioEstado.listarPorId(39).subscribe(resEsta=>{
-        cotizacionPdf.idEstado = resEsta
+        cotizacionPdf.idEstado = resEsta.id
         this.actualizaCotizacionPdf(cotizacionPdf, idCotizacion);
         console.log(cotizacionPdf)
-        let solicitud : Solicitud = new Solicitud();
+        let solicitud : Solicitud2 = new Solicitud2();
         this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud => {
           this.servicioEstado.listarPorId(34).subscribe(resEstado => {
             solicitud.id = resSolicitud.id
             solicitud.fecha = resSolicitud.fecha
-            solicitud.idUsuario = resSolicitud.idUsuario
-            solicitud.idEstado = resEstado
+            solicitud.idUsuario = resSolicitud.idUsuario.id
+            solicitud.idEstado = resEstado.id
             this.actualizarSolicitud(solicitud, idCotizacion);
           })
         })
@@ -113,17 +118,17 @@ export class ListaCotizacionesComponent implements OnInit {
 
   }
 
-  public actualizaCotizacionPdf(cotizaciPdf: CotizacionPdf, idCotizacion: number){
-    this.servicioCotizacionPdf.actualizar(cotizaciPdf).subscribe(res=>{
-      let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+  public actualizaCotizacionPdf(cotizaciPdf: CotizacionPdf2, idCotizacion: number){
+    this.servicioModificar.actualizarCotizacionPdf(cotizaciPdf).subscribe(res=>{
+      let cotizacionPdf : CotizacionPdf2 = new CotizacionPdf2();
       this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacion=>{
         resCotizacion.forEach(element => {
           if(element.idCotizacion.id == idCotizacion && element.idEstado.id == 38){
             cotizacionPdf.id = element.id
             cotizacionPdf.nombrePdf = element.nombrePdf
-            cotizacionPdf.idCotizacion = element.idCotizacion
+            cotizacionPdf.idCotizacion = element.idCotizacion.id
             this.servicioEstado.listarPorId(40).subscribe(resEstado=>{
-              cotizacionPdf.idEstado = resEstado
+              cotizacionPdf.idEstado = resEstado.id
               console.log(cotizacionPdf)
               this.actualizaCotizacionPdf2(cotizacionPdf);
             })
@@ -133,13 +138,13 @@ export class ListaCotizacionesComponent implements OnInit {
     })
   }
 
-  public actualizaCotizacionPdf2(cotizacionPdf: CotizacionPdf){
-    this.servicioCotizacionPdf.actualizar(cotizacionPdf).subscribe(res=>{})
+  public actualizaCotizacionPdf2(cotizacionPdf: CotizacionPdf2){
+    this.servicioModificar.actualizarCotizacionPdf(cotizacionPdf).subscribe(res=>{})
   }
 
-  public actualizarSolicitud(solicitud: Solicitud, idCotizacion:number){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(res =>{
-      this.actualCotizacion(idCotizacion, solicitud.idUsuario.id, solicitud.id )
+  public actualizarSolicitud(solicitud: Solicitud2, idCotizacion:number){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
+      this.actualCotizacion(idCotizacion, solicitud.idUsuario, solicitud.id )
     }, error => {
       console.log(error)
       Swal.fire({
@@ -153,20 +158,20 @@ export class ListaCotizacionesComponent implements OnInit {
   }
 
   public actualCotizacion(idCotizacion:number, idUsuarioSolicitud:number, idSolicitud:number){
-    let cotizacion : Cotizacion = new Cotizacion();
+    let cotizacion : Cotizacion2 = new Cotizacion2();
       this.servicioCotizacion.listarPorId(idCotizacion).subscribe(resCotizacion => {
         this.servicioEstado.listarPorId(33).subscribe(resEstado => {
           cotizacion.id = resCotizacion.id
-          cotizacion.idSolicitud = resCotizacion.idSolicitud
-          cotizacion.idUsuario = resCotizacion.idUsuario
-          cotizacion.idEstado = resEstado
-          this.actualizarCotizacion(cotizacion, cotizacion.idUsuario.id, idUsuarioSolicitud, idSolicitud);
+          cotizacion.idSolicitud = resCotizacion.idSolicitud.id
+          cotizacion.idUsuario = resCotizacion.idUsuario.id
+          cotizacion.idEstado = resEstado.id
+          this.actualizarCotizacion(cotizacion, cotizacion.idUsuario, idUsuarioSolicitud, idSolicitud);
         })
       })
   }
 
-  public actualizarCotizacion(cotizacion: Cotizacion, idUsuarioCotizacion:number, idUsuarioSolicitud:number, idSolicitud:number){
-    this.servicioCotizacion.actualizar(cotizacion).subscribe(res =>{
+  public actualizarCotizacion(cotizacion: Cotizacion2, idUsuarioCotizacion:number, idUsuarioSolicitud:number, idSolicitud:number){
+    this.servicioModificar.actualizarCotizacion(cotizacion).subscribe(res =>{
       this.crearCorreo(idUsuarioCotizacion, idUsuarioSolicitud, idSolicitud)
     }, error => {
       console.log(error)
@@ -201,7 +206,7 @@ export class ListaCotizacionesComponent implements OnInit {
         +"<th style='border: 1px solid #000;'>Observacion</th>";
         +"</tr>";
         resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud) {
+          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
             this.listaDetalleSolicitud.push(element)
             correo.messaje += "<tr>"
             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
@@ -257,7 +262,7 @@ export class ListaCotizacionesComponent implements OnInit {
         +"<th style='border: 1px solid #000;'>Observacion</th>";
         +"</tr>";
         resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud) {
+          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
             this.listaDetalleSolicitud.push(element)
             correo.messaje += "<tr>"
             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
@@ -307,20 +312,20 @@ export class ListaCotizacionesComponent implements OnInit {
   public rechazarSolicitud(cotizaPdf:any){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioCotizacionPdf.listarPorId(cotizaPdf.id).subscribe(resCotizacionPdf=>{
-      let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+      let cotizacionPdf : CotizacionPdf2 = new CotizacionPdf2();
       cotizacionPdf.id = resCotizacionPdf.id
-      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion
+      cotizacionPdf.idCotizacion = resCotizacionPdf.idCotizacion.id
       cotizacionPdf.nombrePdf = resCotizacionPdf.nombrePdf
       this.servicioEstado.listarPorId(40).subscribe(resEstado=>{
-        cotizacionPdf.idEstado = resEstado
+        cotizacionPdf.idEstado = resEstado.id
         this.actualizarCotizacionPdf(cotizacionPdf, cotizaPdf);
       })
     })
   }
 
-  public actualizarCotizacionPdf(cotizacionPdf: CotizacionPdf, cotizaPdf:any){
+  public actualizarCotizacionPdf(cotizacionPdf: CotizacionPdf2, cotizaPdf:any){
     this.listaCotizacionesPdf = []
-    this.servicioCotizacionPdf.actualizar(cotizacionPdf).subscribe(res=>{
+    this.servicioModificar.actualizarCotizacionPdf(cotizacionPdf).subscribe(res=>{
       this.servicioCotizacionPdf.listarTodos().subscribe(resPdf=>{
         resPdf.forEach(element => {
           if(element.idCotizacion.id == cotizaPdf.idCotizacion.id && element.idCotizacion.idEstado.id == 31){
@@ -336,13 +341,13 @@ export class ListaCotizacionesComponent implements OnInit {
             console.log(contador)
             if(contador == this.listaCotizacionesPdf.length){
               console.log("hola")
-              let solicitud : Solicitud = new Solicitud();
+              let solicitud : Solicitud2 = new Solicitud2();
               this.servicioSolicitud.listarPorId(cotizaPdf.idCotizacion.idSolicitud.id).subscribe(resSolicitud=>{
                 solicitud.id = resSolicitud.id
                 solicitud.fecha = resSolicitud.fecha
-                solicitud.idUsuario = resSolicitud.idUsuario
+                solicitud.idUsuario = resSolicitud.idUsuario.id
                 this.servicioEstado.listarPorId(35).subscribe(resEstado=>{
-                  solicitud.idEstado = resEstado
+                  solicitud.idEstado = resEstado.id
                   this.actualizarEstado(solicitud, cotizaPdf);
                 })
               })
@@ -361,23 +366,23 @@ export class ListaCotizacionesComponent implements OnInit {
     })
   }
 
-  public actualizarEstado(solicitud: Solicitud, cotizaPdf:any){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(res=>{
-      let cotizacion : Cotizacion = new Cotizacion();
+  public actualizarEstado(solicitud: Solicitud2, cotizaPdf:any){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res=>{
+      let cotizacion : Cotizacion2 = new Cotizacion2();
       this.servicioCotizacion.listarPorId(cotizaPdf.idCotizacion.id).subscribe(resCotizacion=>{
         cotizacion.id = resCotizacion.id
-        cotizacion.idSolicitud = resCotizacion.idSolicitud
-        cotizacion.idUsuario = resCotizacion.idUsuario
+        cotizacion.idSolicitud = resCotizacion.idSolicitud.id
+        cotizacion.idUsuario = resCotizacion.idUsuario.id
         this.servicioEstado.listarPorId(32).subscribe(resEstado=>{
-          cotizacion.idEstado = resEstado
+          cotizacion.idEstado = resEstado.id
           this.actualizarCotizacion2(cotizacion);
         })
       })
     })
   }
 
-  public actualizarCotizacion2(cotizacion:Cotizacion){
-    this.servicioCotizacion.actualizar(cotizacion).subscribe(res=>{
+  public actualizarCotizacion2(cotizacion:Cotizacion2){
+    this.servicioModificar.actualizarCotizacion(cotizacion).subscribe(res=>{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',

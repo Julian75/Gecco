@@ -3,12 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Correo } from './../../../../modelos/correo';
 import { Solicitud } from './../../../../modelos/solicitud';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { UsuarioService } from './../../../../servicios/usuario.service';
 import { CorreoService } from './../../../../servicios/Correo.service';
 import { EstadoService } from './../../../../servicios/estado.service';
 import { SolicitudService } from './../../../../servicios/solicitud.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
 
 @Component({
   selector: 'app-rechazo-solicitud',
@@ -25,6 +27,7 @@ export class RechazoSolicitudComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioCorreo: CorreoService,
     private servicioUsuario: UsuarioService,
+    private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     public dialogRef: MatDialogRef<RechazoSolicitudComponent>,
     private fb: FormBuilder,
@@ -45,7 +48,7 @@ export class RechazoSolicitudComponent implements OnInit {
   public guardar(){
     this.dialogRef.close();
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(Number(this.data)).subscribe(res => {
       this.servicioEstado.listarPorId(30).subscribe(resEstado => {
         const observacion = this.formSolicitud.controls['observacion'].value;
@@ -60,17 +63,17 @@ export class RechazoSolicitudComponent implements OnInit {
         }else{
           solicitud.id = res.id
           solicitud.fecha = res.fecha
-          solicitud.idUsuario = res.idUsuario
-          solicitud.idEstado = resEstado
+          solicitud.idUsuario = res.idUsuario.id
+          solicitud.idEstado = resEstado.id
           this.rechazarSolicitud(solicitud);
         }
       })
     })
   }
 
-  public rechazarSolicitud(solicitud: Solicitud){
-    this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario.id, solicitud.id);
+  public rechazarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
+      this.crearCorreo(solicitud.idUsuario, solicitud.id);
     })
   }
 
@@ -97,7 +100,7 @@ export class RechazoSolicitudComponent implements OnInit {
         +"<th style='border: 1px solid #000;'>Observacion</th>";
         +"</tr>";
         resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud) {
+          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
             this.listaDetalleSolicitud.push(element)
             correo.messaje += "<tr>"
             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";

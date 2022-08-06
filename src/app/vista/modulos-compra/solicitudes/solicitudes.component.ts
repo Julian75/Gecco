@@ -16,6 +16,8 @@ import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { VisualizarDetalleSolicitudComponent } from '../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
 import { RechazoSolicitudComponent } from '../lista-solicitudes/rechazo-solicitud/rechazo-solicitud.component';
 import { PasosComponent } from '../pasos/pasos.component';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
 
 @Component({
   selector: 'app-solicitudes',
@@ -40,6 +42,7 @@ export class SolicitudesComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
     private servicioCorreo: CorreoService,
+    private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private route: ActivatedRoute,
   ) { }
@@ -71,21 +74,21 @@ export class SolicitudesComponent implements OnInit {
 
   public aceptar(id:number){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(29).subscribe(resEstado => {
         solicitud.id = res.id
         solicitud.fecha = res.fecha
-        solicitud.idUsuario = res.idUsuario
-        solicitud.idEstado = resEstado
+        solicitud.idUsuario = res.idUsuario.id
+        solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud);
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud){
-    this.solicitudService.actualizar(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
+  public actualizarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
+      this.crearCorreo(solicitud.idUsuario, solicitud.id)
     }, error => {
       console.log(error)
       Swal.fire({

@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit {
             document.getElementById('Visita')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 28){
             document.getElementById('Raspa')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31){
+          }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]== 32 || this.listaAccessForm[i]== 33){
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
@@ -129,6 +129,12 @@ export class SidebarComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 31) {
             document.getElementById('31')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 32) {
+            document.getElementById('32')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 33) {
+            document.getElementById('33')?.setAttribute('style', 'display: block;')
           }
         }
       })

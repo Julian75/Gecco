@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { VisualizarDetalleSolicitudComponent } from '../lista-solicitudes/visualizar-detalle-solicitud/visualizar-detalle-solicitud.component';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Solicitud2 } from 'src/app/modelos/solicitud2';
 
 @Component({
   selector: 'app-solicitud-conforme',
@@ -33,6 +35,7 @@ export class SolicitudConformeComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
+    private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<SolicitudConformeComponent>,
@@ -59,21 +62,28 @@ export class SolicitudConformeComponent implements OnInit {
   //Aceptacion de cotizacion Pdf
   public aceptar(id:number){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    let solicitud : Solicitud = new Solicitud();
+    let solicitud : Solicitud2 = new Solicitud2();
     this.servicioSolicitud.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(60).subscribe(resEstado => {
         solicitud.id = res.id
         solicitud.fecha = res.fecha
-        solicitud.idUsuario = res.idUsuario
-        solicitud.idEstado = resEstado
+        solicitud.idUsuario = res.idUsuario.id
+        solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud);
       })
     })
   }
 
-  public actualizarSolicitud(solicitud: Solicitud){
-    this.servicioSolicitud.actualizar(solicitud).subscribe(res =>{
+  public actualizarSolicitud(solicitud: Solicitud2){
+    this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Solicitud Modificada Correctamente!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       this.dialogRef.close();
       window.location.reload();
     }, error => {
