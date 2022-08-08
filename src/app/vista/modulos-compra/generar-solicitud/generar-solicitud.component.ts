@@ -336,6 +336,7 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud = new Solicitud();
     solicitud.fecha = this.fecha
     this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
@@ -404,7 +405,7 @@ export class GenerarSolicitudComponent implements OnInit {
 
   public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
     this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
-
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       window.location.reload();
     }, error => {
       Swal.fire({

@@ -36,6 +36,7 @@ export class ListaCotizacionesComponent implements OnInit {
   public listaCotizacionesPdf: any = [];
   public listaDetalleSolicitud: any = [];
   public listaPdf:any = []
+  public fecha: Date = new Date();
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -107,7 +108,9 @@ export class ListaCotizacionesComponent implements OnInit {
         this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud => {
           this.servicioEstado.listarPorId(34).subscribe(resEstado => {
             solicitud.id = resSolicitud.id
-            solicitud.fecha = resSolicitud.fecha
+            this.fecha = new Date(resSolicitud.fecha)
+            this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+            solicitud.fecha = this.fecha
             solicitud.idUsuario = resSolicitud.idUsuario.id
             solicitud.idEstado = resEstado.id
             this.actualizarSolicitud(solicitud, idCotizacion);
@@ -310,6 +313,7 @@ export class ListaCotizacionesComponent implements OnInit {
   //Rechazo de cotizacion Pdf
 
   public rechazarSolicitud(cotizaPdf:any){
+    this.dialogRef.close();
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioCotizacionPdf.listarPorId(cotizaPdf.id).subscribe(resCotizacionPdf=>{
       let cotizacionPdf : CotizacionPdf2 = new CotizacionPdf2();
@@ -344,7 +348,9 @@ export class ListaCotizacionesComponent implements OnInit {
               let solicitud : Solicitud2 = new Solicitud2();
               this.servicioSolicitud.listarPorId(cotizaPdf.idCotizacion.idSolicitud.id).subscribe(resSolicitud=>{
                 solicitud.id = resSolicitud.id
-                solicitud.fecha = resSolicitud.fecha
+                this.fecha = new Date(resSolicitud.fecha)
+                this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+                solicitud.fecha = this.fecha
                 solicitud.idUsuario = resSolicitud.idUsuario.id
                 this.servicioEstado.listarPorId(35).subscribe(resEstado=>{
                   solicitud.idEstado = resEstado.id

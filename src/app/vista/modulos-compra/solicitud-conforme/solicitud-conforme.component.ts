@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../servicios/configuracion.service';
 import { Observable } from 'rxjs';
 import { Cotizacion } from './../../../modelos/cotizacion';
 import { CotizacionService } from './../../../servicios/cotizacion.service';
@@ -25,6 +26,8 @@ import { Solicitud2 } from 'src/app/modelos/solicitud2';
 })
 export class SolicitudConformeComponent implements OnInit {
   public listaSolicitudes: any = [];
+  public fecha:Date = new Date();
+  public mensajito: any;
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -34,7 +37,7 @@ export class SolicitudConformeComponent implements OnInit {
     public dialog: MatDialog,
     private servicioSolicitud: SolicitudService,
     private servicioEstado: EstadoService,
-    private servicioUsuario: UsuarioService,
+    private servicioConfiguracion: ConfiguracionService,
     private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -43,30 +46,29 @@ export class SolicitudConformeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.listarSolicitudes();
+    this.mensaje();
   }
 
-  public listarSolicitudes(){
-    this.servicioSolicitud.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if (element.id == Number(this.data) ) {
-          this.listaSolicitudes.push(element);
+  public mensaje(){
+    this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+      resConfiguracion.forEach(element => {
+        if(element.nombre == "mensaje_solicitud_final"){
+          this.mensajito = element.valor
         }
-      })
-      this.dataSource = new MatTableDataSource(this.listaSolicitudes);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      });
     })
   }
 
-  //Aceptacion de cotizacion Pdf
-  public aceptar(id:number){
+  //Aceptacion de solicitud
+  public aceptar(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud2 = new Solicitud2();
-    this.servicioSolicitud.listarPorId(id).subscribe(res => {
+    this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(res => {
       this.servicioEstado.listarPorId(60).subscribe(resEstado => {
         solicitud.id = res.id
-        solicitud.fecha = res.fecha
+        this.fecha = new Date(res.fecha)
+        this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+        solicitud.fecha = this.fecha
         solicitud.idUsuario = res.idUsuario.id
         solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud);
@@ -80,7 +82,7 @@ export class SolicitudConformeComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Solicitud Modificada Correctamente!',
+        title: 'Solicitud finalizada!',
         showConfirmButton: false,
         timer: 1500
       })
@@ -97,11 +99,6 @@ export class SolicitudConformeComponent implements OnInit {
       })
     });
  }
-
-  //Rechazo de cotizacion Pdf
-  public rechazar(){
-
-  }
 
   // Filtrado
   applyFilter(event: Event) {

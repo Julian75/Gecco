@@ -49,10 +49,10 @@ h2{
   .guardar{
     background-color: #00235C;
     color: white;
-    width: 160px;
+    width: 167px;
     height: 40px;
-    font-size: large;
-    margin-left: 8%;
+    font-size: unset;
+    margin-left: 5%;
   }
 }
 
@@ -72,10 +72,10 @@ h2{
   .guardar{
     background-color: #00235C;
     color: white;
-    width: 160px;
+    width: 200px;
     height: 40px;
     font-size: large;
-    margin-left: 17%;
+    margin-left: 10%;
   }
 }
 
@@ -94,7 +94,7 @@ h2{
   .guardar{
     background-color: #00235C;
     color: white;
-    width: 160px;
+    width: 203px;
     height: 40px;
     font-size: large;
     margin-left: 5%;
@@ -117,7 +117,7 @@ h2{
   .guardar{
     background-color: #00235C;
     color: white;
-    width: 160px;
+    width: 203px;
     height: 40px;
     font-size: large;
     margin-left: 5%;
@@ -139,7 +139,7 @@ h2{
   .guardar{
     background-color: #00235C;
     color: white;
-    width: 160px;
+    width: 203px;
     height: 40px;
     font-size: large;
     margin-left: 5%;

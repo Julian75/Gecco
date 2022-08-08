@@ -9,10 +9,10 @@
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
-  height: 689px;
-  z-index: 50px;
+  height: 100%;
   position: absolute;
-  top: 100px;
+  top: 0%;
+  left: 0%;
 }
 .loader {
   width: 108px;
@@ -24,8 +24,8 @@
   border-color: #FFF #FFF transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-top: 250px;
-  margin-left: 550px;
+  margin-top: 22%;
+  margin-left: 50%;
 }
 .loader::after,
 .loader::before {
@@ -118,9 +118,9 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .botonvolver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 25px; }
+#idSp{ left: 16px; }
 #desSp{ left: 50px; }
-#estSp{ left: 48px; }
+#estSp{ left: 30px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -202,7 +202,7 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   #idSp{ left: 8px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 14px; }
+  #desSp{ left: 9px; }
   #estSp{ left: 8px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -290,9 +290,9 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 19px; }
+  #idSp{ left: 18px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 50px; }
+  #desSp{ left: 67px; }
   #estSp{ left: 50%; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
@@ -305,7 +305,7 @@ mat-form-field{
   mat-form-field{ width: 22%; margin-left: 77%; }
   #idSp{ margin-left: -40%; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 50px; }
+  #desSp{ left: 71px; }
   #estSp{ left: 31px; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }

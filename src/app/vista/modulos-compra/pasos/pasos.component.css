@@ -1,4 +1,67 @@
+.solpiner{
+  background-color: rgba(90, 90, 90, 0.247);
+  width: 100%;
+  height: 100%;
+  z-index: 50px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+.loader {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #FFF transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-top: 22%;
+  margin-left: 50%;
+}
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #00235C #00235C;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 92px;
+  height: 92px;
+  border-color: #FFF #FFF transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
 mat-card{
     width: 100px;
     height: 100px;
@@ -62,11 +125,12 @@ h2{
     }
     #card0{ left: 4%; top: 6%; }
     #card1{ left: 58%; top: -51px; }
-    h2{ font-size: 18px; top: 15px; }
-    #card2{ left: 2%; top: -2px; }
+    h2{ font-size: 11px; top: 10px; }
+    #card2{ left: 4%; top: -2px; }
     #card3{ left: 60%; top: -71px; }
     #card5{ left: 60%; top: -95px; }
-    mat-icon{ font-size: 23px; top: 35px; left: 25px; }
+    #card4{ left: 4%; top: -6.5%; }
+    mat-icon{ font-size: 18px; top: 38px; left: 25px; }
 }
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
@@ -77,20 +141,20 @@ h2{
         left: 4%;
     }
     h2{ font-size: 14px; top: 9px; }
-    #card2{ left: 58%; top: -74px; }
-    #card3{ left: 58%; top: -34px; }
-    #card4{ top: -327px; }
-    #card5{ left: 29%; top: -286px; }
+    #card0{ left: 5%; top: 3%; }
+    #card1{ left: 58%; top: -19.5%; }
+    #card2{ left: 5%; top: -37px; }
+    #card3{ left: 58%; top: -122px; }
+    #card4{ left: 5%; top: -81px }
+    #card5{ left: 58%; top: -166px; }
     mat-icon{ font-size: 23px; top: 43px; left: 28px; }
 }
 
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
-    mat-card{
-        left: 3%;
-    }
-    #card3{ left: 72%; top: -156px; }
-    #card4{ top: -298px; }
-    #card5{ left: 38%; top: -399px; }
-    #card2{ top: -57px; }
+  #card1{ top: -66px;}
+  #card2{ top: -166px;}
+  #card3{ top: -96px;}
+  #card4{ top: -51.8%;}
+  #card5{ top: -296px;}
 }

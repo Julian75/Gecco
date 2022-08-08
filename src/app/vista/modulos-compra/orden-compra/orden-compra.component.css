@@ -7,10 +7,11 @@
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
-  height: 689px;
+  height: 100%;
   z-index: 50px;
   position: absolute;
-  top: 100px;
+  top: 0%;
+  left: 0%;
 }
 .loader {
   width: 108px;
@@ -22,8 +23,8 @@
   border-color: #FFF #FFF transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-top: 250px;
-  margin-left: 550px;
+  margin-top: 22%;
+  margin-left: 50%;
 }
 .loader::after,
 .loader::before {
@@ -159,8 +160,35 @@ mat-option{ font-size: 10.5px; }
   h3{
     font-size: 12px;
   }
+  .example-container{
+    overflow: auto;
+    position: relative;
+    top: 56px !important;
+    margin-bottom: 5% !important;
+  }
   td{
     font-size: 11px;
+  }
+  .ar{
+    position: relative;
+    left: -5px;
+    top: 6px;
+  }
+  .cant{
+    position: relative;
+    left: -1px;
+    top: 6px;
+  }
+
+  .o{
+    position: relative;
+    left: 31px;
+    top: 6px;
+  }
+  .v{
+    position: relative;
+    left: 11px;
+    top: 6px;
   }
   .articulo{
     width: 100%;
@@ -194,9 +222,10 @@ mat-option{ font-size: 10.5px; }
   }
   .nombre{
     width: 160px;
-    left: 70px;
-    top: 278px;
+    left: -64px;
+    top: -22px;
   }
+
   .row1{
     border-top: 3px solid #97B4E2;
     padding-top: 3%;
@@ -252,7 +281,8 @@ mat-option{ font-size: 10.5px; }
     font-size: smaller;
     margin-left: 1%;
     position: relative;
-    top: 45px;
+    top: 26px;
+
   }
   .sub{
     position: relative;
@@ -278,9 +308,7 @@ mat-option{ font-size: 10.5px; }
     width: 202px;
     overflow: auto;
     position: relative;
-    top: 65px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
+    top: 43px !important;
     margin-bottom: 10% !important;
   }
   h3{
@@ -289,7 +317,7 @@ mat-option{ font-size: 10.5px; }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -13px;
   }
   .v{
     position: relative;
@@ -342,8 +370,8 @@ mat-option{ font-size: 10.5px; }
   }
   .nombre{
     width: 200px;
-    left: 86px;
-    top: 288px;
+    left: -79px;
+    top: -23px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -363,25 +391,8 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
 
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
+
 
   .tabla{
     width: 100%;
@@ -399,23 +410,26 @@ mat-option{ font-size: 10.5px; }
     font-size: smaller;
     margin-left: 1%;
     position: relative;
-    top: 55px;
+    top: 14px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
   }
   .sub{
     position: relative;
-    top: 67px;
+    top: 35px;
   }
   .val{
     position: relative;
-    top: 56px;
+    top: 31px;
   }
   .des{
     position: relative;
-    top: 47px;
+    top: 25px;
   }
   .to{
     position: relative;
-    top: 39px;
+    top: 22px;
   }
 }
 
@@ -431,12 +445,16 @@ mat-option{ font-size: 10.5px; }
     margin-bottom: 3% !important;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -12px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 14px;
   }
   .v{
     position: relative;
@@ -445,7 +463,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 9px;
     top: 5px;
   }
   .cant{
@@ -477,6 +495,7 @@ mat-option{ font-size: 10.5px; }
   .antic{
     position: relative;
     left: -7px;
+    font-size: 15px;
   }
   li{
     position: relative;
@@ -489,9 +508,9 @@ mat-option{ font-size: 10.5px; }
     top: 4px;
   }
   .nombre{
-    width: 200px;
-    left: 116px;
-    top: 288px;
+    width: 340px;
+    left: -131px;
+    top: 0px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -511,26 +530,6 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
   .tabla{
     width: 100%;
     height: 100%;
@@ -547,7 +546,7 @@ mat-option{ font-size: 10.5px; }
     font-size: initial;
     margin-left: 1%;
     position: relative;
-    top: 45px;
+    top: 36px;
   }
   .sub{
     position: relative;
@@ -579,21 +578,21 @@ mat-option{ font-size: 10.5px; }
     margin-bottom: 3% !important;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -11px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 36px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 9px;
     top: 5px;
   }
   .cant{
@@ -629,17 +628,22 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -185px;
-    top: 46px;
+    top: 37px;
   }
   mat-radio-button{
     position: relative;
     left: -178px;
-    top: 31px;
+    top: 21px;
+  }
+
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 14px;
   }
   .nombre{
-    width: 236px;
-    left: 274px;
-    top: 392px;
+    width: 345px;
+    left: -166px;
+    top: 11px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -659,26 +663,6 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
   .tabla{
     width: 100%;
     height: 100%;
@@ -686,7 +670,6 @@ mat-option{ font-size: 10.5px; }
     top: -17px;
     margin-bottom: -17px;
   }
-
   .guardar4{
     background-color: #00235C;
     color: white;
@@ -695,7 +678,7 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 80px;
+    top: 59px;
   }
   .sub{
     position: relative;
@@ -719,29 +702,38 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .example-container{
     width: 442px;
-    overflow: auto;
-    position: relative;
     top: 56px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: 3% !important;
+    height: 153px;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 14px;
+  }
+  .nombre{
+    width: 345px;
+    left: -166px;
+    top: 11px;
+  }
+
+  td.mat-cell:last-of-type{
+    padding-left: 0%;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -11px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 33px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 8px;
     top: 5px;
   }
   .cant{
@@ -777,17 +769,12 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -185px;
-    top: 46px;
+    top: 37px;
   }
   mat-radio-button{
     position: relative;
     left: -178px;
-    top: 31px;
-  }
-  .nombre{
-    width: 234px;
-    left: 285px;
-    top: 475px;
+    top: 23px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -807,26 +794,6 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
   .tabla{
     width: 100%;
     height: 100%;
@@ -834,7 +801,6 @@ mat-option{ font-size: 10.5px; }
     top: -17px;
     margin-bottom: -17px;
   }
-
   .guardar4{
     background-color: #00235C;
     color: white;
@@ -843,7 +809,7 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 80px;
+    top: 57px;
   }
   .sub{
     position: relative;
@@ -867,39 +833,40 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   .example-container{
     width: 724px;
-    overflow: auto;
     position: relative;
     top: 43px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: -1% !important;
+    height: 100px;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: 10px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 36px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 75px;
     top: 5px;
   }
   .cant{
     margin-left: 20px;
-    left: -10px;
+    left: 13px;
     position: relative;
     top: 5px;
   }
   td{
-    font-size: 11px;
+    padding-left: 1%;
+    font-size: 16px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
   }
   .articulo{
     width: 100%;
@@ -935,9 +902,9 @@ mat-option{ font-size: 10.5px; }
     top: 44px;
   }
   .nombre{
-    width: 224px;
-    left: 400px;
-    top: 247px;
+    width: 230px;
+    left: -155px;
+    top: -16px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -1017,39 +984,37 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   .example-container{
     width: 724px;
-    overflow: auto;
     position: relative;
     top: 43px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: -1% !important;
+    height: 100px;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: 10px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 36px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 71px;
     top: 5px;
   }
   .cant{
     margin-left: 20px;
-    left: -10px;
+    left: 12px;
     position: relative;
     top: 5px;
   }
   td{
-    font-size: 11px;
+    font-size: 16px;
+    padding-bottom: 1px;
   }
   .articulo{
     width: 100%;
@@ -1085,9 +1050,13 @@ mat-option{ font-size: 10.5px; }
     top: 44px;
   }
   .nombre{
-    width: 234px;
-    left: 435px;
-    top: 272px;
+    width: 233px;
+    left: -155px;
+    top: -16px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 16px;
   }
   .row1{
     border-top: 3px solid #97B4E2;

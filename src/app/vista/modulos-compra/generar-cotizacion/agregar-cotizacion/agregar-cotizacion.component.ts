@@ -44,6 +44,7 @@ export class AgregarCotizacionComponent implements OnInit {
   //Nombre del archivo para usarlo posteriormente en la vista html
   public fileName: String = "";
   fileInfos!: Observable<any>;
+  public fecha:Date = new Date();
 
   constructor(
     private servicioSubirPdf : SubirPdfService,
@@ -118,6 +119,7 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   public guardar(){
+    this.dialogRef.close();
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let cotizacion : Cotizacion = new Cotizacion();
     this.servicioEstado.listarPorId(31).subscribe(resEstado=>{
@@ -213,7 +215,9 @@ export class AgregarCotizacionComponent implements OnInit {
     let solicitud : Solicitud2 = new Solicitud2();
     solicitud.id=Number(idSolicitud);
     this.servicioSolicitud.listarPorId(solicitud.id).subscribe(resSolicitud=>{
-      solicitud.fecha = resSolicitud.fecha
+      this.fecha = new Date(resSolicitud.fecha)
+      this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+      solicitud.fecha = this.fecha
       solicitud.idUsuario = resSolicitud.idUsuario.id
       this.servicioEstado.listarPorId(36).subscribe(resEstado=>{
         solicitud.idEstado = resEstado.id

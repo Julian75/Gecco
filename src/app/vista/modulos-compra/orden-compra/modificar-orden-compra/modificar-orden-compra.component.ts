@@ -32,6 +32,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
   public lista: any = []
   public list: any = [];
   public listaRow: any = [];
+  public fecha: Date = new Date();
   public opciones: any = ['Si', 'No'];
   filteredOptions!: Observable<Proveedor[]>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -160,7 +161,10 @@ export class ModificarOrdenCompraComponent implements OnInit {
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
         let solicitud : Solicitud2 = new Solicitud2();
         solicitud.id = resSolicitud.id
-        solicitud.fecha = resSolicitud.fecha
+        console.log(resSolicitud.fecha)
+        this.fecha = new Date(resSolicitud.fecha)
+        this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+        solicitud.fecha = this.fecha
         this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
           solicitud.idEstado = resEstado.id
           solicitud.idUsuario = resSolicitud.idUsuario.id
@@ -221,6 +225,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
 
   public actualizarDetalleSolicitud(detalleSolicitud: DetalleSolicitud2){
     this.servicioModificar.actualizarDetalleSolicitud(detalleSolicitud).subscribe(resDetalleSolicitud=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -228,9 +233,8 @@ export class ModificarOrdenCompraComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      window.location.reload()
       this.dialogRef.close();
+      window.location.reload();
     })
   }
 

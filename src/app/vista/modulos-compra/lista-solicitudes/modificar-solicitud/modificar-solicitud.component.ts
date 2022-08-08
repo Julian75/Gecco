@@ -41,6 +41,7 @@ export class ModificarSolicitudComponent implements OnInit {
   public listaNumeros: any = [];
   public list: any = {};
   public listaRow: any = [];
+  public fecha: Date = new Date();
 
   color = ('primary');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -66,6 +67,7 @@ export class ModificarSolicitudComponent implements OnInit {
   private crearFormulario() {
     this.formSolicitud = this.fb.group({
       id: 0,
+      articulo: [null,Validators.required],
       cantidad: [null,Validators.required],
       observacion: [null,Validators.required],
     });
@@ -80,9 +82,8 @@ export class ModificarSolicitudComponent implements OnInit {
           this.listaArticulosDetalle.push(element)
         }
       });
-      console.log(this.listaArticulosDetalle)
       this.listadoArtSel = this.listaArticulosDetalle
-      console.log(this.listadoArtSel)
+
       this.dataSource = new MatTableDataSource( this.listadoArtSel);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -124,6 +125,7 @@ export class ModificarSolicitudComponent implements OnInit {
       }
       if(this.listadoArtSel.length<1){
         this.listadoArtSel.push(obj)
+        this.limpiarCampos();
       }else if(this.listadoArtSel.length>=1){
         this.listadoArtSel.forEach((element:any) => {
           if(element.idArticulos.id == obj.idArticulos.id){
@@ -138,6 +140,7 @@ export class ModificarSolicitudComponent implements OnInit {
         console.log(existe)
         if(existe == false){
           this.listadoArtSel.push(obj)
+          this.limpiarCampos();
         }else if(existe == true){
           Swal.fire({
             position: 'center',
@@ -146,10 +149,32 @@ export class ModificarSolicitudComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          this.limpiarCampos();
         }
       }
       this.dataSource = new MatTableDataSource( this.listadoArtSel);
     }
+  }
+
+  public limpiarCampos(){
+    this.articulosDisponibles = []
+    this.crearFormulario();
+    this.articulos = new FormControl<string | Articulo>("");
+    this.servicioArticulo.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if(element.idEstado.id == 26){
+          this.articulosDisponibles.push(element)
+        }
+      });
+      this.listaArticulos = this.articulosDisponibles
+      this.filteredOptions = this.articulos.valueChanges.pipe(
+        startWith(""),
+        map(value => {
+          const descripcion = typeof value == 'string' ? value : value?.descripcion;
+          return descripcion ? this._filter(descripcion as string, this.listaArticulos) : this.listaArticulos.slice();
+        }),
+      );
+    });
   }
 
   textoArticulo:any
@@ -271,7 +296,9 @@ export class ModificarSolicitudComponent implements OnInit {
     this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
       let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
-      solicitud.fecha = resSolicitud.fecha
+      this.fecha = new Date(resSolicitud.fecha)
+      this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+      solicitud.fecha = this.fecha
       this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
         solicitud.idEstado = resEstado.id
         solicitud.idUsuario = resSolicitud.idUsuario.id

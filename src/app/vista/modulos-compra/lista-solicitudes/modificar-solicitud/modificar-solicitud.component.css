@@ -10,10 +10,11 @@
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
-  height: 689px;
+  height: 100%;
   z-index: 50px;
   position: absolute;
-  top: 100px;
+  top: 0%;
+  left: 0%;
 }
 .loader {
   width: 108px;
@@ -25,8 +26,8 @@
   border-color: #FFF #FFF transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-top: 250px;
-  margin-left: 550px;
+  margin-top: 22%;
+  margin-left: 50%;
 }
 .loader::after,
 .loader::before {

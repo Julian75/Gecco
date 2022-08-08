@@ -62,8 +62,8 @@
   #estSp{ left: 24px; }
   #jerSp{ left: 70px; }
   #opcSp{ padding-right: 0%; }
-  .excelButton{ margin-left: -1%;  }
-  .excelButton i{ position: relative; top: 1px; font-size: 20px;}
+  .excelButton{ margin-left: -1%; font-size: 20px; }
+  .excelButton i{ position: relative; top: -3px; }
   #idSp2{ padding-left: 0%; }
 
   /* Movil pequeño - Galaxy Fold*/
@@ -104,7 +104,7 @@
     #estSp{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -3px; font-size: 15px;}
+    .excelButton i{ top: -7px; font-size: 15px;}
   }
 
   /* Movil medio - Samsung Galaxy S8 */
@@ -144,7 +144,7 @@
     #estSp{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -3px; font-size: 15px;}
+    .excelButton i{ top: -8px; font-size: 15px;}
   }
 
   /* Movil grande - Surface Duo*/
@@ -176,9 +176,6 @@
     #estSp{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton{ font-size: 20px; }
-    .excelButton i{ position: relative; top: -3px; font-size: 20px;}
-
   }
 
   /* Tablet pequeña - iPad Mini*/
@@ -205,7 +202,6 @@
     #estSp{ left: 8px; }
     #jerSp{ left: 28px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
   }
 
   /* Tablet medio - iPad Air*/
@@ -232,7 +228,7 @@
     #estSp{ left: 7px; }
     #jerSp{ left: 14px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
+    .excelButton i{ top: -3px; }
   }
 
   /* Portatil Pequeño */
@@ -248,12 +244,13 @@
     #obSp {left: 9px; position: relative; }
     #estaSp {left: 8px; position: relative; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
+    .excelButton i{  top: -3px; }
     .btnedit{top: 6px; position: relative;}
     .btnremove{
       margin-top: 8%;
       margin-bottom: 8%;
     }
+
   }
   /* Portatil Medio */
   @media screen and (min-width: 1367px) and (max-width: 1440px){
@@ -272,7 +269,7 @@
       left: 4px;
       position: relative;
     }
-    .excelButton i{ top: 2px; }
+    .excelButton i{ top: -3px; }
     .btnremove{
       margin-top: 8%;
       margin-bottom: 8%;

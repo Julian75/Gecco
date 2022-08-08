@@ -27,6 +27,7 @@ export class RechazarRegistroComponent implements OnInit {
   public listaDetalleSolicitud: any = [];
   public listaOrdenCompra: any = [];
   public lista: any = [];
+  public fecha: Date = new Date();
 
   constructor(
     private solicitudService: SolicitudService,
@@ -54,7 +55,7 @@ export class RechazarRegistroComponent implements OnInit {
   }
 
   public guardar(){
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
     for (const [key, value] of Object.entries(this.data)) {
       this.lista.push(value)
     }
@@ -72,7 +73,9 @@ export class RechazarRegistroComponent implements OnInit {
           })
         }else{
           solicitud.id = res.id
-          solicitud.fecha = res.fecha
+          this.fecha = new Date(res.fecha)
+          this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+          solicitud.fecha = this.fecha
           solicitud.idUsuario = res.idUsuario.id
           solicitud.idEstado = resEstado.id
           this.rechazarSolicitud(solicitud);
@@ -221,7 +224,7 @@ export class RechazarRegistroComponent implements OnInit {
 
   public enviarCorreo2(correo: Correo){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',

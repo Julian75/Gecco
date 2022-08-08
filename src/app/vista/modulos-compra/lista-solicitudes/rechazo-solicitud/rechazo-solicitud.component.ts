@@ -1,3 +1,4 @@
+import { SolicitudesComponent } from './../../solicitudes/solicitudes.component';
 import { DetalleSolicitudService } from './../../../../servicios/detalleSolicitud.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -21,6 +22,7 @@ export class RechazoSolicitudComponent implements OnInit {
 
   public formSolicitud!: FormGroup;
   public listaDetalleSolicitud: any = [];
+  public fecha: Date = new Date();
 
   constructor(
     private solicitudService: SolicitudService,
@@ -30,6 +32,7 @@ export class RechazoSolicitudComponent implements OnInit {
     private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     public dialogRef: MatDialogRef<RechazoSolicitudComponent>,
+    public dialogRef2: MatDialogRef<SolicitudesComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
@@ -62,7 +65,9 @@ export class RechazoSolicitudComponent implements OnInit {
           })
         }else{
           solicitud.id = res.id
-          solicitud.fecha = res.fecha
+          this.fecha = new Date(res.fecha)
+          this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+          solicitud.fecha = this.fecha
           solicitud.idUsuario = res.idUsuario.id
           solicitud.idEstado = resEstado.id
           this.rechazarSolicitud(solicitud);

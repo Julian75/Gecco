@@ -1,3 +1,6 @@
+import { GestionProcesoService } from './../../../servicios/gestionProceso.service';
+import { UsuariosAdministracionService } from './../../../servicios/usuariosAdministracion.service';
+import { ConfiguracionService } from './../../../servicios/configuracion.service';
 import { AprobarComentarioComponent } from './../comentarios-solicitud/aprobar-comentario/aprobar-comentario.component';
 import { ListadoObservacionComponent } from './../listado-observacion/listado-observacion.component';
 import { ProcesoComponent } from './../proceso/proceso.component';
@@ -38,14 +41,22 @@ export class PasosComponent implements OnInit {
   public listarExiste2: any = [];
   public habilitar = false
   public habilitar2 = false
+  public nombreEmpresa: any;
+  public nombreGerente: any;
+  public idSolicitud: any;
+  public idDetalleSolicitud: any;
 
   constructor(
     private servicioSolicitud: SolicitudService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioAccesos: AccesoService,
     private servicioUsuario: UsuarioService,
+    private servicioUsuarioAdministradores: UsuariosAdministracionService,
+    private servicioGestionProceso: GestionProcesoService,
     private servicioOrdenCompra: OrdenCompraService,
+    private servicioConfiguracion: ConfiguracionService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public pasos: MatDialogRef<PasosComponent>,
     private router: Router,
     public dialog: MatDialog,
   ) { }
@@ -496,15 +507,7 @@ export class PasosComponent implements OnInit {
                 height: '650px',
                 data: this.lista[0]
               });
-            }else if(res.idEstado.id == 46){
-              Swal.fire({
-                position: 'center',
-                icon: 'warning',
-                title: 'Aún no se ha validado si desea finalizar la solicitud.!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }else if(res.idEstado.id == 60){
+            }else if(res.idEstado.id == 46 || res.idEstado.id == 60){
               this.requisicion();
             }
           })
@@ -524,15 +527,7 @@ export class PasosComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 })
-              }else if(res.idEstado.id == 46){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'warning',
-                  title: 'Aún no se ha validado si desea finalizar la solicitud.!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-              }else if(res.idEstado.id == 60){
+              }else if(res.idEstado.id == 46 || res.idEstado.id == 60){
                 this.requisicion();
               }
               else if(res.idEstado.id == 47){
@@ -574,9 +569,10 @@ export class PasosComponent implements OnInit {
                   });
                 })
               }else if(res.idEstado.id == 46){
+                this.pasos.close()
                 const dialogRef = this.dialog.open(SolicitudConformeComponent, {
-                  width: '1000px',
-                  height: '650px',
+                  width: '300px',
+                  height: '200px',
                   data: this.lista[0]
                 });
               }else if(res.idEstado.id == 60){
@@ -590,6 +586,7 @@ export class PasosComponent implements OnInit {
   }
 
   public requisicion(){
+    document.getElementById('snipper3')?.setAttribute('style', 'display: block;')
     this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
       resOrdenCompra.forEach(element => {
         if(element.idSolicitud.id == this.lista[0]){
@@ -598,6 +595,7 @@ export class PasosComponent implements OnInit {
             this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
               resDetalle.forEach(element => {
                 if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
+                  this.idSolicitud = element.idSolicitud.idUsuario.nombre + " " + element.idSolicitud.idUsuario.apellido
                   var now = new Array
                   now.push(element.idArticulos.descripcion)
                   now.push(element.cantidad)
@@ -607,11 +605,21 @@ export class PasosComponent implements OnInit {
                 }
               });
               console.log(body)
+              this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                resConfiguracion.forEach(element => {
+                  if(element.nombre == 'nombre_entidad'){
+                    this.nombreEmpresa = element.valor
+                  }
+                  if(element.nombre == 'Nombre_Gerencia'){
+                    this.nombreGerente = element.valor
+                  }
+                });
+              })
               this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
                 const pdfDefinition: any = {
                   content: [
                     {
-                      text: 'Nombre Empresa: Apuestas Nacionales de Colombia',
+                      text: 'Nombre Empresa: '+this.nombreEmpresa,
                       bold: true,
                       margin: [0, 0, 0, 10]
                     },
@@ -686,10 +694,31 @@ export class PasosComponent implements OnInit {
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
+                    {
+                      text: 'Gerencia General: '+ this.nombreGerente,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Administracion: Ever',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Compras: Ever',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Solicitante: '+ this.idSolicitud,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
                   ]
                 }
                 const pdf = pdfMake.createPdf(pdfDefinition);
                 pdf.open();
+                document.getElementById('snipper3')?.setAttribute('style', 'display: none;')
               })
             })
           })

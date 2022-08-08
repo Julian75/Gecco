@@ -32,6 +32,7 @@ export class ProcesoComponent implements OnInit {
   public listaValidadas: any = [];
   public listaComentarios: any = [];
   public opcion: number = 0;
+  public fecha: Date = new Date();
 
   constructor(
     public dialog: MatDialog,
@@ -168,11 +169,14 @@ export class ProcesoComponent implements OnInit {
         const existe = this.listaValidadas.includes( true )
         const comentarioVal = this.listaComentarios.includes( true )
         if (existe==false) {
+          document.getElementById('snipper')?.setAttribute('style', 'display: block;')
           if(comentarioVal == true){
             this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud)).subscribe(res => {
               let solicitud : Solicitud2 = new Solicitud2();
               solicitud.id = res.id
-              solicitud.fecha = res.fecha
+              this.fecha = new Date(res.fecha)
+              this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+              solicitud.fecha = this.fecha
               solicitud.idUsuario = res.idUsuario.id
               this.serviceEstado.listarPorId(54).subscribe(resEstado=>{
                 solicitud.idEstado = resEstado.id
@@ -183,7 +187,9 @@ export class ProcesoComponent implements OnInit {
             this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud)).subscribe(res => {
               let solicitud : Solicitud2 = new Solicitud2();
               solicitud.id = res.id
-              solicitud.fecha = res.fecha
+              this.fecha = new Date(res.fecha)
+              this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+              solicitud.fecha = this.fecha
               solicitud.idUsuario = res.idUsuario.id
               this.serviceEstado.listarPorId(56).subscribe(resEstado=>{
                 solicitud.idEstado = resEstado.id
@@ -209,6 +215,7 @@ export class ProcesoComponent implements OnInit {
 
   public actualizarSolicitud(solicitud: Solicitud2){
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       if(solicitud.idEstado == 54){
         Swal.fire({
           position: 'center',

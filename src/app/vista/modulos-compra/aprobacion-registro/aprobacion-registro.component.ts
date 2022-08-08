@@ -1,3 +1,5 @@
+import { UsuariosAdministracionService } from './../../../servicios/usuariosAdministracion.service';
+import { UsuariosAdministracion } from './../../../modelos/usuariosAdministracion';
 import { VisualizarRegistroComponent } from './visualizar-registro/visualizar-registro.component';
 import { CotizacionService } from './../../../servicios/cotizacion.service';
 import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
@@ -39,6 +41,7 @@ export class AprobacionRegistroComponent implements OnInit {
   public idSolicitud:any ;
   public listaPdf: any = [];
   public listaOrdenCompra: any = [];
+  public fecha: Date = new Date();
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -59,6 +62,7 @@ export class AprobacionRegistroComponent implements OnInit {
     private servicioCotizacion: CotizacionService,
     private servicioSolicitud: SolicitudService,
     private servicioModificar: ModificarService,
+    private servicioUsuarioAdministracion: UsuariosAdministracionService,
     private route: ActivatedRoute,
   ) { }
 
@@ -116,7 +120,9 @@ export class AprobacionRegistroComponent implements OnInit {
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(46).subscribe(resEstado => {
         solicitud.id = res.id
-        solicitud.fecha = res.fecha
+        this.fecha = new Date(res.fecha)
+        this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+        solicitud.fecha = this.fecha
         solicitud.idUsuario = res.idUsuario.id
         solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud, idCotizacion);
@@ -194,7 +200,7 @@ export class AprobacionRegistroComponent implements OnInit {
       +"<th style='border: 1px solid #000;'>Observacion</th>";
       +"</tr>";
       resSolicitud.forEach(element => {
-        if (element.idSolicitud.id == idSolicitud) {
+        if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
           this.listaDetalleSolicitud.push(element)
           correo.messaje += "<tr>"
           correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
@@ -237,7 +243,7 @@ export class AprobacionRegistroComponent implements OnInit {
             +"<th style='border: 1px solid #000;'>Observacion</th>";
             +"</tr>";
             resSolicitud.forEach(element => {
-              if (element.idSolicitud.id == idSolicitud) {
+              if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
                 this.listaDetalleSolicitud.push(element)
                 correo.messaje += "<tr>"
                 correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
@@ -252,25 +258,34 @@ export class AprobacionRegistroComponent implements OnInit {
             +"</body>"
             +"</html>";
 
-            this.enviarCorreo2(correo);
+            this.enviarCorreo2(correo, idSolicitud);
           })
         })
       })
     })
   }
 
-  public enviarCorreo2(correo: Correo){
+  public enviarCorreo2(correo: Correo, idSolicitud:number){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Correo enviado al usuario de la solicitud y cotizacion!',
-        showConfirmButton: false,
-        timer: 1500
+      let usuariosAdministracion : UsuariosAdministracion = new UsuariosAdministracion();
+      this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
+        usuariosAdministracion.idSolicitud = resSolicitud
+        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+          usuariosAdministracion.idUsuario = resUsuario
+          this.servicioUsuarioAdministracion.registrar(usuariosAdministracion).subscribe(resUsuAdmin=>{
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Correo enviado al usuario de la solicitud y cotizacion!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.dialogRef.close();
+            window.location.reload();
+          })
+        })
       })
-      window.location.reload()
-      this.dialogRef.close();
     })
   }
 

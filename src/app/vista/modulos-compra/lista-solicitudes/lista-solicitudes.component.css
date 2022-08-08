@@ -6,6 +6,72 @@
   box-shadow: 1px none #000;
   margin-bottom: 3% !important;
 }
+
+.solpiner{
+  background-color: rgba(90, 90, 90, 0.247);
+  width: 100%;
+  height: 100%;
+  z-index: 50px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+.loader {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #FFF transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-top: 22%;
+  margin-left: 50%;
+}
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #00235C #00235C;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 92px;
+  height: 92px;
+  border-color: #FFF #FFF transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
 table{
   width: 100%;
   height: 100%;
@@ -55,10 +121,10 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .btnedit2{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #estaSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 30px; }
-#desSp{ left: 65px; }
-#estSp{ left: 77px; }
-#estaSp{ left: 115px; }
+#idSp{ left: 33px; }
+#desSp{ left: 57px; }
+#estSp{ left: 68px; }
+#estaSp{ left: 126px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -115,15 +181,15 @@ mat-form-field{
   .botonagregar mat-icon{ font-size: 18px; }
   .excelButton{ margin-left: -7%; }
   td button mat-icon{ font-size: 14px;
-    margin-left: -12px;
-    margin-top: -3px;}
+    margin-left: -11px;
+    margin-top: -2px;}
   .btnedit, .btnedit2{
-    width: 20px !important;
-  height: 23px;
-  position: relative;
-  left: 6%;
-  top: 3px;
-  margin-bottom: 7px;
+    width: 27px !important;
+    height: 26px;
+    position: relative;
+    left: 6%;
+    top: 3px;
+    margin-bottom: 7px;
   }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   #idSp{ left: 8px; }
@@ -143,11 +209,11 @@ mat-form-field{
   }
   td{ font-size: 14px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 9px; }
+  #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 13px; }
+  #desSp{ left: 7px; }
   #estSp{ left: 7px; }
-  #estaSp { left: 34px; position: relative; }
+  #estaSp { left: 37px; position: relative; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton{ font-size: 16px; top: -3px; margin-left: -24px;}
@@ -161,8 +227,8 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   #idSp{ left: 16px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 33px; }
-  #estSp{ left: 30px; }
+  #desSp{ left: 29px; }
+  #estSp{ left: 25px; }
   #estaSp { left: 68px; position: relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
@@ -191,8 +257,8 @@ mat-form-field{
   mat-form-field{ width: 22%; margin-left: 77%; }
   #idSp{ left: 25px;; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 5px; left: 49px; }
-  #estSp{ left: 56px; }
+  #desSp{ margin-left: 5px; left: 40px; }
+  #estSp{ left: 46px; }
   #estaSp{ left: 105px;  position: relative; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
@@ -203,10 +269,10 @@ mat-form-field{
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 30px;; }
+  #idSp{ left: 25px;; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 5px; left: 60px; }
-  #estSp{ left: 60px; }
+  #desSp{ margin-left: 5px; left: 50px; }
+  #estSp{ left: 50px; }
   #estaSp{ left: 115px;  position: relative; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }

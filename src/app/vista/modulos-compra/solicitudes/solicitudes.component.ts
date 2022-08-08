@@ -1,3 +1,4 @@
+import { ListadoComentariosComponent } from './../comentarios-solicitud/listado-comentarios/listado-comentarios.component';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
@@ -29,6 +30,7 @@ export class SolicitudesComponent implements OnInit {
   public listaSolicitudes: any = [];
   public listaDetalleSolicitud: any = [];
   public idSolicitud:any ;
+  public fecha: Date = new Date();
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -66,19 +68,22 @@ export class SolicitudesComponent implements OnInit {
   }
 
   verSolicitud(id: number){
-    const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
+    const dialogRef = this.dialog.open(ListadoComentariosComponent, {
       width: '1000px',
       data: {id: id}
     });
   }
 
   public aceptar(id:number){
+    this.dialogRef.close();
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(id).subscribe(res => {
       this.servicioEstado.listarPorId(29).subscribe(resEstado => {
         solicitud.id = res.id
-        solicitud.fecha = res.fecha
+        this.fecha = new Date(res.fecha)
+        this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+        solicitud.fecha = this.fecha
         solicitud.idUsuario = res.idUsuario.id
         solicitud.idEstado = resEstado.id
         this.actualizarSolicitud(solicitud);
@@ -121,7 +126,7 @@ export class SolicitudesComponent implements OnInit {
       +"<th style='border: 1px solid #000;'>Observacion</th>";
       +"</tr>";
       resSolicitud.forEach(element => {
-        if (element.idSolicitud.id == idSolicitud) {
+        if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
           this.listaDetalleSolicitud.push(element)
           correo.messaje += "<tr>"
           correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
@@ -165,9 +170,9 @@ public enviarCorreo(correo: Correo){
 }
 
  rechazarSolicitud(id: number){
-  const dialogRef = this.dialog.open(RechazoSolicitudComponent, {
-    width: '500px',
-    data: id
+   const dialogRef = this.dialog.open(RechazoSolicitudComponent, {
+     width: '500px',
+     data: id
     });
   }
 

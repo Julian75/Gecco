@@ -25,6 +25,7 @@ export class AprobarComentarioComponent implements OnInit {
   public listaCotizacionesPdf: any = [];
   public listaSolicitud: any = [];
   public listaPdf:any = []
+  public fecha: Date = new Date();
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -63,10 +64,13 @@ export class AprobarComentarioComponent implements OnInit {
   }
 
   public aceptar(idSolicitud: number){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
       let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
-      solicitud.fecha = resSolicitud.fecha
+      this.fecha = new Date(resSolicitud.fecha)
+      this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+      solicitud.fecha = this.fecha
       solicitud.idUsuario = resSolicitud.idUsuario.id
       this.servicioEstado.listarPorId(56).subscribe(resEstado=>{
         solicitud.idEstado = resEstado.id
@@ -77,6 +81,7 @@ export class AprobarComentarioComponent implements OnInit {
 
   public actualizarSolicitud(solicitud: Solicitud2){
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -97,10 +102,13 @@ export class AprobarComentarioComponent implements OnInit {
   }
 
   public rechazar(idSolicitud: number){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
       let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
-      solicitud.fecha = resSolicitud.fecha
+      this.fecha = new Date(resSolicitud.fecha)
+      this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+      solicitud.fecha = this.fecha
       solicitud.idUsuario = resSolicitud.idUsuario.id
       this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
         solicitud.idEstado = resEstado.id
@@ -151,6 +159,7 @@ export class AprobarComentarioComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       window.location.reload();
     }, error => {
       Swal.fire({

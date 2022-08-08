@@ -55,10 +55,10 @@ mat-form-field{
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
 #idSp{ left: 20px; }
-#desSp{ left: 40px; }
-#estSp{ left: 40px; }
+#desSp{ left: 20px; }
+#estSp{ left: 18px; }
 #obSp{ left: 50px; position: relative;}
-#estaSp{ left: 42px; position: relative;}
+#estaSp{ left: 25px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }

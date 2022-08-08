@@ -36,6 +36,7 @@ export class AgregarComentarioComponent implements OnInit {
   public listaExistePropios: any = [];
   public listaCompleta: any = [];
   public listaRestante: any = [];
+  public fecha: Date = new Date();
 
   constructor(
     private solicitudService: SolicitudService,
@@ -98,33 +99,34 @@ export class AgregarComentarioComponent implements OnInit {
                   gestionProceso.idEstado = resEstado.id
                   gestionProceso.comentario = "Comentario: "+comentario+". "
                   this.servicioModificar.actualizarGestionProceso(gestionProceso).subscribe(resGestionProceso=>{
-
                     let correo : Correo = new Correo();
                     this.servicioUsuario.listarPorId(gestionProceso.idUsuario).subscribe(resUsuario => {
-                      correo.to = resUsuario.correo
-                      correo.subject = "Nuevo Comentario"
-                      correo.messaje = "<!doctype html>"
-                      +"<html>"
-                      +"<head>"
-                      +"<meta charset='utf-8'>"
-                      +"</head>"
-                      +"<body>"
-                      +"<h3 style='color: black;'>Se realizo un nuevo comentario por parte de "+resUsuario.nombre+" "+resUsuario.apellido+" al articulo de"+elementGestionProceso.idDetalleSolicitud.idArticulos.descripcion+".</h3>"
-                      +"<br>"
-                      +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-                      +"</body>"
-                      +"</html>";
-                      this.servicioCorreo.enviar(correo).subscribe(res =>{
-                      }, error => {
-                        console.log(error)
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'error',
-                          title: 'Hubo un error al enviar el Correo!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                      });
+                      this.servicioUsuario.listarPorId(elementGestionProceso.idProceso.idUsuario.id).subscribe(resUsuario2 => {
+                        correo.to = resUsuario.correo
+                        correo.subject = "Nuevo Comentario"
+                        correo.messaje = "<!doctype html>"
+                        +"<html>"
+                        +"<head>"
+                        +"<meta charset='utf-8'>"
+                        +"</head>"
+                        +"<body>"
+                        +"<h3 style='color: black;'>Se realizo un nuevo comentario por parte de "+resUsuario2.nombre+" "+resUsuario2.apellido+" al articulo de "+elementGestionProceso.idDetalleSolicitud.idArticulos.descripcion+".</h3>"
+                        +"<br>"
+                        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+                        +"</body>"
+                        +"</html>";
+                        this.servicioCorreo.enviar(correo).subscribe(res =>{
+                        }, error => {
+                          console.log(error)
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Hubo un error al enviar el Correo!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        });
+                      })
                     })
                     let solicitudDetalle : DetalleSolicitud2 = new DetalleSolicitud2();
                     solicitudDetalle.id = resDetalleSolicitud.id
@@ -172,17 +174,20 @@ export class AgregarComentarioComponent implements OnInit {
                             this.listaExiste2.push(this.aprobar2)
                           });
                           const existe2 = this.listaExiste2.includes( true );
+                          document.getElementById('snipper')?.setAttribute('style', 'display: block;')
                           if (existe2 == false) {
                             console.log("Holisno esta relacionado")
                             this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe(resSolicitud=>{
                               let solicitud : Solicitud2 = new Solicitud2();
                               solicitud.id = resSolicitud.id
-                              solicitud.fecha = resSolicitud.fecha
+                              this.fecha = new Date(resSolicitud.fecha)
+                              this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+                              solicitud.fecha = this.fecha
                               solicitud.idUsuario = resSolicitud.idUsuario.id
                               this.servicioEstado.listarPorId(57).subscribe(resEstado=>{
                                 solicitud.idEstado = resEstado.id
                                 this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
-
+                                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                                   Swal.fire({
                                     position: 'center',
                                     icon: 'success',
@@ -241,6 +246,7 @@ export class AgregarComentarioComponent implements OnInit {
           });
         }else{
           if(impropio == true){
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -256,11 +262,14 @@ export class AgregarComentarioComponent implements OnInit {
             this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe(resSolicitud=>{
               let solicitud : Solicitud2 = new Solicitud2();
               solicitud.id = resSolicitud.id
-              solicitud.fecha = resSolicitud.fecha
+              this.fecha = new Date(res.fecha)
+              this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+              solicitud.fecha = this.fecha
               solicitud.idUsuario = resSolicitud.idUsuario.id
               this.servicioEstado.listarPorId(57).subscribe(resEstado=>{
                 solicitud.idEstado = resEstado.id
                 this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
+                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                   Swal.fire({
                     position: 'center',
                     icon: 'success',
