@@ -57,7 +57,6 @@ export class AgregarArticulosComponent implements OnInit {
 
   public listarEstados() {
     this.servicioEstado.listarTodos().subscribe(res => {
-      // this.listarEstado = res;
       res.forEach(element => {
         if(element.idModulo.id == 22){
           this.estadosDisponibles.push(element)

@@ -165,7 +165,7 @@ export class OrdenCompraComponent implements OnInit {
   }
 
 
-  generarOrden(){
+  public generarOrden(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var idSolicitud  = 0
     this.lista.forEach((element:any) => {
@@ -204,20 +204,22 @@ export class OrdenCompraComponent implements OnInit {
     let ordenCompra : OrdenCompra = new OrdenCompra();
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
       ordenCompra.idSolicitud = resSolicitud
-      ordenCompra.idProveedor = this.proveedor
-      var anticipo = this.formProveedor.controls['antici'].value;
-      if(anticipo == null){
-        ordenCompra.anticipoPorcentaje = 0
-      }else if(anticipo!=null){
-        ordenCompra.anticipoPorcentaje = this.anticipoVal2
-      }
-      this.servicioEstado.listarPorId(43).subscribe(resEstado=>{
-        ordenCompra.idEstado = resEstado
-        ordenCompra.valorAnticipo = this.total
-        ordenCompra.subtotal = this.subtotal
-        ordenCompra.descuento = this.descuento
-        console.log(this.subtotal, this.descuento)
-        this.registrarOrdenCompra(ordenCompra)
+      this.servicioProveedor.listarPorId(this.proveedor.id).subscribe(resProveedor=>{
+        ordenCompra.idProveedor = resProveedor
+        var anticipo = this.formProveedor.controls['antici'].value;
+        if(anticipo == null){
+          ordenCompra.anticipoPorcentaje = 0
+        }else if(anticipo!=null){
+          ordenCompra.anticipoPorcentaje = this.anticipoVal2
+        }
+        this.servicioEstado.listarPorId(43).subscribe(resEstado=>{
+          ordenCompra.idEstado = resEstado
+          ordenCompra.valorAnticipo = this.total
+          ordenCompra.subtotal = this.subtotal
+          ordenCompra.descuento = this.descuento
+          console.log(this.subtotal, this.descuento)
+          this.registrarOrdenCompra(ordenCompra)
+        })
       })
     })
   }

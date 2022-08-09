@@ -251,8 +251,10 @@ mat-form-field{
   #desSp{ left: 8px; }
   #estSp{ left: 8px; }
   #jerSp{ left: 8px; }
-  #opcSp2{ padding-right: 0%; }
+  #opcSp2{ padding-right: 0%;}
+  #opcionss{ width: 500px; }
   .excelButton i{ top: -3px; font-size: 15px;}
+
 }
 
 /* Tablet pequeña - iPad Mini*/

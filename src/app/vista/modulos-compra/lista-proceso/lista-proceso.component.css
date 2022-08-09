@@ -55,10 +55,10 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 31px; }
+#idSp{ left: 46px; }
 #desSp{ left: 99px; }
-#estSp{ left: 61px; }
-#catSp{ left: 71px; position: relative;}
+#estSp{ left: 120px; }
+#catSp{ left: 105px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
@@ -98,10 +98,10 @@ mat-form-field{
   i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   td button mat-icon{ font-size: 12px; margin-left: -12px; margin-top: -2px; }
-  #idSp{ left: 7px; }
+  #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #estSp{ left: 12px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -7px; font-size: 15px;}
@@ -162,7 +162,7 @@ mat-form-field{
   #idSp{ left: 14px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 22px; }
+  #estSp{ left: 25px; }
   #jerSp{ left: 8px; }
   #catSp{ left: 23px; position: relative;}
   #opcSp2{ padding-right: 0%; }
@@ -181,7 +181,6 @@ mat-form-field{
   #catSp{ left: 59px; position:relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
-  .excelButton i{ top: -2px; }
 }
 
 /* Tablet medio - iPad Air*/

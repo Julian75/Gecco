@@ -138,7 +138,6 @@ export class RechazoSolicitudComponent implements OnInit {
       window.location.reload()
 
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',

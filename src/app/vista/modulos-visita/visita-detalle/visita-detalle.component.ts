@@ -80,11 +80,9 @@ export class VisitaDetalleComponent implements OnInit {
   public listarTodos () {
     this.servicioOpciones.listarTodos().subscribe( res =>{
       this.listarOpciones = res;
-      console.log(res)
     })
     this.servicioElementosVisita.listarTodos().subscribe( res =>{
       this.listarElementosVisita = res;
-      console.log(res)
     })
     const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
     var documento = String(sessionStorage.getItem('usuario'))
@@ -100,11 +98,9 @@ export class VisitaDetalleComponent implements OnInit {
     let visita : Visitas = new Visitas();
     var idUsuario = Number(sessionStorage.getItem('id'))
     this.servicioUsuario.listarPorId(idUsuario).subscribe(res =>{
-      console.log(res)
       visita.idUsuario = res
       visita.fechaRegistro = this.fecha
       this.registrarVisita(visita, this.lista)
-      console.log(this.lista)
     })
 
   }
@@ -159,7 +155,6 @@ export class VisitaDetalleComponent implements OnInit {
       })
       const fechaActual = (this.fecha.getDate()-3)+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
       var documento = String(sessionStorage.getItem('usuario'))
-      console.log(fechaActual)
       this.servicioVisitaSiga.listarPorId(fechaActual, documento).subscribe( res => {
         res.forEach(element => {
           this.visitasSiga.push(element)
@@ -172,7 +167,6 @@ export class VisitaDetalleComponent implements OnInit {
           visitaDetalle.idVisitas = resVisita
           visitaDetalle.descripcion= "Visita "+resVisita.id
           this.listarOpciones = lista
-          console.log(this.lista)
           for (let i = 0; i < this.lista.length; i++) {
             const element = this.lista[i];
             visitaDetalle.idElementosVisita = element.elemento
@@ -193,7 +187,6 @@ export class VisitaDetalleComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      console.log(visitaDetalle)
       localStorage.setItem('visita', 'false')
       window.location.reload();
       this.router.navigate(['/vista']);

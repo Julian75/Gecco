@@ -82,7 +82,7 @@
       </div>
       <div class="nombre4">
         <h2 class="obs">Observacion</h2>
-        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-form-field class="nombres" [color]="color" appearance="fill">
         <mat-label>Ingrese observación del articulo</mat-label>
         <textarea id="observacion" formControlName="observacion" matInput></textarea>
         </mat-form-field>
@@ -91,8 +91,8 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button mat-raised-button class="guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button mat-raised-button class="guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+        <button  class="btn guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
+        <button  class="btn guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
         <!-- <button mat-raised-button class="guardar" (click)="Limpiar()">Limpiar</button> -->
       </div>
     </div>

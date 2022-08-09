@@ -70,7 +70,6 @@ export class AgregarProveedorComponent implements OnInit {
         this.servicioEstado.listarPorId(idEstado).subscribe(
           (dataEstado)=>{
             this.formProveedor.value.idEstado = dataEstado;
-            console.log(this.formProveedor.value);
             this.servicioProveedor.listarTodos().subscribe(
               (data)=>{
                 let contador = 0;

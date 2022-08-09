@@ -14,6 +14,7 @@ import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 
 @Component({
   selector: 'app-aprobar-comentario',
@@ -36,6 +37,7 @@ export class AprobarComentarioComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
     private servicioEstado: EstadoService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<AprobarComentarioComponent>,
@@ -119,24 +121,22 @@ export class AprobarComentarioComponent implements OnInit {
 
   public actualizarSolicitud2(solicitud: Solicitud2){
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
-      this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
+      this.servicioConsultasGenerales.listarDetalleSolicitudEstados(solicitud.id).subscribe(resDetalleSolicitud=>{
+        console.log(resDetalleSolicitud)
         for (let index = 0; index < resDetalleSolicitud.length; index++) {
           const element = resDetalleSolicitud[index];
-          console.log(element)
-          if((element.idSolicitud.id == solicitud.id  && element.idEstado.id == 57) || (element.idSolicitud.id == solicitud.id  && element.idEstado.id == 56)){
-            let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
-            detalleSolicitud.id = element.id
-            detalleSolicitud.cantidad = element.cantidad
-            detalleSolicitud.idArticulos = element.idArticulos.id
-            detalleSolicitud.idSolicitud = element.idSolicitud.id
-            detalleSolicitud.observacion = element.observacion
-            detalleSolicitud.valorTotal = element.valorTotal
-            detalleSolicitud.valorUnitario = element.valorUnitario
-            this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-              detalleSolicitud.idEstado = resEstado.id
-              this.actualizarDetalleSolicitud(detalleSolicitud)
-            })
-          }
+          let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
+          detalleSolicitud.id = element.id
+          detalleSolicitud.cantidad = element.cantidad
+          detalleSolicitud.idArticulos = element.idArticulos
+          detalleSolicitud.idSolicitud = element.idSolicitud
+          detalleSolicitud.observacion = element.observacion
+          detalleSolicitud.valorTotal = element.valorTotal
+          detalleSolicitud.valorUnitario = element.valorUnitario
+          this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+            detalleSolicitud.idEstado = resEstado.id
+            this.actualizarDetalleSolicitud(detalleSolicitud)
+          })
         }
       })
     }, error => {

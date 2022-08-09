@@ -197,7 +197,7 @@
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
     #idSp{ left: 10px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 12px; }
+    #desSp{ left: 9px; }
     #estSp{ left: 8px; }
     #estaSp{left: 20px; position: relative;}
     #jerSp{ left: 28px; }
@@ -212,8 +212,8 @@
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
     #idSp{ left: 10px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 12px; }
-    #estSp{ left: 11px; }
+    #desSp{ left: 9px; }
+    #estSp{ left: 7px; }
     #estaSp{left: 20px; position: relative;}
     #jerSp{ left: 14px; }
     #opcSp2{ padding-right: 0%; }

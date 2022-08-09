@@ -137,7 +137,6 @@ export class ModificarSolicitudComponent implements OnInit {
           listaEncontrado.push(encontrado)
         });
         const existe = listaEncontrado.includes( true )
-        console.log(existe)
         if(existe == false){
           this.listadoArtSel.push(obj)
           this.limpiarCampos();
@@ -225,9 +224,6 @@ export class ModificarSolicitudComponent implements OnInit {
 
   toggle(event:any, row: any) {
     this.list = row
-    console.log(event, row, this.listaRow)
-
-    console.log(event.checked, this.list.id)
     var obj = {
       articulo: [],
       seleccionado: Boolean
@@ -238,7 +234,6 @@ export class ModificarSolicitudComponent implements OnInit {
       for (let index = 0; index < this.listaRow.length; index++) {
         const element = this.listaRow[index];
         if(element.articulo.articulo.id == this.list.articulo.id){
-          console.log(element.seleccionado, event.checked)
           if(element.seleccionado == true && event.checked == false){
             var posicion = this.listaRow.indexOf(element)
             this.listaRow.splice(posicion, 1)
@@ -258,7 +253,6 @@ export class ModificarSolicitudComponent implements OnInit {
         this.listaRow.push(obj)
       }
     }
-    console.log(this.listaRow)
   }
 
   /** The label for the checkbox on the passed row */

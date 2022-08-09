@@ -43,7 +43,6 @@ export class SidebarComponent implements OnInit {
           }
         });
         for (let i = 0; i < this.listaAccessForm.length; i++) {
-          console.log(this.listaAccessForm[i])
           if(this.listaAccessForm[i] == 5 || this.listaAccessForm[i] == 4 || this.listaAccessForm[i] == 3 || this.listaAccessForm[i] == 10 || this.listaAccessForm[i] == 11 || this.listaAccessForm[i] == 19 || this.listaAccessForm[i] == 21){
             document.getElementById('Administracion')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 1 || this.listaAccessForm[i] == 12 || this.listaAccessForm[i] == 2 || this.listaAccessForm[i] == 6 || this.listaAccessForm[i] == 13 || this.listaAccessForm[i] == 7 || this.listaAccessForm[i] == 20 || this.listaAccessForm[i] == 14){
@@ -52,7 +51,7 @@ export class SidebarComponent implements OnInit {
             document.getElementById('Visita')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 28){
             document.getElementById('Raspa')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]== 32 || this.listaAccessForm[i]== 33){
+          }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 24 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]== 32 || this.listaAccessForm[i]== 33){
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
@@ -148,15 +147,11 @@ export class SidebarComponent implements OnInit {
           this.valor = Number(element.valor);
         }
       });
-      console.log(this.valor)
       const fechaActual = (this.fecha.getDate())+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
-      console.log(fechaActual)
       this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('usuario'))).subscribe(res =>{
-        console.log(res)
         res.forEach(element =>{
           this.listaVisita.push(element)
         })
-        console.log(this.listaVisita)
         let ultimo = this.listaVisita[0]
         var horaFinal = ultimo.hora.split(':')
         var hora = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1]))

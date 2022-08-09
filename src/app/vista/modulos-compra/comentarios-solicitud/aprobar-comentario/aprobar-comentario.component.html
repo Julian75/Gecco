@@ -28,7 +28,7 @@
         </ng-container>
 
         <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Estado</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estaSp">Estado</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
         </ng-container>
 
@@ -40,10 +40,10 @@
               <mat-icon>visibility</mat-icon>
             </button>
             <button class="btn boton btne me-2" (click)="aceptar(item.id)">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon>speaker_notes_off</mat-icon>
             </button>
             <button class="btn btnremove btne me-2" (click)="rechazar(item.id)">
-              <mat-icon>cancel</mat-icon>
+              <mat-icon>maps_ugc</mat-icon>
             </button>
           </td>
         </ng-container>

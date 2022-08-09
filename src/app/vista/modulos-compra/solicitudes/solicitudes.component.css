@@ -253,7 +253,7 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ margin-left: -25px; }
+  #idSp{ margin-left: 1px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: 6px; }
   #estSp{ left: 37px; }
@@ -266,7 +266,7 @@ mat-form-field{
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ margin-left: -80%; }
+  #idSp{ margin-left: -6%; }
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: 9%; }
   #estSp{ left: 49%; }

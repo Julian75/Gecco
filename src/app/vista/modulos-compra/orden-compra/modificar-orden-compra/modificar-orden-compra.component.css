@@ -4,6 +4,56 @@
   border-bottom: 20%;
   box-shadow: 1px none #000;
 }
+td.mat-cell:first-of-type{
+  padding-right: 0%;
+  padding-left: 0%;
+}
+.ar{
+  position: relative;
+  left: 25px;
+  top: 7px;
+}
+.o{
+  position: relative;
+  left: 102px;
+  top: 7px;
+}
+.v{
+  position: relative;
+  left: 50px;
+  top: 7px;
+}
+.cant{
+  position: relative;
+  left: 25px;
+  top: 7px;
+}
+.sub{
+  position: relative;
+  top: -52px;
+}
+.val{
+  position: relative;
+  top: -53px;
+}
+.des{
+  position: relative;
+  top: -52px;
+}
+.to{
+  position: relative;
+  top: -52px;
+}
+.guardar4{
+  background-color: #00235C;
+  color: white;
+  width: 258px;
+  height: 40px;
+  font-size: large;
+  margin-left: 0%;
+  position: relative;
+  top: -47px;
+}
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
@@ -23,7 +73,7 @@
   border-color: #FFF #FFF transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-top: 20%;
+  margin-top: 22%;
   margin-left: 50%;
 }
 .loader::after,
@@ -72,7 +122,7 @@ table{
   width: 100%;
   height: 100%;
   margin-bottom: 10%;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 .tit{
@@ -160,8 +210,41 @@ mat-option{ font-size: 10.5px; }
   h3{
     font-size: 12px;
   }
+  .example-container{
+    overflow: auto;
+    position: relative;
+    top: 56px !important;
+    margin-bottom: 5% !important;
+  }
   td{
     font-size: 11px;
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+  .ar{
+    position: relative;
+    left: -14px;
+    top: 6px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  .cant{
+    position: relative;
+    left: -1px;
+    top: 6px;
+  }
+
+  .o{
+    position: relative;
+    left: 42px;
+    top: 6px;
+  }
+  .v{
+    position: relative;
+    left: 11px;
+    top: 6px;
   }
   .articulo{
     width: 100%;
@@ -195,9 +278,10 @@ mat-option{ font-size: 10.5px; }
   }
   .nombre{
     width: 160px;
-    left: 70px;
-    top: 278px;
+    left: -64px;
+    top: -22px;
   }
+
   .row1{
     border-top: 3px solid #97B4E2;
     padding-top: 3%;
@@ -253,7 +337,8 @@ mat-option{ font-size: 10.5px; }
     font-size: smaller;
     margin-left: 1%;
     position: relative;
-    top: 45px;
+    top: 26px;
+
   }
   .sub{
     position: relative;
@@ -279,9 +364,7 @@ mat-option{ font-size: 10.5px; }
     width: 202px;
     overflow: auto;
     position: relative;
-    top: 65px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
+    top: 43px !important;
     margin-bottom: 10% !important;
   }
   h3{
@@ -290,7 +373,7 @@ mat-option{ font-size: 10.5px; }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -13px;
   }
   .v{
     position: relative;
@@ -299,7 +382,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 50px;
     top: 5px;
   }
   .cant{
@@ -309,7 +392,9 @@ mat-option{ font-size: 10.5px; }
     top: 5px;
   }
   td{
-    font-size: 11px;
+    font-size: 12px;
+    padding-left: 13px;
+    padding-right: 13px;
   }
   .articulo{
     width: 100%;
@@ -343,8 +428,8 @@ mat-option{ font-size: 10.5px; }
   }
   .nombre{
     width: 200px;
-    left: 86px;
-    top: 288px;
+    left: -79px;
+    top: -23px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -364,25 +449,8 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
 
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
+
 
   .tabla{
     width: 100%;
@@ -398,25 +466,29 @@ mat-option{ font-size: 10.5px; }
     width: 164px;
     height: 40px;
     font-size: smaller;
-    margin-left: 1%;
+    margin-left: 10%;
     position: relative;
-    top: 55px;
+    top: 14px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    padding-right: 0%;
   }
   .sub{
     position: relative;
-    top: 67px;
+    top: 35px;
   }
   .val{
     position: relative;
-    top: 56px;
+    top: 31px;
   }
   .des{
     position: relative;
-    top: 47px;
+    top: 25px;
   }
   .to{
     position: relative;
-    top: 39px;
+    top: 22px;
   }
 }
 
@@ -432,12 +504,17 @@ mat-option{ font-size: 10.5px; }
     margin-bottom: 3% !important;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -12px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 14px;
+    padding-right: 0%;
   }
   .v{
     position: relative;
@@ -446,7 +523,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 34px;
     top: 5px;
   }
   .cant{
@@ -456,7 +533,11 @@ mat-option{ font-size: 10.5px; }
     top: 5px;
   }
   td{
-    font-size: 11px;
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+    padding-left: 13px;
+    padding-right: 13px;
   }
   .articulo{
     width: 100%;
@@ -478,6 +559,7 @@ mat-option{ font-size: 10.5px; }
   .antic{
     position: relative;
     left: -7px;
+    font-size: 15px;
   }
   li{
     position: relative;
@@ -490,9 +572,9 @@ mat-option{ font-size: 10.5px; }
     top: 4px;
   }
   .nombre{
-    width: 200px;
-    left: 116px;
-    top: 288px;
+    width: 340px;
+    left: -131px;
+    top: 0px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -512,26 +594,6 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
   .tabla{
     width: 100%;
     height: 100%;
@@ -548,7 +610,7 @@ mat-option{ font-size: 10.5px; }
     font-size: initial;
     margin-left: 1%;
     position: relative;
-    top: 45px;
+    top: 36px;
   }
   .sub{
     position: relative;
@@ -574,27 +636,24 @@ mat-option{ font-size: 10.5px; }
     width: 442px;
     overflow: auto;
     position: relative;
-    top: 56px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: 3% !important;
+    top: 48px !important;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -11px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 12px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 46px;
     top: 5px;
   }
   .cant{
@@ -604,7 +663,11 @@ mat-option{ font-size: 10.5px; }
     top: 5px;
   }
   td{
-    font-size: 11px;
+    font-size: 16px;
+    position: relative;
+    top: 1px;
+    padding-left: 13px;
+    padding-right: 13px;
   }
   .articulo{
     width: 100%;
@@ -630,21 +693,27 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -185px;
-    top: 46px;
+    top: 50px;
   }
   mat-radio-button{
     position: relative;
     left: -178px;
-    top: 31px;
+    top: 36px;
+  }
+
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 16px;
+    padding-right: 0%;
   }
   .nombre{
-    width: 236px;
-    left: 274px;
-    top: 392px;
+    width: 240px;
+    left: -63px;
+    top: -30px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
-    padding-top: 3%;
+    padding-top: 0%;
     padding-bottom: 4%;
     width: 442px;
   }
@@ -660,26 +729,6 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
   .tabla{
     width: 100%;
     height: 100%;
@@ -687,7 +736,6 @@ mat-option{ font-size: 10.5px; }
     top: -17px;
     margin-bottom: -17px;
   }
-
   .guardar4{
     background-color: #00235C;
     color: white;
@@ -696,23 +744,23 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 80px;
+    top: 40px;
   }
   .sub{
     position: relative;
-    top: 65px;
+    top: 60px;
   }
   .val{
     position: relative;
-    top: 65px;
+    top: 55px;
   }
   .des{
     position: relative;
-    top: 62px;
+    top: 50px;
   }
   .to{
     position: relative;
-    top: 64px;
+    top: 46px;
   }
 }
 
@@ -722,18 +770,15 @@ mat-option{ font-size: 10.5px; }
     width: 442px;
     overflow: auto;
     position: relative;
-    top: 56px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: 3% !important;
+    top: 48px !important;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: -11px;
   }
   .v{
     position: relative;
@@ -742,7 +787,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 46px;
     top: 5px;
   }
   .cant{
@@ -752,7 +797,11 @@ mat-option{ font-size: 10.5px; }
     top: 5px;
   }
   td{
-    font-size: 11px;
+    font-size: 16px;
+    position: relative;
+    top: 1px;
+    padding-left: 13px;
+    padding-right: 13px;
   }
   .articulo{
     width: 100%;
@@ -778,21 +827,27 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -185px;
-    top: 46px;
+    top: 50px;
   }
   mat-radio-button{
     position: relative;
     left: -178px;
-    top: 31px;
+    top: 36px;
+  }
+
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 16px;
+    padding-right: 0%;
   }
   .nombre{
-    width: 234px;
-    left: 285px;
-    top: 475px;
+    width: 240px;
+    left: -63px;
+    top: -30px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
-    padding-top: 3%;
+    padding-top: 0%;
     padding-bottom: 4%;
     width: 442px;
   }
@@ -808,26 +863,6 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
   .tabla{
     width: 100%;
     height: 100%;
@@ -835,7 +870,6 @@ mat-option{ font-size: 10.5px; }
     top: -17px;
     margin-bottom: -17px;
   }
-
   .guardar4{
     background-color: #00235C;
     color: white;
@@ -844,23 +878,23 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 80px;
+    top: 40px;
   }
   .sub{
     position: relative;
-    top: 65px;
+    top: 60px;
   }
   .val{
     position: relative;
-    top: 65px;
+    top: 55px;
   }
   .des{
     position: relative;
-    top: 62px;
+    top: 50px;
   }
   .to{
     position: relative;
-    top: 64px;
+    top: 46px;
   }
 }
 
@@ -868,39 +902,40 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   .example-container{
     width: 724px;
-    overflow: auto;
     position: relative;
     top: 43px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: -1% !important;
+    height: 100px;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: 10px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 36px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 75px;
     top: 5px;
   }
   .cant{
     margin-left: 20px;
-    left: -10px;
+    left: 13px;
     position: relative;
     top: 5px;
   }
   td{
-    font-size: 11px;
+    padding-left: 1%;
+    font-size: 16px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
   }
   .articulo{
     width: 100%;
@@ -936,9 +971,9 @@ mat-option{ font-size: 10.5px; }
     top: 44px;
   }
   .nombre{
-    width: 224px;
-    left: 400px;
-    top: 247px;
+    width: 230px;
+    left: -155px;
+    top: -16px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -994,23 +1029,23 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 80px;
+    top: 100px;
   }
   .sub{
     position: relative;
-    top: 75px;
+    top: 120px;
   }
   .val{
     position: relative;
-    top: 72px;
+    top: 113px;
   }
   .des{
     position: relative;
-    top: 66px;
+    top: 106px;
   }
   .to{
     position: relative;
-    top: 64px;
+    top: 100px;
   }
 }
 
@@ -1018,39 +1053,40 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   .example-container{
     width: 724px;
-    overflow: auto;
     position: relative;
     top: 43px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: -1% !important;
+    height: 100px;
   }
   h3{
-    font-size: 12px;
+    font-size: 20px;
   }
   .ar{
     position: relative;
     top: 5px;
-    left: -5px;
+    left: 10px;
   }
   .v{
     position: relative;
     top: 5px;
-    left: 13px;
+    left: 36px;
   }
   .o{
     position: relative;
-    left: 32px;
+    left: 71px;
     top: 5px;
   }
   .cant{
     margin-left: 20px;
-    left: -10px;
+    left: 12px;
     position: relative;
     top: 5px;
   }
   td{
-    font-size: 11px;
+    font-size: 16px;
+    padding-bottom: 1px;
+    left: 2px;
+    top: 2px;
+    position: relative;
   }
   .articulo{
     width: 100%;
@@ -1086,9 +1122,13 @@ mat-option{ font-size: 10.5px; }
     top: 44px;
   }
   .nombre{
-    width: 234px;
-    left: 435px;
-    top: 272px;
+    width: 233px;
+    left: -155px;
+    top: -16px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
+    font-size: 16px;
   }
   .row1{
     border-top: 3px solid #97B4E2;

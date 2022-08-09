@@ -1,3 +1,4 @@
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { CotizacionPdfService } from './../../../../servicios/cotizacionPdf.service';
 import { CotizacionPdf } from './../../../../modelos/cotizacionPdf';
 import { HttpResponse, HttpEventType } from '@angular/common/http';
@@ -54,6 +55,7 @@ export class AgregarCotizacionComponent implements OnInit {
     private servicioSolicitud : SolicitudService,
     private servicioCotizacion : CotizacionService,
     private servicioModificar : ModificarService,
+    private servicioConsultasGenerales : ConsultasGeneralesService,
     private servicioUsuario : UsuarioService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<AgregarCotizacionComponent>,
@@ -176,23 +178,19 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   public registroCotiPdf(idSolicitud:number){
-    console.log(idSolicitud)
-    this.servicioCotizacion.listarTodos().subscribe(resCotizaciones=>{
-      resCotizaciones.forEach(element => {
-        if(idSolicitud == element.idSolicitud.id){
-          this.idCotizacion= element.id
-        }
-      });
-      this.servicioCotizacion.listarPorId(Number(this.idCotizacion)).subscribe(resCotizacion=>{
-        this.listaArchivos2.forEach((element:any) => {
-          this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
-            let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
-            cotizacionPdf.idCotizacion = resCotizacion
-            cotizacionPdf.idEstado = resEstado
-            cotizacionPdf.nombrePdf = element
-            this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
+    this.servicioConsultasGenerales.listarCotizacion(idSolicitud).subscribe(resCotizacion=>{
+      resCotizacion.forEach(element => {
+        this.servicioCotizacion.listarPorId(element.id).subscribe(resCotizacion=>{
+          this.listaArchivos2.forEach((element:any) => {
+            this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
+              let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+              cotizacionPdf.idCotizacion = resCotizacion
+              cotizacionPdf.idEstado = resEstado
+              cotizacionPdf.nombrePdf = element
+              this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
+            })
           })
-        })
+        });
       });
     })
   }
@@ -238,7 +236,6 @@ export class AgregarCotizacionComponent implements OnInit {
       })
       this.uploadFiles()
     }, error => {
-      console.log("No se modifico")
     });
   }
 

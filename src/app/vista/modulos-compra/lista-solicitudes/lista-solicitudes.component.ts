@@ -19,6 +19,8 @@ import { PasosComponent } from '../pasos/pasos.component';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import { ArticuloService } from 'src/app/servicios/articulo.service';
 
 @Component({
   selector: 'app-lista-solicitudes',
@@ -41,8 +43,10 @@ export class ListaSolicitudesComponent implements OnInit {
     private solicitudService: SolicitudService,
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioCorreo: CorreoService,
     private servicioAccesos: AccesoService,
+    private servicioArticulos: ArticuloService,
     private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
@@ -124,7 +128,6 @@ export class ListaSolicitudesComponent implements OnInit {
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
       this.crearCorreo(solicitud.idUsuario, solicitud.id)
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -136,7 +139,7 @@ export class ListaSolicitudesComponent implements OnInit {
  }
  public crearCorreo(idUsuario:number, idSolicitud:number){
   let correo : Correo = new Correo();
-  this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+  this.servicioConsultasGenerales.listarDetalleSolicitud2(idSolicitud).subscribe(resSolicitud => {
     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
       correo.to = resUsuario.correo
       correo.subject = "Aceptación de Solicitud"
@@ -155,14 +158,14 @@ export class ListaSolicitudesComponent implements OnInit {
       +"<th style='border: 1px solid #000;'>Observacion</th>";
       +"</tr>";
       resSolicitud.forEach(element => {
-        if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-          this.listaDetalleSolicitud.push(element)
-          correo.messaje += "<tr>"
-          correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+        this.listaDetalleSolicitud.push(element)
+        correo.messaje += "<tr>"
+        this.servicioArticulos.listarPorId(element.idArticulos).subscribe(resArticulos=>{
+          correo.messaje += "<td style='border: 1px solid #000;'>"+resArticulos.descripcion+"</td>";
           correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
           correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
           correo.messaje += "</tr>";
-        }
+        })
       });
       correo.messaje += "</table>"
       +"<br>"
@@ -187,7 +190,6 @@ public enviarCorreo(correo: Correo){
     })
     window.location.reload()
   }, error => {
-    console.log(error)
     Swal.fire({
       position: 'center',
       icon: 'error',

@@ -69,7 +69,6 @@ export class ModificarTipoNovedadesComponent implements OnInit {
 
   public actualizarTipoNovedad(tipoNovedad: TipoNovedades) {
     this.serviciotipoNovedad.actualizar(tipoNovedad).subscribe(res => {
-      console.log("Rol actualizado")
       Swal.fire({
         position: 'center',
         icon: 'success',

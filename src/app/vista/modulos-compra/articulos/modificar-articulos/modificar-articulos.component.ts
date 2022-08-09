@@ -114,7 +114,6 @@ export class ModificarArticulosComponent implements OnInit {
   }
 
   public actualizarArticulo(articulo: Articulo2) {
-    console.log(articulo)
     this.servicioModificar.actualizarArticulos(articulo).subscribe(res => {
       Swal.fire({
         position: 'center',

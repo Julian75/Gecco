@@ -58,7 +58,6 @@ export class ModificarProveedorComponent implements OnInit {
       this.idProveedor = Number(params.get('id'));
       this.serviceProveedor.listarPorId(this.idProveedor).subscribe(
         (data)=>{
-          console.log(data);
           this.formProveedor.setValue({
             id: data.id,
             idTipoDocumento: data.idTipoDocumento.id,
@@ -110,7 +109,6 @@ export class ModificarProveedorComponent implements OnInit {
           }
           );
           const existe  = this.pro2.includes(true)
-          console.log(existe)
           if (existe == true) {
             this.servicioModificar.actualizarProveedor(this.formProveedor.value).subscribe(data=>{
             })

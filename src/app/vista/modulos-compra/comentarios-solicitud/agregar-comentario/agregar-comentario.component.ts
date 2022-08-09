@@ -117,7 +117,6 @@ export class AgregarComentarioComponent implements OnInit {
                         +"</html>";
                         this.servicioCorreo.enviar(correo).subscribe(res =>{
                         }, error => {
-                          console.log(error)
                           Swal.fire({
                             position: 'center',
                             icon: 'error',
@@ -149,25 +148,21 @@ export class AgregarComentarioComponent implements OnInit {
                         });
                         if(this.listaCompleta.length <=1){
                           this.listaCompleta.forEach(elementGestionProces => {
-                            console.log(elementGestionProces)
                             if(elementGestionProces.idEstado.id != 50){ this.aprobar = true }
                             else{ this.aprobar = false}
                             this.listaExiste.push(this.aprobar)
                           });
                         }else{
                           this.listaCompleta.forEach(elementGestionProces => {
-                            console.log(elementGestionProces)
                             if(elementGestionProces.idEstado.id == 50){ this.aprobar = true }
                             else{ this.aprobar = false}
                             this.listaExiste.push(this.aprobar)
                           });
                         }
                         const existe = this.listaExiste.includes( true );
-                        console.log(existe)
                         if(existe == true){
                           this.metodo(resDetalleSolicitud)
                         }else{
-                          console.log("Holissolouno")
                           this.listaRestante.forEach(elementGestionProcesoR => {
                             if(elementGestionProcesoR.idEstado.id == 54){ this.aprobar2 = false }
                           else{ this.aprobar2 = true}
@@ -176,7 +171,6 @@ export class AgregarComentarioComponent implements OnInit {
                           const existe2 = this.listaExiste2.includes( true );
                           document.getElementById('snipper')?.setAttribute('style', 'display: block;')
                           if (existe2 == false) {
-                            console.log("Holisno esta relacionado")
                             this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe(resSolicitud=>{
                               let solicitud : Solicitud2 = new Solicitud2();
                               solicitud.id = resSolicitud.id
@@ -236,9 +230,7 @@ export class AgregarComentarioComponent implements OnInit {
           this.listaExiste4.push(this.aprobadi)
         });
         const aprobo = this.listaExiste3.includes( true );
-        console.log(aprobo)
         const impropio = this.listaExiste4.includes( true );
-        console.log(impropio)
         if(aprobo == true){
           const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
             width: '1000px',

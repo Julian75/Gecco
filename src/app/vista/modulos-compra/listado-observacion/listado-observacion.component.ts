@@ -37,7 +37,6 @@ export class ListadoObservacionComponent implements OnInit {
 
   public listarDetalleSolicitud() {
     this.idSolicitud = this.data;
-    console.log(this.idSolicitud)
     this.servicelistaSolicitud.listarPorId(this.idSolicitud.id).subscribe( res => {
       this.estadoSolicitud = res.idEstado.id
       this.serviceDetalleSolicitud.listarTodos().subscribe( resDetalle => {

@@ -89,7 +89,6 @@ export class GenerarSolicitudComponent implements OnInit {
           return descripcion ? this._filter(descripcion as string, this.listaArticulos) : this.listaArticulos.slice();
         }),
       );
-
     });
   }
   public guardar() {
@@ -128,7 +127,6 @@ export class GenerarSolicitudComponent implements OnInit {
           listaEncontrado.push(encontrado)
         });
         const existe = listaEncontrado.includes( true )
-        console.log(existe)
         if(existe == false){
           this.listadoArtSel.push(obj)
           this.crearFormulario();
@@ -202,9 +200,6 @@ export class GenerarSolicitudComponent implements OnInit {
 
   toggle(event:any, row: any) {
     this.list = row
-    console.log(this.list.articulo.id)
-
-    console.log(event.checked, this.list.id)
     var obj = {
       articulo: [],
       seleccionado: Boolean
@@ -215,7 +210,6 @@ export class GenerarSolicitudComponent implements OnInit {
       for (let index = 0; index < this.listaRow.length; index++) {
         const element = this.listaRow[index];
         if(element.articulo.articulo.id == this.list.articulo.id){
-          console.log(element.seleccionado, event.checked)
           if(element.seleccionado == true && event.checked == false){
             var posicion = this.listaRow.indexOf(element)
             this.listaRow.splice(posicion, 1)
@@ -235,7 +229,6 @@ export class GenerarSolicitudComponent implements OnInit {
         this.listaRow.push(obj)
       }
     }
-    console.log(this.listaRow)
   }
 
   /** The label for the checkbox on the passed row */
@@ -255,7 +248,6 @@ export class GenerarSolicitudComponent implements OnInit {
     }else{
       this.listaRow.forEach((element:any) => {
         for (let i in this.listadoArtSel) {
-          console.log()
           if (this.listadoArtSel[i].articulo.id == element.articulo.articulo.id) {
             this.listadoArtSel.splice(i, 1)
           }
@@ -270,8 +262,6 @@ export class GenerarSolicitudComponent implements OnInit {
     this.aprobar = false
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.articlo;
-
-    console.log(articulo.descripcion)
     this.servicioEstado.listarPorId(26).subscribe(res => {
       articulo.idEstado = res
       if(articulo.descripcion==null || articulo.descripcion==""){
@@ -377,7 +367,6 @@ export class GenerarSolicitudComponent implements OnInit {
           usuarios.push(element)
         }
       });
-      console.log(usuarios)
       for (let index = 0; index < usuarios.length; index++) {
         const element = usuarios[index];
         if(usuarios.indexOf(element) == usuarios.length-1){
@@ -395,7 +384,6 @@ export class GenerarSolicitudComponent implements OnInit {
           detalleSolicitud.observacion = element.observacion
           this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
             detalleSolicitud.idEstado = resEstado
-            console.log(detalleSolicitud)
             this.registrarDetalleSolicitud(detalleSolicitud)
           })
         });

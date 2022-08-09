@@ -62,7 +62,7 @@ h2{
 @media screen and (min-width: 494px) and (max-width: 720px){
 .guardar{
   width: 40%;
-  margin-left: 60%;
+  margin-left: 5%;
 }
 }
 
@@ -70,7 +70,7 @@ h2{
 @media screen and (min-width: 721px) and (max-width: 768px){
 .guardar{
   width: 40%;
-  margin-left: 60%;
+  margin-left: 5%;
 }
 }
 
@@ -78,7 +78,7 @@ h2{
 @media screen and (min-width: 769px) and (max-width: 1023px){
 .guardar{
   width: 38%;
-  margin-left: 60%;
+  margin-left: 5%;
 }
 }
 /* Portatil Pequeño */

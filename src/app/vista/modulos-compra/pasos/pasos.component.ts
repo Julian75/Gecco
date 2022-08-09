@@ -1,3 +1,5 @@
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import { CotizacionService } from './../../../servicios/cotizacion.service';
 import { GestionProcesoService } from './../../../servicios/gestionProceso.service';
 import { UsuariosAdministracionService } from './../../../servicios/usuariosAdministracion.service';
 import { ConfiguracionService } from './../../../servicios/configuracion.service';
@@ -43,6 +45,10 @@ export class PasosComponent implements OnInit {
   public habilitar2 = false
   public nombreEmpresa: any;
   public nombreGerente: any;
+  public idCompras: any;
+  public idAdministrador: any;
+  public nombreCompras: any;
+  public nombreAdministrador: any;
   public idSolicitud: any;
   public idDetalleSolicitud: any;
 
@@ -54,6 +60,7 @@ export class PasosComponent implements OnInit {
     private servicioUsuarioAdministradores: UsuariosAdministracionService,
     private servicioGestionProceso: GestionProcesoService,
     private servicioOrdenCompra: OrdenCompraService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioConfiguracion: ConfiguracionService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public pasos: MatDialogRef<PasosComponent>,
@@ -213,7 +220,6 @@ export class PasosComponent implements OnInit {
                 }
                 this.listarExiste2.push(this.habilitar2)
               }
-              console.log(this.listarExiste2)
               const existe2 = this.listarExiste2.includes( true )
               if(existe2 == true){
                 this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
@@ -281,7 +287,6 @@ export class PasosComponent implements OnInit {
             }
             this.listarExiste.push(this.habilitar)
           }
-          console.log(this.listarExiste)
           const existe = this.listarExiste.includes( true )
           if(existe == true){
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
@@ -531,15 +536,13 @@ export class PasosComponent implements OnInit {
                 this.requisicion();
               }
               else if(res.idEstado.id == 47){
-                this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCompra=>{
                   resOrdenCompra.forEach(element => {
-                    if(element.idSolicitud.id == this.lista[0]){
-                      const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
-                        width: '1000px',
-                        height: '650px',
-                        data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
-                      });
-                    }
+                    const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
+                      width: '1000px',
+                      height: '650px',
+                      data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
+                    });
                   });
                 })
               }
@@ -555,17 +558,15 @@ export class PasosComponent implements OnInit {
                   timer: 1500
                 })
               }else if(res.idEstado.id == 47){
-                this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+                this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCompra=>{
                   resOrdenCompra.forEach(element => {
-                    if(element.idSolicitud.id == this.lista[0]){
-                      Swal.fire({
-                        position: 'center',
-                        icon: 'warning',
-                        title: 'Aún no se ha modificado el registro!',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
-                    }
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'warning',
+                      title: 'Aún no se ha modificado el registro!',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
                   });
                 })
               }else if(res.idEstado.id == 46){
@@ -587,143 +588,186 @@ export class PasosComponent implements OnInit {
 
   public requisicion(){
     document.getElementById('snipper3')?.setAttribute('style', 'display: block;')
-    this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
-      resOrdenCompra.forEach(element => {
-        if(element.idSolicitud.id == this.lista[0]){
-          var body = []
-          this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
-            this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
-              resDetalle.forEach(element => {
-                if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
-                  this.idSolicitud = element.idSolicitud.idUsuario.nombre + " " + element.idSolicitud.idUsuario.apellido
-                  var now = new Array
-                  now.push(element.idArticulos.descripcion)
-                  now.push(element.cantidad)
-                  now.push(element.valorUnitario)
-                  now.push(element.valorTotal)
-                  body.push(now)
-                }
+    this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCom=>{
+      resOrdenCom.forEach(element => {
+        var body = []
+        this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
+          this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
+            resDetalle.forEach(element => {
+              if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
+                this.idSolicitud = element.idSolicitud.idUsuario.nombre + " " + element.idSolicitud.idUsuario.apellido
+                var now = new Array
+                now.push(element.idArticulos.descripcion)
+                now.push(element.cantidad)
+                now.push(element.valorUnitario)
+                now.push(element.valorTotal)
+                body.push(now)
+              }
+            });
+            this.servicioConsultasGenerales.listarCotizacion(element.idSolicitud).subscribe(resCotizacion=>{
+              resCotizacion.forEach(element => {
+                this.idCompras = element.idUsuario
               });
-              console.log(body)
-              this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-                resConfiguracion.forEach(element => {
-                  if(element.nombre == 'nombre_entidad'){
-                    this.nombreEmpresa = element.valor
-                  }
-                  if(element.nombre == 'Nombre_Gerencia'){
-                    this.nombreGerente = element.valor
-                  }
-                });
-              })
-              this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
-                const pdfDefinition: any = {
-                  content: [
-                    {
-                      text: 'Nombre Empresa: '+this.nombreEmpresa,
-                      bold: true,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Lider de Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Fecha: '+res.idSolicitud.fecha,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Proveedor: '+res.idProveedor.nombre,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Orden Compra: '+res.id,
-                      relativePosition: {x: 250, y: -25},
-                      margin: [0, 0, 0, 20]
-                    },
-                    {
-                      image: await this.getBase64ImageFromURL(
-                        'assets/logo/GECCO 2.png'
-                      ),
-                      relativePosition: {x: 350, y: -120},
-                      width: 150
-                    },
-                    {
-                      text: 'Requisición',
-                      bold: true,
-                      fontSize: 20,
-                      alignment: 'center',
-                      margin: [0, 0, 0, 20]
-                    },{
-                      table: {
-                        widths: ['*', '*', '*', '*'],
-                        body: [
-                          [
-                            'Articulo',
-                            'Cantidad',
-                            'Valor Unitario',
-                            'Valor Total'
-                          ],
-                        ]
-                      },
-                      margin: [0, 0, 0, 0.3]
-                    },
-                    {
-                      table: {
-                        widths: ['*', '*', '*', '*'],
-                        body: body
-                      },
-                      margin: [0, 0, 0, 40]
-                    },
-                    {
-                      text: 'SubTotal: '+ res.subtotal +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Descuento: '+ res.descuento +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Total: '+ res.valorAnticipo +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Gerencia General: '+ this.nombreGerente,
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Administracion: Ever',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Compras: Ever',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Solicitante: '+ this.idSolicitud,
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                  ]
-                }
-                const pdf = pdfMake.createPdf(pdfDefinition);
-                pdf.open();
-                document.getElementById('snipper3')?.setAttribute('style', 'display: none;')
+              this.servicioUsuario.listarPorId(this.idCompras).subscribe(resUsuario=>{
+                this.nombreCompras = resUsuario.nombre+" "+resUsuario.apellido
               })
             })
+
+            this.servicioConsultasGenerales.listarUsuariosAdministracion(element.idSolicitud).subscribe(resUsuariosAdministracion=>{
+              resUsuariosAdministracion.forEach(element => {
+                this.idAdministrador = element.idUsuario
+              });
+              this.servicioUsuario.listarPorId(this.idAdministrador).subscribe(resUsuario=>{
+                this.nombreAdministrador = resUsuario.nombre+" "+resUsuario.apellido
+              })
+            })
+
+            this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+              resConfiguracion.forEach(element => {
+                if(element.nombre == 'nombre_entidad'){
+                  this.nombreEmpresa = element.valor
+                }
+                if(element.nombre == 'Nombre_Gerencia'){
+                  this.nombreGerente = element.valor
+                }
+              });
+            })
+            this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+              const pdfDefinition: any = {
+                content: [
+                  {
+                    image: await this.getBase64ImageFromURL(
+                      'assets/logo/suchance.png'
+                    ),
+                    relativePosition: {x: 0, y: 0},
+                    width: 150,
+                  },
+                  {
+                    text: 'Nombre Empresa: '+this.nombreEmpresa,
+                    bold: true,
+                    margin: [0, 80, 0, 10]
+                  },
+                  {
+                    text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                    margin: [0, 0, 0, 10]
+                  },
+                  {
+                    text: 'Fecha: '+res.idSolicitud.fecha,
+                    margin: [0, 0, 0, 10]
+                  },
+                  {
+                    text: 'Proveedor: '+res.idProveedor.nombre,
+                    margin: [0, 0, 0, 10]
+                  },
+                  {
+                    text: 'Orden Compra: '+res.id,
+                    relativePosition: {x: 250, y: -25},
+                    margin: [0, 0, 0, 20]
+                  },
+                  {
+                    text: 'Requisición',
+                    bold: true,
+                    fontSize: 20,
+                    alignment: 'center',
+                    margin: [0, 0, 0, 20]
+                  },{
+                    table: {
+                      widths: ['*', '*', '*', '*'],
+                      body: [
+                        [
+                          'Articulo',
+                          'Cantidad',
+                          'Valor Unitario',
+                          'Valor Total'
+                        ],
+                      ]
+                    },
+                    margin: [0, 0, 0, 0.3]
+                  },
+                  {
+                    table: {
+                      widths: ['*', '*', '*', '*'],
+                      body: body
+                    },
+                    margin: [0, 0, 0, 40]
+                  },
+                  {
+                    text: 'SubTotal: '+ res.subtotal +' COP',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [0, 0, 0, 20],
+                  },
+                  {
+                    text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [0, 0, 0, 20],
+                  },
+                  {
+                    text: 'Descuento: '+ res.descuento +' COP',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [0, 0, 0, 20],
+                  },
+                  {
+                    text: 'Total: '+ res.valorAnticipo +' COP',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [0, 0, 0, 20],
+                  },
+                  {
+                    text: this.nombreGerente,
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-320, 180, 0, 0],
+                    fontSize: 13,
+                  },
+                  {
+                    text: 'Gerencia General',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-320, 20, 0, 0],
+                    fontSize: 10,
+                  },
+                  {
+                    text: this.nombreAdministrador,
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-320, 85, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: 'Dirección Administrativa',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-320, 20, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: this.nombreCompras,
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-10, -123, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: 'Compras',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-10, 20, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: this.idSolicitud,
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-10, 85, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: 'Solicitante',
+                    relativePosition: {x: 350, y: -25},
+                    margin: [-10, 20, 0, 20],
+                    fontSize: 10
+                  },
+                ]
+              }
+              const pdf = pdfMake.createPdf(pdfDefinition);
+              pdf.open();
+              document.getElementById('snipper3')?.setAttribute('style', 'display: none;')
+            })
           })
-        }
-      })
+        })
+      });
     })
   }
 

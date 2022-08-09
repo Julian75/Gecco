@@ -76,7 +76,6 @@ export class ModificarOrdenCompraComponent implements OnInit {
       this.subtotal = resordenCompra.subtotal
       if(resordenCompra.anticipoPorcentaje != 0){
         document.getElementById('antici')?.setAttribute('value', String(resordenCompra.anticipoPorcentaje))
-        console.log(resordenCompra)
         this.opciones = ['Si']
         this.anticipoVal2 = resordenCompra.anticipoPorcentaje
         this.descuento = resordenCompra.descuento
@@ -89,14 +88,12 @@ export class ModificarOrdenCompraComponent implements OnInit {
       }
       document.getElementById('proveedortra')?.setAttribute('value', resordenCompra.idProveedor.nombre)
       this.servicioSolicitud.listarPorId(resordenCompra.idSolicitud.id).subscribe(resSolicitud=>{
-        console.log(resSolicitud)
         this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
           resDetalleSolicitud.forEach(element => {
             if(element.idSolicitud.id == resSolicitud.id  && element.idEstado.id != 59){
               this.listaRow.push(element)
             };
           })
-          console.log(this.listaRow)
           this.dataSource = new MatTableDataSource(this.listaRow);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -108,7 +105,6 @@ export class ModificarOrdenCompraComponent implements OnInit {
     $('#tabla tbody tr').each(function(){
       var input = $(this).find('input[type="number"]').attr('value');
       var valorTotal = $(this).find("td").eq(5).attr('value');
-      console.log(input)
     });
   }
   solicitudDetalle:any
@@ -119,7 +115,6 @@ export class ModificarOrdenCompraComponent implements OnInit {
   descuento:any
   total:any
   valorUnitario(valor:any, solicitudDetalle:any){
-    console.log(solicitudDetalle, valor.target.value)
     for (let index = 0; index < this.listaRow.length; index++) {
       const element = this.listaRow[index];
       if(element.idArticulos.id == solicitudDetalle.idArticulos.id){
@@ -161,7 +156,6 @@ export class ModificarOrdenCompraComponent implements OnInit {
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
         let solicitud : Solicitud2 = new Solicitud2();
         solicitud.id = resSolicitud.id
-        console.log(resSolicitud.fecha)
         this.fecha = new Date(resSolicitud.fecha)
         this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
         solicitud.fecha = this.fecha
@@ -193,7 +187,6 @@ export class ModificarOrdenCompraComponent implements OnInit {
         })
       })
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',

@@ -15,7 +15,8 @@ import * as XLSX from 'xlsx';
 })
 export class GenerarCotizacionComponent implements OnInit {
 
-  public listaSolicitudes: any = [];
+  public listaSolicitud: any = [];
+  public idSol: any;
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -34,13 +35,10 @@ export class GenerarCotizacionComponent implements OnInit {
   }
 
   public listarSolicitudes(){
-    this.solicitudService.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if (element.id == Number(this.data)) {
-         this.listaSolicitudes.push(element);
-        }
-      })
-      this.dataSource = new MatTableDataSource(this.listaSolicitudes);
+    this.idSol = this.data
+    this.solicitudService.listarPorId(this.idSol).subscribe(resSolicitud => {
+      this.listaSolicitud.push(resSolicitud)
+      this.dataSource = new MatTableDataSource(this.listaSolicitud);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })

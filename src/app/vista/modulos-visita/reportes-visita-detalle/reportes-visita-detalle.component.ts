@@ -67,7 +67,6 @@ export class ReportesVisitaDetalleComponent implements OnInit {
           fechaRegistro.setDate(fechaRegistro.getDate() + 1)
           if(fechaI <= fechaRegistro && fechaF >= fechaRegistro){
             this.listaVisita.push(elementVisita)
-            console.log(this.listaVisita)
             this.encontrar = true
           }else if(fechaI>fechaF){
             this.encontrar = false
@@ -75,14 +74,12 @@ export class ReportesVisitaDetalleComponent implements OnInit {
           this.listarExiste.push(this.encontrar)
         })
         const existe = this.listarExiste.includes(true)
-        console.log(existe)
         if(existe == true){
           this.servicioVisitaDetalle.listarTodos().subscribe( (dataVisitaDetalle: any) => {
             dataVisitaDetalle.forEach((element:any) => {
               this.listaVisita.forEach((element2:any) => {
                 if(element.idVisitas.id == element2.id){
                   this.listarVisitaDetalle.push(element)
-                  console.log(this.listarVisitaDetalle)
                 }
               }
               )
@@ -93,7 +90,6 @@ export class ReportesVisitaDetalleComponent implements OnInit {
             }
             )
             this.lista = []
-            console.log(this.lista)
             this.listaVisitaDetalleCompleta.forEach((element:any) => {
               var objeto = {
                 descripcion: element.descripcion,
@@ -107,7 +103,6 @@ export class ReportesVisitaDetalleComponent implements OnInit {
               }
               this.lista.push(objeto)
             });
-            console.log(this.lista)
             if( this.lista.length == 0 ){
               Swal.fire({
                 title: 'Visita registrada pero no hizo el conteo',

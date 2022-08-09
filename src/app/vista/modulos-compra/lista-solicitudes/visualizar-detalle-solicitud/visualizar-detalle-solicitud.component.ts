@@ -46,13 +46,9 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
         this.serviceGestionProceso.listarTodos().subscribe(resGestionProceso=>{
           resGestionProceso.forEach(elementGestionProceso => {
             if(elementGestionProceso.idDetalleSolicitud.idSolicitud.id == res.id && elementGestionProceso.idProceso.idUsuario.id == Number(sessionStorage.getItem('id')) && elementGestionProceso.idEstado.id == 50){
-              console.log(elementGestionProceso)
               this.listarDetalle.push(elementGestionProceso.idDetalleSolicitud)
-              console.log(this.listarDetalle)
             }
           });
-          console.log("Holissss")
-          console.log(this.listarDetalle)
           this.dataSource = new MatTableDataSource( this.listarDetalle);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -76,7 +72,6 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
                 this.listarDetalle.push(element);
               }
             })
-            console.log("HOlsi")
             this.dataSource = new MatTableDataSource( this.listarDetalle);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -88,12 +83,18 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
                 this.listarDetalle.push(element);
               }
             })
-            console.log(this.listarDetalle)
-            console.log("HOlsi2")
             this.dataSource = new MatTableDataSource( this.listarDetalle);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           }
+          resDetalle.forEach(element => {
+            if (element.idSolicitud.id == res.id && element.idEstado.id == 37) {
+              this.listarDetalle.push(element);
+            }
+          })
+          this.dataSource = new MatTableDataSource( this.listarDetalle);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         })
       }
     })

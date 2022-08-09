@@ -45,16 +45,12 @@ export class LoginComponent implements OnInit {
   ingresar(){
       this.servicioUsuario.listarTodos().subscribe(res=>{
         const username = this.formLogin.controls['username'].value;
-        console.log(username)
         const password = this.formLogin.controls['password'].value;
-        console.log(password)
         res.forEach(element => {
-          console.log(element)
           if(element.documento == username){
             const contrasena = element.password.toString()
             var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
             var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
-            console.log(decryptedData, JSON.stringify(password))
             if(decryptedData == JSON.stringify(password)){
               if(element.idEstado.id == 11){
                 Swal.fire({

@@ -38,7 +38,6 @@ export class SideMovilComponent implements OnInit {
         res.forEach(element => {
           if (element.idRol.id == this.idRol) {
             this.listaAccessForm.push(element.idModulo.id)
-            console.log(this.listaAccessForm)
           }
         });
         for (let i = 0; i < this.listaAccessForm.length; i++) {
@@ -146,15 +145,11 @@ export class SideMovilComponent implements OnInit {
           this.valor = Number(element.valor);
         }
       });
-      console.log(this.valor)
       const fechaActual = (this.fecha.getDate())+ "/"+ (this.fecha.getMonth()+1) + "/" + this.fecha.getFullYear()
-      console.log(fechaActual)
       this.servicioVisita.listarPorId(fechaActual, String(sessionStorage.getItem('usuario'))).subscribe(res =>{
-        console.log(res)
         res.forEach(element =>{
           this.listaVisita.push(element)
         })
-        console.log(this.listaVisita)
         let ultimo = this.listaVisita[0]
         var horaFinal = ultimo.hora.split(':')
         var hora = new Date(1928,6,25,horaFinal[0],Number(horaFinal[1]))

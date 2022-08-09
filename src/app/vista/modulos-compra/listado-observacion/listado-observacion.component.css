@@ -108,7 +108,9 @@ mat-form-field{
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  td button mat-icon{ font-size: 10px; margin-left: -7px; }
+  td button mat-icon{ font-size: 10px;
+    margin-left: -12px;
+    margin-top: -1px; }
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
@@ -118,8 +120,8 @@ mat-form-field{
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
   .formulario{
-    width: 18px !important;
-    height: 20px;
+    width: 20px !important;
+    height: 23px;
     position: relative;
     left: 6%;
     top: 1px;
@@ -168,7 +170,7 @@ mat-form-field{
   .ver{
     margin-left: -6%;
   }
-  td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
+  td button mat-icon{ font-size: 14px; margin-left: -5px; margin-top: 0px;}
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
@@ -182,8 +184,8 @@ mat-form-field{
   .excelButton i{ top: -3px; font-size: 15px;}
   #opc{ position: relative; left: 9px;}
   .formulario{
-    width: 18px !important;
-    height: 20px;
+    width: 27px !important;
+    height: 26px;
     position: relative;
     left: 4%;
     top: 1px;
@@ -256,8 +258,8 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 12px; }
-  #estSp{ left: 11px; }
+  #desSp{ left: 10px; }
+  #estSp{ left: 8px; }
   #estaSp{left: 10px; position: relative;}
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }

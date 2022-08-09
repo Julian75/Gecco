@@ -240,7 +240,6 @@ export class MallasCierreComponent implements OnInit {
                           this.listaHistorial.push(elementHistorial)
                         }
                       });
-                      console.log(this.listaHistorial.length)
                       if(this.listaHistorial.length>=1){
                         var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
                         var horaAsignadaArray = element.idTurno.horaFinal.split(':')
@@ -423,7 +422,6 @@ export class MallasCierreComponent implements OnInit {
             this.servicioNovedadConsulta.listarPorId(this.fechaActual).subscribe(resNovedad=>{
               for (let index = 0; index < resNovedad.length; index++) {
                 const elementNovedad = resNovedad[index];
-                console.log(elementNovedad)
                   this.servicioAsignarTurnoVendedor.listarPorId(elementNovedad.id_asignar_turno_vendedor).subscribe(resAsignarTurnoVendedor=>{
                     if(resAsignarTurnoVendedor.idVendedor == element.idVendedor && resAsignarTurnoVendedor.idSitioVenta == element.idSitioVenta && elementNovedad.tipo_malla == 'Malla Cierre'){
                       malla1.validar = true

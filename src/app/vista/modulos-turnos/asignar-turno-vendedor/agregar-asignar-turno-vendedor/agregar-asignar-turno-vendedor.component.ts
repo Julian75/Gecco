@@ -337,7 +337,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                                   this.listaGuardado.push(elementTurnoVendedor)
                                 }
                               })
-                              console.log(this.listaGuardado)
                               for (let index = 0; index < this.listaGuardado.length; index++) {
                                 const elementGuardadouno = this.listaGuardado[index];
                                 var fechaInicioAlmacenada = new Date(elementGuardadouno.fecha_inicio)
@@ -345,14 +344,12 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                                 var fechaFinalAlmacenada = new Date(elementGuardadouno.fecha_final)
                                 var fechaFinalAlmacenada1 = new Date(fechaFinalAlmacenada.getFullYear(), fechaFinalAlmacenada.getMonth(), fechaFinalAlmacenada.getDate()+1)
                                 if(fechaInicio >= fechaInicioAlmacenada1  && fechaFinal<= fechaFinalAlmacenada1){
-                                  console.log(elementGuardadouno, asignarTurnoVendedor.idTurno.id)
                                   if(elementGuardadouno.id_turno == asignarTurnoVendedor.idTurno.id){
                                     this.aprobadin = true
                                   }else{
                                     this.aprobadin = false
                                   }
                                   this.listaExiste2.push(this.aprobadin)
-                                  console.log(this.listaExiste2)
                                 }
                               }
                               const existe23 = this.listaExiste2.includes( true );
@@ -378,7 +375,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                                   }
                                 }
                               }
-                              console.log(this.listadoVendedorFecha)
                               if(this.listadoVendedorFecha.length==2){
                                 this.listaTurnosAsigVen=[]
                                 this.listadoVendedorFecha.forEach((elementGuardadouno:any) => {
@@ -393,14 +389,12 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                                     timer: 1500
                                   })
                                 }else{
-                                  console.log(this.elementGuardadouno1[0])
                                   this.servicioTurnos.listarTodos().subscribe(resTurnoVarios=>{
                                     resTurnoVarios.forEach(elementTurnoVarios => {
                                       if(elementTurnoVarios.id == this.elementGuardadouno1[0].id_turno || elementTurnoVarios.id == this.elementGuardadouno1[1].id_turno){
                                         this.listaTurnosAsigVen.push(elementTurnoVarios)
                                       }
                                     });
-                                    console.log(this.listaTurnosAsigVen)
                                     var horaIsplit1 = this.listaTurnosAsigVen[0].horaInicio.split(':') //Split de Hora inicio almacenada 1
                                     var horaFsplit1 = this.listaTurnosAsigVen[0].horaFinal.split(':') //Split de Hora final almacenada 1
                                     var horaIsplit2 = this.listaTurnosAsigVen[1].horaInicio.split(':') //Split de Hora inicio almacenada 2
@@ -470,14 +464,12 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
                                   timer: 1500
                                 })
                               }else{
-                                console.log(this.listadoVendedorFecha)
                                 this.listadoVendedorFecha.forEach((elementGuardadouno:any) => {
                                   if(elementGuardadouno.id_turno == asignarTurnoVendedor.idTurno.id || elementGuardadouno.id_turno != asignarTurnoVendedor.idTurno.id){
                                     this.servicioTurnos.listarPorId(elementGuardadouno.id_turno).subscribe(resTurno=>{
                                       var horaIsplit = resTurno.horaInicio.split(':') //Split de Hora inicio almacenada
                                       var horaFsplit = resTurno.horaFinal.split(':') //Split de Hora final almacenada
                                       var hora = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))
-                                      console.log(hora)
                                       hora.setHours(Number(horaFsplit[0])-Number(horaIsplit[0]),Number(horaFsplit[1])-Number(horaIsplit[1])) //hora almacenada
                                       var horaOchoHoras = new Date(1982,6,20,8,0) //tiempo de 8 horas
                                       var tiempoFaltante = new Date(1982,6,20,Number(horaIsplit[0]), Number(horaIsplit[1]))

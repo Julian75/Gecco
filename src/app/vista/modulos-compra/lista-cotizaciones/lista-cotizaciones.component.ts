@@ -1,3 +1,4 @@
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { PasosComponent } from './../pasos/pasos.component';
 import { CotizacionPdf } from './../../../modelos/cotizacionPdf';
 import { CotizacionPdfService } from './../../../servicios/cotizacionPdf.service';
@@ -52,6 +53,7 @@ export class ListaCotizacionesComponent implements OnInit {
     private servicioCotizacionPdf: CotizacionPdfService,
     private servicioPdf: SubirPdfService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<ListaCotizacionesComponent>,

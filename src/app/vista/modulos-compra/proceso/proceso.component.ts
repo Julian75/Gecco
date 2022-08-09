@@ -1,3 +1,4 @@
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
 import { PasosComponent } from './../pasos/pasos.component';
 import { Solicitud } from 'src/app/modelos/solicitud';
@@ -47,6 +48,7 @@ export class ProcesoComponent implements OnInit {
     private servicioModificar: ModificarService,
     private servicioSolicitud: SolicitudService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private fb: FormBuilder,
   ) { }
 
@@ -106,7 +108,6 @@ export class ProcesoComponent implements OnInit {
         })
       }
     }else if(this.opcion == 2){
-      console.log("holis")
       this.actualizarDetalleSolicitud(this.listaDetalleSolicitud.id, "noquiere")
     }
   }
@@ -118,7 +119,6 @@ export class ProcesoComponent implements OnInit {
   }
 
   public actualizarDetalleSolicitud(idDetalleSolicitud:number, informacion){
-    console.log(informacion)
     let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
     this.servicioDetalleSolicitud.listarPorId(idDetalleSolicitud).subscribe(resDetalleSolicitud=>{
       detalleSolicitud.id = resDetalleSolicitud.id
@@ -146,21 +146,16 @@ export class ProcesoComponent implements OnInit {
   comentario: boolean = false
   public actualizarDetaSol(detalleSolicitud: DetalleSolicitud2){
     this.servicioModificar.actualizarDetalleSolicitud(detalleSolicitud).subscribe(resDetalleSolicitud=>{
-      this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
-        resDetalleSolicitud.forEach(element => {
-          if(element.idSolicitud.id == detalleSolicitud.idSolicitud){
-            this.listaDetalleSolicitudes.push(element)
-          }
-        });
-        this.listaDetalleSolicitudes.forEach(element => {
-          if(element.idEstado.id == 28){
+      this.servicioConsultasGenerales.listarDetalleSolicitud(detalleSolicitud.idSolicitud).subscribe(resDetalleSolici=>{
+        resDetalleSolici.forEach(element => {
+          if(element.idEstado == 28){
             this.validar = true
           }else{
             this.validar = false
           }
-          if(element.idEstado.id == 54){
+          if(element.idEstado == 54){
             this.comentario = true
-          }else if(element.idEstado.id == 56){
+          }else if(element.idEstado == 56){
             this.comentario = false
           }
           this.listaValidadas.push(this.validar)
@@ -208,7 +203,6 @@ export class ProcesoComponent implements OnInit {
             }
           })
         }
-
       })
     })
   }

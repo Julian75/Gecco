@@ -119,13 +119,9 @@ export class ModificarUsuariosComponent implements OnInit {
         this.formUsuario.controls['tipoDocumento'].setValue(this.listarUsuario.idTipoDocumento.id);
         this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideOficina);
         const contrasena = this.listarUsuario.password.toString()
-        console.log(contrasena)
         var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
-        console.log(bytes)
         var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
-        console.log(decryptedData)
         this.contrasenaDesencru = decryptedData.slice(1, -1)
-        console.log(this.contrasenaDesencru)
         this.formUsuario.controls['contrasena'].setValue(this.contrasenaDesencru);
 
       })
@@ -158,11 +154,9 @@ export class ModificarUsuariosComponent implements OnInit {
           const tipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
           const oficina = this.formUsuario.controls['oficina'].value;
           const password = this.formUsuario.controls['contrasena'].value;
-          console.log(password)
           var bytes  = CryptoJS.AES.decrypt(usuario.password.toString(), 'secret key 123');
           var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
           var contrasenaDesencrip = decryptedData.slice(1, -1)
-          console.log(contrasenaDesencrip)
           for (let i = 0; i < res.length; i++) {
             if(res[i].documento == documento && res[i].nombre == nombre && res[i].apellido == apellido && res[i].correo == correo && res[i].idEstado.id == estado && res[i].idRol.id == rol && res[i].idTipoDocumento.id == tipoDocumento && res[i].ideOficina == oficina && password == contrasenaDesencrip){
               this.encontrado = true
@@ -195,16 +189,13 @@ export class ModificarUsuariosComponent implements OnInit {
               this.listaEstados = res;
               usuario.idEstado= res.id
               const idRol = this.formUsuario.controls['rol'].value;
-              console.log("hola")
               this.servicioRoles.listarPorId(idRol).subscribe(res => {
                 this.listaRoles = res;
                 usuario.idRol= res.id
-                console.log("hola3")
                 const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
                 this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
                   this.listaTipoDocumentos = res;
                   usuario.idTipoDocumento = res.id
-                  console.log("hola4")
                   const ideOficina = this.formUsuario.controls['oficina'].value;
                   this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
                     res.forEach(elementOficina => {
@@ -219,7 +210,6 @@ export class ModificarUsuariosComponent implements OnInit {
                           timer: 1500
                         })
                       }else{
-                        console.log(usuario)
                         this.actualizarUsuario(usuario);
                       }
                     });
@@ -246,7 +236,6 @@ export class ModificarUsuariosComponent implements OnInit {
 
   public actualizarUsuario(usuario: Usuario2) {
     this.servicioModificar.actualizarUsuario(usuario).subscribe(res => {
-      console.log(res)
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -256,7 +245,6 @@ export class ModificarUsuariosComponent implements OnInit {
       })
       this.router.navigate(['/usuarios']);
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',

@@ -152,7 +152,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
   }
 
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
     this.idSitiosVentas(event.option.value)
   }
 

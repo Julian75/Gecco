@@ -84,10 +84,8 @@ export class RaspaListoComponent implements OnInit {
           })
         }else{
           this.servicioRaspaGeccoConsulta.listarRaspaGeco(codRaspa).subscribe(resRaspaGecco=>{
-            console.log(resRaspaGecco)
             if(resRaspaGecco.length<1){
               this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
-                console.log(resRaspaDTo)
                 resRaspaDTo.forEach(element => {
                   let raspita : Raspas = new Raspas();
                   raspita.fecPago = element.fec_pago
@@ -200,7 +198,6 @@ export class RaspaListoComponent implements OnInit {
         fechaFinal = fechaF.getFullYear()+""+("0"+(fechaF.getMonth()+1))+""+fechaF.getDate()
       }
     }
-    console.log(fechaI.getFullYear())
     if(fechaI.getFullYear() == 1970 || fechaF.getFullYear() == 1970){
       Swal.fire({
         title: 'Las fechas no pueden estar vacias!',

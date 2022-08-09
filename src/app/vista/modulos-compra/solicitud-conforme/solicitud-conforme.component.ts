@@ -89,7 +89,6 @@ export class SolicitudConformeComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
