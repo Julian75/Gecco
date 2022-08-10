@@ -132,19 +132,3 @@ h2{
     margin-top: 2%;
   }
 }
-
-/* portatil grande */
-@media screen and (min-width: 1441px) and (max-width: 1920px){
-  .nombre3{
-    margin-left: 55%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 200px;
-    height: 40px;
-    font-size: large;
-    margin-left: 60%;
-    margin-top: 2%;
-  }
-}

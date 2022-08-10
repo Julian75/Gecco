@@ -156,14 +156,6 @@ mat-form-field{
   #rolSpa{ left: 15px; }
 }
 
-/* Portatil Grande */
-@media screen and (min-width: 1441px) {
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 58px; }
-  #descSpa{ left: 183px; }
-  #rolSpa{ left: 15px; }
-}
 
 
 

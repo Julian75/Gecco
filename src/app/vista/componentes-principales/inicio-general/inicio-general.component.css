@@ -1,13 +1,12 @@
 .general{
   width: 100%;
-  height: 87%;
+  height: 86.8%;
   background-color: #ECECEC;
 }
 .imagen-inicio{
   width: 50%;
-  position: relative;
-  top: 15%;
-  left: 25%;
+  margin-left: 23%;
+  margin-top: 7%;
 }
 h1{
   width: 30%;
@@ -23,19 +22,10 @@ h1{
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .cuadro{
-    width: 70%;
-    height: 30%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 100%;
-    position: relative;
-    top: 28%;
-    left: 15%;
-  }
   .imagen-inicio{
-    width: 100%;
-    position: relative;
-    top: 10%;
+    width: 90%;
+    margin-left: 3%;
+    margin-top: 57%;
   }
   h1{
     width: auto;
@@ -53,20 +43,10 @@ h1{
 
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){
-  .cuadro{
-    width: 80%;
-    height: 40%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 100%;
-    position: relative;
-    top: 22%;
-    left: 11%
-  }
   .imagen-inicio{
-    width: 100%;
-    position: relative;
-    top: 12%;
-    left: 1%
+    margin-left: 3%;
+    margin-top: 45%;
+    width: 90%;
   }
   h1{
     width: auto;
@@ -82,20 +62,10 @@ h1{
 }
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
-  .cuadro{
-    width: 55%;
-    height: 45%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 100%;
-    position: relative;
-    top: 20%;
-    left: 22%;
-  }
   .imagen-inicio{
     width: 90%;
-    position: relative;
-    top: 15%;
-    left: 3%;
+    margin-top: 21%;
+    margin-left: 3%;
   }
   h1{
         width: auto;
@@ -112,20 +82,10 @@ h1{
 
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
-  .cuadro{
-    width: 56%;
-    height: 45%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 100%;
-    position: relative;
-    top: 22%;
-    left: 8%;
-  }
   .imagen-inicio{
-    width: 100%;
-    position: relative;
-    top: 13%;
-    left: 0%;
+    width: 90%;
+    margin-top: 20%;
+    margin-left: 3%;
   }
   h1{
     width: 30%;
@@ -142,26 +102,61 @@ h1{
 
 /* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
-  .cuadro{
-    width: 50%;
-    height: 30%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 100%;
-    position: relative;
-    top: 35%;
-    left: 11%
-  }
   .imagen-inicio{
-    width: 95%;
-    position: relative;
-    top: 15%;
+    width: 90%;
+    margin-top: 42%;
+    margin-left: 4%;
   }
+
   h1{
     font-size: 40px;
     top: 13%;
     display: flex;
     position: relative;
     left: 60%;
+  }
+  .general{
+    height: 90%;
+    background-color: #ECECEC;
+  }
+}
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .imagen-inicio{
+    margin-top: 11%;
+    margin-left: 24%;
+  }
+
+  h1{
+    font-size: 40px;
+    top: 13%;
+    display: flex;
+    position: relative;
+    left: 60%;
+  }
+  .general{
+    height: 90%;
+    background-color: #ECECEC;
+  }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .imagen-inicio{
+    margin-top: 13%;
+    margin-left: 24%;
+  }
+
+  h1{
+    font-size: 40px;
+    top: 13%;
+    display: flex;
+    position: relative;
+    left: 60%;
+  }
+  .general{
+    height: 90%;
+    background-color: #ECECEC;
   }
 }
 

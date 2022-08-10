@@ -180,7 +180,7 @@ mat-form-field{
 @media screen and (min-width: 769px) and (max-width: 1023px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 22px; }
+  #idSp{ left: 17px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 43px; }
   #estSp{ left: 28px; }
@@ -193,10 +193,10 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{  left: 28px;margin: -11px; }
+  #idSp{  left: 21px;margin: -11px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: -19%; }
-  #estSp{ left: 74px; }
+  #desSp{ margin-left: -23%; }
+  #estSp{ left: 68px; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{  top: -3px; }

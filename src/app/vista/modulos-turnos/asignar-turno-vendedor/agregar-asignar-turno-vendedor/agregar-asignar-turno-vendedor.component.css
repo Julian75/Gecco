@@ -704,39 +704,3 @@ th.mat-header-cell{ padding-right: 15px; }
   }
   #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
 }
-/* portatil grande */
-@media screen and (min-width: 1441px){
-
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 150px;
-    height: 40px;
-    font-size: large;
-    margin-left: 78%;
-    top: 0%;
-  }
-  .fec1{
-    width: 38%;
-  }
-  .ven{
-    width: 24%;
-  }
-  .tur{
-    width: 90%;
-  }
-  .fec2{
-    width: 90%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 150px;
-    height: 40px;
-    font-size: large;
-    margin-left: 84%;
-    top: 0%;
-  }
-
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
-}

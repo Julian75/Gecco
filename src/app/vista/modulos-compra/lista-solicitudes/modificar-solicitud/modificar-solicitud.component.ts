@@ -286,7 +286,7 @@ export class ModificarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
     this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
       let solicitud : Solicitud2 = new Solicitud2();
       solicitud.id = resSolicitud.id
@@ -347,7 +347,7 @@ export class ModificarSolicitudComponent implements OnInit {
           this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
             detalleSolicitud.idEstado = resEstado
             this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
-              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+              document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
               Swal.fire({
                 position: 'center',
                 icon: 'success',

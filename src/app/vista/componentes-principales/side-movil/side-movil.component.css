@@ -8,10 +8,11 @@
     width: 100%;
   }
   .logo{
-    width: 60%;
+    width: 35%;
     position: relative;
-    top: -6%;
-    margin-left: 18%;
+    margin-left: 30%;
+    margin-top: 0%;
+    margin-bottom: 25%;
   }
   .boton{
     width: 100%;
@@ -43,10 +44,11 @@
     width: 100%;
   }
   .logo{
-    width: 60%;
+    width: 37%;
     position: relative;
-    top: -6%;
-    margin-left: 18%;
+    margin-left: 30%;
+    margin-top: 0%;
+    margin-bottom: 21%;
   }
   .boton{
     width: 100%;
@@ -77,10 +79,10 @@
     width: 100%;
   }
   .logo{
-    width: 40%;
+    width: 31%;
     position: relative;
-    top: -6%;
-    margin-left: 28%;
+    margin-left: 32%;
+    margin-bottom: 14%;
   }
   .boton{
     width: 100%;
@@ -113,7 +115,7 @@
   .logo{
     width: 35%;
     position: relative;
-    top: -6%;
+    margin-bottom: 14%;
     margin-left: 32%;
   }
   .boton{

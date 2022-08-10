@@ -213,8 +213,8 @@ mat-option{ font-size: 10.5px; }
   .example-container{
     overflow: auto;
     position: relative;
-    top: 56px !important;
-    margin-bottom: 5% !important;
+    top: -24px !important;
+    margin-bottom: -52% !important;
   }
   td{
     font-size: 11px;
@@ -279,7 +279,7 @@ mat-option{ font-size: 10.5px; }
   .nombre{
     width: 160px;
     left: -64px;
-    top: -22px;
+    top: -49px;
   }
 
   .row1{
@@ -337,7 +337,7 @@ mat-option{ font-size: 10.5px; }
     font-size: smaller;
     margin-left: 1%;
     position: relative;
-    top: 26px;
+    top: 60px;
 
   }
   .sub{
@@ -364,8 +364,8 @@ mat-option{ font-size: 10.5px; }
     width: 202px;
     overflow: auto;
     position: relative;
-    top: 43px !important;
-    margin-bottom: 10% !important;
+    top: -18px !important;
+    margin-bottom: -15% !important;
   }
   h3{
     font-size: 12px;
@@ -420,6 +420,7 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -93px;
+    top: 8px;
   }
   mat-radio-button{
     position: relative;
@@ -429,7 +430,7 @@ mat-option{ font-size: 10.5px; }
   .nombre{
     width: 200px;
     left: -79px;
-    top: -23px;
+    top: -42px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -468,7 +469,7 @@ mat-option{ font-size: 10.5px; }
     font-size: smaller;
     margin-left: 10%;
     position: relative;
-    top: 14px;
+    top: 37px;
   }
   td.mat-cell:first-of-type{
     padding-left: 0%;
@@ -498,10 +499,8 @@ mat-option{ font-size: 10.5px; }
     width: 345px;
     overflow: auto;
     position: relative;
-    top: 65px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: 3% !important;
+    top: 0px !important;
+    margin-bottom: -15% !important;
   }
   h3{
     font-size: 20px;
@@ -564,7 +563,7 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -151px;
-    top: 21px;
+    top: 26px;
   }
   mat-radio-button{
     position: relative;
@@ -574,7 +573,7 @@ mat-option{ font-size: 10.5px; }
   .nombre{
     width: 340px;
     left: -131px;
-    top: 0px;
+    top: -23px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -603,14 +602,13 @@ mat-option{ font-size: 10.5px; }
   }
 
   .guardar4{
-    background-color: #00235C;
     color: white;
     width: 215px;
     height: 40px;
     font-size: initial;
     margin-left: 1%;
     position: relative;
-    top: 36px;
+    top: 90px;
   }
   .sub{
     position: relative;
@@ -618,25 +616,26 @@ mat-option{ font-size: 10.5px; }
   }
   .val{
     position: relative;
-    top: 56px;
+    top: 67px;
   }
   .des{
     position: relative;
-    top: 47px;
+    top: 66px;
   }
   .to{
     position: relative;
-    top: 39px;
+    top: 70px;
   }
 }
 
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
   .example-container{
+    margin-bottom: -10% !important;
     width: 442px;
     overflow: auto;
     position: relative;
-    top: 48px !important;
+    top: -14px !important;
   }
   h3{
     font-size: 20px;
@@ -693,7 +692,7 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -185px;
-    top: 50px;
+    top: 60px;
   }
   mat-radio-button{
     position: relative;
@@ -744,7 +743,7 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 40px;
+    top: 65px;
   }
   .sub{
     position: relative;
@@ -770,7 +769,8 @@ mat-option{ font-size: 10.5px; }
     width: 442px;
     overflow: auto;
     position: relative;
-    top: 48px !important;
+    top: -7px !important;
+    margin-bottom: -8%;
   }
   h3{
     font-size: 20px;
@@ -827,7 +827,7 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -185px;
-    top: 50px;
+    top: 60px;
   }
   mat-radio-button{
     position: relative;
@@ -878,7 +878,7 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 40px;
+    top: 70px;
   }
   .sub{
     position: relative;
@@ -903,8 +903,9 @@ mat-option{ font-size: 10.5px; }
   .example-container{
     width: 724px;
     position: relative;
-    top: 43px !important;
-    height: 100px;
+    top: 8px !important;
+    height: 70px;
+    margin-bottom: -11%;
   }
   h3{
     font-size: 20px;
@@ -963,7 +964,7 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -285px;
-    top: 56px;
+    top: 69px;
   }
   mat-radio-button{
     position: relative;
@@ -1029,7 +1030,7 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 100px;
+    top: 120px;
   }
   .sub{
     position: relative;
@@ -1054,8 +1055,9 @@ mat-option{ font-size: 10.5px; }
   .example-container{
     width: 724px;
     position: relative;
-    top: 43px !important;
-    height: 100px;
+    top: 8px !important;
+    height: 70px;
+    margin-bottom: -11%;
   }
   h3{
     font-size: 20px;
@@ -1072,21 +1074,22 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 71px;
+    left: 75px;
     top: 5px;
   }
   .cant{
     margin-left: 20px;
-    left: 12px;
+    left: 13px;
     position: relative;
     top: 5px;
   }
   td{
+    padding-left: 1%;
     font-size: 16px;
-    padding-bottom: 1px;
-    left: 2px;
-    top: 2px;
-    position: relative;
+    padding-top: 3px;
+  }
+  td.mat-cell:first-of-type{
+    padding-left: 0%;
   }
   .articulo{
     width: 100%;
@@ -1114,7 +1117,7 @@ mat-option{ font-size: 10.5px; }
   li{
     position: relative;
     left: -285px;
-    top: 56px;
+    top: 69px;
   }
   mat-radio-button{
     position: relative;
@@ -1122,13 +1125,9 @@ mat-option{ font-size: 10.5px; }
     top: 44px;
   }
   .nombre{
-    width: 233px;
+    width: 230px;
     left: -155px;
     top: -16px;
-  }
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    font-size: 16px;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -1184,23 +1183,23 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 80px;
+    top: 120px;
   }
   .sub{
     position: relative;
-    top: 75px;
+    top: 120px;
   }
   .val{
     position: relative;
-    top: 72px;
+    top: 113px;
   }
   .des{
     position: relative;
-    top: 66px;
+    top: 106px;
   }
   .to{
     position: relative;
-    top: 64px;
+    top: 100px;
   }
 }
 

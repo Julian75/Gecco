@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,6 +16,7 @@ import { SolicitudService } from 'src/app/servicios/solicitud.service';
 import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
 import Swal from 'sweetalert2';
 import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
+import { AgregarArticulosComponent } from '../articulos/agregar-articulos/agregar-articulos.component';
 
 @Component({
   selector: 'app-generar-solicitud',
@@ -52,8 +54,8 @@ export class GenerarSolicitudComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioUsuario: UsuarioService,
     private servicioSolicitud: SolicitudService,
-    private servicioDetalleSolicitud: DetalleSolicitudService
-
+    private servicioDetalleSolicitud: DetalleSolicitudService,
+    public dialog: MatDialog,
   ){}
 
 
@@ -259,45 +261,9 @@ export class GenerarSolicitudComponent implements OnInit {
 
   aprobar:boolean = false
   public agregarArticulo() {
-    this.aprobar = false
-    let articulo : Articulo = new Articulo();
-    articulo.descripcion=this.articlo;
-    this.servicioEstado.listarPorId(26).subscribe(res => {
-      articulo.idEstado = res
-      if(articulo.descripcion==null || articulo.descripcion==""){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        this.servicioArticulo.listarTodos().subscribe(resArticulos=>{
-          resArticulos.forEach(element => {
-            if(element.descripcion == articulo.descripcion){
-              this.aprobar = true
-            }else{
-              this.aprobar = false
-            }
-            this.listarExiste.push(this.aprobar);
-          });
-          const existe = this.listarExiste.includes( true );
-          if(existe == true){
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Ese articulo ya existe!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }else{
-            this.registrarArticulo(articulo);
-          }
-        })
-      }
-    })
-
+    const dialogRef = this.dialog.open(AgregarArticulosComponent, {
+      width: '500px',
+    });
   }
 
   public registrarArticulo(articulo: Articulo) {
@@ -326,16 +292,26 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    let solicitud : Solicitud = new Solicitud();
-    solicitud.fecha = this.fecha
-    this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-      solicitud.idEstado = resEstado
-      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        solicitud.idUsuario = resUsuario
-        this.registrarSolicitud(solicitud)
+    if(this.listadoArtSel.length < 1){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Debe agregar al menos un articulo para solicitar una solicitud!',
+        showConfirmButton: false,
+        timer: 1500
       })
-    })
+    }else{
+      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+      let solicitud : Solicitud = new Solicitud();
+      solicitud.fecha = this.fecha
+      this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+        solicitud.idEstado = resEstado
+        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+          solicitud.idUsuario = resUsuario
+          this.registrarSolicitud(solicitud)
+        })
+      })
+    }
   }
 
   public registrarSolicitud(solicitud: Solicitud){

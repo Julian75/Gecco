@@ -179,14 +179,3 @@ mat-form-field{
   #descSpa{ left: 168px; }
   #nomSpa{ left: 104px; }
 }
-
-/* Portatil Grande */
-@media screen and (min-width: 1441px) and (max-width: 1920px){
-
-  .excelButton i{ position: relative; top: -3px; }
-  #idSpa{ left: 23px; }
-  #valSpa{ left: 35px; }
-  #opcSpa{ left: 12px; }
-  #descSpa{ left: 210px; }
-  #nomSpa{ left: 123px; }
-}

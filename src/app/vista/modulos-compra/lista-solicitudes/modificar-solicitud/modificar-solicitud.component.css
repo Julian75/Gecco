@@ -1,10 +1,11 @@
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
-  height: 87%;
+  height: 100%;
   z-index: 50px;
   position: absolute;
-  top: 13%;
+  top: 0%;
+  left: 0%;
 }
 .loader {
   width: 108px;
@@ -16,8 +17,8 @@
   border-color: #FFF #FFF transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-top: 20%;
-  margin-left: 45%;
+  margin-top: 22%;
+  margin-left: 50%;
 }
 .loader::after,
 .loader::before {
@@ -123,9 +124,15 @@ h2{
 .nombre, .estado, .nombre1{
   width: 280px;
 }
-.nombre2, .estado2{ position: absolute; left: 12%; top: 26%; }
-.nombre3{ position: absolute; left: 12%; top: 40%;}
-.nombre4{ position: absolute; left: 12%; top: 53%;}
+.nombre2, .estado2{     position: absolute;
+  left: 21%;
+  top: 21%;}
+.nombre3{     position: absolute;
+  left: 21%;
+  top: 36%;}
+.nombre4{     position: absolute;
+  left: 21%;
+  top: 52%;}
 .guardar, .guardar3, .guardar6{
   color: white;
   width: 64px;
@@ -135,14 +142,34 @@ h2{
   position: absolute;
   top: 72%;
 }
-.guardar{ left: 9.5%; background-color: #00235C ;}
-.guardar3{ left: 15.5%;background-color: #DA161A ;}
+.o{
+  position: relative;
+  margin-left: 30%;
+}
+.cant{
+  position: relative;
+  margin-left: 24%;
+}
+.ar{
+  position: relative;
+  left: 15px;
+}
+.guardar{     left: 18.6%;
+  background-color: #00235C;
+  top: 69%;}
+.guardar3{ left: 24.5%;
+  background-color: #DA161A;
+  top: 69%;}
 .guardar6{ left: 21.5%;background-color: #959595 ;}
 .guardar4{
-  margin-left: 87%;
-  background-color: #00235C ;
+  margin-left: 83%;
+  background-color: #00235C;
   color: white;
   margin-top: 8%;
+  width: 17%;
+}
+.nombres{
+  width: 140%;
 }
 
 mat-paginator{
@@ -180,21 +207,45 @@ mat-option{ font-size: 10.5px; }
     font-size: 16px;
   }
 
-  .guardar3 { left: 37%; width: 38px !important; height: 30px; top: 480px; }
-  .guardar{ left: 19%; width: 38px !important; height: 30px; top: 480px;}
+  .guardar3 { left: 19%;
+    width: 38px !important;
+    height: 30px;
+    top: 344px; }
+
+    .guardar6 {
+      width: 38px !important;
+      height: 30px;
+      top: 344px; }
+  .guardar{
+    left: 37%;
+    width: 38px !important;
+    height: 30px;
+    top: 344px;
+}
 
   mat-icon{
     font-size: 18px;
     margin-left: -50%;
     margin-top: -1px;
   }
-  .guardar6{ left: 47%; }
+  .guardar6{ left: 56%; }
   h3{
     margin-left: 3%;
     font-size: 12px;
   }
   .ar{
-    margin-left: 1%;
+    margin-left: -58%;
+  }
+  .o{
+    position: relative;
+    margin-left: 34%;
+    left: -20%;
+  }
+  .cant{
+    position: relative;
+    margin-left: 37%;
+    left: -35%;
+
   }
   td { font-size: 11px; height: 0px;}
   .nombre1 {
@@ -228,12 +279,14 @@ mat-option{ font-size: 10.5px; }
     top: 11%;
     left: 21%;
   }
-  .nombre3{ top: 27%;}
-  .nombre4{ top: 40%;}
+  .nombre3{     top: 27%;
+    left: 12%;}
+  .nombre4{ top: 40%;
+    left: 13%;}
   .example-container{
     max-width: 100%;
     overflow: auto;
-    margin-top: 177% !important;
+    margin-top: 200% !important;
     margin-bottom: 37% !important;
     margin-left: 0%;
   }
@@ -242,11 +295,16 @@ mat-option{ font-size: 10.5px; }
     padding-right: 14px;
   }
   .guardar4{
-    margin-left: 2%;
-    margin-top: 49%;
+    margin-left: 9%;
+    margin-top: 53%;
+    width: 86%;
+    font-size: small;
   }
   mat-paginator{
-    display: none;
+    position: relative;
+    width: 211px;
+    left: -34px;
+    top: -143px;
   }
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
@@ -265,25 +323,26 @@ mat-option{ font-size: 10.5px; }
   }
 
   .guardar3 {
-    left: 35%;
-    top: 430px;
- }
+    left: 30%;
+    top: 430px;;
+  }
   .guardar{
-    left: 18%;
-    top: 430px;
+    left: 14%;
+    top: 430px;;
   }
 
-  .guardar6{ left: 47%; }
+  .guardar6{ left: 46%;
+    top: 59.7%; }
   h3{
     margin-left: 3%;
     font-size: 12px;
   }
   .ar{
-    left: 18%;
+    left: 13%;
     position: relative;
   }
   .cant{
-    left: 18%;
+    left: 27%;
     position: relative;
   }
   .o{
@@ -295,6 +354,20 @@ mat-option{ font-size: 10.5px; }
     width: 129%;
     margin-left: -1%;
     top: -3px;
+  }
+  .ar{
+    margin-left: 5%;
+  }
+  .o{
+    position: relative;
+    margin-left: 34%;
+    left: -6%;
+  }
+  .cant{
+    position: relative;
+    margin-left: 37%;
+    left: -22%;
+
   }
   /* , .estado */
   .nombre{
@@ -320,12 +393,14 @@ mat-option{ font-size: 10.5px; }
   }
   .nombre2{
     top: 14%;
-    left: 21%;
+    left: 16.5%;;
   }
-  .nombre3{    top: 31%;
-    left: 16%;}
+  .nombre3{
+    top: 31%;
+    left: 12%;
+  }
   .nombre4{     top: 46%;
-    left: 16%;}
+    left: 12%;}
   .example-container{
     max-width: 100%;
     overflow: auto;
@@ -340,9 +415,11 @@ mat-option{ font-size: 10.5px; }
   .guardar4{
     margin-left: 2%;
     margin-top: 0%;
+    width: 47%;
+
   }
   mat-paginator{
-    display: none;
+    margin-top: -29px;
   }
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
@@ -358,15 +435,15 @@ mat-option{ font-size: 10.5px; }
   h2{
     font-size: 16px;
   }
-  .guardar3 {  left: 19%;
+  .guardar3 {     left: 33%;
     width: 38px !important;
     height: 30px;
-    top: 534px; }
-  .guardar{     left: 37%;
+    top: 424px; }
+  .guardar{      left: 16%;
     width: 38px !important;
     height: 30px;
-    top: 534px;
-}
+    top: 424px;
+  }
   mat-icon{
     font-size: 18px;
     margin-left: -50%;
@@ -378,13 +455,21 @@ mat-option{ font-size: 10.5px; }
     font-size: 12px;
   }
   .ar{
-    margin-left: 1%;
+    margin-left: -57%;
   }
   td { font-size: 11px; height: 0px;}
   .nombre1 {
     width: 106%;
     margin-left: -1%;
     top: -3px;
+  }
+  .cant{
+    position: relative;
+    margin-left: 1%;
+  }
+  .o{
+    position: relative;
+    margin-left: 14%;
   }
   /* , .estado */
   .nombre{
@@ -412,12 +497,14 @@ mat-option{ font-size: 10.5px; }
     top: 17%;
     left: 19.5%;
   }
-  .nombre3{ top: 32%;}
-  .nombre4{ top: 45%;}
+  .nombre3{ top: 32%;
+    left: 13%;}
+  .nombre4{ top: 45%;
+    left: 13%;}
   .example-container{
     max-width: 100%;
     overflow: auto;
-    margin-top: 141% !important;
+    margin-top: 159% !important;
     margin-bottom: 37% !important;
     margin-left: 0%;
   }
@@ -426,11 +513,114 @@ mat-option{ font-size: 10.5px; }
     padding-right: 14px;
   }
   .guardar4{
-    margin-left: 17%;
-    margin-top: 25%;
+    margin-left: 4%;
+    margin-top: 25%;;
+    width: 75%;
   }
   mat-paginator{
-    display: none;
+    margin-top: -28px;
+    width: 100%;
+    margin-left: -38%;
+  }
+  #obse, #obse2{ padding-right: 0%; }
+  #chetbox{ left: 3px; }
+  #arti{ left: 3px; padding-right: 5px; }
+  #cant{ left: 0px; padding-right: 5px; }
+  #obser{ left: 0px; width: 70px; padding-right: 5px; }
+}
+
+/* Tablet pequeña */
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .contenedor{     width: 89% !important;
+    margin-left: 3%;
+    margin-top: 0%; }
+  h2{
+    font-size: 16px;
+  }
+  .guardar3 {
+    left: 29%;
+    top: 559px;
+  }
+  .guardar{
+    left: 17%;
+    top: 559px;
+  }
+
+  .guardar6{ left: 47%; }
+  h3{
+    margin-left: 3%;
+    font-size: 12px;
+  }
+  .ar{
+    left: 25%;
+    position: relative;
+  }
+  .cant{
+    left: -11%;
+    position: relative;
+  }
+  .o{
+    left: 9px;
+    position: relative;
+  }
+  td { font-size: 11px; height: 0px;}
+  .nombre1 {
+    width: 129%;
+    margin-left: -1%;
+    top: -3px;
+  }
+  /* , .estado */
+  .nombre{
+    width: 129%;
+    margin-left: 11%;
+    top: -25px;
+  }
+  .can{
+    position: relative;
+    left: 11%;
+    top: -23px;
+  }
+  .obs{
+    position: relative;
+    left: 11%;
+    top: -28px;
+  }
+  .nombres{
+    width: 129%;
+    position: relative;
+    left: 23px;
+    top: -27px;
+  }
+  .nombre2{
+    top: 23%;
+    left: 18.5%;
+  }
+  .nombre3{
+    top: 35%;
+    left: 15.5%;
+  }
+  .nombre4{  top: 46%;
+    left: 16%;}
+  .example-container{
+    max-width: 100%;
+    overflow: auto;
+    margin-top: 77% !important;
+    margin-bottom: 37% !important;
+    margin-left: 0%;
+  }
+  #chet, #chet2{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .guardar4{
+    margin-left: 2%;
+    margin-top: -30%;
+    width: 36%;
+  }
+  mat-paginator{
+    margin-top: -65px;
+    width: 100%;
+    margin-left: -36%;
   }
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
@@ -442,41 +632,45 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .contenedor{     width: 89% !important;
     margin-left: 3%;
-    margin-top: 3%; }
+    margin-top: 0%; }
   h2{
     font-size: 16px;
   }
-  .guardar3 {  left: 19%;
-    width: 38px !important;
-    height: 30px;
-    top: 534px; }
-  .guardar{     left: 37%;
-    width: 38px !important;
-    height: 30px;
-    top: 534px;
-}
-  mat-icon{
-    font-size: 18px;
-    margin-left: -50%;
-    margin-top: -1px;
+  .guardar3 {
+    left: 29%;
+    top: 668px;
   }
-  .guardar6{ left: 47%; }
+  .guardar{
+    left: 17%;
+    top: 668px;
+  }
+
+  .guardar6{ left: 43%; top: 56.7%; }
   h3{
     margin-left: 3%;
     font-size: 12px;
   }
   .ar{
-    margin-left: 1%;
+    left: 23%;
+    position: relative;
+  }
+  .cant{
+    left: -1%;
+    position: relative;
+  }
+  .o{
+    left: 4px;
+    position: relative;
   }
   td { font-size: 11px; height: 0px;}
   .nombre1 {
-    width: 106%;
+    width: 155%;
     margin-left: -1%;
     top: -3px;
   }
   /* , .estado */
   .nombre{
-    width: 106%;
+    width: 155%;
     margin-left: 11%;
     top: -25px;
   }
@@ -491,21 +685,25 @@ mat-option{ font-size: 10.5px; }
     top: -28px;
   }
   .nombres{
-    width: 106%;
+    width: 155%;
     position: relative;
     left: 23px;
     top: -27px;
   }
   .nombre2{
-    top: 17%;
-    left: 19.5%;
+    top: 27%;
+    left: 18.5%;
   }
-  .nombre3{ top: 32%;}
-  .nombre4{ top: 45%;}
+  .nombre3{
+    top: 38%;
+    left: 15.5%;
+  }
+  .nombre4{ top: 48%;
+    left: 16%;}
   .example-container{
     max-width: 100%;
     overflow: auto;
-    margin-top: 141% !important;
+    margin-top: 77% !important;
     margin-bottom: 37% !important;
     margin-left: 0%;
   }
@@ -514,26 +712,71 @@ mat-option{ font-size: 10.5px; }
     padding-right: 14px;
   }
   .guardar4{
-    margin-left: 17%;
-    margin-top: 25%;
+    margin-left: 2%;
+    margin-top: -30%;
+    width: 30%;
   }
   mat-paginator{
-    display: none;
+    margin-top: -65px;
+    width: 100%;
+    margin-left: -36%;
   }
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
-  #obser{ left: 0px; width: 70px; padding-right: 5px; }
+  #obser{ left: 0px; width: 70px; padding-right: 5px;
+  }
 }
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
+  .nombre2{
+    position: absolute;
+    left: 21%;
+    top: 17%;
+  }
+
+  .nombre3{
+    position: absolute;
+    left: 21%;
+    top: 33%;
+  }
+
+  .nombre4{
+
+    position: absolute;
+    left: 21%;
+    top: 49%;
+
+  }
   td { font-size: 15px; height: 0px;}
-  .guardar, .guardar3, .guardar6{ top: 71%; }
+  .guardar{ top: 66%; }
   .nombre1, .nombre, .estado{ width: 120%; margin-left: -1%; margin-top: 2%; }
-  .guardar3 { left: 16.5%; }
-  .guardar6{ left: 23.5%; }
-  .guardar4{ margin-left: 84%; }
+  .guardar3 { left: 25%;
+    top: 66%;}
+  .guardar{
+    left: 19%;
+  }
+  .guardar6{ left: 31%;
+    top: 66%; }
+
+  .nombres{
+    width: 118%;
+  }
+  .ar{
+    position: relative;
+    left: 19px;
+  }
+  .cant{
+    position: relative;
+    left: -15px;
+  }
+  .o{
+    position: relative;
+    margin-left: 25%;
+  }
+  .guardar4{     margin-left: 78%;
+    width: 22%; }
   #obse, #obse2{ padding-right: 0px; }
   #chetbox{ left: 10px; }
   #arti{ left: 55px; }
@@ -543,15 +786,52 @@ mat-option{ font-size: 10.5px; }
 
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
+  .nombre2{
+    position: absolute;
+    left: 21%;
+    top: 20%;
+  }
+
+  .nombre3{
+    position: absolute;
+    left: 21%;
+    top: 35%;
+  }
+
+  .nombre4{
+    position: absolute;
+    left: 21%;
+    top: 51%;
+  }
   td { font-size: 15px; height: 0px;}
-  .guardar, .guardar3, .guardar6{ top: 70%; }
+  .guardar{ left: 19%;
+    top: 68%; }
   .nombre1, .nombre, .estado{ width: 120%; margin-left: -1%; margin-top: 2%; }
-  .guardar3 { left: 16.5%; }
-  .guardar6{ left: 23.5%; }
-  .guardar4{ margin-left: 84%; }
+  .guardar3 { left: 25%;
+    top: 68%;}
+  .guardar6{ left: 31%;
+    top: 68%; }
+
+  .nombres{
+    width: 118%;
+  }
+  .ar{
+    position: relative;
+    left: 10px;
+  }
+  .cant{
+    position: relative;
+    left: -15px;
+  }
+  .o{
+    position: relative;
+    margin-left: 32%;
+  }
+  .guardar4{     margin-left: 78%;
+    width: 22%; }
   #obse, #obse2{ padding-right: 0px; }
-  #chetbox{ left: 13px; }
-  #arti{ left: 61px; }
+  #chetbox{ left: 10px; }
+  #arti{ left: 55px; }
   #cant{ left: 45px; padding-right: 5px; }
-  #obser{ left: 39px; width: 70px; }
+  #obser{ left: 36px; width: 70px; }
 }

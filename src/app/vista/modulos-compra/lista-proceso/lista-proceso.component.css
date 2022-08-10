@@ -55,10 +55,10 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 46px; }
+#idSp{ left: 42px; }
 #desSp{ left: 99px; }
 #estSp{ left: 120px; }
-#catSp{ left: 105px; position: relative;}
+#catSp{ left: 100px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
@@ -205,7 +205,7 @@ mat-form-field{
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: -14%; left: 89px;}
   #estSp{ left: 98px; }
-  #catSp{ left: 95px; position: relative;}
+  #catSp{ left: 90px; position: relative;}
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{  top: -3px; }
@@ -218,7 +218,7 @@ mat-form-field{
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: -14%; left: 89px;}
   #estSp{ left: 107px; }
-  #catSp{ left: 103px; position: relative;}
+  #catSp{ left: 100px; position: relative;}
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{  top: -3px; }

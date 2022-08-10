@@ -102,21 +102,3 @@ h2{
   }
 }
 
-
-/* portatil grande */
-@media screen and (min-width: 1441px){
-  .nombre4{
-    margin-top: 1.6%;
-  }
-  .guardar{
-
-    background-color: #00235C;
-    color: white;
-    width: 200px;
-    height: 40px;
-    font-size: large;
-    margin-left: 60%;
-    margin-top: 0.5%;
-
-  }
-}

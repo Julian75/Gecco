@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../../servicios/configuracion.service';
 import { CotizacionService } from './../../../../servicios/cotizacion.service';
 import { OrdenCompra } from './../../../../modelos/ordenCompra';
 import { DetalleSolicitudService } from './../../../../servicios/detalleSolicitud.service';
@@ -26,6 +27,8 @@ export class RechazarRegistroComponent implements OnInit {
   public formSolicitud!: FormGroup;
   public listaDetalleSolicitud: any = [];
   public listaOrdenCompra: any = [];
+  public contrasena: any;
+  public correo: any;
   public lista: any = [];
   public fecha: Date = new Date();
 
@@ -39,6 +42,7 @@ export class RechazarRegistroComponent implements OnInit {
     private servicioSolicitudDetalle: DetalleSolicitudService,
     public dialogRef: MatDialogRef<RechazarRegistroComponent>,
     private servicioOrdenCompra: OrdenCompraService,
+    private servicioConfiguracion: ConfiguracionService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
@@ -134,40 +138,53 @@ export class RechazarRegistroComponent implements OnInit {
     const observacion = this.formSolicitud.controls['observacion'].value;
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
       this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
-        correo.to = resUsuario.correo
-        correo.subject = "Cancelacion de Registro"
-        correo.messaje = "<!doctype html>"
-        +"<html>"
-        +"<head>"
-        +"<meta charset='utf-8'>"
-        +"</head>"
-        +"<body>"
-        +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
-        +"<h3 style='color: black;'>"+observacion+"</h3>"
-        +"<br>"
-        +"<table style='border: 1px solid #000; text-align: center;'>"
-        +"<tr>"
-        +"<th style='border: 1px solid #000;'>Articulo</th>"
-        +"<th style='border: 1px solid #000;'>Cantidad</th>"
-        +"<th style='border: 1px solid #000;'>Observacion</th>";
-        +"</tr>";
-        resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud) {
-            this.listaDetalleSolicitud.push(element)
-            correo.messaje += "<tr>"
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-            correo.messaje += "</tr>";
-          }
-        });
-        correo.messaje += "</table>"
-        +"<br>"
-        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-        +"</body>"
-        +"</html>";
+        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+          resConfiguracion.forEach(elementConfi => {
+            if(elementConfi.nombre == "correo_gecco"){
+              this.correo = elementConfi.valor
+            }
+            if(elementConfi.nombre == "contraseña_correo"){
+              this.contrasena = elementConfi.valor
+            }
+          });
+          console.log(this.correo)
+          correo.correo = this.correo
+          correo.contrasena = this.contrasena
+          correo.to = resUsuario.correo
+          correo.subject = "Cancelacion de Registro"
+          correo.messaje = "<!doctype html>"
+          +"<html>"
+          +"<head>"
+          +"<meta charset='utf-8'>"
+          +"</head>"
+          +"<body>"
+          +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
+          +"<h3 style='color: black;'>"+observacion+"</h3>"
+          +"<br>"
+          +"<table style='border: 1px solid #000; text-align: center;'>"
+          +"<tr>"
+          +"<th style='border: 1px solid #000;'>Articulo</th>"
+          +"<th style='border: 1px solid #000;'>Cantidad</th>"
+          +"<th style='border: 1px solid #000;'>Observacion</th>";
+          +"</tr>";
+          resSolicitud.forEach(element => {
+            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+              this.listaDetalleSolicitud.push(element)
+              correo.messaje += "<tr>"
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+              correo.messaje += "</tr>";
+            }
+          });
+          correo.messaje += "</table>"
+          +"<br>"
+          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+          +"</body>"
+          +"</html>";
 
-        this.enviarCorreo(correo, idSolicitud, observacion);
+          this.enviarCorreo(correo, idSolicitud, observacion);
+        })
       })
     })
   }
@@ -181,41 +198,55 @@ export class RechazarRegistroComponent implements OnInit {
         let correo : Correo = new Correo();
         this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
           this.servicioUsuario.listarPorId(resCotizacion.idUsuario.id).subscribe(resUsuario => {
-            correo.to = resUsuario.correo
-            correo.subject = "Cancelacion de Registro"
-            correo.messaje = "<!doctype html>"
-            +"<html>"
-            +"<head>"
-            +"<meta charset='utf-8'>"
-            +"</head>"
-            +"<body>"
-            +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
-            +"<h3 style='color: black;'>"+observacion+"</h3>"
-            +"<br>"
-            +"<table style='border: 1px solid #000; text-align: center;'>"
-            +"<tr>"
-            +"<th style='border: 1px solid #000;'>Articulo</th>"
-            +"<th style='border: 1px solid #000;'>Cantidad</th>"
-            +"<th style='border: 1px solid #000;'>Observacion</th>";
-            +"</tr>";
-            resSolicitud.forEach(element => {
-              if (element.idSolicitud.id == idSolicitud) {
-                this.listaDetalleSolicitud.push(element)
-                correo.messaje += "<tr>"
-                correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-                correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-                correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-                correo.messaje += "</tr>";
-              }
-            });
-            correo.messaje += "</table>"
-            +"<br>"
-            +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-            +"</body>"
-            +"</html>";
+            this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+              resConfiguracion.forEach(elementConfi => {
+                if(elementConfi.nombre == "correo_gecco"){
+                  this.correo = elementConfi.valor
+                }
+                if(elementConfi.nombre == "contraseña_correo"){
+                  this.contrasena = elementConfi.valor
+                }
+              });
+              console.log(this.correo)
+              correo.correo = this.correo
+              correo.contrasena = this.contrasena
+
+              correo.to = resUsuario.correo
+              correo.subject = "Cancelacion de Registro"
+              correo.messaje = "<!doctype html>"
+              +"<html>"
+              +"<head>"
+              +"<meta charset='utf-8'>"
+              +"</head>"
+              +"<body>"
+              +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
+              +"<h3 style='color: black;'>"+observacion+"</h3>"
+              +"<br>"
+              +"<table style='border: 1px solid #000; text-align: center;'>"
+              +"<tr>"
+              +"<th style='border: 1px solid #000;'>Articulo</th>"
+              +"<th style='border: 1px solid #000;'>Cantidad</th>"
+              +"<th style='border: 1px solid #000;'>Observacion</th>";
+              +"</tr>";
+              resSolicitud.forEach(element => {
+                if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+                  this.listaDetalleSolicitud.push(element)
+                  correo.messaje += "<tr>"
+                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+                  correo.messaje += "</tr>";
+                }
+              });
+              correo.messaje += "</table>"
+              +"<br>"
+              +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+              +"</body>"
+              +"</html>";
 
 
-            this.enviarCorreo2(correo);
+              this.enviarCorreo2(correo);
+            })
           })
         })
       })

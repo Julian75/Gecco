@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../../servicios/configuracion.service';
 import { SolicitudesComponent } from './../../solicitudes/solicitudes.component';
 import { DetalleSolicitudService } from './../../../../servicios/detalleSolicitud.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -23,6 +24,8 @@ export class RechazoSolicitudComponent implements OnInit {
   public formSolicitud!: FormGroup;
   public listaDetalleSolicitud: any = [];
   public fecha: Date = new Date();
+  public correo: any;
+  public contrasena: any;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -30,6 +33,7 @@ export class RechazoSolicitudComponent implements OnInit {
     private servicioCorreo: CorreoService,
     private servicioUsuario: UsuarioService,
     private servicioModificar: ModificarService,
+    private servicioConfiguracion: ConfiguracionService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     public dialogRef: MatDialogRef<RechazoSolicitudComponent>,
     public dialogRef2: MatDialogRef<SolicitudesComponent>,
@@ -87,40 +91,53 @@ export class RechazoSolicitudComponent implements OnInit {
     const observacion = this.formSolicitud.controls['observacion'].value;
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
       this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
-        correo.to = resUsuario.correo
-        correo.subject = "Cancelacion de Solicitud"
-        correo.messaje = "<!doctype html>"
-        +"<html>"
-        +"<head>"
-        +"<meta charset='utf-8'>"
-        +"</head>"
-        +"<body>"
-        +"<h3 style='color: black;'>Su solicitud ha sido rechaza porque:</h3>"
-        +"<h3 style='color: black;'>"+observacion+"</h3>"
-        +"<br>"
-        +"<table style='border: 1px solid #000; text-align: center;'>"
-        +"<tr>"
-        +"<th style='border: 1px solid #000;'>Articulo</th>"
-        +"<th style='border: 1px solid #000;'>Cantidad</th>"
-        +"<th style='border: 1px solid #000;'>Observacion</th>";
-        +"</tr>";
-        resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-            this.listaDetalleSolicitud.push(element)
-            correo.messaje += "<tr>"
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-            correo.messaje += "</tr>";
-          }
-        });
-        correo.messaje += "</table>"
-        +"<br>"
-        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-        +"</body>"
-        +"</html>";
+        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+          resConfiguracion.forEach(elementConfi => {
+            if(elementConfi.nombre == "correo_gecco"){
+              this.correo = elementConfi.valor
+            }
+            if(elementConfi.nombre == "contraseña_correo"){
+              this.contrasena = elementConfi.valor
+            }
+          });
+          console.log(this.correo)
+          correo.correo = this.correo
+          correo.contrasena = this.contrasena
+          correo.to = resUsuario.correo
+          correo.subject = "Cancelacion de Solicitud"
+          correo.messaje = "<!doctype html>"
+          +"<html>"
+          +"<head>"
+          +"<meta charset='utf-8'>"
+          +"</head>"
+          +"<body>"
+          +"<h3 style='color: black;'>Su solicitud ha sido rechaza porque:</h3>"
+          +"<h3 style='color: black;'>"+observacion+"</h3>"
+          +"<br>"
+          +"<table style='border: 1px solid #000; text-align: center;'>"
+          +"<tr>"
+          +"<th style='border: 1px solid #000;'>Articulo</th>"
+          +"<th style='border: 1px solid #000;'>Cantidad</th>"
+          +"<th style='border: 1px solid #000;'>Observacion</th>";
+          +"</tr>";
+          resSolicitud.forEach(element => {
+            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+              this.listaDetalleSolicitud.push(element)
+              correo.messaje += "<tr>"
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+              correo.messaje += "</tr>";
+            }
+          });
+          correo.messaje += "</table>"
+          +"<br>"
+          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+          +"</body>"
+          +"</html>";
 
-        this.enviarCorreo(correo);
+          this.enviarCorreo(correo);
+        })
       })
     })
   }

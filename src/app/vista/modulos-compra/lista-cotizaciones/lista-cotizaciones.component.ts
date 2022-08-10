@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../servicios/configuracion.service';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { PasosComponent } from './../pasos/pasos.component';
 import { CotizacionPdf } from './../../../modelos/cotizacionPdf';
@@ -37,6 +38,8 @@ export class ListaCotizacionesComponent implements OnInit {
   public listaCotizacionesPdf: any = [];
   public listaDetalleSolicitud: any = [];
   public listaPdf:any = []
+  public correo:any
+  public contrasena:any
   public fecha: Date = new Date();
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
@@ -52,6 +55,7 @@ export class ListaCotizacionesComponent implements OnInit {
     private servicioCorreo: CorreoService,
     private servicioCotizacionPdf: CotizacionPdfService,
     private servicioPdf: SubirPdfService,
+    private servicioConfiguracion: ConfiguracionService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioModificar: ModificarService,
@@ -194,39 +198,53 @@ export class ListaCotizacionesComponent implements OnInit {
     let correo : Correo = new Correo();
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
       this.servicioUsuario.listarPorId(idUsuarioCotizacion).subscribe(resUsuario => {
-        correo.to = resUsuario.correo
-        correo.subject = "Aceptación de Cotización"
-        correo.messaje = "<!doctype html>"
-        +"<html>"
-        +"<head>"
-        +"<meta charset='utf-8'>"
-        +"</head>"
-        +"<body>"
-        +"<h3 style='color: black;'>Su cotización ha sido aprobada.</h3>"
-        +"<br>"
-        +"<table style='border: 1px solid #000; text-align: center;'>"
-        +"<tr>"
-        +"<th style='border: 1px solid #000;'>Articulo</th>"
-        +"<th style='border: 1px solid #000;'>Cantidad</th>"
-        +"<th style='border: 1px solid #000;'>Observacion</th>";
-        +"</tr>";
-        resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-            this.listaDetalleSolicitud.push(element)
-            correo.messaje += "<tr>"
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-            correo.messaje += "</tr>";
-          }
-        });
-        correo.messaje += "</table>"
-        +"<br>"
-        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-        +"</body>"
-        +"</html>";
+        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+          resConfiguracion.forEach(elementConfi => {
+            if(elementConfi.nombre == "correo_gecco"){
+              this.correo = elementConfi.valor
+            }
+            if(elementConfi.nombre == "contraseña_correo"){
+              this.contrasena = elementConfi.valor
+            }
+          });
+          console.log(this.correo)
+          correo.correo = this.correo
+          correo.contrasena = this.contrasena
 
-        this.enviarCorreo(correo, idUsuarioSolicitud, idSolicitud);
+          correo.to = resUsuario.correo
+          correo.subject = "Aceptación de Cotización"
+          correo.messaje = "<!doctype html>"
+          +"<html>"
+          +"<head>"
+          +"<meta charset='utf-8'>"
+          +"</head>"
+          +"<body>"
+          +"<h3 style='color: black;'>Su cotización ha sido aprobada.</h3>"
+          +"<br>"
+          +"<table style='border: 1px solid #000; text-align: center;'>"
+          +"<tr>"
+          +"<th style='border: 1px solid #000;'>Articulo</th>"
+          +"<th style='border: 1px solid #000;'>Cantidad</th>"
+          +"<th style='border: 1px solid #000;'>Observacion</th>";
+          +"</tr>";
+          resSolicitud.forEach(element => {
+            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+              this.listaDetalleSolicitud.push(element)
+              correo.messaje += "<tr>"
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+              correo.messaje += "</tr>";
+            }
+          });
+          correo.messaje += "</table>"
+          +"<br>"
+          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+          +"</body>"
+          +"</html>";
+
+          this.enviarCorreo(correo, idUsuarioSolicitud, idSolicitud);
+        })
       })
     })
   }
@@ -250,39 +268,53 @@ export class ListaCotizacionesComponent implements OnInit {
     let correo : Correo = new Correo();
     this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
       this.servicioUsuario.listarPorId(idUsuarioSolicitud).subscribe(resUsuario => {
-        correo.to = resUsuario.correo
-        correo.subject = "Aceptación de Cotización"
-        correo.messaje = "<!doctype html>"
-        +"<html>"
-        +"<head>"
-        +"<meta charset='utf-8'>"
-        +"</head>"
-        +"<body>"
-        +"<h3 style='color: black;'>La cotización ha sido aprobada.</h3>"
-        +"<br>"
-        +"<table style='border: 1px solid #000; text-align: center;'>"
-        +"<tr>"
-        +"<th style='border: 1px solid #000;'>Articulo</th>"
-        +"<th style='border: 1px solid #000;'>Cantidad</th>"
-        +"<th style='border: 1px solid #000;'>Observacion</th>";
-        +"</tr>";
-        resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-            this.listaDetalleSolicitud.push(element)
-            correo.messaje += "<tr>"
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-            correo.messaje += "</tr>";
-          }
-        });
-        correo.messaje += "</table>"
-        +"<br>"
-        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-        +"</body>"
-        +"</html>";
+        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+          resConfiguracion.forEach(elementConfi => {
+            if(elementConfi.nombre == "correo_gecco"){
+              this.correo = elementConfi.valor
+            }
+            if(elementConfi.nombre == "contraseña_correo"){
+              this.contrasena = elementConfi.valor
+            }
+          });
+          console.log(this.correo)
+          correo.correo = this.correo
+          correo.contrasena = this.contrasena
 
-        this.enviarCorreo2(correo);
+          correo.to = resUsuario.correo
+          correo.subject = "Aceptación de Cotización"
+          correo.messaje = "<!doctype html>"
+          +"<html>"
+          +"<head>"
+          +"<meta charset='utf-8'>"
+          +"</head>"
+          +"<body>"
+          +"<h3 style='color: black;'>La cotización ha sido aprobada.</h3>"
+          +"<br>"
+          +"<table style='border: 1px solid #000; text-align: center;'>"
+          +"<tr>"
+          +"<th style='border: 1px solid #000;'>Articulo</th>"
+          +"<th style='border: 1px solid #000;'>Cantidad</th>"
+          +"<th style='border: 1px solid #000;'>Observacion</th>";
+          +"</tr>";
+          resSolicitud.forEach(element => {
+            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+              this.listaDetalleSolicitud.push(element)
+              correo.messaje += "<tr>"
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+              correo.messaje += "</tr>";
+            }
+          });
+          correo.messaje += "</table>"
+          +"<br>"
+          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+          +"</body>"
+          +"</html>";
+
+          this.enviarCorreo2(correo);
+        })
       })
     })
   }

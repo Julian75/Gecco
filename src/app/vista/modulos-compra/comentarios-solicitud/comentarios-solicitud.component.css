@@ -55,10 +55,10 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .boton, .btnedit2{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #estaSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 30px; }
-#desSp{ left: 55px; }
-#estSp{ left: 60px; }
-#estaSp{ left: 115px; }
+#idSp{ left: 27px; }
+#desSp{ left: 48px; }
+#estSp{ left: 183px; }
+#estaSp{ left: 109px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -97,8 +97,8 @@ mat-form-field{
   #idSp{ left: 9px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
-  #estaSp{ left: 11px; }
+  #estSp{ left: 12px; }
+  #estaSp{ left: 7px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
@@ -129,8 +129,8 @@ mat-form-field{
   #idSp{ left: 8px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 10px; }
-  #estSp{ left: 17px; }
-  #estaSp { left: 30px; position: relative;}
+  #estSp{ left: 29px; }
+  #estaSp { left: 19px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: -3px; font-size: 15px;}
@@ -145,9 +145,9 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   #idSp{ left: 9px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 11px; }
-  #estSp{ left: 15px; }
-  #estaSp { left: 43px; position: relative; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 53px; }
+  #estaSp { left: 27px; position: relative; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton{ font-size: 16px; top: -3px; margin-left: -24px;}
@@ -159,11 +159,11 @@ mat-form-field{
 @media screen and (min-width: 721px) and (max-width: 768px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 16px; }
+  #idSp{ left: 13px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 33px; }
-  #estSp{ left: 46px; }
-  #estaSp { left: 80px; position: relative;}
+  #desSp{ left: 18px; }
+  #estSp{ left: 108px; }
+  #estaSp { left: 53px; position: relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -174,11 +174,11 @@ mat-form-field{
 @media screen and (min-width: 769px) and (max-width: 1023px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSp{ left: 16px; }
+  #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 22px; }
-  #estSp{ left: 33px; }
-  #estaSp{ left: 60px; position: relative;}
+  #desSp{ left: 16px; }
+  #estSp{ left: 100px; }
+  #estaSp{ left: 12px; position: relative;}
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -189,11 +189,11 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 26px;; }
+  #idSp{ left: 19px;; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 5px; left: 53px; }
-  #estSp{ left: 87px; }
-  #estaSp{ left: 135px;  position: relative; }
+  #desSp{ margin-left: 5px; left: 32px; }
+  #estSp{ left: 168px; }
+  #estaSp{ left: 90px;  position: relative; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
@@ -203,11 +203,11 @@ mat-form-field{
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp{ left: 30px;; }
+  #idSp{ left: 20px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 5px; left: 59px; }
-  #estSp{ left: 95px; }
-  #estaSp{ left: 145px;  position: relative; }
+  #desSp{ margin-left: 5px; left: 37px; }
+  #estSp{ left: 177px; }
+  #estaSp{ left: 100px;  position: relative; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }

@@ -89,11 +89,3 @@ h2{
     width: 45%;
   }
 }
-
-/* Portatil Grande */
-@media screen and (min-width: 1441px){
-  .guardar{
-    margin-left: 55%;
-    width: 45%;
-  }
-}

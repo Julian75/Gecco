@@ -7,9 +7,9 @@ mat-drawer{
 }
 .logo{
   width: 75%;
-  position: relative;
-  top: 3%;
-  left: 8%;
+  margin-top: 3%;
+  margin-left: 9%;
+  margin-bottom: -11%;
 }
 .boton{
   width: 100%;
@@ -59,9 +59,9 @@ button{ width: 125%; margin-left: -12%; border-radius: 0%; background-color: whi
 /* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .logo{
-    width: 95%;
-    position: relative;
-    top: -2%;
+    width: 83%;
+    margin-top: 8%;
+    margin-bottom: 38%;
   }
   mat-expansion-panel{ position: relative; top: -4.5%; }
   mat-drawer{

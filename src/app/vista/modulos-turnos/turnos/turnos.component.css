@@ -189,19 +189,3 @@ mat-form-field{
   }
 }
 
-/* Portatil Grande */
-@media screen and (min-width: 1441px) {
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 15px; }
-  #descSpa{ left: 45px; }
-  #rolSpa{ left: 15px; }
-  .btnremove, .btnedit, .btnver{
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ left: 50%; }
-  #idSpa{
-    left: 21px;
-  }
-}

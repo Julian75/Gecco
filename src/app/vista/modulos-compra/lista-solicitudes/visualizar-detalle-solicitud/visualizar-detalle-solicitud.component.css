@@ -55,8 +55,8 @@
   .botonagregar mat-icon{ font-size: 24px; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
   #idSp{ left: 20px; }
-  #desSp{ left: 40px; }
-  #estSp{ left: 40px; }
+  #desSp{ left: 34px; }
+  #estSp{ left: 34px; }
   #obSp{ left: 50px; position: relative;}
   #estaSp{ left: 42px; position: relative;}
   #jerSp{ left: 70px; }
@@ -214,7 +214,7 @@
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 9px; }
     #estSp{ left: 7px; }
-    #estaSp{left: 20px; position: relative;}
+    #estaSp{left: 9px; position: relative;}
     #jerSp{ left: 14px; }
     #opcSp2{ padding-right: 0%; }
     .botonagregar{position: relative; left: 11px; }
@@ -227,8 +227,8 @@
     mat-form-field{ width: 22%; margin-left: 77%; }
     #idSp{ left: 19px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 36px; }
-    #estSp{ left: 47%; }
+    #desSp{ left: 32px; }
+    #estSp{ left: 40%; }
     #jerSp{ left: 60%; }
     #estaSp{left: 49px; position: relative;}
     #opcSp2{ padding-right: 0%; }

@@ -232,7 +232,7 @@ mat-form-field{
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
-  #estaSp{position: relative; left: 37px;}
+  #estaSp{position: relative; left: 32px;}
 }
 
 /* Tablet medio - iPad Air*/
@@ -256,11 +256,11 @@ mat-form-field{
   #idSp{ margin-left: 1px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ margin-left: 6px; }
-  #estSp{ left: 37px; }
+  #estSp{ left: 46px; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
-  #estaSp{position: relative; left: 80px;}
+  #estaSp{position: relative; left: 75px;}
 }
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
@@ -268,10 +268,10 @@ mat-form-field{
   mat-form-field{ width: 22%; margin-left: 77%; }
   #idSp{ margin-left: -6%; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ margin-left: 9%; }
-  #estSp{ left: 49%; }
+  #desSp{ margin-left: 5%; }
+  #estSp{ left: 65%; }
   #jerSp{ left: 60%; }
   #opcSp2{ padding-right: 0%; }
   .excelButton i{ top: 2px; }
-  #estaSp{position: relative; left: 81px;}
+  #estaSp{position: relative; left: 75px;}
 }

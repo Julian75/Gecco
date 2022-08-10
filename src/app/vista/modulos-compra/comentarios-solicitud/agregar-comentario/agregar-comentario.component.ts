@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../../servicios/configuracion.service';
 import { CorreoService } from './../../../../servicios/Correo.service';
 import { UsuarioService } from './../../../../servicios/usuario.service';
 import { Correo } from './../../../../modelos/correo';
@@ -36,6 +37,8 @@ export class AgregarComentarioComponent implements OnInit {
   public listaExistePropios: any = [];
   public listaCompleta: any = [];
   public listaRestante: any = [];
+  public correo: any;
+  public contrasena: any;
   public fecha: Date = new Date();
 
   constructor(
@@ -45,6 +48,7 @@ export class AgregarComentarioComponent implements OnInit {
     private servicioCorreo: CorreoService,
     private servicioDetalleSolicitud: DetalleSolicitudService,
     private servicioGestionProceso: GestionProcesoService,
+    private servicioConfiguracion: ConfiguracionService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AgregarComentarioComponent>,
     public visul: MatDialogRef<VisualizarDetalleSolicitudComponent>,
@@ -71,6 +75,7 @@ export class AgregarComentarioComponent implements OnInit {
   aprobadi:boolean = false
   propios:boolean = false
   public guardar(){
+    document.getElementById('snipper5')?.setAttribute('style', 'display: block;')
     this.listaCompleta=[]
     this.listaRestante=[]
     this.listaExiste=[]
@@ -102,29 +107,42 @@ export class AgregarComentarioComponent implements OnInit {
                     let correo : Correo = new Correo();
                     this.servicioUsuario.listarPorId(gestionProceso.idUsuario).subscribe(resUsuario => {
                       this.servicioUsuario.listarPorId(elementGestionProceso.idProceso.idUsuario.id).subscribe(resUsuario2 => {
-                        correo.to = resUsuario.correo
-                        correo.subject = "Nuevo Comentario"
-                        correo.messaje = "<!doctype html>"
-                        +"<html>"
-                        +"<head>"
-                        +"<meta charset='utf-8'>"
-                        +"</head>"
-                        +"<body>"
-                        +"<h3 style='color: black;'>Se realizo un nuevo comentario por parte de "+resUsuario2.nombre+" "+resUsuario2.apellido+" al articulo de "+elementGestionProceso.idDetalleSolicitud.idArticulos.descripcion+".</h3>"
-                        +"<br>"
-                        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-                        +"</body>"
-                        +"</html>";
-                        this.servicioCorreo.enviar(correo).subscribe(res =>{
-                        }, error => {
-                          Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Hubo un error al enviar el Correo!',
-                            showConfirmButton: false,
-                            timer: 1500
-                          })
-                        });
+                        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                          resConfiguracion.forEach(elementConfi => {
+                            if(elementConfi.nombre == "correo_gecco"){
+                              this.correo = elementConfi.valor
+                            }
+                            if(elementConfi.nombre == "contraseña_correo"){
+                              this.contrasena = elementConfi.valor
+                            }
+                          });
+                          console.log(this.correo)
+                          correo.correo = this.correo
+                          correo.contrasena = this.contrasena
+                          correo.to = resUsuario.correo
+                          correo.subject = "Nuevo Comentario"
+                          correo.messaje = "<!doctype html>"
+                          +"<html>"
+                          +"<head>"
+                          +"<meta charset='utf-8'>"
+                          +"</head>"
+                          +"<body>"
+                          +"<h3 style='color: black;'>Se realizo un nuevo comentario por parte de "+resUsuario2.nombre+" "+resUsuario2.apellido+" al articulo de "+elementGestionProceso.idDetalleSolicitud.idArticulos.descripcion+".</h3>"
+                          +"<br>"
+                          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+                          +"</body>"
+                          +"</html>";
+                          this.servicioCorreo.enviar(correo).subscribe(res =>{
+                          }, error => {
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'error',
+                              title: 'Hubo un error al enviar el Correo!',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                          });
+                        })
                       })
                     })
                     let solicitudDetalle : DetalleSolicitud2 = new DetalleSolicitud2();
@@ -169,7 +187,6 @@ export class AgregarComentarioComponent implements OnInit {
                             this.listaExiste2.push(this.aprobar2)
                           });
                           const existe2 = this.listaExiste2.includes( true );
-                          document.getElementById('snipper')?.setAttribute('style', 'display: block;')
                           if (existe2 == false) {
                             this.solicitudService.listarPorId(resDetalleSolicitud.idSolicitud.id).subscribe(resSolicitud=>{
                               let solicitud : Solicitud2 = new Solicitud2();
@@ -181,7 +198,7 @@ export class AgregarComentarioComponent implements OnInit {
                               this.servicioEstado.listarPorId(57).subscribe(resEstado=>{
                                 solicitud.idEstado = resEstado.id
                                 this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
-                                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                                  document.getElementById('snipper5')?.setAttribute('style', 'display: none;')
                                   Swal.fire({
                                     position: 'center',
                                     icon: 'success',
@@ -232,13 +249,15 @@ export class AgregarComentarioComponent implements OnInit {
         const aprobo = this.listaExiste3.includes( true );
         const impropio = this.listaExiste4.includes( true );
         if(aprobo == true){
+          this.dialogRef.close();
+          document.getElementById('snipper5')?.setAttribute('style', 'display: none;')
           const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
             width: '1000px',
             data: {id:resDetalleSolicitud.idSolicitud.id}
           });
         }else{
           if(impropio == true){
-            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            document.getElementById('snipper5')?.setAttribute('style', 'display: none;')
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -261,7 +280,7 @@ export class AgregarComentarioComponent implements OnInit {
               this.servicioEstado.listarPorId(57).subscribe(resEstado=>{
                 solicitud.idEstado = resEstado.id
                 this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
-                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                  document.getElementById('snipper5')?.setAttribute('style', 'display: none;')
                   Swal.fire({
                     position: 'center',
                     icon: 'success',

@@ -1,3 +1,4 @@
+import { ConfiguracionService } from './../../../servicios/configuracion.service';
 import { UsuariosAdministracionService } from './../../../servicios/usuariosAdministracion.service';
 import { UsuariosAdministracion } from './../../../modelos/usuariosAdministracion';
 import { VisualizarRegistroComponent } from './visualizar-registro/visualizar-registro.component';
@@ -39,6 +40,8 @@ export class AprobacionRegistroComponent implements OnInit {
   public listaSolicitudes: any = [];
   public listaDetalleSolicitud: any = [];
   public idSolicitud:any ;
+  public correo:any ;
+  public contrasena:any ;
   public listaPdf: any = [];
   public listaOrdenCompra: any = [];
   public fecha: Date = new Date();
@@ -63,6 +66,7 @@ export class AprobacionRegistroComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioModificar: ModificarService,
     private servicioUsuarioAdministracion: UsuariosAdministracionService,
+    private servicioConfiguracion: ConfiguracionService,
     private route: ActivatedRoute,
   ) { }
 
@@ -183,39 +187,51 @@ export class AprobacionRegistroComponent implements OnInit {
   let correo : Correo = new Correo();
   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
-      correo.to = resUsuario.correo
-      correo.subject = "Aceptacion de Registro"
-      correo.messaje = "<!doctype html>"
-      +"<html>"
-      +"<head>"
-      +"<meta charset='utf-8'>"
-      +"</head>"
-      +"<body>"
-      +"<h3 style='color: black;'>Su orden de compra ha sido aprobada.</h3>"
-      +"<br>"
-      +"<table style='border: 1px solid #000; text-align: center;'>"
-      +"<tr>"
-      +"<th style='border: 1px solid #000;'>Articulo</th>"
-      +"<th style='border: 1px solid #000;'>Cantidad</th>"
-      +"<th style='border: 1px solid #000;'>Observacion</th>";
-      +"</tr>";
-      resSolicitud.forEach(element => {
-        if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-          this.listaDetalleSolicitud.push(element)
-          correo.messaje += "<tr>"
-          correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-          correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-          correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-          correo.messaje += "</tr>";
-        }
-      });
-      correo.messaje += "</table>"
-      +"<br>"
-      +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-      +"</body>"
-      +"</html>";
+      this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+        resConfiguracion.forEach(elementConfi => {
+          if(elementConfi.nombre == "correo_gecco"){
+            this.correo = elementConfi.valor
+          }
+          if(elementConfi.nombre == "contraseña_correo"){
+            this.contrasena = elementConfi.valor
+          }
+        });
+        correo.correo = this.correo
+        correo.contrasena = this.contrasena
+        correo.to = resUsuario.correo
+        correo.subject = "Aceptacion de Registro"
+        correo.messaje = "<!doctype html>"
+        +"<html>"
+        +"<head>"
+        +"<meta charset='utf-8'>"
+        +"</head>"
+        +"<body>"
+        +"<h3 style='color: black;'>Su orden de compra ha sido aprobada.</h3>"
+        +"<br>"
+        +"<table style='border: 1px solid #000; text-align: center;'>"
+        +"<tr>"
+        +"<th style='border: 1px solid #000;'>Articulo</th>"
+        +"<th style='border: 1px solid #000;'>Cantidad</th>"
+        +"<th style='border: 1px solid #000;'>Observacion</th>";
+        +"</tr>";
+        resSolicitud.forEach(element => {
+          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+            this.listaDetalleSolicitud.push(element)
+            correo.messaje += "<tr>"
+            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+            correo.messaje += "</tr>";
+          }
+        });
+        correo.messaje += "</table>"
+        +"<br>"
+        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+        +"</body>"
+        +"</html>";
 
-      this.enviarCorreo(correo, idCotizacion, idSolicitud);
+        this.enviarCorreo(correo, idCotizacion, idSolicitud);
+      })
     })
   })
 }
@@ -226,39 +242,51 @@ export class AprobacionRegistroComponent implements OnInit {
         let correo : Correo = new Correo();
         this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
           this.servicioUsuario.listarPorId(resCotizacion.idUsuario.id).subscribe(resUsuario => {
-            correo.to = resUsuario.correo
-            correo.subject = "Aceptacion de Registro"
-            correo.messaje = "<!doctype html>"
-            +"<html>"
-            +"<head>"
-            +"<meta charset='utf-8'>"
-            +"</head>"
-            +"<body>"
-            +"<h3 style='color: black;'>Su orden de compra ha sido aprobada.</h3>"
-            +"<br>"
-            +"<table style='border: 1px solid #000; text-align: center;'>"
-            +"<tr>"
-            +"<th style='border: 1px solid #000;'>Articulo</th>"
-            +"<th style='border: 1px solid #000;'>Cantidad</th>"
-            +"<th style='border: 1px solid #000;'>Observacion</th>";
-            +"</tr>";
-            resSolicitud.forEach(element => {
-              if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-                this.listaDetalleSolicitud.push(element)
-                correo.messaje += "<tr>"
-                correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-                correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-                correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-                correo.messaje += "</tr>";
-              }
-            });
-            correo.messaje += "</table>"
-            +"<br>"
-            +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-            +"</body>"
-            +"</html>";
+            this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+              resConfiguracion.forEach(elementConfi => {
+                if(elementConfi.nombre == "correo_gecco"){
+                  this.correo = elementConfi.valor
+                }
+                if(elementConfi.nombre == "contraseña_correo"){
+                  this.contrasena = elementConfi.valor
+                }
+              });
+              correo.correo = this.correo
+              correo.contrasena = this.contrasena
+              correo.to = resUsuario.correo
+              correo.subject = "Aceptacion de Registro"
+              correo.messaje = "<!doctype html>"
+              +"<html>"
+              +"<head>"
+              +"<meta charset='utf-8'>"
+              +"</head>"
+              +"<body>"
+              +"<h3 style='color: black;'>Su orden de compra ha sido aprobada.</h3>"
+              +"<br>"
+              +"<table style='border: 1px solid #000; text-align: center;'>"
+              +"<tr>"
+              +"<th style='border: 1px solid #000;'>Articulo</th>"
+              +"<th style='border: 1px solid #000;'>Cantidad</th>"
+              +"<th style='border: 1px solid #000;'>Observacion</th>";
+              +"</tr>";
+              resSolicitud.forEach(element => {
+                if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+                  this.listaDetalleSolicitud.push(element)
+                  correo.messaje += "<tr>"
+                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+                  correo.messaje += "</tr>";
+                }
+              });
+              correo.messaje += "</table>"
+              +"<br>"
+              +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+              +"</body>"
+              +"</html>";
 
-            this.enviarCorreo2(correo, idSolicitud);
+              this.enviarCorreo2(correo, idSolicitud);
+            })
           })
         })
       })

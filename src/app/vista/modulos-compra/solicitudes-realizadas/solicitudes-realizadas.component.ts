@@ -1,6 +1,5 @@
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
-import { Correo } from './../../../modelos/correo';
 import { CorreoService } from './../../../servicios/Correo.service';
 import { EstadoService } from './../../../servicios/estado.service';
 import { Solicitud } from './../../../modelos/solicitud';

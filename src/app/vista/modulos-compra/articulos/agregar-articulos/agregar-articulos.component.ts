@@ -68,6 +68,7 @@ export class AgregarArticulosComponent implements OnInit {
 
   aprobar:boolean = false
   public guardar() {
+    this.listarExiste = []
     this.aprobar = false
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
@@ -89,13 +90,14 @@ export class AgregarArticulosComponent implements OnInit {
           articulo.idCategoria = resCategoria
           this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
             resArticulos.forEach(element => {
-              if(element.descripcion == articulo.descripcion){
+              if(element.descripcion.toLowerCase() == articulo.descripcion.toLowerCase()){
                 this.aprobar = true
               }else{
                 this.aprobar = false
               }
               this.listarExiste.push(this.aprobar);
             });
+            console.log(this.listarExiste)
             const existe = this.listarExiste.includes( true );
             if(existe == true){
               Swal.fire({

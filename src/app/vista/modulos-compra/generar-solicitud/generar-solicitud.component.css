@@ -201,7 +201,7 @@ mat-option{ font-size: 10.5px; }
     padding-right: 14px;
   }
   .guardar4{
-    margin-left: 37%;
+    margin-left: 22%;
     margin-top: 20%;
   }
   mat-paginator{
@@ -247,7 +247,7 @@ mat-option{ font-size: 10.5px; }
     padding-right: 14px;
   }
   .guardar4{
-    margin-left: 50%;
+    margin-left: 26%;
     margin-top: 16%;
   }
   mat-paginator{
@@ -280,7 +280,7 @@ mat-option{ font-size: 10.5px; }
     padding-right: 14px;
   }
   .guardar4{
-    margin-left: 68%;
+    margin-left: 4%;
     margin-top: 12%;
   }
   mat-paginator{
@@ -371,7 +371,7 @@ mat-option{ font-size: 10.5px; }
   .nombre1, .nombre, .estado{ width: 120%; margin-left: -1%; margin-top: 2%; }
   .guardar3 { left: 16.5%; }
   .guardar6{ left: 23.5%; }
-  .guardar4{ margin-left: 84%; }
+  .guardar4{ margin-left: 80%; }
   #obse, #obse2{ padding-right: 0px; }
   #chetbox{ left: 10px; }
   #arti{ left: 55px; }

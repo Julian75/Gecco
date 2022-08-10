@@ -26,7 +26,7 @@
                 <ul>
                   <a >
                     <li >
-                      <h3>¿Anticipo?</h3>
+                      <h3 class="antic">¿Anticipo?</h3>
                     </li>
                     <mat-radio-group aria-label="Select an option" style="margin-left: -35px;" >
                       <mat-radio-button style="margin-left: 5%;" name="opcion" *ngIf="opciones == 'Si'">Si</mat-radio-button>
@@ -87,10 +87,10 @@
         </table>
       </section>
 
-      <p>Subtotal: {{subtotal}}</p>
-      <p>Valor anticipo: {{anticipoVal2}} %</p>
-      <p>Descuento: {{descuento}} COP</p>
-      <p>Total: {{total}}</p>
+      <p class="sub">Subtotal: {{subtotal}}</p>
+      <p class="val">Valor anticipo: {{anticipoVal2}} %</p>
+      <p class="des">Descuento: {{descuento}} COP</p>
+      <p class="to">Total: {{total}}</p>
 
       <button  class="btn guardar4" (click)="generarOrden()">Modificar</button>
   </div>

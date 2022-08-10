@@ -250,14 +250,3 @@ h2{
   }
 }
 
-/* Portatil Grande */
-@media screen and (min-width: 1441px){
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 215px;
-    height: 40px;
-    font-size: large;
-    margin-left: 52%;
-  }
-}

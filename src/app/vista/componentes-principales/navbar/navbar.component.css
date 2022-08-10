@@ -6,8 +6,8 @@ mat-toolbar{
   background-color: #00235C;
   height: 13%;
 }
-mat-icon, .nombre, .rol{ color: white; position: relative;}
-.nombre{ left: 75%; }
+mat-icon, .nombre, .rol, .person{ color: white; position: relative;}
+.nombre{ margin-left: 66%; }
 
 .rol:hover{ color: #00235C;   }
 mat-icon{
@@ -17,6 +17,12 @@ mat-icon{
   left: 76%;
   top: 10%;
 }
+.person{
+  width: 3%;
+  height: 40%;
+  margin-left: 0.7%;
+}
+
 ul, ol {
   list-style:none;
 }
@@ -47,7 +53,7 @@ li ul li {
 .flecha{
   color: white;
   width: 10%;
-  margin-left: 63%;
+  margin-left: -11.3%;
 }
 
 button{
@@ -66,16 +72,15 @@ button{
   .iconMenu{
     display: block;
     position: relative;
-    font-size: 30px;
-    left: 15.5%;
-    top: -3px;
+    font-size: 17px;
+    margin-left: -6%;
   }
   .nombre{
-    left: 16%;
-    top: 11px;
+    margin-left: 8%;
     font-weight: 500;
-    margin-top: -10%;
+    font-size: 10px;
   }
+  .person{ width: 11%; height: 34%; margin-left: 2%; }
   mat-icon{
     display: none;
   }
@@ -88,16 +93,15 @@ button{
   .iconMenu{
     display: block;
     position: relative;
-    font-size: 30px;
-    left: 32.5%;
-    top: -3px
+    font-size: 23px;
+    margin-left: -4%;
   }
   .nombre{
-    left: 32%;
-    top: 15px;
+    margin-left: 10%;
     font-weight: 500;
-    margin-top: -10%;
+    font-size: 13.5px;
   }
+  .person{ width: 9%; height: 32%; margin-left: 2%;}
   mat-icon{
     display: none;
   }
@@ -109,17 +113,13 @@ button{
 @media screen and (min-width: 494px) and (max-width: 720px){
   .iconMenu{
     display: block;
-    position: relative;
-    font-size: 30px;
-    left: 57.5%;
-    top: -3px
+    margin-left: -1%;
+    font-size: 25px;
   }
   .nombre{
-    left: 57%;
-    top: 24px;
-    font-weight: 500;
-    margin-top: -10%;
+    margin-left: 14%;
   }
+  .person{ margin-left: 2.5%; width: 7%;}
   mat-icon{
     display: none;
   }
@@ -131,13 +131,14 @@ button{
 @media screen and (min-width: 721px) and (max-width: 768px){
   .iconMenu{
     display: block;
-    position: relative;
-    left: 70%;
+    margin-left: 1%;
+    font-size: 39px;
   }
   .nombre{
-    left: 70%;
-    font-weight: 500;
+    margin-left: 13%;
+    font-size: 28px;
   }
+  .person{ margin-left: 2.5%; width: 9%; height: 47%;}
   mat-icon{
     display: none;
   }
@@ -154,11 +155,18 @@ button{
   .flecha{
     display: flex;
     position: relative;
-
+    color: white;
+    width: 10%;
+    margin-left: -5.7%;
   }
   .nombre{
-    left: 66%;
+    margin-left: 26%;
     font-weight: 500;
+  }
+  .person{
+    width: 8%;
+    height: 40%;
+    margin-left: 2.5%;
   }
   mat-icon{
     display: none;
@@ -167,5 +175,55 @@ button{
     background-color: #00235C;
     height: 10%;
   }
+}
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .iconMenu{
+    display: none;
+  }
+  .nombre{
+    margin-left: 58%;
+  }
+  .person{
+    width: 3%;
+    height: 40%;
+    margin-left: 1%;
+  }
+  .flecha {
+    width: 10%;
+    margin-left: -7.5%;
+  }
+  mat-icon{
+    display: none;
+  }
+  mat-toolbar{
+    background-color: #00235C;
+    height: 10%;
+  }
+}
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .iconMenu{
+    display: none;
 
+  }
+  .nombre{
+    margin-left: 57%;
+  }
+  .person{
+    width: 3%;
+    height: 40%;
+    margin-left: 1%;
+  }
+  .flecha{
+    width: 10%;
+    margin-left: -7.6%;
+  }
+  mat-icon{
+    display: none;
+  }
+  mat-toolbar{
+    background-color: #00235C;
+    height: 10%;
+  }
 }
