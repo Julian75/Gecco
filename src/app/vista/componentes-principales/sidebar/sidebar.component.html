@@ -68,6 +68,19 @@
       <button mat-raised-button  id="23" routerLink="/solicitud" style="display: none;" >Lista de Solicitudes</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Recepción de Datos
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button routerLink="/clientesSC" >Clientes Servicio al Cliente</button>
+      <button mat-raised-button routerLink="/tipoSolicitud" >Tipo Solicitud</button>
+      <button mat-raised-button routerLink="/solicitudesSC" >Solicitudes</button>
+    </div>
+  </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Raspa" (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">

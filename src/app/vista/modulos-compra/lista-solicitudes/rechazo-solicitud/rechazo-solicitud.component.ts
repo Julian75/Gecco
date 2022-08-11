@@ -53,8 +53,7 @@ export class RechazoSolicitudComponent implements OnInit {
   }
 
   public guardar(){
-    this.dialogRef.close();
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    document.getElementById('snipper8')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud2 = new Solicitud2();
     this.solicitudService.listarPorId(Number(this.data)).subscribe(res => {
       this.servicioEstado.listarPorId(30).subscribe(resEstado => {
@@ -144,7 +143,7 @@ export class RechazoSolicitudComponent implements OnInit {
 
   public enviarCorreo(correo: Correo){
     this.servicioCorreo.enviar(correo).subscribe(res =>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      document.getElementById('snipper8')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',

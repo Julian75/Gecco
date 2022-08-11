@@ -1,3 +1,5 @@
+import { AsignarTurno2 } from './../../../../modelos/asignarTurno2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { Router } from '@angular/router';
 import { AsignarTurno } from './../../../../modelos/asignarTurno';
 import { Component, OnInit } from '@angular/core';
@@ -42,9 +44,10 @@ export class AgregarAsignarTurnoComponent implements OnInit {
 
   public listaSitioVentaTabla:any=[];
   public listaSitioVentasTabla:any=[]
+  public contador: number = 0;
 
 
-  displayedColumns = ['id', 'descripcion', 'horaFinal', 'horaInicio', 'Estado', 'Tipo Turno', 'Opciones'];
+  displayedColumns = ['id', 'descripcion', 'horaFinal', 'horaInicio', 'Estado', 'Tipo Turno', 'Porcentaje', 'Opciones'];
   dataSource!:MatTableDataSource<any>;
 
   constructor(
@@ -54,6 +57,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
     private servicioOficina : OficinasService,
     private servicioTurnos : TurnosService,
     private servicioSitioVenta : SitioVentaService,
+    private servicioModificar : ModificarService,
     private router: Router,
   ) { }
 
@@ -70,6 +74,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       sitioVenta: [null,Validators.required],
       turno: [null,Validators.required],
       oficina: [null,Validators.required],
+      porcentaje: [null,Validators.required],
     });
   }
 
@@ -100,6 +105,73 @@ export class AgregarAsignarTurnoComponent implements OnInit {
     this.servicioOficina.listarTodos().subscribe(res => {
       this.listaOficinas = res
     });
+  }
+
+  public agregarPorcentaje(item){
+    var porcentaje = this.formAsignarTurno.controls['porcentaje'].value
+    this.contador = 0
+    if(porcentaje == null){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Debe asignar un porcentaje a la asignacion de turno al punto de venta!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      if(porcentaje >= 1 && porcentaje <= 100){
+        let asignarTurnoPuntoVenta : AsignarTurno2 = new AsignarTurno2();
+        this.servicioAsignarTurno.listarPorId(item.id).subscribe(res=>{
+          asignarTurnoPuntoVenta.id = res.id
+          asignarTurnoPuntoVenta.idEstado = res.idEstado.id
+          asignarTurnoPuntoVenta.idOficina = res.idOficina
+          asignarTurnoPuntoVenta.idSitioVenta = res.idSitioVenta
+          asignarTurnoPuntoVenta.idTurnos = res.idTurnos.id
+          asignarTurnoPuntoVenta.nombreOficina = res.nombreOficina
+          asignarTurnoPuntoVenta.nombreSitioVenta = res.nombreSitioVenta
+          this.servicioAsignarTurno.listarTodos().subscribe(resTurnos=>{
+            resTurnos.forEach(elementTurnos => {
+              if(elementTurnos.idSitioVenta == res.idSitioVenta){
+                console.log(elementTurnos)
+                this.contador += elementTurnos.porcentaje
+              }
+            });
+            var restante = 100 - this.contador
+            console.log(restante, this.contador)
+            if(porcentaje <= restante){
+              asignarTurnoPuntoVenta.porcentaje = porcentaje
+              console.log(asignarTurnoPuntoVenta)
+              this.servicioModificar.actualizarAsignarTurnoPuntoVenta(asignarTurnoPuntoVenta).subscribe(resPuntoVentaActual=>{
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Se actualizo con exito',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              })
+            }else{
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Este porcentaje que desea asignar al punto de venta supera el 100%, ya que solo le queda el '+restante+'%.',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          })
+        })
+
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No debe pasar del 100% un porcentaje, ni ser menor a 1!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    }
   }
 
   // public asignarTurnos(){

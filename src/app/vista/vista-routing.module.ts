@@ -1,3 +1,7 @@
+import { SolicitudesScComponent } from './modulos-recepcion-datos/solicitudes-sc/solicitudes-sc.component';
+import { ClienteScComponent } from './modulos-recepcion-datos/cliente-sc/cliente-sc.component';
+import { ModificarClienteScComponent } from './modulos-recepcion-datos/cliente-sc/modificar-cliente-sc/modificar-cliente-sc.component';
+import { AgregarClienteScComponent } from './modulos-recepcion-datos/cliente-sc/agregar-cliente-sc/agregar-cliente-sc.component';
 import { ListaProcesoComponent } from './modulos-compra/lista-proceso/lista-proceso.component';
 import { ComentariosSolicitudComponent } from './modulos-compra/comentarios-solicitud/comentarios-solicitud.component';
 import { CategoriasArticuloComponent } from './modulos-compra/articulos/categorias-articulo/categorias-articulo.component';
@@ -51,6 +55,13 @@ import { ModificarProveedorComponent } from './modulos-compra/proveedor/modifica
 import { ListaCotizacionesComponent } from './modulos-compra/lista-cotizaciones/lista-cotizaciones.component';
 import { SolicitudesRealizadasComponent } from './modulos-compra/solicitudes-realizadas/solicitudes-realizadas.component';
 import { RaspaListoComponent } from './modulos-raspita/raspa-listo/raspa-listo.component';
+import { MotivoSolicitudComponent } from './modulos-recepcion-datos/motivo-solicitud/motivo-solicitud.component';
+import { AgregarMotivoSolicitudComponent } from './modulos-recepcion-datos/motivo-solicitud/agregar-motivo-solicitud/agregar-motivo-solicitud.component';
+import { ModificarMotivoSolicitudComponent } from './modulos-recepcion-datos/motivo-solicitud/modificar-motivo-solicitud/modificar-motivo-solicitud.component';
+import { TipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/tipo-servicio.component';
+import { AgregarTipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/agregar-tipo-servicio/agregar-tipo-servicio.component';
+import { ModificarTipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/modificar-tipo-servicio/modificar-tipo-servicio.component';
+import { AgregarSolicitudScComponent } from './modulos-recepcion-datos/solicitudes-sc/agregar-solicitud-sc/agregar-solicitud-sc.component';
 
 const routes: Routes = [
   {
@@ -319,7 +330,66 @@ const routes: Routes = [
         component: RaspaListoComponent,
         canActivate: [AutorizacionGuard]
       },
-
+      // Modulos de recepcion de datos
+      //Tipo Solicitud
+      {
+        path: 'motivoSolicitud',
+        component: MotivoSolicitudComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarMotivoSolicitud',
+        component: AgregarMotivoSolicitudComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarMotivoSolicitud/:id',
+        component: ModificarMotivoSolicitudComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Cliente de servicio al cliente
+      {
+        path: 'clientesSC',
+        component: ClienteScComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarClienteSC',
+        component: AgregarClienteScComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarClienteSC/:id',
+        component: ModificarClienteScComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Solicitud
+      {
+        path: 'solicitudesSC',
+        component: SolicitudesScComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarSolicitudesSC',
+        component: AgregarSolicitudScComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Tipo Servicio
+      {
+        path: 'tipoServicio',
+        component: TipoServicioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarTipoServicio',
+        component: AgregarTipoServicioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarTipoServicio',
+        component: ModificarTipoServicioComponent,
+        canActivate: [AutorizacionGuard]
+      },
     ]
   },
 ];

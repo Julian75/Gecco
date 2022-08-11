@@ -1,0 +1,67 @@
+<div class="contenedor">
+  <h2 class="dato">Ingresar Nuevo Cliente de Servicio al Cliente</h2>
+  <form [formGroup]="formClienteSC">
+    <div class="row1">
+      <div class="nombre2">
+        <h2>Nombre</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese nombre </mat-label>
+        <input id="nombre" formControlName="nombre" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Tipo Documento</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese Tipo Documento</mat-label>
+        <select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
+          <option *ngFor="let item of listaTipoDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Correo</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese correo </mat-label>
+        <input type="email" id="correo" formControlName="correo" matInput>
+        </mat-form-field>
+      </div>
+
+      <div class="nombre2">
+        <h2>Direccion</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese Dirección </mat-label>
+        <input type="text" id="direccion" formControlName="direccion" matInput>
+        </mat-form-field>
+      </div>
+
+      <div class="nombre3">
+        <h2>Apellido</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+        <mat-label>Ingrese apellido </mat-label>
+        <input id="apellido" formControlName="apellido" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Documento</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese documento </mat-label>
+          <input type="number" id="documento" formControlName="documento" matInput >
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Telefono</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese Telefono </mat-label>
+          <input type="number" id="telefono" formControlName="telefono" matInput >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardar" (click)="guardar()">Insertar Cliente</button>
+      </div>
+    </div>
+  </form>
+</div>
+

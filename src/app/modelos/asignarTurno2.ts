@@ -1,10 +1,7 @@
-import { Estado } from "./estado";
-import { Turnos } from "./turnos";
-
-export class AsignarTurno {
+export class AsignarTurno2 {
   public id: number=0;
-  idTurnos !: Turnos;
-  idEstado !: Estado;
+  public idTurnos : number=0;
+  public idEstado : number=0;
   public idOficina: number=0;
   public nombreOficina: string="";
   public idSitioVenta: number=0;

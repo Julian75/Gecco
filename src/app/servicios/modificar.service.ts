@@ -1,3 +1,4 @@
+import { AsignarTurno2 } from './../modelos/asignarTurno2';
 import { EliminacionTurnoVendedor2 } from './../modelos/eliminacionTurnoVendedor2';
 import { AsignarTurnoVendedor2 } from './../modelos/asignarTurnoVendedor2';
 import { Usuario2 } from './../modelos/usuario2';
@@ -77,6 +78,10 @@ export class ModificarService {
 
   public actualizarProceso(proceso: Proceso2){
     return this.http.put<void>(this.path+'/Proceso/'+ proceso.id, proceso);
+  }
+
+  public actualizarAsignarTurnoPuntoVenta(asignarTurnoPuntoVenta: AsignarTurno2){
+    return this.http.put<void>(this.path+'/AsignarTurnoPuntoVenta/'+ asignarTurnoPuntoVenta.id, asignarTurnoPuntoVenta);
   }
 
 }

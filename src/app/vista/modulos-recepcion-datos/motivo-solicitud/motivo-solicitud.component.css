@@ -1,0 +1,230 @@
+.example-container {
+    max-width: 100%;
+    overflow: auto;
+    margin-top: 3% !important;
+    border-bottom: 20%;
+    box-shadow: 1px none #000;
+    margin-bottom: 3% !important;
+  }
+  table{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+  }
+
+  h3{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .btnVisualizar{
+    background-color: #97B4E2;
+    width: 10%;
+  }
+
+  th{
+    background-color: #00235C;
+    color: #fff;
+    position: relative;
+    margin-left: 15px;
+  }
+  .excelButton{
+    background-color: #6DBE53;
+    color: white;
+  }
+
+  .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+  td {
+    border: 1px solid #000;
+    text-align: center;
+  }
+  .contenedor{
+    width: 90% !important; margin-left: 5%; margin-top: 3%;
+  }
+  .boton{ background-color: #00235C; }
+  .btnver{ background-color: #959595; color: white; }
+  .btnedit{ background-color: #97B4E2; color: white; }
+  .btnremove{ background-color: #DA161A; color: white; }
+  mat-form-field{
+    width: 20%;
+    margin-left: 79.5%;
+    margin-top: -15%;
+  }
+  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+  .botonagregar mat-icon{ font-size: 24px; }
+  #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
+  #idSp{ left: 31px; }
+  #desSp{ left: 99px; }
+  #estSp{ left: 61px; }
+  #catSp{ left: 71px; position: relative;}
+  #jerSp{ left: 70px; }
+  #opcSp{ padding-right: 0%; }
+  .excelButton{ margin-left: -1%; font-size: 20px; }
+  .excelButton i{ position: relative; top: -3px; }
+  #idSp2{ padding-left: 0%; }
+
+  /* Movil pequeño - Galaxy Fold*/
+  @media screen and (min-width: 280px) and (max-width: 359px){
+    h3{
+      margin-left: 3%;
+      font-size: 12px;
+    }
+    .example-container{
+      max-width: 100%;
+      overflow: auto;
+      margin-top: 3% !important;
+    }
+    td{ font-size: 11px;}
+    .botonagregar, .excelButton, .btnver{ width: 38px; height: 30px; }
+    .botonagregar mat-icon{ font-size: 18px; }
+    .btnremove, .btnedit, .btnver{
+      width: 20px !important;
+      height: 23px;
+      position: relative;
+      left: 6%;
+      margin-top: 8%;
+      margin-bottom: 8%;
+    }
+    #catSp{
+      left: 9px ;
+      position: relative;
+    }
+    .btnver{ left: 1%; }
+    .excelButton{ margin-left: -5%; }
+    .botonagregar, .excelButton{
+      width: 38px;
+      height: 30px;
+      margin-top: 8%;
+      margin-bottom: 8%;
+    }
+    .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+    i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
+    td button mat-icon{ font-size: 12px; margin-left: -12px; margin-top: -2px; }
+    #idSp{ left: 7px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ left: 8px; }
+    #estSp{ left: 8px; }
+    #jerSp{ left: 8px; }
+    #opcSp2{ padding-right: 0%; }
+    .excelButton i{ top: -7px; font-size: 15px;}
+  }
+
+  /* Movil medio - Samsung Galaxy S8 */
+  @media screen and (min-width: 360px) and (max-width: 493px){
+    h3{
+      margin-left: 3%;
+      font-size: 13px;
+    }
+    td{ font-size: 12px;}
+    .botonagregar, .excelButton{ width: 38px; height: 30px; }
+    .botonagregar mat-icon{ font-size: 18px; }
+    .excelButton{ margin-left: -5%; }
+    .btnremove, .btnedit, .btnver{
+      width: 27px !important;
+      height: 26px;
+      position: relative;
+      left: 8%;
+      margin-top: 8%;
+      margin-bottom: 8%;
+    }
+    .edi{
+      margin-left: -10%;
+    }
+    .remo{
+      margin-left: -6%;
+    }
+    .ver{
+      margin-left: -6%;
+    }
+    td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
+    .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+    button i{ position: relative; top: -15%; }
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
+    #idSp{ left: 8px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ left: 9px; }
+    #estSp{ left: 8px; }
+    #catSp{ left: 8px; position: relative;}
+    #jerSp{ left: 8px; }
+    #opcSp2{ padding-right: 0%; }
+    .excelButton i{ top: -8px; font-size: 15px;}
+  }
+
+  /* Movil grande - Surface Duo*/
+  @media screen and (min-width: 494px) and (max-width: 720px){
+    h3{
+      margin-left: 3%;
+      font-size: 20px;
+    }
+    td{ font-size: 14px;}
+    .btnedit{ position: relative; left: 3%; }
+    .btnremove{ position: relative; left: 1%; }
+    .btnver{ position: relative; left: -2%; }
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+    #idSp{ left: 8px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ left: 8px; }
+    #estSp{ left: 8px; }
+    #jerSp{ left: 8px; }
+    #catSp{ left: 8px; position: relative;}
+    #opcSp2{ padding-right: 0%; }
+    .excelButton{ font-size: 17px; }
+    .excelButton i{ position: relative; top: 1px; font-size: 20px; }
+  }
+
+  /* Tablet pequeña - iPad Mini*/
+  @media screen and (min-width: 721px) and (max-width: 768px){
+    td { font-size: 16px; height: 0px;}
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+    #idSp{ left: 15px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ left: 35px; }
+    #estSp{ left: 24px; }
+    #catSp{ left: 30px; position:relative;}
+    #jerSp{ left: 28px; }
+    #opcSp2{ padding-right: 0%; }
+  }
+
+  /* Tablet medio - iPad Air*/
+  @media screen and (min-width: 769px) and (max-width: 1023px){
+    td { font-size: 16px; height: 0px;}
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+    #idSp{ left: 12px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ left: 23px; }
+    #estSp{ left: 17px; }
+    #catSp{left: 17px; position: relative;}
+    #jerSp{ left: 14px; }
+    #opcSp2{ padding-right: 0%; }
+    .excelButton i{ top: -3px; }
+  }
+
+  /* Portatil Pequeño */
+  @media screen and (min-width: 1024px) and (max-width: 1366px){
+    td { font-size: 15px; height: 0px;}
+    mat-form-field{ width: 22%; margin-left: 77%; }
+    #idSp{  left: 20px;margin: -11px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ margin-left: -14%; left: 89px;}
+    #estSp{ left: 48px; }
+    #catSp{ left: 60px; position: relative;}
+    #jerSp{ left: 60%; }
+    #opcSp2{ padding-right: 0%; }
+    .excelButton i{  top: -3px; }
+  }
+  /* Portatil Medio */
+  @media screen and (min-width: 1367px) and (max-width: 1440px){
+    td { font-size: 15px; height: 0px;}
+    mat-form-field{ width: 22%; margin-left: 77%; }
+    #idSp{  left: 23px;margin: -11px; }
+    #idSp2{ padding-left: 0%; }
+    #desSp{ margin-left: -14%; left: 102px;}
+    #estSp{ left: 59px; }
+    #catSp{ left: 76px; position: relative;}
+    #jerSp{ left: 60%; }
+    #opcSp2{ padding-right: 0%; }
+    .excelButton i{ top: -3px; }
+  }

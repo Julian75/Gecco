@@ -1,0 +1,65 @@
+<div class="contenedor">
+    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarClienteSC">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+
+      <table datatable [dtOptions]="dtOptions" id="usuario" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header id="usuarioEn"><h3 class="id">Id</h3></th>
+            <td mat-cell *matCellDef="let element" id="usuarioEn">{{element.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreSp">Nombre</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.nombre}} {{element.apellido}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipoDocumento">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="tipoDocSp">Tipo Documento</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idTipoDocumento.descripcion}} | {{element.documento}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="direccion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">Direccion</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.direccion}}</td>
+        </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="correo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="correoSp">Correo</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.correo}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header id="usuarioEn"><h3 id="rolSp">Telefono</h3></th>
+            <td mat-cell *matCellDef="let element" id="usuarioEn">{{element.telefono}}</td>
+          </ng-container>
+
+          <!--Opciones-->
+          <ng-container matColumnDef="opciones">
+            <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSp">Opciones</h3></th>
+            <td mat-cell *matCellDef="let item" id="tamañoOpc">
+              <button class="btn btnedit me-2" [routerLink]="['/modificarClienteSC', item.id]">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+    </mat-paginator>
+  </div>
