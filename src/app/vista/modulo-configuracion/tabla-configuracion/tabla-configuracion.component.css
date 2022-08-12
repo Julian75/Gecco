@@ -47,10 +47,10 @@ mat-form-field{
 .botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSpa, #idSp2, #descSpa, #nomSpa, #valSpa, #opcSpa{ position: relative;}
-#idSpa{ left: 25px; }
-#descSpa{ left: 190px; }
-#nomSpa{ left: 130px; }
-#valSpa{ left: 35px; }
+#idSpa{ left: 3px; position: absolute; }
+#descSpa{ left: 129px; position: absolute;}
+#nomSpa{ left: 74px; position: absolute; }
+#valSpa{ left: 209px; position: absolute; }
 #opcSpa{ left: 10px; }
 #idSp2{ padding-left: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
@@ -83,8 +83,13 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
   .excelButton i{ top: -8px; font-size: 15px;}
-  #idSpa, #descSpa, #valSpa, #opcSpa{ left: 8px; }
+  #opcSpa{ left: 8px; }
+  #idSpa{left: 4px; }
+  #descSpa{ left: 8px; }
+  #valSpa{ left: 27px; }
   #nomSpa{ left: 53px; }
+  td.mat-cell{ padding-left: 11px; padding-right: 15px;}
+  td.mat-cell:first-of-type{ padding-left: 0px; padding-right: 0px}
 }
 
 /* Movil medio - Samsung Galaxy S8 */
@@ -107,7 +112,10 @@ mat-form-field{
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   .excelButton i{ top: -8px; font-size: 15px;}
-  #idSpa, #descSpa, #valSpa, #opcSpa{ left: 8px; }
+   #descSpa { left: -4px; }
+   #idSpa{left: 1px;}
+   #valSpa{left: 18px;}
+   #opcSpa{left: 1px;}
   #nomSpa{ left: 53px; }
 }
 
@@ -121,8 +129,18 @@ mat-form-field{
     height: 36px; }
   td{ font-size: 14px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa, #descSpa, #valSpa, #opcSpa{ left: 8px; }
-  #nomSpa{ left: 60px; }
+  #opcSpa{ left: 8px; }
+  #nomSpa{ left: 73px; }
+  #descSpa{ left: 12px; }
+  #valSpa{ left: 44px; }
+  #idSpa{ left: 0px; }
+  td.mat-cell:first-of-type{
+    padding-right: 0px;
+  }
+  td.mat-cell{
+    padding-left: 29px;
+    padding-right: 33px;
+  }
   .excelButton i{
     position: relative;
     top: -3px;
@@ -133,10 +151,11 @@ mat-form-field{
 @media screen and (min-width: 721px) and (max-width: 768px){
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   .excelButton i{ position: relative; top: -3px; }
-  #idSpa, #valSpa{ left: 8px; }
+  #valSpa{ left: 73px; }
   #opcSpa{ left: 12px; }
-  #descSpa{ left: 96px; }
-  #nomSpa{ left: 58px; }
+  #descSpa{ left: 28px; }
+  #nomSpa{ left: 60px; }
+  #idSpa{ left: 0px; }
   td{
     font-size: 16px;
     height: 0px;
@@ -147,10 +166,11 @@ mat-form-field{
 @media screen and (min-width: 769px) and (max-width: 1023px){
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
   .excelButton i{ position: relative; top: -3px; }
-  #idSpa, #valSpa{ left: 8px; }
+  #valSpa{ left: 40px; }
   #opcSpa{ left: 12px; }
-  #descSpa{ left: 40px; }
-  #nomSpa{ left: 58px; }
+  #idSpa{ left: 0px; }
+  #descSpa{ left: 4px; }
+  #nomSpa{ left: 60px; }
   td{
     font-size: 16px;
     height: 0px;
@@ -160,11 +180,11 @@ mat-form-field{
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   .excelButton i{ position: relative; top: -3px; }
-  #idSpa{ left: 15px; }
-  #valSpa{ left: 23px; }
+  #idSpa{ left: 0px; }
+  #valSpa{ left: 165px; }
   #opcSpa{ left: 12px; }
-  #descSpa{ left: 150px; }
-  #nomSpa{ left: 90px; }
+  #descSpa{ left: 97px; }
+  #nomSpa{ left: 52px; }
   .excelButton i{
     position: relative;
     top: -3px;
@@ -173,9 +193,9 @@ mat-form-field{
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   .excelButton i{ position: relative; top: -3px; }
-  #idSpa{ left: 16px; }
-  #valSpa{ left: 25px; }
+  #idSpa{ left: 1px; }
+  #valSpa{ left: 176px; }
   #opcSpa{ left: 12px; }
-  #descSpa{ left: 168px; }
-  #nomSpa{ left: 104px; }
+  #descSpa{ left: 102px; }
+  #nomSpa{ left: 58px; }
 }

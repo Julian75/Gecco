@@ -18,6 +18,10 @@
     font-size: 20px;
   }
 
+  .id{
+    position: relative;
+    left: 146%;
+  }
   .btnVisualizar{
     background-color: #97B4E2;
     width: 10%;
@@ -54,11 +58,11 @@
   .botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
   #nombreSp,#correoSp,#tipoDocSp,#estadoSp,#rolSp,#opcSp{ position: relative; }
-  #nombreSp{ left: 37px; }
-  #correoSp{ left: 115px; }
-  #tipoDocSp{ left: 60px; }
+  #nombreSp{ left: 50px; }
+  #correoSp{ left: 42px; }
+  #tipoDocSp{ left: 80px; }
   #estadoSp{ left: 33px; }
-  #rolSp{ left: 25px; }
+  #rolSp{ left: 46px; }
   #opcSp{ left: 5px; }
   #usuarioEn{ padding-left: 0%; }
   .excelButton{ margin-left: -1%; font-size: 20px; }
@@ -77,20 +81,27 @@
       margin-left: 13%;
 
     }
+    #rolSp{
+      position: relative;
+      left: 8px;
+    }
     .botonagregar, .excelButton{
       width: 38px;
       height: 30px;
 
     }
     .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-    #usuarioEn{display: none}
     #tamañoOpc{ padding-right: 0px; }
     ng-container{ height: 5%; }
     i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
     td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
+    .id{
+      position: relative;
+      left: 10px;
+    }
     #nombreSp{ left: 8px; }
-    #correoSp{ left: 49px; }
+    #correoSp{ left: 10px; }
     #tipoDocSp{ left: 8px; }
     #estadoSp{ left: 9px; }
     #opcSp{ left: -1px; }
@@ -124,7 +135,7 @@
     td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
     #nombreSp{ left: 8px; }
     #rolSp{ left: 9px; }
-    #correoSp{ left: 25px; }
+    #correoSp{ left: 7px; }
     #tipoDocSp{ left: 8px; }
     #estadoSp{ left: 9px; }
     #opcSp{ left: -1px; }
@@ -145,8 +156,8 @@
     td button mat-icon{ font-size: 21px; margin-left: 0px; margin-top: 1px; }
     #nombreSp{ left: 8px; }
     .id{position: relative; left: 9px;}
-    #rolSp{ left: 18px; }
-    #correoSp{ left: 62px; }
+    #rolSp{ left: 9px; }
+    #correoSp{ left: 7px; }
     #tipoDocSp{ left: 8px; }
     #estadoSp{ left: 9px; }
     #opcSp{ left: -1px; }
@@ -164,13 +175,13 @@
   @media screen and (min-width: 721px) and (max-width: 768px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    .id{position: relative; left: 9px;}
+    .id{position: relative; left: 11px; }
     #tamañoOpc{ padding-right: 0px; }
-    #nombreSp{ left: 11px; }
-    #correoSp{ left: 65px; }
-    #tipoDocSp{ left: 12px; }
+    #nombreSp{ left: 16px; }
+    #correoSp{ left: 14px; }
+    #tipoDocSp{ left: 18px; }
     #estadoSp{ left: 13px; }
-    #rolSp{ left: 22px; }
+    #rolSp{ left: 14px; }
     #opcSp{ left: -1px; }
     .btnedit{  margin-left: 13.5%;}
     .excelButton i{ top: -3px; }
@@ -180,12 +191,12 @@
     #tamañoOpc{ padding-right: 0px; }
     td { font-size: 15px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    .id{position: relative; left: 9px;}
-    #nombreSp{ left: 9px; }
-    #correoSp{ left: 59px; }
+    .id{position: relative; left: 11px;}
+    #nombreSp{ left: 12px; }
+    #correoSp{ left: 11px; }
     #tipoDocSp{ left: 10px; }
     #estadoSp{ left: 8px; }
-    #rolSp{ left: 13px; }
+    #rolSp{ left: 8px; }
     #opcSp{ left: -1px; }
     .btnedit{  margin-left: 5.5%;}
     .excelButton i{
@@ -198,16 +209,16 @@
     td { font-size: 15px; height: 0px;}
     mat-form-field{ width: 22%; margin-left: 77%; }
     .id{position: relative; left: 9px;}
-    #nombreSp{ left: 44%; }
-    #correoSp{ left: 81px; }
-    #tipoDocSp{ left: 23%; }
+    #nombreSp{ left: 49%; }
+    #correoSp{ left: 29px; }
+    #tipoDocSp{ left: 33%; }
     #estadoSp{ left: 36%; }
-    #rolSp{ left: 46px; }
+    #rolSp{ left: 33px; }
     #opcSp{ left: -1px; }
     .btnedit{  margin-left: 5.5%;}
     .id{
       width: 10%;
-      margin-left: 34%;
+      left: 17px;
     }
     .excelButton i{
       position: relative;
@@ -220,15 +231,15 @@
     td { font-size: 15px; height: 0px;}
     mat-form-field{ width: 22%; margin-left: 77%; }
     #nombreSp{ left: 51%; }
-    #correoSp{ margin-left: -40%; }
-    #tipoDocSp{ left: 30%; }
+    #correoSp{ margin-left: -141%; }
+    #tipoDocSp{ left: 41%; }
     #estadoSp{ left: 39%; }
-    #rolSp{ left: 51px; }
+    #rolSp{ left: 38px; }
     #opcSp{ left: -1px; }
     .btnedit{  margin-left: 5.5%;}
     .id{
       width: 10%;
-      margin-left: 70%;
+      margin-left: 118%;
     }
     .excelButton i{
       position: relative;

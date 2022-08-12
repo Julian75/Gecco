@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: 'root'
 })
-export class GestionProcesoService {
+export class HistorialSolicitudesService {
 
   private path = this.sharedService.APIUrl+'/HistorialSolicitudes';
 

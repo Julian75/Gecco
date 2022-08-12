@@ -43,14 +43,14 @@ export class TipoServicioComponent implements OnInit {
       width: '500px',
     });
   }
-  modificarMotivoSolicitud(id: number): void {
+  modificarTipoServicio(id: number): void {
     const dialogRef = this.dialog.open(ModificarTipoServicioComponent, {
       width: '500px',
       data: id
     });
   }
 
-  eliminarMotivoSolicitud(id:number){
+  eliminarTipoServicio(id:number){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -98,7 +98,7 @@ export class TipoServicioComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaTurnos.xlsx';
+  name = 'tipoServicio.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('turnos');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

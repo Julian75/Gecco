@@ -115,6 +115,14 @@ import { AgregarSolicitudScComponent } from './modulos-recepcion-datos/solicitud
 import { TipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/tipo-servicio.component';
 import { AgregarTipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/agregar-tipo-servicio/agregar-tipo-servicio.component';
 import { ModificarTipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/modificar-tipo-servicio/modificar-tipo-servicio.component';
+import { EscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/escala-solicitudes.component';
+import { AgregarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/agregar-escala-solicitudes/agregar-escala-solicitudes.component';
+import { ModificarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/modificar-escala-solicitudes/modificar-escala-solicitudes.component';
+import { PresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/presupuesto-venta-mensual.component';
+import { AgregarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/agregar-presupuesto-venta-mensual/agregar-presupuesto-venta-mensual.component';
+import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
+import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/historial-solicitudes.component';
+import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
 
 @NgModule({
   declarations: [
@@ -229,6 +237,14 @@ import { ModificarTipoServicioComponent } from './modulos-recepcion-datos/tipo-s
     TipoServicioComponent,
     AgregarTipoServicioComponent,
     ModificarTipoServicioComponent,
+    EscalaSolicitudesComponent,
+    AgregarEscalaSolicitudesComponent,
+    ModificarEscalaSolicitudesComponent,
+    PresupuestoVentaMensualComponent,
+    AgregarPresupuestoVentaMensualComponent,
+    ModificarPresupuestoVentaMensualComponent,
+    HistorialSolicitudesComponent,
+    ReporteAsesorComponent
   ],
   imports: [
     CommonModule,

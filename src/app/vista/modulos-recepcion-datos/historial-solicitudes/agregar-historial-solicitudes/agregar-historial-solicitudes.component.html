@@ -1,0 +1,39 @@
+<h2 class="dato">Ingresar Nueva Escala Solicitudes</h2>
+<form [formGroup]="formTipoServicio">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Observacion</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese observacion </mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+        <h2>Usuario</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese Usuario</mat-label>
+        <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+          <option *ngFor="let item of listaUsuario"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+
+      <div class="nombre2">
+        <h2>Solicitud</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese Solicitud</mat-label>
+        <select matNativeControl id="solicitud" name="solicitud" formControlName="solicitud">
+          <option *ngFor="let item of listaSolicitud"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()">Insertar</button>
+    </div>
+  </div>
+</form>
+

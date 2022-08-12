@@ -1,3 +1,7 @@
+import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
+import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
+import { AgregarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/agregar-presupuesto-venta-mensual/agregar-presupuesto-venta-mensual.component';
+import { PresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/presupuesto-venta-mensual.component';
 import { SolicitudesScComponent } from './modulos-recepcion-datos/solicitudes-sc/solicitudes-sc.component';
 import { ClienteScComponent } from './modulos-recepcion-datos/cliente-sc/cliente-sc.component';
 import { ModificarClienteScComponent } from './modulos-recepcion-datos/cliente-sc/modificar-cliente-sc/modificar-cliente-sc.component';
@@ -62,6 +66,10 @@ import { TipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/t
 import { AgregarTipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/agregar-tipo-servicio/agregar-tipo-servicio.component';
 import { ModificarTipoServicioComponent } from './modulos-recepcion-datos/tipo-servicio/modificar-tipo-servicio/modificar-tipo-servicio.component';
 import { AgregarSolicitudScComponent } from './modulos-recepcion-datos/solicitudes-sc/agregar-solicitud-sc/agregar-solicitud-sc.component';
+import { EscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/escala-solicitudes.component';
+import { AgregarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/agregar-escala-solicitudes/agregar-escala-solicitudes.component';
+import { ModificarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/modificar-escala-solicitudes/modificar-escala-solicitudes.component';
+import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/historial-solicitudes.component';
 
 const routes: Routes = [
   {
@@ -386,8 +394,52 @@ const routes: Routes = [
         canActivate: [AutorizacionGuard]
       },
       {
-        path: 'modificarTipoServicio',
+        path: 'modificarTipoServicio/:id',
         component: ModificarTipoServicioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Escala Solicitudes
+      {
+        path: 'escalaSolicitudes',
+        component: EscalaSolicitudesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarEscalaSolicitudes',
+        component: AgregarEscalaSolicitudesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarEscalaSolicitudes/:id',
+        component: ModificarEscalaSolicitudesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      // Venta Mensual
+      {
+        path: 'presupuestoVentaMensual',
+        component: PresupuestoVentaMensualComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarPresupuestoVentaMensual',
+        component: AgregarPresupuestoVentaMensualComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarPresupuestoVentaMensual/:id',
+        component: ModificarPresupuestoVentaMensualComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //HIstorial de solicitudes
+      {
+        path: 'historialSolicitudes',
+        component: HistorialSolicitudesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Reporte
+      {
+        path: 'reporteAsesor',
+        component: ReporteAsesorComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

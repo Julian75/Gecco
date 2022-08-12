@@ -15,7 +15,7 @@ export class ClienteScComponent implements OnInit {
   dtOptions: any = {};
   public listaClientesSC: any = [];
 
-  displayedColumns = ['id', 'nombre', 'tipoDocumento', 'direccion', 'correo', 'telefono', 'opciones'];
+  displayedColumns = ['id', 'nombre','apellido','tipoDocumento', 'correo', 'telefono', 'opciones'];
   dataSource!:MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

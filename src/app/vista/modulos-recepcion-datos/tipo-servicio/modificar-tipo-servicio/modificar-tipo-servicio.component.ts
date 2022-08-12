@@ -42,10 +42,10 @@ export class ModificarTipoServicioComponent implements OnInit {
   }
   public guardar(){
     if (this.formTipoServicio.valid) {
-      this.servicioTipoServicio.registrar(this.formTipoServicio.value).subscribe(data => {
+      this.servicioTipoServicio.actualizar(this.formTipoServicio.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
-          title: 'Registro exitoso',
+          title: 'Se actualizó correctamente',
           showConfirmButton: false,
           timer: 1500
         });

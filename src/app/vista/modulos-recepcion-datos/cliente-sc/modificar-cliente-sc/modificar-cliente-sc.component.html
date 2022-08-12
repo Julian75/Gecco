@@ -13,9 +13,9 @@
         <h2>Tipo Documento</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese Tipo Documento</mat-label>
-        <!-- <select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
+        <select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
           <option *ngFor="let item of listaTipoDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select> -->
+        </select>
         </mat-form-field>
       </div>
       <div class="nombre2">
@@ -23,14 +23,6 @@
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese correo </mat-label>
         <input type="email" id="correo" formControlName="correo" matInput>
-        </mat-form-field>
-      </div>
-
-      <div class="nombre2">
-        <h2>Direccion</h2>
-        <mat-form-field class="nombre" appearance="fill">
-        <mat-label>Ingrese Dirección </mat-label>
-        <input type="text" id="direccion" formControlName="direccion" matInput>
         </mat-form-field>
       </div>
 

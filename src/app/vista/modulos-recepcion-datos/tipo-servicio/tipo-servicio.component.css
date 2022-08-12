@@ -55,8 +55,8 @@
   .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-  #idSp{ left: 31px; }
-  #desSp{ left: 99px; }
+  #idSp{ left: 39px; margin: -8px; }
+  #desSp{ left: 194px; }
   #estSp{ left: 61px; }
   #catSp{ left: 71px; position: relative;}
   #jerSp{ left: 70px; }
@@ -103,13 +103,13 @@
     i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
     td button mat-icon{ font-size: 12px; margin-left: -12px; margin-top: -2px; }
-    #idSp{ left: 7px; }
+    #idSp{ left: 14px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 8px; }
+    #desSp{ left: 26px; }
     #estSp{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -7px; font-size: 15px;}
+    .excelButton i{ top: -8px; font-size: 15px;}
   }
 
   /* Movil medio - Samsung Galaxy S8 */
@@ -132,6 +132,7 @@
     }
     .edi{
       margin-left: -10%;
+      left: 2px;
     }
     .remo{
       margin-left: -6%;
@@ -143,9 +144,9 @@
     .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
     button i{ position: relative; top: -15%; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-    #idSp{ left: 8px; }
+    #idSp{ left: 20px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 9px; }
+    #desSp{ left: 42px; }
     #estSp{ left: 8px; }
     #catSp{ left: 8px; position: relative;}
     #jerSp{ left: 8px; }
@@ -164,9 +165,9 @@
     .btnremove{ position: relative; left: 1%; }
     .btnver{ position: relative; left: -2%; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 8px; }
+    #idSp{ left: 18px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 8px; }
+    #desSp{ left: 49px; }
     #estSp{ left: 8px; }
     #jerSp{ left: 8px; }
     #catSp{ left: 8px; position: relative;}
@@ -179,9 +180,9 @@
   @media screen and (min-width: 721px) and (max-width: 768px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 15px; }
+    #idSp{ left: 32px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 35px; }
+    #desSp{ left: 91px; }
     #estSp{ left: 24px; }
     #catSp{ left: 30px; position:relative;}
     #jerSp{ left: 28px; }
@@ -192,9 +193,9 @@
   @media screen and (min-width: 769px) and (max-width: 1023px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 12px; }
+    #idSp{ left: 26px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ left: 23px; }
+    #desSp{ left: 66px; }
     #estSp{ left: 17px; }
     #catSp{left: 17px; position: relative;}
     #jerSp{ left: 14px; }
@@ -206,9 +207,9 @@
   @media screen and (min-width: 1024px) and (max-width: 1366px){
     td { font-size: 15px; height: 0px;}
     mat-form-field{ width: 22%; margin-left: 77%; }
-    #idSp{  left: 20px;margin: -11px; }
+    #idSp{ left: 33px; margin: -11px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ margin-left: -14%; left: 89px;}
+    #desSp{ left: 163px;}
     #estSp{ left: 48px; }
     #catSp{ left: 60px; position: relative;}
     #jerSp{ left: 60%; }
@@ -219,9 +220,9 @@
   @media screen and (min-width: 1367px) and (max-width: 1440px){
     td { font-size: 15px; height: 0px;}
     mat-form-field{ width: 22%; margin-left: 77%; }
-    #idSp{  left: 23px;margin: -11px; }
+    #idSp{  left: 37px;margin: -11px; }
     #idSp2{ padding-left: 0%; }
-    #desSp{ margin-left: -14%; left: 102px;}
+    #desSp{ left: 179px;}
     #estSp{ left: 59px; }
     #catSp{ left: 76px; position: relative;}
     #jerSp{ left: 60%; }

@@ -1,79 +1,78 @@
 <div class="contenedor">
-    <h2 class="dato">Ingresar Nuevo Usuario</h2>
+    <h2 class="dato">Generar Nueva Solicitud</h2>
     <form [formGroup]="formSolicitud">
       <div class="row1">
         <div class="nombre2">
-          <h2>Nombre</h2>
+          <h2>Fecha Vencimiento</h2>
           <mat-form-field class="nombre" appearance="fill">
-          <mat-label>Ingrese nombre </mat-label>
-          <input id="nombre" formControlName="nombre" matInput>
+          <mat-label>Ingrese fecha de vencimiento </mat-label>
+          <input type="date" id="vence" formControlName="vence" matInput>
           </mat-form-field>
         </div>
         <div class="nombre2">
-          <h2>Correo</h2>
+          <h2>Municipio</h2>
           <mat-form-field class="nombre" appearance="fill">
-          <mat-label>Ingrese correo </mat-label>
-          <input type="email" id="correo" formControlName="correo" matInput>
+          <mat-label>Ingrese municipio</mat-label>
+          <input id="municipio" formControlName="municipio" matInput>
           </mat-form-field>
         </div>
         <div class="nombre2">
-          <h2>Tipo Documento</h2>
+          <h2>Incidente</h2>
           <mat-form-field class="nombre" appearance="fill">
-          <mat-label>Ingrese Tipo Documento</mat-label>
-          <select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
-            <option value=""></option>
-          </select>
+          <mat-label>Ingrese el Incidente</mat-label>
+          <input id="incidente" formControlName="incidente" matInput>
           </mat-form-field>
         </div>
         <div class="nombre2">
-          <h2>Rol</h2>
+          <h2>Motivo de la Solicitud</h2>
           <mat-form-field class="nombre" appearance="fill">
-          <mat-label>Ingrese Rol</mat-label>
-          <select matNativeControl id="rol" name="rol" formControlName="rol">
-            <option  value=""></option>
+          <mat-label>Seleccione el motivo</mat-label>
+          <select matNativeControl id="motivo" name="motivo" formControlName="motivo">
+            <option *ngFor="let item of listaMotivoSolicitud"  value="{{item.id}}">{{item.descripcion}}</option>
           </select>
           </mat-form-field>
         </div>
         <div class="nombre3">
-          <h2>Apellido</h2>
+          <h2>Medios de Radicacion</h2>
           <mat-form-field class="nombre1" appearance="fill">
-          <mat-label>Ingrese apellido </mat-label>
-          <input id="apellido" formControlName="apellido" matInput>
+          <mat-label>Ingrese el medio de la radicacion </mat-label>
+          <input id="radicacion" formControlName="radicacion" matInput>
           </mat-form-field>
         </div>
         <div class="nombre4">
-          <h2>Estado Usuario</h2>
+          <h2>Tipo de Servicio</h2>
           <mat-form-field class="nombre1" appearance="fill">
-          <mat-label>Ingrese Estado del usuario</mat-label>
-          <select matNativeControl id="estado" name="estado" formControlName="estado">
-            <option  value=""></option>
+          <mat-label>Seleccione el tipo de servicio</mat-label>
+          <select matNativeControl id="servicio" name="servicio" formControlName="servicio">
+            <option *ngFor="let item of listaTipoServicio"  value="{{item.id}}">{{item.descripcion}}</option>
           </select>
           </mat-form-field>
         </div>
         <div class="nombre4">
-          <h2>Documento</h2>
+          <h2>Auxiliar quien Radico</h2>
           <mat-form-field class="nombre1" appearance="fill">
-            <mat-label>Ingrese documento </mat-label>
-            <input type="number" id="documento" formControlName="documento" matInput minlength="1">
+            <mat-label>Ingrese el auxiliar </mat-label>
+            <input id="auxiliar" formControlName="auxiliar" matInput>
           </mat-form-field>
         </div>
-        <div class="nombre4">
-          <h2 class="ofi">Oficina</h2>
-          <mat-form-field class="nombre1" appearance="fill">
-          <mat-label>Ingrese Oficina</mat-label>
-          <select matNativeControl id="oficina" name="oficina" formControlName="oficina">
-            <option  value=""></option>
-          </select>
-          </mat-form-field>
+        <div class="nombre5">
+          <button id="selectButton" mat-raised-button (click)="fileInput.click()" style="margin-top: 15px;">Selecciona archivo</button>
+          <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" /><br>
+          <span *ngIf="fileName" style="position: relative; top: 15px;"><strong style="margin-right: 5px;">Cantidad de archivos: </strong>{{fileName}}</span><br>
+          <h4 *ngIf="fileName" style="position:relative; top:20px"><strong>Nombres de los archivos seleccionados:</strong></h4>
+          <ul style="margin-top:5%;">
+            <li style="margin-top: 5px;" *ngFor="let item of listaArchivos2">{{item}}</li>
+          </ul>
         </div>
       </div>
       <div class="row">
         <!-- Boton de guardar datos -->
         <div class="guardar2">
-          <button mat-raised-button class="guardar" >Insertar Solicitud</button>
-          <!-- (click)="guardar()" -->
+          <button mat-raised-button class="guardar" (click)="guardar()">Insertar Solicitud</button>
         </div>
       </div>
     </form>
   </div>
-
+  <div class="solpiner" id="snipper" style="text-align: center; display: none;">
+    <div class="loader"></div>
+  </div>

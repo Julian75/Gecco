@@ -11,7 +11,6 @@
             <option *ngFor="let item of listaOficinas"  value="{{item.id}}" [ngValue]="item">{{item.ideOficina}} | {{item.nom_oficina}}</option>
           </select>
         </mat-form-field>
-
       </div>
       <div class="nombre3">
         <h2 class="sitio">Sitio Venta</h2>
@@ -36,6 +35,14 @@
         <select matNativeControl id="turno" name="turno" formControlName="turno">
           <option *ngFor="let item of listarTurnos"  value="{{item.id}}" >{{item.horaInicio}}-{{item.horaFinal}} || {{item.idTipoTurno.descripcion}}</option>
         </select>
+        </mat-form-field>
+      </div>
+      <!-- Ingresar Porcentaje -->
+      <div class="nombre5">
+        <h2>Porcentaje</h2>
+        <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese porcentaje del punto de venta pór turno</mat-label>
+          <input type="number" formControlName="porcentaje" name="porcentaje" minlength="1" maxlength="99" matInput>
         </mat-form-field>
       </div>
     </div>
@@ -96,7 +103,7 @@
         </td>
       </ng-container>
 
-        <!--Opciones-->
+      <!--Opciones-->
       <ng-container matColumnDef="Opciones">
         <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
         <td mat-cell *matCellDef="let item" id="opcSp2">

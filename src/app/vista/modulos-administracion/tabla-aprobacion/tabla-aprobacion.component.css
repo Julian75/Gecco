@@ -50,10 +50,10 @@ mat-form-field{
 .excelButton, .boton, .btnremove, .btnver{ width: 64px; height: 36px; }
 #id2{ padding-left: 0%; }
 #idSpa,#soliciSpa,#vendedorSpa,#turnvenSpa,#ObSpa,#OpcSpa{ position: relative; }
-#idSpa{ left: 20px; }
-#soliciSpa{ left: 40px; }
-#turnvenSpa{ left: 63px; }
-#vendedorSpa{ left: 98px;}
+#idSpa{ left: 11px; position: absolute; }
+#soliciSpa{ left: 48px; position: absolute; }
+#turnvenSpa{ left: -2px; position: absolute; }
+#vendedorSpa{ left: 84px; position: absolute;}
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
 button mat-icon{ position: relative; top: -1%; }
@@ -100,10 +100,18 @@ button mat-icon{ position: relative; top: -1%; }
   }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   .excelButton i{ top: -8px; font-size: 15px;}
-  #idSpa, #soliciSpa, #turnvenSpa, #vendedorSpa{ left: 8px; }
+  #idSpa{ left: 3px; }
+  #soliciSpa{ left: 4px; }
+  #turnvenSpa{ left: -2px; }
+  #vendedorSpa{ left: 12px; }
   #ObSpa{ padding-right: 5px; }
   #OpcSpa{ left: 10px; }
-  .boton, .btnremove{ margin-left: 43%; }
+  td.mat-cell{ padding-right: 21px; padding-left: 16px; }
+  td.mat-cell:first-of-type{
+    padding-right: 2px;
+  }
+   .btnremove{ margin-left: 43%;     margin-top: 5px; }
+   .boton{ margin-left: 42%; }
 }
 
 /* Movil grande - Surface Duo*/
@@ -151,10 +159,10 @@ button mat-icon{ position: relative; top: -1%; }
 /* Portatil Pequeño */
 @media screen and (min-width: 1025px) and (max-width: 1366px){
   .excelButton{ margin-left: -2%; }
-  #idSpa{ left: 13px; }
-  #soliciSpa{ left: 23px; }
-  #turnvenSpa{ left: 30px; }
-  #vendedorSpa{ left: 70px; }
+  #idSpa{ left: 6px; }
+  #soliciSpa{ left: 31px; }
+  #turnvenSpa{ left: -1px; }
+  #vendedorSpa{ left: 58px; }
   #ObSpa{ padding-right: 3px; }
   #OpcSpa{ left: 13px; }
   .boton, .btnremove{ margin-left: 11%; margin-top: 5%;}
@@ -164,10 +172,10 @@ button mat-icon{ position: relative; top: -1%; }
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   .excelButton{ margin-left: -2%; }
-  #idSpa{ left: 14px; }
-  #soliciSpa{ left: 27px; }
-  #turnvenSpa{ left: 38px; }
-  #vendedorSpa{ left: 78px; }
+  #idSpa{ left: 8px; }
+  #soliciSpa{ left: 35px; }
+  #turnvenSpa{ left: 1px; }
+  #vendedorSpa{ left: 65px; }
   #ObSpa{ padding-right: 3px; }
   #OpcSpa{ left: 13px; }
   .boton, .btnremove{ margin-left: 11%; margin-top: 5%;}

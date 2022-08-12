@@ -37,7 +37,6 @@ export class AgregarClienteScComponent implements OnInit {
       nombre: [null,Validators.required],
       tipoDocumento: [null,Validators.required],
       correo: [null,Validators.required],
-      direccion: [null,Validators.required],
       apellido: [null,Validators.required],
       documento: [null,Validators.required],
       telefono: [null,Validators.required],
@@ -107,7 +106,7 @@ export class AgregarClienteScComponent implements OnInit {
         timer: 1500
       })
       window.location.reload();
-      // this.router.navigate(['/clientesSC']);
+      this.router.navigate(['/clientesSC']);
     }, error => {
       Swal.fire({
         position: 'center',

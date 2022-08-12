@@ -34,6 +34,8 @@
       <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos Ingreso</button>
       <button mat-raised-button id="20" routerLink="/mallasCierre" style="display: none;">Malla de Turnos Cierre</button>
       <button mat-raised-button id="14" routerLink="/novedades" style="display: none;">Generar Reporte Novedad</button>
+      <button mat-raised-button routerLink="/presupuestoVentaMensual">Presupuesto de Punto Venta Mensual</button>
+      <button mat-raised-button routerLink="/reporteAsesor">Reporte Asesor</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Visita" (opened)="panelOpenState = true"
@@ -77,8 +79,10 @@
     </mat-expansion-panel-header>
     <div class="opciones">
       <button mat-raised-button routerLink="/clientesSC" >Clientes Servicio al Cliente</button>
-      <button mat-raised-button routerLink="/tipoSolicitud" >Tipo Solicitud</button>
+      <button mat-raised-button routerLink="/motivoSolicitud" >Tipo Solicitud</button>
+      <button mat-raised-button routerLink="/tipoServicio" >Tipo Servicio</button>
       <button mat-raised-button routerLink="/solicitudesSC" >Solicitudes</button>
+      <button mat-raised-button routerLink="/escalaSolicitudes" >Escala Solicitudes</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Raspa" (opened)="panelOpenState = true"

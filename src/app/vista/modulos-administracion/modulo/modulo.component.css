@@ -50,8 +50,8 @@ mat-form-field{
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSpa, #descSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 50px; }
-#descSpa{ left: 125px; }
+#idSpa{ left: 21px; position: absolute; }
+#descSpa{ left: 153px; position: absolute; }
 #idSp2{ padding-left: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
@@ -79,8 +79,8 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
-  #idSpa{ left: 8px; }
-  #descSpa{ left: 10px; }
+  #idSpa{ left: 4px; }
+  #descSpa{ left: 18px; }
   #opcSpa{ left: 8px; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
@@ -108,8 +108,8 @@ mat-form-field{
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
-  #idSpa{ left: 10px; }
-  #descSpa{ left: 29px; }
+  #idSpa{ left: 5px; }
+  #descSpa{ left: 34px; }
   #opcSpa{ left: 8px; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
@@ -118,32 +118,32 @@ mat-form-field{
 @media screen and (min-width: 494px) and (max-width: 720px){
   td { font-size: 14px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{ left: 11px; }
-  #descSpa{ left: 23px; }
+  #idSpa{ left: 3px; }
+  #descSpa{ left: 33px; }
   #rolSpa{ left: 15px; }
 }
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{ left: 22px; }
-  #descSpa{ left: 68px; }
+  #idSpa{ left: 8px; }
+  #descSpa{ left: 77px; }
   #rolSpa{ left: 15px; }
 }
 /* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{ left: 15px; }
-  #descSpa{ left: 45px; }
+  #idSpa{ left: 6px; }
+  #descSpa{ left: 52px; }
   #rolSpa{ left: 15px; }
 }
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 30px; }
-  #descSpa{ left: 120px; }
+  #idSpa{ left: 14px; }
+  #descSpa{ left: 126px; }
   #rolSpa{ left: 15px; }
 }
 
@@ -151,8 +151,8 @@ mat-form-field{
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 35px; }
-  #descSpa{ left: 130px; }
+  #idSpa{ left: 16px; }
+  #descSpa{ left: 139px; }
   #rolSpa{ left: 15px; }
 }
 

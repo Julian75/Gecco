@@ -17,7 +17,7 @@ h2{
   width: 250px;
 }
 .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-.nombre3{ margin-left: 55%; margin-top: -42.5%;}
+.nombre3{ margin-left: 55%; margin-top: -31%;}
 .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 .guardar{
   background-color: #00235C ;
@@ -25,7 +25,7 @@ h2{
   width: 200px;
   height: 40px;
   font-size: large;
-  margin-left: 57.5%;
+  margin-left: 60%;
   margin-top: 0.5%;
 }
 
@@ -46,7 +46,9 @@ h2{
   .guardar{
     margin-left: 9%;
   }
-
+  .guardar{
+    left: -13px;
+  }
   .guardar2{ padding-bottom: 10%; }
 }
 
@@ -66,21 +68,23 @@ h2{
 @media screen and (min-width: 494px) and (max-width: 720px){
   .nombre { width: 45%; }
   .nombre1{ width: 100%; }
-  .nombre3{ margin-left: 55%; margin-top: -99.6%;}
+  .nombre3{ margin-left: 55%; margin-top: -74.2%;}
   .guardar{
     margin-left: 28%;
   }
-
+  .guardar{
+    left: -23%;
+  }
   .guardar2{ padding-bottom: 10%; }
 }
 
 /* Tablet pequeña */
 @media screen and (min-width: 721px) and (max-width: 768px){
   .nombre2, .nombre4{ margin-top: 7%;}
-  .nombre3{ margin-left: 55%; margin-top: -88%;}
+  .nombre3{ margin-left: 55%; margin-top: -64%;}
 
   .guardar{
-    margin-left: 34%;
+    margin-left: 6%;
     margin-top: 7%;
   }
 }
@@ -88,10 +92,10 @@ h2{
 /* Tablet medio */
 @media screen and (min-width: 769px) and (max-width: 1023px){
   .nombre2, .nombre4{ margin-top: 9%;}
-  .nombre3{ margin-left: 55%; margin-top: -107%;}
+  .nombre3{ margin-left: 55%; margin-top: -78.1%;}
 
   .guardar{
-    margin-left: 34%;
+    margin-left: 6%;
     margin-top: 7%;
   }
   .nombre1{
@@ -102,3 +106,24 @@ h2{
   }
 }
 
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .nombre3{
+    margin-left: 55%;
+    margin-top: -38%;
+  }
+  .guardar{
+    margin-left: 61%;
+  }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .nombre3{
+    margin-left: 55%;
+    margin-top: -35.8%;
+  }
+  .guardar{
+    margin-left: 61%;
+  }
+}

@@ -1,104 +1,237 @@
 h2{
     margin: 0;
+}
+.solpiner{
+  background-color: rgba(90, 90, 90, 0.247);
+  width: 100%;
+  height: 100%;
+  z-index: 50px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+.loader {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #FFF transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-top: 22%;
+  margin-left: 50%;
+}
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #00235C #00235C;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 92px;
+  height: 92px;
+  border-color: #FFF #FFF transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
   }
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
+  100% {
+    transform: rotate(360deg);
   }
-  .nombre, .estado, .nombre1{
-    width: 250px;
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
   }
-  .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-  .nombre3{ margin-left: 55%; margin-top: -42.5%;}
-  .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.container{
+  width: 80%;
+  background-color: white;
+  margin-left: 10%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+  margin-top: 10%;
+  box-shadow: 1px 2px 10px #959595;
+}
+.nombre, .estado, .nombre1{
+  width: 250px;
+}
+.nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
+.nombre3{ margin-left: 55%; margin-top: -42.5%;}
+.nombre4{ margin-left: 55%; margin-top: 1.3%;}
+.nombre5{
+  margin-left: 55%;
+    margin-top: 4%;
+}
+.guardar{
+  background-color: #00235C;
+  color: white;
+  width: 200px;
+  height: 40px;
+  font-size: large;
+  margin-left: 4%;
+  top: 703px;
+  position: absolute;
+  width: 18.8%;
+}
+
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 3%;
+  padding-bottom: 4%;
+}
+.contenedor{
+  width: 80% !important; margin-left: 10%; margin-top: 4%;
+}
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .nombre, .nombre1{ width: 100%; }
+  .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
+  .nombre4{ margin-left: 0%;}
   .guardar{
-    background-color: #00235C ;
-    color: white;
-    width: 200px;
-    height: 40px;
-    font-size: large;
-    margin-left: 57.5%;
-    margin-top: 0.5%;
+    margin-left: 4%;
+  }
+  .nombre5{
+    margin-left: 15%;
+  }
+  .guardar2{ padding-bottom: 10%; }
+}
+
+/* Movil medio - Samsung Galaxy S8 */
+@media screen and (min-width: 360px) and (max-width: 493px){
+  .nombre, .nombre1{ width: 100%; }
+  .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
+  .nombre4{ margin-left: 0%;}
+  .guardar{
+    margin-left: 14%;
+    margin-top: -4%;
+  }
+  .nombre5{
+    margin-left: 22%;
+  }
+  .guardar2{ padding-bottom: 10%; }
+}
+
+/* Movil grande - Surface Duo*/
+@media screen and (min-width: 494px) and (max-width: 720px){
+  h2{
+    width: 198px;
+  }
+  .nombre { width: 45%; }
+  .nombre1{ width: 100%; }
+  .nombre3{ margin-left: 55%; margin-top: -99.6%;}
+  .guardar{
+    margin-left: 4%;
+    top: 634px;
+    width: 34%;
+    position: absolute;
+  }
+  .nombre5{
+    margin-left: 55%;
+    top: 34px;
+    position: relative;
+  }
+  .guardar2{ padding-bottom: 10%; }
+}
+
+/* Tablet pequeña */
+@media screen and (min-width: 721px) and (max-width: 768px){
+  .nombre2, .nombre4{ margin-top: 7%;}
+  .nombre3{ margin-left: 55%; margin-top: -88%;}
+  .nombre5{
+    margin-left: 55%;
+    margin-top: 11%;
+  }
+  .guardar{
+    margin-left: 4%;
+    top: 805px;
+    position: absolute;
+    width: 33%;
+  }
+}
+
+/* Tablet medio */
+@media screen and (min-width: 769px) and (max-width: 1023px){
+  .nombre2, .nombre4{ margin-top: 9%;}
+  .nombre3{ margin-left: 55%; margin-top: -107%;}
+  .nombre5{
+    margin-left: 55%;
+    margin-top: 13%;
+  }
+  .guardar{
+    margin-left: 4%;
+    top: 805px;
+    position: absolute;
+    width: 33%;
+  }
+  .nombre1{
+    width: 227px;
+  }
+  .nombre{
+    width: 227px;
+  }
+}
+
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .nombre3{
+    margin-left: 55%;
+    margin-top: -52.2%;
+  }
+  .nombre5{
+    margin-top: 40px;
+    margin-left: 55%;
   }
 
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
+  .guardar{
+    margin-left: 4%;
+    top: 642px;
+    position: absolute;
+    width: 23.5%;
   }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
+}
 
-  /* Movil pequeño - Galaxy Fold*/
-  @media screen and (min-width: 280px) and (max-width: 359px){
-    .nombre, .nombre1{ width: 100%; }
-    .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
-    .nombre4{ margin-left: 0%;}
-    .guardar{
-      margin-left: 9%;
-    }
-
-    .guardar2{ padding-bottom: 10%; }
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .nombre3{
+    margin-left: 55%;
+    margin-top: -48.5%;
   }
 
-  /* Movil medio - Samsung Galaxy S8 */
-  @media screen and (min-width: 360px) and (max-width: 493px){
-    .nombre, .nombre1{ width: 100%; }
-    .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
-    .nombre4{ margin-left: 0%;}
-    .guardar{
-      margin-left: 14%;
-    }
-
-    .guardar2{ padding-bottom: 10%; }
+  .nombre5{
+    margin-top: 3.8%;
+    margin-left: 55%;
   }
 
-  /* Movil grande - Surface Duo*/
-  @media screen and (min-width: 494px) and (max-width: 720px){
-    .nombre { width: 45%; }
-    .nombre1{ width: 100%; }
-    .nombre3{ margin-left: 55%; margin-top: -99.6%;}
-    .guardar{
-      margin-left: 28%;
-    }
-
-    .guardar2{ padding-bottom: 10%; }
+  .guardar{
+    margin-left: 4%;
+    top: 656px;
+    position: absolute;
+    width: 21.5%;
   }
-
-  /* Tablet pequeña */
-  @media screen and (min-width: 721px) and (max-width: 768px){
-    .nombre2, .nombre4{ margin-top: 7%;}
-    .nombre3{ margin-left: 55%; margin-top: -88%;}
-
-    .guardar{
-      margin-left: 34%;
-      margin-top: 7%;
-    }
-  }
-
-  /* Tablet medio */
-  @media screen and (min-width: 769px) and (max-width: 1023px){
-    .nombre2, .nombre4{ margin-top: 9%;}
-    .nombre3{ margin-left: 55%; margin-top: -107%;}
-
-    .guardar{
-      margin-left: 34%;
-      margin-top: 7%;
-    }
-    .nombre1{
-      width: 227px;
-    }
-    .nombre{
-      width: 227px;
-    }
-  }
-
+}

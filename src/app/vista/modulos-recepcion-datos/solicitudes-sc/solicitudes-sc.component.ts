@@ -28,7 +28,29 @@ export class SolicitudesScComponent implements OnInit {
 
   public listarTodos () {
     this.servicioSolicitudSc.listarTodos().subscribe( res =>{
+      res.forEach(elementSolicitud => {
+        var fechaInicio = new Date(elementSolicitud.fecha);
+        var fecha1 = fechaInicio.getTime();
+        var fechaActual = new Date().getTime();
+        var fechaFin = new Date(elementSolicitud.vence);
+        var fecha2 = fechaFin.getTime();
+
+        var resta = fecha1 - fecha2;
+        var diferencia = resta/(1000*60*60*24)
+        console.log(diferencia)
+        for (let i = 0; i < diferencia; i++) {
+          var fechaTrancurriendo = fechaInicio.getFullYear() + "-"+ fechaInicio.getMonth()+ "-" +(fechaInicio.getDate()+i);
+          var fechaTrancurriendo2 = new Date(fechaTrancurriendo);
+          if ((fechaTrancurriendo2.getDay() == 0) || (fechaTrancurriendo2.getDay() == 6)) {
+            console.log("dias de finde")
+          }else{
+            var diasHabiles =+ 1
+          }
+          console.log(diasHabiles)
+        }
+      });
       this.listarSolicitud = res;
+      console.log(this.listarSolicitud)
       this.dataSource = new MatTableDataSource(this.listarSolicitud);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

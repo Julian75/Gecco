@@ -1,0 +1,23 @@
+
+<div class="contenedor">
+  <h2 class="dato">Reporte Asesor</h2>
+  <form [formGroup]="formReporte">
+    <div class="row1">
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Documento Asesor</h2>
+        <mat-form-field class="nombre"  appearance="fill">
+          <mat-label>Ingrese Documento Asesor</mat-label>
+          <input id="documentoAsesor" formControlName="documentoAsesor" matInput >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="reporte()">Generar Reporte</button>
+    </div>
+  </form>
+</div>
+<!-- <div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div> -->
+
