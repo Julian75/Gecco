@@ -14,14 +14,14 @@
             <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
           </ng-container>
           <!-- Name Column -->
-          <ng-container matColumnDef="observacion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Descripcion</h3></th>
+          <ng-container matColumnDef="comentarios">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Comentarios</h3></th>
             <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Usuario</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Usuario del Comentario</h3></th>
             <td mat-cell *matCellDef="let element">{{element.idUsuario.descripcion}}</td>
           </ng-container>
 

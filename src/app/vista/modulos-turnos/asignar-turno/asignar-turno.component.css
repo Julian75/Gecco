@@ -129,9 +129,9 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSp, #estSp, #iniSp, #finSp, #turSp{ left: 8px; }
-  #ofcSp{ left: 60px; }
-  #sitSp{ left: 40px; }
+  #idSp, #estSp, #iniSp, #finSp, #turSp{ left: 11px; }
+  #ofcSp{ left: 49px; }
+  #sitSp{ left: 29px; }
 }
 
 /* Portatil Medio */

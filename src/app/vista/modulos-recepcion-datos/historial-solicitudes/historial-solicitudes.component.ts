@@ -14,36 +14,28 @@ import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitu
   styleUrls: ['./historial-solicitudes.component.css']
 })
 export class HistorialSolicitudesComponent implements OnInit {
-  displayedColumns = ['id', 'observacion','usuario','estado'];
+
+  displayedColumns = ['id', 'comentarios','usuario','estado'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
-    public dialog: MatDialog,
-    private servicioHistorial: HistorialSolicitudesService,
+
   ) { }
 
   ngOnInit(): void {
-    this.listarTodos()
+
   }
 
-  public listarTodos(){
-    this.servicioHistorial.listarTodos().subscribe(res=>{
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
+  // Filtrado
+  applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
   }
-
-
-   // Filtrado
-   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
   name = 'Historial.xlsx';
   exportToExcel(): void {

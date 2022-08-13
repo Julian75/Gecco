@@ -49,8 +49,8 @@ mat-form-field{
 }
 .botonagregar, .excelButton, .btnremove, .btnedit{ width: 64px; height: 36px; margin-left: 0%;}
 .botonagregar mat-icon{ font-size: 24px; }
-#idSp{ left: 46px; }
-#desSp{ left: 107px; }
+#idSp{ left: 37px; }
+#desSp{ left: 113px; }
 #obsSp{ left: 108px; }
 #opcSp{ text-align: center; left: 8px;}
 #idSp, #desSp, #obsSp, #opcSp{ position: relative; }

@@ -123,6 +123,7 @@ import { AgregarPresupuestoVentaMensualComponent } from './modulos-turnos/presup
 import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
 import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/historial-solicitudes.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
+import { AgregarHistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/agregar-historial-solicitudes/agregar-historial-solicitudes.component';
 
 @NgModule({
   declarations: [
@@ -244,7 +245,8 @@ import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-
     AgregarPresupuestoVentaMensualComponent,
     ModificarPresupuestoVentaMensualComponent,
     HistorialSolicitudesComponent,
-    ReporteAsesorComponent
+    ReporteAsesorComponent,
+    AgregarHistorialSolicitudesComponent
   ],
   imports: [
     CommonModule,

@@ -22,6 +22,7 @@ h1{
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 20px;
+  margin-left: 16px;
 }
 
 .btnVisualizar{
@@ -144,7 +145,7 @@ th.mat-header-cell{ padding-right: 15px; }
   .guardar{
     background-color: #00235C;
     color: white;
-    width: 150px;
+    width: 222px;
     height: 40px;
     font-size: large;
     margin-left: -1%;
@@ -266,7 +267,7 @@ th.mat-header-cell{ padding-right: 15px; }
     font-size: large;
     margin-left: 44%;
     top: 0%;
-    margin-left: 0%;
+    margin-left: 21%;
   }
   .row1{
     border-top: 3px solid #97B4E2;
@@ -574,7 +575,7 @@ th.mat-header-cell{ padding-right: 15px; }
     width: 150px;
     height: 40px;
     font-size: large;
-    margin-left: 5%;
+    margin-left: 1%;
     top: 0%;
   }
   .row1{

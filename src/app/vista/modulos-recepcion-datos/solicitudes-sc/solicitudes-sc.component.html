@@ -11,75 +11,75 @@
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3>Id</h3></th>
-          <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+          <td mat-cell *matCellDef="let element" id="idSp2">{{element.solicitud.id}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="fecha">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Fecha</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+            <td mat-cell *matCellDef="let element">{{element.solicitud.fecha}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="vence">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Vence</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.vence}}</td>
+            <td mat-cell *matCellDef="let element">{{element.solicitud.vence}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="municipio">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Municipio</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.municipio}}</td>
+            <td mat-cell *matCellDef="let element">{{element.solicitud.municipio}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="incidente">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Incidente</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.incidente}}</td>
+            <td mat-cell *matCellDef="let element">{{element.solicitud.incidente}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="motivoSolicitud">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Motivo de Solicitud</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idMotivoSolicitud.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.idMotivoSolicitud.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="medioRadicacion">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Medios de Radicacion</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.medioRadicacion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.medioRadicacion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="tipoServicio">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Tipo servicio</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idTipoServicio.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.idTipoServicio.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="auxiliarRadicacion">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Auxiliar quien radico</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.auxiliarRadicacion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.auxiliarRadicacion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="escala">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Escala</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idEscala.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.idEscala.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="estado">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Estado</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+          <td mat-cell *matCellDef="let element" id="{{element.nombre}}">{{element.solicitud.idEstado.descripcion}}</td>
         </ng-container>
 
         <!--Opciones-->
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2">
-              <mat-icon>edit</mat-icon>
+            <button class="btn btnedit mx-2" (click)="abrirModal()">
+              <mat-icon>visibility</mat-icon>
             </button>
           </td>
         </ng-container>

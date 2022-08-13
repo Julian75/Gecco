@@ -1,39 +1,31 @@
-<h2 class="dato">Ingresar Nueva Escala Solicitudes</h2>
-<form [formGroup]="formTipoServicio">
+<h2 class="dato">¿Desea adquirir una opinion más a fondo en la solicitud?</h2>
+<form [formGroup]="formComentario">
   <div class="row1">
-    <!-- Ingresar Nombre -->
+    <!-- Ingresar Observacion -->
     <div class="nombre2">
-      <h2>Observacion</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese observacion </mat-label>
-      <input id="descripcion" formControlName="descripcion" matInput>
+      <h2>Comentario</h2>
+      <mat-radio-group aria-label="Seleccione una opción">
+        <mat-radio-button (change)="capturarOpcion(1)" value="1">Si</mat-radio-button>
+        <mat-radio-button (change)="capturarOpcion(2)" value="2">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="nombre2" *ngIf="aprobar==true">
+      <h2>Usuarios</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Seleccione el usuario</mat-label>
+      <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+        <option ></option>
+      </select>
       </mat-form-field>
     </div>
-    <div class="nombre2">
-        <h2>Usuario</h2>
-        <mat-form-field class="nombre" appearance="fill">
-        <mat-label>Ingrese Usuario</mat-label>
-        <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
-          <option *ngFor="let item of listaUsuario"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
-        </mat-form-field>
-      </div>
-
-      <div class="nombre2">
-        <h2>Solicitud</h2>
-        <mat-form-field class="nombre" appearance="fill">
-        <mat-label>Ingrese Solicitud</mat-label>
-        <select matNativeControl id="solicitud" name="solicitud" formControlName="solicitud">
-          <option *ngFor="let item of listaSolicitud"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
-        </mat-form-field>
-      </div>
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->
     <div class="guardar2">
-      <button mat-raised-button class="guardar" (click)="guardar()">Insertar</button>
+      <button mat-raised-button class="guardar">Comentario</button>
     </div>
   </div>
 </form>
-
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

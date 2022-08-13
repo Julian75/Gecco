@@ -55,8 +55,10 @@ mat-form-field{
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #nombreSpa, #fechaISpa, #fechaFSpa, #nombreOficSpa, #nombreSitioVSpa, #turnoSpa{ position: relative; }
-#idSpa, #fechaISpa, #fechaFSpa, #nombreSitioVSpa{ left: 8px; }
-#nombreSpa{ left: 15px; }
+#idSpa { left: 11px;}
+#fechaISpa, #fechaFSpa { left: 8px; }
+#nombreSitioVSpa{ left: 18px; }
+#nombreSpa{ left: 30px; }
 #nombreOficSpa{ left: 40px; }
 #turnoSpa{ left: 70px; }
 #idSp2{ padding-left: 0%; }

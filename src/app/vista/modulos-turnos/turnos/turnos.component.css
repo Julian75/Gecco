@@ -55,12 +55,12 @@ mat-form-field{
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 8px; }
-#descSpa{ left: 28px; }
-#horaISpa{ left: 35px; }
+#idSpa{ left: 20px; }
+#descSpa{ left: 54px; }
+#horaISpa{ left: 49px; }
 #horaFSpa{ left: 28px; }
-#estadoSpa{ left: 25px; }
-#tipoTurSpa{ left: 27px; }
+#estadoSpa{ left: 37px; }
+#tipoTurSpa{ left: 43px; }
 #opcSpa{ left: 5px; }
 #idSp2{ padding-left: 0%; }
 .excelButton i{ position: relative; top: 1px; }
