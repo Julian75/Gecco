@@ -39,6 +39,9 @@
               <button class="btn btnedit2 me-2 edi" (click)="verPasos(item.id, item.idEstado.id)">
                 <mat-icon>insights</mat-icon>
               </button>
+              <button *ngIf="item.idEstado.id == 34" class="btn btnedit me-2 descar" (click)="descargarPdf(item.id)">
+                <mat-icon>file_download</mat-icon>
+              </button>
             </td>
           </ng-container>
 

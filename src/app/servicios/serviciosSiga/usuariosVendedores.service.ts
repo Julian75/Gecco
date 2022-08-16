@@ -19,8 +19,15 @@ export class UsuarioVendedoresService {
   public listarTodos(){
     return this.http.get<UsuariosVendedores[]>(this.path+'/Obtener');
   }
+
+  //Listar por id de oficina
   public listarPorId(id: number){
     return this.http.get<UsuariosVendedores[]>(this.path+'/Obtener?id='+id);
+  }
+
+  //Listar por número de identificación
+  public listarPorDocumento(numDocumento: number){
+    return this.http.get<UsuariosVendedores[]>(this.path+'/Obtener?documentoUsuario='+numDocumento);
   }
 
 }

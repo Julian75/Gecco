@@ -1,3 +1,4 @@
+import { PeticionCotizacionComponent } from './peticion-cotizacion/peticion-cotizacion.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -316,14 +317,7 @@ export class GenerarSolicitudComponent implements OnInit {
 
   public registrarSolicitud(solicitud: Solicitud){
     this.servicioSolicitud.registrar(solicitud).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se registro la solicitud!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.detalleSolicitud()
+      this.detalleSolicitud(res)
     }, error => {
       Swal.fire({
         position: 'center',
@@ -335,7 +329,7 @@ export class GenerarSolicitudComponent implements OnInit {
     });
   }
 
-  public detalleSolicitud(){
+  public detalleSolicitud(solicitud:any){
     var usuarios: any = []
     this.servicioSolicitud.listarTodos().subscribe(resSolicitudes=>{
       resSolicitudes.forEach(element => {
@@ -360,17 +354,20 @@ export class GenerarSolicitudComponent implements OnInit {
           detalleSolicitud.observacion = element.observacion
           this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
             detalleSolicitud.idEstado = resEstado
-            this.registrarDetalleSolicitud(detalleSolicitud)
+            this.registrarDetalleSolicitud(detalleSolicitud, solicitud)
           })
         });
       });
     })
   }
 
-  public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud){
+  public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud, solicitud: any){
     this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      window.location.reload();
+      const dialogRef = this.dialog.open(PeticionCotizacionComponent, {
+        width: '500px',
+        data: solicitud
+      })
     }, error => {
       Swal.fire({
         position: 'center',

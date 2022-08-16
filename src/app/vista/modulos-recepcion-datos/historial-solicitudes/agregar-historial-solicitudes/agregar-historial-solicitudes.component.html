@@ -1,9 +1,16 @@
-<h2 class="dato">¿Desea adquirir una opinion más a fondo en la solicitud?</h2>
+<h2 class="dato">Agregar Comentario</h2>
 <form [formGroup]="formComentario">
   <div class="row1">
     <!-- Ingresar Observacion -->
     <div class="nombre2">
       <h2>Comentario</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Ingrese comentario</mat-label>
+      <textarea id="comentario" formControlName="comentario" matInput></textarea>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Desea remitir esta solicitud?</h2>
       <mat-radio-group aria-label="Seleccione una opción">
         <mat-radio-button (change)="capturarOpcion(1)" value="1">Si</mat-radio-button>
         <mat-radio-button (change)="capturarOpcion(2)" value="2">No</mat-radio-button>
@@ -11,18 +18,27 @@
     </div>
     <div class="nombre2" *ngIf="aprobar==true">
       <h2>Usuarios</h2>
-      <mat-form-field class="nombre" appearance="fill">
-      <mat-label>Seleccione el usuario</mat-label>
-      <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
-        <option ></option>
-      </select>
+      <mat-form-field class="nombre1" appearance="fill">
+        <mat-label>Seleccione el usuario</mat-label>
+        <mat-select [formControl]="usuarios" multiple>
+          <mat-option *ngFor="let item of listarUsuarios" [value]="item">{{item.idUsuario.nombre}} || {{item.area}}</mat-option>
+        </mat-select>
       </mat-form-field>
+    </div>
+    <div class="nombre5">
+      <button id="selectButton" mat-raised-button (click)="fileInput.click()" >Subir Soporte</button>
+      <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" /><br>
+      <span *ngIf="fileName" style="position: relative; top: 15px;"><strong style="margin-right: 5px;">Cantidad de archivos: </strong>{{fileName}}</span><br>
+      <h4 *ngIf="fileName" style="position:relative; top:20px"><strong>Nombres de los archivos seleccionados:</strong></h4>
+      <ul style="margin-top:5%;">
+        <li style="margin-top: 5px;" *ngFor="let item of listaArchivos2">{{item}}</li>
+      </ul>
     </div>
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->
     <div class="guardar2">
-      <button mat-raised-button class="guardar">Comentario</button>
+      <button mat-raised-button class="guardar" (click)="guardar()">Generar</button>
     </div>
   </div>
 </form>

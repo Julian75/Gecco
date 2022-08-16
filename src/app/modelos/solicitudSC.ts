@@ -15,5 +15,4 @@ export class SolicitudSC {
     public auxiliarRadicacion : string = "";
     idEscala !: EscalaSolicitudes
     idEstado !: Estado
-    public archivos : string = "";
 }

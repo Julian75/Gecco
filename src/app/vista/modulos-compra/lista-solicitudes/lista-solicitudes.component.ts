@@ -1,3 +1,6 @@
+import { CotizacionService } from './../../../servicios/cotizacion.service';
+import { SubirPdfService } from './../../../servicios/subirPdf.service';
+import { CotizacionPdfService } from './../../../servicios/cotizacionPdf.service';
 import { OrdenCompraService } from './../../../servicios/ordenCompra.service';
 import { DetalleSolicitudService } from './../../../servicios/detalleSolicitud.service';
 import { UsuarioService } from './../../../servicios/usuario.service';
@@ -33,6 +36,7 @@ export class ListaSolicitudesComponent implements OnInit {
   public listaDetalleSolicitud: any = [];
   public habilitar: any = false;
   public fecha: Date = new Date();
+  public listaPdf: any = [];
 
   displayedColumns = ['id', 'fecha','usuario', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -50,6 +54,9 @@ export class ListaSolicitudesComponent implements OnInit {
     private servicioModificar: ModificarService,
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
+    private servicioCotizacion: CotizacionService,
+    private servicioCotizacionPdf: CotizacionPdfService,
+    private servicioPdf: SubirPdfService,
   ) { }
 
 
@@ -68,7 +75,7 @@ export class ListaSolicitudesComponent implements OnInit {
         if(this.habilitar == true){
           this.solicitudService.listarTodos().subscribe(res => {
             res.forEach(element => {
-              if (element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 34  || element.idEstado.id == 46) {
+              if (element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 34  || element.idEstado.id == 46 || element.idEstado.id == 56|| element.idEstado.id == 60) {
                this.listaSolicitudes.push(element);
               }
             })
@@ -79,7 +86,7 @@ export class ListaSolicitudesComponent implements OnInit {
         }else if(this.habilitar == false){
           this.solicitudService.listarTodos().subscribe(res => {
             res.forEach(element => {
-              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57) {
+              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57 || element.idEstado.id == 60) {
                this.listaSolicitudes.push(element);
               }
             })
@@ -92,6 +99,35 @@ export class ListaSolicitudesComponent implements OnInit {
     })
   }
 
+  // Lista cotizacion
+  listCotizaciones: any = []
+  listPdf: any = []
+  pdfGuardados: any = []
+  //Descargar Cotizacion Individualmente
+  public descargarPdf(id: number){
+    this.listCotizaciones = []
+    this.servicioCotizacion.listarTodos().subscribe(resCotizaciones=>{
+      resCotizaciones.forEach(elementCotizacion => {
+        if(elementCotizacion.idSolicitud.id == id && elementCotizacion.idEstado.id == 33){
+          this.servicioCotizacionPdf.listarTodos().subscribe(resCotiPdf=>{
+            resCotiPdf.forEach(elementPdf => {
+              if(elementPdf.idCotizacion.id == elementCotizacion.id && elementPdf.idEstado.id == 39){
+                // this.listPdf = resPdf
+                this.servicioPdf.listarTodos().subscribe(resPdf=>{
+                  this.pdfGuardados = resPdf
+                  this.pdfGuardados.forEach(elementpdfGuardados => {
+                    if(elementpdfGuardados.name == elementPdf.nombrePdf){
+                      window.location.href = elementpdfGuardados.url
+                    }
+                  });
+                })
+              }
+            });
+          })
+        }
+      });
+    })
+  }
 
   verPasos(id: number, idEstado: number){
     const dialogRef = this.dialog.open(PasosComponent, {

@@ -70,6 +70,9 @@ import { EscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-sol
 import { AgregarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/agregar-escala-solicitudes/agregar-escala-solicitudes.component';
 import { ModificarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/modificar-escala-solicitudes/modificar-escala-solicitudes.component';
 import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/historial-solicitudes.component';
+import { AsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/asignacion-usuario-pqr.component';
+import { AgregarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/agregar-asignacion-usuario-pqr/agregar-asignacion-usuario-pqr.component';
+import { ModificarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/modificar-asignacion-usuario-pqr/modificar-asignacion-usuario-pqr.component';
 
 const routes: Routes = [
   {
@@ -440,6 +443,22 @@ const routes: Routes = [
       {
         path: 'reporteAsesor',
         component: ReporteAsesorComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //AsignacionUsuarioPqr
+      {
+        path: 'asignacionUsuariosPqr',
+        component: AsignacionUsuarioPqrComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarUsuariosPqr',
+        component: AgregarAsignacionUsuarioPqrComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'modificarUsuariosPqr/:id',
+        component: ModificarAsignacionUsuarioPqrComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

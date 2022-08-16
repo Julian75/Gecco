@@ -1,3 +1,4 @@
+import { ListaCotizacionesLiderProcesoComponent } from './../lista-cotizaciones-lider-proceso/lista-cotizaciones-lider-proceso.component';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { CotizacionService } from './../../../servicios/cotizacion.service';
 import { GestionProcesoService } from './../../../servicios/gestionProceso.service';
@@ -59,6 +60,7 @@ export class PasosComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioUsuarioAdministradores: UsuariosAdministracionService,
     private servicioGestionProceso: GestionProcesoService,
+    private servicioCotizacion: CotizacionService,
     private servicioOrdenCompra: OrdenCompraService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioConfiguracion: ConfiguracionService,
@@ -272,6 +274,7 @@ export class PasosComponent implements OnInit {
 
   public solicitudes(){
     this.listarExiste = []
+    this.listarExiste2 = []
     for (const [key, value] of Object.entries(this.data)) {
       this.lista.push(value)
     }
@@ -307,30 +310,63 @@ export class PasosComponent implements OnInit {
               }
             })
           }else if(existe == false){
-            this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-              if(res.idEstado.id == 56){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'warning',
-                  title: 'Aún no se ha validado la solicitud!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-              }if(res.idEstado.id == 30){
-                const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
-                  width: '2500px',
-                  height: '700px',
-                  data: this.lista[0]
-                });
+            for (let index = 0; index < resAccesos.length; index++) {
+              const element = resAccesos[index];
+              if(element.idModulo.id == 24 && resUsuario.idRol.id == element.idRol.id  ){
+                this.habilitar2 = true
+              }else if(resSolicitud.idUsuario.id == resUsuario.id){
+                this.habilitar2 = false
               }
-            })
+              this.listarExiste2.push(this.habilitar2)
+            }
+            const existe2 = this.listarExiste2.includes( true )
+            if(existe2 == true){
+              this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+                if(res.idEstado.id == 56){
+                  const dialogRef = this.dialog.open(SolicitudesComponent, {
+                    width: '1000px',
+                    height: '430px',
+                    data: this.lista[0]
+                  });
+                }else if(res.idEstado.id == 30){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Aún no se ha modificado la solicitud!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
+              })
+            }else if(existe2 == false){
+              this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
+                if(res.idEstado.id == 56){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Aún no se ha validado la solicitud!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }if(res.idEstado.id == 30){
+                  const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
+                    width: '2500px',
+                    height: '700px',
+                    data: this.lista[0]
+                  });
+                }
+              })
+            }
           }
         })
       })
     })
   }
 
+  existeCotizacion:boolean = false
+  listaCotizacion: any = []
   public solicitudes2(){
+    this.listaCotizacion = []
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
     this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
         resAccesos.forEach(element => {
@@ -340,13 +376,34 @@ export class PasosComponent implements OnInit {
         });
         if(this.habilitar == true){
           this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
-            if(res.idEstado.id == 29){
-              const dialogRef = this.dialog.open(GenerarCotizacionComponent, {
-                width: '1000px',
-                height: '430px',
-                data: this.lista[0]
+            this.servicioCotizacion.listarTodos().subscribe(resCotizacion=>{
+              resCotizacion.forEach(elementCotizacion => {
+                if(elementCotizacion.idSolicitud.id == res.id && elementCotizacion.idEstado.id != 32){
+                  this.existeCotizacion = true
+                }else{
+                  this.existeCotizacion = false
+                }
+                this.listaCotizacion.push(this.existeCotizacion)
               });
-            }
+              const existeCotizacion = this.listaCotizacion.includes( true )
+              if(existeCotizacion == true ){
+                if(res.idEstado.id == 29){
+                  const dialogRef = this.dialog.open(ListaCotizacionesLiderProcesoComponent, {
+                    width: '1000px',
+                    height: '430px',
+                    data: this.lista[0]
+                  });
+                }
+              }else{
+                if(res.idEstado.id == 29){
+                  const dialogRef = this.dialog.open(GenerarCotizacionComponent, {
+                    width: '1000px',
+                    height: '430px',
+                    data: this.lista[0]
+                  });
+                }
+              }
+            })
           })
         }else if(this.habilitar == false){
           this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
@@ -487,6 +544,7 @@ export class PasosComponent implements OnInit {
     })
   }
 
+  firma: boolean = false
   // Card aprobacion
   public solicitudes5(){
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
@@ -512,8 +570,12 @@ export class PasosComponent implements OnInit {
                 height: '650px',
                 data: this.lista[0]
               });
-            }else if(res.idEstado.id == 46 || res.idEstado.id == 60){
-              this.requisicion();
+            }else if(res.idEstado.id == 46){
+              this.firma = false
+              this.requisicion(this.firma);
+            }else if(res.idEstado.id == 60){
+              this.firma = true
+              this.requisicion(this.firma);
             }
           })
         }else if(this.habilitar == false){
@@ -532,10 +594,13 @@ export class PasosComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 })
-              }else if(res.idEstado.id == 46 || res.idEstado.id == 60){
-                this.requisicion();
-              }
-              else if(res.idEstado.id == 47){
+              }else if(res.idEstado.id == 46){
+                this.firma = false
+                this.requisicion(this.firma);
+              }else if(res.idEstado.id == 60){
+                this.firma = true
+                this.requisicion(this.firma);
+              }else if(res.idEstado.id == 47){
                 this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCompra=>{
                   resOrdenCompra.forEach(element => {
                     const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
@@ -577,7 +642,8 @@ export class PasosComponent implements OnInit {
                   data: this.lista[0]
                 });
               }else if(res.idEstado.id == 60){
-                this.requisicion();
+                this.firma = true
+                this.requisicion(this.firma);
               }
             })
           }
@@ -586,7 +652,7 @@ export class PasosComponent implements OnInit {
     })
   }
 
-  public requisicion(){
+  public requisicion(firmaDecision){
     document.getElementById('snipper3')?.setAttribute('style', 'display: block;')
     this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCom=>{
       resOrdenCom.forEach(element => {
@@ -633,136 +699,247 @@ export class PasosComponent implements OnInit {
               });
             })
             this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
-              const pdfDefinition: any = {
-                content: [
-                  {
-                    image: await this.getBase64ImageFromURL(
-                      'assets/logo/suchance.png'
-                    ),
-                    relativePosition: {x: 0, y: 0},
-                    width: 150,
-                  },
-                  {
-                    text: 'Nombre Empresa: '+this.nombreEmpresa,
-                    bold: true,
-                    margin: [0, 80, 0, 10]
-                  },
-                  {
-                    text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
-                    margin: [0, 0, 0, 10]
-                  },
-                  {
-                    text: 'Fecha: '+res.idSolicitud.fecha,
-                    margin: [0, 0, 0, 10]
-                  },
-                  {
-                    text: 'Proveedor: '+res.idProveedor.nombre,
-                    margin: [0, 0, 0, 10]
-                  },
-                  {
-                    text: 'Orden Compra: '+res.id,
-                    relativePosition: {x: 250, y: -25},
-                    margin: [0, 0, 0, 20]
-                  },
-                  {
-                    text: 'Requisición',
-                    bold: true,
-                    fontSize: 20,
-                    alignment: 'center',
-                    margin: [0, 0, 0, 20]
-                  },{
-                    table: {
-                      widths: ['*', '*', '*', '*'],
-                      body: [
-                        [
-                          'Articulo',
-                          'Cantidad',
-                          'Valor Unitario',
-                          'Valor Total'
-                        ],
-                      ]
+              if(firmaDecision == true){
+
+                const pdfDefinition: any = {
+                  content: [
+                    {
+                      image: await this.getBase64ImageFromURL(
+                        'assets/logo/suchance.png'
+                      ),
+                      relativePosition: {x: 0, y: 0},
+                      width: 150,
                     },
-                    margin: [0, 0, 0, 0.3]
-                  },
-                  {
-                    table: {
-                      widths: ['*', '*', '*', '*'],
-                      body: body
+                    {
+                      text: 'Nombre Empresa: '+this.nombreEmpresa,
+                      bold: true,
+                      margin: [0, 80, 0, 10]
                     },
-                    margin: [0, 0, 0, 40]
-                  },
-                  {
-                    text: 'SubTotal: '+ res.subtotal +' COP',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [0, 0, 0, 20],
-                  },
-                  {
-                    text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [0, 0, 0, 20],
-                  },
-                  {
-                    text: 'Descuento: '+ res.descuento +' COP',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [0, 0, 0, 20],
-                  },
-                  {
-                    text: 'Total: '+ res.valorAnticipo +' COP',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [0, 0, 0, 20],
-                  },
-                  {
-                    text: this.nombreGerente,
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-320, 180, 0, 0],
-                    fontSize: 13,
-                  },
-                  {
-                    text: 'Gerencia General',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-320, 20, 0, 0],
-                    fontSize: 10,
-                  },
-                  {
-                    text: this.nombreAdministrador,
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-320, 85, 0, 0],
-                    fontSize: 10
-                  },
-                  {
-                    text: 'Dirección Administrativa',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-320, 20, 0, 0],
-                    fontSize: 10
-                  },
-                  {
-                    text: this.nombreCompras,
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-10, -123, 0, 0],
-                    fontSize: 10
-                  },
-                  {
-                    text: 'Compras',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-10, 20, 0, 0],
-                    fontSize: 10
-                  },
-                  {
-                    text: this.idSolicitud,
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-10, 85, 0, 0],
-                    fontSize: 10
-                  },
-                  {
-                    text: 'Solicitante',
-                    relativePosition: {x: 350, y: -25},
-                    margin: [-10, 20, 0, 20],
-                    fontSize: 10
-                  },
-                ]
+                    {
+                      text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Fecha: '+res.idSolicitud.fecha,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Proveedor: '+res.idProveedor.nombre,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Orden Compra: '+res.id,
+                      relativePosition: {x: 250, y: -25},
+                      margin: [0, 0, 0, 20]
+                    },
+                    {
+                      text: 'Requisición',
+                      bold: true,
+                      fontSize: 20,
+                      alignment: 'center',
+                      margin: [0, 0, 0, 20]
+                    },{
+                      table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: [
+                          [
+                            'Articulo',
+                            'Cantidad',
+                            'Valor Unitario',
+                            'Valor Total'
+                          ],
+                        ]
+                      },
+                      margin: [0, 0, 0, 0.3]
+                    },
+                    {
+                      table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: body
+                      },
+                      margin: [0, 0, 0, 40]
+                    },
+                    {
+                      text: 'SubTotal: '+ res.subtotal +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Descuento: '+ res.descuento +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Total: '+ res.valorAnticipo +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: this.nombreGerente,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 180, 0, 0],
+                      fontSize: 13,
+                    },
+                    {
+                      text: 'Gerencia General',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.nombreAdministrador,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 85, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Dirección Administrativa',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: this.nombreCompras,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, -123, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Compras',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: this.idSolicitud,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 85, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Solicitante',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 20],
+                      fontSize: 10
+                    },
+                  ]
+                }
+                const pdf = pdfMake.createPdf(pdfDefinition);
+                pdf.open();
+              }else if(firmaDecision == false){
+
+                const pdfDefinition: any = {
+                  content: [
+                    {
+                      image: await this.getBase64ImageFromURL(
+                        'assets/logo/suchance.png'
+                      ),
+                      relativePosition: {x: 0, y: 0},
+                      width: 150,
+                    },
+                    {
+                      text: 'Nombre Empresa: '+this.nombreEmpresa,
+                      bold: true,
+                      margin: [0, 80, 0, 10]
+                    },
+                    {
+                      text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Fecha: '+res.idSolicitud.fecha,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Proveedor: '+res.idProveedor.nombre,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
+                      text: 'Orden Compra: '+res.id,
+                      relativePosition: {x: 250, y: -25},
+                      margin: [0, 0, 0, 20]
+                    },
+                    {
+                      text: 'Requisición',
+                      bold: true,
+                      fontSize: 20,
+                      alignment: 'center',
+                      margin: [0, 0, 0, 20]
+                    },{
+                      table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: [
+                          [
+                            'Articulo',
+                            'Cantidad',
+                            'Valor Unitario',
+                            'Valor Total'
+                          ],
+                        ]
+                      },
+                      margin: [0, 0, 0, 0.3]
+                    },
+                    {
+                      table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: body
+                      },
+                      margin: [0, 0, 0, 40]
+                    },
+                    {
+                      text: 'SubTotal: '+ res.subtotal +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Descuento: '+ res.descuento +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Total: '+ res.valorAnticipo +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Gerencia General',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 150, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: 'Dirección Administrativa',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 100, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Compras',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, -105, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Solicitante',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 100, 0, 20],
+                      fontSize: 10
+                    },
+                  ]
+                }
+                const pdf = pdfMake.createPdf(pdfDefinition);
+                pdf.open();
               }
-              const pdf = pdfMake.createPdf(pdfDefinition);
-              pdf.open();
               document.getElementById('snipper3')?.setAttribute('style', 'display: none;')
             })
           })

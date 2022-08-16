@@ -6,6 +6,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AgregarHistorialSolicitudesComponent } from '../historial-solicitudes/agregar-historial-solicitudes/agregar-historial-solicitudes.component';
+import { HistorialSolicitudesComponent } from '../historial-solicitudes/historial-solicitudes.component';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { AccesoService } from 'src/app/servicios/Acceso.service';
+import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitudes.service';
 
 @Component({
   selector: 'app-solicitudes-sc',
@@ -23,6 +27,9 @@ export class SolicitudesScComponent implements OnInit {
 
   constructor(
     private servicioSolicitudSc: SolicitudSCService,
+    private servicioUsuario: UsuarioService,
+    private servicioAccesos: AccesoService,
+    private servicioHistorial: HistorialSolicitudesService,
     public dialog: MatDialog,
   ) { }
 
@@ -30,13 +37,24 @@ export class SolicitudesScComponent implements OnInit {
     this.listarTodos();
   }
 
-  public abrirModal(){
+  public abrirModal(idSolicitud: any){
     const dialogRef = this.dialog.open(AgregarHistorialSolicitudesComponent, {
-      width: '500px'
+      width: '500px',
+      data: idSolicitud
+    });
+  }
+
+  public abrirHistorial(idSolicitud: any){
+    const dialogRef = this.dialog.open(HistorialSolicitudesComponent, {
+      width: '1000px',
+      data: idSolicitud
     });
   }
 
   public listarTodos () {
+
+
+
     this.servicioSolicitudSc.listarTodos().subscribe( res =>{
       res.forEach(elementSolicitud => {
         var obj = {
@@ -66,20 +84,21 @@ export class SolicitudesScComponent implements OnInit {
           }
         }
 
-        obj.solicitud = elementSolicitud
-        obj.contador = diasHabiles
-
-        // if(elementSolicitud.idEstado.id == ?){
-        //   obj.nombre = "Finalizado"
-        // }else
-        if (diasHabiles > 7) {
+        if(elementSolicitud.idEstado.id == 67){
+          obj.nombre = "Finalizado"
+        }else if (diasHabiles > 7) {
           obj.nombre = "Proceso"
         }else if((diasHabiles < 8) && (diasHabiles > 0)){
           obj.nombre = "Medio"
         }else if(diasHabiles < 1){
           obj.nombre = "No_cumplio"
         }
+
+        obj.solicitud = elementSolicitud
+        obj.contador = diasHabiles
+
         this.listarSolicitud.push(obj)
+        console.log(this.listarSolicitud)
       });
       console.log(this.listarSolicitud)
       this.dataSource = new MatTableDataSource(this.listarSolicitud);

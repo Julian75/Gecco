@@ -1,76 +1,74 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarSolicitudesSC">
-      <mat-icon>add_circle</mat-icon>
-    </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field appearance="standard">
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
-    </mat-form-field>
-    <table id="jerarquia" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field>
+  <section class="example-container mat-elevation-z8" tabindex="0">
+    <table id="asignarTurnoVendedor" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3>Id</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
           <td mat-cell *matCellDef="let element" id="idSp2">{{element.solicitud.id}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Fecha</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaISpa">Fecha</h3></th>
             <td mat-cell *matCellDef="let element">{{element.solicitud.fecha}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="vence">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Vence</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreSpa" >Vence</h3></th>
             <td mat-cell *matCellDef="let element">{{element.solicitud.vence}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="municipio">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Municipio</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreOficSpa">Municipio</h3></th>
             <td mat-cell *matCellDef="let element">{{element.solicitud.municipio}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="incidente">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Incidente</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="inci">Incidente</h3></th>
             <td mat-cell *matCellDef="let element">{{element.solicitud.incidente}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="motivoSolicitud">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Motivo de Solicitud</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="motivo">Motivo de Solicitud</h3></th>
           <td mat-cell *matCellDef="let element">{{element.solicitud.idMotivoSolicitud.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="medioRadicacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Medios de Radicacion</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="radicacion">Medios de Radicacion</h3></th>
           <td mat-cell *matCellDef="let element">{{element.solicitud.medioRadicacion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="tipoServicio">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Tipo servicio</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="tiposervicio">Tipo servicio</h3></th>
           <td mat-cell *matCellDef="let element">{{element.solicitud.idTipoServicio.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="auxiliarRadicacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Auxiliar quien radico</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="auxiliar">Auxiliar quien radico</h3></th>
           <td mat-cell *matCellDef="let element">{{element.solicitud.auxiliarRadicacion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="escala">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Escala</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="escala">Escala</h3></th>
           <td mat-cell *matCellDef="let element">{{element.solicitud.idEscala.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 >Estado</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreSitioVSpa">Estado</h3></th>
           <td mat-cell *matCellDef="let element" id="{{element.nombre}}">{{element.solicitud.idEstado.descripcion}}</td>
         </ng-container>
 
@@ -78,7 +76,11 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" (click)="abrirModal()">
+            <button class="btn btnedit mx-2" *ngIf="item.solicitud.idEstado.id != 67" (click)="abrirModal(item.solicitud.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+
+            <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
               <mat-icon>visibility</mat-icon>
             </button>
           </td>
@@ -87,10 +89,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[2, 5, 10, 25, 100]"
-              aria-label="Select page">
-  </mat-paginator>
+  </section>
+  <mat-paginator [length]="100"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+</mat-paginator>
 </div>
-

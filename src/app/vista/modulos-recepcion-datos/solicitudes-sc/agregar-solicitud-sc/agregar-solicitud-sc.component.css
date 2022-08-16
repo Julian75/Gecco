@@ -115,6 +115,9 @@ h2{
   .nombre4{ margin-left: 0%;}
   .guardar{
     margin-left: 4%;
+    top: 939px;
+    position: static;
+    width: 200px;
   }
   .nombre5{
     margin-left: 15%;
@@ -129,7 +132,9 @@ h2{
   .nombre4{ margin-left: 0%;}
   .guardar{
     margin-left: 14%;
-    margin-top: -4%;
+    margin-top: -73%;
+    position: static;
+    width: 200px;
   }
   .nombre5{
     margin-left: 22%;

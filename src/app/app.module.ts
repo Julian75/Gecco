@@ -14,6 +14,7 @@ import { CambiarContrasenaComponent } from './formularios/formulariosPrincipales
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModificarDatosComponent } from './formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es');
@@ -37,12 +38,14 @@ registerLocaleData(localeEs, 'es');
     VistaModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgApexchartsModule
   ],
   exports: [
     DataTablesModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    NgApexchartsModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [{provide: LOCALE_ID, useValue: 'es'}],

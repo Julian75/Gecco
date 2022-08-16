@@ -14,6 +14,8 @@ import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
 import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
 import { SoporteSC } from 'src/app/modelos/soporteSC';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { ArchivoSolicitudService } from 'src/app/servicios/archivoSolicitud.service';
+import { ArchivoSolicitud } from 'src/app/modelos/archivoSolicitud';
 
 @Component({
   selector: 'app-agregar-solicitud-sc',
@@ -51,7 +53,7 @@ export class AgregarSolicitudScComponent implements OnInit {
     private servicioEscala : EscalaSolicitudesService,
     private servicioEstado : EstadoService,
     private servicioSolicitudSc : SolicitudSCService,
-    private servicioSoporteSc : SoporteSCService,
+    private servicioArchivoSolicitud : ArchivoSolicitudService,
     private servicioUsuario : UsuarioService,
     private router: Router,
   ) { }
@@ -203,17 +205,14 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public registrarSoportes(solicitud: any){
     if(this.listaArchivos2.length >= 1){
-      let soporteSc : SoporteSC = new SoporteSC();
+      let archivo : ArchivoSolicitud = new ArchivoSolicitud();
       this.servicioSolicitudSc.listarPorId(solicitud.id).subscribe(resSolicitud=>{
-        soporteSc.idSolicitudSC = resSolicitud
-        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-          soporteSc.idUsuario = resUsuario
+        archivo.idSolicitudSC = resSolicitud
           this.listaArchivos2.forEach(element => {
-            soporteSc.descripcion = element
-            this.registrarSoportes2(soporteSc);
+            archivo.nombreArchivo = element
+            this.registrarSoportes2(archivo);
           });
         })
-      })
     }else{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -227,8 +226,8 @@ export class AgregarSolicitudScComponent implements OnInit {
     }
   }
 
-  public registrarSoportes2(soporte: SoporteSC){
-    this.servicioSoporteSc.registrar(soporte).subscribe(res=>{
+  public registrarSoportes2(archivo: ArchivoSolicitud){
+    this.servicioArchivoSolicitud.registrar(archivo).subscribe(res=>{
       Swal.fire({
         position: 'center',
         icon: 'success',

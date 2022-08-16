@@ -124,6 +124,13 @@ import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/pres
 import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/historial-solicitudes.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
 import { AgregarHistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/agregar-historial-solicitudes/agregar-historial-solicitudes.component';
+import { AsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/asignacion-usuario-pqr.component';
+import { AgregarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/agregar-asignacion-usuario-pqr/agregar-asignacion-usuario-pqr.component';
+import { ModificarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/modificar-asignacion-usuario-pqr/modificar-asignacion-usuario-pqr.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { PeticionCotizacionComponent } from './modulos-compra/generar-solicitud/peticion-cotizacion/peticion-cotizacion.component';
+import { AgregarCotizacionLiderProcesoComponent } from './modulos-compra/generar-solicitud/peticion-cotizacion/agregar-cotizacion-lider-proceso/agregar-cotizacion-lider-proceso.component';
+import { ListaCotizacionesLiderProcesoComponent } from './modulos-compra/lista-cotizaciones-lider-proceso/lista-cotizaciones-lider-proceso.component';
 
 @NgModule({
   declarations: [
@@ -246,7 +253,13 @@ import { AgregarHistorialSolicitudesComponent } from './modulos-recepcion-datos/
     ModificarPresupuestoVentaMensualComponent,
     HistorialSolicitudesComponent,
     ReporteAsesorComponent,
-    AgregarHistorialSolicitudesComponent
+    AgregarHistorialSolicitudesComponent,
+    AsignacionUsuarioPqrComponent,
+    AgregarAsignacionUsuarioPqrComponent,
+    ModificarAsignacionUsuarioPqrComponent,
+    PeticionCotizacionComponent,
+    AgregarCotizacionLiderProcesoComponent,
+    ListaCotizacionesLiderProcesoComponent,
   ],
   imports: [
     CommonModule,
@@ -257,7 +270,8 @@ import { AgregarHistorialSolicitudesComponent } from './modulos-recepcion-datos/
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgApexchartsModule
   ],
   exports: [
     DataTablesModule,
