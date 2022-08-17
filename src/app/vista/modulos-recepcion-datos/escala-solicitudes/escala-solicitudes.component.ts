@@ -71,7 +71,7 @@ export class EscalaSolicitudesComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el turno.',
+            'Se elimino la escala.',
             'success'
           )
         })

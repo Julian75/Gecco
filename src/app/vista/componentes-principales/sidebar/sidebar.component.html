@@ -78,11 +78,12 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
+      <button mat-raised-button routerLink="/tipoServicio">Tipo de Servicio</button>
+      <button mat-raised-button routerLink="/escalaSolicitudes">Escala Solicitudes</button>
+      <button mat-raised-button routerLink="/motivoSolicitud">Motivos de Solicitud</button>
       <button mat-raised-button routerLink="/clientesSC" >Clientes Servicio al Cliente</button>
-      <button mat-raised-button routerLink="/motivoSolicitud" >Tipo Solicitud</button>
-      <button mat-raised-button routerLink="/tipoServicio" >Tipo Servicio</button>
-      <button mat-raised-button routerLink="/solicitudesSC" >Solicitudes</button>
-      <button mat-raised-button routerLink="/escalaSolicitudes" >Escala Solicitudes</button>
+      <button mat-raised-button routerLink="/asignacionUsuariosPqr">Asignar usuario PQRS</button>
+      <button mat-raised-button routerLink="/solicitudesSC">Solicitudes PQRS</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Raspa" (opened)="panelOpenState = true"

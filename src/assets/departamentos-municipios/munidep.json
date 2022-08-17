@@ -1,0 +1,267 @@
+{
+  "meta" : {
+    "view" : {
+      "id" : "95qx-tzs7",
+      "name" : "Municipios por departamento",
+      "assetType" : "filter",
+      "attribution" : "Departamento Administrativo Nacional de Estadística",
+      "attributionLink" : "https://www.datos.gov.co/d/xdk5-pm3f",
+      "averageRating" : 0,
+      "category" : "Mapas Nacionales",
+      "createdAt" : 1524235475,
+      "description" : "Código de la división Político Administrativa del país",
+      "displayType" : "table",
+      "downloadCount" : 1266,
+      "hideFromCatalog" : false,
+      "hideFromDataJson" : false,
+      "licenseId" : "CC_40_BY_SA",
+      "newBackend" : true,
+      "numberOfComments" : 0,
+      "oid" : 37913117,
+      "provenance" : "community",
+      "publicationAppendEnabled" : false,
+      "publicationDate" : 1524235475,
+      "publicationGroup" : 14203350,
+      "publicationStage" : "published",
+      "rowsUpdatedAt" : 1647354478,
+      "rowsUpdatedBy" : "r4qn-dwdd",
+      "tableId" : 18499854,
+      "totalTimesRated" : 0,
+      "viewCount" : 11459,
+      "viewLastModified" : 1524235475,
+      "viewType" : "tabular",
+      "approvals" : [ {
+        "reviewedAt" : 1524235475,
+        "reviewedAutomatically" : true,
+        "state" : "approved",
+        "submissionId" : 4204582,
+        "submissionObject" : "public_audience_request",
+        "submissionOutcome" : "change_audience",
+        "submittedAt" : 1524235475,
+        "workflowId" : 2188,
+        "submissionDetails" : {
+          "permissionType" : "READ"
+        },
+        "submissionOutcomeApplication" : {
+          "failureCount" : 0,
+          "status" : "success"
+        },
+        "submitter" : {
+          "id" : "f62c-fe9v",
+          "displayName" : "PauBed"
+        }
+      } ],
+      "clientContext" : {
+        "clientContextVariables" : [ ],
+        "inheritedVariables" : { }
+      },
+      "columns" : [ {
+        "id" : -1,
+        "name" : "sid",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":sid",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "id",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":id",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "position",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":position",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "created_at",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":created_at",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "created_meta",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":created_meta",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "updated_at",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":updated_at",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "updated_meta",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":updated_meta",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : -1,
+        "name" : "meta",
+        "dataTypeName" : "meta_data",
+        "fieldName" : ":meta",
+        "position" : 0,
+        "renderTypeName" : "meta_data",
+        "format" : { },
+        "flags" : [ "hidden" ]
+      }, {
+        "id" : 551371261,
+        "name" : "DEPARTAMENTO",
+        "dataTypeName" : "text",
+        "fieldName" : "departamento",
+        "position" : 3,
+        "renderTypeName" : "text",
+        "tableColumnId" : 47475344,
+        "width" : 244,
+        "format" : { }
+      }, {
+        "id" : 551371263,
+        "name" : "MUNICIPIO",
+        "dataTypeName" : "text",
+        "fieldName" : "municipio",
+        "position" : 5,
+        "renderTypeName" : "text",
+        "tableColumnId" : 47475346,
+        "width" : 208,
+        "format" : { }
+      } ],
+      "grants" : [ {
+        "inherited" : true,
+        "type" : "viewer",
+        "flags" : [ "public" ]
+      } ],
+      "license" : {
+        "name" : "Creative Commons Attribution | Share Alike 4.0 International",
+        "logoUrl" : "images/licenses/cc30bysa.png",
+        "termsLink" : "http://creativecommons.org/licenses/by-sa/4.0/legalcode"
+      },
+      "metadata" : {
+        "custom_fields" : {
+          "Información de la Entidad" : {
+            "Municipio" : "Bogotá D.C.",
+            "Nombre de la Entidad" : "Ministerio de Tecnologías de La Información y Las Comunicaciones",
+            "Orden" : "Nacional",
+            "Sector" : "Estadísticas",
+            "Área o dependencia" : "Asesoftware",
+            "Departamento" : "Bogotá D.C."
+          },
+          "Información de Datos" : {
+            "Cobertura Geográfica" : "Nacional",
+            "Idioma" : "Español",
+            "Frecuencia de Actualización" : "Anual",
+            "URL Documentación" : "",
+            "Fecha Emisión (aaaa-mm-dd)" : "2017-05-11",
+            "URL Normativa" : ""
+          }
+        },
+        "availableDisplayTypes" : [ "table", "fatrow", "page" ],
+        "renderTypeConfig" : {
+          "visible" : {
+            "table" : true
+          }
+        }
+      },
+      "owner" : {
+        "id" : "f62c-fe9v",
+        "displayName" : "PauBed",
+        "screenName" : "PauBed",
+        "type" : "interactive"
+      },
+      "query" : {
+        "orderBys" : [ {
+          "ascending" : true,
+          "expression" : {
+            "columnId" : 551371261,
+            "type" : "column"
+          }
+        } ]
+      },
+      "rights" : [ "read" ],
+      "tableAuthor" : {
+        "id" : "r4qn-dwdd",
+        "displayName" : "Ministerio de Tecnologías de la Información y las Comunicaciones",
+        "profileImageUrlLarge" : "/api/users/r4qn-dwdd/profile_images/LARGE",
+        "profileImageUrlMedium" : "/api/users/r4qn-dwdd/profile_images/THUMB",
+        "profileImageUrlSmall" : "/api/users/r4qn-dwdd/profile_images/TINY",
+        "screenName" : "Ministerio de Tecnologías de la Información y las Comunicaciones",
+        "type" : "interactive",
+        "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+      },
+      "flags" : [ "ownerMayBeContacted", "restorable", "restorePossibleForType" ]
+    }
+  },
+  "data" : [
+    [ "row-cnrd.3ynv_bjsi", "00000000-0000-0000-4D50-C6D2FC879B81", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Neiva" ]
+, [ "row-2bsg.5ajs_tgts", "00000000-0000-0000-3014-063977784000", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Acevedo" ]
+, [ "row-enad~reft.rimj", "00000000-0000-0000-4462-3158B62E9656", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Agrado" ]
+, [ "row-4pbn_7i4b.m76g", "00000000-0000-0000-C878-71C374EAF7A6", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Aipe" ]
+, [ "row-q5x2~6jpw-rvtg", "00000000-0000-0000-2197-94775AB3D283", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Algeciras" ]
+, [ "row-ri4t~umvj-7ye5", "00000000-0000-0000-24A3-081F7E1B976B", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Altamira" ]
+, [ "row-pv64~aheg.t9gi", "00000000-0000-0000-9B92-3924CBE1A1B6", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Baraya" ]
+, [ "row-8f8c.32bq_rq2j", "00000000-0000-0000-A51D-D736C7FBF4D1", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Campoalegre" ]
+, [ "row-diqg_s2kg_96q2", "00000000-0000-0000-E9D3-F280303CCB5E", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Colombia" ]
+, [ "row-xhqu.awkk_9bt8", "00000000-0000-0000-5F45-34CB6B69A1F0", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Elías" ]
+, [ "row-gthf_c4mn~cd92", "00000000-0000-0000-3B74-476E7B1BE1C1", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Garzón" ]
+, [ "row-b9p7_zfu8-meqd", "00000000-0000-0000-956F-EBB689499447", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Gigante" ]
+, [ "row-9izx_6zay~e7fr", "00000000-0000-0000-F7F4-461F02026A89", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Guadalupe" ]
+, [ "row-uvia~3qva_iutn", "00000000-0000-0000-A9E6-DB64B97EAAAB", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Hobo" ]
+, [ "row-rtd4~cibk_575q", "00000000-0000-0000-A1F6-ED395F104003", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Iquira" ]
+, [ "row-gfjs_asyr.r75d", "00000000-0000-0000-C0F0-C9E40AE61AF9", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Isnos" ]
+, [ "row-td5j~fd6d_9c2v", "00000000-0000-0000-FB56-979BBBED241A", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "La Argentina" ]
+, [ "row-zfcu.7m9j.xh5m", "00000000-0000-0000-52BC-C646D77EC4F4", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "La Plata" ]
+, [ "row-wknm.srg5-5d57", "00000000-0000-0000-1A13-5732237C8390", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Nátaga" ]
+, [ "row-dsrm~rpqj-jrpa", "00000000-0000-0000-5130-2C195818654E", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Oporapa" ]
+, [ "row-amhr_hk48.4f6z", "00000000-0000-0000-1ADB-E322CA7D9AE9", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Paicol" ]
+, [ "row-a93e.euf7_xhca", "00000000-0000-0000-3ABD-2A4C17433EAC", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Palermo" ]
+, [ "row-gr7q-rkuj-dhsm", "00000000-0000-0000-1572-98D3BA15225D", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Palestina" ]
+, [ "row-apk5-j9h7-4t3k", "00000000-0000-0000-F7AC-8F974FD09F60", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Pital" ]
+, [ "row-fy4s~7bk3.qqek", "00000000-0000-0000-F587-1089E75C9C77", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Pitalito" ]
+, [ "row-zbsh.8us8_8bbi", "00000000-0000-0000-09AF-3C2001FACC70", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Rivera" ]
+, [ "row-zvif_ix64.iczp", "00000000-0000-0000-72F6-5EC25C92AC3D", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Salado Blanco" ]
+, [ "row-wt5e_34bz~zv8n", "00000000-0000-0000-3BB9-469818DEBA30", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Santa María" ]
+, [ "row-ybm6.swrw.34ar", "00000000-0000-0000-0BE2-C071735E8010", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Suaza" ]
+, [ "row-8a3s~h6e5-v99j", "00000000-0000-0000-2A18-00FD7D3E8C49", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Tarqui" ]
+, [ "row-6jv4_cw6v-zqhq", "00000000-0000-0000-E09A-C8127926430B", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Tesalia" ]
+, [ "row-7d3r.8jnz~q84g", "00000000-0000-0000-DE1E-7B82BA78D4F1", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Tello" ]
+, [ "row-gna9.ghn7.h36e", "00000000-0000-0000-330D-AD0881810376", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Teruel" ]
+, [ "row-7s7c_fuxv-ssku", "00000000-0000-0000-5953-3EBBE2D34CF8", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Timaná" ]
+, [ "row-2y5z-tcbc-w4kn", "00000000-0000-0000-29BC-59B255AB44E9", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Villavieja" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Yaguará" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Juncal" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "La Victoria" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Bruselas" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "San Agustin" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "San Adolfo" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Maito" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Pacarni" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Vegalarga" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Gallego" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Belen" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Fortalecillas" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Caguan" ]
+, [ "row-j4ui.tm87-885t", "00000000-0000-0000-B3DF-AE4938CE14D2", 0, 1647354477, null, 1647354477, null, "{ }", "Huila", "Zuluaga" ]
+ ]
+}

@@ -71,7 +71,7 @@ mat-form-field{
 }
 td.mat-cell:first-of-type{ padding-left: 0px; }
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .btnedit2{ width: 64px; height: 36px; }
-.excelButton{ margin-left: -5%; }
+.excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #nombreSpa, #fechaISpa, #nombreOficSpa, #nombreSitioVSpa, #inci, #motivo, #radicacion, #tiposervicio,#auxiliar,#escala, #opcSpa, .btnedit2{ position: relative; }
 .btnedit2{ top: 9px; margin-bottom: 20%; left: 14%;}
@@ -97,7 +97,7 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
 @media screen and (min-width: 280px) and (max-width: 359px){
   .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
   .botonagregar mat-icon{ font-size: 18px; }
-  .excelButton{ margin-left: -9%; }
+  .excelButton{ margin-left: -5%; }
   h3{
     margin-left: 3%;
     font-size: 12px;
@@ -146,7 +146,7 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
 @media screen and (min-width: 360px) and (max-width: 493px){
   .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
   .botonagregar mat-icon{ font-size: 18px; }
-  .excelButton{ margin-left: -7%; }
+  .excelButton{ margin-left: -4%; }
   h3{
     margin-left: 3%;
     font-size: 13px;
@@ -211,7 +211,7 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
   #turnoSpa{ left: 15px; }
   #opcSpa{ left: 8px; }
   .btnedit2{left: 14%;}
-
+  .excelButton{ margin-left: -2%; }
 }
 /* Tablet pequeña - iPad Mini*/
 @media screen and (min-width: 721px) and (max-width: 768px){
@@ -232,7 +232,7 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
   #turnoSpa{ left: 15px; }
   #opcSpa{ left: 8px; }
   .btnedit2{left: 14%;}
-  .excelButton{ margin-left: -4%; }
+  .excelButton{ margin-left: -2%; }
 }
 /* Tablet medio - iPad Air*/
 @media screen and (min-width: 769px) and (max-width: 1023px){
@@ -253,7 +253,7 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
   #turnoSpa{ left: 15px; }
   #opcSpa{ left: 8px; }
   .btnedit2{ left: 14%;}
-  .excelButton{ margin-left: -4%; }
+  .excelButton{ margin-left: -2%; }
 }
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){

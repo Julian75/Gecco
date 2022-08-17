@@ -2,6 +2,7 @@ import {MotivoSolicitud} from './MotivoSolicitud';
 import {TipoServicio} from './tipoServicio';
 import {EscalaSolicitudes} from './escalaSolicitudes';
 import {Estado} from './estado';
+import {ClienteSC} from './clienteSC';
 
 export class SolicitudSC {
     public id: number=0;
@@ -15,4 +16,5 @@ export class SolicitudSC {
     public auxiliarRadicacion : string = "";
     idEscala !: EscalaSolicitudes
     idEstado !: Estado
+    idClienteSC !: ClienteSC;
 }

@@ -74,13 +74,13 @@ export class MotivoSolicitudComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.servicioMotivoSolicitud.eliminar(id).subscribe(res=>{
-          this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el turno.',
+            'Se elimino el motivo.',
             'success'
           )
         })
+        window.location.reload()
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel

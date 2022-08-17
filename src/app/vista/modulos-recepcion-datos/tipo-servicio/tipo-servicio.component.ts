@@ -73,7 +73,7 @@ export class TipoServicioComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el turno.',
+            'Se elimino el tipo de servicio.',
             'success'
           )
         })

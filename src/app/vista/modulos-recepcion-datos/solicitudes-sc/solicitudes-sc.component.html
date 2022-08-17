@@ -1,4 +1,7 @@
 <div class="contenedor">
+  <button class="btn boton botonagregar text-white my-2" routerLink="/agregarSolicitudesSC">
+    <mat-icon>add_circle</mat-icon>
+  </button>
   <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
@@ -55,6 +58,18 @@
         </ng-container>
 
         <!-- Name Column -->
+        <ng-container matColumnDef="nombreCliente">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Nombre del Cliente</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.idClienteSC.nombre}} {{element.solicitud.idClienteSC.apellido}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Telefono</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.solicitud.idClienteSC.telefono}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
         <ng-container matColumnDef="auxiliarRadicacion">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="auxiliar">Auxiliar quien radico</h3></th>
           <td mat-cell *matCellDef="let element">{{element.solicitud.auxiliarRadicacion}}</td>
@@ -76,10 +91,12 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" *ngIf="item.solicitud.idEstado.id != 67" (click)="abrirModal(item.solicitud.id)">
-              <mat-icon>visibility</mat-icon>
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true" (click)="abrirModal(item.solicitud.id)">
+              <mat-icon>add_comment</mat-icon>
             </button>
-
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 39" (click)="abrirModificar(item.solicitud.id)">
+              <mat-icon>add_comment</mat-icon>
+            </button>
             <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
               <mat-icon>visibility</mat-icon>
             </button>

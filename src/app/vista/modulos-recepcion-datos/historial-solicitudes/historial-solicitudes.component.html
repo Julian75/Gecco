@@ -9,32 +9,42 @@
           <!-- Position Column -->
           <ng-container matColumnDef="id" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
-            <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.elemento.id}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="observacion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaISpa">Oberservacion</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.observacion}}</td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaISpa">Observacion</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.elemento.observacion}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="solicitud">
               <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreSpa">Solicitud</h3></th>
-              <td mat-cell *matCellDef="let element">{{element.idSolicitudSC.id}} || {{element.idSolicitudSC.fecha}}</td>
+              <td mat-cell *matCellDef="let element">{{element.elemento.idSolicitudSC.id}} | {{element.elemento.idSolicitudSC.fecha}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreOficSpa">Usuario</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} || {{element.idUsuario.apellido}}</td>
+            <td mat-cell *matCellDef="let element">{{element.elemento.idUsuario.nombre}} | {{element.elemento.idUsuario.apellido}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreSitioVSpa">Estado</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.elemento.idEstado.descripcion}}</td>
           </ng-container>
+
+          <!--Opciones-->
+         <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
+          <td mat-cell *matCellDef="let item" id="opcSp2">
+            <button  *ngIf="item.validar3 ==  true" class="btn btnedit me-2 edi" (click)="descargarPdf(item.elemento.id)">
+              <mat-icon>file_download</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

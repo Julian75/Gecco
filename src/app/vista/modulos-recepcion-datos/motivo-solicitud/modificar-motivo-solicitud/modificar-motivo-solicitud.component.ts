@@ -44,7 +44,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
       this.servicioMotivoSolicitud.registrar(this.formMotivoSolicitud.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
-          title: 'Registro exitoso',
+          title: 'Se actualizo el motivo',
           showConfirmButton: false,
           timer: 1500
         });

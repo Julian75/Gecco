@@ -79,7 +79,7 @@ td.mat-cell:first-of-type{ padding-left: 0px;}
   .btnedit{
     width: 18px !important;
     height: 20px;
-    margin-left: 13%;
+    margin-left: -12%;
 
   }
   .botonagregar, .excelButton{

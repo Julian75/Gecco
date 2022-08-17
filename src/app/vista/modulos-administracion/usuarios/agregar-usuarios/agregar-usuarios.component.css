@@ -102,3 +102,19 @@ h2{
   }
 }
 
+/* Portatil Pequeño */
+@media screen and (min-width: 1024px) and (max-width: 1366px){
+  .nombre3 {
+    margin-left: 55%;
+    margin-top: -52%;
+  }
+}
+
+/* Portatil Medio */
+@media screen and (min-width: 1367px) and (max-width: 1440px){
+  .nombre3 {
+    margin-left: 55%;
+    margin-top: -48.5%;
+  }
+}
+

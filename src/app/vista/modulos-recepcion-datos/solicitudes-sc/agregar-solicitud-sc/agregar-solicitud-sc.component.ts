@@ -1,8 +1,9 @@
+import { MatDialog } from '@angular/material/dialog';
+import { AgregarClienteScComponent } from './../../cliente-sc/agregar-cliente-sc/agregar-cliente-sc.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
-import { Observable } from 'rxjs';
 import { HttpResponse, HttpEventType } from '@angular/common/http';
 import { MotivoSolicitudService } from 'src/app/servicios/motivoSolicitud.service';
 import { TipoServicioService } from 'src/app/servicios/tipoServicio.service';
@@ -16,6 +17,11 @@ import { SoporteSC } from 'src/app/modelos/soporteSC';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { ArchivoSolicitudService } from 'src/app/servicios/archivoSolicitud.service';
 import { ArchivoSolicitud } from 'src/app/modelos/archivoSolicitud';
+import { ClienteSCService } from 'src/app/servicios/clienteSC.service';
+import { ClienteSC } from 'src/app/modelos/clienteSC';
+import { map, Observable, startWith } from 'rxjs';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 
 @Component({
   selector: 'app-agregar-solicitud-sc',
@@ -24,9 +30,14 @@ import { ArchivoSolicitud } from 'src/app/modelos/archivoSolicitud';
 })
 export class AgregarSolicitudScComponent implements OnInit {
 
+  myControl = new FormControl<string | ClienteSC>("");
+  options: ClienteSC[] = [];
+  filteredOptions!: Observable<ClienteSC[]>;
+
   public formSolicitud!: FormGroup;
   public listaMotivoSolicitud: any = [];
   public listaTipoServicio: any = [];
+  public listaClientes: any = [];
   public fecha: Date = new Date();
   public fechaActual: any;
 
@@ -54,19 +65,23 @@ export class AgregarSolicitudScComponent implements OnInit {
     private servicioEstado : EstadoService,
     private servicioSolicitudSc : SolicitudSCService,
     private servicioArchivoSolicitud : ArchivoSolicitudService,
+    private servicioCliente : ClienteSCService,
     private servicioUsuario : UsuarioService,
     private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
     this.listarMotivoSolicitud();
     this.listarTipoServicio();
+    this.listarClienteSC();
   }
 
   private crearFormulario() {
     this.formSolicitud = this.fb.group({
       id: 0,
+      cliente: [null,Validators.required],
       vence: [null,Validators.required],
       municipio: [null,Validators.required],
       incidente: [null],
@@ -77,16 +92,66 @@ export class AgregarSolicitudScComponent implements OnInit {
     });
   }
 
+  public listarClienteSC(){
+    this.servicioCliente.listarTodos().subscribe(res=>{
+      this.listaClientes = res
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(""),
+        map(value => {
+          const num_identificacion = typeof value == 'string' ? value : value?.documento.toString();
+          return num_identificacion ? this._filter(num_identificacion as string, this.listaClientes) : this.listaClientes.slice();
+        }),
+      );
+    })
+  }
+
+  textoCliente:any
+  displayFn(clientesc: ClienteSC): any {
+    this.textoCliente = clientesc
+    if(this.textoCliente == ""){
+      this.textoCliente = " "
+    }else{
+      this.textoCliente = clientesc.documento.toString()
+
+      return this.textoCliente;
+    }
+  }
+
+  num:any
+  public _filter(numIdentificacion: string, clientesc:any): ClienteSC[] {
+
+    const filterValue = numIdentificacion;
+
+    this.num = (clientesc.filter((clientesc:any) => (clientesc.documento.toString().includes(filterValue)))).length
+    return clientesc.filter((clientesc:any) => (clientesc.documento.toString().includes(filterValue)));
+  }
+
+  cliente: any;
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.cliente = event.option.value
+    // this.idVendedortabla(event.option.value)
+  }
+
   public listarMotivoSolicitud(){
     this.servicioMotivoSolicitud.listarTodos().subscribe(res=>{
       this.listaMotivoSolicitud = res
     })
   }
 
+  listaMunicipios: any = [];
   public listarTipoServicio(){
     this.servicioTipoServicio.listarTodos().subscribe(res=>{
       this.listaTipoServicio = res
+      const jsonMunicipDep = require('../../../../../assets/departamentos-municipios/munidep.json');
+      this.listaMunicipios = jsonMunicipDep.data
     })
+  }
+
+  public agregarClienteServicCliente(){
+    const dialogRef = this.dialog.open(AgregarClienteScComponent, {
+      width: '830px',
+      height: '530px'
+    });
   }
 
   selectFiles(event: any) {
@@ -139,7 +204,7 @@ export class AgregarSolicitudScComponent implements OnInit {
     var fechaVencimiento = new Date(vencimiento)
     this.fechaActual = this.fecha.getFullYear() + "-"+ (this.fecha.getMonth()+1)+ "-" +this.fecha.getDate();
     var fechaVencimiento2 = fechaVencimiento.getFullYear() + "-"+ (fechaVencimiento.getMonth()+1)+ "-" +(fechaVencimiento.getDate()+1);
-    if(fechaVencimiento == null || municipio == "" || idMotivo == null || radicacion == "" || idServicio == null || auxiliar == ""){
+    if(this.cliente == null || fechaVencimiento == null || municipio == "" || idMotivo == null || radicacion == "" || idServicio == null || auxiliar == ""){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
@@ -163,23 +228,26 @@ export class AgregarSolicitudScComponent implements OnInit {
         solicitudSc.fecha = new Date(this.fechaActual)
         solicitudSc.vence = vencimiento
         solicitudSc.municipio = municipio
-        this.servicioMotivoSolicitud.listarPorId(idMotivo).subscribe(resMotivo=>{
-          solicitudSc.idMotivoSolicitud = resMotivo
-          solicitudSc.medioRadicacion = radicacion
-          this.servicioTipoServicio.listarPorId(idServicio).subscribe(resServicio=>{
-            solicitudSc.idTipoServicio = resServicio
-            solicitudSc.auxiliarRadicacion = auxiliar
-            this.servicioEscala.listarPorId(1).subscribe(resEscala=>{
-              solicitudSc.idEscala = resEscala
-              this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
-                solicitudSc.idEstado = resEstado
-                if(incidente == null){
-                  solicitudSc.incidente = ""
-                  this.registrarSolicitudSc(solicitudSc);
-                }else{
-                  solicitudSc.incidente = incidente
-                  this.registrarSolicitudSc(solicitudSc);
-                }
+        this.servicioCliente.listarPorId(this.cliente.id).subscribe(resCliente=>{
+          solicitudSc.idClienteSC = resCliente
+          this.servicioMotivoSolicitud.listarPorId(idMotivo).subscribe(resMotivo=>{
+            solicitudSc.idMotivoSolicitud = resMotivo
+            solicitudSc.medioRadicacion = radicacion
+            this.servicioTipoServicio.listarPorId(idServicio).subscribe(resServicio=>{
+              solicitudSc.idTipoServicio = resServicio
+              solicitudSc.auxiliarRadicacion = auxiliar
+              this.servicioEscala.listarPorId(1).subscribe(resEscala=>{
+                solicitudSc.idEscala = resEscala
+                this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
+                  solicitudSc.idEstado = resEstado
+                  if(incidente == null){
+                    solicitudSc.incidente = ""
+                    this.registrarSolicitudSc(solicitudSc);
+                  }else{
+                    solicitudSc.incidente = incidente
+                    this.registrarSolicitudSc(solicitudSc);
+                  }
+                })
               })
             })
           })

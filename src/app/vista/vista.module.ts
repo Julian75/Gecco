@@ -131,6 +131,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { PeticionCotizacionComponent } from './modulos-compra/generar-solicitud/peticion-cotizacion/peticion-cotizacion.component';
 import { AgregarCotizacionLiderProcesoComponent } from './modulos-compra/generar-solicitud/peticion-cotizacion/agregar-cotizacion-lider-proceso/agregar-cotizacion-lider-proceso.component';
 import { ListaCotizacionesLiderProcesoComponent } from './modulos-compra/lista-cotizaciones-lider-proceso/lista-cotizaciones-lider-proceso.component';
+import { ModificarHistorialRemisionComponent } from './modulos-recepcion-datos/historial-solicitudes/modificar-historial-remision/modificar-historial-remision.component';
 
 @NgModule({
   declarations: [
@@ -260,6 +261,7 @@ import { ListaCotizacionesLiderProcesoComponent } from './modulos-compra/lista-c
     PeticionCotizacionComponent,
     AgregarCotizacionLiderProcesoComponent,
     ListaCotizacionesLiderProcesoComponent,
+    ModificarHistorialRemisionComponent,
   ],
   imports: [
     CommonModule,

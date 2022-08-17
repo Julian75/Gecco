@@ -21,7 +21,7 @@
       <mat-form-field class="nombre1" appearance="fill">
         <mat-label>Seleccione el usuario</mat-label>
         <mat-select [formControl]="usuarios" multiple>
-          <mat-option *ngFor="let item of listarUsuarios" [value]="item">{{item.idUsuario.nombre}} | {{item.area}}</mat-option>
+          <mat-option *ngFor="let item of listarUsuarios" [value]="item">{{item.idUsuario.nombre}} || {{item.area}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
