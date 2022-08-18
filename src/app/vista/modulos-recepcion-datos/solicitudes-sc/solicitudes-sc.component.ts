@@ -1,3 +1,4 @@
+import { ArchivoSolicitudService } from './../../../servicios/archivoSolicitud.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +12,11 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitudes.service';
 import { ModificarHistorialRemisionComponent } from '../historial-solicitudes/modificar-historial-remision/modificar-historial-remision.component';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
+import { RemisionesDecisionComponent } from '../remisiones-decision/remisiones-decision.component';
+import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+import { ProrrogaComponent } from '../prorroga/prorroga.component';
 
 @Component({
   selector: 'app-solicitudes-sc',
@@ -21,6 +27,8 @@ export class SolicitudesScComponent implements OnInit {
 
   public fecha: Date = new Date;
   public listarSolicitud: any = [];
+  public tiempoLimite: any;
+  public tiempoCaducado: any;
   displayedColumns = ['id', 'fecha', 'vence', 'municipio', 'incidente', 'motivoSolicitud', 'medioRadicacion', 'tipoServicio', 'nombreCliente', 'telefono', 'auxiliarRadicacion', 'escala', 'estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,11 +39,16 @@ export class SolicitudesScComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioAccesos: AccesoService,
     private servicioHistorial: HistorialSolicitudesService,
+    private servicioConfiguracion: ConfiguracionService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
+    private servicioArchivosSolicitudSC: ArchivoSolicitudService,
+    private servicioPdf: SubirPdfService,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.listarTodos();
+    this.variables();
   }
 
   public abrirModal(idSolicitud: any){
@@ -57,6 +70,26 @@ export class SolicitudesScComponent implements OnInit {
       width: '1000px',
       data: idSolicitud
     });
+  }
+
+  public prorroga(solicitud){
+    const dialogRef = this.dialog.open(ProrrogaComponent, {
+      width: '500px',
+      height: '500px',
+      data: solicitud
+    });
+  }
+
+  public variables(){
+    this.servicioConfiguracion.listarTodos().subscribe(res=>{
+      res.forEach(element => {
+        if(element.nombre == "tiempo_limite"){
+          this.tiempoLimite = element.valor
+        }else if(element.nombre == "tiempo_caducado"){
+          this.tiempoCaducado = element.valor
+        }
+      });
+    })
   }
 
   decisionPao:boolean = false // Saber si debe listar lo de pao
@@ -89,12 +122,12 @@ export class SolicitudesScComponent implements OnInit {
                 solicitud: {},
                 contador: 0,
                 nombre: "",
-                aprobar: false
+                aprobar: false,
+                archivo: false,
+                prorroga: false
               }
               var listaHistorialPao = []
               var pendienteHistorialPao = false
-              // var fechaInicio = new Date(elementSolicitud.fecha);
-              // var fecha1 = fechaInicio.getTime();
               var fechaActual = this.fecha.getTime();
               var fechaFin = new Date(elementSolicitud.vence);
               var fecha2 = fechaFin.getTime();
@@ -117,27 +150,43 @@ export class SolicitudesScComponent implements OnInit {
 
               if(elementSolicitud.idEstado.id == 67){
                 obj.nombre = "Finalizado"
-              }else if (diasHabiles > 7) {
+              }else if (diasHabiles > Number(this.tiempoLimite)) {
                 obj.nombre = "Proceso"
-              }else if((diasHabiles < 8) && (diasHabiles > 0)){
+              }else if((diasHabiles < (Number(this.tiempoLimite)+1)) && (diasHabiles > 0)){
                 obj.nombre = "Medio"
+                if(diasHabiles <= Number(this.tiempoCaducado)){
+                  obj.prorroga = true
+                }
               }else if(diasHabiles < 1){
                 obj.nombre = "No_cumplio"
               }
-              this.servicioHistorial.listarTodos().subscribe(resHistorial=>{
-                resHistorial.forEach(elementHistorial => {
-                  if(elementHistorial.idUsuario.id == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado.id == 65 && elementHistorial.idSolicitudSC.id == elementSolicitud.id){
-                    pendienteHistorialPao = true
+              this.servicioConsultasGenerales.listarHistorialSC(elementSolicitud.id).subscribe(resHistorial=>{
+                console.log(resHistorial)
+                if(resHistorial.length>=1){
+                  resHistorial.forEach(elementHistorial => {
+                    if(elementHistorial.idUsuario == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado == 65){
+                      pendienteHistorialPao = true
+                    }
+                    listaHistorialPao.push(pendienteHistorialPao)
+                  })
+                  const listaHisPao = listaHistorialPao.includes( true );
+                  if(listaHisPao == true){
+                    obj.aprobar = true
                   }
-                  listaHistorialPao.push(pendienteHistorialPao)
-                });
-                const listaHisPao = listaHistorialPao.includes( true );
-                if(listaHisPao == true){
-                  obj.aprobar = true
-                }else if(elementSolicitud.idEstado.id == 62){
+                }else if(resHistorial.length<1 && elementSolicitud.idEstado.id == 62){
                   obj.aprobar = true
                 }
               })
+              this.servicioConsultasGenerales.listarArchivosSC(elementSolicitud.id).subscribe(resArchivos=>{
+                resArchivos.forEach(elementArchivos => {
+                  if(elementArchivos.id_solicitudsc == elementSolicitud.id){
+                    obj.archivo = true
+                  }
+                });
+              })
+              if(elementSolicitud.idEstado.id == 68){
+                obj.aprobar = true
+              }
               obj.solicitud = elementSolicitud
               obj.contador = diasHabiles
 
@@ -167,7 +216,28 @@ export class SolicitudesScComponent implements OnInit {
         }
       })
     })
+  }
 
+  //Descargar si subio soporte el cliente al momento de generar la solicitud
+  public descargarPdf(idSolicitudSC: number){
+    this.servicioConsultasGenerales.listarArchivosSC(idSolicitudSC).subscribe(resArchivos=>{
+      resArchivos.forEach(elementArchivos => {
+        this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
+          for(const i in resPdf){
+            if (elementArchivos.nombreArchivo == resPdf[i].name) {
+              window.location.href = resPdf[i].url
+            }
+          }
+        })
+      });
+    })
+  }
+
+  public masonoRemisiones(solicitudSC){
+    const dialogRef = this.dialog.open(RemisionesDecisionComponent, {
+      width: '400px',
+      data: solicitudSC
+    });
   }
 
    // Filtrado

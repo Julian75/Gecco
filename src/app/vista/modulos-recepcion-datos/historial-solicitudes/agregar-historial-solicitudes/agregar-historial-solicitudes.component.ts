@@ -1,3 +1,4 @@
+import { ModificarService } from 'src/app/servicios/modificar.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -14,6 +15,7 @@ import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitu
 import { SolicitudSC } from 'src/app/modelos/solicitudSC';
 import { SoporteSC } from 'src/app/modelos/soporteSC';
 import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
+import { SolicitudSC2 } from 'src/app/modelos/modelos2/solicitudSC2';
 
 @Component({
   selector: 'app-agregar-historial-solicitudes',
@@ -46,6 +48,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     private fb: FormBuilder,
     private servicioSubirPdf : SubirPdfService,
     private servicioSolicitudSc : SolicitudSCService,
+    private servicioModificar : ModificarService,
     private servicioEstado : EstadoService,
     private servicioUsuario : UsuarioService,
     private servicioHistorial : HistorialSolicitudesService,
@@ -107,11 +110,11 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   upload(index:any, file: any) {
     this.progressInfo[index] = { value: 0, fileName: file.name };
 
-    this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
+    this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
-        this.fileInfos = this.servicioSubirPdf.listarTodos();
+        this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
       }
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       window.location.reload();
@@ -183,21 +186,26 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           })
         })
       }
-      let solicitudSc : SolicitudSC = new SolicitudSC();
+      let solicitudSc : SolicitudSC2 = new SolicitudSC2();
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
         solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
-        solicitudSc.fecha = resSolicitud.fecha
+        var fechaActual = new Date(resSolicitud.fecha)
+        fechaActual.setDate(fechaActual.getDate()+1)
+        solicitudSc.fecha = fechaActual
         solicitudSc.id = resSolicitud.id
-        solicitudSc.idEscala = resSolicitud.idEscala
-        solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud
-        solicitudSc.idTipoServicio = resSolicitud.idTipoServicio
+        solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+        solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+        solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
         solicitudSc.incidente = resSolicitud.incidente
+        solicitudSc.prorroga = resSolicitud.prorroga
         solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
         solicitudSc.municipio = resSolicitud.municipio
-        solicitudSc.vence = resSolicitud.vence
-        solicitudSc.idClienteSC = resSolicitud.idClienteSC
+        var fechavence = new Date(resSolicitud.vence)
+        fechavence.setDate(fechavence.getDate()+1)
+        solicitudSc.vence = fechavence
+        solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
         this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
-          solicitudSc.idEstado = resEstado
+          solicitudSc.idEstado = resEstado.id
           this.modificarSolicitudSc(solicitudSc, res);
         })
       })
@@ -213,19 +221,21 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     })
   }
 
-  public modificarSolicitudSc(solicitudSc: SolicitudSC, idHistorial:any){
-    this.servicioSolicitudSc.actualizar(solicitudSc).subscribe(res=>{
+  public modificarSolicitudSc(solicitudSc: SolicitudSC2, idHistorial:any){
+    this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
       if(this.listaArchivos2.length >= 1){
         let soporte : SoporteSC = new SoporteSC();
-        soporte.idSolicitudSC = solicitudSc
-        this.servicioHistorial.listarPorId(idHistorial.id).subscribe(resHistorial=>{
-          soporte.idHistorial = resHistorial
-          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
-            soporte.idUsuario = resUsuario
-            this.listaArchivos2.forEach(element => {
-              soporte.descripcion = element
-              this.registrarSoporte(soporte);
-            });
+        this.servicioSolicitudSc.listarPorId(solicitudSc.id).subscribe(resSolicitudSC=>{
+          soporte.idSolicitudSC = resSolicitudSC
+          this.servicioHistorial.listarPorId(idHistorial.id).subscribe(resHistorial=>{
+            soporte.idHistorial = resHistorial
+            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+              soporte.idUsuario = resUsuario
+              this.listaArchivos2.forEach(element => {
+                soporte.descripcion = element
+                this.registrarSoporte(soporte);
+              });
+            })
           })
         })
       }else{
@@ -276,21 +286,26 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   public registrarHistorial3(historial: HistorialSolicitudes){
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      let solicitudSc : SolicitudSC = new SolicitudSC();
+      let solicitudSc : SolicitudSC2 = new SolicitudSC2();
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
         solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
-        solicitudSc.fecha = resSolicitud.fecha
+        var fechaActual = new Date(resSolicitud.fecha)
+        fechaActual.setDate(fechaActual.getDate()+1)
+        solicitudSc.fecha = fechaActual
         solicitudSc.id = resSolicitud.id
-        solicitudSc.idEscala = resSolicitud.idEscala
-        solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud
-        solicitudSc.idTipoServicio = resSolicitud.idTipoServicio
+        solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+        solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+        solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
         solicitudSc.incidente = resSolicitud.incidente
+        solicitudSc.prorroga = resSolicitud.prorroga
         solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
         solicitudSc.municipio = resSolicitud.municipio
-        solicitudSc.vence = resSolicitud.vence
-        solicitudSc.idClienteSC = resSolicitud.idClienteSC
+        var fechavence = new Date(resSolicitud.vence)
+        fechavence.setDate(fechavence.getDate()+1)
+        solicitudSc.vence = fechavence
+        solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
         this.servicioEstado.listarPorId(67).subscribe(resEstado=>{
-          solicitudSc.idEstado = resEstado
+          solicitudSc.idEstado = resEstado.id
           this.modificarSolicitudSc2(solicitudSc, res);
         })
       })
@@ -306,19 +321,21 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     })
   }
 
-  public modificarSolicitudSc2(solicitudSc: SolicitudSC, idHistorial:any){
-    this.servicioSolicitudSc.actualizar(solicitudSc).subscribe(res=>{
+  public modificarSolicitudSc2(solicitudSc: SolicitudSC2, idHistorial:any){
+    this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
       if(this.listaArchivos2.length >= 1){
-        let soporte : SoporteSC = new SoporteSC();
-        soporte.idSolicitudSC = solicitudSc
-        this.servicioHistorial.listarPorId(idHistorial.id).subscribe(resHistorial=>{
-          soporte.idHistorial = resHistorial
-          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
-            soporte.idUsuario = resUsuario
-            this.listaArchivos2.forEach(element => {
-              soporte.descripcion = element
-              this.registrarSoporte(soporte);
-            });
+        this.servicioSolicitudSc.listarPorId(solicitudSc.id).subscribe(resSolicitud=>{
+          let soporte : SoporteSC = new SoporteSC();
+          soporte.idSolicitudSC = resSolicitud
+          this.servicioHistorial.listarPorId(idHistorial.id).subscribe(resHistorial=>{
+            soporte.idHistorial = resHistorial
+            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+              soporte.idUsuario = resUsuario
+              this.listaArchivos2.forEach(element => {
+                soporte.descripcion = element
+                this.registrarSoporte(soporte);
+              });
+            })
           })
         })
       }else{

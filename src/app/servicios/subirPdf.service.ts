@@ -37,4 +37,29 @@ export class SubirPdfService {
   public eliminarFile(filename: string){
     return this.http.get(`${this.path}/delete/${filename}`);
   }
+
+  //---------------------Segunda Carpeta---------------------------------------
+
+  public listarTodosSegunda(){
+    return this.http.get(`${this.path}/listar`);
+  }
+
+  public listarPorIdSegunda(nombreArchivo: String){
+    return this.http.get(this.path+'/listarUno/'+nombreArchivo);
+  }
+
+  public subirArchivoSegunda(file: File): Observable<HttpEvent<any>>{
+    const formData: FormData = new FormData();
+    formData.append('files', file);
+
+    const  req = new HttpRequest('POST', `${this.path}/guardar`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+
+  public eliminarFileSegunda(filename: string){
+    return this.http.get(`${this.path}/eliminar/${filename}`);
+  }
 }

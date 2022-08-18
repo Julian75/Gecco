@@ -1,3 +1,5 @@
+import { SolicitudSC2 } from './../modelos/modelos2/solicitudSC2';
+import { Historial2 } from './../modelos/modelos2/Historial2';
 import { AsignarTurno2 } from './../modelos/asignarTurno2';
 import { EliminacionTurnoVendedor2 } from './../modelos/eliminacionTurnoVendedor2';
 import { AsignarTurnoVendedor2 } from './../modelos/asignarTurnoVendedor2';
@@ -82,6 +84,14 @@ export class ModificarService {
 
   public actualizarAsignarTurnoPuntoVenta(asignarTurnoPuntoVenta: AsignarTurno2){
     return this.http.put<void>(this.path+'/AsignarTurnoPuntoVenta/'+ asignarTurnoPuntoVenta.id, asignarTurnoPuntoVenta);
+  }
+
+  public actualizarHistorialSC(historialSC: Historial2){
+    return this.http.put<void>(this.path+'/HistorialSC/'+ historialSC.id, historialSC);
+  }
+
+  public actualizarSolicitudSC(solicitudSC: SolicitudSC2){
+    return this.http.put<void>(this.path+'/SolicitudSC/'+ solicitudSC.id, solicitudSC);
   }
 
 }

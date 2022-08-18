@@ -1,5 +1,5 @@
 <div class="contenedor">
-  <button class="btn boton botonagregar text-white my-2" routerLink="/agregarSolicitudesSC">
+  <button *ngIf="idModulo == 38" class="btn boton botonagregar text-white my-2" routerLink="/agregarSolicitudesSC">
     <mat-icon>add_circle</mat-icon>
   </button>
   <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
@@ -99,6 +99,15 @@
             </button>
             <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
               <mat-icon>visibility</mat-icon>
+            </button>
+            <button *ngIf="item.archivo == true" class="btn btnedit mx-2" (click)="descargarPdf(item.solicitud.id)">
+              <mat-icon>file_download</mat-icon>
+            </button>
+            <button *ngIf="item.solicitud.idEstado.id == 64" class="btn btnPriority" (click)="masonoRemisiones(item.solicitud)">
+              <mat-icon>verified</mat-icon>
+            </button>
+            <button *ngIf="item.prorroga == true" class="btn btnPriority" (click)="prorroga(item.solicitud.id)">
+              <mat-icon>event_repeat</mat-icon>
             </button>
           </td>
         </ng-container>

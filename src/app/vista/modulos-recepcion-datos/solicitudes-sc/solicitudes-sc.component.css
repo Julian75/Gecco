@@ -62,20 +62,22 @@ td {
 }
 .boton{ background-color: #00235C; }
 .btnedit2{ background-color: #959595; color: white; }
-.btnedit{ background-color: #97B4E2; color: white; }
+.btnedit{ background-color: #97B4E2; color: white; margin-bottom: 1%;}
 .btnremove{ background-color: #DA161A; color: white; }
+.btnPriority{ background-color: #00235C; color: white; }
 mat-form-field{
   width: 20%;
   margin-left: 79.5%;
   margin-top: -15%;
 }
 td.mat-cell:first-of-type{ padding-left: 0px; }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .btnedit2{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .btnedit2, .btnPriority{ width: 64px; height: 36px; }
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #nombreSpa, #fechaISpa, #nombreOficSpa, #nombreSitioVSpa, #inci, #motivo, #radicacion, #tiposervicio,#auxiliar,#escala, #opcSpa, .btnedit2{ position: relative; }
-.btnedit2{ top: 9px; margin-bottom: 20%; left: 14%;}
-.btnedit{top: 5px; left: 12px; position: relative;}
+.btnedit2{ margin-bottom: 10%; margin-top: 5%; left: 14%;}
+.btnedit{left: 15%; margin-top: 10%; margin-bottom: 10%; position: relative;}
+.btnPriority{left: 15%; margin-top: 10%; margin-bottom: 10%; position: relative;}
 #idSpa{ left: -2px; }
   #fechaISpa{ left: 10px; }
   #fechaFSpa { left: 8px; }
@@ -90,7 +92,6 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
   #nombreSpa{ left: 8px; }
   #turnoSpa{ left: 15px; }
   #opcSpa{ left: 8px; }
-  .btnedit2{ left: 11%;}
 .excelButton i{ position: relative; top: 1px; }
 
 /* Movil pequeño - Galaxy Fold*/

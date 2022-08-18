@@ -16,5 +16,6 @@ export class SolicitudSC {
     public auxiliarRadicacion : string = "";
     idEscala !: EscalaSolicitudes
     idEstado !: Estado
-    idClienteSC !: ClienteSC;
+    public idClienteSC !: ClienteSC;
+    public prorroga : string = "";
 }

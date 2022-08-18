@@ -4,7 +4,7 @@ export class ClienteSC{
     public nombre: string="";
     public apellido: string="";
     idTipoDocumento !: TipoDocumento;
-    public documento: number=0;
+    public documento: String="";
     public correo: string="";
     public telefono: number=0;
 }

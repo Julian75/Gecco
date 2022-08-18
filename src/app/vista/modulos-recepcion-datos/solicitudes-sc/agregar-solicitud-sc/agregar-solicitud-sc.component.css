@@ -77,6 +77,7 @@
   margin-top: 10%;
   box-shadow: 1px 2px 10px #959595;
 }
+mat-option{ font-size: 11px; }
 .nombre, .estado, .nombre1, .ven{
   width: 250px;
 }

@@ -12,8 +12,6 @@ import Swal from 'sweetalert2';
 import { EscalaSolicitudesService } from 'src/app/servicios/escalaSolicitudes.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
-import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
-import { SoporteSC } from 'src/app/modelos/soporteSC';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { ArchivoSolicitudService } from 'src/app/servicios/archivoSolicitud.service';
 import { ArchivoSolicitud } from 'src/app/modelos/archivoSolicitud';
@@ -21,7 +19,6 @@ import { ClienteSCService } from 'src/app/servicios/clienteSC.service';
 import { ClienteSC } from 'src/app/modelos/clienteSC';
 import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 
 @Component({
   selector: 'app-agregar-solicitud-sc',
@@ -176,11 +173,11 @@ export class AgregarSolicitudScComponent implements OnInit {
   upload(index:any, file: any) {
     this.progressInfo[index] = { value: 0, fileName: file.name };
 
-    this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
+    this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
-        this.fileInfos = this.servicioSubirPdf.listarTodos();
+        this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
       }
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       this.router.navigate(['/solicitudesSC']);
@@ -226,13 +223,14 @@ export class AgregarSolicitudScComponent implements OnInit {
       }else{
         let solicitudSc : SolicitudSC = new SolicitudSC();
         solicitudSc.fecha = new Date(this.fechaActual)
-        solicitudSc.vence = vencimiento
+        solicitudSc.vence = new Date(fechaVencimiento2)
         solicitudSc.municipio = municipio
         this.servicioCliente.listarPorId(this.cliente.id).subscribe(resCliente=>{
           solicitudSc.idClienteSC = resCliente
           this.servicioMotivoSolicitud.listarPorId(idMotivo).subscribe(resMotivo=>{
             solicitudSc.idMotivoSolicitud = resMotivo
             solicitudSc.medioRadicacion = radicacion
+            solicitudSc.prorroga = "No"
             this.servicioTipoServicio.listarPorId(idServicio).subscribe(resServicio=>{
               solicitudSc.idTipoServicio = resServicio
               solicitudSc.auxiliarRadicacion = auxiliar

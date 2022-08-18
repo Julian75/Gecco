@@ -1,3 +1,4 @@
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { Component, OnInit, ViewChild,Inject  } from '@angular/core';
 import Swal from 'sweetalert2';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -34,6 +35,7 @@ export class HistorialSolicitudesComponent implements OnInit {
     private servicioSoporte: SoporteSCService,
     private servicioPdf: SubirPdfService,
     private servicioHistorial: HistorialSolicitudesService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
   ) { }
 
   ngOnInit(): void {
@@ -81,15 +83,16 @@ export class HistorialSolicitudesComponent implements OnInit {
 
   //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
-    this.servicioSoporte.listarPorId(id).subscribe(res=>{
-      this.servicioPdf.listarTodos().subscribe(resPdf => {
-        for(const i in resPdf){
-          if (res.descripcion == resPdf[i].name) {
-            window.location.href = this.listaPdf[0][i].url
+    this.servicioConsultasGenerales.listarSoporteSC(id).subscribe(resSoportes=>{
+      resSoportes.forEach(elementSoporte => {
+        this.servicioPdf.listarTodos().subscribe(resPdf => {
+          for(const i in resPdf){
+            if (elementSoporte.descripcion == resPdf[i].name) {
+              window.location.href = resPdf[i].url
+            }
           }
-        }
-        console.log(this.validar)
-      })
+        })
+      });
     })
   }
 

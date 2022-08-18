@@ -5,6 +5,9 @@ import { ConsultaRaspa } from './../modelos/consultaRaspa';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { Historial2 } from '../modelos/modelos2/Historial2';
+import { Soporte2 } from '../modelos/soporte2';
+import { ArchivoSolicitud2 } from '../modelos/modelos2/archivoSolicitud2';
 import { DetalleSolicitud2 } from '../modelos/detalleSolicitud2';
 
 @Injectable({
@@ -51,6 +54,21 @@ export class ConsultasGeneralesService {
   //Solicitudes detalles listadas por el id y cuando el estado este en 56 o 57
   public listarDetalleSolicitudEstados(idSolicitud: number){
     return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerDetalleSolicitudEstados?idSolicitud="+idSolicitud);
+  }
+
+  //Todos los historiales que sean de una sola solicitud
+  public listarHistorialSC(idSolicitudSC: number){
+    return this.http.get<Historial2[]>(this.path+"/ObtenerHistorial?idSolicitudSC="+idSolicitudSC);
+  }
+
+  //Soportes subidos por parte de los remitentes en la solicitud
+  public listarSoporteSC(idHistorialSC: number){
+    return this.http.get<Soporte2[]>(this.path+"/ObtenerSoporteSC?idHistorialSC="+idHistorialSC);
+  }
+
+  //Soportes subidos por parte de los remitentes en la solicitud
+  public listarArchivosSC(idSolicitudSC: number){
+    return this.http.get<ArchivoSolicitud2[]>(this.path+"/ObtenerArchivosSC?idSolicitudSC="+idSolicitudSC);
   }
 
   // public listarGestionProceso(idUsuario: number){
