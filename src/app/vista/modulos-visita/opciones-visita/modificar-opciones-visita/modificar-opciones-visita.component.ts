@@ -6,6 +6,8 @@ import { OpcionesVisitaService } from './../../../../servicios/opcionesVisita.se
 import { OpcionesVisita } from 'src/app/modelos/opcionesVisita';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { OpcionesVisita2 } from 'src/app/modelos/modelos2/opcionesVisita2';
 
 @Component({
   selector: 'app-modificar-opciones-visita',
@@ -21,6 +23,7 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private servicioOpcionVisita: OpcionesVisitaService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarOpcionesVisitaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
@@ -44,7 +47,7 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
   }
 
   public guardar(){
-    let opcionVisita : OpcionesVisita = new OpcionesVisita();
+    let opcionVisita : OpcionesVisita2 = new OpcionesVisita2();
     opcionVisita.id = this.formOpcionVisita.value.id;
     const descripcion = this.formOpcionVisita.value.descripcion;
     this.servicioOpcionVisita.listarPorId(opcionVisita.id).subscribe(res=>{
@@ -71,7 +74,7 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
         })
       }else{
         opcionVisita.descripcion = descripcion
-        this.servicioOpcionVisita.actualizar(opcionVisita).subscribe(res => {
+        this.servicioModificar.actualizarOpcionesVisita(opcionVisita).subscribe(res => {
           Swal.fire({
             title: 'Actualizado',
             text: 'Se actualizó correctamente',

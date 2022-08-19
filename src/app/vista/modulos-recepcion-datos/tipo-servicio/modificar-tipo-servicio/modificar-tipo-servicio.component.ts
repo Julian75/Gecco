@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { TipoServicioService } from 'src/app/servicios/tipoServicio.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-modificar-tipo-servicio',
@@ -20,6 +21,7 @@ export class ModificarTipoServicioComponent implements OnInit {
     private router: Router,
     public dialogRef: MatDialogRef<ModificarTipoServicioComponent>,
     private servicioTipoServicio: TipoServicioService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -42,7 +44,7 @@ export class ModificarTipoServicioComponent implements OnInit {
   }
   public guardar(){
     if (this.formTipoServicio.valid) {
-      this.servicioTipoServicio.actualizar(this.formTipoServicio.value).subscribe(data => {
+      this.servicioModificar.actualizarTipoServicio(this.formTipoServicio.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
           title: 'Se actualizó correctamente',

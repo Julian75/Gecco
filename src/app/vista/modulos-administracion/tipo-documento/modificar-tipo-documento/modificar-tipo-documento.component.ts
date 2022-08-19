@@ -1,10 +1,12 @@
-import { TipoDocumento } from './../../../../modelos/tipoDocumento';
+
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TipoDocumentoService } from './../../../../servicios/tipoDocumento.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { EstadoService } from 'src/app/servicios/estado.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { TipoDocumento2 } from 'src/app/modelos/modelos2/tipoDocumento2';
 
 @Component({
   selector: 'app-modificar-tipo-documento',
@@ -22,6 +24,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   constructor(
     private servicioTipoDocumento: TipoDocumentoService,
     private servicioEstado: EstadoService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarTipoDocumentoComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -63,7 +66,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   }
 
   public guardar() {
-    let tipoDocumento : TipoDocumento = new TipoDocumento();
+    let tipoDocumento : TipoDocumento2 = new TipoDocumento2();
     tipoDocumento.id=Number(this.data);
     const descripcion = this.formTipoDocumento.controls['descripcion'].value;
     const estado = this.formTipoDocumento.controls['estado'].value;
@@ -87,7 +90,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
       }else{
         tipoDocumento.descripcion=descripcion
         this.servicioEstado.listarPorId(estado).subscribe(resEstado=>{
-          tipoDocumento.idEstado = resEstado
+          tipoDocumento.idEstado = resEstado.id
           this.actualizarTipoDocumento(tipoDocumento);
         })
       }
@@ -108,8 +111,8 @@ export class ModificarTipoDocumentoComponent implements OnInit {
     // }
   }
 
-  public actualizarTipoDocumento(tipoDocumento: TipoDocumento) {
-    this.servicioTipoDocumento.actualizar(tipoDocumento).subscribe(res => {
+  public actualizarTipoDocumento(tipoDocumento: TipoDocumento2) {
+    this.servicioModificar.actualizarTipoDocumento(tipoDocumento).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

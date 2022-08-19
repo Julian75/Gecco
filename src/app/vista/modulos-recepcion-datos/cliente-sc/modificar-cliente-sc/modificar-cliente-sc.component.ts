@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { ClienteSCService } from 'src/app/servicios/clienteSC.service';
 import { ClienteSC } from './../../../../modelos/clienteSC';
 import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { ClienteSC2 } from 'src/app/modelos/modelos2/clienteSC2';
 @Component({
   selector: 'app-modificar-cliente-sc',
   templateUrl: './modificar-cliente-sc.component.html',
@@ -31,6 +33,7 @@ export class ModificarClienteScComponent implements OnInit {
 
   constructor(
     private servicioCliente: ClienteSCService,
+    private servicioModificar: ModificarService,
     private servicioTipoDocumento: TipoDocumentoService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -84,7 +87,7 @@ export class ModificarClienteScComponent implements OnInit {
 
   public guardar() {
     this.listarExiste = []
-    let cliente : ClienteSC = new ClienteSC();
+    let cliente : ClienteSC2 = new ClienteSC2();
     this.route.paramMap.subscribe((params: ParamMap) => {
       cliente.id = Number(params.get('id'));
       this.servicioCliente.listarPorId(Number(params.get('id'))).subscribe(res=>{
@@ -94,7 +97,7 @@ export class ModificarClienteScComponent implements OnInit {
         cliente.correo = res.correo
         cliente.documento = res.documento
         this.servicioTipoDocumento.listarPorId(this.formClienteSC.value.tipoDocumento).subscribe(resda=>{
-          cliente.idTipoDocumento = resda
+          cliente.idTipoDocumento = resda.id
         })
         cliente.telefono = res.telefono
         this.servicioCliente.listarTodos().subscribe(res=>{
@@ -139,7 +142,7 @@ export class ModificarClienteScComponent implements OnInit {
               cliente.correo = this.formClienteSC.controls['correo'].value;
               cliente.telefono = this.formClienteSC.controls['telefono'].value;
               this.servicioTipoDocumento.listarPorId(this.formClienteSC.controls['tipoDocumento'].value).subscribe(res=>{
-                cliente.idTipoDocumento = res
+                cliente.idTipoDocumento = res.id
                 console.log(res)
                 this.actualizarCliente(cliente);
               })
@@ -151,8 +154,8 @@ export class ModificarClienteScComponent implements OnInit {
     })
   }
 
-  public actualizarCliente(cliente: ClienteSC) {
-    this.servicioCliente.actualizar(cliente).subscribe(res => {
+  public actualizarCliente(cliente: ClienteSC2) {
+    this.servicioModificar.actualizarClienteSC(cliente).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

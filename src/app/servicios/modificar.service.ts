@@ -17,7 +17,21 @@ import { Solicitud2 } from './../modelos/solicitud2';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SharedService } from '../shared.service';
-
+import { TipoDocumento2 } from '../modelos/modelos2/tipoDocumento2';
+import { Rol2 } from '../modelos/modelos2/rol2';
+import { Modulo2 } from '../modelos/modelos2/modulo2';
+import { Jerarquia2 } from '../modelos/modelos2/jerarquia2';
+import { Configuracion2 } from '../modelos/modelos2/configuracion2';
+import { TipoTurno2 } from '../modelos/modelos2/tipoTurno2';
+import { TipoNovedades2 } from '../modelos/modelos2/tipoNovedades2';
+import { Turnos2 } from '../modelos/modelos2/turnos2';
+import { ElementosVisita2 } from '../modelos/modelos2/elementosVisita2';
+import { OpcionesVisita2 } from '../modelos/modelos2/opcionesVisita2';
+import {TipoServicio2} from '../modelos/modelos2/tipoServicio2';
+import { EscalaSolicitudes2 } from '../modelos/modelos2/escalaSolicitudes2';
+import { MotivoSolicitud2 } from '../modelos/modelos2/motivoSolicitud2';
+import { ClienteSC2 } from '../modelos/modelos2/clienteSC2';
+import { AsignacionUsuariosPqrs2 } from '../modelos/modelos2/asignacionUsuariosPQRS2';
 @Injectable({
   providedIn: 'root'
 })
@@ -94,4 +108,63 @@ export class ModificarService {
     return this.http.put<void>(this.path+'/SolicitudSC/'+ solicitudSC.id, solicitudSC);
   }
 
+  public actualizarTipoDocumento(tipoDocumento: TipoDocumento2){
+    return this.http.put<void>(this.path+'/TipoDocumento/'+ tipoDocumento.id, tipoDocumento);
+  }
+
+  public actualizarRol(rol: Rol2){
+    return this.http.put<void>(this.path+'/Rol/'+ rol.id, rol);
+  }
+
+  public actualizarModulo(modulo: Modulo2){
+    return this.http.put<void>(this.path+'/Modulo/'+ modulo.id, modulo);
+  }
+
+  public actualizarJerarquia(jerarquia: Jerarquia2){
+    return this.http.put<void>(this.path+'/Jerarquia/'+ jerarquia.id, jerarquia);
+  }
+
+  public actualizarConfiguracion(configuracion: Configuracion2){
+    return this.http.put<void>(this.path+'/Configuracion/'+ configuracion.id, configuracion);
+  }
+
+  public actualizarTipoTurno(tipoTurno: TipoTurno2){
+    return this.http.put<void>(this.path+'/TipoTurno/'+ tipoTurno.id, tipoTurno);
+  }
+
+  public actualizarTipoNovedades(tipoNovedades: TipoNovedades2){
+    return this.http.put<void>(this.path+'/TipoNovedades/'+ tipoNovedades.id, tipoNovedades);
+  }
+
+  public actualizarTurnos(turnos: Turnos2){
+    return this.http.put<void>(this.path+'/Turnos/'+ turnos.id, turnos);
+  }
+
+  public actualizarElementosVisita(elementosVisita: ElementosVisita2){
+    return this.http.put<void>(this.path+'/ElementosVisita/'+ elementosVisita.id, elementosVisita);
+  }
+
+  public actualizarOpcionesVisita(opcionesVisita: OpcionesVisita2){
+    return this.http.put<void>(this.path+'/OpcionesVisita/'+ opcionesVisita.id, opcionesVisita);
+  }
+
+  public actualizarTipoServicio(tipoServicio: TipoServicio2){
+    return this.http.put<void>(this.path+'/TipoServicio/'+ tipoServicio.id, tipoServicio);
+  }
+
+  public actualizarEscalaSolicitudes(escalaSolicitudes: EscalaSolicitudes2){
+    return this.http.put<void>(this.path+'/EscalaSolicitud/'+ escalaSolicitudes.id, escalaSolicitudes);
+  }
+
+  public actualizarMotivoSolicitud(motivoSolicitud: MotivoSolicitud2){
+    return this.http.put<void>(this.path+'/MotivoSolicitud/'+ motivoSolicitud.id, motivoSolicitud);
+  }
+
+  public actualizarClienteSC(clienteSC: ClienteSC2){
+    return this.http.put<void>(this.path+'/ClienteSC/'+ clienteSC.id, clienteSC);
+  }
+
+  public actualizarAsignacionUsuariosPQRS(asignacionUsuariosPQRS: AsignacionUsuariosPqrs2){
+    return this.http.put<void>(this.path+'/AsignacionUsuariosPQRS/'+ asignacionUsuariosPQRS.id, asignacionUsuariosPQRS);
+  }
 }

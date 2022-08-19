@@ -4,6 +4,8 @@ import { ModuloService } from 'src/app/servicios/modulo.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Modulo } from 'src/app/modelos/modulo';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Modulo2 } from 'src/app/modelos/modelos2/modulo2';
 
 @Component({
   selector: 'app-modificar-modulo',
@@ -18,6 +20,7 @@ export class ModificarModuloComponent implements OnInit {
 
   constructor(
     private servicioModulo: ModuloService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarModuloComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -45,7 +48,7 @@ export class ModificarModuloComponent implements OnInit {
   }
 
   public guardar() {
-    let modulo : Modulo = new Modulo();
+    let modulo : Modulo2 = new Modulo2();
     modulo.id=Number(this.data);
     modulo.descripcion=this.formModulo.controls['descripcion'].value;
     if(modulo.descripcion==null || modulo.descripcion==""){
@@ -61,8 +64,8 @@ export class ModificarModuloComponent implements OnInit {
     }
   }
 
-  public actualizarModulo(modulo: Modulo) {
-    this.servicioModulo.actualizar(modulo).subscribe(res => {
+  public actualizarModulo(modulo: Modulo2) {
+    this.servicioModificar.actualizarModulo(modulo).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

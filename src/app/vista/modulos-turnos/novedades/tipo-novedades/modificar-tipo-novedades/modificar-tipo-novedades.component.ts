@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TipoNovedadesService } from 'src/app/servicios/tipoNovedades.Service';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { TipoNovedades2 } from 'src/app/modelos/modelos2/tipoNovedades2';
 
 @Component({
   selector: 'app-modificar-tipo-novedades',
@@ -18,6 +20,7 @@ export class ModificarTipoNovedadesComponent implements OnInit {
   color = ('primary');
   constructor(
     private serviciotipoNovedad: TipoNovedadesService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarTipoNovedadesComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -50,7 +53,7 @@ export class ModificarTipoNovedadesComponent implements OnInit {
   }
 
   public guardar() {
-    let tipoNovedad : TipoNovedades = new TipoNovedades();
+    let tipoNovedad : TipoNovedades2 = new TipoNovedades2();
     tipoNovedad.id=Number(this.data);
     tipoNovedad.descripcion=this.formTipoNovedad.controls['descripcion'].value;
     tipoNovedad.observacion=this.formTipoNovedad.controls['observacion'].value;
@@ -68,7 +71,7 @@ export class ModificarTipoNovedadesComponent implements OnInit {
   }
 
   public actualizarTipoNovedad(tipoNovedad: TipoNovedades) {
-    this.serviciotipoNovedad.actualizar(tipoNovedad).subscribe(res => {
+    this.servicioModificar.actualizarTipoNovedades(tipoNovedad).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

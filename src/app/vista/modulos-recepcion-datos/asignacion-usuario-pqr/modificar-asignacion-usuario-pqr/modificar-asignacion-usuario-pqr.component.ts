@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AsignarUsuariosPqrService } from 'src/app/servicios/asignacionUsuariosPqrs.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-modificar-asignacion-usuario-pqr',
@@ -18,6 +19,7 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
     public dialogRef: MatDialogRef<ModificarAsignacionUsuarioPqrComponent>,
     private fb: FormBuilder,
     private servicioUsuario: UsuarioService,
+    private servicioModificar: ModificarService,
     private servicioUsuarioPqr: AsignarUsuariosPqrService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
@@ -33,8 +35,8 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
       this.servicioUsuarioPqr.listarPorId(Number(this.data)).subscribe(
         (res) => {
           if (this.formUsuarioPqr.value.area == res.area && this.formUsuarioPqr.value.idUsuario == res.idUsuario.id) {
-            this.formUsuarioPqr.value.idUsuario = res.idUsuario
-            this.servicioUsuarioPqr.actualizar(this.formUsuarioPqr.value).subscribe(
+            this.formUsuarioPqr.value.idUsuario = res.idUsuario.id
+            this.servicioModificar.actualizarAsignacionUsuariosPQRS(this.formUsuarioPqr.value).subscribe(
               (res) => {
                 Swal.fire({
                   icon: 'success',
@@ -55,9 +57,9 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
             );
           } else {
             this.servicioUsuario.listarPorId(Number(this.formUsuarioPqr.value.idUsuario)).subscribe( resUsu=>{
-              this.formUsuarioPqr.value.idUsuario = resUsu
+              this.formUsuarioPqr.value.idUsuario = resUsu.id
               console.log(this.formUsuarioPqr.value);
-              this.servicioUsuarioPqr.actualizar(this.formUsuarioPqr.value).subscribe(
+              this.servicioModificar.actualizarAsignacionUsuariosPQRS(this.formUsuarioPqr.value).subscribe(
                 (res) => {
                   Swal.fire({
                     icon: 'success',

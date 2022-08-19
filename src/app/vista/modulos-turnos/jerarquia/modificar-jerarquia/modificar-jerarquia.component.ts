@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Jerarquia } from 'src/app/modelos/jerarquia';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Jerarquia2 } from 'src/app/modelos/modelos2/jerarquia2';
 @Component({
   selector: 'app-modificar-jerarquia',
   templateUrl: './modificar-jerarquia.component.html',
@@ -21,6 +23,7 @@ export class ModificarJerarquiaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private servicioJerarquia: JerarquiaService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarJerarquiaComponent>,
     private jerarquiaService: JerarquiaService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
@@ -46,7 +49,7 @@ export class ModificarJerarquiaComponent implements OnInit {
 
 
   public guardar() {
-    let jerarquia: Jerarquia = new Jerarquia();
+    let jerarquia: Jerarquia2 = new Jerarquia2();
     jerarquia.id = this.formJerarquia.value.id;
     jerarquia.descripcion = this.formJerarquia.value.descripcion;
     if (jerarquia.descripcion == null || jerarquia.descripcion == undefined || jerarquia.descripcion == "") {
@@ -57,7 +60,7 @@ export class ModificarJerarquiaComponent implements OnInit {
       })
     } else {
 
-      this.servicioJerarquia.actualizar(jerarquia).subscribe(res => {
+      this.servicioModificar.actualizarJerarquia(jerarquia).subscribe(res => {
         Swal.fire({
           icon: 'success',
           title: 'Exito',

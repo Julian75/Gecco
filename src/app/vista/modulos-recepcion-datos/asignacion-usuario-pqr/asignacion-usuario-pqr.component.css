@@ -49,13 +49,14 @@ table{
   }
   .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
-  #idSp{ left: 45px; }
+  #idSp{ left: 45px; margin-left: 302%;}
   #descripSp{ left: 202px; }
   #opcSp{ left: 8px; }
-  #opcSp, #descripSp, #idSp{ position: relative; }
+  #opcSp{ position:static; }
+  #areaSp{ position: static;  margin-left: 197%; }
+  #descripSp{ position:static; margin-left: 201%; }
   .excelButton{ margin-left: -1%; font-size: 20px; }
   .excelButton i{ position: relative; top: -3px; }
-  #idSp{ left: 28px; position: absolute; }
   #idSp2{ padding-left: 0%; }
 
   /* Movil pequeño - Galaxy Fold*/
@@ -78,80 +79,84 @@ table{
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
     .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
     button i{ position: relative; top: -15%; }
-    #idSp{ left: 5px; }
-    #descripSp{ left: 20px; }
+    #idSp{  margin-left: 89%;}
+    #descripSp{ margin-left: 56%; }
     #opcSp{ left: 8px; }
     .excelButton{ font-size: 15px; }
     .excelButton i{ top: -2px; }
+    #areaSp{ margin-left: 48%;}
   }
   /* Movil medio - Samsung Galaxy S8 */
   @media screen and (min-width: 360px) and (max-width: 493px){
-    h2{
-      font-size: 13px;
-    }
     .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
     .botonagregar mat-icon{ font-size: 18px; }
     .excelButton{ margin-left: -5%; }
     h3{
       margin-left: 3%;
-      font-size: 13px;
+      font-size: 12px;
     }
-    td { font-size: 12px; height: 0px;}
+    td { font-size: 11px; height: 0px;}
     .btnremove, .btnedit, .btnver{
-      width: 27px !important;
-      height: 26px;
+      width: 20px !important;
+      height: 23px;
       position: relative;
       left: 12%;
     }
-    td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
+    td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
     .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
     button i{ position: relative; top: -15%; }
-    #idSp{ left: 7px; }
-    #descripSp{ left: 36px; }
+    #idSp{  margin-left: 132%;}
+    #descripSp{ margin-left: 84%; }
     #opcSp{ left: 8px; }
     .excelButton{ font-size: 15px; }
     .excelButton i{ top: -2px; }
+    #areaSp{ margin-left: 75%;}
   }
   /* Movil grande - Surface Duo*/
   @media screen and (min-width: 494px) and (max-width: 720px){
     td { font-size: 14px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 5px; }
-    #descripSp{ left: 47px; }
+    #idSp{ margin-left: 89%; }
+    #descripSp{ margin-left: 50%; }
     #opcSp{ left: 8px; }
+    #areaSp{ margin-left: 47%;}
   }
   /* Tablet pequeña - iPad Mini*/
   @media screen and (min-width: 721px) and (max-width: 768px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 12px; }
-    #descripSp{ left: 84px; }
+    #idSp{ margin-left: 147%; }
+    #descripSp{ margin-left: 108%; }
     #opcSp{ left: 8px; }
+    #areaSp{ margin-left: 83%;}
   }
   /* Tablet medio - iPad Air*/
   @media screen and (min-width: 769px) and (max-width: 1023px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 8px; }
-    #descripSp{ left: 60px; }
+    #idSp{ margin-left: 106%; }
+    #descripSp{ margin-left: 86%; }
     #opcSp{ left: 8px; }
+    #areaSp{ margin-left: 61%;}
   }
 
   /* Portatil Pequeño */
   @media screen and (min-width: 1024px) and (max-width: 1366px){
     td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 22%; margin-left: 77%; }
-    #descripSp{ margin-left: -48%;}
-    #idSp { left: 20px;}
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+    #idSp{ margin-left: 214%; }
+    #descripSp{ margin-left: 170%; }
     #opcSp{ left: 8px; }
+    #areaSp{ margin-left: 142%;}
   }
 
   /* Portatil Medio */
   @media screen and (min-width: 1367px) and (max-width: 1440px){
     td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 22%; margin-left: 77%; }
-    #idSp{ margin-left: -11%; }
-    #descripSp{ margin-left: -36%;}
+    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
+    #idSp{     margin-left: 245%; }
+    #descripSp{ margin-left: 188%; }
     #opcSp{ left: 8px; }
+    #areaSp{ margin-left: 153%;}
   }

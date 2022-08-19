@@ -6,6 +6,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { TipoTurno2 } from 'src/app/modelos/modelos2/tipoTurno2';
 
 @Component({
   selector: 'app-modificar-tipo-turno',
@@ -23,6 +25,7 @@ export class ModificarTipoTurnoComponent implements OnInit {
   constructor(
     private serviciotipoTurno: TipoTurnoService,
     private servicioEstado: EstadoService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarTipoTurnoComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -66,12 +69,12 @@ export class ModificarTipoTurnoComponent implements OnInit {
   }
 
   public guardar() {
-    let tipoTurno : TipoTurno = new TipoTurno();
+    let tipoTurno : TipoTurno2 = new TipoTurno2();
     tipoTurno.id=Number(this.data);
     tipoTurno.descripcion=this.formTipoTurno.controls['descripcion'].value;
     const idEstado = this.formTipoTurno.controls['estado'].value;
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res;
+      this.listarEstado = res.id;
       tipoTurno.idEstado= this.listarEstado
 
       if(tipoTurno.descripcion==null || tipoTurno.descripcion=="" || tipoTurno.idEstado==null){
@@ -88,8 +91,8 @@ export class ModificarTipoTurnoComponent implements OnInit {
     })
   }
 
-  public actualizarRol(tipoTurno: TipoTurno) {
-    this.serviciotipoTurno.actualizar(tipoTurno).subscribe(res => {
+  public actualizarRol(tipoTurno: TipoTurno2) {
+    this.servicioModificar.actualizarTipoTurno(tipoTurno).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

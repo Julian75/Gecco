@@ -33,6 +33,7 @@ export class ReporteAsesorComponent implements OnInit {
   public formReporte!: FormGroup;
   public informacionAsesor: any = [];
   public cumpleAsignVende: any = [];
+  public listaF: any = [];
   public listaFinal: any = [];
   public idVendedor: any;
   public presupuesto: any;
@@ -70,116 +71,21 @@ export class ReporteAsesorComponent implements OnInit {
     });
   }
 
-  public reporte2(){
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    this.informacionAsesor = []
-    this.cumpleAsignVende = []
-    this.listaFinal = []
-    var documentoAsesor = this.formReporte.controls['documentoAsesor'].value
-    if(documentoAsesor == "" || documentoAsesor == null){
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'No digito el número de identificación!',
-        showConfirmButton: false,
-        timer: 2500
-      })
-    }else{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      var obj = {
-        nombreSitioVenta: "",
-        Turno: "",
-        horaInicio: "",
-        horaFinal: "",
-        venta: 0,
-        presupuesto: 0,
-        cumplimiento: "",
-        faltanteCumplimiento: 0,
-      }
-      var obj2 = {
-        nombreSitioVenta: "",
-        Turno: "",
-        horaInicio: "",
-        horaFinal: "",
-        venta: 0,
-        presupuesto: 0,
-        cumplimiento: "",
-        faltanteCumplimiento: 0,
-      }
-      var obj3 = {
-        nombreSitioVenta: "",
-        Turno: "",
-        horaInicio: "",
-        horaFinal: "",
-        venta: 0,
-        presupuesto: 0,
-        cumplimiento: "",
-        faltanteCumplimiento: 0,
-      }
-      obj.nombreSitioVenta = "marian"
-      obj.Turno = "primero"
-      obj.horaInicio = "8:20"
-      obj.horaFinal = "15:20"
-      obj.venta = 150000
-      obj.presupuesto = 50000000
-      obj.cumplimiento = "50.9"
-      obj.faltanteCumplimiento = 49850000
-      obj2.nombreSitioVenta = "marian2"
-      obj2.Turno = "segundo"
-      obj2.horaInicio = "10:20"
-      obj2.horaFinal = "21:20"
-      obj2.venta = 150000
-      obj2.presupuesto = 50000000
-      obj2.cumplimiento = "50.9"
-      obj2.faltanteCumplimiento = 49850000
-      obj3.nombreSitioVenta = "marian3"
-      obj3.Turno = "tercero"
-      obj3.horaInicio = "10:20"
-      obj3.horaFinal = "12:20"
-      obj3.venta = 150000
-      obj3.presupuesto = 50000000
-      obj3.cumplimiento = "50.9"
-      obj3.faltanteCumplimiento = 49850000
-      this.listaFinal.push(obj, obj2, obj3)
-    }
-    this.dataSource = new MatTableDataSource( this.listaFinal);
-    console.log(this.listaFinal)
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    //GRAFICO
-    this.chartOptions = {
-      series: [30, 100-30],
-      chart: {
-        width: 380,
-        type: "pie"
-      },
-      labels: ["Cumplio", "Falta"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
-    };
-    document.getElementById('informacionAsesor')?.setAttribute('style', 'display: block;')
-  }
-
   sumPorcen: any
   listaAsignVenSitioVenta: any = []
   valorTotalVentas: any
+  totVentas: any
   valorTotalPresupuesto: any
+  totPresupuesto: any
   valorTotalPorcentaje: any
   valorTotalVentasCumplidas: any
+  totVentasCumplidas: any
+  presupuestin: any
+  i:any
   public reporte(){
     this.informacionAsesor = []
     this.cumpleAsignVende = []
+    this.listaF = []
     this.listaFinal = []
     this.listaAsignVenSitioVenta = []
     this.sumPorcen = 0
@@ -187,6 +93,8 @@ export class ReporteAsesorComponent implements OnInit {
     this.valorTotalPresupuesto = 0
     this.valorTotalPorcentaje = 0
     this.valorTotalVentasCumplidas = 0
+    this.presupuestin = 0
+    this.i = 0
     var documentoAsesor = this.formReporte.controls['documentoAsesor'].value
     if(documentoAsesor == "" || documentoAsesor == null){
       Swal.fire({
@@ -261,98 +169,136 @@ export class ReporteAsesorComponent implements OnInit {
                 });
 
                 this.servicioVentasAsesor.listarPorId(fechaInicial, fechaFinal, this.idVendedor).subscribe(resVentasAsesor=>{
-                  var turnos = {
-                    ideSitioVenta: 0,
-                    nombreSitioVenta: "",
-                    turnos: [],
-                    turnitos: '',
-                    porcentaje: 0,
-                    presupuesto: 0,
-                    ventas: 0,
-                    faltaVenta: 0,
-                  }
-                  resVentasAsesor.forEach(element => {
-                    this.cumpleAsignVende.forEach(elementAsignVende => {
-                      if(element.ideSitioventa == elementAsignVende.idSitioVenta){
-                        console.log(elementAsignVende)
-                        turnos.ideSitioVenta = elementAsignVende.idSitioVenta
-                        turnos.nombreSitioVenta = elementAsignVende.nombreSitioVenta
-                        var Turno = elementAsignVende.idTurno.horaInicio+" a "+elementAsignVende.idTurno.horaFinal
-                        turnos.turnos.push(Turno)
-                        this.servicioAsignTurn.listarTodos().subscribe(resAsigTurno=>{
-                          resAsigTurno.forEach(elementAsigTurno => {
-                            if(elementAsigTurno.idSitioVenta == elementAsignVende.idSitioVenta && elementAsigTurno.idTurnos.id == elementAsignVende.idTurno.id){
-                              console.log(elementAsigTurno)
-                              this.sumPorcen += elementAsigTurno.porcentaje
+                  this.servicioAsignTurn.listarTodos().subscribe(resAsigTurno=>{
+                    this.servicioPresupuesto.listarTodos().subscribe(resPresupuesto=>{
+                      resVentasAsesor.forEach(element => {
+                        this.i += 1
+                        var turnos = {
+                          ideSitioVenta: 0,
+                          nombreSitioVenta: "",
+                          turnos: [],
+                          turnitos: '',
+                          porcentaje: 0,
+                          presupuesto: 0,
+                          ventas: 0,
+                          faltaVenta: 0,
+                        }
+                        this.cumpleAsignVende.forEach(elementAsignVende => {
+                          if(element.ideSitioventa == elementAsignVende.idSitioVenta){
+                            // console.log(elementAsignVende)
+                            turnos.ideSitioVenta = elementAsignVende.idSitioVenta
+                            turnos.nombreSitioVenta = elementAsignVende.nombreSitioVenta
+                            var Turno = elementAsignVende.idTurno.horaInicio+" a "+elementAsignVende.idTurno.horaFinal
+                            turnos.turnos.push(Turno)
+                            resAsigTurno.forEach(elementAsigTurno => {
+                              if(elementAsigTurno.idSitioVenta == elementAsignVende.idSitioVenta && elementAsigTurno.idTurnos.id == elementAsignVende.idTurno.id){
+                                // console.log(elementAsigTurno)
+                                this.sumPorcen += elementAsigTurno.porcentaje
+                              }
+                            });
+                            turnos.porcentaje = this.sumPorcen
+                              resPresupuesto.forEach(elementPresupuesto => {
+                                var mesPresupusupuesto = new Date(elementPresupuesto.mes)
+                                mesPresupusupuesto.setDate(mesPresupusupuesto.getDate()+1)
+                                var mesAsigVendeI = new Date(elementAsignVende.fechaInicio)
+                                mesAsigVendeI.setDate(mesAsigVendeI.getDate()+1)
+                                var mesAsigVendeF = new Date(elementAsignVende.fechaFinal)
+                                mesAsigVendeF.setDate(mesAsigVendeF.getDate()+1)
+                                if((elementPresupuesto.idSitioVenta == elementAsignVende.idSitioVenta && mesAsigVendeI.getMonth() == mesPresupusupuesto.getMonth()) || (elementPresupuesto.idSitioVenta ==elementAsignVende.idSitioVenta && mesAsigVendeF.getMonth() == mesPresupusupuesto.getMonth())){
+                                  this.presupuestin = elementPresupuesto.valorPresupuesto
+                                }
+                              })
+                              turnos.presupuesto = this.presupuestin
+                              turnos.ventas = element.suma
+                              turnos.faltaVenta = turnos.presupuesto-turnos.ventas
+                          }
+                        });
+                        for (let index = 0; index < turnos.turnos.length; index++) {
+                          index = index+1
+                          const element = turnos.turnos[index];
+                          if(turnos.turnos.length == 1){
+                            turnos.turnitos = turnos.turnos[0]
+                          }else if(turnos.turnos.length > 1){
+                            turnos.turnitos = turnos.turnos[0]+" - "+element
+                          }
+                        }
+                        // console.log(turnos)
+                        if(turnos.faltaVenta != 0 && turnos.ideSitioVenta != 0 && turnos.nombreSitioVenta != "" && turnos.porcentaje != 0 && turnos.presupuesto != 0 && turnos.turnitos != "" && turnos.turnos.length != 0 && turnos.ventas != 0){
+                          this.listaF.push(turnos)
+                          let result = this.listaF.filter(function({ideSitioVenta}) {
+                            return !this.has(ideSitioVenta) && this.add(ideSitioVenta);
+                          }, new Set)
+                          this.listaFinal = result
+                          console.log(result)
+                          for (let index = 0; index < result.length; index++) {
+                            const elementFinal = result[index];
+                            this.valorTotalVentas += elementFinal.ventas
+                            this.valorTotalPresupuesto += elementFinal.presupuesto
+                            this.valorTotalPorcentaje = (this.valorTotalVentas / this.valorTotalPresupuesto)*100
+                            this.valorTotalVentasCumplidas += elementFinal.faltaVenta
+                          }
+                          if(resVentasAsesor.length == this.i){
+                            console.log(this.valorTotalVentas, this.valorTotalPresupuesto, this.valorTotalPorcentaje, this.valorTotalVentasCumplidas)
+                            if(result.length == 1){
+                              this.valorTotalVentas = this.valorTotalVentas
+                              this.valorTotalPresupuesto = this.valorTotalPresupuesto
+                              this.valorTotalVentasCumplidas = this.valorTotalVentasCumplidas
+                            }else{
+                              for (let index = 0; index < result.length; index++) {
+                                this.totVentas = this.valorTotalVentas - result[0].ventas
+                                this.totPresupuesto = this.valorTotalPresupuesto - result[0].presupuesto
+                                this.totVentasCumplidas = this.valorTotalVentasCumplidas - result[0].faltaVenta
+                              }
+                              this.valorTotalVentas = this.totVentas
+                              this.valorTotalPresupuesto = this.totPresupuesto
+                              this.valorTotalVentasCumplidas = this.totVentasCumplidas
                             }
-                          });
-                          turnos.porcentaje = this.sumPorcen
-                        })
-                        this.servicioPresupuesto.listarTodos().subscribe(resPresupuesto=>{
-                          resPresupuesto.forEach(elementPresupuesto => {
-                            var mesPresupusupuesto = new Date(elementPresupuesto.mes)
-                            mesPresupusupuesto.setDate(mesPresupusupuesto.getDate()+1)
-                            var mesAsigVendeI = new Date(elementAsignVende.fechaInicio)
-                            mesAsigVendeI.setDate(mesAsigVendeI.getDate()+1)
-                            var mesAsigVendeF = new Date(elementAsignVende.fechaFinal)
-                            mesAsigVendeF.setDate(mesAsigVendeF.getDate()+1)
-                            if((elementPresupuesto.idSitioVenta == elementAsignVende.idSitioVenta && mesAsigVendeI.getMonth() == mesPresupusupuesto.getMonth()) || (elementPresupuesto.idSitioVenta ==elementAsignVende.idSitioVenta && mesAsigVendeF.getMonth() == mesPresupusupuesto.getMonth())){
-                              turnos.presupuesto = elementPresupuesto.valorPresupuesto
+                            var finalTabla = {
+                              ideSitioVenta: "",
+                              nombreSitioVenta: "",
+                              turnos: [],
+                              turnitos: '',
+                              porcentaje: this.valorTotalPorcentaje,
+                              presupuesto: this.valorTotalPresupuesto,
+                              ventas: this.valorTotalVentas,
+                              faltaVenta: this.valorTotalVentasCumplidas,
                             }
-                          })
-                          turnos.ventas = element.suma
-                          turnos.faltaVenta = turnos.presupuesto-turnos.ventas
-                        })
-
-                      }
+                            if(finalTabla.faltaVenta != 0  && finalTabla.porcentaje != NaN && finalTabla.presupuesto != 0 &&  finalTabla.ventas != 0){
+                              this.listaFinal.push(finalTabla)
+                            }
+                            this.dataSource = new MatTableDataSource( this.listaFinal);
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                            console.log(this.listaFinal)
+                            //GRAFICO
+                            this.chartOptions = {
+                              series: [this.valorTotalPorcentaje, 100-this.valorTotalPorcentaje],
+                              chart: {
+                                width: 380,
+                                type: "pie"
+                              },
+                              labels: ["Cumplio", "Falta"],
+                              responsive: [
+                                {
+                                  breakpoint: 480,
+                                  options: {
+                                    chart: {
+                                      width: 200,
+                                    },
+                                    legend: {
+                                      position: "bottom"
+                                    }
+                                  }
+                                }
+                              ]
+                            };
+                            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                            document.getElementById('informacionAsesor')?.setAttribute('style', 'display: block;')
+                        }
+                        }
+                      });
                     });
-                  });
-                  for (let index = 1; index < turnos.turnos.length; index++) {
-                    const element = turnos.turnos[index];
-                    console.log(element)
-                    if(turnos.turnos.length == 1){
-                      turnos.turnitos = turnos.turnos[0]
-                    }else{
-                      turnos.turnitos = turnos.turnos[0]+" - "+element
-                    }
-                  }
-                  console.log(turnos)
-                  console.log(this.listaFinal)
-                  this.listaFinal.push(turnos)
-                  this.dataSource = new MatTableDataSource( this.listaFinal);
-                  this.dataSource.paginator = this.paginator;
-                  this.dataSource.sort = this.sort;
-                  this.listaFinal.forEach(elementFinal => {
-                    this.valorTotalVentas += elementFinal.ventas
-                    this.valorTotalPresupuesto += elementFinal.presupuesto
-                    this.valorTotalPorcentaje = this.valorTotalVentas / this.valorTotalPresupuesto
-                    this.valorTotalVentasCumplidas = elementFinal.faltaVenta
-                  });
-                  console.log(this.valorTotalVentas, this.valorTotalPresupuesto, this.valorTotalPorcentaje, this.valorTotalVentasCumplidas)
-                  //GRAFICO
-                  // this.chartOptions = {
-                  //   series: [this.valorTotalPorcentaje, 100-this.valorTotalPorcentaje],
-                  //   chart: {
-                  //     width: 380,
-                  //     type: "pie"
-                  //   },
-                  //   labels: ["Cumplio", "Falta"],
-                  //   responsive: [
-                  //     {
-                  //       breakpoint: 480,
-                  //       options: {
-                  //         chart: {
-                  //           width: 200,
-                  //         },
-                  //         legend: {
-                  //           position: "bottom"
-                  //         }
-                  //       }
-                  //     }
-                  //   ]
-                  // };
-                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                  document.getElementById('informacionAsesor')?.setAttribute('style', 'display: block;')
+                  })
                 })
               }
             });

@@ -9,6 +9,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { JerarquiaService } from 'src/app/servicios/jerarquia.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Rol2 } from 'src/app/modelos/modelos2/rol2';
 @Component({
   selector: 'app-modificar-rol',
   templateUrl: './modificar-rol.component.html',
@@ -29,6 +31,7 @@ export class ModificarRolComponent implements OnInit {
     private servicioRol: RolService,
     private servicioEstado: EstadoService,
     private servicioJerarquia: JerarquiaService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarRolComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -82,16 +85,16 @@ export class ModificarRolComponent implements OnInit {
   }
 
   public guardar() {
-    let rol : Rol = new Rol();
+    let rol : Rol2 = new Rol2();
     rol.id=Number(this.data);
     rol.descripcion=this.formRol.controls['descripcion'].value;
     const idEstado = this.formRol.controls['estado'].value;
     const idJerarquia = this.formRol.controls['jerarquia'].value;
     this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res;
+      this.listarEstado = res.id;
       rol.idEstado= this.listarEstado
       this.servicioJerarquia.listarPorId(idJerarquia).subscribe(resJerar => {
-        this.listJerarquia = resJerar;
+        this.listJerarquia = resJerar.id;
         rol.idJerarquia= this.listJerarquia
         if(rol.descripcion==null || rol.descripcion=="" || rol.idEstado==null){
           Swal.fire({
@@ -108,8 +111,8 @@ export class ModificarRolComponent implements OnInit {
     })
   }
 
-  public actualizarRol(rol: Rol) {
-    this.servicioRol.actualizar(rol).subscribe(res => {
+  public actualizarRol(rol: Rol2) {
+    this.servicioModificar.actualizarRol(rol).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

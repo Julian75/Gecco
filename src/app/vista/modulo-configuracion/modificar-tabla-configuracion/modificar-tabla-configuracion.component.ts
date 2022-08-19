@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
 import { Configuracion } from 'src/app/modelos/configuracion';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Configuracion2 } from 'src/app/modelos/modelos2/configuracion2';
 
 @Component({
   selector: 'app-modificar-tabla-configuracion',
@@ -20,6 +22,7 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private servicioConfiguracion: ConfiguracionService,
+    private servicioModificar: ModificarService,
     public dialogRef: MatDialogRef<ModificarTablaConfiguracionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
@@ -46,7 +49,7 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
   }
 
   public guardar(){
-    let configuracion : Configuracion = new Configuracion();
+    let configuracion : Configuracion2 = new Configuracion2();
     configuracion.id=Number(this.data);
     const descripcion = this.formConfiguracion.controls['descripcion'].value;
     const nombre = this.formConfiguracion.controls['nombre'].value;
@@ -69,7 +72,7 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.servicioConfiguracion.actualizar(this.formConfiguracion.value).subscribe(
+        this.servicioModificar.actualizarConfiguracion(this.formConfiguracion.value).subscribe(
           (data) => {
             Swal.fire({
               title: 'Configuración modificada',

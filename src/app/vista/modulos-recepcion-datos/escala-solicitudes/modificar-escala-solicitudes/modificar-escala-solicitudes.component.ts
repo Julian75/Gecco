@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { EscalaSolicitudesService } from 'src/app/servicios/escalaSolicitudes.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-modificar-escala-solicitudes',
@@ -20,6 +21,7 @@ export class ModificarEscalaSolicitudesComponent implements OnInit {
     private router: Router,
     public dialogRef: MatDialogRef<ModificarEscalaSolicitudesComponent>,
     private servicioEscalaSolicitud: EscalaSolicitudesService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -43,7 +45,7 @@ export class ModificarEscalaSolicitudesComponent implements OnInit {
 
   public guardar(){
     if (this.formEscalaSolicitud.valid) {
-      this.servicioEscalaSolicitud.actualizar(this.formEscalaSolicitud.value).subscribe(data => {
+      this.servicioModificar.actualizarEscalaSolicitudes(this.formEscalaSolicitud.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
           title: 'Se actualizó correctamente',

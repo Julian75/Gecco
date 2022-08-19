@@ -59,7 +59,7 @@ export class HistorialSolicitudesComponent implements OnInit {
             resSopor.forEach(elementSoporte=>{
               if(elementSoporte.idHistorial.id == element.id){
                 console.log("yes entro1")
-                this.servicioPdf.listarTodos().subscribe(resPdf=>{
+                this.servicioPdf.listarTodosSegunda().subscribe(resPdf=>{
                   this.listaPdf.push(resPdf)
                   for (const i in resPdf) {
                     if (elementSoporte.descripcion == resPdf[i].name) {
@@ -85,7 +85,7 @@ export class HistorialSolicitudesComponent implements OnInit {
   public descargarPdf(id: number){
     this.servicioConsultasGenerales.listarSoporteSC(id).subscribe(resSoportes=>{
       resSoportes.forEach(elementSoporte => {
-        this.servicioPdf.listarTodos().subscribe(resPdf => {
+        this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
           for(const i in resPdf){
             if (elementSoporte.descripcion == resPdf[i].name) {
               window.location.href = resPdf[i].url

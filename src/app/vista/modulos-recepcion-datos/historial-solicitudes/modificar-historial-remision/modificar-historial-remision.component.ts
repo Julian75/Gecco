@@ -17,6 +17,7 @@ import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitu
 import { SolicitudSC } from 'src/app/modelos/solicitudSC';
 import { SoporteSC } from 'src/app/modelos/soporteSC';
 import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
+import { EscalaSolicitudesService } from 'src/app/servicios/escalaSolicitudes.service';
 
 @Component({
   selector: 'app-modificar-historial-remision',
@@ -56,6 +57,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     private servicioSoporte : SoporteSCService,
     private servicioModificar : ModificarService,
     private servicioAsignacionPqrs : AsignarUsuariosPqrService,
+    private servicioEscala : EscalaSolicitudesService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public historial: MatDialogRef<ModificarHistorialRemisionComponent>,
     public dialog: MatDialog,
@@ -145,7 +147,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     }else{
       let historial : Historial2 = new Historial2();
       historial.observacion = comentario
-
       this.servicioHistorial.listarTodos().subscribe(resSolicitud=>{
         resSolicitud.forEach(element => {
           if (element.idSolicitudSC.id == Number(this.data) && element.idUsuario.id == Number(sessionStorage.getItem("id")) && element.idEstado.id == 65) {
@@ -166,7 +167,9 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     }
   }
 
+  listaVerificacion: any = []
   public modificarHistorial(historial2: Historial2, resSoli){
+    this.listaVerificacion = []
     this.servicioModificar.actualizarHistorialSC(historial2).subscribe(res=>{
       let historial : HistorialSolicitudes = new HistorialSolicitudes();
       for (let i = 0; i < this.usuarios.value.length; i++) {
@@ -177,7 +180,14 @@ export class ModificarHistorialRemisionComponent implements OnInit {
           historial.idEstado = resEstado
           this.servicioUsuario.listarPorId(element.idUsuario.id).subscribe(resUsuarios=>{
             historial.idUsuario = resUsuarios
-            this.registrarHistorial2(historial, historial2);
+            var verificar = false
+            if(element.area == 'Mesa de servicio Matrix'){
+              verificar = true
+            }else{
+              verificar = false
+            }
+            this.listaVerificacion.push(verificar)
+            this.registrarHistorial2(historial, historial2, this.listaVerificacion);
           })
         })
       }
@@ -193,9 +203,9 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     })
   }
 
-  public registrarHistorial2(historial: HistorialSolicitudes, historial2){
+  public registrarHistorial2(historial: HistorialSolicitudes, historial2, listaVerificacion){
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      this.generarSoporte(historial2);
+      this.generarSoporte(historial2, listaVerificacion);
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -208,7 +218,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     })
   }
 
-  public generarSoporte(idHistorial:any){
+  public generarSoporte(idHistorial:any, listaVerificacion){
     console.log(idHistorial)
     if(this.listaArchivos2.length >= 1){
       let soporte : SoporteSC = new SoporteSC();
@@ -220,35 +230,107 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             soporte.idUsuario = resUsuario
             this.listaArchivos2.forEach(element => {
               soporte.descripcion = element
-              this.registrarSoporte(soporte);
+              this.registrarSoporte(soporte, listaVerificacion);
             });
           })
         })
       })
     }else{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Comentario Generado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload();
-      // this.router.navigate(['/solicitudesSC']);
+      const existe = listaVerificacion.includes( true )
+      if(existe == true){
+        let solicitudSc : SolicitudSC2 = new SolicitudSC2();
+        this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+          solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+          var fechaActual = new Date(resSolicitud.fecha)
+          fechaActual.setDate(fechaActual.getDate()+1)
+          solicitudSc.fecha = fechaActual
+          solicitudSc.id = resSolicitud.id
+          this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
+            solicitudSc.idEscalaSolicitudes = resEscala.id
+          })
+          solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+          solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+          solicitudSc.incidente = resSolicitud.incidente
+          solicitudSc.prorroga = resSolicitud.prorroga
+          solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+          solicitudSc.municipio = resSolicitud.municipio
+          var fechavence = new Date(resSolicitud.vence)
+          fechavence.setDate(fechavence.getDate()+1)
+          solicitudSc.vence = fechavence
+          solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+          this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
+            solicitudSc.idEstado = resEstado.id
+            this.modificarSolicitudSC(solicitudSc);
+          })
+        })
+      }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Comentario Generado!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        window.location.reload();
+      }
     }
   }
 
-  public registrarSoporte(soporte: SoporteSC){
+  public modificarSolicitudSC(solicitudSc: SolicitudSC2){
+    this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Comentario Generado!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        window.location.reload();
+    })
+  }
+
+  public registrarSoporte(soporte: SoporteSC, listaVerificacion){
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Comentario Agregado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.uploadFiles();
+      const existe = listaVerificacion.includes( true )
+      console.log(existe)
+      if(existe == true){
+        let solicitudSc : SolicitudSC2 = new SolicitudSC2();
+        this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+          solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+          var fechaActual = new Date(resSolicitud.fecha)
+          fechaActual.setDate(fechaActual.getDate()+1)
+          solicitudSc.fecha = fechaActual
+          solicitudSc.id = resSolicitud.id
+          this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
+            solicitudSc.idEscalaSolicitudes = resEscala.id
+          })
+          solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+          solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+          solicitudSc.incidente = resSolicitud.incidente
+          solicitudSc.prorroga = resSolicitud.prorroga
+          solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+          solicitudSc.municipio = resSolicitud.municipio
+          var fechavence = new Date(resSolicitud.vence)
+          fechavence.setDate(fechavence.getDate()+1)
+          solicitudSc.vence = fechavence
+          solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+          this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
+            solicitudSc.idEstado = resEstado.id
+            this.modificarSolicitudSC3(solicitudSc);
+          })
+        })
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Comentario Generado!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.uploadFiles();
+      }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -258,6 +340,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+    })
+  }
+
+  public modificarSolicitudSC3(solicitudSc: SolicitudSC2){
+    this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      this.uploadFiles();
     })
   }
 
@@ -310,7 +399,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
                   soporte.idUsuario = resUsuario
                   this.listaArchivos2.forEach(element => {
                     soporte.descripcion = element
-                    this.registrarSoporte(soporte);
+                    this.registrarSoporte2(soporte);
                   });
                 })
               })
@@ -341,6 +430,28 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     })
   }
 
+  public registrarSoporte2(soporte: SoporteSC){
+    this.servicioSoporte.registrar(soporte).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Comentario Generado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.uploadFiles();
+    }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al generar el soporte!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+  }
+
   public modificarSolicitudSc2(solicitudSc: SolicitudSC2, idHistorial:any){
     this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
       if(this.listaArchivos2.length >= 1){
@@ -353,7 +464,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               soporte.idUsuario = resUsuario
               this.listaArchivos2.forEach(element => {
                 soporte.descripcion = element
-                this.registrarSoporte(soporte);
+                this.registrarSoporte2(soporte);
               });
             })
           })

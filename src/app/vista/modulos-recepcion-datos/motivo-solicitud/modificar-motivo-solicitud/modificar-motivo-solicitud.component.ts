@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { MotivoSolicitudService } from 'src/app/servicios/motivoSolicitud.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 @Component({
   selector: 'app-modificar-motivo-solicitud',
   templateUrl: './modificar-motivo-solicitud.component.html',
@@ -19,6 +20,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
     private router: Router,
     public dialogRef: MatDialogRef<ModificarMotivoSolicitudComponent>,
     private servicioMotivoSolicitud: MotivoSolicitudService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -41,7 +43,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
   }
   public guardar(){
     if (this.formMotivoSolicitud.valid) {
-      this.servicioMotivoSolicitud.registrar(this.formMotivoSolicitud.value).subscribe(data => {
+      this.servicioModificar.actualizarMotivoSolicitud(this.formMotivoSolicitud.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
           title: 'Se actualizo el motivo',

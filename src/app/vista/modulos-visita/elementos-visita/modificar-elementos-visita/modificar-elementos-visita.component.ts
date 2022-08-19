@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ElementosVisitaService } from 'src/app/servicios/ElementosVisita.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 @Component({
   selector: 'app-modificar-elementos-visita',
   templateUrl: './modificar-elementos-visita.component.html',
@@ -16,6 +17,7 @@ export class ModificarElementosVisitaComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ModificarElementosVisitaComponent>,
     private fb: FormBuilder,
+    private servicioModificar: ModificarService,
     private servicioElementoVisita: ElementosVisitaService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
@@ -39,7 +41,7 @@ export class ModificarElementosVisitaComponent implements OnInit {
   }
   public guardar(){
     if (this.formElementoVisita.valid) {
-      this.servicioElementoVisita.registrar(this.formElementoVisita.value).subscribe(res => {
+      this.servicioModificar.actualizarElementosVisita(this.formElementoVisita.value).subscribe(res => {
         Swal.fire({
           title: 'Modificado',
           text: 'Se modificó correctamente',

@@ -121,7 +121,7 @@ h2{
 .example-container {
   max-width: 100%;
   overflow: auto;
-  margin-top: 20% !important;
+  margin-top: 5% !important;
   border-bottom: 20%;
   box-shadow: 1px none #000;
   margin-bottom: 3% !important;

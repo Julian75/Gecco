@@ -7,6 +7,8 @@ import { TipoTurnoService } from 'src/app/servicios/tipoTurno.service';
 import { Turnos } from 'src/app/modelos/turnos';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { Turnos2 } from 'src/app/modelos/modelos2/turnos2';
 
 @Component({
   selector: 'app-modificar-turnos',
@@ -29,6 +31,7 @@ export class ModificarTurnosComponent implements OnInit {
     private servicioTurno: TurnosService,
     private servicioEstado: EstadoService,
     private servicioTipoTurno: TipoTurnoService,
+    private servicioModificar: ModificarService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -88,7 +91,7 @@ export class ModificarTurnosComponent implements OnInit {
   }
 
   public guardar() {
-    let turno : Turnos = new Turnos();
+    let turno : Turnos2 = new Turnos2();
     const horaI = this.formTurno.controls['horaInicio'].value;
     const horaF = this.formTurno.controls['horaFinal'].value;
     const idEstad = this.formTurno.controls['estado'].value;
@@ -100,8 +103,8 @@ export class ModificarTurnosComponent implements OnInit {
         turno.descripcion = listaTurno.descripcion
         turno.horaInicio = listaTurno.horaInicio
         turno.horaFinal = listaTurno.horaFinal
-        turno.idEstado = listaTurno.idEstado
-        turno.idTipoTurno = listaTurno.idTipoTurno
+        turno.idEstado = listaTurno.idEstado.id
+        turno.idTipoTurno = listaTurno.idTipoTurno.id
         if(horaF == resTurno.horaFinal && horaI == resTurno.horaInicio && idEstad == resTurno.idEstado.id && idTipoTurn == resTurno.idTipoTurno.id){
           Swal.fire({
             position: 'center',
@@ -139,11 +142,11 @@ export class ModificarTurnosComponent implements OnInit {
               turno.horaFinal = this.formTurno.controls['horaFinal'].value;
               const idEstado = this.formTurno.controls['estado'].value;
               this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-                this.listarEstado = res;
+                this.listarEstado = res.id;
                 turno.idEstado= this.listarEstado
                 const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
                 this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
-                  this.listarTipoTurno = res;
+                  this.listarTipoTurno = res.id;
                   turno.idTipoTurno= this.listarTipoTurno
                   if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
                     Swal.fire({
@@ -181,8 +184,8 @@ export class ModificarTurnosComponent implements OnInit {
     })
   }
 
-  public actualizarTurno(turno: Turnos) {
-    this.servicioTurno.actualizar(turno).subscribe(res => {
+  public actualizarTurno(turno: Turnos2) {
+    this.servicioModificar.actualizarTurnos(turno).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',

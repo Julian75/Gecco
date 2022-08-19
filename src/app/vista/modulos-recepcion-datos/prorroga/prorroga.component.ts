@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { SolicitudSC2 } from 'src/app/modelos/modelos2/solicitudSC2';
 import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-prorroga',
@@ -21,6 +22,7 @@ export class ProrrogaComponent implements OnInit {
     private fb: FormBuilder,
     private servicioSolicitudSc: SolicitudSCService,
     private servicioEstado: EstadoService,
+    private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public prorroga: MatDialogRef<ProrrogaComponent>,
     public dialog: MatDialog,
@@ -43,7 +45,7 @@ export class ProrrogaComponent implements OnInit {
     var fechaVencimiento = new Date(vencimiento)
     this.fechaActual = this.fecha.getFullYear() + "-"+ (this.fecha.getMonth()+1)+ "-" +this.fecha.getDate();
     var fechaVencimiento2 = fechaVencimiento.getFullYear() + "-"+ (fechaVencimiento.getMonth()+1)+ "-" +(fechaVencimiento.getDate()+1);
-    if(fechaVencimiento == null){
+    if(vencimiento == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
@@ -52,6 +54,8 @@ export class ProrrogaComponent implements OnInit {
         showConfirmButton: false,
         timer: 2500
       })
+      this.prorroga.close();
+      window.location.reload();
     }else{
       if (new Date(fechaVencimiento2) < new Date(this.fechaActual)) {
         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -62,9 +66,13 @@ export class ProrrogaComponent implements OnInit {
           showConfirmButton: false,
           timer: 2500
         })
+        this.prorroga.close();
+        window.location.reload();
       }else{
         let solicitudSc : SolicitudSC2 = new SolicitudSC2();
         this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+          solicitudSc.id = resSolicitud.id
+          console.log(resSolicitud)
           var fechaActual = new Date(resSolicitud.fecha)
           fechaActual.setDate(fechaActual.getDate()+1)
           solicitudSc.fecha = fechaActual
@@ -78,7 +86,7 @@ export class ProrrogaComponent implements OnInit {
           solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
           solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
           solicitudSc.incidente = resSolicitud.incidente
-          this.servicioEstado.listarPorId(70).subscribe(resEstado=>{
+          this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
             solicitudSc.idEstado = resEstado.id
             this.modificarSolicitudSc(solicitudSc);
           })
@@ -88,7 +96,26 @@ export class ProrrogaComponent implements OnInit {
   }
 
   public modificarSolicitudSc(solicitud: SolicitudSC2){
-
+    this.servicioModificar.actualizarSolicitudSC(solicitud).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Prorroga Realizada!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.prorroga.close();
+      window.location.reload();
+    }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al realizar la prorrogae!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
   }
 
 }
