@@ -5,7 +5,7 @@
   <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field>
     <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+    <input matInput (keyup)="applyFilter($event)" placeholder="buscar">
   </mat-form-field>
   <section class="example-container mat-elevation-z8" tabindex="0">
     <table id="asignarTurnoVendedor" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
@@ -109,6 +109,9 @@
             <button *ngIf="item.prorroga == true" class="btn btnPriority" (click)="prorroga(item.solicitud.id)">
               <mat-icon>event_repeat</mat-icon>
             </button>
+            <button *ngIf="item.incidente == true && idModulo == 39 && usuarioMatrix2 == true" class="btn btnPriority" (click)="editar(item.solicitud.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
           </td>
         </ng-container>
 
@@ -122,3 +125,7 @@
             aria-label="Select page">
 </mat-paginator>
 </div>
+<mat-form-field>
+  <mat-label>Buscar</mat-label>
+  <input matInput (keyup)="applyFilter3($event)" placeholder="buscar">
+</mat-form-field>

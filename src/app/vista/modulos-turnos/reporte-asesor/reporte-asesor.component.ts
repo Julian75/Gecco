@@ -129,7 +129,7 @@ export class ReporteAsesorComponent implements OnInit {
                 fechaI.setDate(fechaI.getDate()+1)
                 var fechaF = new Date(element.fechaFinal)
                 fechaF.setDate(fechaF.getDate()+1)
-                if((element.idVendedor == elementInformacionAsesor.ideUsuario && fechaI.getMonth()==this.fechaActual.getMonth() && fechaI.getFullYear()==this.fechaActual.getFullYear()) || (element.idVendedor == elementInformacionAsesor.ideUsuario && fechaF.getMonth()==this.fechaActual.getMonth() && fechaF.getFullYear()==this.fechaActual.getFullYear())){
+                if((element.idVendedor == elementInformacionAsesor.ideUsuario && fechaI.getMonth()==this.fechaActual.getMonth() && fechaI.getFullYear()==this.fechaActual.getFullYear() && element.estado != 'Eliminado') || (element.idVendedor == elementInformacionAsesor.ideUsuario && fechaF.getMonth()==this.fechaActual.getMonth() && fechaF.getFullYear()==this.fechaActual.getFullYear()) && element.estado != 'Eliminado'){
                   this.cumpleAsignVende.push(element)
                 }
               });
@@ -168,6 +168,7 @@ export class ReporteAsesorComponent implements OnInit {
                   this.idVendedor = elementAsignVende.idVendedor
                 });
 
+                console.log(fechaInicial, fechaFinal)
                 this.servicioVentasAsesor.listarPorId(fechaInicial, fechaFinal, this.idVendedor).subscribe(resVentasAsesor=>{
                   this.servicioAsignTurn.listarTodos().subscribe(resAsigTurno=>{
                     this.servicioPresupuesto.listarTodos().subscribe(resPresupuesto=>{
@@ -179,51 +180,54 @@ export class ReporteAsesorComponent implements OnInit {
                           turnos: [],
                           turnitos: '',
                           porcentaje: 0,
+                          porcentajito: 0,
                           presupuesto: 0,
                           ventas: 0,
                           faltaVenta: 0,
                         }
                         this.cumpleAsignVende.forEach(elementAsignVende => {
                           if(element.ideSitioventa == elementAsignVende.idSitioVenta){
-                            // console.log(elementAsignVende)
+                            console.log(elementAsignVende)
                             turnos.ideSitioVenta = elementAsignVende.idSitioVenta
                             turnos.nombreSitioVenta = elementAsignVende.nombreSitioVenta
                             var Turno = elementAsignVende.idTurno.horaInicio+" a "+elementAsignVende.idTurno.horaFinal
                             turnos.turnos.push(Turno)
                             resAsigTurno.forEach(elementAsigTurno => {
                               if(elementAsigTurno.idSitioVenta == elementAsignVende.idSitioVenta && elementAsigTurno.idTurnos.id == elementAsignVende.idTurno.id){
-                                // console.log(elementAsigTurno)
-                                this.sumPorcen += elementAsigTurno.porcentaje
+                                this.sumPorcen += elementAsigTurno.porcentaje / 100
                               }
                             });
-                            turnos.porcentaje = this.sumPorcen
-                              resPresupuesto.forEach(elementPresupuesto => {
-                                var mesPresupusupuesto = new Date(elementPresupuesto.mes)
-                                mesPresupusupuesto.setDate(mesPresupusupuesto.getDate()+1)
-                                var mesAsigVendeI = new Date(elementAsignVende.fechaInicio)
-                                mesAsigVendeI.setDate(mesAsigVendeI.getDate()+1)
-                                var mesAsigVendeF = new Date(elementAsignVende.fechaFinal)
-                                mesAsigVendeF.setDate(mesAsigVendeF.getDate()+1)
-                                if((elementPresupuesto.idSitioVenta == elementAsignVende.idSitioVenta && mesAsigVendeI.getMonth() == mesPresupusupuesto.getMonth()) || (elementPresupuesto.idSitioVenta ==elementAsignVende.idSitioVenta && mesAsigVendeF.getMonth() == mesPresupusupuesto.getMonth())){
-                                  this.presupuestin = elementPresupuesto.valorPresupuesto
-                                }
-                              })
-                              turnos.presupuesto = this.presupuestin
-                              turnos.ventas = element.suma
-                              turnos.faltaVenta = turnos.presupuesto-turnos.ventas
+                            turnos.porcentajito = this.sumPorcen
+                            resPresupuesto.forEach(elementPresupuesto => {
+                              var mesPresupusupuesto = new Date(elementPresupuesto.mes)
+                              mesPresupusupuesto.setDate(mesPresupusupuesto.getDate()+1)
+                              var mesAsigVendeI = new Date(elementAsignVende.fechaInicio)
+                              mesAsigVendeI.setDate(mesAsigVendeI.getDate()+1)
+                              var mesAsigVendeF = new Date(elementAsignVende.fechaFinal)
+                              mesAsigVendeF.setDate(mesAsigVendeF.getDate()+1)
+                              if((elementPresupuesto.idSitioVenta == elementAsignVende.idSitioVenta && mesAsigVendeI.getMonth() == mesPresupusupuesto.getMonth()) || (elementPresupuesto.idSitioVenta ==elementAsignVende.idSitioVenta && mesAsigVendeF.getMonth() == mesPresupusupuesto.getMonth())){
+                                this.presupuestin = elementPresupuesto.valorPresupuesto
+                              }
+                            })
+                            turnos.presupuesto = this.presupuestin / turnos.porcentajito
+                            turnos.ventas = element.suma
+                            turnos.faltaVenta = turnos.presupuesto-turnos.ventas
+                            turnos.porcentaje = (turnos.ventas / turnos.presupuesto)*100
+                            console.log(turnos)
+                            for (let index = 0; index < turnos.turnos.length; index++) {
+                              index = index+1
+                              const element = turnos.turnos[index];
+                              if(turnos.turnos.length == 1){
+                                turnos.turnitos = turnos.turnos[0]
+                              }else if(turnos.turnos.length > 1){
+                                turnos.turnitos = turnos.turnos[0]+" - "+element
+                              }
+                            }
                           }
                         });
-                        for (let index = 0; index < turnos.turnos.length; index++) {
-                          index = index+1
-                          const element = turnos.turnos[index];
-                          if(turnos.turnos.length == 1){
-                            turnos.turnitos = turnos.turnos[0]
-                          }else if(turnos.turnos.length > 1){
-                            turnos.turnitos = turnos.turnos[0]+" - "+element
-                          }
-                        }
                         // console.log(turnos)
                         if(turnos.faltaVenta != 0 && turnos.ideSitioVenta != 0 && turnos.nombreSitioVenta != "" && turnos.porcentaje != 0 && turnos.presupuesto != 0 && turnos.turnitos != "" && turnos.turnos.length != 0 && turnos.ventas != 0){
+                          console.log(turnos)
                           this.listaF.push(turnos)
                           let result = this.listaF.filter(function({ideSitioVenta}) {
                             return !this.has(ideSitioVenta) && this.add(ideSitioVenta);

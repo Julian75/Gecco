@@ -1,3 +1,5 @@
+import { ModificarSolicitudScComponent } from './modificar-solicitud-sc/modificar-solicitud-sc.component';
+import { AsignarUsuariosPqrService } from './../../../servicios/asignacionUsuariosPqrs.service';
 import { ClienteSCService } from './../../../servicios/clienteSC.service';
 import { Observable, startWith, map } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -26,6 +28,7 @@ import { CorreoService } from 'src/app/servicios/Correo.service';
 import { RegistroCorreoService } from 'src/app/servicios/registroCorreo.service';
 import { Correo } from 'src/app/modelos/correo';
 import { RegistroCorreo } from 'src/app/modelos/registroCorreo';
+import { SolicitudSC } from 'src/app/modelos/solicitudSC';
 
 @Component({
   selector: 'app-solicitudes-sc',
@@ -57,6 +60,7 @@ export class SolicitudesScComponent implements OnInit {
     private servicioPdf: SubirPdfService,
     private servicioCorreo: CorreoService,
     private servicioCliente: ClienteSCService,
+    private servicioAsignacionUsuarioPQRS: AsignarUsuariosPqrService,
     public dialog: MatDialog,
   ) { }
 
@@ -111,10 +115,14 @@ export class SolicitudesScComponent implements OnInit {
   listaDecisionPao: any = [];
   listaDecisionRemitente: any = [];
   idModulo: any;
+  usuarioMatrix: boolean = false;
+  usuarioMatrix2: boolean = false;
+  listaUsuarioMatrix: any = [];
   public listarTodos () {
     this.listaDecisionPao = []
     this.listaDecisionRemitente = []
     this.listarSolicitud = []
+    this.listaUsuarioMatrix = []
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
       this.servicioAccesos.listarTodos().subscribe(resAccesos=>{
         resAccesos.forEach(elementAcceso => {
@@ -181,7 +189,6 @@ export class SolicitudesScComponent implements OnInit {
                 obj.nombre = "No_cumplio"
               }
               this.servicioConsultasGenerales.listarHistorialSC(elementSolicitud.id).subscribe(resHistorial=>{
-                console.log(resHistorial)
                 if(resHistorial.length>=1){
                   resHistorial.forEach(elementHistorial => {
                     if(elementHistorial.idUsuario == Number(sessionStorage.getItem('id')) && elementSolicitud.idEstado.id == 69){
@@ -226,7 +233,20 @@ export class SolicitudesScComponent implements OnInit {
               if(elementHistorial.idUsuario.id == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado.id == 65){
                 var obj = {
                   solicitud: elementHistorial.idSolicitudSC,
+                  incidente: false
                 }
+                if(elementHistorial.idSolicitudSC.incidente == ""){
+                  obj.incidente = true
+                }else{ obj.incidente = false }
+                this.servicioAsignacionUsuarioPQRS.listarTodos().subscribe(resAsigUsuPQRS=>{
+                  resAsigUsuPQRS.forEach(elementUsuarioPqrs => {
+                    if(elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Mesa de servicio Matrix'){
+                      this.usuarioMatrix = true
+                    }else{ this.usuarioMatrix = false }
+                    this.listaUsuarioMatrix.push(this.usuarioMatrix)
+                  });
+                  this.usuarioMatrix2 = this.listaUsuarioMatrix.includes( true )
+                })
                 this.listarSolicitud.push(obj)
               }
             });
@@ -359,13 +379,38 @@ export class SolicitudesScComponent implements OnInit {
   }
 
    // Filtrado
-   applyFilter(event: Event) {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(filterValue)
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarSolicitud);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: SolicitudSC, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+          console.log(currentTerm, data, key)
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
     }
+  }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          console.log(data[key][k])
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 
   name = 'solicitudes.xlsx';
@@ -379,13 +424,28 @@ export class SolicitudesScComponent implements OnInit {
     XLSX.writeFile(book, this.name);
   }
 
-  //CONSULTAS
-  filtrar(event: Event) {
-    console.log(event)
-    const filtro = (event.target as HTMLInputElement).value;
-    console.log(filtro)
-    this.listarSolicitud.solicitud.filter = filtro.trim().toLowerCase();
-    console.log(this.listarSolicitud.solicitud.filter)
+  public editar(idSolicitud){
+    const dialogRef = this.dialog.open(ModificarSolicitudScComponent, {
+      width: '500px',
+      height: '270px',
+      data: idSolicitud
+    });
+  }
+
+
+
+
+
+  applyFilter3(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue)
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarSolicitud);
+    }else{
+      this.listarSolicitud.filter(function(el){
+        return el.toLowerCase().indexOf(filterValue.toLowerCase())
+      })
+    }
   }
 }
 // this.dataSource = new MatTableDataSource(this.listarSolicitud);

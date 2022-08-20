@@ -155,10 +155,22 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
               historial.idEstado = resEstado.id
               historial.idUsuario = element.idUsuario.id
-              if(this.usuarios.value.length >= 1){
-                this.modificarHistorial(historial, element.idSolicitudSC)
+              if(element.idSolicitudSC.incidente == "" && element.idSolicitudSC.idEscala.id == 3){
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Si desea adjuntar su comentario debe primero colocar el incidente!',
+                  showConfirmButton: false,
+                  timer: 2500
+                })
+                this.historial.close()
               }else{
-                this.modificarHistorial3(historial);
+                if(this.usuarios.value.length >= 1){
+                  this.modificarHistorial(historial, element.idSolicitudSC)
+                }else{
+                  this.modificarHistorial3(historial);
+                }
               }
             })
           }

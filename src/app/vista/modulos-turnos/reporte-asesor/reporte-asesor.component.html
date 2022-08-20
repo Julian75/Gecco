@@ -40,15 +40,15 @@
           </ng-container>
 
           <!-- Name Column -->
-          <ng-container matColumnDef="horaInicio">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaISpa">Venta</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.ventas | currency:'COP'}}</td>
-          </ng-container>
-
-          <!-- Name Column -->
           <ng-container matColumnDef="horaFinal">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaFSpa">Presupuesto</h3></th>
             <td mat-cell *matCellDef="let element">{{element.presupuesto | currency:'COP'}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="horaInicio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaISpa">Venta</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.ventas | currency:'COP'}}</td>
           </ng-container>
 
           <!-- Name Column -->

@@ -134,6 +134,7 @@ import { ListaCotizacionesLiderProcesoComponent } from './modulos-compra/lista-c
 import { ModificarHistorialRemisionComponent } from './modulos-recepcion-datos/historial-solicitudes/modificar-historial-remision/modificar-historial-remision.component';
 import { RemisionesDecisionComponent } from './modulos-recepcion-datos/remisiones-decision/remisiones-decision.component';
 import { ProrrogaComponent } from './modulos-recepcion-datos/prorroga/prorroga.component';
+import { ModificarSolicitudScComponent } from './modulos-recepcion-datos/solicitudes-sc/modificar-solicitud-sc/modificar-solicitud-sc.component';
 
 @NgModule({
   declarations: [
@@ -266,6 +267,7 @@ import { ProrrogaComponent } from './modulos-recepcion-datos/prorroga/prorroga.c
     ModificarHistorialRemisionComponent,
     RemisionesDecisionComponent,
     ProrrogaComponent,
+    ModificarSolicitudScComponent,
   ],
   imports: [
     CommonModule,

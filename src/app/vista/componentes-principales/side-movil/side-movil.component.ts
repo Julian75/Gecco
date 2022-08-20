@@ -43,7 +43,7 @@ export class SideMovilComponent implements OnInit {
         for (let i = 0; i < this.listaAccessForm.length; i++) {
           if(this.listaAccessForm[i] == 5 || this.listaAccessForm[i] == 4 || this.listaAccessForm[i] == 3 || this.listaAccessForm[i] == 10 || this.listaAccessForm[i] == 11 || this.listaAccessForm[i] == 19 || this.listaAccessForm[i] == 21){
             document.getElementById('Administracion2')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 1 || this.listaAccessForm[i] == 12 || this.listaAccessForm[i] == 2 || this.listaAccessForm[i] == 6 || this.listaAccessForm[i] == 13 || this.listaAccessForm[i] == 7 || this.listaAccessForm[i] == 20 || this.listaAccessForm[i] == 14){
+          }else if(this.listaAccessForm[i] == 1 || this.listaAccessForm[i] == 12 || this.listaAccessForm[i] == 2 || this.listaAccessForm[i] == 6 || this.listaAccessForm[i] == 13 || this.listaAccessForm[i] == 7 || this.listaAccessForm[i] == 20 || this.listaAccessForm[i] == 14 || this.listaAccessForm[i]== 40 || this.listaAccessForm[i]== 41){
             document.getElementById('Malla2')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 16 || this.listaAccessForm[i] == 17 || this.listaAccessForm[i] == 18){
             document.getElementById('Visita2')?.setAttribute('style', 'display: block;')
@@ -51,6 +51,8 @@ export class SideMovilComponent implements OnInit {
             document.getElementById('Raspa2')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]==32 || this.listaAccessForm[i]==33 ){
             document.getElementById('Compra2')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39){
+            document.getElementById('RecepcionDatos2')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('111')?.setAttribute('style', 'display: block;')
@@ -132,6 +134,31 @@ export class SideMovilComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 33) {
             document.getElementById('3333')?.setAttribute('style', 'display: block;')
+          }
+
+          if (this.listaAccessForm[i] == 40) {
+            document.getElementById('4040')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 41) {
+            document.getElementById('4141')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 42) {
+            document.getElementById('4242')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 43) {
+            document.getElementById('4343')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 44) {
+            document.getElementById('4444')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 45) {
+            document.getElementById('4545')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 46) {
+            document.getElementById('4646')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39) {
+            document.getElementById('3838')?.setAttribute('style', 'display: block;')
           }
         }
       })

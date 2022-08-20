@@ -34,7 +34,8 @@
       <button mat-raised-button id="777" routerLink="/mallas" style="display: none;">Malla de Turnos Ingreso</button>
       <button mat-raised-button id="2020" routerLink="/mallasCierre" style="display: none;">Malla de Turnos Cierre</button>
       <button mat-raised-button id="1414" routerLink="/novedades" style="display: none;">Generar Reporte Novedad</button>
-
+      <button mat-raised-button id="4040" routerLink="/presupuestoVentaMensual" style="display: none;" >Presupuesto de Punto Venta Mensual</button>
+      <button mat-raised-button id="4141" routerLink="/reporteAsesor" style="display: none;" >Reporte Asesor</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Visita2" (opened)="panelOpenState = true"
@@ -67,6 +68,22 @@
       <button mat-raised-button id="3232" routerLink="/comentariosSolicitud" style="display: none;">Comentarios Solicitudes</button>
       <button mat-raised-button  id="3030" routerLink="/generarSolicitud" style="display: none;" >Generar Solicitud</button>
       <button mat-raised-button  id="2323" routerLink="/solicitud" style="display: none;">Lista de Solicitudes</button>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel style="display: none;" id="RecepcionDatos2" (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Recepción de Datos
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="4242" routerLink="/tipoServicio" style="display: none;">Tipo de Servicio</button>
+      <button mat-raised-button id="4343" routerLink="/escalaSolicitudes" style="display: none;">Escala Solicitudes</button>
+      <button mat-raised-button id="4444" routerLink="/motivoSolicitud" style="display: none;">Motivos de Solicitud</button>
+      <button mat-raised-button id="4545" routerLink="/clientesSC" style="display: none;">Clientes Servicio al Cliente</button>
+      <button mat-raised-button id="4646" routerLink="/asignacionUsuariosPqr" style="display: none;">Asignar usuario PQRS</button>
+      <button mat-raised-button id="3838" routerLink="/solicitudesSC" style="display: none;">Solicitudes PQRS</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Raspa2" (opened)="panelOpenState = true"
