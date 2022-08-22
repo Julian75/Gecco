@@ -54,7 +54,10 @@
           <h2>Medios de Radicacion</h2>
           <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Ingrese el medio de la radicacion </mat-label>
-          <input id="radicacion" formControlName="radicacion" matInput>
+          <select matNativeControl id="radicacion" formControlName="radicacion" matInput>
+            <option value="Fisico">Fisico</option>
+            <option value="Correo">Correo</option>
+          </select>
           </mat-form-field>
         </div>
         <div class="nombre4">

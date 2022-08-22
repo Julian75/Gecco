@@ -27,7 +27,7 @@
                 <li >
                   <h3 class="antic">¿Anticipo?</h3>
                 </li>
-                <mat-radio-group aria-label="Select an option" style="margin-left: -35px;" >
+                <mat-radio-group formControlName="opcion" aria-label="Select an option" style="margin-left: -35px;" >
                     <mat-radio-button style="margin-left: 5%;" *ngFor="let opcion of opciones" [value]="opcion" value="{{opcion}}" (change)="capturarOpcion(opcion);">{{opcion}}</mat-radio-button>
                 </mat-radio-group>
               </ul>
@@ -37,7 +37,6 @@
               </mat-form-field>
           </div>
       </div>
-  </form>
   <section id="tablita" class="example-container mat-elevation-z8" tabindex="0">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla">
       <!-- Position Column -->
@@ -56,7 +55,7 @@
       <ng-container matColumnDef="valorUnitario">
         <th mat-header-cell *matHeaderCellDef><h3 class="o"> Valor Unitario </h3></th>
         <td mat-cell *matCellDef="let element">
-          <input type="number"  name="valor" id="precio" (keyup)="valorUnitario($event, element.solicitudDetalle)">
+          <input type="number"  name="valor" id="precio" formControlName="valor" (keyup)="valorUnitario($event, element.solicitudDetalle)">
       </td>
       </ng-container>
 
@@ -66,13 +65,12 @@
         <td mat-cell *matCellDef="let element">
           <div *ngFor="let item of lista">
               <div *ngIf="element.solicitudDetalle.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion == item.posicion">
-                  {{item.valorUnitario}}
+                  ${{item.valorUnitario | currency:'COP':'symbol':'1.0-0'}}
               </div>
               <div *ngIf="element.solicitudDetalle.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion != item.posicion">
-                  {{item.valorUnitario}}
+                  ${{item.valorUnitario | currency:'COP':'symbol':'1.0-0'}}
               </div>
           </div>
-          <!-- {{item.valorUnitario}} -->
       </td>
       </ng-container>
 
@@ -82,13 +80,13 @@
       </tr>
     </table>
   </section>
-      <p class="sub">Subtotal: {{subtotal}}</p>
-      <p class="val">Valor anticipo: {{anticipoVal2}} %</p>
-      <p class="des">Descuento: {{descuento}} COP</p>
-      <p class="to">Total: {{total}}</p>
+      <p class="sub">Subtotal: ${{subtotal | currency:'COP':'symbol':'1.0-0'}}</p>
+      <p class="val">Anticipo: {{anticipoVal2 | number:'1.0-2'}} %</p>
+      <p class="des">Valor Anticipo: ${{descuento | currency:'COP':'symbol':'1.0-0'}}</p>
+      <p class="to">Total: ${{total | currency:'COP':'symbol':'1.0-0'}}</p>
 
     <button mat-raised-button class="guardar4" (click)="generarOrden()">Generar</button>
-
+  </form>
 </div>
 <div class="solpiner" id="snipper" style="text-align: center; display: none;">
   <div class="loader"></div>

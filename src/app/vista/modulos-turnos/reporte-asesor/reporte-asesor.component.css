@@ -20,6 +20,7 @@
   margin-top: 22%;
   margin-left: 50%;
 }
+h4{ margin-left: 70%; text-align: right; }
 .loader::after,
 .loader::before {
   content: '';

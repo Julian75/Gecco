@@ -39,6 +39,14 @@ h2{
 }
 
 /* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 700px) and (max-width: 800px){
+  .nombre3{
+    margin-left: 55%;
+    margin-top: -53.7%;
+  }
+}
+
+/* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   .nombre, .nombre1{ width: 100%; }
   .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}

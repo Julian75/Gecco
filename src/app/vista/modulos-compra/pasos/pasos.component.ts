@@ -46,6 +46,7 @@ export class PasosComponent implements OnInit {
   public habilitar2 = false
   public nombreEmpresa: any;
   public nombreGerente: any;
+  public nitEmpresa: any;
   public idCompras: any;
   public idAdministrador: any;
   public nombreCompras: any;
@@ -665,8 +666,13 @@ export class PasosComponent implements OnInit {
                 var now = new Array
                 now.push(element.idArticulos.descripcion)
                 now.push(element.cantidad)
-                now.push(element.valorUnitario)
-                now.push(element.valorTotal)
+                const formatterPeso = new Intl.NumberFormat('es-CO', {
+                  style: 'currency',
+                  currency: 'COP',
+                  minimumFractionDigits: 0
+                })
+                now.push(formatterPeso.format(element.valorUnitario))
+                now.push(formatterPeso.format(element.valorTotal))
                 body.push(now)
               }
             });
@@ -696,9 +702,17 @@ export class PasosComponent implements OnInit {
                 if(element.nombre == 'Nombre_Gerencia'){
                   this.nombreGerente = element.valor
                 }
+                if(element.nombre == 'nit_empresa'){
+                  this.nitEmpresa = element.valor
+                }
               });
             })
             this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+              const formatterPeso = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+              })
               if(firmaDecision == true){
 
                 const pdfDefinition: any = {
@@ -714,6 +728,10 @@ export class PasosComponent implements OnInit {
                       text: 'Nombre Empresa: '+this.nombreEmpresa,
                       bold: true,
                       margin: [0, 80, 0, 10]
+                    },
+                    {
+                      text: 'Nit Empresa: '+this.nitEmpresa,
+                      margin: [0, 0, 0, 10]
                     },
                     {
                       text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
@@ -760,22 +778,22 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 40]
                     },
                     {
-                      text: 'SubTotal: '+ res.subtotal +' COP',
+                      text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                      text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Descuento: '+ res.descuento +' COP',
+                      text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Total: '+ res.valorAnticipo +' COP',
+                      text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
@@ -848,6 +866,10 @@ export class PasosComponent implements OnInit {
                       margin: [0, 80, 0, 10]
                     },
                     {
+                      text: 'Nit Empresa: '+this.nitEmpresa,
+                      margin: [0, 0, 0, 10]
+                    },
+                    {
                       text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
                       margin: [0, 0, 0, 10]
                     },
@@ -892,22 +914,22 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 40]
                     },
                     {
-                      text: 'SubTotal: '+ res.subtotal +' COP',
+                      text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Anticipo: '+ res.anticipoPorcentaje +' %',
+                      text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Descuento: '+ res.descuento +' COP',
+                      text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Total: '+ res.valorAnticipo +' COP',
+                      text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
                       relativePosition: {x: 350, y: -25},
                       margin: [0, 0, 0, 20],
                     },

@@ -70,7 +70,9 @@ export class OrdenCompraComponent implements OnInit {
   crearFormulario(){
     this.formProveedor = this.fb.group({
       id: 0,
-      antici: [null,Validators.required],
+      opcion: [null,Validators.required],
+      valor: [null,Validators.required],
+      antici: [null,Validators.required]
     });
   }
 
@@ -168,21 +170,35 @@ export class OrdenCompraComponent implements OnInit {
   public generarOrden(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var idSolicitud  = 0
-    this.lista.forEach((element:any) => {
-      idSolicitud = element.solicitudDetalle.idSolicitud.id
-    })
-    this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-        let solicitud : Solicitud2 = new Solicitud2();
-        solicitud.id = resSolicitud.id
-        this.fecha = new Date(resSolicitud.fecha)
-        this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
-        solicitud.fecha = this.fecha
-        this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
-          solicitud.idEstado = resEstado.id
-          solicitud.idUsuario = resSolicitud.idUsuario.id
-          this.actualizarSolicitud(solicitud, idSolicitud)
-        })
-    })
+    var opcion = this.formProveedor.controls['opcion'].value;
+    var valor = this.formProveedor.controls['valor'].value;
+    console.log(opcion, valor)
+    if(this.proveedor != null && this.proveedor != undefined && opcion != null && valor != null && opcion != "" && valor != 0){
+      this.lista.forEach((element:any) => {
+        idSolicitud = element.solicitudDetalle.idSolicitud.id
+      })
+      this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
+          let solicitud : Solicitud2 = new Solicitud2();
+          solicitud.id = resSolicitud.id
+          this.fecha = new Date(resSolicitud.fecha)
+          this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+          solicitud.fecha = this.fecha
+          this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
+            solicitud.idEstado = resEstado.id
+            solicitud.idUsuario = resSolicitud.idUsuario.id
+            this.actualizarSolicitud(solicitud, idSolicitud)
+          })
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Los campos no pueden estar vacios!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    }
   }
 
   public actualizarSolicitud(solicitud:Solicitud2, idSolicitud:number){

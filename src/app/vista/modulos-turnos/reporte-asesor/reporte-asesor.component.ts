@@ -82,11 +82,13 @@ export class ReporteAsesorComponent implements OnInit {
   totVentasCumplidas: any
   presupuestin: any
   i:any
+  listFinal2: any = []
   public reporte(){
     this.informacionAsesor = []
     this.cumpleAsignVende = []
     this.listaF = []
     this.listaFinal = []
+    this.listFinal2 = []
     this.listaAsignVenSitioVenta = []
     this.sumPorcen = 0
     this.valorTotalVentas = 0
@@ -174,6 +176,8 @@ export class ReporteAsesorComponent implements OnInit {
                     this.servicioPresupuesto.listarTodos().subscribe(resPresupuesto=>{
                       resVentasAsesor.forEach(element => {
                         this.i += 1
+                        console.log(this.i)
+                        console.log(resVentasAsesor.length)
                         var turnos = {
                           ideSitioVenta: 0,
                           nombreSitioVenta: "",
@@ -225,80 +229,68 @@ export class ReporteAsesorComponent implements OnInit {
                             }
                           }
                         });
-                        // console.log(turnos)
-                        if(turnos.faltaVenta != 0 && turnos.ideSitioVenta != 0 && turnos.nombreSitioVenta != "" && turnos.porcentaje != 0 && turnos.presupuesto != 0 && turnos.turnitos != "" && turnos.turnos.length != 0 && turnos.ventas != 0){
-                          console.log(turnos)
-                          this.listaF.push(turnos)
-                          let result = this.listaF.filter(function({ideSitioVenta}) {
-                            return !this.has(ideSitioVenta) && this.add(ideSitioVenta);
-                          }, new Set)
-                          this.listaFinal = result
-                          console.log(result)
-                          for (let index = 0; index < result.length; index++) {
-                            const elementFinal = result[index];
-                            this.valorTotalVentas += elementFinal.ventas
-                            this.valorTotalPresupuesto += elementFinal.presupuesto
-                            this.valorTotalPorcentaje = (this.valorTotalVentas / this.valorTotalPresupuesto)*100
-                            this.valorTotalVentasCumplidas += elementFinal.faltaVenta
+                        console.log(this.i)
+                        this.listaF.push(turnos)
+                        let result = this.listaF.filter(function({ideSitioVenta}) {
+                          return !this.has(ideSitioVenta) && ideSitioVenta!=0 && this.add(ideSitioVenta);
+                        }, new Set)
+                        this.listaFinal = result
+                        console.log(result)
+                        for (let index = 0; index < result.length; index++) {
+                          const elementFinal = result[index];
+                          this.valorTotalVentas += elementFinal.ventas
+                          this.valorTotalPresupuesto += elementFinal.presupuesto
+                          this.valorTotalPorcentaje = (this.valorTotalVentas / this.valorTotalPresupuesto)*100
+                          this.valorTotalVentasCumplidas += elementFinal.faltaVenta
+                        }
+                        if(resVentasAsesor.length == this.i){
+                          console.log(this.valorTotalVentas, this.valorTotalPresupuesto, this.valorTotalPorcentaje, this.valorTotalVentasCumplidas)
+                          if(result.length == 1){
+                            console.log("hola")
+                            this.valorTotalVentas = this.valorTotalVentas
+                            this.valorTotalPresupuesto = this.valorTotalPresupuesto
+                            this.valorTotalVentasCumplidas = this.valorTotalVentasCumplidas
+                          }else{
+                            console.log("hola2")
+                            for (let index = 0; index < result.length; index++) {
+                              this.totVentas = this.valorTotalVentas - result[0].ventas
+                              this.totPresupuesto = this.valorTotalPresupuesto - result[0].presupuesto
+                              this.totVentasCumplidas = this.valorTotalVentasCumplidas - result[0].faltaVenta
+                            }
+                            this.valorTotalVentas = this.totVentas
+                            this.valorTotalPresupuesto = this.totPresupuesto
+                            this.valorTotalVentasCumplidas = this.totVentasCumplidas
                           }
-                          if(resVentasAsesor.length == this.i){
-                            console.log(this.valorTotalVentas, this.valorTotalPresupuesto, this.valorTotalPorcentaje, this.valorTotalVentasCumplidas)
-                            if(result.length == 1){
-                              this.valorTotalVentas = this.valorTotalVentas
-                              this.valorTotalPresupuesto = this.valorTotalPresupuesto
-                              this.valorTotalVentasCumplidas = this.valorTotalVentasCumplidas
-                            }else{
-                              for (let index = 0; index < result.length; index++) {
-                                this.totVentas = this.valorTotalVentas - result[0].ventas
-                                this.totPresupuesto = this.valorTotalPresupuesto - result[0].presupuesto
-                                this.totVentasCumplidas = this.valorTotalVentasCumplidas - result[0].faltaVenta
-                              }
-                              this.valorTotalVentas = this.totVentas
-                              this.valorTotalPresupuesto = this.totPresupuesto
-                              this.valorTotalVentasCumplidas = this.totVentasCumplidas
-                            }
-                            var finalTabla = {
-                              ideSitioVenta: "",
-                              nombreSitioVenta: "",
-                              turnos: [],
-                              turnitos: '',
-                              porcentaje: this.valorTotalPorcentaje,
-                              presupuesto: this.valorTotalPresupuesto,
-                              ventas: this.valorTotalVentas,
-                              faltaVenta: this.valorTotalVentasCumplidas,
-                            }
-                            if(finalTabla.faltaVenta != 0  && finalTabla.porcentaje != NaN && finalTabla.presupuesto != 0 &&  finalTabla.ventas != 0){
-                              this.listaFinal.push(finalTabla)
-                            }
-                            this.dataSource = new MatTableDataSource( this.listaFinal);
-                            this.dataSource.paginator = this.paginator;
-                            this.dataSource.sort = this.sort;
-                            console.log(this.listaFinal)
-                            //GRAFICO
-                            this.chartOptions = {
-                              series: [this.valorTotalPorcentaje, 100-this.valorTotalPorcentaje],
-                              chart: {
-                                width: 380,
-                                type: "pie"
-                              },
-                              labels: ["Cumplio", "Falta"],
-                              responsive: [
-                                {
-                                  breakpoint: 480,
-                                  options: {
-                                    chart: {
-                                      width: 200,
-                                    },
-                                    legend: {
-                                      position: "bottom"
-                                    }
+                          console.log(this.listaFinal)
+                          this.dataSource = new MatTableDataSource( this.listaFinal);
+                          this.dataSource.paginator = this.paginator;
+                          this.dataSource.sort = this.sort;
+
+                          //GRAFICO
+                          this.chartOptions = {
+                            series: [this.valorTotalPorcentaje, 100-this.valorTotalPorcentaje],
+                            chart: {
+                              width: 380,
+                              type: "pie"
+                            },
+                            labels: ["Cumplio", "Falta"],
+                            responsive: [
+                              {
+                                breakpoint: 480,
+                                options: {
+                                  chart: {
+                                    width: 200,
+                                  },
+                                  legend: {
+                                    position: "bottom"
                                   }
                                 }
-                              ]
-                            };
-                            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                            document.getElementById('informacionAsesor')?.setAttribute('style', 'display: block;')
-                        }
+                              }
+                            ]
+                          };
+                          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                          document.getElementById('informacionAsesor')?.setAttribute('style', 'display: block;')
+                          localStorage.removeItem('final')
                         }
                       });
                     });

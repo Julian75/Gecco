@@ -381,7 +381,6 @@ export class SolicitudesScComponent implements OnInit {
    // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue)
     if(filterValue == ""){
       this.dataSource = new MatTableDataSource(this.listarSolicitud);
     }else{
@@ -389,13 +388,11 @@ export class SolicitudesScComponent implements OnInit {
       this.dataSource.filterPredicate = (data: SolicitudSC, filter: string) => {
         const accumulator = (currentTerm, key) => {
           return this.nestedFilterCheck(currentTerm, data, key);
-          console.log(currentTerm, data, key)
         };
         const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
         const transformedFilter = filter.trim().toLowerCase();
         return dataStr.indexOf(transformedFilter) !== -1;
       }
-
     }
   }
 
@@ -403,7 +400,6 @@ export class SolicitudesScComponent implements OnInit {
     if (typeof data[key] === 'object') {
       for (const k in data[key]) {
         if (data[key][k] !== null) {
-          console.log(data[key][k])
           search = this.nestedFilterCheck(search, data[key], k);
         }
       }
@@ -432,22 +428,4 @@ export class SolicitudesScComponent implements OnInit {
     });
   }
 
-
-
-
-
-  applyFilter3(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue)
-    if(filterValue == ""){
-      this.dataSource = new MatTableDataSource(this.listarSolicitud);
-    }else{
-      this.listarSolicitud.filter(function(el){
-        return el.toLowerCase().indexOf(filterValue.toLowerCase())
-      })
-    }
-  }
 }
-// this.dataSource = new MatTableDataSource(this.listarSolicitud);
-//             this.dataSource.paginator = this.paginator;
-//             this.dataSource.sort = this.sort;

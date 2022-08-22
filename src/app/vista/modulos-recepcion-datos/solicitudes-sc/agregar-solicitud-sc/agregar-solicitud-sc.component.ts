@@ -19,6 +19,7 @@ import { ClienteSCService } from 'src/app/servicios/clienteSC.service';
 import { ClienteSC } from 'src/app/modelos/clienteSC';
 import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { AgregarClienteScModalComponent } from '../../cliente-sc/agregar-cliente-sc-modal/agregar-cliente-sc-modal.component';
 
 @Component({
   selector: 'app-agregar-solicitud-sc',
@@ -145,7 +146,7 @@ export class AgregarSolicitudScComponent implements OnInit {
   }
 
   public agregarClienteServicCliente(){
-    const dialogRef = this.dialog.open(AgregarClienteScComponent, {
+    const dialogRef = this.dialog.open(AgregarClienteScModalComponent, {
       width: '830px',
       height: '530px'
     });
