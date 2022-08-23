@@ -91,10 +91,19 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true" (click)="abrirModal(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 62" (click)="abrirModal(item.solicitud.id)">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 39" (click)="abrirModificar(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 68" (click)="abrirModal(item.solicitud.id)">
+              <mat-icon>add_comment</mat-icon>
+            </button>
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 39 && usuarioMatrix2 == true" (click)="abrirModificar(item.solicitud.id)">
+              <mat-icon>add_comment</mat-icon>
+            </button>
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 39 && usuarioMatrix2 == false" (click)="abrirModificar(item.solicitud.id)">
+              <mat-icon>add_comment</mat-icon>
+            </button>
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id == 3 && item.aprobar == true && item.solicitud.idEstado.id != 68"(click)="abrirModificar(item.solicitud.id)">
               <mat-icon>add_comment</mat-icon>
             </button>
             <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
@@ -109,7 +118,10 @@
             <button *ngIf="item.prorroga == true" class="btn btnPriority" (click)="prorroga(item.solicitud.id)">
               <mat-icon>event_repeat</mat-icon>
             </button>
-            <button *ngIf="item.incidente == true && idModulo == 39 && usuarioMatrix2 == true" class="btn btnPriority" (click)="editar(item.solicitud.id)">
+            <button *ngIf="item.incidente == true && idModulo == 39 && usuarioMatrix2 == true && item.solicitud.idEscala.id == 3" class="btn btnPriority" (click)="editar(item.solicitud.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="item.solicitud.idEscala.id == 3 && item.solicitud.incidente == '' && idModulo == 38" class="btn btnPriority" (click)="editar(item.solicitud.id)">
               <mat-icon>edit</mat-icon>
             </button>
           </td>

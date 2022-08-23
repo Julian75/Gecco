@@ -46,7 +46,7 @@ export class RemisionesDecisionComponent implements OnInit {
       fechavence.setDate(fechavence.getDate()+1)
       solicitudSc.vence = fechavence
       solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
-      this.servicioEstado.listarPorId(68).subscribe(resEstado=>{
+      this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
         solicitudSc.idEstado = resEstado.id
         this.modificarSolicitudSc2(solicitudSc);
       })

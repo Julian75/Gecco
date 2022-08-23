@@ -9,6 +9,13 @@
       <textarea id="comentario" formControlName="comentario" matInput></textarea>
       </mat-form-field>
     </div>
+    <div class="nombre2" *ngIf="usuarioMatrix2 == true">
+      <h2>Desea escalar esta solicitud a Mesa de servicio Matrix?</h2>
+      <mat-radio-group formControlName="opcion" aria-label="Seleccione una opción">
+        <mat-radio-button (change)="capturarOpciones(3)" value="1">Si</mat-radio-button>
+        <mat-radio-button (change)="capturarOpciones(4)" value="2">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
     <div class="nombre2">
       <h2>Desea remitir esta solicitud?</h2>
       <mat-radio-group formControlName="opcion" aria-label="Seleccione una opción">

@@ -74,7 +74,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       sitioVenta: [null,Validators.required],
       turno: [null,Validators.required],
       oficina: [null,Validators.required],
-      porcentaje: [null,Validators.required],
     });
   }
 
@@ -108,9 +107,9 @@ export class AgregarAsignarTurnoComponent implements OnInit {
   }
 
   public agregarPorcentaje(item){
-    var porcentaje = this.formAsignarTurno.controls['porcentaje'].value
+    var porcentaje = <HTMLInputElement>document.getElementById('porcentaje'+item.id)
     this.contador = 0
-    if(porcentaje == null){
+    if(porcentaje.value == null){
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -119,7 +118,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
         timer: 1500
       })
     }else{
-      if(porcentaje >= 1 && porcentaje <= 100){
+      if(Number(porcentaje.value) >= 1 && Number(porcentaje.value) <= 100){
         let asignarTurnoPuntoVenta : AsignarTurno2 = new AsignarTurno2();
         this.servicioAsignarTurno.listarPorId(item.id).subscribe(res=>{
           asignarTurnoPuntoVenta.id = res.id
@@ -138,9 +137,8 @@ export class AgregarAsignarTurnoComponent implements OnInit {
             });
             var restante = 100 - this.contador
             console.log(restante, this.contador)
-            if(porcentaje <= restante){
-              asignarTurnoPuntoVenta.porcentaje = porcentaje
-              console.log(asignarTurnoPuntoVenta)
+            if(Number(porcentaje.value) <= restante){
+              asignarTurnoPuntoVenta.porcentaje = Number(porcentaje.value)
               this.servicioModificar.actualizarAsignarTurnoPuntoVenta(asignarTurnoPuntoVenta).subscribe(resPuntoVentaActual=>{
                 Swal.fire({
                   position: 'center',

@@ -58,7 +58,7 @@
   </div>
 
   <section class="example-container mat-elevation-z8" tabindex="0">
-    <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource">
+    <table datatable [dtOptions]="dtOptions" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" id="tabla">
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
         <th mat-header-cell *matHeaderCellDef id="idSp2"><h3 id="idSp">Id</h3></th>
@@ -96,9 +96,12 @@
       <ng-container matColumnDef="Porcentaje">
         <th mat-header-cell *matHeaderCellDef><h3 id="sitSp">Porcentaje</h3></th>
         <td mat-cell *matCellDef="let element">
+          <p *ngIf="element.porcentaje != 0">
+            {{element.porcentaje}}
+          </p>
           <mat-form-field class="nombre" appearance="fill" *ngIf="element.porcentaje == 0">
             <mat-label>Ingrese porcentaje del punto de venta pór turno</mat-label>
-            <input type="number" formControlName="porcentaje" name="porcentaje" minlength="1" maxlength="99" matInput>
+            <input type="number" id="porcentaje{{element.id}}" name="porcentaje{{element.id}}" minlength="1" maxlength="99" matInput>
             </mat-form-field>
         </td>
       </ng-container>

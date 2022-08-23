@@ -27,6 +27,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   public formComentario!: FormGroup;
   public opcion: number = 0;
+  public opcion2: number = 0;
   public listarUsuarios: any = [];
   usuarios = new FormControl('');
 
@@ -70,7 +71,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     this.formComentario = this.fb.group({
       id: 0,
       comentario: [null,Validators.required],
-      opcion: [null,Validators.required]
+      opcion: [null,Validators.required],
+      opcion2: [null,Validators.required]
     });
   }
 
@@ -79,6 +81,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
       this.listarUsuarios = res
     })
   }
+
   aprobar:boolean = false
   public capturarOpcion(opcion: number){
     this.opcion = opcion
@@ -87,6 +90,17 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
       this.aprobar = true
     }else if(this.opcion == 2){
       this.aprobar = false
+    }
+  }
+
+  aprobar2:boolean = false
+  public capturarOpciones(opcion: number){
+    this.opcion2 = opcion
+    this.aprobar2 = false
+    if(this.opcion2 == 3){
+      this.aprobar2 = true
+    }else if(this.opcion2 == 4){
+      this.aprobar2 = false
     }
   }
 
@@ -131,8 +145,9 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var comentario = this.formComentario.controls['comentario'].value;
     var opcion = this.formComentario.controls['opcion'].value;
+    var opcion2 = this.formComentario.controls['opcion2'].value;
     console.log(opcion)
-    if(comentario == "" || comentario == null || opcion == null){
+    if(comentario == "" || comentario == null || opcion == null || opcion2 == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
@@ -152,7 +167,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             historial.idUsuario = resUsuario
             if(this.usuarios.value.length >= 1){
               this.registrarHistorial(historial,this.usuarios, resSolicitud)
-
             }else{
               this.registrarHistorial3(historial);
             }
@@ -164,7 +178,48 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   public registrarHistorial(historial: HistorialSolicitudes, usuarios: any, resSolic){
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      let historial : HistorialSolicitudes = new HistorialSolicitudes();
+      if (this.opcion2 == 3) {
+        let historial2 : HistorialSolicitudes = new HistorialSolicitudes();
+        historial2.observacion = ""
+        this.servicioEstado.listarPorId(65).subscribe(resEstado=>{
+          historial2.idEstado = resEstado
+          this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+            historial2.idSolicitudSC = resSolicitud
+            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+              historial2.idUsuario = resUsuario
+              this.servicioHistorial.registrar(historial2).subscribe(resHist=>{
+
+              }, error => {
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Hubo un error al generar el comentario para el Historial de Matrix!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              })
+            })
+          })
+        })
+      }
+      this.registrarHistorialUsuarios(usuarios, resSolic)
+    }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al generar el comentario para el Historial!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+  }
+
+  escalacon:any
+  public registrarHistorialUsuarios(usuarios: any, resSolic){
+    let historial : HistorialSolicitudes = new HistorialSolicitudes();
+    this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
       for (let i = 0; i < usuarios.value.length; i++) {
         const element:any = usuarios.value[i];
         historial.observacion = ""
@@ -176,15 +231,13 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             this.servicioHistorial.registrar(historial).subscribe(res=>{
               let solicitudSc : SolicitudSC2 = new SolicitudSC2();
               this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+                solicitudSc.id = resSolicitud.id
                 solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
                 var fechaActual = new Date(resSolicitud.fecha)
                 fechaActual.setDate(fechaActual.getDate()+1)
                 solicitudSc.fecha = fechaActual
-                solicitudSc.id = resSolicitud.id
-                if(element.area == 'Mesa de servicio Matrix'){
-                  this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
-                    solicitudSc.idEscalaSolicitudes = resEscala.id
-                  })
+                if(this.opcion2 == 3){
+                  solicitudSc.idEscalaSolicitudes = resEscala.id
                 }else{
                   solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
                 }
@@ -203,7 +256,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
                   this.modificarSolicitudSc(solicitudSc, res);
                 })
               })
-
             }, error => {
               document.getElementById('snipper')?.setAttribute('style', 'display: none;')
               Swal.fire({
@@ -217,15 +269,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           })
         })
       }
-    }, error => {
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al generar el comentario para el Historial!',
-        showConfirmButton: false,
-        timer: 1500
-      })
     })
   }
 
@@ -294,29 +337,31 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   public registrarHistorial3(historial: HistorialSolicitudes){
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      let solicitudSc : SolicitudSC2 = new SolicitudSC2();
-      this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-        solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
-        var fechaActual = new Date(resSolicitud.fecha)
-        fechaActual.setDate(fechaActual.getDate()+1)
-        solicitudSc.fecha = fechaActual
-        solicitudSc.id = resSolicitud.id
-        solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
-        solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
-        solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
-        solicitudSc.incidente = resSolicitud.incidente
-        solicitudSc.prorroga = resSolicitud.prorroga
-        solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
-        solicitudSc.municipio = resSolicitud.municipio
-        var fechavence = new Date(resSolicitud.vence)
-        fechavence.setDate(fechavence.getDate()+1)
-        solicitudSc.vence = fechavence
-        solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
-        this.servicioEstado.listarPorId(67).subscribe(resEstado=>{
-          solicitudSc.idEstado = resEstado.id
-          this.modificarSolicitudSc2(solicitudSc, res);
+      if (this.opcion2 == 3) {
+        let historial2 : HistorialSolicitudes = new HistorialSolicitudes();
+        historial2.observacion = ""
+        this.servicioEstado.listarPorId(65).subscribe(resEstado=>{
+          historial2.idEstado = resEstado
+          this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+            historial2.idSolicitudSC = resSolicitud
+            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+              historial2.idUsuario = resUsuario
+              this.servicioHistorial.registrar(historial2).subscribe(resHist=>{
+              }, error => {
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Hubo un error al generar el comentario para el Historial de Matrix!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              })
+            })
+          })
         })
-      })
+      }
+      this.datosSolicitud(res)
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -325,6 +370,41 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
         title: 'Hubo un error al generar el comentario para el Historial!',
         showConfirmButton: false,
         timer: 1500
+      })
+    })
+  }
+
+  public datosSolicitud(idHistorial:any){
+    let solicitudSc : SolicitudSC2 = new SolicitudSC2();
+    this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+      this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
+        this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
+          this.servicioEstado.listarPorId(67).subscribe(resEstado2=>{
+            solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+            var fechaActual = new Date(resSolicitud.fecha)
+            fechaActual.setDate(fechaActual.getDate()+1)
+            solicitudSc.fecha = fechaActual
+            solicitudSc.id = resSolicitud.id
+            if(this.opcion2 == 3){
+                solicitudSc.idEscalaSolicitudes = resEscala.id
+                solicitudSc.idEstado = resEstado.id
+            }else{
+              solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+              solicitudSc.idEstado = resEstado2.id
+            }
+            solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+            solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+            solicitudSc.incidente = resSolicitud.incidente
+            solicitudSc.prorroga = resSolicitud.prorroga
+            solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+            solicitudSc.municipio = resSolicitud.municipio
+            var fechavence = new Date(resSolicitud.vence)
+            fechavence.setDate(fechavence.getDate()+1)
+            solicitudSc.vence = fechavence
+            solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+            this.modificarSolicitudSc2(solicitudSc, idHistorial);
+          })
+        })
       })
     })
   }

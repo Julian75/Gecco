@@ -195,11 +195,15 @@ export class SolicitudesScComponent implements OnInit {
                       pendienteHistorialPao = true
                     }else if(elementHistorial.idUsuario == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado == 65){
                       pendienteHistorialPao = true
+                    }else if(elementHistorial.idUsuario == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado == 65){
+                      pendienteHistorialPao = true
                     }
                     listaHistorialPao.push(pendienteHistorialPao)
                   })
                   const listaHisPao = listaHistorialPao.includes( true );
                   if(listaHisPao == true){
+                    obj.aprobar = true
+                  }else if(elementSolicitud.idEstado.id == 68){
                     obj.aprobar = true
                   }
                 }else if(resHistorial.length<1 && elementSolicitud.idEstado.id == 62){
@@ -240,12 +244,13 @@ export class SolicitudesScComponent implements OnInit {
                 }else{ obj.incidente = false }
                 this.servicioAsignacionUsuarioPQRS.listarTodos().subscribe(resAsigUsuPQRS=>{
                   resAsigUsuPQRS.forEach(elementUsuarioPqrs => {
-                    if(elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Mesa de servicio Matrix'){
+                    if((elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Juridica') || (elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Auxiliar de Cumplimiento')){
                       this.usuarioMatrix = true
                     }else{ this.usuarioMatrix = false }
                     this.listaUsuarioMatrix.push(this.usuarioMatrix)
                   });
                   this.usuarioMatrix2 = this.listaUsuarioMatrix.includes( true )
+                  console.log(this.usuarioMatrix2)
                 })
                 this.listarSolicitud.push(obj)
               }
@@ -423,7 +428,7 @@ export class SolicitudesScComponent implements OnInit {
   public editar(idSolicitud){
     const dialogRef = this.dialog.open(ModificarSolicitudScComponent, {
       width: '500px',
-      height: '270px',
+      height: '250px',
       data: idSolicitud
     });
   }
