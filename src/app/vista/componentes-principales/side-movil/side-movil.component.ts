@@ -51,7 +51,7 @@ export class SideMovilComponent implements OnInit {
             document.getElementById('Raspa2')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]==32 || this.listaAccessForm[i]==33 ){
             document.getElementById('Compra2')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39){
+          }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39 || this.listaAccessForm[i] == 47){
             document.getElementById('RecepcionDatos2')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
@@ -156,6 +156,9 @@ export class SideMovilComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 46) {
             document.getElementById('4646')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 47) {
+            document.getElementById('4747')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39) {
             document.getElementById('3838')?.setAttribute('style', 'display: block;')

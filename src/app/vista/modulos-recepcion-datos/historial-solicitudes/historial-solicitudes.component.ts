@@ -83,13 +83,18 @@ export class HistorialSolicitudesComponent implements OnInit {
 
   //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
+    var listaPdf = []
     this.servicioConsultasGenerales.listarSoporteSC(id).subscribe(resSoportes=>{
       resSoportes.forEach(elementSoporte => {
         this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
           for(const i in resPdf){
             if (elementSoporte.descripcion == resPdf[i].name) {
-              window.location.href = resPdf[i].url
+              listaPdf.push(resPdf[i].url)
             }
+          }
+          for (let i = 0; i < listaPdf.length; i++) {
+            const element = listaPdf[i];
+            window.location.href = element;
           }
         })
       });

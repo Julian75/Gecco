@@ -73,6 +73,7 @@ import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/histori
 import { AsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/asignacion-usuario-pqr.component';
 import { AgregarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/agregar-asignacion-usuario-pqr/agregar-asignacion-usuario-pqr.component';
 import { ModificarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/modificar-asignacion-usuario-pqr/modificar-asignacion-usuario-pqr.component';
+import { AreaComponent } from './modulos-recepcion-datos/area/area.component';
 
 const routes: Routes = [
   {
@@ -459,6 +460,12 @@ const routes: Routes = [
       {
         path: 'modificarUsuariosPqr/:id',
         component: ModificarAsignacionUsuarioPqrComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Area
+      {
+        path: 'areaPQRS',
+        component: AreaComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

@@ -88,7 +88,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         if(elementHistorial.idUsuario.id == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado.id == 65){
           this.servicioAsignacionPqrs.listarTodos().subscribe(resAsigUsuPQRS=>{
             resAsigUsuPQRS.forEach(elementUsuarioPqrs => {
-              if((elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Juridica') || (elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Auxiliar de Cumplimiento')){
+              if((elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.idArea.id == 1) || (elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.idArea.id == 2)){
                 this.usuarioMatrix = true
               }else{ this.usuarioMatrix = false }
               this.listaUsuarioMatrix.push(this.usuarioMatrix)
@@ -356,7 +356,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               fechaActual.setDate(fechaActual.getDate()+1)
               solicitudSc.fecha = fechaActual
               solicitudSc.id = resSolicitud.id
-              if(this.aprobar2 == true){
+              if(this.opcion2 == 3){
                 solicitudSc.idEscalaSolicitudes = resEscala.id
               }else{
                 solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id

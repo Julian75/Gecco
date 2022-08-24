@@ -109,7 +109,7 @@
             <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button *ngIf="item.archivo == true" class="btn btnedit mx-2" (click)="descargarPdf(item.solicitud.id)">
+            <button id="download-button" *ngIf="item.archivo == true" class="btn btnedit mx-2" (click)="descargarPdf(item.solicitud.id)">
               <mat-icon>file_download</mat-icon>
             </button>
             <button *ngIf="item.solicitud.idEstado.id == 64" class="btn btnPriority" (click)="masonoRemisiones(item.solicitud)">

@@ -136,6 +136,9 @@ import { RemisionesDecisionComponent } from './modulos-recepcion-datos/remisione
 import { ProrrogaComponent } from './modulos-recepcion-datos/prorroga/prorroga.component';
 import { ModificarSolicitudScComponent } from './modulos-recepcion-datos/solicitudes-sc/modificar-solicitud-sc/modificar-solicitud-sc.component';
 import { AgregarClienteScModalComponent } from './modulos-recepcion-datos/cliente-sc/agregar-cliente-sc-modal/agregar-cliente-sc-modal.component';
+import { AreaComponent } from './modulos-recepcion-datos/area/area.component';
+import { AgregarAreaComponent } from './modulos-recepcion-datos/area/agregar-area/agregar-area.component';
+import { ModificarAreaComponent } from './modulos-recepcion-datos/area/modificar-area/modificar-area.component';
 
 @NgModule({
   declarations: [
@@ -270,6 +273,9 @@ import { AgregarClienteScModalComponent } from './modulos-recepcion-datos/client
     ProrrogaComponent,
     ModificarSolicitudScComponent,
     AgregarClienteScModalComponent,
+    AreaComponent,
+    AgregarAreaComponent,
+    ModificarAreaComponent,
   ],
   imports: [
     CommonModule,

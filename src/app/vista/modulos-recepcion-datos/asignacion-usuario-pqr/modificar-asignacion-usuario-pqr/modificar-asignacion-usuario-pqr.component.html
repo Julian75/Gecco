@@ -6,7 +6,9 @@
       <h2>Descripción</h2>
       <mat-form-field class="nombre" appearance="fill">
       <mat-label>Modifica el Area del Usuario</mat-label>
-      <input id="area" formControlName="area" matInput>
+      <select matNativeControl id="idArea" name="idArea" formControlName="idArea">
+        <option *ngFor="let item of listaAreas"  value="{{item.id}}">{{item.descripcion}}</option>
+      </select>
       </mat-form-field>
     </div>
     <div class="nombre2">
@@ -22,7 +24,7 @@
   <div class="row">
     <!-- Boton de guardar datos -->
     <div class="guardar2">
-      <button mat-raised-button class="guardar" (click)="guardar()">Modificar Tipo Documento</button>
+      <button mat-raised-button class="guardar" (click)="guardar()">Modificar Asignación</button>
     </div>
   </div>
 </form>

@@ -1,10 +1,6 @@
 import { ModificarSolicitudScComponent } from './modificar-solicitud-sc/modificar-solicitud-sc.component';
 import { AsignarUsuariosPqrService } from './../../../servicios/asignacionUsuariosPqrs.service';
 import { ClienteSCService } from './../../../servicios/clienteSC.service';
-import { Observable, startWith, map } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ClienteSC } from './../../../modelos/clienteSC';
 import { ArchivoSolicitudService } from './../../../servicios/archivoSolicitud.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
@@ -244,7 +240,7 @@ export class SolicitudesScComponent implements OnInit {
                 }else{ obj.incidente = false }
                 this.servicioAsignacionUsuarioPQRS.listarTodos().subscribe(resAsigUsuPQRS=>{
                   resAsigUsuPQRS.forEach(elementUsuarioPqrs => {
-                    if((elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Juridica') || (elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.area == 'Auxiliar de Cumplimiento')){
+                    if((elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.idArea.id == 1) || (elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.idArea.id == 2)){
                       this.usuarioMatrix = true
                     }else{ this.usuarioMatrix = false }
                     this.listaUsuarioMatrix.push(this.usuarioMatrix)
@@ -267,13 +263,18 @@ export class SolicitudesScComponent implements OnInit {
 
   //Descargar si subio soporte el cliente al momento de generar la solicitud
   public descargarPdf(idSolicitudSC: number){
+    var listaPdf = []
     this.servicioConsultasGenerales.listarArchivosSC(idSolicitudSC).subscribe(resArchivos=>{
       resArchivos.forEach(elementArchivos => {
         this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
           for(const i in resPdf){
             if (elementArchivos.nombreArchivo == resPdf[i].name) {
-              window.location.href = resPdf[i].url
+              listaPdf.push(resPdf[i].url)
             }
+          }
+          for (let i = 0; i < listaPdf.length; i++) {
+            const element = listaPdf[i];
+            window.location.href = element;
           }
         })
       });

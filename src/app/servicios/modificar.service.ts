@@ -1,3 +1,4 @@
+import { Area2 } from './../modelos/modelos2/area2';
 import { SolicitudSC2 } from './../modelos/modelos2/solicitudSC2';
 import { Historial2 } from './../modelos/modelos2/Historial2';
 import { AsignarTurno2 } from './../modelos/asignarTurno2';
@@ -166,5 +167,9 @@ export class ModificarService {
 
   public actualizarAsignacionUsuariosPQRS(asignacionUsuariosPQRS: AsignacionUsuariosPqrs2){
     return this.http.put<void>(this.path+'/AsignacionUsuariosPQRS/'+ asignacionUsuariosPQRS.id, asignacionUsuariosPQRS);
+  }
+
+  public actualizarArea(area: Area2){
+    return this.http.put<void>(this.path+'/Area/'+ area.id, area);
   }
 }
