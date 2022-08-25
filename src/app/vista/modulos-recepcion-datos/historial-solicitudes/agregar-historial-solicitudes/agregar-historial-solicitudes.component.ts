@@ -203,7 +203,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           })
         })
       }
-      this.registrarHistorialUsuarios(usuarios, resSolic)
+      this.registrarHistorialUsuarios(usuarios, resSolic, res)
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -217,7 +217,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   }
 
   escalacon:any
-  public registrarHistorialUsuarios(usuarios: any, resSolic){
+  public registrarHistorialUsuarios(usuarios: any, resSolic, idHistRegistrado){
     let historial : HistorialSolicitudes = new HistorialSolicitudes();
     this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
       for (let i = 0; i < usuarios.value.length; i++) {
@@ -229,33 +229,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           this.servicioUsuario.listarPorId(element.idUsuario.id).subscribe(resUsuarios=>{
             historial.idUsuario = resUsuarios
             this.servicioHistorial.registrar(historial).subscribe(res=>{
-              let solicitudSc : SolicitudSC2 = new SolicitudSC2();
-              this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-                solicitudSc.id = resSolicitud.id
-                solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
-                var fechaActual = new Date(resSolicitud.fecha)
-                fechaActual.setDate(fechaActual.getDate()+1)
-                solicitudSc.fecha = fechaActual
-                if(this.opcion2 == 3){
-                  solicitudSc.idEscalaSolicitudes = resEscala.id
-                }else{
-                  solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
-                }
-                solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
-                solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
-                solicitudSc.incidente = resSolicitud.incidente
-                solicitudSc.prorroga = resSolicitud.prorroga
-                solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
-                solicitudSc.municipio = resSolicitud.municipio
-                var fechavence = new Date(resSolicitud.vence)
-                fechavence.setDate(fechavence.getDate()+1)
-                solicitudSc.vence = fechavence
-                solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
-                this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
-                  solicitudSc.idEstado = resEstado.id
-                  this.modificarSolicitudSc(solicitudSc, res);
-                })
-              })
             }, error => {
               document.getElementById('snipper')?.setAttribute('style', 'display: none;')
               Swal.fire({
@@ -269,6 +242,33 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           })
         })
       }
+      let solicitudSc : SolicitudSC2 = new SolicitudSC2();
+      this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+        solicitudSc.id = resSolicitud.id
+        solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+        var fechaActual = new Date(resSolicitud.fecha)
+        fechaActual.setDate(fechaActual.getDate()+1)
+        solicitudSc.fecha = fechaActual
+        if(this.opcion2 == 3){
+          solicitudSc.idEscalaSolicitudes = resEscala.id
+        }else{
+          solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+        }
+        solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+        solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+        solicitudSc.incidente = resSolicitud.incidente
+        solicitudSc.prorroga = resSolicitud.prorroga
+        solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+        solicitudSc.municipio = resSolicitud.municipio
+        var fechavence = new Date(resSolicitud.vence)
+        fechavence.setDate(fechavence.getDate()+1)
+        solicitudSc.vence = fechavence
+        solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+        this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
+          solicitudSc.idEstado = resEstado.id
+          this.modificarSolicitudSc(solicitudSc, idHistRegistrado);
+        })
+      })
     })
   }
 

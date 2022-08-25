@@ -9,6 +9,7 @@ import { Historial2 } from '../modelos/modelos2/Historial2';
 import { Soporte2 } from '../modelos/soporte2';
 import { ArchivoSolicitud2 } from '../modelos/modelos2/archivoSolicitud2';
 import { DetalleSolicitud2 } from '../modelos/detalleSolicitud2';
+import { AsignarTurnoVendedor2 } from '../modelos/asignarTurnoVendedor2';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,10 @@ export class ConsultasGeneralesService {
     return this.http.get<ArchivoSolicitud2[]>(this.path+"/ObtenerArchivosSC?idSolicitudSC="+idSolicitudSC);
   }
 
+  //Listar Asignar turnos vendedores con fecha actual
+  public listarAsignarTurnosVendedores(fechaActual: String){
+    return this.http.get<AsignarTurnoVendedor2[]>(this.path+"/ObtenerAsignarTurnosVendedores?fechaActual="+fechaActual);
+  }
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);
   // }

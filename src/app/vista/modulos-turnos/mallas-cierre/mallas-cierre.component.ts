@@ -1,3 +1,5 @@
+import { TurnosService } from 'src/app/servicios/turnos.service';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { AsignarTurnoVendedorService } from 'src/app/servicios/asignarTurnoVendedor.service';
@@ -59,6 +61,8 @@ export class MallasCierreComponent implements OnInit {
     private servicioUsuario: UsuarioService,
     private servicioOficina: OficinasService,
     private servicioConfiguracion: ConfiguracionService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
+    private servicioTurnos: TurnosService,
     public dialog: MatDialog
   ) { }
 
@@ -69,207 +73,239 @@ export class MallasCierreComponent implements OnInit {
 
   public listarTodos () {
     this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-      resConfiguracion.forEach(elementConfiguracion => {
-        if(elementConfiguracion.nombre == 'tiempo_limite_busq_historial'){
-          this.valorLimiteBusqHistorial = elementConfiguracion.valor
-        }
-        if(elementConfiguracion.nombre == 'tiempo_max_ingreso'){
-          this.valorMaxIngreso = elementConfiguracion.valor
-        }
-      });
-      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        if(resUsuario.idRol.idJerarquia.id == 2 ){
-          this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
-            this.listaAsignacionesTurnoVendedores = res;
-            const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
-            this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
-            res.forEach(element => {
-              var malla1 = {
-                listaAsignarTurnoVendedor: {},
-                estado: {},
-                listaSigaApi: {},
-                ideOficina: 0,
-                ideZona: 0,
-                nombreEstado: '',
-                validar: false,
-                tipoMalla: 'Malla Cierre'
-              };
-              var horaFinal = element.idTurno.horaFinal.split(':')
-              var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
+      this.servicioTurnos.listarTodos().subscribe(resTurnos=>{
+        resConfiguracion.forEach(elementConfiguracion => {
+          if(elementConfiguracion.nombre == 'tiempo_limite_busq_historial'){
+            this.valorLimiteBusqHistorial = elementConfiguracion.valor
+          }
+          if(elementConfiguracion.nombre == 'tiempo_max_ingreso'){
+            this.valorMaxIngreso = elementConfiguracion.valor
+          }
+        });
+        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+          if(resUsuario.idRol.idJerarquia.id == 2 ){
+            this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+              this.listaAsignacionesTurnoVendedores = res;
+              const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
+              this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
+              var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+              this.servicioConsultasGenerales.listarAsignarTurnosVendedores(this.fechaActual).subscribe(resAsigTurnVende=>{
+                resAsigTurnVende.forEach(element => {
+                  var malla1 = {
+                    listaAsignarTurnoVendedor: {},
+                    estado: {},
+                    listaSigaApi: {},
+                    ideOficina: 0,
+                    ideZona: 0,
+                    nombreEstado: '',
+                    turnoInicio: '',
+                    turnoFinal: '',
+                    validar: false,
+                    tipoMalla: 'Malla Cierre'
+                  };
+                  resTurnos.forEach(elementTurno => {
+                    if(elementTurno.id == element.idTurno){
+                      malla1.turnoInicio = elementTurno.horaInicio
+                      malla1.turnoFinal = elementTurno.horaFinal
+                    }
+                  });
+                  var horaFinal = malla1.turnoFinal.split(':')
+                  var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
 
-              var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
-              var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
-              var fechaInicio = new Date(element.fechaInicio);
-              var fechaF = new Date(element.fechaFinal);
-              const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-              if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
-                if( horaActual >= horaAsignada){
-                  this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
-                    this.listaHistorial=[]
-                    resHistorial.forEach((elementHistorial:any) => {
-                      var horaIngresoSigaSplit = elementHistorial.hora.split(":")
-                      var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
-                      if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
-                        this.listaHistorial.push(elementHistorial)
+                  var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
+                  var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
+                  var fechaInicio = new Date(element.fechaInicio);
+                  var fechaF = new Date(element.fechaFinal);
+                  const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
+                  if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
+                    if( horaActual >= horaAsignada){
+                      this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
+                        this.listaHistorial=[]
+                        resHistorial.forEach((elementHistorial:any) => {
+                          var horaIngresoSigaSplit = elementHistorial.hora.split(":")
+                          var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
+                          if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
+                            this.listaHistorial.push(elementHistorial)
+                          }
+                        });
+                        if(this.listaHistorial.length>=1){
+                          var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
+                          var horaAsignadaArray = malla1.turnoFinal.split(':')
+                          var horaI = primerObjeto.hora.split(':')
+                          var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
+                          var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
+                          var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
+                          if(horaIngreso<horaAsignada){
+                            this.noCumplio(element, primerObjeto, malla1)
+                          }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
+                            this.ingresoSitioDiferente(element, primerObjeto, malla1)
+                          }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                            this.cumplioMayor(element, primerObjeto, malla1)
+                          }
+                        }else{
+                          this.noIngreso(element, res, malla1)
+                        }
+                      })
+                    }else{
+                      this.aunNoEsHora(element, malla1)
+                    }
+                    this.listaMallas.push(malla1)
+                  };
+                })
+                this.dataSource = new MatTableDataSource(this.listaMallas);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+              })
+            })
+          }else if(resUsuario.idRol.idJerarquia.id == 3){
+            this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+              const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
+              this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
+              var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+              this.servicioConsultasGenerales.listarAsignarTurnosVendedores(this.fechaActual).subscribe(resAsigTurnVende=>{
+                resAsigTurnVende.forEach(element => {
+                  if(element.ideSubzona  == resUsuario.ideSubzona){
+                    var malla1 = {
+                      listaAsignarTurnoVendedor: {},
+                      estado: {},
+                      listaSigaApi: {},
+                      ideOficina: 0,
+                      ideZona: 0,
+                      nombreEstado: '',
+                      turnoInicio: '',
+                      turnoFinal: '',
+                      validar: false,
+                      tipoMalla: 'Malla Cierre'
+                    };
+                    resTurnos.forEach(elementTurno => {
+                      if(elementTurno.id == element.idTurno){
+                        malla1.turnoInicio = elementTurno.horaInicio
+                        malla1.turnoFinal = elementTurno.horaFinal
                       }
                     });
-                    if(this.listaHistorial.length>=1){
-                      var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
-                      var horaAsignadaArray = element.idTurno.horaFinal.split(':')
-                      var horaI = primerObjeto.hora.split(':')
-                      var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
-                      var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
-                      var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
-                      if(horaIngreso<horaAsignada){
-                        this.noCumplio(element, primerObjeto, malla1)
-                      }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
-                        this.ingresoSitioDiferente(element, primerObjeto, malla1)
-                      }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
-                        this.cumplioMayor(element, primerObjeto, malla1)
-                      }
-                    }else{
-                      this.noIngreso(element, res, malla1)
-                    }
-                  })
-                }else{
-                  this.aunNoEsHora(element, malla1)
-                }
-                this.listaMallas.push(malla1)
-              };
-            })
-            this.dataSource = new MatTableDataSource(this.listaMallas);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
-        }else if(resUsuario.idRol.idJerarquia.id == 3){
-          this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
-            const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
-            this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
-            res.forEach(element => {
-              if(element.ideSubzona  == resUsuario.ideSubzona){
-                var malla1 = {
-                  listaAsignarTurnoVendedor: {},
-                  estado: {},
-                  listaSigaApi: {},
-                  ideOficina: 0,
-                  ideZona: 0,
-                  nombreEstado: '',
-                  validar: false,
-                  tipoMalla: 'Malla Cierre'
-                };
-                var horaFinal = element.idTurno.horaFinal.split(':')
-                var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
-                var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
-              var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
-                var fechaInicio = new Date(element.fechaInicio);
-                var fechaF = new Date(element.fechaFinal);
-                const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
-                  if( horaActual >= horaAsignada){
-                    this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
-                      this.listaHistorial=[]
-                      resHistorial.forEach((elementHistorial:any) => {
-                        var horaIngresoSigaSplit = elementHistorial.hora.split(":")
-                        var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
-                        if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
-                          this.listaHistorial.push(elementHistorial)
-                        }
-                      });
-                      if(this.listaHistorial.length>=1){
-                        var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
-                        var horaAsignadaArray = element.idTurno.horaFinal.split(':')
-                        var horaI = primerObjeto.hora.split(':')
-                        var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
-                        var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
-                        if(horaIngreso<horaAsignada){
-                          this.noCumplio(element, primerObjeto, malla1)
-                        }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
-                          this.ingresoSitioDiferente(element, primerObjeto, malla1)
-                        }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
-                          this.cumplioMayor(element, primerObjeto, malla1)
-                        }
+                    var horaFinal = malla1.turnoFinal.split(':')
+                    var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
+                    var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
+                    var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
+                    var fechaInicio = new Date(element.fechaInicio);
+                    var fechaF = new Date(element.fechaFinal);
+                    const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
+                    if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
+                      if( horaActual >= horaAsignada){
+                        this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
+                          this.listaHistorial=[]
+                          resHistorial.forEach((elementHistorial:any) => {
+                            var horaIngresoSigaSplit = elementHistorial.hora.split(":")
+                            var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
+                            if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
+                              this.listaHistorial.push(elementHistorial)
+                            }
+                          });
+                          if(this.listaHistorial.length>=1){
+                            var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
+                            var horaAsignadaArray = malla1.turnoFinal.split(':')
+                            var horaI = primerObjeto.hora.split(':')
+                            var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
+                            var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
+                            if(horaIngreso<horaAsignada){
+                              this.noCumplio(element, primerObjeto, malla1)
+                            }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
+                              this.ingresoSitioDiferente(element, primerObjeto, malla1)
+                            }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                              this.cumplioMayor(element, primerObjeto, malla1)
+                            }
+                          }else{
+                            this.noIngreso(element, res, malla1)
+                          }
+                        })
                       }else{
-                        this.noIngreso(element, res, malla1)
+                        this.aunNoEsHora(element, malla1)
                       }
-                    })
-                  }else{
-                    this.aunNoEsHora(element, malla1)
+                      this.listaMallas.push(malla1)
+                    };
                   }
-                  this.listaMallas.push(malla1)
-                };
-              }
+                })
+                this.dataSource = new MatTableDataSource(this.listaMallas);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+              })
             })
-            this.dataSource = new MatTableDataSource(this.listaMallas);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
-        }else if(resUsuario.idRol.idJerarquia.id == 4){
-          this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
-            const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
-            this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
-            var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
-            res.forEach(element => {
-              if(element.idOficina  == resUsuario.ideOficina){
-                var malla1 = {
-                  listaAsignarTurnoVendedor: {},
-                  estado: {},
-                  listaSigaApi: {},
-                  ideOficina: 0,
-                  ideZona: 0,
-                  nombreEstado: '',
-                  validar: false,
-                  tipoMalla: 'Malla Cierre'
-                };
-                var horaFinal = element.idTurno.horaFinal.split(':')
-                var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
-                var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
-                var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
-                var fechaInicio = new Date(element.fechaInicio);
-                var fechaF = new Date(element.fechaFinal);
-                const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
-                if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
-                  if( horaActual >= horaAsignada){
-                    this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
-                      this.listaHistorial=[]
-                      resHistorial.forEach((elementHistorial:any) => {
-                        var horaIngresoSigaSplit = elementHistorial.hora.split(":")
-                        var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
-                        if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
-                          this.listaHistorial.push(elementHistorial)
-                        }
-                      });
-                      if(this.listaHistorial.length>=1){
-                        var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
-                        var horaAsignadaArray = element.idTurno.horaFinal.split(':')
-                        var horaI = primerObjeto.hora.split(':')
-                        var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
-                        var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
-                        var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
-                        if(horaIngreso<horaAsignada){
-                          this.noCumplio(element, primerObjeto, malla1)
-                        }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
-                          this.ingresoSitioDiferente(element, primerObjeto, malla1)
-                        }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
-                          this.cumplioMayor(element, primerObjeto, malla1)
-                        }
+          }else if(resUsuario.idRol.idJerarquia.id == 4){
+            this.servicioAsignarTurnoVendedor.listarTodos().subscribe( res =>{
+              const fechaActual2 = this.fecha.getDate() + "/"+ (this.fecha.getMonth()+1)+ "/" + this.fecha.getFullYear()
+              this.fechaActual = this.fecha.getFullYear() + "/"+ (this.fecha.getMonth()+1)+ "/" +this.fecha.getDate();
+              var horaActual = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(this.fecha.getHours()), Number(this.fecha.getMinutes()));
+              this.servicioConsultasGenerales.listarAsignarTurnosVendedores(this.fechaActual).subscribe(resAsigTurnVende=>{
+                resAsigTurnVende.forEach(element => {
+                  if(element.idOficina  == resUsuario.ideOficina){
+                    var malla1 = {
+                      listaAsignarTurnoVendedor: {},
+                      estado: {},
+                      listaSigaApi: {},
+                      ideOficina: 0,
+                      ideZona: 0,
+                      nombreEstado: '',
+                      turnoInicio: '',
+                      turnoFinal: '',
+                      validar: false,
+                      tipoMalla: 'Malla Cierre'
+                    };
+                    resTurnos.forEach(elementTurno => {
+                      if(elementTurno.id == element.idTurno){
+                        malla1.turnoInicio = elementTurno.horaInicio
+                        malla1.turnoFinal = elementTurno.horaFinal
+                      }
+                    });
+                    var horaFinal = malla1.turnoFinal.split(':')
+                    var horaAsignada = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1]))
+                    var horaAsignadaMenos = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])-this.valorLimiteBusqHistorial)
+                    var horaAsignadaMas = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaFinal[0]),Number(horaFinal[1])+this.valorLimiteBusqHistorial)
+                    var fechaInicio = new Date(element.fechaInicio);
+                    var fechaF = new Date(element.fechaFinal);
+                    const fechaFinal = new Date(fechaF.getFullYear(), fechaF.getMonth(), fechaF.getDate()+1);
+                    if(new Date(this.fechaActual)>=fechaInicio && new Date(this.fechaActual)<=fechaFinal && element.estado!='Eliminado'){
+                      if( horaActual >= horaAsignada){
+                        this.servicioHistorial.listarPorId(fechaActual2, element.idVendedor).subscribe(resHistorial=>{
+                          this.listaHistorial=[]
+                          resHistorial.forEach((elementHistorial:any) => {
+                            var horaIngresoSigaSplit = elementHistorial.hora.split(":")
+                            var horaIngresoSiga = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), this.fecha.getDate(),Number(horaIngresoSigaSplit[0]),Number(horaIngresoSigaSplit[1]))
+                            if(elementHistorial.operacion == "L" && horaIngresoSiga>=horaAsignadaMenos && horaIngresoSiga<=horaAsignadaMas){
+                              this.listaHistorial.push(elementHistorial)
+                            }
+                          });
+                          if(this.listaHistorial.length>=1){
+                            var primerObjeto  = this.listaHistorial[this.listaHistorial.length-1]
+                            var horaAsignadaArray = malla1.turnoFinal.split(':')
+                            var horaI = primerObjeto.hora.split(':')
+                            var horaAdicional = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1])+this.valorMaxIngreso)
+                            var horaAsignada = new Date(1928,6,25,Number(horaAsignadaArray[0]),Number(horaAsignadaArray[1]))
+                            var horaIngreso = new Date(1928,6,25,Number(horaI[0]),Number(horaI[1]))
+                            if(horaIngreso<horaAsignada){
+                              this.noCumplio(element, primerObjeto, malla1)
+                            }else if(primerObjeto.ideSitioventa != element.idSitioVenta){
+                              this.ingresoSitioDiferente(element, primerObjeto, malla1)
+                            }else if(horaIngreso>=horaAsignada && primerObjeto.ideSitioventa == element.idSitioVenta){
+                              this.cumplioMayor(element, primerObjeto, malla1)
+                            }
+                          }else{
+                            this.noIngreso(element, res, malla1)
+                          }
+                        })
                       }else{
-                        this.noIngreso(element, res, malla1)
+                        this.aunNoEsHora(element, malla1)
                       }
-                    })
-                  }else{
-                    this.aunNoEsHora(element, malla1)
+                      this.listaMallas.push(malla1)
+                    };
                   }
-                  this.listaMallas.push(malla1)
-                };
-              }
+                })
+                this.dataSource = new MatTableDataSource(this.listaMallas);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+              })
             })
-            this.dataSource = new MatTableDataSource(this.listaMallas);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          })
-        }
+          }
+        })
       })
     })
 

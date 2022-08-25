@@ -139,6 +139,7 @@ import { AgregarClienteScModalComponent } from './modulos-recepcion-datos/client
 import { AreaComponent } from './modulos-recepcion-datos/area/area.component';
 import { AgregarAreaComponent } from './modulos-recepcion-datos/area/agregar-area/agregar-area.component';
 import { ModificarAreaComponent } from './modulos-recepcion-datos/area/modificar-area/modificar-area.component';
+import { DescargasMultiplesComponent } from './modulos-recepcion-datos/descargas-multiples/descargas-multiples.component';
 
 @NgModule({
   declarations: [
@@ -276,6 +277,7 @@ import { ModificarAreaComponent } from './modulos-recepcion-datos/area/modificar
     AreaComponent,
     AgregarAreaComponent,
     ModificarAreaComponent,
+    DescargasMultiplesComponent,
   ],
   imports: [
     CommonModule,

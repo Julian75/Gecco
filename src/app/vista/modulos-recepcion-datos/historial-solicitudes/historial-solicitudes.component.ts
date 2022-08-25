@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitudes.service';
 import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
+import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
 
 @Component({
   selector: 'app-historial-solicitudes',
@@ -57,7 +58,9 @@ export class HistorialSolicitudesComponent implements OnInit {
           }
           this.servicioSoporte.listarTodos().subscribe(resSopor=>{
             resSopor.forEach(elementSoporte=>{
-              if(elementSoporte.idHistorial.id == element.id){
+              console.log(elementSoporte)
+              if(elementSoporte.idHistorial.id == element.id ){
+                console.log(elementSoporte.idHistorial.id)
                 console.log("yes entro1")
                 this.servicioPdf.listarTodosSegunda().subscribe(resPdf=>{
                   this.listaPdf.push(resPdf)
@@ -77,6 +80,7 @@ export class HistorialSolicitudesComponent implements OnInit {
           })
         }
       });
+
     })
   }
 
@@ -84,19 +88,23 @@ export class HistorialSolicitudesComponent implements OnInit {
   //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
     var listaPdf = []
-    this.servicioConsultasGenerales.listarSoporteSC(id).subscribe(resSoportes=>{
-      resSoportes.forEach(elementSoporte => {
-        this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
+    this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
+      this.servicioConsultasGenerales.listarSoporteSC(id).subscribe(resSoportes=>{
+        resSoportes.forEach(elementSoporte => {
           for(const i in resPdf){
             if (elementSoporte.descripcion == resPdf[i].name) {
-              listaPdf.push(resPdf[i].url)
+              listaPdf.push(resPdf[i])
             }
           }
-          for (let i = 0; i < listaPdf.length; i++) {
-            const element = listaPdf[i];
-            window.location.href = element;
-          }
         })
+        if(listaPdf.length > 1){
+          const dialogRef = this.dialog.open(DescargasMultiplesComponent, {
+            width: '500px',
+            data: listaPdf
+          });
+        }else if(listaPdf.length == 1){
+          window.location.href = listaPdf[0].url;
+        }
       });
     })
   }

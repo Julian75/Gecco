@@ -25,6 +25,7 @@ import { RegistroCorreoService } from 'src/app/servicios/registroCorreo.service'
 import { Correo } from 'src/app/modelos/correo';
 import { RegistroCorreo } from 'src/app/modelos/registroCorreo';
 import { SolicitudSC } from 'src/app/modelos/solicitudSC';
+import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
 
 @Component({
   selector: 'app-solicitudes-sc',
@@ -113,6 +114,8 @@ export class SolicitudesScComponent implements OnInit {
   idModulo: any;
   usuarioMatrix: boolean = false;
   usuarioMatrix2: boolean = false;
+  rchivo: boolean = false;
+  listaRchivo: any = []
   listaUsuarioMatrix: any = [];
   public listarTodos () {
     this.listaDecisionPao = []
@@ -158,12 +161,10 @@ export class SolicitudesScComponent implements OnInit {
                 // fechaLoca.setDate(this.fecha3.getDate()+14)
                 // console.log(fechaLoca)
                 for (let i = 0; i < diferencia; i++) {
-                  console.log(i)
                   var fechaLoca = new Date();
                   fechaLoca.setDate(fechaLoca.getDate()+i)
                   var fechaTrancurriendo = fechaLoca.getFullYear() + "-"+ (fechaLoca.getMonth()+1)+ "-" +fechaLoca.getDate();
                   var fechaTrancurriendo2 = new Date(fechaTrancurriendo);
-                  console.log(fechaTrancurriendo2)
                   if ((fechaTrancurriendo2.getDay() == 0) || (fechaTrancurriendo2.getDay() == 6)) {
                     console.log("dias de finde")
                   }else if((fechaTrancurriendo2.getDay() == 1) || (fechaTrancurriendo2.getDay() == 2) || (fechaTrancurriendo2.getDay() == 3) || (fechaTrancurriendo2.getDay() == 4) || (fechaTrancurriendo2.getDay() == 5)){
@@ -227,13 +228,15 @@ export class SolicitudesScComponent implements OnInit {
             this.enviarCorreo(this.listarSolicitud)
           })
         }else if(remitente == true){
+          this.listaRchivo = []
           this.idModulo = 39
           this.servicioHistorial.listarTodos().subscribe(resHistorial=>{
             resHistorial.forEach(elementHistorial => {
               if(elementHistorial.idUsuario.id == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado.id == 65){
                 var obj = {
                   solicitud: elementHistorial.idSolicitudSC,
-                  incidente: false
+                  incidente: false,
+                  archivo:false
                 }
                 if(elementHistorial.idSolicitudSC.incidente == ""){
                   obj.incidente = true
@@ -247,6 +250,22 @@ export class SolicitudesScComponent implements OnInit {
                   });
                   this.usuarioMatrix2 = this.listaUsuarioMatrix.includes( true )
                   console.log(this.usuarioMatrix2)
+                })
+                this.servicioConsultasGenerales.listarArchivosSC(elementHistorial.idSolicitudSC.id).subscribe(resArchivos=>{
+                  resArchivos.forEach(elementArchivos => {
+                    if(elementArchivos.id_solicitudsc == elementHistorial.idSolicitudSC.id){
+                      this.rchivo = true
+                    }else{
+                      this.rchivo = false
+                    }
+                    this.listaRchivo.push(this.rchivo)
+                  });
+                  console.log(this.listaRchivo)
+                  const rchi = this.listaRchivo.includes(true)
+                  console.log(rchi)
+                  if (rchi == true) {
+                    obj.archivo = true
+                  }
                 })
                 this.listarSolicitud.push(obj)
               }
@@ -264,19 +283,23 @@ export class SolicitudesScComponent implements OnInit {
   //Descargar si subio soporte el cliente al momento de generar la solicitud
   public descargarPdf(idSolicitudSC: number){
     var listaPdf = []
-    this.servicioConsultasGenerales.listarArchivosSC(idSolicitudSC).subscribe(resArchivos=>{
-      resArchivos.forEach(elementArchivos => {
-        this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
+    this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
+      this.servicioConsultasGenerales.listarArchivosSC(idSolicitudSC).subscribe(resArchivos=>{
+        resArchivos.forEach(elementArchivos => {
           for(const i in resPdf){
             if (elementArchivos.nombreArchivo == resPdf[i].name) {
-              listaPdf.push(resPdf[i].url)
+              listaPdf.push(resPdf[i])
             }
           }
-          for (let i = 0; i < listaPdf.length; i++) {
-            const element = listaPdf[i];
-            window.location.href = element;
-          }
         })
+        if(listaPdf.length > 1){
+          const dialogRef = this.dialog.open(DescargasMultiplesComponent, {
+            width: '500px',
+            data: listaPdf
+          });
+        }else if(listaPdf.length == 1){
+          window.location.href = listaPdf[0].url;
+        }
       });
     })
   }

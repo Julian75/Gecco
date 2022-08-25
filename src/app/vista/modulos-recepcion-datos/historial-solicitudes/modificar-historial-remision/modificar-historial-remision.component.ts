@@ -141,7 +141,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
       }
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       this.historial.close();
-      // window.location.reload();
+      window.location.reload();
     },
     err => {
       this.progressInfo[index].value = 0;
@@ -203,6 +203,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
       this.servicioModificar.actualizarHistorialSC(historial2).subscribe(res=>{
         if(this.aprobar2 == true){
+          console.log("hola")
           let solicitudSc : SolicitudSC2 = new SolicitudSC2();
           this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
             solicitudSc.id = resSolicitud.id
@@ -237,7 +238,8 @@ export class ModificarHistorialRemisionComponent implements OnInit {
                     historial.idEstado = resEstado
                     this.servicioUsuario.listarPorId(element.idUsuario.id).subscribe(resUsuarios=>{
                       historial.idUsuario = resUsuarios
-                      this.registrarHistorial2(historial, historial2);
+                      console.log("hola2")
+                      this.registrarHistorial2(historial, historial2, i, this.usuarios.value.length);
                     })
                   })
                 }
@@ -254,7 +256,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               historial.idEstado = resEstado
               this.servicioUsuario.listarPorId(element.idUsuario.id).subscribe(resUsuarios=>{
                 historial.idUsuario = resUsuarios
-                this.registrarHistorial2(historial, historial2);
+                this.registrarHistorial2(historial, historial2, i, this.usuarios.value.length);
               })
             })
           }
@@ -272,9 +274,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     })
   }
 
-  public registrarHistorial2(historial: HistorialSolicitudes, historial2){
+  public registrarHistorial2(historial: HistorialSolicitudes, historial2, i, usuarios){
+    console.log("hola3")
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      this.generarSoporte(historial2);
+      if((i+1) == usuarios){
+        console.log("hola5")
+        this.generarSoporte(historial2);
+      }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -288,8 +294,10 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   }
 
   public generarSoporte(idHistorial:any){
+    console.log("hola6")
     console.log(idHistorial)
     if(this.listaArchivos2.length >= 1){
+      console.log("hola7")
       let soporte : SoporteSC = new SoporteSC();
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitudSc=>{
         soporte.idSolicitudSC = resSolicitudSc
@@ -373,7 +381,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
               this.servicioEstado.listarPorId(64).subscribe(resEstado=>{
                 solicitudSc.idEstado = resEstado.id
-                this.modificarSolicitudSc2(solicitudSc, res);
+                this.modificarSolicitudSc2(solicitudSc, historial);
               })
             })
           }else{
