@@ -54,19 +54,11 @@ export class AgregarCategoriaComponent implements OnInit {
   public guardar() {
     this.aprobar = false
     let categoria : Categoria = new Categoria();
-    categoria.descripcion=this.formCategoria.controls['descripcion'].value;
+    categoria.descripcion=this.formCategoria.controls['descripcion'].value.toLowerCase();
     const idEstado = this.formCategoria.controls['estado'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      categoria.idEstado = res
-      if(categoria.descripcion==null || categoria.descripcion==""){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
+    if(this.formCategoria.valid){
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        categoria.idEstado = res
         this.servicioCategoria.listarTodos().subscribe(resArticulos=>{
           resArticulos.forEach(element => {
             if(element.descripcion == categoria.descripcion){
@@ -89,9 +81,17 @@ export class AgregarCategoriaComponent implements OnInit {
             this.registrarCategoria(categoria);
           }
         })
-      }
-    })
 
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Debe llenar todos los campos!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
   }
 
   public registrarCategoria(categoria: Categoria) {

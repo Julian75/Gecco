@@ -102,7 +102,7 @@ export class ElementosVisitaComponent implements OnInit {
           this.listarElementosVisita();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el tipo documento.',
+            'Se elimino el Elemento Correctamente.',
             'success'
           )
         })

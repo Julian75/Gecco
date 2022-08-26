@@ -85,7 +85,10 @@ export class ModificarClienteScComponent implements OnInit {
     })
   }
 
+  existe: boolean = false
+  listaExis: any = []
   public guardar() {
+    this.listaExis = []
     this.listarExiste = []
     let cliente : ClienteSC2 = new ClienteSC2();
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -111,44 +114,65 @@ export class ModificarClienteScComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: 'Algunos campos estan vacios!',
+              title: 'Campos Vacios!',
               showConfirmButton: false,
               timer: 1500
             })
           }else{
-            for (let i = 0; i < res.length; i++) {
-              if(res[i].documento == documento && res[i].nombre == nombre && res[i].apellido == apellido && res[i].correo == correo  && res[i].idTipoDocumento.id == tipoDocumento && res[i].telefono == telefono ){
-                this.encontrado = true
-              }else{
-                this.encontrado = false
+            this.servicioCliente.listarTodos().subscribe(resClient=>{
+              for (let i = 0; i < res.length; i++) {
+                if(res[i].documento == documento && res[i].nombre == nombre && res[i].apellido == apellido && res[i].correo == correo  && res[i].idTipoDocumento.id == tipoDocumento && res[i].telefono == telefono ){
+                  this.encontrado = true
+                }else{
+                  this.encontrado = false
+                }
+                this.listarExiste.push(this.encontrado)
               }
-              this.listarExiste.push(this.encontrado)
-            }
-            const existe = this.listarExiste.includes(true)
-            console.log(existe)
-            if(existe == true){
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'No hubieron cambios pero se modificó correctamente!',
-                showConfirmButton: false,
-                timer: 2000
-              })
-              this.router.navigate(['/clientesSC']);
-            }else{
-              cliente.documento = this.formClienteSC.controls['documento'].value;
-              cliente.nombre = this.formClienteSC.controls['nombre'].value;
-              cliente.apellido = this.formClienteSC.controls['apellido'].value;
-              cliente.correo = this.formClienteSC.controls['correo'].value;
-              cliente.telefono = this.formClienteSC.controls['telefono'].value;
-              this.servicioTipoDocumento.listarPorId(this.formClienteSC.controls['tipoDocumento'].value).subscribe(res=>{
-                cliente.idTipoDocumento = res.id
-                console.log(res)
-                this.actualizarCliente(cliente);
-              })
-            }
+              const existe = this.listarExiste.includes(true)
+              console.log(existe)
+              if(existe == true){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'No hubieron cambios!',
+                  showConfirmButton: false,
+                  timer: 2000
+                })
+                this.router.navigate(['/clientesSC']);
+              }else{
+                resClient.forEach(element => {
+                  if(element.correo == correo && element.nombre != nombre || element.apellido != apellido  || element.idTipoDocumento.id != tipoDocumento || element.telefono != telefono){
+                    this.existe = false
+                  }else if(element.correo == correo){
+                    this.existe = true
+                  }else{
+                    this.existe = false
+                  }
+                  this.listaExis.push(this.existe)
+                });
+                const existe = this.listaExis.includes( true );
+                if(existe == true){
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Ese Cliente ya existe!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                }else{
+                  cliente.documento = this.formClienteSC.controls['documento'].value;
+                  cliente.nombre = this.formClienteSC.controls['nombre'].value;
+                  cliente.apellido = this.formClienteSC.controls['apellido'].value;
+                  cliente.correo = this.formClienteSC.controls['correo'].value;
+                  cliente.telefono = this.formClienteSC.controls['telefono'].value;
+                  this.servicioTipoDocumento.listarPorId(this.formClienteSC.controls['tipoDocumento'].value).subscribe(res=>{
+                    cliente.idTipoDocumento = res.id
+                    console.log(res)
+                    this.actualizarCliente(cliente);
+                  })
+                }
+              }
+            })
           }
-
         })
       })
     })

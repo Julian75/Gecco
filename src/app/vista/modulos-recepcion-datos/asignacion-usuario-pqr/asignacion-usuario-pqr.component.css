@@ -49,12 +49,11 @@ table{
   }
   .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
   .botonagregar mat-icon{ font-size: 24px; }
-  #idSp{ left: 45px; margin-left: 302%;}
-  #descripSp{ left: 202px; }
+  #idSp{ left: 45px; position: sticky; margin-left: 220%;}
   #opcSp{ left: 8px; }
   #opcSp{ position:static; }
-  #areaSp{ position: static;  margin-left: 197%; }
-  #descripSp{ position:static; margin-left: 201%; }
+  #areaSp{ position: sticky; margin-left: 447%; }
+  #descripSp{ position: sticky; margin-left: 148%;}
   .excelButton{ margin-left: -1%; font-size: 20px; }
   .excelButton i{ position: relative; top: -3px; }
   #idSp2{ padding-left: 0%; }

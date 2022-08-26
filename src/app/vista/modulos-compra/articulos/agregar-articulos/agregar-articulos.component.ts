@@ -74,23 +74,14 @@ export class AgregarArticulosComponent implements OnInit {
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
     const idEstado = this.formArticulo.controls['estado'].value;
     const idCategoria = this.formArticulo.controls['categoria'].value;
-
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      articulo.idEstado = res
-      if(articulo.descripcion==null || articulo.descripcion==""){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
+    if(this.formArticulo.valid){
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        articulo.idEstado = res
         this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria=>{
           articulo.idCategoria = resCategoria
           this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
             resArticulos.forEach(element => {
-              if(element.descripcion.toLowerCase() == articulo.descripcion.toLowerCase()){
+              if(element.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && element.idEstado.id == this.formArticulo.controls['estado'].value && element.idCategoria.id == this.formArticulo.controls['categoria'].value){
                 this.aprobar = true
               }else{
                 this.aprobar = false
@@ -112,8 +103,17 @@ export class AgregarArticulosComponent implements OnInit {
             }
           })
         })
-      }
-    })
+
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Campos vacios!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
 
   }
 

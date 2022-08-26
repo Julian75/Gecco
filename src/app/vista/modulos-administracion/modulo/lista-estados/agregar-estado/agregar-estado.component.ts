@@ -38,7 +38,10 @@ export class AgregarEstadoComponent implements OnInit {
     });
   }
 
+  existe: boolean = false
+  listaExis: any = []
   public guardar() {
+    this.listaExis = []
     let estado : Estado = new Estado();
     estado.descripcion=this.formEstado.controls['descripcion'].value;
     estado.observacion = this.formEstado.controls['observacion'].value;
@@ -54,7 +57,27 @@ export class AgregarEstadoComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.registrarEstado(estado);
+        this.servicioEstado.listarTodos().subscribe(resEstado=>{
+          resEstado.forEach(element => {
+            if(element.descripcion.toLowerCase() == estado.descripcion.toLowerCase()){
+              this.existe = true
+            }else{
+              this.existe = false
+            }
+            this.listaExis.push(this.existe)
+          });
+          const existe = this.listaExis.includes( true );
+          if(existe == true){
+            Swal.fire({
+              icon: 'error',
+              title: 'Ese Estado ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }else{
+            this.registrarEstado(estado);
+          }
+        })
       }
     })
   }

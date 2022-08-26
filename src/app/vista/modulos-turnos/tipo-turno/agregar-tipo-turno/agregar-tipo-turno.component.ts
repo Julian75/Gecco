@@ -45,25 +45,49 @@ export class AgregarTipoTurnoComponent implements OnInit {
       this.listarEstado = this.estadosDisponibles
   });}
 
+  validar: boolean = false
+  listaValidar: any = []
   public guardar() {
-    let tipoTurno : TipoTurno = new TipoTurno();
-    tipoTurno.descripcion=this.formTipoTurno.controls['descripcion'].value;
-    const idEstado = this.formTipoTurno.controls['estado'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res;
-      tipoTurno.idEstado= this.listarEstado
-      if(tipoTurno.descripcion==null || tipoTurno.descripcion=="" || tipoTurno.idEstado==null || tipoTurno.idEstado==undefined){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
+    this.listaValidar = []
+    if(this.formTipoTurno.controls['descripcion'].value == null || this.formTipoTurno.controls['estado'].value == null){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'El campo esta vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.crearFormulario();
+    }else{
+      let tipoTurno : TipoTurno = new TipoTurno();
+      tipoTurno.descripcion = this.formTipoTurno.controls['descripcion'].value;
+      const idEstado = this.formTipoTurno.controls['estado'].value;
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        this.listarEstado = res;
+        tipoTurno.idEstado= this.listarEstado
+        this.servicioTipoTurno.listarTodos().subscribe(resTipoTurnos=>{
+          resTipoTurnos.forEach(element => {
+            if(element.descripcion.toLowerCase() == tipoTurno.descripcion.toLowerCase()){
+              this.validar = true
+            }else{ this.validar = false }
+            this.listaValidar.push(this.validar)
+          });
+          const existe = this.listaValidar.includes(true)
+          if(existe == true){
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Este Tipo Turno ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.crearFormulario();
+          }else{
+            this.registrarTipoTurno(tipoTurno);
+          }
         })
-      }else{
-        this.registrarTipoTurno(tipoTurno);
-      }
-    })
+      })
+    }
 
   }
 

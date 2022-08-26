@@ -31,22 +31,50 @@ export class AgregarOpcionesVisitaComponent implements OnInit {
     });
   }
 
-  public guardar(){
+  existe: boolean = false
+  listaExis: any = []
+  public guardar() {
+    this.listaExis = []
     let opcionVisita : OpcionesVisita = new OpcionesVisita();
     opcionVisita.descripcion = this.formOpcionVisita.value.descripcion;
-    this.servicioOpcion.registrar(opcionVisita).subscribe( res => {
+    if(opcionVisita.descripcion==null || opcionVisita.descripcion==""){
       Swal.fire({
-        title: 'Registro exitoso',
-        text: 'Se registro correctamente',
-        icon: 'success',
-        confirmButtonText: 'Ok'
-      }).then((result) => {
-        if (result.value) {
-          window.location.reload();
-          this.dialogRef.close();
+        position: 'center',
+        icon: 'error',
+        title: 'El campo esta vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      this.servicioOpcion.listarTodos().subscribe(resOpcion=>{
+        resOpcion.forEach(element => {
+          if(element.descripcion.toLowerCase() == opcionVisita.descripcion.toLowerCase()){
+            this.existe = true
+          }else{
+            this.existe = false
+          }
+          this.listaExis.push(this.existe)
+        });
+        const existe = this.listaExis.includes( true );
+        if(existe == true){
+          Swal.fire({
+            icon: 'error',
+            title: 'Esa Opcion ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          this.servicioOpcion.registrar(opcionVisita).subscribe( res => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Registro exitoso',
+              text: 'La Opcion se registro correctamente',
+            });
+            this.dialogRef.close();
+            window.location.reload();
+          })
         }
-      }
-      );
-    })
+      })
+    }
   }
 }

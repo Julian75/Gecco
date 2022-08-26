@@ -47,7 +47,10 @@ export class ModificarModuloComponent implements OnInit {
     })
   }
 
+  existe: boolean = false
+  listaExis: any = []
   public guardar() {
+    this.listaExis = []
     let modulo : Modulo2 = new Modulo2();
     modulo.id=Number(this.data);
     modulo.descripcion=this.formModulo.controls['descripcion'].value;
@@ -60,7 +63,40 @@ export class ModificarModuloComponent implements OnInit {
         timer: 1500
       })
     }else{
-      this.actualizarModulo(modulo);
+      this.servicioModulo.listarPorId(Number(this.data)).subscribe(resMod=>{
+        this.servicioModulo.listarTodos().subscribe(resModulo=>{
+          if(resMod.descripcion.toLowerCase() == modulo.descripcion.toLowerCase()){
+            Swal.fire({
+              icon: 'success',
+              title: 'No hubieron cambios!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.dialogRef.close();
+            window.location.reload();
+          }else{
+            resModulo.forEach(element => {
+              if(element.descripcion.toLowerCase() == modulo.descripcion.toLowerCase()){
+                this.existe = true
+              }else{
+                this.existe = false
+              }
+              this.listaExis.push(this.existe)
+            });
+            const existe = this.listaExis.includes( true );
+            if(existe == true){
+              Swal.fire({
+                icon: 'error',
+                title: 'Ese Modulo ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }else{
+              this.actualizarModulo(modulo);
+            }
+          }
+        })
+      })
     }
   }
 

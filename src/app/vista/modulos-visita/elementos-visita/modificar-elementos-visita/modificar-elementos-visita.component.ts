@@ -39,26 +39,58 @@ export class ModificarElementosVisitaComponent implements OnInit {
     })
 
   }
-  public guardar(){
+
+  existe: boolean = false
+  listaExis: any = []
+  public guardar() {
+    this.listaExis = []
     if (this.formElementoVisita.valid) {
-      this.servicioModificar.actualizarElementosVisita(this.formElementoVisita.value).subscribe(res => {
-        Swal.fire({
-          title: 'Modificado',
-          text: 'Se modificó correctamente',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          if (result.value) {
+      this.servicioElementoVisita.listarPorId(this.formElementoVisita.value.id).subscribe(resEle=>{
+        this.servicioElementoVisita.listarTodos().subscribe(resElementos=>{
+          if(this.formElementoVisita.value.descripcion.toLowerCase() == resEle.descripcion.toLowerCase()){
+            Swal.fire({
+              icon: 'success',
+              title: 'No hubieron cambios!',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.dialogRef.close();
             window.location.reload();
+          }else{
+            resElementos.forEach(element => {
+              if(element.descripcion.toLowerCase() == this.formElementoVisita.value.descripcion.toLowerCase()){
+                this.existe = true
+              }else{
+                this.existe = false
+              }
+              this.listaExis.push(this.existe)
+            });
+            const existe = this.listaExis.includes( true );
+            if(existe == true){
+              Swal.fire({
+                icon: 'error',
+                title: 'Ese Elemento ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }else{
+              this.servicioModificar.actualizarElementosVisita(this.formElementoVisita.value).subscribe(res => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Elemento Modificada',
+                  text: 'El Elemento se modifico correctamente',
+                });
+                this.dialogRef.close();
+                window.location.reload();
+              })
+            }
           }
         })
-      }
-      )
+      })
     }else{
       Swal.fire({
         title: 'Error',
-        text: 'Faltan datos',
+        text: 'El campo no puede estar vacio!',
         icon: 'error',
         confirmButtonText: 'Ok'
       }

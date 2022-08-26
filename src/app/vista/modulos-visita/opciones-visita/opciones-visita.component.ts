@@ -82,7 +82,7 @@ export class OpcionesVisitaComponent implements OnInit {
           this.listarTodo();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Rol.',
+            'Se elimino la Opcion Correctamente.',
             'success'
           )
         })

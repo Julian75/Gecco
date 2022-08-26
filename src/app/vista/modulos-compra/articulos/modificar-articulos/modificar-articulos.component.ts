@@ -25,6 +25,8 @@ export class ModificarArticulosComponent implements OnInit {
   public categoriasDisponibles : any = [];
   public listaCategorias : any = [];
   public listaEstados: any = [];
+  public encontrado : boolean = false;
+  public encontrados: any = [];
   color = ('primary');
 
   constructor(
@@ -50,8 +52,8 @@ export class ModificarArticulosComponent implements OnInit {
     this.formArticulo = this.fb.group({
       id: [''],
       descripcion: [null,Validators.required],
-      estado: [null,Validators.required],
-      categoria: [null,Validators.required],
+      idEstado: [null,Validators.required],
+      idCategoria: [null,Validators.required],
     });
   }
 
@@ -83,34 +85,85 @@ export class ModificarArticulosComponent implements OnInit {
       this.listaArticulo = res;
       this.formArticulo.controls['id'].setValue(this.listaArticulo.id);
       this.formArticulo.controls['descripcion'].setValue(this.listaArticulo.descripcion);
-      this.formArticulo.controls['estado'].setValue(this.listaArticulo.idEstado.id);
-      this.formArticulo.controls['categoria'].setValue(this.listaArticulo.idCategoria.id);
+      this.formArticulo.controls['idEstado'].setValue(this.listaArticulo.idEstado.id);
+      this.formArticulo.controls['idCategoria'].setValue(this.listaArticulo.idCategoria.id);
     })
   }
 
   public guardar() {
+    this.encontrados = [];
     let articulo : Articulo2 = new Articulo2();
-    articulo.id=Number(this.data);
-    articulo.descripcion=this.formArticulo.controls['descripcion'].value;
-    const idEstado = this.formArticulo.controls['estado'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      articulo.idEstado = res.id
-      const idCategoria= this.formArticulo.controls['categoria'].value;
-      this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
-        articulo.idCategoria = resCategoria.id
-        if(articulo.descripcion==null || articulo.descripcion=="" || articulo.idEstado==null){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'El campo esta vacio!',
-            showConfirmButton: false,
-            timer: 1500
+    this.formArticulo.value.id=Number(this.data);
+    const artic = this.formArticulo.value.descripcion;
+    const idEstado = this.formArticulo.controls['idEstado'].value;
+    if(this.formArticulo.valid){
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        this.formArticulo.value.idEstado = res.id
+        const idCategoria= this.formArticulo.controls['idCategoria'].value;
+        this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
+          this.formArticulo.value.idCategoria = resCategoria.id
+          this.formArticulo.value.descripcion = artic
+          this.servicioArticulo.listarPorId(this.formArticulo.value.id).subscribe(resArticulo => {
+            if(resArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() && resArticulo.idEstado.id == this.formArticulo.value.idEstado && resArticulo.idCategoria.id == this.formArticulo.value.idCategoria){
+              this.servicioModificar.actualizarArticulos(this.formArticulo.value).subscribe(res => {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'No se hubo ningun cambio, pero se modificó correctamente',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                this.dialogRef.close();
+                window.location.reload();
+              });
+            }else{
+              this.servicioArticulo.listarTodos().subscribe(res => {
+                res.forEach(elementArticulo => {
+                  if(elementArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() && elementArticulo.idEstado.id == this.formArticulo.value.idEstado && elementArticulo.idCategoria.id == this.formArticulo.value.idCategoria){
+                    this.encontrado = true
+                  }else{
+                    this.encontrado = false
+                  }
+                  this.encontrados.push(this.encontrado)
+                });
+                const encontrados = this.encontrados.find(encontrado => encontrado == true)
+                console.log(encontrados)
+                if(encontrados == true){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Ya existe un articulo con esas caracteristicas',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }else{
+                  this.servicioModificar.actualizarArticulos(this.formArticulo.value).subscribe(res => {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Se modificó correctamente',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                    this.dialogRef.close();
+                    window.location.reload();
+                  });
+                }
+              })
+            }
           })
-        }else{
-          this.actualizarArticulo(articulo);
-        }
+
+        })
       })
-    })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Campos vacios',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
   }
 
   public actualizarArticulo(articulo: Articulo2) {

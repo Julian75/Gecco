@@ -72,37 +72,45 @@ export class AgregarProcesoComponent implements OnInit {
     let proceso : Proceso = new Proceso();
     const idCategoria = this.formAsigCat.controls['categoria'].value;
     const idUsuario = this.formAsigCat.controls['usuario'].value;
-
-    this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
-      proceso.idCategoria = resCategoria
-      this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario=>{
-        proceso.idUsuario = resUsuario
-        this.servicioProceso.listarTodos().subscribe(resProceso=>{
-          resProceso.forEach(element => {
-            if(element.idCategoria.id == idCategoria && element.idUsuario.id == idUsuario){
-              this.aprobar = true
+    if(idCategoria == null || idUsuario == null){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Los campos no deben estar vacios!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
+        proceso.idCategoria = resCategoria
+        this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario=>{
+          proceso.idUsuario = resUsuario
+          this.servicioProceso.listarTodos().subscribe(resProceso=>{
+            resProceso.forEach(element => {
+              if(element.idCategoria.id == idCategoria && element.idUsuario.id == idUsuario){
+                this.aprobar = true
+              }else{
+                this.aprobar = false
+              }
+              this.listarExiste.push(this.aprobar);
+            });
+            const existe = this.listarExiste.includes( true );
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Esta asignación ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.crearFormulario()
             }else{
-              this.aprobar = false
+              this.registrarProceso(proceso);
             }
-            this.listarExiste.push(this.aprobar);
-          });
-          const existe = this.listarExiste.includes( true );
-          if(existe == true){
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Esta asignación ya existe!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.crearFormulario()
-          }else{
-            this.registrarProceso(proceso);
-          }
+          })
         })
       })
-    })
-
+    }
   }
 
   public registrarProceso(proceso: Proceso) {

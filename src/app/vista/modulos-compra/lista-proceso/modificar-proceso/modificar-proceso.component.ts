@@ -96,7 +96,7 @@ export class ModificarProcesoComponent implements OnInit {
       this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario=>{
         proceso.idUsuario = resUsuario.id
         this.servicioProceso.listarPorId(proceso.id).subscribe(resProces=>{
-          if(resProces.idCategoria.id == idCategoria && resProces.idUsuario.id){
+          if(resProces.idCategoria.id == idCategoria && resProces.idUsuario.id == idUsuario){
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -109,7 +109,7 @@ export class ModificarProcesoComponent implements OnInit {
           }else{
             this.servicioProceso.listarTodos().subscribe(resProceso=>{
               resProceso.forEach(element => {
-                if(element.idCategoria.id == idCategoria && element.idUsuario.id == idUsuario){
+                if(element.idCategoria.id == idCategoria || element.idUsuario.id == idUsuario){
                   this.aprobar = true
                 }else{
                   this.aprobar = false

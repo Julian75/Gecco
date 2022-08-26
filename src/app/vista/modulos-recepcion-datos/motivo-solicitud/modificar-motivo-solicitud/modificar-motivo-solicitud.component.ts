@@ -35,30 +35,68 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
       descripcion: [null,Validators.required],
     });
   }
+
   public listarTodos(){
     this.servicioMotivoSolicitud.listarPorId(Number(this.data)).subscribe(data => {
       this.formMotivoSolicitud.setValue(data);
     }
     );
   }
-  public guardar(){
+
+  existe: boolean = false
+  listaExis: any = []
+  public guardar() {
+    this.listaExis = []
     if (this.formMotivoSolicitud.valid) {
-      this.servicioModificar.actualizarMotivoSolicitud(this.formMotivoSolicitud.value).subscribe(data => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Se actualizo el motivo',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.dialogRef.close();
-        window.location.reload();
-      }
-      );
+      this.servicioMotivoSolicitud.listarPorId(Number(this.data)).subscribe(resMot=>{
+        this.servicioMotivoSolicitud.listarTodos().subscribe(resMotivo=>{
+          if(resMot.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase()){
+            Swal.fire({
+              icon: 'success',
+              title: 'No hubieron cambios!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.dialogRef.close();
+            window.location.reload();
+          }else{
+            resMotivo.forEach(element => {
+              if(element.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase()){
+                this.existe = true
+              }else{
+                this.existe = false
+              }
+              this.listaExis.push(this.existe)
+            });
+            const existe = this.listaExis.includes( true );
+            if(existe == true){
+              Swal.fire({
+                icon: 'error',
+                title: 'Ese Motivo de Solicitud ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }else{
+              this.servicioModificar.actualizarMotivoSolicitud(this.formMotivoSolicitud.value).subscribe(data => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Se actualizo el motivo',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+                this.dialogRef.close();
+                window.location.reload();
+              }
+              );
+            }
+          }
+        })
+      })
     }else{
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Campos incorrectos',
+        text: 'El campo no puede esta vacio',
         showConfirmButton: false,
         timer: 1500
       });

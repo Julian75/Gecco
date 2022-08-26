@@ -25,15 +25,21 @@ export class AgregarTipoNovedadesComponent implements OnInit {
     this.formTipoNovedades = this.fb.group({
       id: 0,
       descripcion: [null,Validators.required],
-      observacion: [null,Validators.required],
+      observacion: [null],
     });
   }
 
+  validar: boolean = false;
+  listaValidar: any = [];
   public guardar() {
     let tipoNovedades : TipoNovedades = new TipoNovedades();
     tipoNovedades.descripcion=this.formTipoNovedades.controls['descripcion'].value;
-    tipoNovedades.observacion=this.formTipoNovedades.controls['observacion'].value;
-    if(tipoNovedades.descripcion==null && tipoNovedades.descripcion==""){
+    if(this.formTipoNovedades.controls['observacion'].value == null){
+      tipoNovedades.observacion = ""
+    }else{
+      tipoNovedades.observacion = this.formTipoNovedades.controls['observacion'].value
+    }
+    if(tipoNovedades.descripcion==null || tipoNovedades.descripcion==""){
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -42,7 +48,27 @@ export class AgregarTipoNovedadesComponent implements OnInit {
         timer: 1500
       })
     }else{
-      this.registrarTipoNovedades(tipoNovedades);
+      this.servicioTipoNovedades.listarTodos().subscribe(resTipoTurnos=>{
+        resTipoTurnos.forEach(element => {
+          if(element.descripcion.toLowerCase() == tipoNovedades.descripcion.toLowerCase()){
+            this.validar = true
+          }else{ this.validar = false }
+          this.listaValidar.push(this.validar)
+        });
+        const existe = this.listaValidar.includes(true)
+        if(existe == true){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Este Tipo Turno ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.crearFormulario();
+        }else{
+          this.registrarTipoNovedades(tipoNovedades);
+        }
+      })
     }
 
   }

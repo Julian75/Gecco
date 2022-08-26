@@ -663,6 +663,7 @@ export class PasosComponent implements OnInit {
             resDetalle.forEach(element => {
               if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
                 this.idSolicitud = element.idSolicitud.idUsuario.nombre + " " + element.idSolicitud.idUsuario.apellido
+                this.idCompras = element.id
                 var now = new Array
                 now.push(element.idArticulos.descripcion)
                 now.push(element.cantidad)
@@ -676,13 +677,12 @@ export class PasosComponent implements OnInit {
                 body.push(now)
               }
             });
-            this.servicioConsultasGenerales.listarCotizacion(element.idSolicitud).subscribe(resCotizacion=>{
-              resCotizacion.forEach(element => {
-                this.idCompras = element.idUsuario
+            this.servicioGestionProceso.listarTodos().subscribe(resGestionProc=>{
+              resGestionProc.forEach(element => {
+                if(element.idDetalleSolicitud.id == element.idDetalleSolicitud.id){
+                  this.nombreCompras = element.idUsuario.nombre+" "+element.idUsuario.apellido
+                }
               });
-              this.servicioUsuario.listarPorId(this.idCompras).subscribe(resUsuario=>{
-                this.nombreCompras = resUsuario.nombre+" "+resUsuario.apellido
-              })
             })
 
             this.servicioConsultasGenerales.listarUsuariosAdministracion(element.idSolicitud).subscribe(resUsuariosAdministracion=>{
@@ -800,7 +800,7 @@ export class PasosComponent implements OnInit {
                     {
                       text: this.nombreGerente,
                       relativePosition: {x: 350, y: -25},
-                      margin: [-320, 180, 0, 0],
+                      margin: [-320, 140, 0, 0],
                       fontSize: 13,
                     },
                     {

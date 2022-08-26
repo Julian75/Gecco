@@ -54,38 +54,54 @@ export class ModificarAreaComponent implements OnInit {
     this.listaExis = []
     let area : Area2 = new Area2();
     area.id=Number(this.data);
-    area.descripcion=this.formArea.controls['descripcion'].value;
-    if(area.descripcion==null || area.descripcion==""){
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'El campo esta vacio!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }else{
-      this.servicioArea.listarTodos().subscribe(resArea=>{
-        resArea.forEach(element => {
-          if(element.descripcion.toLowerCase() == area.descripcion.toLowerCase()){
-            this.existe = true
-          }else{
-            this.existe = false
-          }
-          this.listaExis.push(this.existe)
-        });
-        const existe = this.listaExis.includes( true );
-        if(existe == true){
-          Swal.fire({
-            icon: 'error',
-            title: 'Esa Area ya existe!',
-            showConfirmButton: false,
-            timer: 1500
-          });
+    if(this.formArea.valid){
+      area.descripcion=this.formArea.controls['descripcion'].value.toLowerCase();
+      this.servicioArea.listarPorId(Number(this.data)).subscribe(data => {
+        if(data.descripcion==area.descripcion){
+            this.servicioModificar.actualizarArea(area).subscribe(res => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'No hubo cambios, pero se modificó correctamente!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.dialogRef.close();
+              window.location.reload();
+            });
         }else{
-          this.actualizarArea(area);
+          this.servicioArea.listarTodos().subscribe(resArea=>{
+            resArea.forEach(element => {
+              if(element.descripcion == area.descripcion){
+                this.existe = true
+              }else{
+                this.existe = false
+              }
+              this.listaExis.push(this.existe)
+            });
+            const existe = this.listaExis.includes( true );
+            if(existe == true){
+              Swal.fire({
+                icon: 'error',
+                title: 'Esa Area ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }else{
+              this.actualizarArea(area);
+            }
+          })
         }
       })
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El campo está vacio',
+      })
     }
+
+
   }
 
   public actualizarArea(area: Area2) {

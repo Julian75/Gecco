@@ -32,22 +32,48 @@ export class AgregarConfiguracionComponent implements OnInit {
     });
   }
 
+  existe: boolean = false
+  listaExis: any = []
   public guardar(){
-    this.servicioConfiguracion.registrar(this.formConfiguracion.value).subscribe( res => {
-      Swal.fire({
-        title: 'Registro exitoso',
-        text: 'Se registro correctamente',
-        icon: 'success',
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Aceptar',
-      }).then((result) => {
-        if (result.value) {
-          this.dialogRef.close();
-          window.location.reload();
+    this.listaExis = []
+    this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+      if(this.formConfiguracion.value.descripcion == "" || this.formConfiguracion.value.nombre == "" || this.formConfiguracion.value.valor == ""){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Los campos no pueden estar vacios!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else{
+        resConfiguracion.forEach(element => {
+          if(element.nombre.toLowerCase() == this.formConfiguracion.value.nombre.toLowerCase()){
+            this.existe = true
+          }else{
+            this.existe = false
+          }
+          this.listaExis.push(this.existe)
+        });
+        const existe = this.listaExis.includes( true );
+        if(existe == true){
+          Swal.fire({
+            icon: 'error',
+            title: 'Esa Configuracion ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          this.servicioConfiguracion.registrar(this.formConfiguracion.value).subscribe( res => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Configuracion Registrada',
+              text: 'La Configuracion se registro correctamente',
+            });
+            this.dialogRef.close();
+            window.location.reload();
+          })
         }
-      });
+      }
     })
-
   }
 }

@@ -19,6 +19,8 @@ export class AgregarRolComponent implements OnInit {
   public listJerarquia: any = [];
   public listaJerarquia: any = [];
   public estadosDisponibles:any = [];
+  public encontrado : boolean = false;
+  public encontrados: any = [];
   color = ('primary');
   constructor(
     private fb: FormBuilder,
@@ -64,29 +66,52 @@ export class AgregarRolComponent implements OnInit {
   }
 
   public guardar() {
+    this.encontrados = [];
     let rol : Rol = new Rol();
-    rol.descripcion=this.formRol.controls['descripcion'].value;
     const idEstado = this.formRol.controls['estado'].value;
     const idJerarquia = this.formRol.controls['jerarquia'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res;
-      rol.idEstado= this.listarEstado
-      this.servicioJerarquia.listarPorId(idJerarquia).subscribe(resjerar => {
-        this.listaJerarquia = resjerar;
-        rol.idJerarquia= this.listaJerarquia
-        if(rol.descripcion==null || rol.descripcion==""){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'El campo esta vacio!',
-            showConfirmButton: false,
-            timer: 1500
+    console.log(this.formRol.value.estado);
+    if(this.formRol.valid){
+      rol.descripcion=this.formRol.controls['descripcion'].value;
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        this.listarEstado = res;
+        rol.idEstado= this.listarEstado
+        this.servicioJerarquia.listarPorId(idJerarquia).subscribe(resjerar => {
+          this.listaJerarquia = resjerar;
+          rol.idJerarquia= this.listaJerarquia
+          this.servicioRol.listarTodos().subscribe(resrol => {
+            resrol.forEach(element => {
+              if(this.formRol.value.descripcion.toLowerCase() == element.descripcion.toLowerCase()){
+                this.encontrado = true;
+              }else{
+                this.encontrado = false;
+              }
+              this.encontrados.push(this.encontrado);
+            })
+            const encontrado = this.encontrados.includes(true);
+            if(encontrado == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'El rol ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else{
+              this.registrarRol(rol);
+            }
           })
-        }else{
-          this.registrarRol(rol);
-        }
+        })
       })
-    })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'El campo está vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
 
   }
 

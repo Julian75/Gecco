@@ -17,6 +17,8 @@ export class AgregarTipoDocumentoComponent implements OnInit {
   public formTipoDocumento!: FormGroup;
   public listarEstado: any = [];
   public estadosDisponibles:any = [];
+  public encontrados: any = [];
+  public encontrado = false;
   color = ('primary');
 
   constructor(
@@ -52,25 +54,50 @@ export class AgregarTipoDocumentoComponent implements OnInit {
     });
   }
 
+
   public guardar() {
+    this.encontrados = [];
     let tipoDocumento : TipoDocumento = new TipoDocumento();
-    tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
     const idEstado = this.formTipoDocumento.controls['estado'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res;
-      tipoDocumento.idEstado= this.listarEstado
-      if(tipoDocumento.descripcion==null || tipoDocumento.descripcion==""){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        this.registrarTipoDocumento(tipoDocumento);
-      }
-    })
+    console.log(this.formTipoDocumento.value.descripcion);
+    if(this.formTipoDocumento.valid){
+      tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        this.listarEstado = res;
+        tipoDocumento.idEstado= this.listarEstado
+        this.servicioTipoDocumento.listarTodos().subscribe(resTipoDocumento => {
+          resTipoDocumento.forEach(element => {
+            if(element.descripcion.toLowerCase() == this.formTipoDocumento.value.descripcion.toLowerCase()){
+              this.encontrado = true;
+            }else{
+              this.encontrado = false;
+            }
+            this.encontrados.push(this.encontrado);
+          })
+          const existe = this.encontrados.includes(true);
+          console.log(existe);
+          if(existe == true){
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'El tipo de documento ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            this.registrarTipoDocumento(tipoDocumento);
+          }
+        });
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'El campo está vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
   }
 
   public registrarTipoDocumento(tipoDocumento: TipoDocumento) {
@@ -84,7 +111,6 @@ export class AgregarTipoDocumentoComponent implements OnInit {
       })
       this.dialogRef.close();
       window.location.reload();
-
     }, error => {
       Swal.fire({
         position: 'center',

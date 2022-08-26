@@ -76,7 +76,7 @@ export class ListaProcesoComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el proceso.',
+            'Se elimino la asignacion de categoria correctamente.',
             'success'
           )
         })

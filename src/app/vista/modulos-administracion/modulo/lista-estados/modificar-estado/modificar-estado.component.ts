@@ -57,14 +57,17 @@ export class ModificarEstadoComponent implements OnInit {
     });
   }
 
+  existe: boolean = false
+  listaExis: any = []
   public guardar() {
+    this.listaExis = []
     let esta : Estado = new Estado();
     esta.id=Number(this.estado);
     esta.descripcion=this.formEstado.controls['descripcion'].value;
     esta.observacion=this.formEstado.controls['observacion'].value;
     this.servicioEstado.listarPorId(esta.id).subscribe(res=>{
       esta.idModulo = res.idModulo
-      if(esta.descripcion == res.descripcion && esta.observacion == res.observacion){
+      if(esta.descripcion.toLowerCase() == res.descripcion.toLowerCase() && esta.observacion == res.observacion){
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -72,6 +75,8 @@ export class ModificarEstadoComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        this.dialogRef.close();
+        window.location.reload();
       }else if(esta.descripcion == "" || esta.descripcion==null || esta.id == null || esta.id == undefined){
         Swal.fire({
           position: 'center',
@@ -81,7 +86,27 @@ export class ModificarEstadoComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.actualizarEstado(esta);
+        this.servicioEstado.listarTodos().subscribe(resEstado=>{
+          resEstado.forEach(element => {
+            if(element.descripcion.toLowerCase() == esta.descripcion.toLowerCase()){
+              this.existe = true
+            }else{
+              this.existe = false
+            }
+            this.listaExis.push(this.existe)
+          });
+          const existe = this.listaExis.includes( true );
+          if(existe == true){
+            Swal.fire({
+              icon: 'error',
+              title: 'Ese Estado ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }else{
+            this.actualizarEstado(esta);
+          }
+        })
       }
     })
   }

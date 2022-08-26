@@ -76,7 +76,9 @@ export class ProcesoComponent implements OnInit {
     })
   }
 
+  procesoList: any = []
   public guardar(){
+    this.procesoList = []
     this.listaDetalleSolicitud = this.data
     const usuario = this.formComentario.controls['usuario'].value;
     let gestionProceso : GestionProceso = new GestionProceso();
@@ -94,16 +96,19 @@ export class ProcesoComponent implements OnInit {
         this.serviceProceso.listarTodos().subscribe(resProceso=>{
           resProceso.forEach(element => {
             if(element.idUsuario.id == usuario){
-              gestionProceso.idProceso = element
-              gestionProceso.idDetalleSolicitud = this.listaDetalleSolicitud
-              this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
-                gestionProceso.idEstado = resEstado
-                this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-                  gestionProceso.idUsuario = resUsuario
-                  this.registrarGestionProceso(gestionProceso, this.listaDetalleSolicitud.id, "siquiere")
-                })
-              })
+              this.procesoList.push(element)
             }
+          });
+          this.procesoList.forEach(elementProc => {
+            gestionProceso.idProceso = elementProc
+            gestionProceso.idDetalleSolicitud = this.listaDetalleSolicitud
+            this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
+              gestionProceso.idEstado = resEstado
+              this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                gestionProceso.idUsuario = resUsuario
+                this.registrarGestionProceso(gestionProceso, this.listaDetalleSolicitud.id, "siquiere")
+              })
+            })
           });
         })
       }

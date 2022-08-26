@@ -100,7 +100,7 @@ export class ModificarProveedorComponent implements OnInit {
         this.formProveedor.value.idTipoDocumento = dataDocumento.id;
         this.serviceProveedor.listarTodos().subscribe( data => {
           data.forEach(element => {
-            if (this.formProveedor.value.idEstado == element.idEstado.id && this.formProveedor.value.idTipoDocumento == element.idTipoDocumento.id && this.formProveedor.value.documento == element.documento ) {
+            if (this.formProveedor.value.idEstado == element.idEstado.id && this.formProveedor.value.idTipoDocumento == element.idTipoDocumento.id && this.formProveedor.value.documento == element.documento && this.formProveedor.value.direccion == element.direccion && this.formProveedor.value.nombre == element.nombre && this.formProveedor.value.telefono == element.telefono && this.formProveedor.value.observacion == element.observacion) {
               this.pro=true
             }else{
               this.pro=false
@@ -114,8 +114,7 @@ export class ModificarProveedorComponent implements OnInit {
             })
             Swal.fire({
               icon: 'success',
-              title: 'Exito',
-              text: 'No hubieron cambios, pero se modificó el proveedor!',
+              text: 'No hubieron cambios!',
             })
             this.router.navigate(['/proveedores']);
           }else {
@@ -123,8 +122,8 @@ export class ModificarProveedorComponent implements OnInit {
             })
             Swal.fire({
               icon: 'success',
-              title: 'Exito',
-              text: 'Proveedor modificado correctamente!',
+              title: 'Proveedor Modificado',
+              text: 'El Proveedor se modifico correctamente!',
             })
             this.router.navigate(['/proveedores']);
           }
@@ -133,8 +132,8 @@ export class ModificarProveedorComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'Por favor revise los campos',
+        title: 'Campos Vacios',
+        text: 'Los campos no pueden estar vacios',
         showConfirmButton: false,
         timer: 1500
       })

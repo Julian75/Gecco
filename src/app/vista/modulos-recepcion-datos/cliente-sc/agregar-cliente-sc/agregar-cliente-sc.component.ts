@@ -62,7 +62,7 @@ export class AgregarClienteScComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Ningun campo debe estar vacio.',
+        title: 'Campos Vacios.',
         showConfirmButton: false,
         timer: 1500
       })

@@ -44,25 +44,35 @@ export class AgregarJerarquiaComponent implements OnInit {
     jerarquia.descripcion = campo;
     this.servicioJerarquia.listarTodos().subscribe(res => {
       this.listarJerarquia = res;
-      for (let i = 0; i < this.listarJerarquia.length; i++) {
-        if (this.listarJerarquia[i].descripcion == campo) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'La jerarquia ya existe',
-          });
-          return;
-        }
-      }
-      this.servicioJerarquia.registrar(jerarquia).subscribe(res => {
+      if(jerarquia.descripcion == null){
         Swal.fire({
-          icon: 'success',
-          title: 'Exito',
-          text: 'La jerarquia '+jerarquia.descripcion+' se guardo correctamente',
+          position: 'center',
+          icon: 'error',
+          title: 'El campo no puede estar vacio!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else{
+        for (let i = 0; i < this.listarJerarquia.length; i++) {
+          if (this.listarJerarquia[i].descripcion.toLowerCase() == campo.toLowerCase()) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Jerarquia Existente',
+              text: 'La jerarquia ya existe',
+            });
+            return;
+          }
+        }
+        this.servicioJerarquia.registrar(jerarquia).subscribe(res => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Jerarquia Registrada',
+            text: 'La jerarquia se registro correctamente',
+          });
+          this.dialogRef.close();
+          window.location.reload();
         });
-        this.dialogRef.close();
-        window.location.reload();
-      });
+      }
     });
   }
 }

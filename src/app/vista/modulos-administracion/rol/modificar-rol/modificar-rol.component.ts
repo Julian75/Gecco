@@ -25,6 +25,8 @@ export class ModificarRolComponent implements OnInit {
   public estadosDisponibles : any = [];
   public listaEstados: any = [];
   public listJerarquia: any = [];
+  public encontrado : boolean = false;
+  public encontrados:any = [];
   color = ('primary');
 
   constructor(
@@ -50,8 +52,8 @@ export class ModificarRolComponent implements OnInit {
     this.formRol = this.fb.group({
       id: [''],
       descripcion: [null,Validators.required],
-      estado: [null,Validators.required],
-      jerarquia: [null,Validators.required]
+      idEstado: [null,Validators.required],
+      idJerarquia: [null,Validators.required]
     });
   }
 
@@ -79,58 +81,96 @@ export class ModificarRolComponent implements OnInit {
       this.listarRol = res;
       this.formRol.controls['id'].setValue(this.listarRol.id);
       this.formRol.controls['descripcion'].setValue(this.listarRol.descripcion);
-      this.formRol.controls['estado'].setValue(this.listarRol.idEstado.id);
-      this.formRol.controls['jerarquia'].setValue(this.listarRol.idJerarquia.id);
+      this.formRol.controls['idEstado'].setValue(this.listarRol.idEstado.id);
+      this.formRol.controls['idJerarquia'].setValue(this.listarRol.idJerarquia.id);
     })
   }
 
   public guardar() {
-    let rol : Rol2 = new Rol2();
-    rol.id=Number(this.data);
-    rol.descripcion=this.formRol.controls['descripcion'].value;
-    const idEstado = this.formRol.controls['estado'].value;
-    const idJerarquia = this.formRol.controls['jerarquia'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res.id;
-      rol.idEstado= this.listarEstado
-      this.servicioJerarquia.listarPorId(idJerarquia).subscribe(resJerar => {
-        this.listJerarquia = resJerar.id;
-        rol.idJerarquia= this.listJerarquia
-        if(rol.descripcion==null || rol.descripcion=="" || rol.idEstado==null){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'El campo esta vacio!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }else{
-          this.actualizarRol(rol);
-        }
-      })
-    })
-  }
+    this.encontrados = [];
+    this.formRol.value.id = this.data;
+    const idEstado = this.formRol.controls['idEstado'].value;
+    const idJerarquia = this.formRol.controls['idJerarquia'].value;
+    if(this.formRol.valid){
+      const descripcion= this.formRol.value.descripcion;
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        this.formRol.value.idEstado= res.id
+        this.servicioJerarquia.listarPorId(idJerarquia).subscribe(resJerar => {
+          this.listJerarquia = resJerar.id;
+          this.formRol.value.idJerarquia= this.listJerarquia
+          this.formRol.value.descripcion= descripcion
+          this.servicioRol.listarPorId(this.formRol.value.id).subscribe(res => {
+            if(res.descripcion.toLowerCase() == this.formRol.value.descripcion.toLowerCase() && res.idEstado.id == this.formRol.value.idEstado && res.idJerarquia.id == this.formRol.value.idJerarquia){
+              this.servicioModificar.actualizarRol(this.formRol.value).subscribe(res => {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'No hubieron cambios!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                this.dialogRef.close();
+                window.location.reload();
+              })
+            }else{
+              console.log("hoa")
+              this.servicioRol.listarTodos().subscribe(resRo => {
+                resRo.forEach(elementRol => {
+                  if(elementRol.descripcion.toLowerCase() == this.formRol.value.descripcion.toLowerCase() && elementRol.idJerarquia.id == idJerarquia && elementRol.idEstado.id == idEstado){
+                    this.encontrado = true;
+                  }else{
+                    this.encontrado = false;
+                  }
+                  this.encontrados.push(this.encontrado);
+                });
+                const encontrados = this.encontrados.find(encontrado => encontrado == true);
+                console.log(encontrados);
+                if(encontrados == true){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Ya existe un rol con esa descripción, jerarquía y estado!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }else{
+                  this.servicioModificar.actualizarRol(this.formRol.value).subscribe(res => {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Se modificó Correctamente!',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                    this.dialogRef.close();
+                    window.location.reload();
+                  }, err => {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: 'Ocurrió un error al modificar el rol!',
+                      showConfirmButton: false,
+                      timer: 1500
+                      })
+                  })
 
-  public actualizarRol(rol: Rol2) {
-    this.servicioModificar.actualizarRol(rol).subscribe(res => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Rol modificado!',
-        showConfirmButton: false,
-        timer: 1500
+                }
+              })
+            }
+          })
+        })
       })
-      this.dialogRef.close();
-      window.location.reload();
-    }, error => {
+    }else{
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Hubo un error al modificar!',
+        title: 'El campo está vacio!',
         showConfirmButton: false,
         timer: 1500
       })
-    });
- }
+    }
+  }
+
+
 
 }

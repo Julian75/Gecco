@@ -32,7 +32,10 @@ export class AgregarModuloComponent implements OnInit {
     });
   }
 
+  existe: boolean = false
+  listaExis: any = []
   public guardar() {
+    this.listaExis = []
     let modulo : Modulo = new Modulo();
     modulo.descripcion=this.formModulo.controls['descripcion'].value;
     if(modulo.descripcion==null || modulo.descripcion==""){
@@ -44,7 +47,27 @@ export class AgregarModuloComponent implements OnInit {
         timer: 1500
       })
     }else{
-      this.registrarModulo(modulo);
+      this.servicioModulo.listarTodos().subscribe(resModulo=>{
+        resModulo.forEach(element => {
+          if(element.descripcion.toLowerCase() == modulo.descripcion.toLowerCase()){
+            this.existe = true
+          }else{
+            this.existe = false
+          }
+          this.listaExis.push(this.existe)
+        });
+        const existe = this.listaExis.includes( true );
+        if(existe == true){
+          Swal.fire({
+            icon: 'error',
+            title: 'Ese Modulo ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          this.registrarModulo(modulo);
+        }
+      })
     }
   }
 

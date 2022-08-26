@@ -64,7 +64,7 @@ export class ProveedorComponent implements OnInit {
           this.listaTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Rol.',
+            'Se elimino el Proveedor Correctamente.',
             'success'
           )
         })

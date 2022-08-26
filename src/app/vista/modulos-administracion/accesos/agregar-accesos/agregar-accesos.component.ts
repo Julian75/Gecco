@@ -52,48 +52,60 @@ export class AgregarAccesosComponent implements OnInit {
     this.encontrado = false
     let accesos : Accesos = new Accesos();
     const idRol = Number(this.idRol)
-    this.servicioRol.listarPorId(idRol).subscribe(res=>{
-      accesos.idRol = res
-      this.servicioAcceso.listarTodos().subscribe(resAcceso=>{
-        if(resAcceso.length === 0){
-          const idModulo = this.formaAccesos.controls['modulo'].value;
-          this.servicioModulo.listarPorId(idModulo).subscribe(res =>{
-            accesos.idModulo = res
-            this.registrarAccesos(accesos);
-          })
-        }else{
-          this.idModulo = this.formaAccesos.controls['modulo'].value;
-          for (let index = 0; index < resAcceso.length; index++) {
-            const element = resAcceso[index];
-            if(element.idRol.id == accesos.idRol.id ){
-              if (element.idModulo.id == this.idModulo ) {
-                this.encontrado = true
+
+      this.servicioRol.listarPorId(idRol).subscribe(res=>{
+        accesos.idRol = res
+        this.servicioAcceso.listarTodos().subscribe(resAcceso=>{
+          if(this.formaAccesos.controls['modulo'].value != null){
+            if(resAcceso.length === 0){
+              const idModulo = this.formaAccesos.controls['modulo'].value;
+                this.servicioModulo.listarPorId(idModulo).subscribe(res =>{
+                  accesos.idModulo = res
+                  this.registrarAccesos(accesos);
+                })
+            }else{
+              this.idModulo = this.formaAccesos.controls['modulo'].value;
+              for (let index = 0; index < resAcceso.length; index++) {
+                const element = resAcceso[index];
+                if(element.idRol.id == accesos.idRol.id ){
+                  if (element.idModulo.id == this.idModulo ) {
+                    this.encontrado = true
+                  }
+                  else{
+                    this.encontrado = false
+                  }
+                }
+                this.listarExiste.push(this.encontrado)
               }
-              else{
-                this.encontrado = false
+              const existe = this.listarExiste.includes( true )
+              if (existe == true){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Ese acceso ya existe!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
+              if (existe== false){
+                this.servicioModulo.listarPorId(this.idModulo).subscribe(res =>{
+                  accesos.idModulo = res
+                  this.registrarAccesos(accesos);
+                })
               }
             }
-            this.listarExiste.push(this.encontrado)
-          }
-          const existe = this.listarExiste.includes( true )
-          if (existe == true){
+          }else{
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: 'Ese acceso ya existe!',
+              title: 'Campos Vacíos!',
               showConfirmButton: false,
               timer: 1500
             })
           }
-          if (existe== false){
-            this.servicioModulo.listarPorId(this.idModulo).subscribe(res =>{
-              accesos.idModulo = res
-              this.registrarAccesos(accesos);
-            })
-          }
-        }
+        })
       })
-    })
+
   }
 
 

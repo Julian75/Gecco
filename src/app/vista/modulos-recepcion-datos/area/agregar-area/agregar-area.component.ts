@@ -37,16 +37,8 @@ export class AgregarAreaComponent implements OnInit {
   public guardar(){
     this.listaExis = []
     let area : Area = new Area();
-    area.descripcion=this.formArea.controls['descripcion'].value;
-    if(area.descripcion==null || area.descripcion==""){
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'El campo esta vacio!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }else{
+    if(this.formArea.valid){
+      area.descripcion=this.formArea.controls['descripcion'].value.toLowerCase();
       this.servicioArea.listarTodos().subscribe(resArea=>{
         resArea.forEach(element => {
           if(element.descripcion.toLowerCase() == area.descripcion.toLowerCase()){
@@ -68,6 +60,13 @@ export class AgregarAreaComponent implements OnInit {
           this.registrarArea(area);
         }
       })
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'El campo está vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   }
 

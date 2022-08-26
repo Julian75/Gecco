@@ -13,7 +13,7 @@
       <h2>Estado Articulo</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Modifique Estado del Articulo</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="estado">
+      <select matNativeControl id="idEstado" name="idEstado" formControlName="idEstado">
         <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
       </select>
       </mat-form-field>
@@ -22,7 +22,7 @@
       <h2>Categoria</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Modifique Categoria del Articulo</mat-label>
-      <select matNativeControl id="categoria" name="categoria" formControlName="categoria">
+      <select matNativeControl id="idCategoria" name="idCategoria" formControlName="idCategoria">
         <option *ngFor="let item of listaCategorias"  value="{{item.id}}">{{item.descripcion}}</option>
       </select>
       </mat-form-field>

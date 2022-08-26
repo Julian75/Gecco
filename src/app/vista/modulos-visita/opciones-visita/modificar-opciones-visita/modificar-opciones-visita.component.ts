@@ -46,12 +46,16 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
     })
   }
 
-  public guardar(){
+  existe: boolean = false
+  listaExis: any = []
+  public guardar() {
+    this.listaExis = []
     let opcionVisita : OpcionesVisita2 = new OpcionesVisita2();
     opcionVisita.id = this.formOpcionVisita.value.id;
     const descripcion = this.formOpcionVisita.value.descripcion;
     this.servicioOpcionVisita.listarPorId(opcionVisita.id).subscribe(res=>{
       opcionVisita.descripcion = res.descripcion
+      console.log(opcionVisita.descripcion)
       if(descripcion==''){
         Swal.fire({
           position: 'center',
@@ -60,32 +64,46 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-      }else if (descripcion == opcionVisita.descripcion){
+      }else if (descripcion.toLowerCase() == opcionVisita.descripcion.toLowerCase()){
         Swal.fire({
-          title: 'Actualizado',
-          text: 'No hubieron cambios',
+          position: 'center',
           icon: 'success',
-          confirmButtonText: 'Ok'
-        }).then((result) => {
-          if (result.value) {
-            window.location.reload();
-            this.dialogRef.close();
-          }
+          title: 'No hubieron cambios!',
+          showConfirmButton: false,
+          timer: 1500
         })
+        this.dialogRef.close();
+        window.location.reload();
       }else{
         opcionVisita.descripcion = descripcion
-        this.servicioModificar.actualizarOpcionesVisita(opcionVisita).subscribe(res => {
-          Swal.fire({
-            title: 'Actualizado',
-            text: 'Se actualizó correctamente',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          }).then((result) => {
-            if (result.value) {
-              window.location.reload();
-              this.dialogRef.close();
+        this.servicioOpcionVisita.listarTodos().subscribe(resModulo=>{
+          resModulo.forEach(element => {
+            if(element.descripcion.toLowerCase() == opcionVisita.descripcion.toLowerCase()){
+              this.existe = true
+            }else{
+              this.existe = false
             }
-          })
+            this.listaExis.push(this.existe)
+          });
+          const existe = this.listaExis.includes( true );
+          if(existe == true){
+            Swal.fire({
+              icon: 'error',
+              title: 'Esa Opcion ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }else{
+            this.servicioModificar.actualizarOpcionesVisita(opcionVisita).subscribe(res => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Opcion Modificada',
+                text: 'La Opcion se modifico correctamente',
+              });
+              this.dialogRef.close();
+              window.location.reload();
+            })
+          }
         })
       }
     })

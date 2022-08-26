@@ -111,7 +111,7 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Por favor diligencie todos los campos',
+        text: 'El campo está vacio',
         showConfirmButton: false,
         timer: 1500
       });

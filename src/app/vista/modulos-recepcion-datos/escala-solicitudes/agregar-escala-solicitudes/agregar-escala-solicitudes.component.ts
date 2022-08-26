@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { EscalaSolicitudesService } from 'src/app/servicios/escalaSolicitudes.service';
+import { EscalaSolicitudes } from 'src/app/modelos/escalaSolicitudes';
 
 @Component({
   selector: 'app-agregar-escala-solicitudes',
@@ -29,26 +30,63 @@ export class AgregarEscalaSolicitudesComponent implements OnInit {
     });
   }
 
+  validar: boolean = false;
+  listaValidar: any = [];
   public guardar(){
-    if(this.formTipoServicio.valid){
-      this.servicioEscalaSolicitudes.registrar(this.formTipoServicio.value).subscribe( data =>{
-        Swal.fire({
-          icon: 'success',
-          title: 'Registro exitoso',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.dialogRef.close();
-        window.location.reload();
+    this.listaValidar = []
+    let escalaSolicitudes : EscalaSolicitudes = new EscalaSolicitudes();
+    escalaSolicitudes.descripcion=this.formTipoServicio.controls['descripcion'].value;
+    if(escalaSolicitudes.descripcion==null || escalaSolicitudes.descripcion==""){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'El campo esta vacio!',
+        showConfirmButton: false,
+        timer: 1500
       })
     }else{
+      this.servicioEscalaSolicitudes.listarTodos().subscribe(resEscalaSolicitudes=>{
+        resEscalaSolicitudes.forEach(element => {
+          if(element.descripcion.toLowerCase() == escalaSolicitudes.descripcion.toLowerCase()){
+            this.validar = true
+          }else{ this.validar = false }
+          this.listaValidar.push(this.validar)
+        });
+        const existe = this.listaValidar.includes(true)
+        if(existe == true){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Esa escala ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.crearFormulario();
+        }else{
+          this.registrarEscalaSolicitud(escalaSolicitudes);
+        }
+      })
+    }
+  }
+
+  public registrarEscalaSolicitud(escalaSolicitudes: EscalaSolicitudes){
+    this.servicioEscalaSolicitudes.registrar(escalaSolicitudes).subscribe( data =>{
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Por favor complete los campos obligatorios',
+        icon: 'success',
+        title: 'Se registro una nueva escala!',
         showConfirmButton: false,
         timer: 1500
       });
-    }
+      this.dialogRef.close();
+      window.location.reload();
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 }

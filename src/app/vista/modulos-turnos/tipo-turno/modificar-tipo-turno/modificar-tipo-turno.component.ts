@@ -16,7 +16,7 @@ import { TipoTurno2 } from 'src/app/modelos/modelos2/tipoTurno2';
 })
 export class ModificarTipoTurnoComponent implements OnInit {
   public formTipoTurno!: FormGroup;
-  public idTipoTurno : any;
+  public idTipoTurno : any = [];
   public listarTipoTurno : any = [];
   public listarEstado : any = [];
   public estadosDisponibles : any = [];
@@ -60,7 +60,7 @@ export class ModificarTipoTurnoComponent implements OnInit {
 
   public listarporidTipoTurno() {
     this.idTipoTurno = this.data;
-    this.serviciotipoTurno.listarPorId(this.idTipoTurno).subscribe(res => {
+    this.serviciotipoTurno.listarPorId(this.idTipoTurno.id).subscribe(res => {
       this.listarTipoTurno = res;
       this.formTipoTurno.controls['id'].setValue(this.listarTipoTurno.id);
       this.formTipoTurno.controls['descripcion'].setValue(this.listarTipoTurno.descripcion);
@@ -68,27 +68,65 @@ export class ModificarTipoTurnoComponent implements OnInit {
     })
   }
 
+  validar: boolean = false;
+  listaValidar: any = [];
+  listaTipoTurn: any = [];
   public guardar() {
-    let tipoTurno : TipoTurno2 = new TipoTurno2();
-    tipoTurno.id=Number(this.data);
-    tipoTurno.descripcion=this.formTipoTurno.controls['descripcion'].value;
-    const idEstado = this.formTipoTurno.controls['estado'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      this.listarEstado = res.id;
-      tipoTurno.idEstado= this.listarEstado
+    this.listaTipoTurn = this.data
+    this.listaValidar = []
+    if((this.formTipoTurno.controls['descripcion'].value == null || this.formTipoTurno.controls['estado'].value == null) || (this.formTipoTurno.controls['descripcion'].value == "" || this.formTipoTurno.controls['estado'].value == null)){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'El campo esta vacio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      let tipoTurno : TipoTurno2 = new TipoTurno2();
+      tipoTurno.id=this.listaTipoTurn.id;
+      tipoTurno.descripcion=this.formTipoTurno.controls['descripcion'].value;
+      const idEstado = this.formTipoTurno.controls['estado'].value;
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        tipoTurno.idEstado = res.id
+        console.log(this.listaTipoTurn)
+        if(res.id == this.listaTipoTurn.idEstado.id && tipoTurno.descripcion.toLowerCase() == this.listaTipoTurn.descripcion.toLowerCase()){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No hubieron cambios!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.dialogRef.close();
+          window.location.reload();
+        }else if(res.id != this.listaTipoTurn.idEstado.id && tipoTurno.descripcion.toLowerCase() == this.listaTipoTurn.descripcion.toLowerCase()){
+          this.actualizarRol(tipoTurno);
+        }else{
+          this.serviciotipoTurno.listarTodos().subscribe(resTipoTurnos=>{
+            resTipoTurnos.forEach(element => {
+              if(element.descripcion.toLowerCase() == tipoTurno.descripcion.toLowerCase()){
+                this.validar = true
+              }else{ this.validar = false }
+              this.listaValidar.push(this.validar)
+            });
+            const existe = this.listaValidar.includes(true)
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Este Tipo Turno ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else{
+              this.actualizarRol(tipoTurno);
+            }
+          })
 
-      if(tipoTurno.descripcion==null || tipoTurno.descripcion=="" || tipoTurno.idEstado==null){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        this.actualizarRol(tipoTurno);
-      }
-    })
+        }
+      })
+    }
   }
 
   public actualizarRol(tipoTurno: TipoTurno2) {

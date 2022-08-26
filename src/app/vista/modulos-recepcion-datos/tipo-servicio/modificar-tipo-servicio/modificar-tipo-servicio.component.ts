@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import Swal from 'sweetalert2';
 import { TipoServicioService } from 'src/app/servicios/tipoServicio.service';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { TipoServicio2 } from 'src/app/modelos/modelos2/tipoServicio2';
 
 @Component({
   selector: 'app-modificar-tipo-servicio',
@@ -36,33 +37,76 @@ export class ModificarTipoServicioComponent implements OnInit {
       descripcion: [null,Validators.required],
     });
   }
+
+  idTipoServicio: any = []
   public listarTodos(){
-    this.servicioTipoServicio.listarPorId(Number(this.data)).subscribe(data => {
+    this.idTipoServicio = this.data;
+    this.servicioTipoServicio.listarPorId(this.idTipoServicio.id).subscribe(data => {
       this.formTipoServicio.setValue(data);
     }
     );
   }
+
+  encontrado: boolean = false
+  encontrados: any = []
   public guardar(){
-    if (this.formTipoServicio.valid) {
-      this.servicioModificar.actualizarTipoServicio(this.formTipoServicio.value).subscribe(data => {
+    this.encontrados = []
+    this.idTipoServicio = this.data;
+    let tipoServicio : TipoServicio2 = new TipoServicio2();
+    tipoServicio.id=this.idTipoServicio.id;
+    tipoServicio.descripcion=this.formTipoServicio.controls['descripcion'].value;
+    if(this.formTipoServicio.controls['descripcion'].value == null || this.formTipoServicio.controls['descripcion'].value == ""){
+      Swal.fire({
+        title: 'Campo Vacio!',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      if(tipoServicio.descripcion.toLowerCase() == this.idTipoServicio.descripcion.toLowerCase()){
         Swal.fire({
+          title: 'No hubo cambios',
           icon: 'success',
-          title: 'Se actualizó correctamente',
           showConfirmButton: false,
           timer: 1500
-        });
+        })
         this.dialogRef.close();
         window.location.reload();
+      }else{
+        this.servicioTipoServicio.listarTodos().subscribe(res => {
+          res.forEach(element => {
+            if(element.descripcion.toLowerCase() == tipoServicio.descripcion.toLowerCase()){
+              this.encontrado = true;
+            }else{
+              this.encontrado = false;
+            }
+            this.encontrados.push(this.encontrado);
+          })
+          if(this.encontrados.includes(true)){
+            Swal.fire({
+              title: 'Ya existe ese tipo de servicio!',
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            this.actualizarTipoServicio(tipoServicio);
+          }
+        })
       }
-      );
-    }else{
+    }
+  }
+
+  actualizarTipoServicio(tipoServicio: TipoServicio2){
+    this.servicioModificar.actualizarTipoServicio(tipoServicio).subscribe(data => {
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Campos incorrectos',
+        icon: 'success',
+        title: 'Se actualizó correctamente',
         showConfirmButton: false,
         timer: 1500
       });
-    }
+      this.dialogRef.close();
+      window.location.reload();
+    });
   }
 }

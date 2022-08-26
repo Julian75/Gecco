@@ -58,11 +58,13 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
       if(descripcion == res.descripcion && nombre == res.nombre && valor == res.valor){
         Swal.fire({
           position: 'center',
-          icon: 'error',
+          icon: 'success',
           title: 'No hubieron cambios!',
           showConfirmButton: false,
           timer: 1500
         })
+        this.dialogRef.close();
+        window.location.reload();
       }else if(descripcion==null || descripcion=="" || nombre==null || nombre=="" || valor==null || valor==""){
         Swal.fire({
           position: 'center',
@@ -75,11 +77,10 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
         this.servicioModificar.actualizarConfiguracion(this.formConfiguracion.value).subscribe(
           (data) => {
             Swal.fire({
-              title: 'Configuración modificada',
-              text: 'La configuración se modificó correctamente',
               icon: 'success',
-              confirmButtonText: 'Ok'
-            })
+              title: 'Configuracion Modificada',
+              text: 'La Configuracion se modifico correctamente',
+            });
             this.dialogRef.close();
             window.location.reload();
           }

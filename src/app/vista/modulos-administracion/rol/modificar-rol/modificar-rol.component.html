@@ -13,7 +13,7 @@
       <h2>Estado Rol</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Modifique Estado del Rol</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="estado">
+      <select matNativeControl id="idEstado" name="idEstado" formControlName="idEstado">
         <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
       </select>
       </mat-form-field>
@@ -22,7 +22,7 @@
       <h2>Jerarquía</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Modifique la Jerarquía del ROl</mat-label>
-      <select matNativeControl id="jerarquia" name="jerarquia" formControlName="jerarquia">
+      <select matNativeControl id="idJerarquia" name="idJerarquia" formControlName="idJerarquia">
         <option *ngFor="let item of listarJerarquia"  value="{{item.id}}">{{item.descripcion}}</option>
       </select>
       </mat-form-field>

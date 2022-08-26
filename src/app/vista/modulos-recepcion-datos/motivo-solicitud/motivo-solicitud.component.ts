@@ -79,8 +79,8 @@ export class MotivoSolicitudComponent implements OnInit {
             'Se elimino el motivo.',
             'success'
           )
+          window.location.reload()
         })
-        window.location.reload()
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel

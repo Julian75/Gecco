@@ -3,6 +3,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TipoServicioService } from 'src/app/servicios/tipoServicio.service';
+import { TipoServicio } from 'src/app/modelos/tipoServicio';
+import { TipoNovedades } from 'src/app/modelos/tipoNovedades';
 
 @Component({
   selector: 'app-agregar-tipo-servicio',
@@ -29,26 +31,64 @@ export class AgregarTipoServicioComponent implements OnInit {
     });
   }
 
+  validar: boolean = false;
+  listaValidar: any = [];
   public guardar(){
-    if(this.formTipoServicio.valid){
-      this.servicioTipoServicio.registrar(this.formTipoServicio.value).subscribe( data =>{
-        Swal.fire({
-          icon: 'success',
-          title: 'Registro exitoso',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.dialogRef.close();
-        window.location.reload();
-      })
-    }else{
+    this.listaValidar = []
+    let tipoServicio : TipoServicio = new TipoServicio();
+    tipoServicio.descripcion = this.formTipoServicio.controls['descripcion'].value
+    if(this.formTipoServicio.controls['descripcion'].value == null){
       Swal.fire({
+        position: 'center',
         icon: 'error',
-        title: 'Error',
-        text: 'Por favor complete los campos obligatorios',
+        title: 'El campo esta vacio!',
         showConfirmButton: false,
         timer: 1500
-      });
+      })
+    }else{
+      this.servicioTipoServicio.listarTodos().subscribe(resTipoServicio=>{
+        resTipoServicio.forEach(element => {
+          if(element.descripcion.toLowerCase() == tipoServicio.descripcion.toLowerCase()){
+            this.validar = true
+          }else{ this.validar = false }
+          this.listaValidar.push(this.validar)
+        });
+        const existe = this.listaValidar.includes(true)
+        if(existe == true){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Este Tipo de Servicio ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.crearFormulario();
+        }else{
+          this.registrarTipoServicio(tipoServicio);
+        }
+      })
     }
+  }
+
+  public registrarTipoServicio(tipoServicio: TipoServicio){
+    this.servicioTipoServicio.registrar(tipoServicio).subscribe( data =>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se agrego un nuevo tipo de servicio!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.dialogRef.close();
+      window.location.reload();
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 }

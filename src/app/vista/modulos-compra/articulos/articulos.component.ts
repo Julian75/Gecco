@@ -83,7 +83,7 @@ export class ArticulosComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Articulo.',
+            'Se eliminó el Articulo.',
             'success'
           )
         })

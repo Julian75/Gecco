@@ -23,7 +23,8 @@ export class ModificarCategoriaComponent implements OnInit {
   public listaCategorias : any = [];
   public listaEstados: any = [];
   color = ('primary');
-
+  public encontrado : boolean = false;
+  public encontrados: any = [];
   constructor(
     private servicioEstado: EstadoService,
     private servicioCategoria: CategoriaService,
@@ -73,22 +74,49 @@ export class ModificarCategoriaComponent implements OnInit {
   public guardar() {
     let categoria : Categoria2 = new Categoria2();
     categoria.id=Number(this.data);
-    categoria.descripcion=this.formCategoria.controls['descripcion'].value;
+    categoria.descripcion=this.formCategoria.controls['descripcion'].value.toLowerCase();
     const idEstado = this.formCategoria.controls['estado'].value;
-    this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-      categoria.idEstado = res.id
-      if(categoria.descripcion==null || categoria.descripcion=="" || categoria.idEstado==null){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
+    if(this.formCategoria.valid){
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+        categoria.idEstado = res.id
+        this.servicioCategoria.listarPorId(categoria.id).subscribe(res => {
+          if(res.descripcion == categoria.descripcion && res.idEstado.id == categoria.idEstado){
+            this.servicioModificar.actualizarCategoria(categoria).subscribe(res => {
+              Swal.fire({
+                title: 'No hubo cambios, pero se modificó la categoria!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.dialogRef.close();
+              window.location.reload();
+            })
+          }else{
+            this.servicioCategoria.listarTodos().subscribe(res => {
+              res.forEach(element => {
+                if(element.descripcion == categoria.descripcion && element.idEstado.id == categoria.idEstado){
+                  this.encontrado = true;
+                }else{
+                  this.encontrado = false;
+                }
+                this.encontrados.push(this.encontrado);
+              })
+              if(this.encontrados.includes(true)){
+                Swal.fire({
+                  title: 'Ya existe una categoria con esa descripcion y estado',
+                  icon: 'error',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }else{
+                this.actualizarCategoria(categoria);
+              }
+            })
+          }
+
         })
-      }else{
-        this.actualizarCategoria(categoria);
-      }
-    })
+      })
+    }
   }
 
   public actualizarCategoria(categoria: Categoria2) {

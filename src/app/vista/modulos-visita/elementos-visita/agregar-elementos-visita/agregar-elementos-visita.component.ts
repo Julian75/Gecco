@@ -38,36 +38,45 @@ export class AgregarElementosVisitaComponent implements OnInit {
   public guardar(){
     this.listarElementos = []
     this.servicioElementosVisita.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if(element.descripcion == this.formElementosVisita.value.descripcion){
-          this.encontrador = true;
-        }else{
-          this.encontrador = false;
-        }
-        this.listarElementos.push(this.encontrador);
-      })
-      const existe = this.listarElementos.includes(true);
-      if(existe == true){
+      if(this.formElementosVisita.value.descripcion == null || this.formElementosVisita.value.descripcion == ""){
         Swal.fire({
-          title: 'Error',
-          text: 'El elemento ya existe',
+          position: 'center',
           icon: 'error',
-          confirmButtonText: 'Ok'
+          title: 'El campo no puede estar vacio!',
+          showConfirmButton: false,
+          timer: 1500
         })
-      }else if(existe == false){
-        this.servicioElementosVisita.registrar(this.formElementosVisita.value).subscribe(res => {
+      }else{
+        res.forEach(element => {
+          if(element.descripcion.toLowerCase() == this.formElementosVisita.value.descripcion.toLowerCase()){
+            this.encontrador = true;
+          }else{
+            this.encontrador = false;
+          }
+          this.listarElementos.push(this.encontrador);
+        })
+        const existe = this.listarElementos.includes(true);
+        if(existe == true){
           Swal.fire({
-            title: 'Registro exitoso',
-            text: 'El elemento se registró correctamente',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          }).then((result)=>{
+            icon: 'error',
+            title: 'Ese Elemento ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.dialogRef.close();
+          window.location.reload();
+        }else if(existe == false){
+          this.servicioElementosVisita.registrar(this.formElementosVisita.value).subscribe(res => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Elemento Registrado',
+              text: 'El Elemento se registro correctamente',
+            });
             this.dialogRef.close();
             window.location.reload();
-          })
-
+          }
+          )
         }
-        )
       }
     })
   }

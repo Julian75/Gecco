@@ -20,6 +20,8 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   public listaTiposDocumentos: any = [];  // lista de modulos
   public listarEstado: any = [];
   public estadosDisponibles:any = [];
+  public encontrado = false;
+  public encontrados: any = [];
 
   constructor(
     private servicioTipoDocumento: TipoDocumentoService,
@@ -66,71 +68,89 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   }
 
   public guardar() {
+    this.encontrados = [];
     let tipoDocumento : TipoDocumento2 = new TipoDocumento2();
     tipoDocumento.id=Number(this.data);
-    const descripcion = this.formTipoDocumento.controls['descripcion'].value;
-    const estado = this.formTipoDocumento.controls['estado'].value;
-    this.servicioTipoDocumento.listarPorId(tipoDocumento.id).subscribe(res=>{
-      if(descripcion == res.descripcion && estado == res.idEstado.id){
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'No hubieron cambios!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else if(descripcion==null || descripcion==""){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo esta vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        tipoDocumento.descripcion=descripcion
-        this.servicioEstado.listarPorId(estado).subscribe(resEstado=>{
-          tipoDocumento.idEstado = resEstado.id
-          this.actualizarTipoDocumento(tipoDocumento);
-        })
-      }
-    })
+    if(this.formTipoDocumento.valid){
+      const estado = this.formTipoDocumento.value.estado;
+      const descripcion = this.formTipoDocumento.value.descripcion;
+      this.servicioTipoDocumento.listarPorId(tipoDocumento.id).subscribe(res=>{
+        if(descripcion.toLowerCase() == res.descripcion.toLowerCase() && estado == res.idEstado.id){
+          tipoDocumento.descripcion=descripcion
+          this.servicioEstado.listarPorId(estado).subscribe(resEstado=>{
+            tipoDocumento.idEstado = resEstado.id
+            this.servicioModificar.actualizarTipoDocumento(tipoDocumento).subscribe(res=>{
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'No hubieron cambios!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.dialogRef.close();
+              window.location.reload();
+            })
+          })
+        }else{
+          this.servicioTipoDocumento.listarTodos().subscribe(resTi => {
+            resTi.forEach(element => {
+              if(descripcion.toLowerCase() == element.descripcion.toLowerCase() && estado == element.idEstado.id){
+                this.encontrado = true;
+              }else{
+                this.encontrado = false;
+              }
+              this.encontrados.push(this.encontrado)
+            })
+            const existe = this.encontrados.includes(true);
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'El tipo de documento ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else{
+              tipoDocumento.descripcion=descripcion
+              this.servicioEstado.listarPorId(estado).subscribe(resEstado=>{
+                tipoDocumento.idEstado = resEstado.id
+                this.servicioModificar.actualizarTipoDocumento(tipoDocumento).subscribe(res=>{
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Se modificó correctamente!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  this.dialogRef.close();
+                  window.location.reload();
+                }, error => {
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Ocurrió un error al modificar!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                })
+              })
+            }
+          })
 
-    // tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
-    // tipoDocumento.idEstado=this.formTipoDocumento.controls['estado'].value;
-    // if(tipoDocumento.descripcion==null || tipoDocumento.descripcion==""){
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'El campo esta vacio!',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    // }else{
-    //   this.actualizarTipoDocumento(tipoDocumento);
-    // }
-  }
+        }
 
-  public actualizarTipoDocumento(tipoDocumento: TipoDocumento2) {
-    this.servicioModificar.actualizarTipoDocumento(tipoDocumento).subscribe(res => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Tipo Documento modificado!',
-        showConfirmButton: false,
-        timer: 1500
       })
-      this.dialogRef.close();
-      window.location.reload();
-    }, error => {
+    }else{
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Hubo un error al modificar!',
+        title: 'El campo está vacio!',
         showConfirmButton: false,
         timer: 1500
       })
-    });
- }
+    }
+  }
+
+
 
 }

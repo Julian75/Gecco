@@ -47,29 +47,61 @@ export class ModificarJerarquiaComponent implements OnInit {
     })
   }
 
-
+  existe: boolean = false
+  listaExis: any = []
   public guardar() {
+    this.listaExis = []
     let jerarquia: Jerarquia2 = new Jerarquia2();
     jerarquia.id = this.formJerarquia.value.id;
     jerarquia.descripcion = this.formJerarquia.value.descripcion;
-    if (jerarquia.descripcion == null || jerarquia.descripcion == undefined || jerarquia.descripcion == "") {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Ingrese una descripcion',
+    this.servicioJerarquia.listarPorId(this.formJerarquia.value.id).subscribe(resJera=>{
+      this.servicioJerarquia.listarTodos().subscribe(resJerarquia=>{
+        if (jerarquia.descripcion == null || jerarquia.descripcion == undefined || jerarquia.descripcion == "") {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El campo no puede estar vacio!',
+          })
+        }else if(resJera.descripcion.toLowerCase() == jerarquia.descripcion.toLowerCase()){
+          Swal.fire({
+            icon: 'success',
+            title: 'No hubieron cambios!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.dialogRef.close();
+          window.location.reload();
+        }else{
+          resJerarquia.forEach(element => {
+            if(element.descripcion.toLowerCase() == jerarquia.descripcion.toLowerCase()){
+              this.existe = true
+            }else{
+              this.existe = false
+            }
+            this.listaExis.push(this.existe)
+          });
+          const existe = this.listaExis.includes( true );
+          if(existe == true){
+            Swal.fire({
+              icon: 'error',
+              title: 'Esa Jerarquia ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }else{
+            this.servicioModificar.actualizarJerarquia(jerarquia).subscribe(res => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Jerarquia Modificada',
+                text: 'La Jerarquia se modificó correctamente',
+              })
+              this.dialogRef.close();
+              window.location.reload();
+
+            });
+          }
+        }
       })
-    } else {
-
-      this.servicioModificar.actualizarJerarquia(jerarquia).subscribe(res => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Exito',
-          text: 'Se modificó correctamente',
-        })
-        this.dialogRef.close();
-        window.location.reload();
-
-      });
-    }
+    })
   }
 }

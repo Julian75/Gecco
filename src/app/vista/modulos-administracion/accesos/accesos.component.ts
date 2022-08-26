@@ -92,7 +92,7 @@ export class AccesosComponent implements OnInit {
         this.accesoServicio.eliminar(id).subscribe(res=>{
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el modulo.',
+            'Se elimino el acceso.',
             'success'
           )
         })

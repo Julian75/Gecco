@@ -90,7 +90,7 @@ export class ListaEstadosComponent implements OnInit {
          this.servicioEstadoModulo.eliminar(id).subscribe(res=>{
            swalWithBootstrapButtons.fire(
              'Eliminado!',
-             'Se elimino el modulo.',
+             'Se elimino el Estado.',
              'success'
            )
          })

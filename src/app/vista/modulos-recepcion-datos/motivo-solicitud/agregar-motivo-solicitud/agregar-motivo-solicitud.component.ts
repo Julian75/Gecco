@@ -28,23 +28,46 @@ export class AgregarMotivoSolicitudComponent implements OnInit {
     });
   }
 
-  public guardar(){
+  existe: boolean = false
+  listaExis: any = []
+  public guardar() {
+    this.listaExis = []
     if(this.formMotivoSolicitud.valid){
-      this.servicioMotivoSolicitud.registrar(this.formMotivoSolicitud.value).subscribe( data =>{
-        Swal.fire({
-          icon: 'success',
-          title: 'Registro exitoso',
-          showConfirmButton: false,
-          timer: 1500
+      this.servicioMotivoSolicitud.listarTodos().subscribe(resMotivo=>{
+        resMotivo.forEach(element => {
+          if(element.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase()){
+            this.existe = true
+          }else{
+            this.existe = false
+          }
+          this.listaExis.push(this.existe)
         });
-        this.dialogRef.close();
-        window.location.reload();
+        const existe = this.listaExis.includes( true );
+        if(existe == true){
+          Swal.fire({
+            icon: 'error',
+            title: 'Ese Motivo de Solicitud ya existe!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          this.servicioMotivoSolicitud.registrar(this.formMotivoSolicitud.value).subscribe( data =>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Registro exitoso',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.dialogRef.close();
+            window.location.reload();
+          })
+        }
       })
     }else{
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Por favor complete los campos obligatorios',
+        text: 'El campo no puede estar vacio!',
         showConfirmButton: false,
         timer: 1500
       });

@@ -82,7 +82,7 @@ export class CategoriasArticuloComponent implements OnInit {
         this.servicioCategoria.eliminar(id).subscribe(res=>{
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino la categoria.',
+            'Se eliminó la categoria.',
             'success'
           )
         })

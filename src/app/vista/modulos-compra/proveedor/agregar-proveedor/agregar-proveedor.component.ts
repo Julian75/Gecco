@@ -74,7 +74,7 @@ export class AgregarProveedorComponent implements OnInit {
               (data)=>{
                 let contador = 0;
                 data.forEach(element => {
-                  if (element.documento == this.formProveedor.value.documento || element.nombre == this.formProveedor.value.nombre || element.telefono == this.formProveedor.value.telefono || element.direccion == this.formProveedor.value.direccion) {
+                  if (element.documento == this.formProveedor.value.documento) {
                     contador++;
                   }
                 }
@@ -83,15 +83,16 @@ export class AgregarProveedorComponent implements OnInit {
                 Swal.fire({
                   icon: 'error',
                   title: 'Oops...',
-                  text: 'Algunos campos ya existe en la base de datos!',
+                  text: 'Ya existe un proveedor con ese numero de documento!',
                 })
+                window.location.reload()
               }else{
                 this.servicioProveedor.registrar(this.formProveedor.value).subscribe(
                   (data)=>{
                     Swal.fire({
                       icon: 'success',
                       title: 'Exito',
-                      text: 'Proveedor guardado correctamente!',
+                      text: 'Proveedor registrado correctamente!',
                     })
                     this.formProveedor.reset();
                   }
@@ -104,8 +105,8 @@ export class AgregarProveedorComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'Por favor revise los campos',
+        title: 'Campos Vacios',
+        text: 'Los campos no pueden estar vacios!',
         showConfirmButton: false,
         timer: 1500
       })

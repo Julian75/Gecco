@@ -81,7 +81,7 @@ export class JerarquiaComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se eliminó el Tipo de novedad.',
+            'Se eliminó la Jerarquia.',
             'success'
           )
         })
