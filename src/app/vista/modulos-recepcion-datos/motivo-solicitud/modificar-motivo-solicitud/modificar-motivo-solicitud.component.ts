@@ -72,7 +72,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
             if(existe == true){
               Swal.fire({
                 icon: 'error',
-                title: 'Ese Motivo de Solicitud ya existe!',
+                title: 'Ese motivo de solicitud ya existe!',
                 showConfirmButton: false,
                 timer: 1500
               });
@@ -95,8 +95,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'El campo no puede esta vacio',
+        title: 'Campo Vacio',
         showConfirmButton: false,
         timer: 1500
       });

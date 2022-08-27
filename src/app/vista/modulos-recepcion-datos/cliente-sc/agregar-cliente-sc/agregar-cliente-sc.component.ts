@@ -50,6 +50,7 @@ export class AgregarClienteScComponent implements OnInit {
   }
 
   public guardar() {
+    this.listarExiste = []
     let clienteSC : ClienteSC = new ClienteSC();
     clienteSC.nombre = this.formClienteSC.controls['nombre'].value;
     clienteSC.apellido = this.formClienteSC.controls['apellido'].value;
@@ -57,7 +58,7 @@ export class AgregarClienteScComponent implements OnInit {
     clienteSC.correo = this.formClienteSC.controls['correo'].value;
     clienteSC.telefono = this.formClienteSC.controls['telefono'].value;
     var idTipoDocumento = this.formClienteSC.controls['tipoDocumento'].value;
-    console.log(clienteSC.documento)
+    console.log(clienteSC.correo)
     if (clienteSC.nombre == "" || clienteSC.apellido == "" || clienteSC.documento == null || clienteSC.correo == null || clienteSC.telefono == null || idTipoDocumento == null) {
       Swal.fire({
         position: 'center',

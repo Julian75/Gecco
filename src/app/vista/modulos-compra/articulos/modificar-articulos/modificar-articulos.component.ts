@@ -104,12 +104,12 @@ export class ModificarArticulosComponent implements OnInit {
           this.formArticulo.value.idCategoria = resCategoria.id
           this.formArticulo.value.descripcion = artic
           this.servicioArticulo.listarPorId(this.formArticulo.value.id).subscribe(resArticulo => {
-            if(resArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() && resArticulo.idEstado.id == this.formArticulo.value.idEstado && resArticulo.idCategoria.id == this.formArticulo.value.idCategoria){
+            if(resArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() ){
               this.servicioModificar.actualizarArticulos(this.formArticulo.value).subscribe(res => {
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
-                  title: 'No se hubo ningun cambio, pero se modificó correctamente',
+                  title: 'No se hubo cambio',
                   showConfirmButton: false,
                   timer: 1500
                 })
@@ -119,7 +119,7 @@ export class ModificarArticulosComponent implements OnInit {
             }else{
               this.servicioArticulo.listarTodos().subscribe(res => {
                 res.forEach(elementArticulo => {
-                  if(elementArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() && elementArticulo.idEstado.id == this.formArticulo.value.idEstado && elementArticulo.idCategoria.id == this.formArticulo.value.idCategoria){
+                  if(elementArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() ){
                     this.encontrado = true
                   }else{
                     this.encontrado = false
@@ -132,7 +132,7 @@ export class ModificarArticulosComponent implements OnInit {
                   Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: 'Ya existe un articulo con esas caracteristicas',
+                    title: 'Ya existe ese articulo',
                     showConfirmButton: false,
                     timer: 1500
                   })

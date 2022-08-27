@@ -114,7 +114,9 @@ export class ModificarProveedorComponent implements OnInit {
             })
             Swal.fire({
               icon: 'success',
-              text: 'No hubieron cambios!',
+              title: 'No hubieron cambios!',
+              showConfirmButton: false,
+              timer: 1500
             })
             this.router.navigate(['/proveedores']);
           }else {
@@ -123,7 +125,8 @@ export class ModificarProveedorComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: 'Proveedor Modificado',
-              text: 'El Proveedor se modifico correctamente!',
+              showConfirmButton: false,
+              timer: 1500
             })
             this.router.navigate(['/proveedores']);
           }
@@ -132,8 +135,7 @@ export class ModificarProveedorComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Campos Vacios',
-        text: 'Los campos no pueden estar vacios',
+        title: 'Los campos no pueden estar vacios',
         showConfirmButton: false,
         timer: 1500
       })

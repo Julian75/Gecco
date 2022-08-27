@@ -80,7 +80,6 @@ export class ArticulosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.servicioArticulo.eliminar(id).subscribe(res=>{
-          this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
             'Se eliminó el Articulo.',

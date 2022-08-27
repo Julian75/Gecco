@@ -72,7 +72,7 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
           this.formUsuarioPqr.value.idArea = resArea
           this.servicioUsuarioPqr.listarTodos().subscribe(resUsuariosPQRS=>{
             resUsuariosPQRS.forEach(elementUsuPQRS => {
-              if(this.formUsuarioPqr.value.idArea.id == elementUsuPQRS.idArea.id  && this.formUsuarioPqr.value.idUsuario.id == elementUsuPQRS.idUsuario.id){
+              if(this.formUsuarioPqr.value.idUsuario.id == elementUsuPQRS.idUsuario.id){
                 this.existeUs = true
               }else{
                 this.existeUs = false
@@ -110,8 +110,7 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'El campo está vacio',
+        title: 'Campos vacíos',
         showConfirmButton: false,
         timer: 1500
       });

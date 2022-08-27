@@ -22,7 +22,7 @@ export class ModificarProcesoComponent implements OnInit {
   public usuariosDisponibles:any = [];
   public categoriasDisponibles:any = [];
   public listaCategorias:any = [];
-  public idProceso : any;
+  public idProceso : any = [];
   color = ('primary');
   constructor(
     private fb: FormBuilder,
@@ -74,7 +74,7 @@ export class ModificarProcesoComponent implements OnInit {
 
   public listarporidProceso() {
     this.idProceso = this.data;
-    this.servicioProceso.listarPorId(this.idProceso).subscribe(res => {
+    this.servicioProceso.listarPorId(this.idProceso.id).subscribe(res => {
       this.listaProceso = res;
       this.formAsigCat.controls['id'].setValue(this.listaProceso.id);
       this.formAsigCat.controls['categoria'].setValue(this.listaProceso.idCategoria.id);
@@ -84,56 +84,53 @@ export class ModificarProcesoComponent implements OnInit {
 
   aprobar:boolean = false
   public guardar() {
+    this.idProceso = this.data;
     this.listarExiste = []
     this.aprobar = false
     let proceso : Proceso2 = new Proceso2();
-    proceso.id = Number(this.data)
-    const idCategoria = this.formAsigCat.controls['categoria'].value;
-    const idUsuario = this.formAsigCat.controls['usuario'].value;
-
-    this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
-      proceso.idCategoria = resCategoria.id
-      this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario=>{
-        proceso.idUsuario = resUsuario.id
-        this.servicioProceso.listarPorId(proceso.id).subscribe(resProces=>{
-          if(resProces.idCategoria.id == idCategoria && resProces.idUsuario.id == idUsuario){
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'No hubieron cambios!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.dialogRef.close();
-            window.location.reload();
-          }else{
-            this.servicioProceso.listarTodos().subscribe(resProceso=>{
-              resProceso.forEach(element => {
-                if(element.idCategoria.id == idCategoria || element.idUsuario.id == idUsuario){
-                  this.aprobar = true
-                }else{
-                  this.aprobar = false
-                }
-                this.listarExiste.push(this.aprobar);
-              });
-              const existe = this.listarExiste.includes( true );
-              if(existe == true){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Esta asignación ya existe!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
+    const idCategoria = Number(this.formAsigCat.controls['categoria'].value);
+    const idUsuario = Number(this.formAsigCat.controls['usuario'].value);
+    proceso.id = this.idProceso.id
+    this.servicioCategoria.listarPorId(idCategoria).subscribe(resCat=>{
+      proceso.idCategoria = resCat.id
+      this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsu=>{
+        proceso.idUsuario = resUsu.id
+        if(idCategoria == this.idProceso.idCategoria.id && idUsuario == this.idProceso.idUsuario.id){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No hubieron cambios!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.dialogRef.close();
+          window.location.reload();
+        }else{
+          this.servicioProceso.listarTodos().subscribe(resProceso=>{
+            resProceso.forEach(element => {
+              if(idUsuario == element.idUsuario.id && proceso.idCategoria == element.idCategoria.id){
+                this.aprobar = true
               }else{
-                this.modificarProceso(proceso);
+                this.aprobar = false
               }
-            })
-          }
-        })
+              this.listarExiste.push(this.aprobar);
+            });
+            const existe = this.listarExiste.includes( true );
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Esta asignación ya existe!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }else{
+              this.modificarProceso(proceso);
+            }
+          })
+        }
       })
     })
-
   }
 
   public modificarProceso(proceso: Proceso2) {

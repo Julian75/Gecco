@@ -98,7 +98,8 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
               Swal.fire({
                 icon: 'success',
                 title: 'Opcion Modificada',
-                text: 'La Opcion se modifico correctamente',
+                showConfirmButton: false,
+                timer: 1500
               });
               this.dialogRef.close();
               window.location.reload();

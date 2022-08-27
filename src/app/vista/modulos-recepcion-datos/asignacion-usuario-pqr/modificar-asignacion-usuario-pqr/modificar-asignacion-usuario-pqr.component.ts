@@ -47,7 +47,7 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
               (res) => {
                 Swal.fire({
                   icon: 'success',
-                  title: 'No hubieron cambios, pero se modificó correctamente',
+                  title: 'No hubieron cambios',
                   showConfirmButton: false,
                   timer: 1500
                 })
@@ -69,7 +69,7 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
                 this.formUsuarioPqr.value.idArea = resArea.id
                 this.servicioUsuarioPqr.listarTodos().subscribe(resUsuariosPQRS=>{
                   resUsuariosPQRS.forEach(elementUsuPQRS => {
-                    if(this.formUsuarioPqr.value.idArea == elementUsuPQRS.idArea.id  && this.formUsuarioPqr.value.idUsuario == elementUsuPQRS.idUsuario.id){
+                    if(this.formUsuarioPqr.value.idUsuario == elementUsuPQRS.idUsuario.id){
                       this.existeUs = true
                     }else{
                       this.existeUs = false
@@ -89,7 +89,7 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
                       (res: any) => {
                         Swal.fire({
                           icon: 'success',
-                          title: 'Se modifico la asignación!',
+                          title: 'Se modificó la asignación!',
                           showConfirmButton: false,
                           timer: 1500
                         });
@@ -110,8 +110,7 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: '¡Error!',
-        text: 'Debe llenar todos los campos',
+        text: 'Campos vacíos',
       })
     }
 

@@ -66,8 +66,7 @@ export class AgregarMotivoSolicitudComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'El campo no puede estar vacio!',
+        title: 'Campo Vacio',
         showConfirmButton: false,
         timer: 1500
       });

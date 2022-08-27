@@ -59,8 +59,9 @@ export class ModificarJerarquiaComponent implements OnInit {
         if (jerarquia.descripcion == null || jerarquia.descripcion == undefined || jerarquia.descripcion == "") {
           Swal.fire({
             icon: 'error',
-            title: 'Oops...',
-            text: 'El campo no puede estar vacio!',
+            title: 'Campo Vacio!',
+            showConfirmButton: false,
+            timer: 1500
           })
         }else if(resJera.descripcion.toLowerCase() == jerarquia.descripcion.toLowerCase()){
           Swal.fire({
@@ -93,7 +94,8 @@ export class ModificarJerarquiaComponent implements OnInit {
               Swal.fire({
                 icon: 'success',
                 title: 'Jerarquia Modificada',
-                text: 'La Jerarquia se modificó correctamente',
+                showConfirmButton: false,
+                timer: 1500
               })
               this.dialogRef.close();
               window.location.reload();

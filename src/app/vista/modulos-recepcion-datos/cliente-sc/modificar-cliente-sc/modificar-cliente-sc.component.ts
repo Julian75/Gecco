@@ -87,23 +87,21 @@ export class ModificarClienteScComponent implements OnInit {
 
   existe: boolean = false
   listaExis: any = []
+  listaTipoDoc: any = []
   public guardar() {
     this.listaExis = []
     this.listarExiste = []
     let cliente : ClienteSC2 = new ClienteSC2();
     this.route.paramMap.subscribe((params: ParamMap) => {
-      cliente.id = Number(params.get('id'));
       this.servicioCliente.listarPorId(Number(params.get('id'))).subscribe(res=>{
-        const listaUsuarios = res
+        cliente.id = res.id;
         cliente.nombre = res.nombre
         cliente.apellido = res.apellido
         cliente.correo = res.correo
         cliente.documento = res.documento
-        this.servicioTipoDocumento.listarPorId(this.formClienteSC.value.tipoDocumento).subscribe(resda=>{
-          cliente.idTipoDocumento = resda.id
-        })
+        cliente.idTipoDocumento = res.idTipoDocumento.id
         cliente.telefono = res.telefono
-        this.servicioCliente.listarTodos().subscribe(res=>{
+        this.servicioCliente.listarTodos().subscribe(resClientes=>{
           const documento = this.formClienteSC.controls['documento'].value;
           const nombre = this.formClienteSC.controls['nombre'].value;
           const apellido = this.formClienteSC.controls['apellido'].value;
@@ -119,59 +117,57 @@ export class ModificarClienteScComponent implements OnInit {
               timer: 1500
             })
           }else{
-            this.servicioCliente.listarTodos().subscribe(resClient=>{
-              for (let i = 0; i < res.length; i++) {
-                if(res[i].documento == documento && res[i].nombre == nombre && res[i].apellido == apellido && res[i].correo == correo  && res[i].idTipoDocumento.id == tipoDocumento && res[i].telefono == telefono ){
-                  this.encontrado = true
-                }else{
-                  this.encontrado = false
-                }
-                this.listarExiste.push(this.encontrado)
-              }
-              const existe = this.listarExiste.includes(true)
-              console.log(existe)
-              if(existe == true){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'No hubieron cambios!',
-                  showConfirmButton: false,
-                  timer: 2000
-                })
-                this.router.navigate(['/clientesSC']);
-              }else{
+            if(res.apellido == apellido && res.correo == correo && res.documento == documento && res.idTipoDocumento.id == tipoDocumento && res.nombre == nombre && res.telefono == telefono){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'No hubieron cambios!',
+                showConfirmButton: false,
+                timer: 2000
+              })
+              window.location.reload();
+            }else if(documento != res.documento || correo != res.correo){
+              this.servicioCliente.listarTodos().subscribe(resClient=>{
                 resClient.forEach(element => {
-                  if(element.correo == correo && element.nombre != nombre || element.apellido != apellido  || element.idTipoDocumento.id != tipoDocumento || element.telefono != telefono){
-                    this.existe = false
-                  }else if(element.correo == correo){
+                  if(res.id != element.id && correo == element.correo){
+                    this.existe = true
+                  }else if(res.id != element.id && documento == element.documento){
                     this.existe = true
                   }else{
                     this.existe = false
                   }
                   this.listaExis.push(this.existe)
                 });
+                console.log(this.listaExis)
                 const existe = this.listaExis.includes( true );
                 if(existe == true){
                   Swal.fire({
                     icon: 'error',
-                    title: 'Ese Cliente ya existe!',
+                    title: 'Ya existe un cliente con ese documento y/o correo!',
                     showConfirmButton: false,
                     timer: 1500
                   });
                 }else{
                   cliente.documento = this.formClienteSC.controls['documento'].value;
-                  cliente.nombre = this.formClienteSC.controls['nombre'].value;
-                  cliente.apellido = this.formClienteSC.controls['apellido'].value;
                   cliente.correo = this.formClienteSC.controls['correo'].value;
-                  cliente.telefono = this.formClienteSC.controls['telefono'].value;
-                  this.servicioTipoDocumento.listarPorId(this.formClienteSC.controls['tipoDocumento'].value).subscribe(res=>{
-                    cliente.idTipoDocumento = res.id
-                    console.log(res)
-                    this.actualizarCliente(cliente);
-                  })
+                  this.actualizarCliente(cliente);
                 }
+              })
+            }else{
+              if(cliente.apellido != apellido){
+                cliente.apellido = apellido
               }
-            })
+              if(cliente.idTipoDocumento != tipoDocumento){
+                cliente.idTipoDocumento = this.formClienteSC.controls['tipoDocumento'].value
+              }
+              if(cliente.nombre != nombre){
+                cliente.nombre = nombre
+              }
+              if(cliente.telefono != telefono){
+                cliente.telefono = telefono
+              }
+              this.actualizarCliente(cliente);
+            }
           }
         })
       })
@@ -187,7 +183,9 @@ export class ModificarClienteScComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      this.crearFormulario();
       this.router.navigate(['/clientesSC']);
+      window.location.reload();
     }, error => {
       Swal.fire({
         position: 'center',

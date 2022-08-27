@@ -77,8 +77,9 @@ export class ModificarElementosVisitaComponent implements OnInit {
               this.servicioModificar.actualizarElementosVisita(this.formElementoVisita.value).subscribe(res => {
                 Swal.fire({
                   icon: 'success',
-                  title: 'Elemento Modificada',
-                  text: 'El Elemento se modifico correctamente',
+                  title: 'Elemento Modificado',
+                  showConfirmButton: false,
+                  timer: 1500
                 });
                 this.dialogRef.close();
                 window.location.reload();
@@ -89,10 +90,10 @@ export class ModificarElementosVisitaComponent implements OnInit {
       })
     }else{
       Swal.fire({
-        title: 'Error',
-        text: 'El campo no puede estar vacio!',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        title: 'El campo no puede estar vacio!',
+        showConfirmButton: false,
+        timer: 1500
       }
       )
     }

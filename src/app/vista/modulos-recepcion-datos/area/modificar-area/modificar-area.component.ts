@@ -55,14 +55,14 @@ export class ModificarAreaComponent implements OnInit {
     let area : Area2 = new Area2();
     area.id=Number(this.data);
     if(this.formArea.valid){
-      area.descripcion=this.formArea.controls['descripcion'].value.toLowerCase();
+      area.descripcion=this.formArea.controls['descripcion'].value;
       this.servicioArea.listarPorId(Number(this.data)).subscribe(data => {
         if(data.descripcion==area.descripcion){
             this.servicioModificar.actualizarArea(area).subscribe(res => {
               Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'No hubo cambios, pero se modificó correctamente!',
+                title: 'No hubo cambios!',
                 showConfirmButton: false,
                 timer: 1500
               })
@@ -72,7 +72,7 @@ export class ModificarAreaComponent implements OnInit {
         }else{
           this.servicioArea.listarTodos().subscribe(resArea=>{
             resArea.forEach(element => {
-              if(element.descripcion == area.descripcion){
+              if(element.descripcion.toLowerCase() == area.descripcion.toLowerCase()){
                 this.existe = true
               }else{
                 this.existe = false
@@ -96,8 +96,9 @@ export class ModificarAreaComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'El campo está vacio',
+        title: 'Campos vacíos',
+        showConfirmButton: false,
+        timer: 1500,
       })
     }
 

@@ -79,7 +79,8 @@ export class ModificarTablaConfiguracionComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: 'Configuracion Modificada',
-              text: 'La Configuracion se modifico correctamente',
+              showConfirmButton: false,
+              timer: 1500
             });
             this.dialogRef.close();
             window.location.reload();

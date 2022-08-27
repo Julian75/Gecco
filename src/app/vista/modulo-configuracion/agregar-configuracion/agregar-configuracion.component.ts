@@ -67,7 +67,8 @@ export class AgregarConfiguracionComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: 'Configuracion Registrada',
-              text: 'La Configuracion se registro correctamente',
+              showConfirmButton: false,
+              timer: 1500
             });
             this.dialogRef.close();
             window.location.reload();

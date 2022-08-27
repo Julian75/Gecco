@@ -58,7 +58,8 @@ export class AgregarJerarquiaComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'Jerarquia Existente',
-              text: 'La jerarquia ya existe',
+              showConfirmButton: false,
+              timer: 1500
             });
             return;
           }
@@ -67,7 +68,8 @@ export class AgregarJerarquiaComponent implements OnInit {
           Swal.fire({
             icon: 'success',
             title: 'Jerarquia Registrada',
-            text: 'La jerarquia se registro correctamente',
+            showConfirmButton: false,
+            timer: 1500
           });
           this.dialogRef.close();
           window.location.reload();
@@ -76,20 +78,4 @@ export class AgregarJerarquiaComponent implements OnInit {
     });
   }
 }
-    // if(jerarquia.descripcion == null || jerarquia.descripcion == "" ){
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: 'Debe ingresar una descripcion válida',
-    //   })
-    // }else{
-    //   this.servicioJerarquia.registrar(jerarquia).subscribe(res => {
-    //     Swal.fire({
-    //       icon: 'success',
-    //       title: 'Guardado',
-    //       text: 'La jerarquia '+jerarquia.descripcion+' se guardo correctamente',
-    //     })
-    //     this.dialogRef.close();
-    //   })
-    // }
 

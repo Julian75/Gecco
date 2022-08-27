@@ -52,16 +52,17 @@ export class AgregarCategoriaComponent implements OnInit {
 
   aprobar:boolean = false
   public guardar() {
+    this,this.listarExiste = []
     this.aprobar = false
     let categoria : Categoria = new Categoria();
-    categoria.descripcion=this.formCategoria.controls['descripcion'].value.toLowerCase();
+    categoria.descripcion=this.formCategoria.controls['descripcion'].value;
     const idEstado = this.formCategoria.controls['estado'].value;
     if(this.formCategoria.valid){
       this.servicioEstado.listarPorId(idEstado).subscribe(res => {
         categoria.idEstado = res
         this.servicioCategoria.listarTodos().subscribe(resArticulos=>{
           resArticulos.forEach(element => {
-            if(element.descripcion == categoria.descripcion){
+            if(element.descripcion.toLowerCase() == categoria.descripcion.toLowerCase()){
               this.aprobar = true
             }else{
               this.aprobar = false
@@ -87,7 +88,7 @@ export class AgregarCategoriaComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Debe llenar todos los campos!',
+        title: 'Campos Vacíos!',
         showConfirmButton: false,
         timer: 1500
       })

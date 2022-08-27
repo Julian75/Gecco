@@ -82,19 +82,21 @@ export class AgregarProveedorComponent implements OnInit {
               if (contador > 0) {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Oops...',
-                  text: 'Ya existe un proveedor con ese numero de documento!',
+                  title: 'Ya existe un proveedor con ese numero de documento!',
+                  showConfirmButton: false,
+                  timer: 1500
                 })
-                window.location.reload()
               }else{
                 this.servicioProveedor.registrar(this.formProveedor.value).subscribe(
                   (data)=>{
                     Swal.fire({
                       icon: 'success',
-                      title: 'Exito',
-                      text: 'Proveedor registrado correctamente!',
+                      title: 'Proveedor registrado correctamente!',
+                      showConfirmButton: false,
+                      timer: 1500
                     })
-                    this.formProveedor.reset();
+                    this.crearFormulario();
+                    window.location.reload();
                   }
                 )
               }
@@ -105,8 +107,7 @@ export class AgregarProveedorComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Campos Vacios',
-        text: 'Los campos no pueden estar vacios!',
+        title: 'Los campos no pueden estar vacios!',
         showConfirmButton: false,
         timer: 1500
       })

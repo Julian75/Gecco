@@ -63,14 +63,13 @@ export class AgregarElementosVisitaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-          this.dialogRef.close();
-          window.location.reload();
         }else if(existe == false){
           this.servicioElementosVisita.registrar(this.formElementosVisita.value).subscribe(res => {
             Swal.fire({
               icon: 'success',
               title: 'Elemento Registrado',
-              text: 'El Elemento se registro correctamente',
+              showConfirmButton: false,
+              timer: 1500
             });
             this.dialogRef.close();
             window.location.reload();

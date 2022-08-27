@@ -81,7 +81,7 @@ export class AgregarArticulosComponent implements OnInit {
           articulo.idCategoria = resCategoria
           this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
             resArticulos.forEach(element => {
-              if(element.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && element.idEstado.id == this.formArticulo.controls['estado'].value && element.idCategoria.id == this.formArticulo.controls['categoria'].value){
+              if(element.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() ){
                 this.aprobar = true
               }else{
                 this.aprobar = false

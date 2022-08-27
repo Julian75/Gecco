@@ -63,7 +63,7 @@ export class AgregarAreaComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'El campo está vacio!',
+        title: 'Campos vacíos!',
         showConfirmButton: false,
         timer: 1500
       });

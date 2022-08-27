@@ -71,7 +71,7 @@ export class AsignacionUsuarioPqrComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el tipo documento.',
+            'Se eliminó la asignación.',
             'success'
           )
         })

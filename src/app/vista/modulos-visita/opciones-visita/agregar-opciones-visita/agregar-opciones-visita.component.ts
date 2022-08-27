@@ -68,7 +68,8 @@ export class AgregarOpcionesVisitaComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: 'Registro exitoso',
-              text: 'La Opcion se registro correctamente',
+              showConfirmButton: false,
+              timer: 1500
             });
             this.dialogRef.close();
             window.location.reload();
