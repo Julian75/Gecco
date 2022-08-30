@@ -100,7 +100,7 @@ export class TipoServicioComponent implements OnInit {
   }
   name = 'tipoServicio.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('turnos');
+    let element = document.getElementById('rol');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

@@ -79,7 +79,7 @@ export class SolicitudesRealizadasComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaSolicitudes.xlsx';
+  name = 'listaSolicitudesRealizadas.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

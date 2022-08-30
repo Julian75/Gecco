@@ -16,7 +16,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 th{
@@ -32,7 +32,8 @@ th{
 }
 td {
   border: 1px solid #000;
-  text-align: center;
+  text-align: left;
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -45,6 +46,8 @@ mat-form-field{
   margin-top: -15%;
 }
 .botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
+.btnedit{ width: 44px; height: 31px; }
+.btnedit mat-icon{ font-size: 20px; position: static; display: block; margin-left: -19%; margin-top: -8%;}
 .botonagregar mat-icon{ font-size: 24px; }
 #idSpa, #idSp2, #descSpa, #nomSpa, #valSpa, #opcSpa{ position: relative;}
 #idSpa{ left: 3px; position: absolute; }
@@ -180,11 +183,11 @@ mat-form-field{
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   .excelButton i{ position: relative; top: -3px; }
-  #idSpa{ left: 0px; }
+  #idSpa{ left: 5px; }
   #valSpa{ left: 165px; }
   #opcSpa{ left: 12px; }
-  #descSpa{ left: 97px; }
-  #nomSpa{ left: 52px; }
+  #descSpa{ left: 114px; }
+  #nomSpa{ left: 63px; }
   .excelButton i{
     position: relative;
     top: -3px;

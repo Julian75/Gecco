@@ -48,11 +48,17 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2{ width: 64px; height: 36px; }
+.btnver{ width: 44px; height: 31px; position: static; margin-left: 24%; margin-top: -31px; display: block; }
+.btnedit{  width: 44px; height: 31px; position: static; display: block; margin-left: 2.5%; margin-top: 0%; }
+.btnremove{ width: 44px; height: 31px; position: static; display: block; margin-left: 13%; margin-top: -6.6%; }
+.btnedit mat-icon{ font-size: 20px; position: static; display: block; margin-left: -19%; margin-top: -8%;}
+.btnremove mat-icon{ font-size: 20px; position: static; display: block; margin-left: -13%; margin-top: -11%;}
+.btnver mat-icon{ font-size: 20px; position: static; display: block; margin-left: -13%; margin-top: -11%;}
 .botonagregar mat-icon{ font-size: 24px; }
 #idSpa, #descSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 21px; position: absolute; }
-#descSpa{ left: 153px; position: absolute; }
+#idSpa{ left: 49px; position: absolute; }
+#descSpa{ left: 242px; position: absolute; }
 #idSp2{ padding-left: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
@@ -143,18 +149,22 @@ mat-form-field{
 @media screen and (min-width: 1024px) and (max-width: 1366px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 14px; }
-  #descSpa{ left: 126px; }
+  #idSpa{ left: 30px; }
+  #descSpa{ left: 239px; }
   #rolSpa{ left: 15px; }
+  .btnver{ margin-left: 36%; margin-top: -31px; }
+  .btnremove{ margin-left: 19%; margin-top: -10.3%; }
 }
 
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
   td { font-size: 16px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 16px; }
-  #descSpa{ left: 139px; }
+  #idSpa{ left: 33px; }
+  #descSpa{ left: 260px; }
   #rolSpa{ left: 15px; }
+  .btnver{ margin-left: 33%; margin-top: -31px; }
+  .btnremove{ margin-left: 18%; margin-top: -9.6%; }
 }
 
 

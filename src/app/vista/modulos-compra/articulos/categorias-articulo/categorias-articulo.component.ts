@@ -109,7 +109,7 @@ export class CategoriasArticuloComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaRoles.xlsx';
+  name = 'listaCategorias.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

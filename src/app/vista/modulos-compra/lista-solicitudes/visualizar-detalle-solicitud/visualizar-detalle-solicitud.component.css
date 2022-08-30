@@ -16,7 +16,7 @@
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   .btnVisualizar{
@@ -39,7 +39,8 @@
   .botonagregar{ background-color: #959595; color: white; margin-left: 5%; }
   td {
     border: 1px solid #000;
-    text-align: center;
+    /* text-align: center; */
+    font-size: 11px;
   }
   .contenedor{
     width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -51,13 +52,14 @@
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .pdfButton, .botonvolver{ width: 64px; height: 36px; }
-  .botonagregar mat-icon{ font-size: 24px; }
+  .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .pdfButton, .botonvolver{ width: 64px; height: 36px; }
+  .botonagregar{ width: 40px; height: 31px; }
+  .botonagregar mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
   #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-  #idSp{ left: 20px; }
-  #desSp{ left: 34px; }
-  #estSp{ left: 34px; }
-  #obSp{ left: 50px; position: relative;}
+  #idSp{ left: 22px; }
+  #desSp{ left: 37px; }
+  #estSp{ left: 43px; }
+  #obSp{ left: 55px; position: relative;}
   #estaSp{ left: 42px; position: relative;}
   #jerSp{ left: 70px; }
   #opcSp{ padding-right: 0%; }

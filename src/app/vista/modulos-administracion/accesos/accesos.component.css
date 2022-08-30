@@ -48,13 +48,15 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2 { width: 64px; height: 36px; }
+.btnremove{ width: 44px; height: 31px; position: static; display: block;  margin-left: 44%; }
+.btnremove mat-icon{ font-size: 20px; margin-left: -17%; margin-top: -10%; position: static; display: block;}
 .botonagregar mat-icon{ font-size: 24px; }
 .botonagregar{ margin-left: 1%; }
 #idSpa, #moduloSpa, #rolSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 26px; position: absolute;}
-#moduloSpa{ left: 245px; position: absolute; }
-#rolSpa{ left: 76px; position: absolute; }
+#idSpa{ left: 32px; position: absolute;}
+#moduloSpa{ left: 230px; position: absolute; }
+#rolSpa{ left: 68px; position: absolute; }
 #OpcSpa{ left: 0px; }
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}

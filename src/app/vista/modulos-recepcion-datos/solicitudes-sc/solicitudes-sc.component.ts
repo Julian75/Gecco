@@ -439,15 +439,21 @@ export class SolicitudesScComponent implements OnInit {
     return search;
   }
 
-  name = 'solicitudes.xlsx';
+  name = 'solicitudesPQRS.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('jerarquia');
+    // document.getElementById('asignarTurnoVendedor').
+    // for (let index = 0; index < 2; index++) {
+    //   const element = 2[index];
+    //   document.getElementById("opcion").remove();
+    // }
+    let element = document.getElementById('asignarTurnoVendedor');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
     const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1')
     XLSX.writeFile(book, this.name);
+
+    var porcentaje = JSON.stringify(document.getElementById('asignarTurnoVendedor'));
+    console.log(porcentaje)
   }
 
   public editar(idSolicitud){

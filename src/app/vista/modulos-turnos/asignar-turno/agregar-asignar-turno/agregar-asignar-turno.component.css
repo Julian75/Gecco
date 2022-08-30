@@ -114,7 +114,8 @@ td {
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
 
-.btnremove{ width: 64px; height: 36px; }
+.btnremove{ width: 44px; height: 31px; }
+.btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 .btnremove { position: relative; left: 15px; }
 
 mat-option{ font-size: 10.5px; }

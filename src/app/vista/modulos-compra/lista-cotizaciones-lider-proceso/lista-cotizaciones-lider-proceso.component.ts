@@ -245,7 +245,7 @@ export class ListaCotizacionesLiderProcesoComponent implements OnInit {
         this.listaPdf.push(resPdf)
         console.log(resPdf)
         for(const i in resPdf){
-          console.log(this.listaPdf[0][i].name)
+          console.log(this.listaPdf)
           if (res.nombrePdf == this.listaPdf[0][i].name) {
             console.log(this.listaPdf[0][i])
             window.location.href = this.listaPdf[0][i].url

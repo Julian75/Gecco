@@ -166,15 +166,15 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   uploadFiles() {
     this.message = '';
-    for (let i = 0; i < this.selectedFiles.length; i++) {
+    for (let i = 0; i < this.listaArchivos2.length; i++) {
       this.upload(i, this.selectedFiles[i]);
     }
   }
 
   upload(index:any, file: any) {
     this.progressInfo[index] = { value: 0, fileName: file.name };
-
     this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
+      console.log(event)
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
@@ -315,6 +315,10 @@ export class AgregarSolicitudScComponent implements OnInit {
         timer: 1500
       })
     })
+  }
+
+  public volver(){
+    // this.dialogRef.close();
   }
 
 }

@@ -8,10 +8,9 @@ table{
   }
 
   h3{
-    text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   .btnVisualizar{
@@ -28,13 +27,15 @@ table{
   .excelButton{
     background-color: #6DBE53;
     color: white;
+    position: relative; left: 25px;
   }
 
-  .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
   td {
     border: 1px solid #000;
-    text-align: center;
+    text-align: left;
+    font-size: 11px;
   }
+  td button mat-icon{ font-size: 20px; margin-top: -6%; margin-left: -14%;}
   .contenedor{
     width: 90% !important; margin-left: 5%; margin-top: 3%;
   }
@@ -47,13 +48,14 @@ table{
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+  .botonagregar, .excelButton, .botonagregar2 .btnver{ width: 64px; height: 36px; }
+  .btnremove, .btnedit{ width: 44px; height: 31px; }
   .botonagregar mat-icon{ font-size: 24px; }
-  #idSp{ left: 45px; position: sticky; margin-left: 220%;}
-  #opcSp{ left: 8px; }
-  #opcSp{ position:static; }
-  #areaSp{ position: sticky; margin-left: 447%; }
-  #descripSp{ position: sticky; margin-left: 148%;}
+  #idSp{ margin-left: 350%;}
+  #opcSp{ left: 186px; }
+  #opcSp{ position:relative; }
+  #areaSp{ margin-left: 601%; }
+  #descripSp{ margin-left: 197%;}
   .excelButton{ margin-left: -1%; font-size: 20px; }
   .excelButton i{ position: relative; top: -3px; }
   #idSp2{ padding-left: 0%; }

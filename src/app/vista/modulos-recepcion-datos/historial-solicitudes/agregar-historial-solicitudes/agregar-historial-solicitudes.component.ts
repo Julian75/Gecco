@@ -118,7 +118,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   uploadFiles() {
     this.message = '';
-    for (let i = 0; i < this.selectedFiles.length; i++) {
+    for (let i = 0; i < this.listaArchivos2.length; i++) {
       this.upload(i, this.selectedFiles[i]);
     }
   }

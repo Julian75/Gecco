@@ -48,15 +48,19 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2,.btnver{ width: 64px; height: 36px; }
+.btnedit{ width: 44px; height: 31px; position: static; display: block;margin-left: 43%; }
+.btnremove{ width: 44px; height: 31px; position: relative; display: block; left: 10%;margin-top: -6.2%;}
+.btnedit mat-icon{     font-size: 20px; position: static; display: block; margin-left: -19%; margin-top: -8%;}
+.btnremove mat-icon{ font-size: 20px; position: static; display: block; margin-left: -13%; margin-top: -11%;}
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp{ left: 45px; }
-#descripSp{ left: 172px; }
+#descripSp{ left: 241px; }
 #opcSp{ left: 8px; }
 #opcSp, #descripSp, #idSp{ position: relative; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
-#idSp{ left: 35px; position: absolute; }
+#idSp{ left: 50px; position: absolute; }
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño - Galaxy Fold*/
@@ -146,6 +150,7 @@ mat-form-field{
   #descripSp{ margin-left: -55%;}
   #idSp { left: 25px;}
   #opcSp{ left: 8px; }
+  .btnremove{ left: 12%; margin-top: -7.7%;}
 }
 
 /* Portatil Medio */
@@ -155,4 +160,5 @@ mat-form-field{
   #idSp{ margin-left: -11%; }
   #descripSp{ margin-left: -36%;}
   #opcSp{ left: 8px; }
+  .btnremove{ left: 12%; margin-top: -7.2%;}
 }

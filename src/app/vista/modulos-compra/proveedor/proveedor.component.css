@@ -11,14 +11,14 @@
     height: 100%;
     border: 1px solid #000;
   }
-  #nomSp{left: 26px; position: relative; }
-  #obSp {left: 24px; position: relative; }
-  #estaSp {left: 15px; position: relative; }
+  #nomSp{left: 41px; position: relative; }
+  #obSp {left: 33px; position: relative; }
+  #estaSp {left: 22px; position: relative; }
   h3{
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   .btnVisualizar{
@@ -40,7 +40,8 @@
   .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
   td {
     border: 1px solid #000;
-    text-align: center;
+    /* text-align: center; */
+    font-size: 11px;
   }
   .contenedor{
     width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -54,12 +55,16 @@
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+  .botonagregar, .excelButton, .botonagregar2, .btnver{ width: 64px; height: 36px; }
+  .btnremove, .btnedit{ width: 44px; height: 31px; }
+  .btnedit mat-icon, .btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
   .botonagregar mat-icon{ font-size: 24px; }
-  #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-  #idSp{ left: 15px; }
-  #desSp{ left: 22px; }
-  #estSp{ left: 24px; }
+  #idSp, #idSp2, #desSp, #estSp, #estSp2, #estSp3, #opcSp, #jerSp{ position: relative;}
+  #idSp{ left: 18px; }
+  #desSp{ left: 33px; }
+  #estSp{ left: 42px; }
+  #estSp2{ left: 33px; }
+  #estSp3{ left: 27px; }
   #jerSp{ left: 70px; }
   #opcSp{ padding-right: 0%; }
   .excelButton{ margin-left: -1%; font-size: 20px; }
@@ -101,7 +106,7 @@
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 8px; }
-    #estSp{ left: 8px; }
+    #estSp, #estSp2, #estSp3{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton i{ top: -7px; font-size: 15px;}
@@ -141,7 +146,7 @@
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 8px; }
-    #estSp{ left: 8px; }
+    #estSp, #estSp2, #estSp3{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton i{ top: -8px; font-size: 15px;}
@@ -173,7 +178,7 @@
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 8px; }
-    #estSp{ left: 8px; }
+    #estSp, #estSp2, #estSp3{ left: 8px; }
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
   }
@@ -199,7 +204,7 @@
     #idSp{ left: 10px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 9px; }
-    #estSp{ left: 8px; }
+    #estSp, #estSp2, #estSp3{ left: 8px; }
     #jerSp{ left: 28px; }
     #opcSp2{ padding-right: 0%; }
   }
@@ -225,7 +230,7 @@
     #idSp{ left: 7px; }
     #idSp2{ padding-left: 0%; }
     #desSp{ left: 9px; }
-    #estSp{ left: 7px; }
+    #estSp , #estSp2, #estSp3{ left: 7px; }
     #jerSp{ left: 14px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton i{ top: -3px; }
@@ -242,7 +247,7 @@
     #jerSp{ left: 60%; }
     #nomSp{left: 25px; position: relative; }
     #obSp {left: 9px; position: relative; }
-    #estaSp {left: 8px; position: relative; }
+    #estaSp, #estSp2, #estSp3{left: 8px; position: relative; }
     #opcSp2{ padding-right: 0%; }
     .excelButton i{  top: -3px; }
     .btnedit{top: 6px; position: relative;}
@@ -263,7 +268,7 @@
     #jerSp{ left: 60%; }
     #nomSp{left: 25px; position: relative; }
     #obSp {left: 9px; position: relative; }
-    #estaSp {left: 8px; position: relative; }
+    #estaSp, #estSp2, #estSp3{left: 8px; position: relative; }
     #opcSp2{ padding-right: 0%; }
     .btnedit{
       left: 4px;

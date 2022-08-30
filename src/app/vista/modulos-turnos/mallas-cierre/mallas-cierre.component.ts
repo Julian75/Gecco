@@ -362,7 +362,7 @@ export class MallasCierreComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.listaMallasFiltrado);
     }
   }
-  name = 'listaMallas.xlsx';
+  name = 'listaMallasCierre.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('mallas');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

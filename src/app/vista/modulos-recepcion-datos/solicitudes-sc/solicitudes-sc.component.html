@@ -65,7 +65,7 @@
 
         <!--Opciones-->
         <ng-container matColumnDef="opciones">
-          <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
+          <th id="opcion" mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td id="opcion" mat-cell *matCellDef="let item">
             <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 62" (click)="abrirModal(item.solicitud.id)">
               <mat-icon>add_comment</mat-icon>

@@ -19,7 +19,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Nombre Pdf</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.nombrePdf}}</td>
+          <td mat-cell *matCellDef="let element" id="nom">{{element.nombrePdf}}</td>
         </ng-container>
 
         <ng-container matColumnDef="usuario">
@@ -36,16 +36,16 @@
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button class="btn btnedit me-2 edi" (click)="descargarPdf(item.id)">
+            <button class="btn btnedit mx-2 edi" (click)="descargarPdf(item.id)">
               <mat-icon>file_download</mat-icon>
             </button>
             <!-- <button class="btn btnedit me-2 edi" (click)="verSolicitud(item.idSolicitud.id)">
               <mat-icon>visibility</mat-icon>
             </button> -->
-            <button *ngIf="item.idEstado.id != 39 && item.idEstado.id != 40" class="btn boton me-2" (click)="aceptar(item.idCotizacion.idSolicitud.id, item.idCotizacion.id, item.id)">
+            <button *ngIf="item.idEstado.id != 39 && item.idEstado.id != 40" class="btn boton mx-2" (click)="aceptar(item.idCotizacion.idSolicitud.id, item.idCotizacion.id, item.id)">
               <mat-icon>check_circle</mat-icon>
             </button>
-            <button *ngIf="item.idEstado.id != 39 && item.idEstado.id != 40" class="btn btnremove me-2" (click)="rechazarSolicitud(item)">
+            <button *ngIf="item.idEstado.id != 39 && item.idEstado.id != 40" class="btn btnremove mx-2" (click)="rechazarSolicitud(item)">
               <mat-icon>cancel</mat-icon>
             </button>
           </td>

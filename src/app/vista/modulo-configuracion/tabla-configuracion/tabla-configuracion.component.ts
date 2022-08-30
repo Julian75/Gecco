@@ -62,4 +62,15 @@ export class TablaConfiguracionComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  name = 'configuracion.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('configuracion');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
+  }
 }

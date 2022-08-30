@@ -568,7 +568,7 @@ export class PasosComponent implements OnInit {
             }else if(res.idEstado.id == 37){
               const dialogRef = this.dialog.open(AprobacionRegistroComponent, {
                 width: '1000px',
-                height: '650px',
+                height: '400px',
                 data: this.lista[0]
               });
             }else if(res.idEstado.id == 46){

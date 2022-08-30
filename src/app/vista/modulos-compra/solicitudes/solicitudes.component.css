@@ -80,7 +80,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -103,7 +103,8 @@ th{
 .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
 td {
   border: 1px solid #000;
-  text-align: center;
+  /* text-align: center; */
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -117,17 +118,19 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.excelButton, .btnremove, .btnedit, .btnver, .boton, .btnedit2, .botonvolver{ width: 64px; height: 36px; }
+.excelButton, .btnver, .btnedit2, .botonvolver{ width: 64px; height: 36px; }
+.btnedit, .boton, .btnremove{ width: 44px; height: 31px; }
+.btnedit mat-icon, .btnremove mat-icon, .boton mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 18px; }
-#desSp{ left: 28px; }
-#estSp{ left: 35px; }
+#idSp{ left: 21px; }
+#desSp{ left: 31px; }
+#estSp{ left: 42px; }
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #idSp2{ padding-left: 0%; }
-#estaSp{position: relative; left: 63px;}
+#estaSp{position: relative; left: 68px;}
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

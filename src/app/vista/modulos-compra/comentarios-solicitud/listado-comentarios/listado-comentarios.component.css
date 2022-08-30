@@ -16,7 +16,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -39,7 +39,8 @@ th{
 .botonagregar{ background-color: #959595; color: white; margin-left: 5%; }
 td {
   border: 1px solid #000;
-  text-align: center;
+  /* text-align: center; */
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -53,12 +54,14 @@ mat-form-field{
 }
 .botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .pdfButton, .botonvolver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
-#idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
+#idSp, #idSp2, #desSp, #estSp, #estSp2, #estSp3, #opcSp, #jerSp{ position: relative;}
 #idSp{ left: 20px; }
-#desSp{ left: 20px; }
-#estSp{ left: 18px; }
+#desSp{ left: 24px; }
+#estSp{ left: 24px; }
+#estSp2{ left: 38px; }
+#estSp3{ left: 30px; }
 #obSp{ left: 50px; position: relative;}
-#estaSp{ left: 25px; position: relative;}
+#estaSp{ left: 46px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%;  }
@@ -105,7 +108,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2, #estSp3{ left: 8px; }
   #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -156,7 +159,7 @@ mat-form-field{
   #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2, #estSp3{ left: 8px; }
   #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -182,7 +185,7 @@ mat-form-field{
   #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2, #estSp3{ left: 8px; }
   #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -197,7 +200,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 9px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2, #estSp3{ left: 8px; }
   #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
@@ -211,7 +214,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 5px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2, #estSp3{ left: 8px; }
   #estaSp{left: 20px; position: relative;}
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
@@ -225,7 +228,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 9px; }
-  #estSp{ left: 15%; }
+  #estSp, #estSp2, #estSp3{ left: 15%; }
   #jerSp{ left: 60%; }
   #estaSp{left: 35px; position: relative;}
   #opcSp2{ padding-right: 0%; }
@@ -238,7 +241,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 12px; }
-  #estSp{ left: 13%; }
+  #estSp, #estSp2, #estSp3{ left: 13%; }
   #jerSp{ left: 60%; }
   #estaSp{left: 30px; position: relative;}
   #opcSp2{ padding-right: 0%; }

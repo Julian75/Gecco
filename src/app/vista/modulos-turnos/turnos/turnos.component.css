@@ -51,17 +51,19 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2, .btnver{ width: 64px; height: 36px; }
+.btnremove, .btnedit{ width: 44px; height: 31px; margin-left: 0%;}
+.btnedit mat-icon, .btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 .botonagregar mat-icon{ font-size: 24px; }
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 20px; }
+#idSpa{ left: 26px; }
 #descSpa{ left: 54px; }
-#horaISpa{ left: 49px; }
-#horaFSpa{ left: 28px; }
-#estadoSpa{ left: 37px; }
-#tipoTurSpa{ left: 43px; }
+#horaISpa{ left: 55px; }
+#horaFSpa{ left: 54px; }
+#estadoSpa{ left: 41px; }
+#tipoTurSpa{ left: 53px; }
 #opcSpa{ left: 5px; }
 #idSp2{ padding-left: 0%; }
 .excelButton i{ position: relative; top: 1px; }

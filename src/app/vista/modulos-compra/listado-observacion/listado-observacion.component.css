@@ -16,7 +16,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -39,7 +39,8 @@ th{
 .formulario{ background-color: #959595; color: white; margin-left: 5%; }
 td {
   border: 1px solid #000;
-  text-align: center;
+  /* text-align: center; */
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -51,12 +52,15 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonvolver, .formulario{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonvolver{ width: 64px; height: 36px; }
+.formulario{ width: 44px; height: 31px; }
+.formulario mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 .botonagregar mat-icon{ font-size: 24px; }
-#idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 15px; }
-#desSp{ left: 22px; }
+#idSp, #idSp2, #desSp, #estSp, #estSp2, #opcSp, #jerSp{ position: relative;}
+#idSp{ left: 20px; }
+#desSp{ left: 30px; }
 #estSp{ left: 28px; }
+#estSp2{ left: 40px; }
 #obSp{ left: 50px; position: relative;}
 #estaSp{ left: 23px; position: relative;}
 #jerSp{ left: 70px; }
@@ -65,12 +69,6 @@ mat-form-field{
 .excelButton{ margin-left: -1%;  }
 .excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #idSp2{ padding-left: 0%; }
-.formulario{
-  width: 64px;
-  height: 36px;
-  position: relative;
-  left: 13px;
-}
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
@@ -114,7 +112,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2{ left: 8px; }
   #estaSp{left: 8px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -177,7 +175,7 @@ mat-form-field{
   #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 8px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2{ left: 8px; }
   #estaSp{left: 8px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -215,7 +213,7 @@ mat-form-field{
   #idSp{ left: 7px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 6px; }
-  #estSp{ left: 6px; }
+  #estSp, #estSp2{ left: 6px; }
   #estaSp{left: 8px; position: relative;}
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -238,7 +236,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 10px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2{ left: 8px; }
   #estaSp{left: 10px; position: relative;}
   #jerSp{ left: 28px; }
   #opcSp2{ padding-right: 0%; }
@@ -259,7 +257,7 @@ mat-form-field{
   #idSp{ left: 10px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 10px; }
-  #estSp{ left: 8px; }
+  #estSp, #estSp2{ left: 8px; }
   #estaSp{left: 10px; position: relative;}
   #jerSp{ left: 14px; }
   #opcSp2{ padding-right: 0%; }
@@ -280,7 +278,7 @@ mat-form-field{
   #idSp{ left: 14px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 24px; }
-  #estSp{ left: 29%; }
+  #estSp, #estSp2{ left: 29%; }
   #jerSp{ left: 60%; }
   #estaSp{left: 23px; position: relative;}
   #opc{ position: relative; left: 34px;}
@@ -300,7 +298,7 @@ mat-form-field{
   #idSp{ left: 14px; }
   #idSp2{ padding-left: 0%; }
   #desSp{ left: 23px; }
-  #estSp{ left: 29%; }
+  #estSp, #estSp2{ left: 29%; }
   #jerSp{ left: 60%; }
   #estaSp{left: 23px; position: relative;}
   #opc{ position: relative; left: 34px;}

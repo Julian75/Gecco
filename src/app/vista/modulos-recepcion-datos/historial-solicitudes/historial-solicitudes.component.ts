@@ -127,9 +127,9 @@ export class HistorialSolicitudesComponent implements OnInit {
     this.dataSource.paginator.firstPage();
   }
   }
-  name = 'Historial.xlsx';
+  name = 'HistorialSolicitud.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('turnos');
+    let element = document.getElementById('asignarTurnoVendedor2');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();

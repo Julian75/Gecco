@@ -90,7 +90,7 @@ export class ProveedorComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaRoles.xlsx';
+  name = 'listaProveedores.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

@@ -57,18 +57,20 @@ mat-form-field{
   margin-top: -15%;
 }
 td.mat-cell:first-of-type{ padding-left: 0px; font-size: 11px;}
-.botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
+.botonagregar, .excelButton{ width: 64px; height: 36px; }
+.btnedit{ width: 44px; height: 31px; position: static; display: block;  margin-left: 39%; }
+.btnedit mat-icon{ font-size: 20px; margin-left: -17%; margin-top: -10%; position: static; display: block;}
 .botonagregar mat-icon{ font-size: 24px; }
 #nombreSp,#correoSp,#tipoDocSp,#estadoSp,#rolSp,#opcSp{ position: relative; }
-#nombreSp{ left: 127px; position: absolute; }
-#correoSp{ left: 119px; position: absolute; }
-#tipoDocSp{ left: 4px; position: absolute; }
+#nombreSp{ left: 112px; position: absolute; }
+#correoSp{ left: 121px; position: absolute; display: block;}
+#tipoDocSp{ left: 13%; position: absolute; display: block; }
 #estadoSp{ left: 3px; position: absolute; }
-#rolSp{ left: 69px; position: absolute; }
+#rolSp{ left: 94px; position: absolute; }
 #opcSp{ left: 5px; }
 #usuarioEn{ padding-left: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }
-.excelButton i{ position: relative; top: -2px; }
+.excelButton i{ position: relative; top: -3px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
@@ -216,8 +218,8 @@ td.mat-cell:first-of-type{ padding-left: 0px; font-size: 11px;}
   #tipoDocSp{ left: 10%;  }
   #estadoSp{ margin-left: 32%; position: static; }
   #rolSp{ left: 54px; }
-  #opcSp{ left: -1px; }
-  .btnedit{  margin-left: 5.5%;}
+  #opcSp{ left: 10px; }
+  .btnedit{ left: -18%; position: relative}
   .id{
     width: 10%;
     position: static;
@@ -240,8 +242,8 @@ td.mat-cell:first-of-type{ padding-left: 0px; font-size: 11px;}
   #tipoDocSp{ left: 7%; position: absolute; }
   #estadoSp{ margin-left: 54%; position: static; }
   #rolSp{ left: 51px; position: absolute; }
-  #opcSp{ left: -1px; }
-  .btnedit{  margin-left: 5.5%;}
+  #opcSp{ left: 10px; }
+  .btnedit{ left: 3%; position: relative}
   .id{
     width: 10%;
     position: static;

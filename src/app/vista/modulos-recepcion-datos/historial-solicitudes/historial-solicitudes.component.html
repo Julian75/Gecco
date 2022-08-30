@@ -9,7 +9,7 @@
     <h1>Auxiliar: {{Auxiliar}}</h1>
     <h1>Escala: {{Escala}}</h1>
     <section class="example-container mat-elevation-z8" tabindex="0">
-      <table id="asignarTurnoVendedor" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+      <table id="asignarTurnoVendedor2" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
           <!-- Position Column -->
           <ng-container matColumnDef="id" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
@@ -31,7 +31,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nombreOficSpa">Usuario</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.elemento.idUsuario.nombre}} | {{element.elemento.idUsuario.apellido}}</td>
+            <td mat-cell *matCellDef="let element">{{element.elemento.idUsuario.nombre}} {{element.elemento.idUsuario.apellido}}</td>
           </ng-container>
 
           <!-- Name Column -->
@@ -44,7 +44,7 @@
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button  *ngIf="item.validar3 ==  true" class="btn btnedit me-2 edi" (click)="descargarPdf(item.elemento.id)">
+            <button  *ngIf="item.validar3 ==  true" class="btn btnedit mx-2" (click)="descargarPdf(item.elemento.id)">
               <mat-icon>file_download</mat-icon>
             </button>
           </td>

@@ -202,7 +202,7 @@ public enviarCorreo(correo: Correo){
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaSolicitudes.xlsx';
+  name = 'Solicitud.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

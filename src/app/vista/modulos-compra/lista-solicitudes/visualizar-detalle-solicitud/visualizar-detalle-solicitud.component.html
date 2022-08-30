@@ -41,7 +41,7 @@
           <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef mat-sort-header ><h3 id="estaSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let element">
-              <button class="btn botonagregar text-white my-2" *ngIf="aprobar == true && element.idEstado.id == 54" (click)="abrirModal(element.id);">
+              <button class="btn botonagregar text-white mx-2" *ngIf="aprobar == true && element.idEstado.id == 54" (click)="abrirModal(element.id);">
                 <mat-icon>add_comment</mat-icon>
               </button>
             </td>

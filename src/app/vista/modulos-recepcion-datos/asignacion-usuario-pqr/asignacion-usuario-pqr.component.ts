@@ -97,7 +97,7 @@ export class AsignacionUsuarioPqrComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaTipoDocumento.xlsx';
+  name = 'asignacionesUsuarioPQRS.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('tipoDocumento');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

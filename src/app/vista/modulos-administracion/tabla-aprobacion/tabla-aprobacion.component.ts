@@ -68,7 +68,7 @@ export class TablaAprobacionComponent implements OnInit {
     }
   }
 
-  name = 'listaAccesos.xlsx';
+  name = 'listaAprobacionesPendientes.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('accesos');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

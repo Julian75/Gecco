@@ -15,12 +15,12 @@
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   .id{
     position: relative;
-    left: 146%;
+    left: 224%;
   }
   .btnVisualizar{
     background-color: #97B4E2;
@@ -30,8 +30,6 @@
   th{
     background-color: #00235C;
     color: #fff;
-    position: relative;
-    margin-left: 15px;
   }
   .excelButton{
     background-color: #6DBE53;
@@ -41,8 +39,10 @@
   .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
   td {
     border: 1px solid #000;
-    text-align: center;
+    text-align: left;
+    font-size: 11px;
   }
+  td button mat-icon{ font-size: 20px; margin-top: -6%; margin-left: -14%;}
   .contenedor{
     width: 90% !important; margin-left: 5%; margin-top: 3%;
   }
@@ -55,15 +55,16 @@
     margin-left: 79.5%;
     margin-top: -15%;
   }
-  .botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
+  .botonagregar, .excelButton{ width: 64px; height: 36px; }
+  .btnedit{ width: 44px; height: 31px; }
   .botonagregar mat-icon{ font-size: 24px; }
   #nombreSp,#correoSp,#tipoDocSp,#estadoSp,#rolSp,#opcSp{ position: relative; }
   #nombreSp{ left: 50px; }
-  #correoSp{ left: 42px; }
+  #correoSp{ left: 83px; }
   #tipoDocSp{ left: 80px; }
   #estadoSp{ left: 33px; }
   #rolSp{ left: 46px; }
-  #opcSp{ left: 5px; }
+  #opcSp{ left: 8px; }
   #usuarioEn{ padding-left: 0%; }
   .excelButton{ margin-left: -1%; font-size: 20px; }
   .excelButton i{ position: relative; top: -2px; }

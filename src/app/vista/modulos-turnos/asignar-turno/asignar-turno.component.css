@@ -58,13 +58,13 @@ mat-form-field{
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
 #idSp, #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #turSp{ position: relative; }
-#idSp{ left: 15px; }
-#estSp{ left: 27px; }
-#iniSp{ left: 33px; }
-#finSp{ left: 30px; }
-#ofcSp{ left: 81px; }
-#sitSp{ left: 54px; }
-#turSp{ left: 33px; }
+#idSp{ left: 22px; }
+#estSp{ left: 35px; }
+#iniSp{ left: 46px; }
+#finSp{ left: 44px; }
+#ofcSp{ left: 92px; }
+#sitSp{ left: 74px; }
+#turSp{ left: 42px; }
 #idSp2{ padding-left: 0%; }
 #turSp2{ padding-right: 0%; }
 

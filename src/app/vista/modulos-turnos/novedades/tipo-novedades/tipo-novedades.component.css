@@ -48,11 +48,13 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .btnremove, .btnedit{ width: 64px; height: 36px; margin-left: 0%;}
+.botonagregar, .excelButton{ width: 64px; height: 36px; margin-left: 0%;}
+.btnremove, .btnedit{ width: 44px; height: 31px; margin-left: 0%;}
+.btnedit mat-icon, .btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 .botonagregar mat-icon{ font-size: 24px; }
-#idSp{ left: 37px; }
+#idSp{ left: 45px; }
 #desSp{ left: 113px; }
-#obsSp{ left: 108px; }
+#obsSp{ left: 126px; }
 #opcSp{ text-align: center; left: 8px;}
 #idSp, #desSp, #obsSp, #opcSp{ position: relative; }
 #idSp2{ padding-left: 0%; }

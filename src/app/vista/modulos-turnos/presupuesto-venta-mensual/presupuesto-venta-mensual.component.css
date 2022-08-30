@@ -53,14 +53,16 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2, .btnedit, .btnver{ width: 64px; height: 36px; }
+.btnremove{ width: 44px; height: 31px;}
+.btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 .botonagregar mat-icon{ font-size: 24px; }
 #idSpa, #idSp, #idSp2, #descSpa, #valorP, #opcSp, #producto, #mes, #opcSpa{ position: relative;}
-#idSpa{ left: 18px; }
+#idSpa{ left: 27px; }
 #idSp{ left: 30px; }
-#descSpa{ left: 70px; }
-#valorP{ left: 70px; }
-#producto{ left: 45px; }
+#descSpa{ left: 95px; }
+#valorP{ left: 87px; }
+#producto{ left: 51px; }
 #mes{ left: 70px; }
 #opcSpa{ left: 10px; }
 #opcSp{ padding-right: 0%; }

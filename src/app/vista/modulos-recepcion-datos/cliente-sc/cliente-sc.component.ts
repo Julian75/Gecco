@@ -49,7 +49,7 @@ export class ClienteScComponent implements OnInit {
     }
   }
 
-  name = 'listaUsuarios.xlsx';
+  name = 'listaClientes.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('usuario');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

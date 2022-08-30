@@ -11,7 +11,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -34,7 +34,8 @@ th{
 .botonagregar{ position: relative; margin-left: 1.3%; }
 td {
   border: 1px solid #000;
-  text-align: center;
+  text-align: left;
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -48,12 +49,16 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .botonvolver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2,.btnver, .botonvolver{ width: 64px; height: 36px; }
+.btnremove{ width: 44px; height: 31px; display: block; position: static; margin-left: 20%; margin-top: -10%; }
+.btnedit{   width: 44px; height: 31px; display: block; position: static; margin-left: 3%;}
+.btnedit mat-icon{ font-size: 20px; position: static; display: block; margin-left: -19%; margin-top: -8%;}
+.btnremove mat-icon{ font-size: 20px; position: static; display: block; margin-left: -13%; margin-top: -11%;}
 .botonagregar mat-icon{ font-size: 24px; }
 .botonvolver{ background-color: #00235C; left: 12px;}
-#idSp{ left: 46px; }
-#desSp{ left: 107px; }
-#obsSp{ left: 108px; }
+#idSp{ left: 52px; }
+#desSp{ left: 147px; }
+#obsSp{ left: 155px; }
 #opcSp{ text-align: center; left: 8px;}
 #idSp, #desSp, #obsSp, #opcSp{ position: relative; }
 #idSp2{ padding-left: 0%; }
@@ -177,12 +182,14 @@ h2{ font-weight: 700; }
   mat-form-field{ width: 22%; margin-left: 77%; }
   #idSp2{ padding-left: 0%; }
   #opcSp2{ padding-right: 0%; }
-  #idSp{ left: 32px; }
-  #desSp{ left: 90px; }
-  #obsSp{ left: 90px; }
+  #idSp{ left: 45px; }
+  #desSp{ left: 119px; }
+  #obsSp{ left: 130px; }
   #opcSp{ left: -12px;}
   .botonagregar{ margin-left: 0.5%; }
   .excelButton{margin-left: -2%; font-size: 20px;}
+  .btnremove{ margin-left: 30%; margin-top: -14.9%; }
+  .btnedit{margin-left: 4%;}
 }
 
 /* Portatil Medio */
@@ -197,4 +204,6 @@ h2{ font-weight: 700; }
   #opcSp{ left: -12px;}
   .botonagregar{ margin-left: 0.5%; }
   .excelButton{margin-left: -2%; font-size: 20px;}
+  .btnremove{ margin-left: 47%; margin-top: -13.9%; }
+  .btnedit{margin-left: 25%;}
 }

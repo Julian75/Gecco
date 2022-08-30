@@ -103,7 +103,7 @@ export class ListaProcesoComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaRoles.xlsx';
+  name = 'listaAsignacionCategoria.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

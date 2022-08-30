@@ -87,7 +87,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
 
   uploadFiles() {
     this.message = '';
-    for (let i = 0; i < this.selectedFiles.length; i++) {
+    for (let i = 0; i < this.listaArchivos2.length; i++) {
       this.upload(i, this.selectedFiles[i]);
     }
   }
@@ -96,6 +96,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     this.progressInfo[index] = { value: 0, fileName: file.name };
 
     this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
+      console.log(event.type)
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {

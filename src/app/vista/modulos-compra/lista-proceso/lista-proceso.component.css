@@ -16,7 +16,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -38,7 +38,8 @@ th{
 .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
 td {
   border: 1px solid #000;
-  text-align: center;
+  /* text-align: center; */
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -52,13 +53,15 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .botonagregar2, .btnver{ width: 64px; height: 36px; }
+.btnremove, .btnedit{ width: 44px; height: 31px; }
+.btnedit mat-icon, .btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#idSp{ left: 42px; }
+#idSp{ left: 48px; }
 #desSp{ left: 99px; }
 #estSp{ left: 120px; }
-#catSp{ left: 100px; position: relative;}
+#catSp{ left: 110px; position: relative;}
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 .excelButton{ margin-left: -1%; font-size: 20px; }

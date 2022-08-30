@@ -1,6 +1,7 @@
  h2{
     margin: 0;
 }
+.botonvolver{ background-color: #00235C; left: 12px; margin-left: 24%; position: relative; top: -44px; width: 64px; height: 36px;}
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
@@ -101,15 +102,16 @@ mat-option{ font-size: 11px; }
   height: 40px;
   font-size: large;
   left: 25.2%;
-  top: 88.6%;
+  top: 91%;
   position: absolute;
   width: 7.8%;
 }
 #selectButton{ margin-top: -6px; margin-left: -111%; background-color: #97B4E2; color: white; height: 40px;}
-#person{ top: 88.5%; left: 19.6%; background-color: #959595; color: white; height: 40px; position:absolute;}
+#person{ top: 90.9%; left: 19.6%; background-color: #959595; color: white; height: 40px; position:absolute;}
 .row1{
   border-top: 3px solid #97B4E2;
   padding-bottom: 4%;
+  margin-top: -3%;
 }
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 4%;
