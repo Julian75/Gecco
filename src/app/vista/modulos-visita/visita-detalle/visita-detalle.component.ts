@@ -95,14 +95,36 @@ export class VisitaDetalleComponent implements OnInit {
   }
 
   public guardar(){
-    let visita : Visitas = new Visitas();
-    var idUsuario = Number(sessionStorage.getItem('id'))
-    this.servicioUsuario.listarPorId(idUsuario).subscribe(res =>{
-      visita.idUsuario = res
-      visita.fechaRegistro = this.fecha
-      this.registrarVisita(visita, this.lista)
-    })
-
+    if(this.lista.length < 1){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Debe completar todo el formulario para registrar su visita detalle!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      this.servicioElementosVisita.listarTodos().subscribe( res =>{
+        this.listarElementosVisita = res;
+        if(this.lista.length == this.listarElementosVisita.length){
+          let visita : Visitas = new Visitas();
+          var idUsuario = Number(sessionStorage.getItem('id'))
+          this.servicioUsuario.listarPorId(idUsuario).subscribe(res =>{
+            visita.idUsuario = res
+            visita.fechaRegistro = this.fecha
+            this.registrarVisita(visita, this.lista)
+          })
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Le falta completar el formulario!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      })
+    }
   }
 
   capturarOpcion(elemento:any,opcion:any){

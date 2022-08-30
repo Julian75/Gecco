@@ -15,7 +15,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -36,12 +36,13 @@ th{
 .id{
   width: 10%;
   position: absolute;
-  margin-left: -2px;
+  margin-left: 17%;
 }
 .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
 td {
   border: 1px solid #000;
-  text-align: center;
+  text-align: left;
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -55,7 +56,7 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-td.mat-cell:first-of-type{ padding-left: 0px;}
+td.mat-cell:first-of-type{ padding-left: 0px; font-size: 11px;}
 .botonagregar, .excelButton, .btnedit{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #nombreSp,#correoSp,#tipoDocSp,#estadoSp,#rolSp,#opcSp{ position: relative; }
@@ -209,19 +210,18 @@ td.mat-cell:first-of-type{ padding-left: 0px;}
 }
 /* Portatil Pequeño */
 @media screen and (min-width: 1024px) and (max-width: 1366px){
-  td { font-size: 15px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
-  #nombreSp{ left: 32%; }
+  #nombreSp{ left: 38%; }
   #correoSp{ left: 92px;  }
-  #tipoDocSp{ left: 1%;  }
-  #estadoSp{ margin-left: 20%; position: static; }
-  #rolSp{ left: 47px; }
+  #tipoDocSp{ left: 10%;  }
+  #estadoSp{ margin-left: 32%; position: static; }
+  #rolSp{ left: 54px; }
   #opcSp{ left: -1px; }
   .btnedit{  margin-left: 5.5%;}
   .id{
     width: 10%;
     position: static;
-    margin-left: -7px;
+    margin-left: 0%;
   }
   .excelButton i{
     position: relative;
@@ -233,25 +233,24 @@ td.mat-cell:first-of-type{ padding-left: 0px;}
 
 /* Portatil Medio */
 @media screen and (min-width: 1367px) and (max-width: 1440px){
-  td { font-size: 15px; height: 0px;}
   mat-form-field{ width: 22%; margin-left: 77%; }
   .id{position: relative; left: 9px;}
-  #nombreSp{ left: 35%; position: absolute; }
+  #nombreSp{ left: 40%; position: absolute; }
   #correoSp{ left: 91px; position: absolute; }
-  #tipoDocSp{ left: 3%; position: absolute; }
-  #estadoSp{ margin-left: 25%; position: static; }
+  #tipoDocSp{ left: 7%; position: absolute; }
+  #estadoSp{ margin-left: 54%; position: static; }
   #rolSp{ left: 51px; position: absolute; }
   #opcSp{ left: -1px; }
   .btnedit{  margin-left: 5.5%;}
   .id{
     width: 10%;
     position: static;
-    margin-left: -1px;
+    margin-left: 78%;
   }
   .excelButton i{
     position: relative;
     top: -3px;
   }
-  td.mat-cell:first-of-type{padding-left: 0px;}
+  td.mat-cell:first-of-type{padding-right: 40px;}
 }
 

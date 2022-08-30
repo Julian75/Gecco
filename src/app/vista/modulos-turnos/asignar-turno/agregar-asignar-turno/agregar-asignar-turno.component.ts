@@ -63,29 +63,16 @@ export class AgregarAsignarTurnoComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
-    this.listarEstados();
     this.listarOficinas();
     this.listarTurno();
   }
   private crearFormulario() {
     this.formAsignarTurno = this.fb.group({
       id: 0,
-      estado: [null,Validators.required],
       sitioVenta: [null,Validators.required],
       turno: [null,Validators.required],
       oficina: [null,Validators.required],
-    });
-  }
-
-  public listarEstados() {
-    this.servicioEstado.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if (element.idModulo.id == 6) {
-          this.estadosDisponibles.push(element);
-        }
-        this.listarEstado = this.estadosDisponibles
-      })
-
+      porcentajito: [null, Validators.required]
     });
   }
 
@@ -172,12 +159,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
     }
   }
 
-  // public asignarTurnos(){
-  //   this.servicioAsignarTurno.listarTodos().subscribe(res=>{
-  //     this.dataSource = new MatTableDataSource(res);
-  //   })
-  // }
-
   id: any // Id de la oficina capturado - 18
 
   idOficina(){
@@ -247,11 +228,18 @@ export class AgregarAsignarTurnoComponent implements OnInit {
   }
 
   public guardar() {
-    let asignarTurno : AsignarTurno = new AsignarTurno();
-    this.servicioEstado.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if (element.id == 13) {
-          asignarTurno.idEstado = element;
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    this.listarExiste = []
+    var idOficina = this.formAsignarTurno.controls['oficina'].value
+    var idSitioV = Number(localStorage.getItem("v"))
+    var idTurn = this.formAsignarTurno.controls['turno'].value
+    var porcentaje = this.formAsignarTurno.controls['porcentajito'].value
+    this.contador = 0
+    if(idOficina != undefined && idTurn != null && idSitioV != 0 && porcentaje != null){
+      if(Number(porcentaje) >= 1 && Number(porcentaje) <= 100){
+        let asignarTurno : AsignarTurno = new AsignarTurno();
+        this.servicioEstado.listarPorId(13).subscribe(resEstado=>{
+          asignarTurno.idEstado = resEstado;
           const idOficina = this.formAsignarTurno.controls['oficina'].value
           this.servicioOficina.listarTodos().subscribe(res => {
             for (let index = 0; index < res.length; index++) {
@@ -272,6 +260,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
                         this.servicioAsignarTurno.listarTodos().subscribe(res=>{
                           res.forEach(element => {
                             if(element.idSitioVenta == asignarTurno.idSitioVenta){
+                              this.contador += element.porcentaje
                               if(element.idTurnos.id == asignarTurno.idTurnos.id){
                                 this.encontrado = true
                               }else{
@@ -282,9 +271,24 @@ export class AgregarAsignarTurnoComponent implements OnInit {
                           });
                           const existe = this.listarExiste.includes( true )
                           if(existe == false){
-                            this.registrarAsignacionTurno(asignarTurno)
+                            var restante = 100 - this.contador
+                            if(Number(porcentaje) <= restante){
+                              asignarTurno.porcentaje = Number(porcentaje)
+                              this.registrarAsignacionTurno(asignarTurno)
+                            }else{
+                              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                              Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Este porcentaje que desea asignar al punto de venta supera el 100%, ya que solo le queda el '+restante+'%.',
+                                showConfirmButton: false,
+                                timer: 1500
+                              })
+                            }
                           }
                           if(existe == true){
+                            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                            console.log(this.contador)
                             Swal.fire({
                               position: 'center',
                               icon: 'error',
@@ -301,12 +305,31 @@ export class AgregarAsignarTurnoComponent implements OnInit {
               }
             }
           })
-        }
+        })
+      }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No debe pasar del 100% un porcentaje, ni ser menor a 1!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    }else{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Campos Vacios!',
+        showConfirmButton: false,
+        timer: 1500
       })
-    });
+    }
   }
 
   public registrarAsignacionTurno(asignarTurno: AsignarTurno) {
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     this.servicioAsignarTurno.registrar(asignarTurno).subscribe(res=>{
       Swal.fire({
         position: 'center',

@@ -91,6 +91,7 @@ export class ModificarTurnosComponent implements OnInit {
   }
 
   public guardar() {
+    this.listarExiste = []
     let turno : Turnos2 = new Turnos2();
     const horaI = this.formTurno.controls['horaInicio'].value;
     const horaF = this.formTurno.controls['horaFinal'].value;
@@ -118,65 +119,58 @@ export class ModificarTurnosComponent implements OnInit {
           this.servicioTurno.listarTodos().subscribe(res => {
             const horaInicio = this.formTurno.controls['horaInicio'].value;
             const horaFinal = this.formTurno.controls['horaFinal'].value;
-            for (let i = 0; i < res.length; i++) {
-              if(res[i].horaInicio == horaInicio && res[i].horaFinal == horaFinal){
-                if(resTurno.idEstado.id == idEstad && resTurno.idTipoTurno == idTipoTurn){
-                  this.encontrado = true
-                }
-                else{ this.encontrado = false }
-              }else if(horaInicio > horaFinal || horaInicio == horaFinal){
-                if(resTurno.idEstado.id == idEstad && resTurno.idTipoTurno == idTipoTurn){
-                  this.encontrado = true
-                  this.hora = true
-                }
-                else{ this.encontrado = false }
-              }
-              else{
-                this.encontrado = false
-              }
-              this.listarExiste.push(this.encontrado)
-            }
-            const existe = this.listarExiste.includes( true )
-            if(existe == false ){
-              turno.horaInicio = this.formTurno.controls['horaInicio'].value;
-              turno.horaFinal = this.formTurno.controls['horaFinal'].value;
-              const idEstado = this.formTurno.controls['estado'].value;
-              this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-                this.listarEstado = res.id;
-                turno.idEstado= this.listarEstado
-                const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
-                this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
-                  this.listarTipoTurno = res.id;
-                  turno.idTipoTurno= this.listarTipoTurno
-                  if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'error',
-                      title: 'El campo esta vacio!',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                  }else{
-                    this.actualizarTurno(turno);
-                  }
-                })
-              })
-            }
-            if(existe == true){
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Este turno ya esta guardado o no hubieron cambios!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }
-            if(this.hora == true){
+            if(horaInicio > horaFinal || horaInicio == horaFinal){
               Swal.fire({
                 position: 'center',
                 icon: 'error',
                 title: 'Por favor ingrese una hora valida!',
+                showConfirmButton: false,
+                timer: 1500
               })
+            }else{
+              for (let i = 0; i < res.length; i++) {
+                if(res[i].horaInicio == horaInicio && res[i].horaFinal == horaFinal){
+                  this.encontrado = true
+                }else{
+                  this.encontrado = false
+                }
+                this.listarExiste.push(this.encontrado)
+              }
+              const existe = this.listarExiste.includes( true )
+              if(existe == false ){
+                turno.horaInicio = this.formTurno.controls['horaInicio'].value;
+                turno.horaFinal = this.formTurno.controls['horaFinal'].value;
+                const idEstado = this.formTurno.controls['estado'].value;
+                this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+                  this.listarEstado = res.id;
+                  turno.idEstado= this.listarEstado
+                  const idTipoTurno = this.formTurno.controls['tipoTurno'].value;
+                  this.servicioTipoTurno.listarPorId(idTipoTurno).subscribe(res => {
+                    this.listarTipoTurno = res.id;
+                    turno.idTipoTurno= this.listarTipoTurno
+                    if(turno.descripcion==null || turno.descripcion=="" || turno.horaInicio==undefined || turno.horaInicio==null || turno.idEstado==undefined || turno.idTipoTurno==null || turno.idTipoTurno==undefined || turno.idEstado==null){
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'El campo esta vacio!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    }else{
+                      this.actualizarTurno(turno);
+                    }
+                  })
+                })
+              }
+              if(existe == true){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Este turno ya esta guardado!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
             }
           })
         }

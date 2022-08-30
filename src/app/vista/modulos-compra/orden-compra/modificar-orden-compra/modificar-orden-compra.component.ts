@@ -115,35 +115,40 @@ export class ModificarOrdenCompraComponent implements OnInit {
   descuento:any
   total:any
   valorUnitario(valor:any, solicitudDetalle:any){
-    for (let index = 0; index < this.listaRow.length; index++) {
-      const element = this.listaRow[index];
-      if(element.idArticulos.id == solicitudDetalle.idArticulos.id){
-        element.valorUnitario = valor.target.value
-        element.valorTotal = element.valorUnitario * element.cantidad
-        element.cantidad = element.cantidad
-        element.id = element.id
-        element.idArticulos = element.idArticulos
-        element.idEstado = element.idEstado
-        element.idSolicitud = element.idSolicitud
-        element.observacion = element.observacion
-        this.lista.splice(index,1)
+    console.log(valor.target.value)
+    if(valor.target.value == '' || valor.target.value == 0){
+
+    }else{
+      for (let index = 0; index < this.listaRow.length; index++) {
+        const element = this.listaRow[index];
+        if(element.idArticulos.id == solicitudDetalle.idArticulos.id){
+          element.valorUnitario = valor.target.value
+          element.valorTotal = element.valorUnitario * element.cantidad
+          element.cantidad = element.cantidad
+          element.id = element.id
+          element.idArticulos = element.idArticulos
+          element.idEstado = element.idEstado
+          element.idSolicitud = element.idSolicitud
+          element.observacion = element.observacion
+          this.lista.splice(index,1)
+        }
       }
-    }
-    this.subtotal = 0
-    this.listaRow.forEach((element:any) => {
-      this.subtotal += element.valorTotal
+      this.subtotal = 0
+      this.listaRow.forEach((element:any) => {
+        this.subtotal += element.valorTotal
 
-    });
-    if(this.anticipoVal2 == 0){
-      this.anticipoVal = 0
-      this.anticipoVal2 = 0
-      this.total = this.subtotal
-    }else if(this.anticipoVal2!=0){
-      this.anticipoVal = this.anticipoVal2/100
-      this.anticipoVal2 = this.anticipoVal2
-      this.descuento = this.subtotal * this.anticipoVal
-      this.total = this.subtotal - this.descuento
+      });
+      if(this.anticipoVal2 == 0){
+        this.anticipoVal = 0
+        this.anticipoVal2 = 0
+        this.total = this.subtotal
+      }else if(this.anticipoVal2!=0){
+        this.anticipoVal = this.anticipoVal2/100
+        this.anticipoVal2 = this.anticipoVal2
+        this.descuento = this.subtotal * this.anticipoVal
+        this.total = this.subtotal - this.descuento
 
+      }
     }
   }
 

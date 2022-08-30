@@ -55,100 +55,110 @@ export class RaspaListoComponent implements OnInit {
   existeRaspaSiga: boolean = false
   public guardarRaspa(even:Event, key:any){
     if(key == 'Enter'){
-      var fechaActual = ""
       const codRaspa = this.formRaspita.controls['raspita'].value;
-      if(this.fecha.getMonth()+1<=9){
-        if(this.fecha.getDate() <= 9){
-          fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+("0"+this.fecha.getDate())
+      if(codRaspa != null){
+        var fechaActual = ""
+        if(this.fecha.getMonth()+1<=9){
+          if(this.fecha.getDate() <= 9){
+            fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+("0"+this.fecha.getDate())
+          }else{
+            fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+this.fecha.getDate()
+          }
         }else{
-          fechaActual = this.fecha.getFullYear()+""+("0"+(this.fecha.getMonth()+1))+""+this.fecha.getDate()
+          if(this.fecha.getDate() <= 9){
+            fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+("0"+this.fecha.getDate())
+          }else{
+            fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+this.fecha.getDate()
+          }
         }
-      }else{
-        if(this.fecha.getDate() <= 9){
-          fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+("0"+this.fecha.getDate())
-        }else{
-          fechaActual = this.fecha.getFullYear()+""+(this.fecha.getMonth()+1)+""+this.fecha.getDate()
-        }
-      }
-      var fechaInicio = '20220701'
-      this.existeRaspaSiga = false
-      this.existeRaspaGecco = false
-      this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
-        if(resRaspaDTo.length<1){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Este raspita no existe en siga!',
-            showConfirmButton: false,
-            timer: 1500
+        var fechaInicio = '20220701'
+        this.existeRaspaSiga = false
+        this.existeRaspaGecco = false
+        this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
+          if(resRaspaDTo.length<1){
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Este raspita no existe en siga!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            this.servicioRaspaGeccoConsulta.listarRaspaGeco(codRaspa).subscribe(resRaspaGecco=>{
+              if(resRaspaGecco.length<1){
+                this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
+                  resRaspaDTo.forEach(element => {
+                    let raspita : Raspas = new Raspas();
+                    raspita.fecPago = element.fec_pago
+                    raspita.fecVenta = element.fec_venta
+                    if(element.ideEstado == 28){
+                      raspita.estado = element.ideEstado
+                      raspita.ideOficina = element.ideOficina
+                      raspita.raspa = codRaspa
+                      raspita.nombres = element.nombres
+                      raspita.apellido1 = element.apellido1
+                      raspita.emision_raspa = element.emision_raspa
+                      const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                          confirmButton: 'btn btn-success',
+                          cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                      })
+                      swalWithBootstrapButtons.fire({
+                        title: 'Esta Seguro?',
+                        text: "No tiene reversa esa petición!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Si, agregar!',
+                        cancelButtonText: 'No, cancelar!',
+                        reverseButtons: true
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          this.registrarRaspita(raspita)
+                        } else if (
+                          /* Read more about handling dismissals below */
+                          result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                          swalWithBootstrapButtons.fire(
+                            'Cancelado',
+                            'No se registro el raspita',
+                            'error'
+                          )
+                        }
+                      })
+                    }else{
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Aun no ha sido entregado',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    }
+                  });
+                })
+              }else{
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Este raspita ya existe en gecco!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              }
           })
-        }else{
-          this.servicioRaspaGeccoConsulta.listarRaspaGeco(codRaspa).subscribe(resRaspaGecco=>{
-            if(resRaspaGecco.length<1){
-              this.servicioRaspasDTO.listarPorId(fechaInicio, fechaActual, codRaspa).subscribe(resRaspaDTo=>{
-                resRaspaDTo.forEach(element => {
-                  let raspita : Raspas = new Raspas();
-                  raspita.fecPago = element.fec_pago
-                  raspita.fecVenta = element.fec_venta
-                  if(element.ideEstado == 28){
-                    raspita.estado = element.ideEstado
-                    raspita.ideOficina = element.ideOficina
-                    raspita.raspa = codRaspa
-                    raspita.nombres = element.nombres
-                    raspita.apellido1 = element.apellido1
-                    raspita.emision_raspa = element.emision_raspa
-                    const swalWithBootstrapButtons = Swal.mixin({
-                      customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                      },
-                      buttonsStyling: false
-                    })
-                    swalWithBootstrapButtons.fire({
-                      title: 'Esta Seguro?',
-                      text: "No tiene reversa esa petición!",
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonText: 'Si, agregar!',
-                      cancelButtonText: 'No, cancelar!',
-                      reverseButtons: true
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        this.registrarRaspita(raspita)
-                      } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                      ) {
-                        swalWithBootstrapButtons.fire(
-                          'Cancelado',
-                          'No se registro el raspita',
-                          'error'
-                        )
-                      }
-                    })
-                  }else{
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'error',
-                      title: 'Aun no ha sido entregado',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                  }
-                });
-              })
-            }else{
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Este raspita ya existe en gecco!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }
+          }
         })
-        }
-      })
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Campo Vacio!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     }
   }
 

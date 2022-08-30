@@ -302,81 +302,11 @@ export class GenerarSolicitudComponent implements OnInit {
         timer: 1500
       })
     }else{
-      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-      let solicitud : Solicitud = new Solicitud();
-      solicitud.fecha = this.fecha
-      this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-        solicitud.idEstado = resEstado
-        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-          solicitud.idUsuario = resUsuario
-          this.registrarSolicitud(solicitud)
-        })
-      })
-    }
-  }
-
-  public registrarSolicitud(solicitud: Solicitud){
-    this.servicioSolicitud.registrar(solicitud).subscribe(res=>{
-      this.detalleSolicitud(res)
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al agregar!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
-  }
-
-  public detalleSolicitud(solicitud:any){
-    var usuarios: any = []
-    this.servicioSolicitud.listarTodos().subscribe(resSolicitudes=>{
-      resSolicitudes.forEach(element => {
-        if(element.idUsuario.id == Number(sessionStorage.getItem('id'))){
-          usuarios.push(element)
-        }
-      });
-      for (let index = 0; index < usuarios.length; index++) {
-        const element = usuarios[index];
-        if(usuarios.indexOf(element) == usuarios.length-1){
-          this.listadoSolicitud.push(element)
-        }
-      }
-      this.listadoArtSel.forEach((element:any) => {
-        let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
-        detalleSolicitud.idArticulos = element.articulo
-        this.listadoSolicitud.forEach((elementSolicitud:any) => {
-          detalleSolicitud.idSolicitud = elementSolicitud
-          detalleSolicitud.valorUnitario = 0
-          detalleSolicitud.cantidad = element.cantidad
-          detalleSolicitud.valorTotal = 0
-          detalleSolicitud.observacion = element.observacion
-          this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-            detalleSolicitud.idEstado = resEstado
-            this.registrarDetalleSolicitud(detalleSolicitud, solicitud)
-          })
-        });
-      });
-    })
-  }
-
-  public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud, solicitud: any){
-    this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       const dialogRef = this.dialog.open(PeticionCotizacionComponent, {
         width: '500px',
-        data: solicitud
+        data: this.listadoArtSel
       })
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al agregar!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
+    }
   }
 
 }

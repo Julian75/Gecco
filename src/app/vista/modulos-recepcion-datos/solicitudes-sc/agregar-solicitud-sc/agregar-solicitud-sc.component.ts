@@ -202,7 +202,8 @@ export class AgregarSolicitudScComponent implements OnInit {
     var fechaVencimiento = new Date(vencimiento)
     this.fechaActual = this.fecha.getFullYear() + "-"+ (this.fecha.getMonth()+1)+ "-" +this.fecha.getDate();
     var fechaVencimiento2 = fechaVencimiento.getFullYear() + "-"+ (fechaVencimiento.getMonth()+1)+ "-" +(fechaVencimiento.getDate()+1);
-    if(this.cliente == null || fechaVencimiento == null || municipio == "" || idMotivo == null || radicacion == "" || idServicio == null || auxiliar == ""){
+    console.log(this.cliente, idMotivo, vencimiento, radicacion, municipio, idServicio, auxiliar)
+    if(this.cliente == undefined || vencimiento == null || municipio == null || idMotivo == null || radicacion == null || idServicio == null || auxiliar == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',

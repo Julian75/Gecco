@@ -163,37 +163,74 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         timer: 2500
       })
     }else{
-      let historial : Historial2 = new Historial2();
-      historial.observacion = comentario
-      this.servicioHistorial.listarTodos().subscribe(resSolicitud=>{
-        resSolicitud.forEach(element => {
-          if (element.idSolicitudSC.id == Number(this.data) && element.idUsuario.id == Number(sessionStorage.getItem("id")) && element.idEstado.id == 65) {
-            historial.id = element.id
-            historial.id_solicitud_sc = element.idSolicitudSC.id
-            this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
-              historial.idEstado = resEstado.id
-              historial.idUsuario = element.idUsuario.id
-              if(element.idSolicitudSC.incidente == "" && element.idSolicitudSC.idEscala.id == 3){
-                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Si desea adjuntar su comentario debe primero colocar el incidente!',
-                  showConfirmButton: false,
-                  timer: 2500
+      if(opcion == 1){
+        if(this.usuarios.value.length >= 1){
+          let historial : Historial2 = new Historial2();
+          historial.observacion = comentario
+          this.servicioHistorial.listarTodos().subscribe(resSolicitud=>{
+            resSolicitud.forEach(element => {
+              if (element.idSolicitudSC.id == Number(this.data) && element.idUsuario.id == Number(sessionStorage.getItem("id")) && element.idEstado.id == 65) {
+                historial.id = element.id
+                historial.id_solicitud_sc = element.idSolicitudSC.id
+                this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
+                  historial.idEstado = resEstado.id
+                  historial.idUsuario = element.idUsuario.id
+                  if(element.idSolicitudSC.incidente == "" && element.idSolicitudSC.idEscala.id == 3){
+                    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: 'Si desea adjuntar su comentario debe primero colocar el incidente!',
+                      showConfirmButton: false,
+                      timer: 2500
+                    })
+                    this.historial.close()
+                  }else{
+                    this.modificarHistorial(historial, element.idSolicitudSC)
+                  }
                 })
-                this.historial.close()
-              }else{
-                if(this.usuarios.value.length >= 1){
-                  this.modificarHistorial(historial, element.idSolicitudSC)
-                }else{
-                  this.modificarHistorial3(historial);
-                }
               }
-            })
-          }
-        });
-      })
+            });
+          })
+        }else{
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Si desea remitir seleccione los usuarios!',
+            showConfirmButton: false,
+            timer: 2500
+          })
+        }
+      }else{
+        let historial : Historial2 = new Historial2();
+          historial.observacion = comentario
+          this.servicioHistorial.listarTodos().subscribe(resSolicitud=>{
+            resSolicitud.forEach(element => {
+              if (element.idSolicitudSC.id == Number(this.data) && element.idUsuario.id == Number(sessionStorage.getItem("id")) && element.idEstado.id == 65) {
+                historial.id = element.id
+                historial.id_solicitud_sc = element.idSolicitudSC.id
+                this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
+                  historial.idEstado = resEstado.id
+                  historial.idUsuario = element.idUsuario.id
+                  if(element.idSolicitudSC.incidente == "" && element.idSolicitudSC.idEscala.id == 3){
+                    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: 'Si desea adjuntar su comentario debe primero colocar el incidente!',
+                      showConfirmButton: false,
+                      timer: 2500
+                    })
+                    this.historial.close()
+                  }else{
+                    this.modificarHistorial3(historial);
+                  }
+                })
+              }
+            });
+          })
+      }
     }
   }
 

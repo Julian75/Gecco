@@ -117,11 +117,14 @@ export class OrdenCompraComponent implements OnInit {
       obj.cantidad = valor.target.value
       obj.valorUnitario = solicitudDetalle.cantidad * Number(valor.target.value)
       obj.posicion = this.lista.length
-      this.lista.push(obj)
+      if(obj.valorUnitario != 0){
+        this.lista.push(obj)
+      }
       console.log(this.lista)
     }else{
       for (let index = 0; index < this.lista.length; index++) {
         const element = this.lista[index];
+        console.log(element)
         if(element.solicitudDetalle.idArticulos.id == solicitudDetalle.idArticulos.id){
           element.cantidad = valor.target.value
           element.valorUnitario = element.solicitudDetalle.cantidad * Number(valor.target.value)
@@ -130,7 +133,6 @@ export class OrdenCompraComponent implements OnInit {
         }else{
           validaro = false
         }
-
       }
       const existe = this.listarExiste.includes( true )
       console.log(existe)
@@ -139,7 +141,9 @@ export class OrdenCompraComponent implements OnInit {
         obj.cantidad = valor.target.value
         obj.valorUnitario = solicitudDetalle.cantidad * Number(valor.target.value)
         obj.posicion = this.lista.length
-        this.lista.push(obj)
+        if(obj.valorUnitario != 0){
+          this.lista.push(obj)
+        }
         console.log(this.lista)
       }
     }
@@ -168,28 +172,18 @@ export class OrdenCompraComponent implements OnInit {
 
 
   public generarOrden(){
+    this.listaDetalle = []
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var idSolicitud  = 0
     var opcion = this.formProveedor.controls['opcion'].value;
-    var valor = this.formProveedor.controls['valor'].value;
+    var valor = this.formProveedor.controls['antici'].value;
     console.log(opcion, valor)
-    if(this.proveedor != null && this.proveedor != undefined && opcion != null && valor != null && opcion != "" && valor != 0){
-      this.lista.forEach((element:any) => {
-        idSolicitud = element.solicitudDetalle.idSolicitud.id
-      })
-      this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
-          let solicitud : Solicitud2 = new Solicitud2();
-          solicitud.id = resSolicitud.id
-          this.fecha = new Date(resSolicitud.fecha)
-          this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
-          solicitud.fecha = this.fecha
-          this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
-            solicitud.idEstado = resEstado.id
-            solicitud.idUsuario = resSolicitud.idUsuario.id
-            this.actualizarSolicitud(solicitud, idSolicitud)
-          })
-      })
+    if(opcion == 'Si' && this.proveedor != null && this.proveedor != undefined && opcion != null && valor != null && opcion != "" && valor != 0){
+      this.contOrdenCompra(idSolicitud)
+    }else if(opcion == 'No' && this.proveedor != null && this.proveedor != undefined && opcion != null && opcion != ""){
+      this.contOrdenCompra(idSolicitud)
     }else{
+      console.log(this.lista, this.listaDetalle)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -199,6 +193,47 @@ export class OrdenCompraComponent implements OnInit {
       })
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     }
+  }
+
+  public contOrdenCompra(idSolicitud){
+    this.servicioDetalleSolicitud.listarTodos().subscribe(resDetalleSolicitud=>{
+      resDetalleSolicitud.forEach(element => {
+        if(element.idSolicitud.id == Number(this.data) && element.idEstado.id != 59){
+          var obj = {
+            solicitudDetalle: element,
+            cantidad: 0
+          }
+          this.listaDetalle.push(obj)
+        }
+      });
+      console.log(this.lista, this.listaDetalle)
+      if(this.lista.length == this.listaDetalle.length){
+        this.lista.forEach((element:any) => {
+          idSolicitud = element.solicitudDetalle.idSolicitud.id
+        })
+        this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
+            let solicitud : Solicitud2 = new Solicitud2();
+            solicitud.id = resSolicitud.id
+            this.fecha = new Date(resSolicitud.fecha)
+            this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+            solicitud.fecha = this.fecha
+            this.servicioEstado.listarPorId(37).subscribe(resEstado=>{
+              solicitud.idEstado = resEstado.id
+              solicitud.idUsuario = resSolicitud.idUsuario.id
+              this.actualizarSolicitud(solicitud, idSolicitud)
+            })
+        })
+      }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Aun faltan el valor unitario en algunos articulos!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
   }
 
   public actualizarSolicitud(solicitud:Solicitud2, idSolicitud:number){

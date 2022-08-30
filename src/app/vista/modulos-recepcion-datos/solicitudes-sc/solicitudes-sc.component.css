@@ -33,7 +33,7 @@ h3{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .btnVisualizar{
@@ -53,16 +53,17 @@ th{
 }
 
 .excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
-td {
+td{
   border: 1px solid #000;
-  text-align: center;
+  text-align: left;
+  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
 .btnedit2{ background-color: #959595; color: white; }
-.btnedit{ background-color: #97B4E2; color: white; margin-bottom: 1%;}
+.btnedit{ background-color: #97B4E2; color: white;}
 .btnremove{ background-color: #DA161A; color: white; }
 .btnPriority{ background-color: #00235C; color: white; }
 mat-form-field{
@@ -71,28 +72,27 @@ mat-form-field{
   margin-top: -15%;
 }
 td.mat-cell:first-of-type{ padding-left: 0px; }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver, .btnedit2, .btnPriority{ width: 64px; height: 36px; }
+.botonagregar2, .btnremove, .btnedit, .btnver, .btnedit2, .btnPriority{ width: 44px; height: 31px; }
+.botonagregar, .excelButton{ width: 64px; height: 36px; }
 .excelButton{ margin-left: -1%; }
 .excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #nombreSpa, #fechaISpa, #nombreOficSpa, #nombreSitioVSpa, #inci, #motivo, #radicacion, #tiposervicio,#auxiliar,#escala, #opcSpa, .btnedit2{ position: relative; }
-.btnedit2{ margin-bottom: 10%; margin-top: 5%; left: 14%;}
-.btnedit{left: 15%; margin-top: 10%; margin-bottom: 10%; position: relative;}
-.btnPriority{left: 15%; margin-top: 10%; margin-bottom: 10%; position: relative;}
 #idSpa{ left: -2px; }
-  #fechaISpa{ left: 10px; }
-  #fechaFSpa { left: 8px; }
-  #nombreOficSpa{ left: 10px; }
-  #inci { left: 8px; }
-  #motivo { left: 8px; }
-  #radicacion { left: 12px; }
-  #tiposervicio { left: 8px; }
-  #auxiliar { left: 8px; }
-  #escala{ left: 8px; }
-  #nombreSitioVSpa{ left: 9px; }
-  #nombreSpa{ left: 8px; }
-  #turnoSpa{ left: 15px; }
-  #opcSpa{ left: 8px; }
+#fechaISpa{ left: 10px; }
+#fechaFSpa { left: 8px; }
+#nombreOficSpa{ left: 10px; }
+#inci { left: 8px; }
+#motivo { left: 8px; }
+#radicacion { left: 12px; }
+#tiposervicio { left: 8px; }
+#auxiliar { left: 8px; }
+#escala{ left: 8px; }
+#nombreSitioVSpa{ left: 9px; }
+#nombreSpa{ left: 8px; }
+#turnoSpa{ left: 15px; }
+#opcSpa{ left: 8px; }
 .excelButton i{ position: relative; top: 1px; }
+td button mat-icon{ margin-top: -6%; font-size: 20px; margin-left: -20%; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

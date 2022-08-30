@@ -78,42 +78,53 @@ export class ProcesoComponent implements OnInit {
 
   procesoList: any = []
   public guardar(){
-    this.procesoList = []
-    this.listaDetalleSolicitud = this.data
-    const usuario = this.formComentario.controls['usuario'].value;
-    let gestionProceso : GestionProceso = new GestionProceso();
-    if(this.opcion == 1){
-      if(usuario==null || usuario==''){
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Debe seleccionar un usuario si desea solicitar un comentario más a fondo',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        gestionProceso.comentario = ""
-        this.serviceProceso.listarTodos().subscribe(resProceso=>{
-          resProceso.forEach(element => {
-            if(element.idUsuario.id == usuario){
-              this.procesoList.push(element)
-            }
-          });
-          this.procesoList.forEach(elementProc => {
-            gestionProceso.idProceso = elementProc
-            gestionProceso.idDetalleSolicitud = this.listaDetalleSolicitud
-            this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
-              gestionProceso.idEstado = resEstado
-              this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-                gestionProceso.idUsuario = resUsuario
-                this.registrarGestionProceso(gestionProceso, this.listaDetalleSolicitud.id, "siquiere")
+    if(this.opcion == 0){
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Debe seleccionar una opción!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      this.procesoList = []
+      this.listaDetalleSolicitud = this.data
+      const usuario = this.formComentario.controls['usuario'].value;
+      let gestionProceso : GestionProceso = new GestionProceso();
+      if(this.opcion == 1){
+        if(usuario==null || usuario==''){
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Debe seleccionar un usuario si desea solicitar un comentario más a fondo',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else{
+          gestionProceso.comentario = ""
+          this.serviceProceso.listarTodos().subscribe(resProceso=>{
+            resProceso.forEach(element => {
+              this.detalleSolicitud.push(this.data)
+              if(element.idUsuario.id == usuario && element.idCategoria.id == this.detalleSolicitud[0].idArticulos.idCategoria.id){
+                this.procesoList.push(element)
+              }
+            });
+            this.procesoList.forEach(elementProc => {
+              gestionProceso.idProceso = elementProc
+              gestionProceso.idDetalleSolicitud = this.listaDetalleSolicitud
+              this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
+                gestionProceso.idEstado = resEstado
+                this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                  gestionProceso.idUsuario = resUsuario
+                  this.registrarGestionProceso(gestionProceso, this.listaDetalleSolicitud.id, "siquiere")
+                })
               })
-            })
-          });
-        })
+            });
+          })
+        }
+      }else if(this.opcion == 2){
+        this.actualizarDetalleSolicitud(this.listaDetalleSolicitud.id, "noquiere")
       }
-    }else if(this.opcion == 2){
-      this.actualizarDetalleSolicitud(this.listaDetalleSolicitud.id, "noquiere")
     }
   }
 

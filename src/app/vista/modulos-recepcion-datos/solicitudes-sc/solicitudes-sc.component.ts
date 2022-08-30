@@ -40,7 +40,7 @@ export class SolicitudesScComponent implements OnInit {
   public listarSolicitud: any = [];
   public tiempoLimite: any;
   public tiempoCaducado: any;
-  displayedColumns = ['id', 'fecha', 'vence', 'municipio', 'incidente', 'motivoSolicitud', 'medioRadicacion', 'tipoServicio', 'nombreCliente', 'telefono', 'auxiliarRadicacion', 'escala', 'estado', 'opciones'];
+  displayedColumns = ['id', 'fecha', 'vence', 'municipio', 'incidente', 'motivoSolicitud', 'medioRadicacion', 'tipoServicio', 'estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -298,6 +298,7 @@ export class SolicitudesScComponent implements OnInit {
             data: listaPdf
           });
         }else if(listaPdf.length == 1){
+          console.log(listaPdf[0].url)
           window.location.href = listaPdf[0].url;
         }
       });
@@ -342,7 +343,7 @@ export class SolicitudesScComponent implements OnInit {
             correo.correo = this.correo
             correo.contrasena = this.contrasena
             correo.to = resUsuario.correo
-            correo.subject = "Solicitudes ha caducar"
+            correo.subject = "Solicitudes próximo a vencer"
             correo.messaje = "<!doctype html>"
             +"<html>"
             +"<head>"

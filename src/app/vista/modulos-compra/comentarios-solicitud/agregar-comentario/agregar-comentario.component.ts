@@ -82,10 +82,11 @@ export class AgregarComentarioComponent implements OnInit {
     this.listaExiste2=[]
     var comentario = this.formAddComment.controls['comentario'].value;
     if(comentario == '' || comentario == null){
+      document.getElementById('snipper5')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'El campo de comentario no puede esta vacio!',
+        title: 'Campo de comentario vacio!',
         showConfirmButton: false,
         timer: 1500
       })

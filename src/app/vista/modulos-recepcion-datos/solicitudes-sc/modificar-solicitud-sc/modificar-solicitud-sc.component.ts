@@ -41,7 +41,7 @@ export class ModificarSolicitudScComponent implements OnInit {
   public guardar(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var incidente = this.formSolicitud.controls['incidente'].value;
-    if(incidente == ""){
+    if(incidente == "" || incidente == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
@@ -50,8 +50,6 @@ export class ModificarSolicitudScComponent implements OnInit {
         showConfirmButton: false,
         timer: 2500
       })
-      this.prorroga.close();
-      window.location.reload();
     }else{
       let solicitudSc : SolicitudSC2 = new SolicitudSC2();
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{

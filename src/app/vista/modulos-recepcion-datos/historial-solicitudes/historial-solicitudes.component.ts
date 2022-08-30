@@ -45,6 +45,10 @@ export class HistorialSolicitudesComponent implements OnInit {
 
   listaArchivosExist: any = []
   validar2: boolean = false
+  Cliente: any
+  TelefonoCliente: any
+  Auxiliar: any
+  Escala:any
   public listarTodo(){
     console.log("holis")
     console.log(this.data)
@@ -52,6 +56,10 @@ export class HistorialSolicitudesComponent implements OnInit {
     this.servicioHistorial.listarTodos().subscribe( res => {
       res.forEach((element: any) => {
         if(element.idSolicitudSC.id == this.data){
+          this.Cliente = element.idSolicitudSC.idClienteSC.nombre+" "+element.idSolicitudSC.idClienteSC.apellido
+          this.TelefonoCliente = element.idSolicitudSC.idClienteSC.telefono
+          this.Auxiliar = element.idSolicitudSC.auxiliarRadicacion
+          this.Escala = element.idSolicitudSC.idEscala.descripcion
           var obj = {
             elemento: element,
             validar3: false
@@ -73,6 +81,7 @@ export class HistorialSolicitudesComponent implements OnInit {
               }
             })
             this.listarComentarios.push(obj);
+            console.log(this.listarComentarios)
             console.log(this.listarComentarios)
             this.dataSource = new MatTableDataSource(this.listarComentarios);
             this.dataSource.paginator = this.paginator;

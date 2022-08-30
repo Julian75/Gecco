@@ -55,18 +55,19 @@ export class RechazoSolicitudComponent implements OnInit {
   public guardar(){
     document.getElementById('snipper8')?.setAttribute('style', 'display: block;')
     let solicitud : Solicitud2 = new Solicitud2();
-    this.solicitudService.listarPorId(Number(this.data)).subscribe(res => {
-      this.servicioEstado.listarPorId(30).subscribe(resEstado => {
-        const observacion = this.formSolicitud.controls['observacion'].value;
-        if(observacion == "" || observacion == null){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'La observacion no puede estar vacia!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }else{
+    const observacion = this.formSolicitud.controls['observacion'].value;
+    if(observacion == "" || observacion == null){
+      document.getElementById('snipper8')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'La observacion no puede estar vacia!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      this.solicitudService.listarPorId(Number(this.data)).subscribe(res => {
+        this.servicioEstado.listarPorId(30).subscribe(resEstado => {
           solicitud.id = res.id
           this.fecha = new Date(res.fecha)
           this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
@@ -74,9 +75,9 @@ export class RechazoSolicitudComponent implements OnInit {
           solicitud.idUsuario = res.idUsuario.id
           solicitud.idEstado = resEstado.id
           this.rechazarSolicitud(solicitud);
-        }
+        })
       })
-    })
+    }
   }
 
   public rechazarSolicitud(solicitud: Solicitud2){

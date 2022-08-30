@@ -69,7 +69,7 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
                 this.formUsuarioPqr.value.idArea = resArea.id
                 this.servicioUsuarioPqr.listarTodos().subscribe(resUsuariosPQRS=>{
                   resUsuariosPQRS.forEach(elementUsuPQRS => {
-                    if(this.formUsuarioPqr.value.idUsuario == elementUsuPQRS.idUsuario.id){
+                    if(this.formUsuarioPqr.value.idUsuario == elementUsuPQRS.idUsuario.id && this.formUsuarioPqr.value.idArea == elementUsuPQRS.idArea.id){
                       this.existeUs = true
                     }else{
                       this.existeUs = false

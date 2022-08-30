@@ -140,93 +140,97 @@ export class ModificarUsuariosComponent implements OnInit {
         usuario.documento = res.documento
         usuario.idEstado = res.idEstado.id
         usuario.idRol = res.idRol.id
-        usuario.password = res.password
+        const contrasena = String(res.password)
+        var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
+        var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
+        this.contrasenaDesencru = decryptedData.slice(1, -1)
+        usuario.password = this.contrasenaDesencru
         usuario.idTipoDocumento = res.idTipoDocumento.id
         usuario.ideOficina = res.ideOficina
         usuario.ideSubzona = res.ideSubzona
         this.servicioUsuario.listarTodos().subscribe(res=>{
           const documento = this.formUsuario.controls['documento'].value;
+          const correo = this.formUsuario.controls['correo'].value;
           const nombre = this.formUsuario.controls['nombre'].value;
           const apellido = this.formUsuario.controls['apellido'].value;
-          const correo = this.formUsuario.controls['correo'].value;
           const estado = this.formUsuario.controls['estado'].value;
           const rol = this.formUsuario.controls['rol'].value;
           const tipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
           const oficina = this.formUsuario.controls['oficina'].value;
-          const password = this.formUsuario.controls['contrasena'].value;
-          var bytes  = CryptoJS.AES.decrypt(usuario.password.toString(), 'secret key 123');
-          var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
-          var contrasenaDesencrip = decryptedData.slice(1, -1)
-          for (let i = 0; i < res.length; i++) {
-            if(res[i].documento == documento && res[i].nombre == nombre && res[i].apellido == apellido && res[i].correo == correo && res[i].idEstado.id == estado && res[i].idRol.id == rol && res[i].idTipoDocumento.id == tipoDocumento && res[i].ideOficina == oficina && password == contrasenaDesencrip){
-              this.encontrado = true
-            }else if(nombre=="" || documento==null || apellido=="" || correo=="" || password == "" || estado==undefined || estado==null || rol==undefined || rol==null || tipoDocumento==null || tipoDocumento==undefined|| oficina==null || oficina==undefined || password==null){
-              this.encontrado = true
+          const contrasenita = this.formUsuario.controls['contrasena'].value;
+          if(this.formUsuario.valid){
+            if(usuario.nombre == nombre && usuario.documento == documento && usuario.correo == correo && usuario.apellido == apellido && usuario.idEstado == estado && usuario.idRol == rol && usuario.idTipoDocumento == tipoDocumento && usuario.ideOficina == oficina && usuario.password == contrasenita){
               Swal.fire({
                 position: 'center',
-                icon: 'error',
-                title: 'Algunos campos estan vacios!',
+                icon: 'success',
+                title: 'No hubieron cambios!',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2000
               })
-              // this.router.navigate(['/usuarios']);
+              this.router.navigate(['/usuarios']);
             }else{
-              this.encontrado = false
-            }
-            this.listarExiste.push(this.encontrado)
-          }
-          const existe = this.listarExiste.includes(true)
-          if(existe == false ){
-            usuario.documento = this.formUsuario.controls['documento'].value;
-            usuario.nombre = this.formUsuario.controls['nombre'].value;
-            usuario.apellido = this.formUsuario.controls['apellido'].value;
-            usuario.correo = this.formUsuario.controls['correo'].value;
-            var contrasena = this.formUsuario.controls['contrasena'].value;
-            var Encrypt = CryptoJS.AES.encrypt(contrasena, 'secret key 123');
-            usuario.password = String(Encrypt)
-            const idEstado = this.formUsuario.controls['estado'].value;
-            this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-              this.listaEstados = res;
-              usuario.idEstado= res.id
-              const idRol = this.formUsuario.controls['rol'].value;
-              this.servicioRoles.listarPorId(idRol).subscribe(res => {
-                this.listaRoles = res;
-                usuario.idRol= res.id
-                const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
-                this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
-                  this.listaTipoDocumentos = res;
-                  usuario.idTipoDocumento = res.id
-                  const ideOficina = this.formUsuario.controls['oficina'].value;
-                  this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
-                    res.forEach(elementOficina => {
-                      usuario.ideOficina = elementOficina.ideOficina
-                      usuario.ideSubzona = elementOficina.ideSubzona
-                      if(usuario.nombre,usuario.apellido,usuario.correo,usuario.documento,usuario.password==null || usuario.nombre,usuario.apellido,usuario.correo,usuario.password=="" || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento, usuario.ideOficina==undefined || usuario.idEstado,usuario.idRol,usuario.idTipoDocumento,usuario.ideOficina==null){
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'error',
-                          title: 'El campo esta vacio!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                      }else{
-                        this.actualizarUsuario(usuario);
-                      }
-                    });
+              for (let i = 0; i < res.length; i++) {
+                if(res[i].id != usuario.id && res[i].documento == documento ){
+                  this.encontrado = true
+                }else if(res[i].id != usuario.id && res[i].correo == correo){
+                  this.encontrado = true
+                }else{
+                  this.encontrado = false
+                }
+                this.listarExiste.push(this.encontrado)
+              }
+              const existe = this.listarExiste.includes(true)
+              if(existe == false){
+                usuario.documento = this.formUsuario.controls['documento'].value;
+                usuario.nombre = this.formUsuario.controls['nombre'].value;
+                usuario.apellido = this.formUsuario.controls['apellido'].value;
+                usuario.correo = this.formUsuario.controls['correo'].value;
+                var contrasena = this.formUsuario.controls['contrasena'].value;
+                var Encrypt = CryptoJS.AES.encrypt(contrasena, 'secret key 123');
+                usuario.password = String(Encrypt)
+                const idEstado = this.formUsuario.controls['estado'].value;
+                this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+                  this.listaEstados = res;
+                  usuario.idEstado= res.id
+                  const idRol = this.formUsuario.controls['rol'].value;
+                  this.servicioRoles.listarPorId(idRol).subscribe(res => {
+                    this.listaRoles = res;
+                    usuario.idRol= res.id
+                    const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
+                    this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
+                      this.listaTipoDocumentos = res;
+                      usuario.idTipoDocumento = res.id
+                      const ideOficina = this.formUsuario.controls['oficina'].value;
+                      this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
+                        res.forEach(elementOficina => {
+                          usuario.ideOficina = elementOficina.ideOficina
+                          usuario.ideSubzona = elementOficina.ideSubzona
+                          this.actualizarUsuario(usuario);
+                        });
+                      })
+                    })
                   })
                 })
-              })
-            })
-          }
-          if(existe == true){
+              }
+              if(existe == true){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Ya existe un usuario con ese número de documento y/o correo!',
+                  showConfirmButton: false,
+                  timer: 2000
+                })
+                this.router.navigate(['/usuarios']);
+              }
+            }
+          }else{
             Swal.fire({
               position: 'center',
-              icon: 'success',
-              title: 'No hubieron cambios o ya existe un usuario con ese número de documento!',
+              icon: 'error',
+              title: 'Campos Vacios',
               showConfirmButton: false,
               timer: 2000
             })
-            this.router.navigate(['/usuarios']);
           }
 
         })

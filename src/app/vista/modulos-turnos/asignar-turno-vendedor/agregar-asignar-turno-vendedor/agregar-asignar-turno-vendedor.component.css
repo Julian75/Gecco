@@ -21,7 +21,7 @@ h1{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
   margin-left: 16px;
 }
 
@@ -39,7 +39,8 @@ th{
 
 td {
   border: 1px solid #000;
-  text-align: center;
+  /* text-align: center; */
+  font-size: 11px;
 }
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 6%;

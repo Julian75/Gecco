@@ -28,6 +28,7 @@ mat-expansion-panel{
 }
 mat-panel-title{ color: white; font-weight: 400; }
 button{ width: 125%; margin-left: -12%; border-radius: 0%; background-color: white; text-align: left; font-weight: 400;}
+.opciones button{ font-size: 12px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

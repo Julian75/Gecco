@@ -52,80 +52,90 @@ export class ReportesVisitaDetalleComponent implements OnInit {
     fechaI.setDate(fechaI.getDate() + 1)
     const fechaF = new Date(this.formVisitaDetalle.controls['fechaFinal'].value);
     fechaF.setDate(fechaF.getDate() + 1)
-    const idUsuario = Number(sessionStorage.getItem('id'));
-    if(fechaI>fechaF){
+    var fechaIn = this.formVisitaDetalle.controls['fechaInicio'].value
+    var fechaFn = this.formVisitaDetalle.controls['fechaFinal'].value
+    console.log(fechaIn, fechaFn)
+    if(fechaIn == null || fechaFn == null){
       Swal.fire({
-        title: 'Por favor seleccione una fecha válida',
-        text: '',
         icon: 'error',
-        confirmButtonText: 'Ok'
-      })
+        title: 'Campos vacios',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }else{
-      this.servicioVisita.listarTodos().subscribe(dataVisita => {
-        dataVisita.forEach(elementVisita => {
-          var fechaRegistro = new Date(elementVisita.fechaRegistro)
-          fechaRegistro.setDate(fechaRegistro.getDate() + 1)
-          if(fechaI <= fechaRegistro && fechaF >= fechaRegistro){
-            this.listaVisita.push(elementVisita)
-            this.encontrar = true
-          }else if(fechaI>fechaF){
-            this.encontrar = false
-          }
-          this.listarExiste.push(this.encontrar)
-        })
-        const existe = this.listarExiste.includes(true)
-        if(existe == true){
-          this.servicioVisitaDetalle.listarTodos().subscribe( (dataVisitaDetalle: any) => {
-            dataVisitaDetalle.forEach((element:any) => {
-              this.listaVisita.forEach((element2:any) => {
-                if(element.idVisitas.id == element2.id){
-                  this.listarVisitaDetalle.push(element)
+      if(fechaI>fechaF){
+        Swal.fire({
+          icon: 'error',
+          title: 'Por favor seleccione una fecha válida',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }else{
+        this.servicioVisita.listarTodos().subscribe(dataVisita => {
+          dataVisita.forEach(elementVisita => {
+            var fechaRegistro = new Date(elementVisita.fechaRegistro)
+            fechaRegistro.setDate(fechaRegistro.getDate() + 1)
+            if(fechaI <= fechaRegistro && fechaF >= fechaRegistro){
+              this.listaVisita.push(elementVisita)
+              this.encontrar = true
+            }else if(fechaI>fechaF){
+              this.encontrar = false
+            }
+            this.listarExiste.push(this.encontrar)
+          })
+          const existe = this.listarExiste.includes(true)
+          if(existe == true){
+            this.servicioVisitaDetalle.listarTodos().subscribe( (dataVisitaDetalle: any) => {
+              dataVisitaDetalle.forEach((element:any) => {
+                this.listaVisita.forEach((element2:any) => {
+                  if(element.idVisitas.id == element2.id){
+                    this.listarVisitaDetalle.push(element)
+                  }
                 }
+                )
               }
               )
-            }
-            )
-            this.listarVisitaDetalle.forEach((element:any) => {
-              this.listaVisitaDetalleCompleta.push(element)
-            }
-            )
-            this.lista = []
-            this.listaVisitaDetalleCompleta.forEach((element:any) => {
-              var objeto = {
-                descripcion: element.descripcion,
-                elementoVisita: element.idElementosVisita.descripcion,
-                opcionesVisita: element.idOpcionesVisita.descripcion,
-                fechaVisita: element.idVisitas.fechaRegistro,
-                nombreUsuario: element.idVisitas.idUsuario.nombre+" "+element.idVisitas.idUsuario.apellido,
-                idSitioVenta: element.ideSitioventa,
-                nombreSitioVenta: element.nomSitioventa
-
+              this.listarVisitaDetalle.forEach((element:any) => {
+                this.listaVisitaDetalleCompleta.push(element)
               }
-              this.lista.push(objeto)
+              )
+              this.lista = []
+              this.listaVisitaDetalleCompleta.forEach((element:any) => {
+                var objeto = {
+                  descripcion: element.descripcion,
+                  elementoVisita: element.idElementosVisita.descripcion,
+                  opcionesVisita: element.idOpcionesVisita.descripcion,
+                  fechaVisita: element.idVisitas.fechaRegistro,
+                  nombreUsuario: element.idVisitas.idUsuario.nombre+" "+element.idVisitas.idUsuario.apellido,
+                  idSitioVenta: element.ideSitioventa,
+                  nombreSitioVenta: element.nomSitioventa
+
+                }
+                this.lista.push(objeto)
+              });
+              if( this.lista.length == 0 ){
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Visita registrada pero no hizo el conteo',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }else{
+                this.exportToExcel(this.lista);
+              }
+            })
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'No hay registros en la fecha seleccionada',
+              showConfirmButton: false,
+              timer: 1500
             });
-            if( this.lista.length == 0 ){
-              Swal.fire({
-                title: 'Visita registrada pero no hizo el conteo',
-                text: '',
-                icon: 'warning',
-                confirmButtonText: 'Ok'
-              })
-            }else{
-              this.exportToExcel(this.lista);
-            }
-          })
-        }else{
-          Swal.fire({
-            title: 'No hay registros en la fecha seleccionada',
-            text: '',
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-          })
-        }
+          }
 
-      })
+        })
+      }
     }
-
   }
 
   name = 'ReporteVisitaDetalle.xlsx';

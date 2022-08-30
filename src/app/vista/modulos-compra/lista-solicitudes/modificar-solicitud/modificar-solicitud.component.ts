@@ -286,19 +286,30 @@ export class ModificarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
-    document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
-    this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-      let solicitud : Solicitud2 = new Solicitud2();
-      solicitud.id = resSolicitud.id
-      this.fecha = new Date(resSolicitud.fecha)
-      this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
-      solicitud.fecha = this.fecha
-      this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
-        solicitud.idEstado = resEstado.id
-        solicitud.idUsuario = resSolicitud.idUsuario.id
-        this.actualizarSolicitud(solicitud, solicitud.id)
+    console.log(this.listadoArtSel)
+    if(this.listadoArtSel.length < 1){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Debe al menos tener un articulo para modificar la solicitud!',
+        showConfirmButton: false,
+        timer: 1500
       })
-    })
+    }else{
+      document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
+      this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+        let solicitud : Solicitud2 = new Solicitud2();
+        solicitud.id = resSolicitud.id
+        this.fecha = new Date(resSolicitud.fecha)
+        this.fecha.setFullYear(this.fecha.getFullYear(), this.fecha.getMonth(), (this.fecha.getDate()+1))
+        solicitud.fecha = this.fecha
+        this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
+          solicitud.idEstado = resEstado.id
+          solicitud.idUsuario = resSolicitud.idUsuario.id
+          this.actualizarSolicitud(solicitud, solicitud.id)
+        })
+      })
+    }
   }
 
   public actualizarSolicitud(solicitud: Solicitud2, idSolicitud:number){

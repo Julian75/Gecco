@@ -96,75 +96,90 @@ export class AgregarUsuariosComponent implements OnInit {
   }
 
   public guardar() {
+    this.listarExiste = []
     let usuario : Usuario = new Usuario();
-    usuario.nombre = this.formUsuario.controls['nombre'].value;
-    usuario.apellido = this.formUsuario.controls['apellido'].value;
-    usuario.correo = this.formUsuario.controls['correo'].value;
-    usuario.ideOficina = Number(this.formUsuario.controls['oficina'].value);
-    this.servicioOficinas.listarPorId(usuario.ideOficina).subscribe(resOficina=>{
-      resOficina.forEach(elementOficina => {
-        usuario.ideSubzona = elementOficina.ideSubzona
-        const documento = this.formUsuario.controls['documento'].value;
-        this.servicioUsuarios.listarTodos().subscribe(res=>{
-          for (let i = 0; i < res.length; i++) {
-            if(res[i].documento == documento){
-              this.encontrado = true
-            }else{
-              this.encontrado = false
+    if(this.formUsuario.valid){
+      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+      usuario.nombre = this.formUsuario.controls['nombre'].value;
+      usuario.apellido = this.formUsuario.controls['apellido'].value;
+      usuario.correo = this.formUsuario.controls['correo'].value;
+      usuario.ideOficina = Number(this.formUsuario.controls['oficina'].value);
+      this.servicioOficinas.listarPorId(usuario.ideOficina).subscribe(resOficina=>{
+        resOficina.forEach(elementOficina => {
+          usuario.ideSubzona = elementOficina.ideSubzona
+          const documento = this.formUsuario.controls['documento'].value;
+          const correo = this.formUsuario.controls['correo'].value;
+          this.servicioUsuarios.listarTodos().subscribe(res=>{
+            for (let i = 0; i < res.length; i++) {
+              if(res[i].documento == documento || res[i].correo == correo){
+                this.encontrado = true
+              }else{
+                this.encontrado = false
+              }
+              this.listarExiste.push(this.encontrado)
             }
-            this.listarExiste.push(this.encontrado)
-          }
-          const existe = this.listarExiste.includes(true)
-          if(existe == false ){
-            usuario.documento = this.formUsuario.controls['documento'].value;
-            var contrasena = this.formUsuario.controls['documento'].value;
-            var Encrypt = CryptoJS.AES.encrypt(JSON.stringify(contrasena), 'secret key 123').toString();
-            usuario.password = Encrypt
-            const idEstado = this.formUsuario.controls['estado'].value;
-            this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-              this.listaEstados = res;
-              usuario.idEstado= this.listaEstados
-              const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
-              this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
-                this.listaTipoDocumentos = res;
-                usuario.idTipoDocumento= this.listaTipoDocumentos
-                const idRol = this.formUsuario.controls['rol'].value;
-                this.servicioRoles.listarPorId(idRol).subscribe(res => {
-                  this.listaRoles = res;
-                  usuario.idRol= this.listaRoles
-                  if(usuario.nombre==null || usuario.apellido==null || usuario.correo==null || usuario.documento<=0 || usuario.nombre=="" || usuario.apellido=="" || usuario.correo=="" || usuario.idEstado.id==null || usuario.idRol.id==null || usuario.idTipoDocumento.id==null || usuario.idEstado==undefined || usuario.idRol==undefined || usuario.idTipoDocumento==undefined){
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'error',
-                      title: 'El campo esta vacio!',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                  }else{
-                    this.registrarUsuario(usuario);
-                  }
+            const existe = this.listarExiste.includes(true)
+            if(existe == false){
+              usuario.documento = this.formUsuario.controls['documento'].value;
+              var contrasena = this.formUsuario.controls['documento'].value;
+              var Encrypt = CryptoJS.AES.encrypt(JSON.stringify(contrasena), 'secret key 123').toString();
+              usuario.password = Encrypt
+              const idEstado = this.formUsuario.controls['estado'].value;
+              this.servicioEstado.listarPorId(idEstado).subscribe(res => {
+                this.listaEstados = res;
+                usuario.idEstado= this.listaEstados
+                const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
+                this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
+                  this.listaTipoDocumentos = res;
+                  usuario.idTipoDocumento= this.listaTipoDocumentos
+                  const idRol = this.formUsuario.controls['rol'].value;
+                  this.servicioRoles.listarPorId(idRol).subscribe(res => {
+                    this.listaRoles = res;
+                    usuario.idRol= this.listaRoles
+                    if(usuario.nombre==null || usuario.apellido==null || usuario.correo==null || usuario.documento<=0 || usuario.nombre=="" || usuario.apellido=="" || usuario.correo=="" || usuario.idEstado.id==null || usuario.idRol.id==null || usuario.idTipoDocumento.id==null || usuario.idEstado==undefined || usuario.idRol==undefined || usuario.idTipoDocumento==undefined){
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'El campo esta vacio!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    }else{
+                      this.registrarUsuario(usuario);
+                    }
+                  })
                 })
+
               })
+            }
+            if(existe == true){
+              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Ya existe un usuario registrado con ese número de documento y/o correo!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          })
+        });
 
-            })
-          }
-          if(existe == true){
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Ya existe un usuario registrado con ese número de documento!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
-        })
-      });
-
-    })
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Campos Vacios!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
 
   }
 
   public registrarUsuario(usuario: Usuario) {
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     this.servicioUsuarios.registrar(usuario).subscribe(res=>{
       Swal.fire({
         position: 'center',

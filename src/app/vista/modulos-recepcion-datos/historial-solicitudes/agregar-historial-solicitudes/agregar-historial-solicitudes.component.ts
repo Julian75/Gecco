@@ -146,7 +146,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     var comentario = this.formComentario.controls['comentario'].value;
     var opcion = this.formComentario.controls['opcion'].value;
     var opcion2 = this.formComentario.controls['opcion2'].value;
-    console.log(opcion)
+    console.log(comentario, opcion, opcion2)
     if(comentario == "" || comentario == null || opcion == null || opcion2 == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -157,22 +157,44 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
         timer: 2500
       })
     }else{
-      let historial : HistorialSolicitudes = new HistorialSolicitudes();
-      historial.observacion = comentario
-      this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-        historial.idSolicitudSC = resSolicitud
-        this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
-          historial.idEstado = resEstado
-          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
-            historial.idUsuario = resUsuario
-            if(this.usuarios.value.length >= 1){
-              this.registrarHistorial(historial,this.usuarios, resSolicitud)
-            }else{
+      if(opcion2 == 1){
+        if(this.usuarios.value.length >= 1){
+          let historial : HistorialSolicitudes = new HistorialSolicitudes();
+          historial.observacion = comentario
+          this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+            historial.idSolicitudSC = resSolicitud
+            this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
+              historial.idEstado = resEstado
+              this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+                historial.idUsuario = resUsuario
+                this.registrarHistorial(historial,this.usuarios, resSolicitud)
+              })
+            })
+          })
+        }else{
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Si desea remitir, seleccione a que usuarios!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      }else{
+        let historial : HistorialSolicitudes = new HistorialSolicitudes();
+        historial.observacion = comentario
+        this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+          historial.idSolicitudSC = resSolicitud
+          this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
+            historial.idEstado = resEstado
+            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+              historial.idUsuario = resUsuario
               this.registrarHistorial3(historial);
-            }
+            })
           })
         })
-      })
+      }
     }
   }
 
