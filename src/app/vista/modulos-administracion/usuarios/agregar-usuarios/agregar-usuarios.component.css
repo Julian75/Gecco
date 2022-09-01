@@ -100,7 +100,9 @@ h2{
   margin-left: 57.5%;
   margin-top: 0.5%;
 }
-
+.guardarModal{
+  margin-left: 72%;
+}
 .row1{
   border-top: 3px solid #97B4E2;
   padding-top: 3%;
@@ -110,83 +112,30 @@ h2{
   width: 80% !important; margin-left: 10%; margin-top: 4%;
 }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .nombre, .nombre1{ width: 100%; }
-  .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
-  .nombre4{ margin-left: 0%;}
-  .guardar{
-    margin-left: 9%;
-  }
-
-  .guardar2{ padding-bottom: 10%; }
+  .guardarModal{ margin-left: 69%;}
+  .nombre{ width: 209px;}
+  .nombre3{ margin-left: 4%; margin-top: 2.5%;}
+  .nombre4{ margin-left: 5%; margin-top: 1.3%;}
+  .nombre1 { width: 209px;}
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  .nombre, .nombre1{ width: 100%; }
-  .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
-  .nombre4{ margin-left: 0%;}
-  .guardar{
-    margin-left: 14%;
-  }
-
-  .guardar2{ padding-bottom: 10%; }
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .guardarModal{ margin-left: 76%;}
+  .nombre{ width: 272px;}
+  .nombre3{ margin-left: 4%; margin-top: 2.5%;}
+  .nombre4{ margin-left: 5%; margin-top: 1.3%;}
+  .nombre1 { width: 272px;}
 }
 
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  .nombre { width: 45%; }
-  .nombre1{ width: 100%; }
-  .nombre3{ margin-left: 55%; margin-top: -99.6%;}
-  .guardar{
-    margin-left: 28%;
-  }
-
-  .guardar2{ padding-bottom: 10%; }
-}
-
-/* Tablet pequeña */
-@media screen and (min-width: 721px) and (max-width: 768px){
-  .nombre2, .nombre4{ margin-top: 7%;}
-  .nombre3{ margin-left: 55%; margin-top: -88%;}
-
-  .guardar{
-    margin-left: 34%;
-    margin-top: 7%;
-  }
-}
-
-/* Tablet medio */
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  .nombre2, .nombre4{ margin-top: 9%;}
-  .nombre3{ margin-left: 55%; margin-top: -107%;}
-
-  .guardar{
-    margin-left: 34%;
-    margin-top: 7%;
-  }
-  .nombre1{
-    width: 227px;
-  }
-  .nombre{
-    width: 227px;
-  }
-}
-
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  .nombre3 {
-    margin-left: 55%;
-    margin-top: -52%;
-  }
-}
-
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .nombre3 {
-    margin-left: 55%;
-    margin-top: -48.5%;
-  }
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .guardarModal{ margin-left: 76%;}
+  .nombre{ width: 272px;}
+  .nombre3{ margin-left: 4%; margin-top: 2.5%;}
+  .nombre4{ margin-left: 5%; margin-top: 1.3%;}
+  .nombre1 { width: 272px;}
 }
 

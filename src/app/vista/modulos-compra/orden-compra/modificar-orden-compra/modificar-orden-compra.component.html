@@ -87,10 +87,10 @@
         </table>
       </section>
 
-      <p class="sub">Subtotal: {{subtotal}}</p>
-      <p class="val">Valor anticipo: {{anticipoVal2}} %</p>
-      <p class="des">Descuento: {{descuento}} COP</p>
-      <p class="to">Total: {{total}}</p>
+      <p class="sub">Subtotal: ${{subtotal | currency:'COP':'symbol':'1.0-0'}}</p>
+      <p class="val">Valor anticipo: {{anticipoVal2 | number:'1.0-2'}} %</p>
+      <p class="des">Descuento: ${{descuento | currency:'COP':'symbol':'1.0-0'}}</p>
+      <p class="to">Total: ${{total | currency:'COP':'symbol':'1.0-0'}}</p>
 
       <button  class="btn guardar4" (click)="generarOrden()">Modificar</button>
   </div>

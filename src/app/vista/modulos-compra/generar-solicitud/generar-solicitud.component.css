@@ -167,9 +167,9 @@ mat-option{ font-size: 10.5px; }
 }
 #obse, #obse2{ padding-right: 0%; }
 #chetbox{ left: 9px; }
-#arti{ left: 37px; }
-#cant{ left: 28px; }
-#obser{ left: 139px; width: 200px; }
+#arti{ left: 2px; }
+#cant{ left: 0px; }
+#obser{ left: 100px; width: 200px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

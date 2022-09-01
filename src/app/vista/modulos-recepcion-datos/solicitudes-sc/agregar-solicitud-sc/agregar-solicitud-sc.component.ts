@@ -167,7 +167,9 @@ export class AgregarSolicitudScComponent implements OnInit {
   uploadFiles() {
     this.message = '';
     for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
+      const element = this.listaArchivos2[i]
+      console.log(element)
+      this.upload(i, element);
     }
   }
 

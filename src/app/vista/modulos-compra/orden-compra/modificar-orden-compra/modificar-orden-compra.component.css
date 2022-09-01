@@ -10,18 +10,15 @@ td.mat-cell:first-of-type{
 }
 .ar{
   position: relative;
-  left: 25px;
-  top: 7px;
+  left: -3px;
 }
 .o{
   position: relative;
-  left: 102px;
-  top: 7px;
+  left: -3px;
 }
 .v{
   position: relative;
-  left: 50px;
-  top: 7px;
+  left: -3px;
 }
 .cant{
   position: relative;
@@ -138,22 +135,6 @@ h1{
   font-size: 20px;
 }
 
-.btnVisualizar{
-  background-color: #97B4E2;
-  width: 10%;
-}
-
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-
-td {
-  border: 1px solid #000;
-  text-align: center;
-}
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 6%;
 }

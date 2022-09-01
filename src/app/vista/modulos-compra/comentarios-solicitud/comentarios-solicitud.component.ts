@@ -50,6 +50,7 @@ export class ComentariosSolicitudComponent implements OnInit {
             })
             var solMapArr = new Map(lista)
             this.listaSolicitudes2 = [...solMapArr.values()]
+            this.listaSolicitudes2.reverse();
             this.dataSource = new MatTableDataSource( this.listaSolicitudes2);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

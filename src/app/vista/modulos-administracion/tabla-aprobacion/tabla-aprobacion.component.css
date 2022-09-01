@@ -10,32 +10,13 @@ table{
   width: 100%;
   height: 100%;
 }
-
-h3{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
 h2{
   font-weight: 700;
-}
-
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
 }
 .excelButton{
   background-color: #6DBE53;
   color: white;
   position: relative; left: 15px;
-}
-td {
-  border: 1px solid #000;
-  text-align: left;
-  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -43,11 +24,6 @@ td {
 .boton{ background-color: #00235C; color: white; }
 .btnver{ background-color: #959595; color: white; }
 .btnremove{ background-color: #DA161A; color: white; margin-left: 3%;}
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
 .excelButton, .boton, .btnremove, .btnver{ width: 64px; height: 36px; }
 #id2{ padding-left: 0%; }
 #idSpa,#soliciSpa,#vendedorSpa,#turnvenSpa,#ObSpa,#OpcSpa{ position: relative; }
@@ -55,8 +31,6 @@ mat-form-field{
 #soliciSpa{ left: 48px; position: absolute; }
 #turnvenSpa{ left: -2px; position: absolute; }
 #vendedorSpa{ left: 84px; position: absolute;}
-.excelButton{ margin-left: -1%; font-size: 20px; }
-.excelButton i{ position: relative; top: -3px; }
 button mat-icon{ position: relative; top: -1%; }
 
 /* Movil pequeño - Galaxy Fold*/

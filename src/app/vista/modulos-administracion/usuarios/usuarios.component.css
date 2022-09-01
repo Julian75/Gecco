@@ -10,39 +10,10 @@ table{
   width: 100%;
   height: 100%;
 }
-
-h3{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.btnVisualizar{
-  background-color: #97B4E2;
-  width: 10%;
-}
-
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-.excelButton{
-  background-color: #6DBE53;
-  color: white;
-}
 .id{
   width: 10%;
   position: absolute;
   margin-left: 17%;
-}
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
-td {
-  border: 1px solid #000;
-  text-align: left;
-  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -51,16 +22,8 @@ td {
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
-td.mat-cell:first-of-type{ padding-left: 0px; font-size: 11px;}
-.botonagregar, .excelButton{ width: 64px; height: 36px; }
-.btnedit{ width: 44px; height: 31px; position: static; display: block;  margin-left: 39%; }
-.btnedit mat-icon{ font-size: 20px; margin-left: -17%; margin-top: -10%; position: static; display: block;}
-.botonagregar mat-icon{ font-size: 24px; }
+
+.btnedit mat-icon{ left: -3px;  top: -2px;}
 #nombreSp,#correoSp,#tipoDocSp,#estadoSp,#rolSp,#opcSp{ position: relative; }
 #nombreSp{ left: 112px; position: absolute; }
 #correoSp{ left: 121px; position: absolute; display: block;}
@@ -69,190 +32,51 @@ td.mat-cell:first-of-type{ padding-left: 0px; font-size: 11px;}
 #rolSp{ left: 94px; position: absolute; }
 #opcSp{ left: 5px; }
 #usuarioEn{ padding-left: 0%; }
-.excelButton{ margin-left: -1%; font-size: 20px; }
-.excelButton i{ position: relative; top: -3px; }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  td { font-size: 11px; height: 0px;}
-  .btnedit{
-    width: 18px !important;
-    height: 20px;
-    margin-left: -12%;
-
-  }
-  .botonagregar, .excelButton{
-    width: 38px;
-    height: 30px;
-
-  }
-  .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-  #usuarioEn{display: none}
-  #tamañoOpc{ padding-right: 0px; }
-  ng-container{ height: 5%; }
-  i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
-  .id{ left: -13px;}
-  #nombreSp{ left: 21px; }
-  #correoSp{ left: 77px; }
-  #tipoDocSp{ left: 8px; }
-  #rolSp{left: 35px;}
-  #estadoSp{ left: 20px; }
-  #opcSp{ left: -1px; }
-  .excelButton{ margin-left: -5%; }
-  .excelButton i{ top: -8px; font-size: 15px;}
-  td.mat-cell:first-of-type{ padding-left: 0px;  padding-right: 0px; }
-  td.mat-cell{padding-left: 18px; padding-right: 23px;}
+  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+  .id{ left: -12px; }
+  #nombreSp{ margin-left: 18px; position: static; }
+  #correoSp{ left: 60px; }
+  #tipoDocSp{ margin-left: 16px;  position:static;}
+  #estadoSp{ margin-left: 19%; position:static; }
+  #rolSp{ left: 21px; }
+  #opcSp{ left: 15px; }
+  td button{ margin-top: 5%; }
+  .botonagregar mat-icon{ margin-left: -50%; }
+  td.mat-cell:first-of-type { padding-left: 0px;}
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  h3{
-    margin-left: 3%;
-    font-size: 13px;
-  }
-  td { font-size: 12px; height: 0px;}
-  .btnedit{
-    width: 27px !important;
-    height: 26px;
-    position: relative;
-    left: -15%;
-  }
-  .botonagregar, .excelButton{
-    width: 38px;
-    height: 30px;
-  }
-  .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-  #tamañoOpc{ padding-right: 0px; }
-  ng-container{ height: 5%; }
-  .id{left: -15px;}
-  i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
-  #nombreSp{ left: 23px; }
-  #rolSp{ left: 35px; }
-  #correoSp{ left: 79px; }
-  #tipoDocSp{ left: 8px; }
-  #estadoSp{ left: 23px; }
-  #opcSp{ left: -1px; }
-  .excelButton{ margin-left: -5%; }
-  .excelButton i{ top: -8px; font-size: 15px;}
-  .excelButton{ margin-left: -5%; }
-  .excelButton i{ top: -8px; font-size: 15px;}
-  td.mat-cell{ padding-left: 20px; padding-right: 26px;}
-  td.mat-cell:first-of-type { padding: 0px;}
-}
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  h3{
-    margin-left: 3%;
-    font-size: 20px;
-  }
-  td { font-size: 14px; height: 0px;}
-  #tamañoOpc{ padding-right: 0px; }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  td button mat-icon{ font-size: 21px; margin-left: 0px; margin-top: 1px; }
-  #nombreSp{ left: 16px; }
-  .id{left: -17px;}
-  #rolSp{ left: 35px; }
-  #correoSp{ left: 84px; }
-  #tipoDocSp{ left: 0px; }
-  #estadoSp{ left: 14px; }
-  #opcSp{ left: -1px; }
-  .btnedit{
-    width: 64px;
-    height: 36px;
-    margin-left: -14%;
-  }
-  .excelButton i{
-    position: relative;
-    top: -3px;
-  }
-  td.mat-cell{ padding-left: 20px; padding-right: 20px;}
-  td.mat-cell:first-of-type{ padding: 0px;}
-}
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
-  #tamañoOpc{ padding-right: 0px; }
-  td { font-size: 15px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  .id{left: -17px;}
-  #nombreSp{ left: 30px; }
-  #correoSp{ left: 107px; }
-  #tipoDocSp{ left: 10px; }
-  #estadoSp{ left: 27px; }
-  #rolSp{ left: 46px; }
-  #opcSp{ left: -1px; }
-  .btnedit{  margin-left: -20.5%;}
-  .excelButton i{ position: relative; top: -3px; }
-  td.mat-cell{padding-left: 27px; padding-right: 30px;}
-  td.mat-cell:first-of-type{ padding: 0px;}
-}
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  #tamañoOpc{ padding-right: 0px; }
-  td { font-size: 15px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  .id{left: -16px;}
-  #nombreSp{ left: 30px; }
-  #correoSp{ left: 107px; }
-  #tipoDocSp{ left: 10px; }
-  #estadoSp{ left: 27px; }
-  #rolSp{ left: 46px; }
-  #opcSp{ left: -1px; }
-  .btnedit{ margin-left: -20.5%;}
-  .excelButton i{ position: relative; top: -3px; }
-  td.mat-cell{padding-left: 27px; padding-right: 30px;}
-  td.mat-cell:first-of-type{ padding: 0px;}
-}
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  #nombreSp{ left: 38%; }
-  #correoSp{ left: 92px;  }
-  #tipoDocSp{ left: 10%;  }
-  #estadoSp{ margin-left: 32%; position: static; }
-  #rolSp{ left: 54px; }
-  #opcSp{ left: 10px; }
-  .btnedit{ left: -18%; position: relative}
-  .id{
-    width: 10%;
-    position: static;
-    margin-left: 0%;
-  }
-  .excelButton i{
-    position: relative;
-    top: -3px;
-  }
-  td.mat-cell{ padding-left: 14px; padding-right: 18px; }
-  td.mat-cell:first-of-type { padding: 0px;}
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+  .id{ left: -12px; }
+  #nombreSp{ margin-left: 18px; position: static; }
+  #correoSp{ left: 60px; }
+  #tipoDocSp{ margin-left: 16px;  position:static;}
+  #estadoSp{ margin-left: 19%; position:static; }
+  #rolSp{ left: 21px; }
+  #opcSp{ left: 15px; }
+  td button{ margin-top: 5%; }
+  td.mat-cell:first-of-type { padding-left: 0px;}
+  .botonagregar mat-icon{ margin-left: -50%; }
 }
 
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  .id{position: relative; left: 9px;}
-  #nombreSp{ left: 40%; position: absolute; }
-  #correoSp{ left: 91px; position: absolute; }
-  #tipoDocSp{ left: 7%; position: absolute; }
-  #estadoSp{ margin-left: 54%; position: static; }
-  #rolSp{ left: 51px; position: absolute; }
-  #opcSp{ left: 10px; }
-  .btnedit{ left: 3%; position: relative}
-  .id{
-    width: 10%;
-    position: static;
-    margin-left: 78%;
-  }
-  .excelButton i{
-    position: relative;
-    top: -3px;
-  }
-  td.mat-cell:first-of-type{padding-right: 40px;}
+
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+  .id{ left: -12px; }
+  #nombreSp{ margin-left: 18px; position: static; }
+  #correoSp{ left: 60px; }
+  #tipoDocSp{ margin-left: 16px;  position:static;}
+  #estadoSp{ margin-left: 19%; position:static; }
+  #rolSp{ left: 21px; }
+  #opcSp{ left: 15px; }
+  td button{ margin-top: 5%; }
+  td.mat-cell:first-of-type { padding-left: 0px;}
+  .botonagregar mat-icon{ margin-left: -50%; }
 }
+
 

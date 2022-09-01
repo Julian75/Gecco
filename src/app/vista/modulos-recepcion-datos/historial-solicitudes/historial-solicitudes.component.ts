@@ -12,6 +12,7 @@ import { HistorialSolicitudesService } from 'src/app/servicios/historialSolicitu
 import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
 import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
+import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
 
 @Component({
   selector: 'app-historial-solicitudes',
@@ -37,6 +38,7 @@ export class HistorialSolicitudesComponent implements OnInit {
     private servicioPdf: SubirPdfService,
     private servicioHistorial: HistorialSolicitudesService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
+    private servicioSolicitudPQRS: SolicitudSCService
   ) { }
 
   ngOnInit(): void {
@@ -53,13 +55,15 @@ export class HistorialSolicitudesComponent implements OnInit {
     console.log("holis")
     console.log(this.data)
     this.listaArchivosExist = []
+    this.servicioSolicitudPQRS.listarPorId(Number(this.data)).subscribe(res=>{
+      this.Cliente = res.idClienteSC.nombre+" "+res.idClienteSC.apellido
+      this.TelefonoCliente = res.idClienteSC.telefono
+      this.Auxiliar = res.auxiliarRadicacion
+      this.Escala = res.idEscala.descripcion
+    })
     this.servicioHistorial.listarTodos().subscribe( res => {
       res.forEach((element: any) => {
         if(element.idSolicitudSC.id == this.data){
-          this.Cliente = element.idSolicitudSC.idClienteSC.nombre+" "+element.idSolicitudSC.idClienteSC.apellido
-          this.TelefonoCliente = element.idSolicitudSC.idClienteSC.telefono
-          this.Auxiliar = element.idSolicitudSC.auxiliarRadicacion
-          this.Escala = element.idSolicitudSC.idEscala.descripcion
           var obj = {
             elemento: element,
             validar3: false

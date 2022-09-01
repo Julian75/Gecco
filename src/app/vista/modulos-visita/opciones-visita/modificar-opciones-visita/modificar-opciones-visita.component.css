@@ -13,6 +13,9 @@ h2{
     margin-top: 10%;
     box-shadow: 1px 2px 10px #959595;
   }
+  .guardarModal{
+    margin-left: 82%;
+  }
   .nombre, .estado{
     width: 250px;
   }

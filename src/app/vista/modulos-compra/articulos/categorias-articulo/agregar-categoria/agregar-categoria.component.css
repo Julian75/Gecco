@@ -18,13 +18,8 @@ h2{
 }
 .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
 .estado2{ width: 300px; }
-.guardar{
-  background-color: #00235C ;
-  color: white;
-  width: 180px;
-  height: 40px;
-  font-size: large;
-  margin-left: 58%;
+.guardarModal{
+  margin-left: 82%;
 }
 
 .row1{

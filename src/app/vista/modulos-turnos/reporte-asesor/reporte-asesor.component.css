@@ -160,3 +160,23 @@ td {
 #opcSpa{ left: 5px; }
 #idSp2{ padding-left: 0%; }
 
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .nombre{
+    width: 226px;
+  }
+  .guardar{
+    margin-left: 5%;
+  }
+}
+
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .nombre{
+    width: 290px;
+  }
+  .guardar{
+    margin-top: 6%;
+    margin-left: 5%;
+  }
+}

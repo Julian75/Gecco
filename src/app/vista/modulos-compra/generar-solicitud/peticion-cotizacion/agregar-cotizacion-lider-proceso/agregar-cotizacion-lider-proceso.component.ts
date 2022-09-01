@@ -94,9 +94,8 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
 
   upload(index:any, file: any) {
     this.progressInfo[index] = { value: 0, fileName: file.name };
-
     this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
-      console.log(event.type)
+      console.log(event.type, event, index, file)
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {

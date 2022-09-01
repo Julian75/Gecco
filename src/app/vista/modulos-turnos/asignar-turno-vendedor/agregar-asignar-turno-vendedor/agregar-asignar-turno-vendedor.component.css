@@ -30,18 +30,6 @@ h1{
   width: 10%;
 }
 
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-
-td {
-  border: 1px solid #000;
-  /* text-align: center; */
-  font-size: 11px;
-}
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 6%;
 }
@@ -87,8 +75,7 @@ padding-bottom: 4%;
 }
 .contenedor{ width: 80% !important; margin-left: 10%; margin-top: 4%; }
 mat-option{ font-size: 10.5px; }
-.btnremove, .btnedit{ width: 44px; height: 31px; }
-.btnremove mat-icon, .btnedit mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
+.btnremove mat-icon, .btnedit mat-icon{ left: -3px; top: -1px;}
 #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ position: relative; }
 #idSpa{ left: 8px; }
 #nombreSpa{ left: 30px; }

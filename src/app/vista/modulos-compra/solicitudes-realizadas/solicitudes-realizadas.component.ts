@@ -49,6 +49,7 @@ export class SolicitudesRealizadasComponent implements OnInit {
          this.listaSolicitudes.push(element);
         }
       })
+      this.listaSolicitudes.reverse();
       this.dataSource = new MatTableDataSource(this.listaSolicitudes);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

@@ -49,13 +49,8 @@ h2{
   margin-left: 10%;
 }
 .estado2{ width: 300px; }
-.guardar{
-  background-color: #00235C ;
-  color: white;
-  width: 17%;
-  height: 40px;
-  font-size: large;
-  margin-left: 61.5%;
+.guardarModal{
+  margin-left: 73%;
   top: -107px;
 }
 

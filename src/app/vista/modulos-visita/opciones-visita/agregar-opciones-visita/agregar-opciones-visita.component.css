@@ -16,6 +16,9 @@ h2{
   .nombre, .estado{
     width: 250px;
   }
+  .guardarModal{
+    margin-left: 82%;
+  }
   .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
   .estado2{ width: 300px; }
   .guardar{

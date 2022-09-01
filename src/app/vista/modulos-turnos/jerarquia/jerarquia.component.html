@@ -3,7 +3,7 @@
       <mat-icon>add_circle</mat-icon>
     </button>
     <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field appearance="standard">
+    <mat-form-field class="buscador" appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -27,7 +27,7 @@
             <button class="btn btnedit mx-2" (click)="modificarJerarquia(item.id, item.descripcion)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove" (click)="eliminarJerarquia(item.id)">
+            <button class="btn btnremove mx-2" (click)="eliminarJerarquia(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

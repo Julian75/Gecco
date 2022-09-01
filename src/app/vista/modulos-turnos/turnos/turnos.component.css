@@ -10,53 +10,21 @@ table{
   width: 100%;
   height: 100%;
 }
-h3{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
 
 .btnVisualizar{
   background-color: #97B4E2;
   width: 10%;
 }
 
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-.excelButton{
-  background-color: #6DBE53;
-  color: white;
-}
-
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
-td {
-  border: 1px solid #000;
-  /* text-align: center; */
-  font-size: 11px;
-}
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
-.btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
-.botonagregar, .excelButton, .botonagregar2, .btnver{ width: 64px; height: 36px; }
-.btnremove, .btnedit{ width: 44px; height: 31px; margin-left: 0%;}
-.btnedit mat-icon, .btnremove mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
-.botonagregar mat-icon{ font-size: 24px; }
-.excelButton{ margin-left: -1%; }
-.excelButton i{ position: relative; top: -3px; font-size: 20px;}
+
+.btnremove, .btnedit{ margin-left: 0%;}
+.btnedit mat-icon, .btnremove mat-icon{ left: -3px; top: -1px;}
 #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ position: relative; }
 #idSpa{ left: 26px; }
 #descSpa{ left: 54px; }
@@ -66,129 +34,28 @@ mat-form-field{
 #tipoTurSpa{ left: 53px; }
 #opcSpa{ left: 5px; }
 #idSp2{ padding-left: 0%; }
-.excelButton i{ position: relative; top: 1px; }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
-  .botonagregar mat-icon{ font-size: 18px; }
-  .excelButton{ margin-left: -5%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  td { font-size: 11px; height: 0px;}
-  .btnremove, .btnedit, .btnver{
-    width: 20px !important;
-    height: 23px;
-    position: relative;
-    left: 12%;
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-  button i{ position: relative; top: -15%; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
-  .excelButton i{ top: -3px; font-size: 15px;}
-}
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
-  .botonagregar mat-icon{ font-size: 18px; }
-  .excelButton{ margin-left: -5%; }
-  h3{
-    margin-left: 3%;
-    font-size: 13px;
-  }
-  td { font-size: 12px; height: 0px;}
-  .btnremove, .btnedit, .btnver{
-    width: 27px !important;
-    height: 26px;
-    position: relative;
-    left: 12%;
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-  button i{ position: relative; top: -15%; }
-  .excelButton{ font-size: 15px; }
-  .excelButton i{ top: -2px; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
-  .excelButton i{ top: -3px; font-size: 15px;}
-}
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  td { font-size: 14px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{ left: 11px; }
-  #descSpa{ left: 23px; }
-  #rolSpa{ left: 15px; }
-  .btnremove, .btnedit, .btnver{
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
-}
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
-  td { font-size: 16px; height: 0px;}
-  .btnremove, .btnedit, .btnver{
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{ left: 22px; }
-  #descSpa{ left: 68px; }
-  #rolSpa{ left: 15px; }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
-}
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-  #idSpa{ left: 15px; }
-  #descSpa{ left: 45px; }
-  #rolSpa{ left: 15px; }
-  .btnremove, .btnedit, .btnver{
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ left: 8px; }
-}
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 15px; }
-  #descSpa{ left: 45px; }
-  #rolSpa{ left: 15px; }
-  .btnremove, .btnedit, .btnver{
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ left: 30%; }
-  #idSpa{
-    left: 80%;
-  }
-}
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  td { font-size: 16px; height: 0px;}
-  mat-form-field{ width: 22%; margin-left: 77%; }
-  #idSpa{ left: 15px; }
-  #descSpa{ left: 45px; }
-  #rolSpa{ left: 15px; }
-  .btnremove, .btnedit, .btnver{
-    margin-top: 8%;
-    margin-bottom: 8%;
-  }
-  #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ left: 30%; }
-  #idSpa{
-    left: 80%;
-  }
+  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
+  #idSpa{ left: 8px; }
+  #descSpa{ left: 8px; }
+  #horaISpa{ left: 8px; }
+  #horaFSpa{ left: 8px; }
+  #estadoSpa{ left: 8px; }
+  #tipoTurSpa{ left: 8px; }
+  td button{ margin-top: 5%; }
+  .botonagregar mat-icon{ margin-left: -50%; }
 }
 
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
+  #idSpa{ left: 8px; }
+  #descSpa{ left: 8px; }
+  #horaISpa{ left: 8px; }
+  #horaFSpa{ left: 8px; }
+  #estadoSpa{ left: 8px; }
+  #tipoTurSpa{ left: 8px;}
+  .botonagregar mat-icon{ margin-left: -50%; }
+}

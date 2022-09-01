@@ -126,7 +126,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   uploadFiles() {
     this.message = '';
     for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
+      this.upload(i, this.listaArchivos2[i]);
     }
   }
 

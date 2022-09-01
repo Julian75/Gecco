@@ -60,3 +60,24 @@ h2{
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
+
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .nombre, .estado{
+    width: 226px;
+  }
+  .guardar{
+    margin-left: 10%;
+  }
+}
+
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .nombre, .estado{
+    width: 290px;
+  }
+  .guardar{
+    margin-left: 18%;
+  }
+}
+

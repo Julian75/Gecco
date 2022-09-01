@@ -222,6 +222,7 @@ export class SolicitudesScComponent implements OnInit {
 
               this.listarSolicitud.push(obj)
             });
+            this.listarSolicitud.reverse();
             this.dataSource = new MatTableDataSource(this.listarSolicitud);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -270,7 +271,7 @@ export class SolicitudesScComponent implements OnInit {
                 this.listarSolicitud.push(obj)
               }
             });
-            console.log(this.listarSolicitud)
+            this.listarSolicitud.reverse();
             this.dataSource = new MatTableDataSource(this.listarSolicitud);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

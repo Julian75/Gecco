@@ -3,7 +3,7 @@
     <mat-icon>add_circle</mat-icon>
   </button>
   <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field appearance="standard">
+  <mat-form-field class="buscador" appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -40,8 +40,8 @@
         <!--Opciones-->
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
-          <td mat-cell *matCellDef="let item" class="text-center">
-            <button class="btn btnremove" (click)="eliminarPresupuesto(item.id)">
+          <td mat-cell *matCellDef="let item">
+            <button class="btn btnremove mx-2" (click)="eliminarPresupuesto(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

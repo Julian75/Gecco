@@ -9,53 +9,20 @@
 table{
   width: 100%;
   height: 100%;
-  border: 1px solid #000;
 }
 
-h3{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.btnVisualizar{
-  background-color: #97B4E2;
-  width: 10%;
-}
 .botonvolver{ background-color: #00235C; left: 12px;}
 
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-.excelButton{
-  background-color: #6DBE53;
-  color: white;
-  position: relative; left: 25px;
-}
 .formulario{ background-color: #959595; color: white; margin-left: 5%; }
-td {
-  border: 1px solid #000;
-  /* text-align: center; */
-  font-size: 11px;
-}
+
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 .boton{ background-color: #00235C; }
 .btnver{ background-color: #959595; color: white; }
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
+
 .botonagregar, .excelButton, .botonvolver{ width: 64px; height: 36px; }
-.formulario{ width: 44px; height: 31px; }
-.formulario mat-icon{ font-size: 20px; position: relative; left: -3px; top: -1px;}
-.botonagregar mat-icon{ font-size: 24px; }
+.formulario mat-icon{ left: -3px; top: -1px;}
 #idSp, #idSp2, #desSp, #estSp, #estSp2, #opcSp, #jerSp{ position: relative;}
 #idSp{ left: 20px; }
 #desSp{ left: 30px; }
@@ -66,8 +33,6 @@ mat-form-field{
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 #opc{ position: relative; left: 40px;}
-.excelButton{ margin-left: -1%;  }
-.excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño - Galaxy Fold*/

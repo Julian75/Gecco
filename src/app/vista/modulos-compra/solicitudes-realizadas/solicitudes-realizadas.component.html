@@ -1,6 +1,6 @@
 <div class="contenedor">
     <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field appearance="standard">
+    <mat-form-field class="buscador" appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
