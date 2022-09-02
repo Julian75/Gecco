@@ -119,7 +119,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   uploadFiles() {
     this.message = '';
     for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.listaArchivos2[i]);
+      this.upload(i, this.listaArchivos[i]);
     }
   }
 
@@ -127,6 +127,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     this.progressInfo[index] = { value: 0, fileName: file.name };
 
     this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
+      console.log(event)
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
@@ -295,6 +296,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   }
 
   public modificarSolicitudSc(solicitudSc: SolicitudSC2, idHistorial:any){
+    var contador = 0
     this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
       if(this.listaArchivos2.length >= 1){
         let soporte : SoporteSC = new SoporteSC();
@@ -305,8 +307,9 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
               soporte.idUsuario = resUsuario
               this.listaArchivos2.forEach(element => {
+                contador++
                 soporte.descripcion = element
-                this.registrarSoporte(soporte);
+                this.registrarSoporte(soporte, contador);
               });
             })
           })
@@ -335,7 +338,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     })
   }
 
-  public registrarSoporte(soporte: SoporteSC){
+  public registrarSoporte(soporte: SoporteSC, cont){
+    console.log(cont)
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
       Swal.fire({
         position: 'center',
@@ -344,7 +348,10 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.uploadFiles();
+      if(this.listaArchivos2.length == cont+1){
+        console.log("entro bien")
+        this.uploadFiles();
+      }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -369,6 +376,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
               historial2.idUsuario = resUsuario
               this.servicioHistorial.registrar(historial2).subscribe(resHist=>{
+                this.datosSolicitud(res)
               }, error => {
                 document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                 Swal.fire({
@@ -383,7 +391,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           })
         })
       }
-      this.datosSolicitud(res)
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -432,6 +439,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   }
 
   public modificarSolicitudSc2(solicitudSc: SolicitudSC2, idHistorial:any){
+    var contador = 0
     this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
       if(this.listaArchivos2.length >= 1){
         this.servicioSolicitudSc.listarPorId(solicitudSc.id).subscribe(resSolicitud=>{
@@ -442,8 +450,9 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
               soporte.idUsuario = resUsuario
               this.listaArchivos2.forEach(element => {
+                contador++
                 soporte.descripcion = element
-                this.registrarSoporte(soporte);
+                this.registrarSoporte(soporte, contador);
               });
             })
           })

@@ -165,31 +165,63 @@ export class AgregarSolicitudScComponent implements OnInit {
   }
 
   uploadFiles() {
+    console.log("holis 1")
     this.message = '';
-    for (let i = 0; i < this.listaArchivos2.length; i++) {
-      const element = this.listaArchivos2[i]
-      console.log(element)
-      this.upload(i, element);
-    }
+    this.upload(this.listaArchivos);
+    // for (let i = 0; i < this.listaArchivos2.length; i++) {
+    //   console.log("holis 2", this.listaArchivos2, this.listaArchivos, this.listaArchivos[i])
+    //   this.upload(i, this.listaArchivos[i]);
+    // }
   }
 
-  upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: file.name };
-    this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
-      console.log(event)
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
+  uploadedFiles: any = []
+  upload(file) {
+    console.log(this.listaArchivos)
+    console.log("holas")
+    for (let index = 0; index < this.listaArchivos.length; index++) {
+      console.log("holis3")
+      const element = this.listaArchivos[index];
+      this.servicioSubirPdf.subirArchivoSegunda(element).subscribe(res=>{
+        console.log("holis2")
+        console.log(res)
+      })
+      if(index+1 == this.listaArchivos.length){
+        console.log("holis")
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        this.router.navigate(['/solicitudesSC']);
+        window.location.reload();
       }
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      this.router.navigate(['/solicitudesSC']);
-      window.location.reload();
-    },
-    err => {
-      this.progressInfo[index].value = 0;
-      this.message = 'No se puede subir el archivo ' + file.name;
-    });
+    }
+    // const formData = new FormData();
+    // this.uploadedFiles = this.listaArchivos.map(function(item) {
+    //   return formData.append('file', item, item.name)
+    //   });
+    // this.servicioSubirPdf.subirArchivoSegunda(file).subscribe(result => console.log(result));
+    // console.log("holis 3", file)
+    // this.servicioSubirPdf.subirArchivoSegunda(file).subscribe(event => {
+    //   console.log(event)
+    // })
+    // console.log(this.listaArchivos2.length)
+    // this.progressInfo[index] = { value: 0, fileName: file.name };
+    // this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
+    //   console.log("holis 4")
+    //   console.log(event)
+    //   if (event.type === HttpEventType.UploadProgress) {
+    //     console.log("holis 5")
+    //     this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
+    //   } else if (event instanceof HttpResponse) {
+    //     console.log("holis 4")
+    //     this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
+    //   }
+    //   console.log(this.fileInfos)
+    //   document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    //   // this.router.navigate(['/solicitudesSC']);
+    //   // window.location.reload();
+    // },
+    // err => {
+    //   // this.progressInfo[index].value = 0;
+    //   // this.message = 'No se puede subir el archivo ' + file.name;
+    // });
   }
 
   public guardar(){
@@ -274,13 +306,16 @@ export class AgregarSolicitudScComponent implements OnInit {
   }
 
   public registrarSoportes(solicitud: any){
+    var contador = 0
     if(this.listaArchivos2.length >= 1){
       let archivo : ArchivoSolicitud = new ArchivoSolicitud();
       this.servicioSolicitudSc.listarPorId(solicitud.id).subscribe(resSolicitud=>{
         archivo.idSolicitudSC = resSolicitud
           this.listaArchivos2.forEach(element => {
+            contador++
             archivo.nombreArchivo = element
-            this.registrarSoportes2(archivo);
+            console.log("biens hasta ahi2", contador)
+            this.registrarSoportes2(archivo, contador);
           });
         })
     }else{
@@ -296,7 +331,7 @@ export class AgregarSolicitudScComponent implements OnInit {
     }
   }
 
-  public registrarSoportes2(archivo: ArchivoSolicitud){
+  public registrarSoportes2(archivo: ArchivoSolicitud, cont){
     this.servicioArchivoSolicitud.registrar(archivo).subscribe(res=>{
       Swal.fire({
         position: 'center',
@@ -305,7 +340,11 @@ export class AgregarSolicitudScComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.uploadFiles();
+      console.log("biens hasta ahi", cont)
+      if (this.listaArchivos2.length == cont) {
+        console.log("entra bien")
+        this.uploadFiles();
+      }
       // window.location.reload();
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')

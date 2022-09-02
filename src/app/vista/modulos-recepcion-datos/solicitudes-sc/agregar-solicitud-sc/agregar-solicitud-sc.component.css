@@ -85,13 +85,17 @@ mat-option{ font-size: 11px; }
 .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
 .nombre3{ margin-left: 47%; margin-top: -42.5%;}
 .nombre4{ margin-left: 47%; margin-top: 1.3%;}
-.nombre5{
+.add{
+  margin-left: 55%;
+    margin-top: 4%;
+}
+.add2{
   margin-left: 55%;
     margin-top: 4%;
 }
 .nombre6{
-  margin-left: 56%;
-  margin-top: -7.2%;
+  margin-left: 47% !important;
+  margin-top: -40% !important;
 }
 .archivos{ margin-left: 46%;
   width: 46%;
@@ -102,9 +106,41 @@ mat-option{ font-size: 11px; }
   height: 40px;
   font-size: large;
   left: 25.2%;
-  top: 91%;
+  top: 88.5% !important;
   position: absolute;
   width: 7.8%;
+}
+.nombre2{
+  margin-left: 8% !important;
+  margin-top: 1.5% !important;
+}
+.nombre3{
+  margin-left: 8% !important;
+  margin-top: 0.5% !important;
+}
+.nombre4{
+  margin-left: 8% !important;
+  margin-top: 1% !important;
+}
+.nombre5{
+  margin-top: 0.8% !important;
+  margin-left: 8% !important;
+}
+.nombre7{
+  margin-left: 47% !important;
+  margin-top: 0% !important;
+}
+.nombre8{
+  margin-left: 47% !important;
+  margin-top: 1% !important;
+}
+.nombre9{
+  margin-left: 47% !important ;
+  margin-top: 1% !important;
+}
+.nombre5{
+  margin-top: 0.8% !important;
+  margin-left: 8% !important;
 }
 #selectButton{ margin-top: -6px; margin-left: -111%; background-color: #97B4E2; color: white; height: 40px;}
 #person{ top: 90.9%; left: 19.6%; background-color: #959595; color: white; height: 40px; position:absolute;}
@@ -117,135 +153,117 @@ mat-option{ font-size: 11px; }
   width: 80% !important; margin-left: 10%; margin-top: 4%;
 }
 
-/* Movil pequeño - Galaxy Fold*/
+
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .nombre, .nombre1{ width: 100%; }
-  .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
-  .nombre4{ margin-left: 0%;}
-  .guardar{
-    margin-left: 4%;
-    top: 939px;
-    position: static;
-    width: 200px;
-  }
-  .nombre5{
-    margin-left: 15%;
-  }
-  .guardar2{ padding-bottom: 10%; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
+  .row1{ margin-top: 39%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 0.8% !important; margin-left: 0% !important; }
+  .nombre6{ margin-left: 1% !important; margin-top: 0% !important; width: 96%;  }
+  .nombre7{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .ven { width: 221px;}
+  .nombre{width: 221px; }
+  .nombre1{width: 221px;}
+  .guardar{ margin-left: 38%; top: 153.3% !important; width: 26.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{ width: 31px; height: 31px; position: absolute; margin-left: 6%; top: 89px;}
+  .botonvolver mat-icon{ position: static; margin-left: -195%; margin-top: -35%; font-size: 21px;}
+  .dato{ position: absolute; top: 21%;}
+  #person{ top: 154%; left: 36.6%; width: 44px; height: 31px;}
+  #person mat-icon{ position: absolute; left: 19%; top: 8%;}
+  #selectButton{ margin-left: -120%; width: 44px; height: 31px;}
+  #selectButton mat-icon{ left: 41px; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  td button{ margin-top: 5%; }
+  .botonagregar mat-icon{ margin-left: -50%; }
+}
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
+  .row1{ margin-top: 39%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 0.8% !important; margin-left: 0% !important; }
+  .nombre6{ margin-left: 1% !important; margin-top: 0% !important; width: 96%;  }
+  .nombre7{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .ven { width: 285px;}
+  .nombre{width: 285px; }
+  .nombre1{width: 285px;}
+  .guardar{ margin-left: 38%; top: 160.9% !important; width: 26.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{ width: 31px; height: 31px; position: absolute; margin-left: 6%; top: 89px;}
+  .botonvolver mat-icon{ position: static; margin-left: -195%; margin-top: -35%; font-size: 21px;}
+  .dato{ position: absolute; top: 21%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; width: 60px; height: 31px;}
+  #selectButton mat-icon{ left: 15.6%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  td button{ margin-top: 5%; }
+  .botonagregar mat-icon{ margin-left: -50%; }
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  .nombre, .nombre1{ width: 100%; }
-  .nombre2, .nombre3{ margin-left: 0%; margin-top: 0%;}
-  .nombre4{ margin-left: 0%;}
-  .guardar{
-    margin-left: 14%;
-    margin-top: -73%;
-    position: static;
-    width: 200px;
+/*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/
+@media screen and (min-width: 1537px) and (max-width: 1920px){
+  .nombre2{
+    margin-left: 8% ;
+    margin-top: 1.5%;
   }
-  .nombre5{
-    margin-left: 22%;
-  }
-  .guardar2{ padding-bottom: 10%; }
-}
-
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  h2{
-    width: 198px;
-  }
-  .nombre { width: 45%; }
-  .nombre1{ width: 100%; }
-  .nombre3{ margin-left: 55%; margin-top: -99.6%;}
-  .guardar{
-    margin-left: 4%;
-    top: 634px;
-    width: 34%;
-    position: absolute;
-  }
-  .nombre5{
-    margin-left: 55%;
-    top: 34px;
-    position: relative;
-  }
-  .guardar2{ padding-bottom: 10%; }
-}
-
-/* Tablet pequeña */
-@media screen and (min-width: 721px) and (max-width: 768px){
-  .nombre2, .nombre4{ margin-top: 7%;}
-  .nombre3{ margin-left: 55%; margin-top: -88%;}
-  .nombre5{
-    margin-left: 55%;
-    margin-top: 11%;
-  }
-  .guardar{
-    margin-left: 4%;
-    top: 805px;
-    position: absolute;
-    width: 33%;
-  }
-}
-
-/* Tablet medio */
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  .nombre2, .nombre4{ margin-top: 9%;}
-  .nombre3{ margin-left: 55%; margin-top: -107%;}
-  .nombre5{
-    margin-left: 55%;
-    margin-top: 13%;
-  }
-  .guardar{
-    margin-left: 4%;
-    top: 805px;
-    position: absolute;
-    width: 33%;
-  }
-  .nombre1{
-    width: 227px;
-  }
-  .nombre{
-    width: 227px;
-  }
-}
-
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
   .nombre3{
-    margin-left: 55%;
-    margin-top: -52.2%;
+    margin-left: 8%;
+    margin-top: 0.5%;
+  }
+  .nombre4{
+    margin-left: 8%;
+    margin-top: 1%;
   }
   .nombre5{
-    margin-top: 40px;
-    margin-left: 55%;
+    margin-top: 0.8%;
+    margin-left: 8%;
+  }
+  .nombre6{
+    margin-left: 47%;
+    margin-top: -33.7%;
+  }
+  .nombre7{
+    margin-left: 47%;
+    margin-top: 0%;
+  }
+  .nombre8{
+    margin-left: 47%;
+    margin-top: 1%;
+  }
+  .nombre9{
+    margin-left: 47%;
+    margin-top: 1%;
+  }
+  .nombre5{
+    margin-top: 0.8%;
+    margin-left: 8%;
   }
 
   .guardar{
     margin-left: 4%;
-    top: 642px;
+    top: 753px;
     position: absolute;
-    width: 23.5%;
-  }
-}
-
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .nombre3{
-    margin-left: 55%;
-    margin-top: -48.5%;
+    width: 10.5%;
   }
 
-  .nombre5{
-    margin-top: 3.8%;
-    margin-left: 55%;
+  #person{
+    top: 62.4%;
+    left: 22.6%;
   }
-
-  .guardar{
-    margin-left: 4%;
-    top: 656px;
-    position: absolute;
-    width: 21.5%;
+  #selectButton{
+    margin-top: -2%;
+    margin-left: -104%;
+    position: static;
   }
 }

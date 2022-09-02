@@ -26,36 +26,142 @@ table{
 .btnremove, .btnedit{ margin-left: 0%;}
 .btnedit mat-icon, .btnremove mat-icon{ left: -3px; top: -1px;}
 #idSpa, #descSpa, #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 26px; }
+/* #idSpa{ left: 26px; }
 #descSpa{ left: 54px; }
 #horaISpa{ left: 55px; }
 #horaFSpa{ left: 54px; }
 #estadoSpa{ left: 41px; }
 #tipoTurSpa{ left: 53px; }
-#opcSpa{ left: 5px; }
+#opcSpa{ left: 5px; } */
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
-  #idSpa{ left: 8px; }
-  #descSpa{ left: 8px; }
-  #horaISpa{ left: 8px; }
-  #horaFSpa{ left: 8px; }
-  #estadoSpa{ left: 8px; }
-  #tipoTurSpa{ left: 8px; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
+  #idSpa{ margin-left: 60%; }
+  #descSpa{ margin-left: 14%; }
+  #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 24%; }
+  #opcSpa{ left: 8px; }
   td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
 }
-
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
+  #idSpa{ margin-left: 87% !important; }
+  #descSpa{ margin-left: 10%; }
+  #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 24%; }
+  #opcSpa{ left: 8px; }
+  td button{ margin-top: 5%; }
+}
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
   td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
-  #idSpa{ left: 8px; }
-  #descSpa{ left: 8px; }
-  #horaISpa{ left: 8px; }
-  #horaFSpa{ left: 8px; }
-  #estadoSpa{ left: 8px; }
-  #tipoTurSpa{ left: 8px;}
-  .botonagregar mat-icon{ margin-left: -50%; }
+  #idSpa{ margin-left: 87% !important; }
+  #descSpa{ margin-left: 10%; }
+  #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 24%; }
+}
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  #idSpa{ margin-left: 100% !important; }
+  #descSpa{ margin-left: 20%; }
+  #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 38% }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  #idSpa{ margin-left: 55% !important; }
+  #descSpa{ margin-left: 14%; }
+  #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 30%; }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  #idSpa{ margin-left: 130% !important; }
+  #descSpa{ margin-left: 34% }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 58% }
+  #estadoSpa{ margin-left: 46%; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  #idSpa{ margin-left: 140% !important; }
+  #descSpa{ margin-left: 50% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 68% }
+  #estadoSpa{ margin-left: 46%; }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  #idSpa{ margin-left: 200% !important; }
+  #descSpa{ margin-left: 80% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 100% }
+  #estadoSpa{ margin-left: 80%; }
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  #idSpa{ margin-left: 200% !important; }
+  #descSpa{ margin-left: 80% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 114% }
+  #estadoSpa{ margin-left: 84%; }
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  #idSpa{ margin-left: 200% !important; }
+  #descSpa{ margin-left: 80% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 114% }
+  #estadoSpa{ margin-left: 130%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  #idSpa{ margin-left: 200% !important; }
+  #descSpa{ margin-left: 95% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 124% }
+  #estadoSpa{ margin-left: 100%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  #idSpa{ margin-left: 210% !important; }
+  #descSpa{ margin-left: 105% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 135% }
+  #estadoSpa{ margin-left: 120%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  #idSpa{ margin-left: 270% !important; }
+  #descSpa{ margin-left: 130% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 170% }
+  #estadoSpa{ margin-left: 150%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  #idSpa{ margin-left: 300% !important; }
+  #descSpa{ margin-left: 140% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 180% }
+  #estadoSpa{ margin-left: 160%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  #idSpa{ margin-left: 320% !important; }
+  #descSpa{ margin-left: 170% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 200% }
+  #estadoSpa{ margin-left: 170%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  #idSpa{ margin-left: 420% !important; }
+  #descSpa{ margin-left: 210% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 270% }
+  #estadoSpa{ margin-left: 250%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  #idSpa{ margin-left: 420% !important; }
+  #descSpa{ margin-left: 260% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 280% }
+  #estadoSpa{ margin-left: 260%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  #idSpa{ margin-left: 900% !important; }
+  #descSpa{ margin-left: 500% !important; }
+  #horaISpa, #horaFSpa, #tipoTurSpa{ margin-left: 550% }
+  #estadoSpa{ margin-left: 600%; }
 }

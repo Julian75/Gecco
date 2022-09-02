@@ -24,48 +24,122 @@ h2{ font-weight: 700; }
 td button mat-icon{ left: -18%; top: -11%; }
 .botonagregar{ margin-left: 1%; }
 #idSpa, #moduloSpa, #rolSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 32px; position: absolute;}
+#idSpa{left: 28%; position: absolute;}
 #moduloSpa{ left: 230px; position: absolute; }
 #rolSpa{ left: 68px; position: absolute; }
 #OpcSpa{ left: 0px; }
-
-#sp2{ padding-left: 0%; }
+td.mat-cell{ padding-left: 1%;}
+#sp2{ padding-left: 1%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -0px; }
-  #idSpa{left: 20% !important; }
-  #moduloSpa{left: 31%;}
+  td button mat-icon{ font-size: 17px ; margin-left: -9px;margin-top: -0px; }
+  #idSpa{left: 20% ; }
+  #moduloSpa{left: 27%;}
   #rolSpa{ left: 19%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 5%; }
-  .excelButton{ left: 6.8% !important;}
+  .excelButton{ left: 6.8% ;}
   .botonagregar2 mat-icon{ left: -7px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -0px; }
-  #idSpa{left: 20% !important; }
+  td button mat-icon{ font-size: 17px ; margin-left: -9px;margin-top: -0px; }
+  #idSpa{left: 20% ; }
   #moduloSpa{left: 31%;}
   #rolSpa{ left: 30%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 5%; }
-  .excelButton{ left: 6% !important;}
+  .excelButton{ left: 6% ;}
   .botonagregar2 mat-icon{ left: -7px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
 
 /* PORTATILES */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -0px; }
-  #idSpa{left: 20% !important; }
-  #moduloSpa{left: 31%;}
-  #rolSpa{ left: 19%;}
+  td button mat-icon{ font-size: 17px ; margin-left: -9px;margin-top: -0px; }
+  #idSpa{left: 31% ; }
+  #moduloSpa{left: 38%;}
+  #rolSpa{ left: 34%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 5%; }
-  .excelButton{ left: 6% !important;}
-  .botonagregar2 mat-icon{ left: -7px; position: relative;}
+  .excelButton{ left: 3% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
+}
+
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  td button mat-icon{ font-size: 17px ; margin-left: 1px;margin-top: -0px; }
+  #idSpa{left: 31% ; }
+  #moduloSpa{left: 38%;}
+  #rolSpa{ left: 38%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 2% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative;}
+  .botonagregar mat-icon{ margin-left: -4%; }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  td button mat-icon{ font-size: 17px ; margin-left: 1px;margin-top: -0px; }
+  #idSpa{left: 17% ; }
+  #moduloSpa{left: 40%;}
+  #rolSpa{ left: 38%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 2% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
+  .botonagregar mat-icon{ margin-left: -4%; margin-top: -3%;}
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  td button mat-icon{ font-size: 17px ; margin-left: 1px;margin-top: -0px; }
+  #idSpa{left: 24% ; }
+  #moduloSpa{left: 42%;}
+  #rolSpa{ left: 38%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 2% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
+  .botonagregar mat-icon{ margin-left: -4%; margin-top: -3%;}
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  td button mat-icon{ font-size: 17px ; margin-left: 0px;margin-top: 1px; }
+  #idSpa{left: 31% ; }
+  #moduloSpa{left: 44%;}
+  #rolSpa{ left: 38%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 2%;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
+  .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  td button mat-icon{ font-size: 17px ; margin-left: 0px;margin-top: 1px; }
+  #idSpa{left: 28% ; }
+  #moduloSpa{left: 44%;}
+  #rolSpa{ left: 44%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 2% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
+  .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
+}
+
+/*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  td button mat-icon{ font-size: 17px ; margin-left: 0px;margin-top: 1px; }
+  #idSpa{left: 28% ; }
+  #moduloSpa{left: 42%;}
+  #rolSpa{ left: 41%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 2% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
+  .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }

@@ -287,6 +287,39 @@ button{
 }
 
 
+/*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/
+@media screen and (min-width: 1537px) and (max-width: 1920px){
+  .formulario{
+    width: 70%;
+    margin-left: 15%;
+    top: 10%;
+  }
+  .logo{
+    width: 35%;
+    margin-left: 10%;
+    margin-top: 9%;
+  }
+  hr{ display: block;  margin-top: -23%; }
+  .numIdentificacion{ top: 204px; left: -35%; width: 35%; }
+  .password{ top: 180px; left: 10%; width: 35%;}
+  .imgLogin{
+    width: 50%;
+    left: 50%;
+    top: -100px;
+  }
+  button{
+    top: 325px;
+    left: -22.8%;
+    width: 30%;
+  }
+  .olvido{
+    top: 396px;
+    left: 20%;
+    display: block;
+  }
+}
+
+
 
 
 

@@ -89,13 +89,13 @@ export class AgregarCotizacionComponent implements OnInit {
 
   uploadFiles() {
     this.message = '';
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
+    for (let i = 0; i < this.listaArchivos2.length; i++) {
+      this.upload(i, this.listaArchivos[i]);
     }
   }
 
   upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: file.name };
+    this.progressInfo[index] = { value: 0, fileName: file };
 
     this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
       if (event.type === HttpEventType.UploadProgress) {

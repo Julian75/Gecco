@@ -11,7 +11,7 @@ th{
   position: relative;
   margin-left: 15px;
 }
-td { border: 1px solid #000 !important; font-size: 11px !important; }
+td { border: 1px solid #000 !important; font-size: 11px !important; padding-left: 1% !important; }
 th h3{
   text-align: center !important;
   margin-top: 10px !important;
@@ -22,7 +22,7 @@ th h3{
   background-color: #6DBE53;
   color: white;
 }
-.botonagregar, .bot, .excelButton{ width: 64px; height: 36px; }
+.botonagregar, .bot, .excelButton, .boton{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 table{
   border: 1px solid #000 !important;
@@ -47,18 +47,18 @@ table{
   h2{
     font-size: 13px;
   }
-  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
+  .botonagregar, .excelButton, .botonagregar2, .boton{ width: 38px; height: 30px; }
   .excelButton{ margin-left: -5%; }
   h3{
     font-size: 12px;
   }
-  td { font-size: 11px; height: 0px;}
+  td { font-size: 11px; height: 0px; padding-left: 1% !important;}
   .btnremove, .btnedit, .btnver{
     width: 31px !important;
     height: 29px !important;
   }
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px}
+  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -8%;}
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
@@ -69,19 +69,19 @@ table{
   h2{
     font-size: 13px;
   }
-  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
+  .botonagregar, .excelButton, .botonagregar2 { width: 38px; height: 30px; }
   .botonagregar mat-icon{ font-size: 18px; }
   .excelButton{ margin-left: -5%; }
   h3{
     font-size: 13px;
   }
-  td { font-size: 12px; height: 0px;}
+  td { font-size: 12px; height: 0px; padding-left: 1% !important;}
   .btnremove, .btnedit, .btnver{
     width: 31px !important;
     height: 29px !important;
   }
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
@@ -97,7 +97,7 @@ table{
   h3{
     font-size: 13px;
   }
-  td { font-size: 12px; height: 0px;}
+  td { font-size: 12px; height: 0px; padding-left: 1% !important;}
   .btnremove, .btnedit, .btnver{
     width: 31px !important;
     height: 29px !important;
@@ -112,11 +112,12 @@ table{
 /* TABLETS*/
 @media screen and (min-width: 640px) and (max-width: 960px){
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
+  td { padding-left: 1% !important;}
 }
 
 /* TELEVISORES */
 @media screen and (min-width: 1920px) and (max-width: 7680px){
-  td { font-size: 14px !important; }
+  td { font-size: 14px !important; padding-left: 1% !important;}
   th h3{
     font-size: 17px !important;
   }

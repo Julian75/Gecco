@@ -126,13 +126,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   uploadFiles() {
     this.message = '';
     for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.listaArchivos2[i]);
+      this.upload(i, this.listaArchivos[i]);
     }
   }
 
   upload(index:any, file: any) {
+    console.log("funcion")
     this.progressInfo[index] = { value: 0, fileName: file.name };
-
     this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
@@ -140,7 +140,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
       }
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      this.historial.close();
+      // this.historial.close();
       window.location.reload();
     },
     err => {
@@ -331,6 +331,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   }
 
   public generarSoporte(idHistorial:any){
+    var contador = 0
     console.log("hola6")
     console.log(idHistorial)
     if(this.listaArchivos2.length >= 1){
@@ -343,8 +344,9 @@ export class ModificarHistorialRemisionComponent implements OnInit {
           this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
             soporte.idUsuario = resUsuario
             this.listaArchivos2.forEach(element => {
+              contador++
               soporte.descripcion = element
-              this.registrarSoporte(soporte);
+              this.registrarSoporte(soporte, contador);
             });
           })
         })
@@ -362,10 +364,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     }
   }
 
-  public registrarSoporte(soporte: SoporteSC){
+  public registrarSoporte(soporte: SoporteSC, cont){
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      this.uploadFiles();
+      if(this.listaArchivos2.length == cont+1){
+        console.log("entro bien")
+        this.uploadFiles();
+      }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -379,6 +384,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   }
 
   public modificarHistorial3(historial: Historial2){
+    var contador4 = 0
     this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
       this.servicioModificar.actualizarHistorialSC(historial).subscribe(res=>{
         this.servicioHistorial.listarTodos().subscribe(resHistorial=>{
@@ -432,7 +438,8 @@ export class ModificarHistorialRemisionComponent implements OnInit {
                     soporte.idUsuario = resUsuario
                     this.listaArchivos2.forEach(element => {
                       soporte.descripcion = element
-                      this.registrarSoporte2(soporte);
+                      contador4++
+                      this.registrarSoporte2(soporte, contador4);
                     });
                   })
                 })
@@ -464,7 +471,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     })
   }
 
-  public registrarSoporte2(soporte: SoporteSC){
+  public registrarSoporte2(soporte: SoporteSC, cont){
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
       Swal.fire({
         position: 'center',
@@ -473,7 +480,10 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.uploadFiles();
+      if(this.listaArchivos2.length == cont+1){
+        console.log("entro bien")
+        this.uploadFiles();
+      }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -487,6 +497,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   }
 
   public modificarSolicitudSc2(solicitudSc: SolicitudSC2, idHistorial:any){
+    var contador = 0
     this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
       if(this.listaArchivos2.length >= 1){
         let soporte : SoporteSC = new SoporteSC();
@@ -497,8 +508,9 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
               soporte.idUsuario = resUsuario
               this.listaArchivos2.forEach(element => {
+                contador++
                 soporte.descripcion = element
-                this.registrarSoporte2(soporte);
+                this.registrarSoporte2(soporte, contador);
               });
             })
           })

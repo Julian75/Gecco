@@ -21,14 +21,14 @@
           </mat-autocomplete>
         </mat-form-field>
         </div>
-        <div class="nombre2">
+        <div class="nombre3">
           <h2>Fecha Vencimiento</h2>
           <mat-form-field class="nombre" appearance="fill">
           <mat-label>Ingrese fecha de vencimiento </mat-label>
           <input type="date" id="vence" formControlName="vence" matInput>
           </mat-form-field>
         </div>
-        <div class="nombre2">
+        <div class="nombre4">
           <h2>Municipio</h2>
           <mat-form-field class="nombre" appearance="fill">
           <mat-label>Ingrese municipio</mat-label>
@@ -37,14 +37,14 @@
           </select>
           </mat-form-field>
         </div>
-        <div class="nombre2">
+        <div class="nombre5">
           <h2>Incidente</h2>
           <mat-form-field class="nombre" appearance="fill">
           <mat-label>Ingrese el Incidente</mat-label>
           <input id="incidente" formControlName="incidente" matInput>
           </mat-form-field>
         </div>
-        <div class="nombre3">
+        <div class="nombre6">
           <h2>Motivo de la Solicitud</h2>
           <mat-form-field class="nombre" appearance="fill">
           <mat-label>Seleccione el motivo</mat-label>
@@ -53,7 +53,7 @@
           </select>
           </mat-form-field>
         </div>
-        <div class="nombre4">
+        <div class="nombre7">
           <h2>Medios de Radicacion</h2>
           <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Ingrese el medio de la radicacion </mat-label>
@@ -63,7 +63,7 @@
           </select>
           </mat-form-field>
         </div>
-        <div class="nombre4">
+        <div class="nombre8">
           <h2>Tipo de Servicio</h2>
           <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Seleccione el tipo de servicio</mat-label>
@@ -72,15 +72,15 @@
           </select>
           </mat-form-field>
         </div>
-        <div class="nombre4">
+        <div class="nombre9">
           <h2>Auxiliar quien Radico</h2>
           <mat-form-field class="nombre1" appearance="fill">
             <mat-label>Ingrese el auxiliar </mat-label>
             <input id="auxiliar" formControlName="auxiliar" matInput>
           </mat-form-field>
         </div>
-        <div class="nombre5">
-          <button id="selectButton" mat-raised-button (click)="fileInput.click()" ><mat-icon>post_add</mat-icon></button>
+        <div class="add">
+          <button id="selectButton" class="btn" (click)="fileInput.click()" ><mat-icon>post_add</mat-icon></button>
           <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" /><br>
           <div class="archivos">
             <span *ngIf="fileName" style="position: relative; top: 15px;"><strong style="margin-right: 5px;">Cantidad de archivos: </strong>{{fileName}}</span><br>
@@ -90,8 +90,8 @@
             </ul>
           </div>
         </div>
-        <div class="nombre6" *ngIf="num == 0">
-          <button id="person" mat-raised-button (click)="agregarClienteServicCliente()"><mat-icon>person_add</mat-icon></button>
+        <div class="add2" *ngIf="num == 0">
+          <button id="person" class="btn" (click)="agregarClienteServicCliente()"><mat-icon>person_add</mat-icon></button>
         </div>
       </div>
       <div class="row">

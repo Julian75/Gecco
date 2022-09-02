@@ -47,11 +47,10 @@ export class SubirPdfService {
   public listarPorIdSegunda(nombreArchivo: String){
     return this.http.get(this.path+'/listarUno/'+nombreArchivo);
   }
-
   public subirArchivoSegunda(file: File): Observable<HttpEvent<any>>{
     const formData: FormData = new FormData();
     formData.append('files', file);
-
+    console.log(formData)
     const  req = new HttpRequest('POST', `${this.path}/guardar`, formData, {
       reportProgress: true,
       responseType: 'json'
