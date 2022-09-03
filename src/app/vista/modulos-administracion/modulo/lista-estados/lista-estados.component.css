@@ -35,7 +35,6 @@ td button mat-icon{ left: -18%; top: -11%; }
 #obsSp{ left: 130px; }
 #opcSp{ text-align: center; left: 8px;}
 #idSp, #desSp, #obsSp, #opcSp{ position: relative; }
-#idSp2{ padding-left: 0%; }
 h2{ font-weight: 700; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
@@ -78,5 +77,160 @@ h2{ font-weight: 700; }
   .excelButton{ left: -11.2% !important;}
   .botonagregar2 mat-icon{ left: -7px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
+}
+
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 69% !important; }
+  #desSp{left: 52%;}
+  #obsSp{ left: 56%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: -4%;}
+  .excelButton {left: -1%;}
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: -2%; }
+  #desSp{left: 38%;}
+  #obsSp{ left: 37%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: -6%;}
+  .excelButton {left: -1%;}
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 203%; }
+  #desSp{left: 73%;}
+  #obsSp{ left: 70%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: -3%;}
+  .excelButton {left: 0%;}
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 287%; }
+  #desSp{left: 89%;}
+  #obsSp{ left: 90%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: -2%;}
+  .excelButton {left: 1%;}
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 417%; }
+  #desSp{left: 123%;}
+  #obsSp{ left: 126%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: -1%;}
+  .excelButton {left: 2%;}
+}
+
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 417%; }
+  #desSp{left: 142%;}
+  #obsSp{ left: 140%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 0%;}
+  .excelButton {left: 3%;}
+}
+
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 417%; }
+  #desSp{left: 154%;}
+  #obsSp{ left: 150%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 1%;}
+  .excelButton {left: 3%;}
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 475%; }
+  #desSp{left: 172%;}
+  #obsSp{ left: 171%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 1%;}
+  .excelButton {left: 2%;}
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 475%; }
+  #desSp{left: 180%;}
+  #obsSp{ left: 171%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 1%;}
+  .excelButton {left: 2%;}
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 681%; }
+  #desSp{left: 217%;}
+  #obsSp{ left: 207%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 2%;}
+  .excelButton {left: 3%;}
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 681%; }
+  #desSp{left: 244%;}
+  #obsSp{ left: 227%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 2%;}
+  .excelButton {left: 3%;}
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 824%; }
+  #desSp{left: 275%;}
+  #obsSp{ left: 264%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 2%;}
+  .excelButton {left: 3%;}
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 1130%; }
+  #desSp{left: 358%;}
+  #obsSp{ left: 345%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 3%;}
+  .excelButton {left: 4%;}
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 1130%; }
+  #desSp{left: 385%;}
+  #obsSp{ left: 390%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 3%;}
+  .excelButton {left: 4%;}
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
+  #idSp{left: 2500%; }
+  #desSp{left: 812%;}
+  #obsSp{ left: 758%;}
+  #opcSp{ margin-left: 11%; }
+  .boton{ left: 4%;}
+  .excelButton {left: 5%;}
 }
 

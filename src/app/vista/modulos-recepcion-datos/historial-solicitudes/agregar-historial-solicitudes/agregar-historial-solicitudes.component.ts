@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
-import { HttpResponse, HttpEventType } from '@angular/common/http';
+import { HttpResponse, HttpEventType, HttpClient } from '@angular/common/http';
 import { AsignarUsuariosPqrService } from 'src/app/servicios/asignacionUsuariosPqrs.service';
 import Swal from 'sweetalert2';
 import { HistorialSolicitudes } from 'src/app/modelos/historialSolicitudes';
@@ -47,6 +47,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   fileInfos!: Observable<any>;
 
   constructor(
+    private http: HttpClient,
     private fb: FormBuilder,
     private servicioSubirPdf : SubirPdfService,
     private servicioSolicitudSc : SolicitudSCService,
@@ -104,41 +105,39 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     }
   }
 
-  selectFiles(event: any) {
+  public w: any
+  selectFiles(event): void {
+    var w = event.target.files
+    this.w = w
+    this.listaArchivos = []
+    this.listaArchivos.push(w)
     this.listaArchivos2 = []
-    this.progressInfo = [];
     event.target.files.length == 1 ? this.fileName = event.target.files[0].name : this.fileName = event.target.files.length + " archivos";
-    this.selectedFiles = event.target.files;
-    this.listaArchivos = event.target.files
-    for (let index = 0; index < this.listaArchivos.length; index++) {
-      const element = this.listaArchivos[index];
-      this.listaArchivos2.push(element.name)
-    }
-  }
-
-  uploadFiles() {
-    this.message = '';
-    for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.listaArchivos[i]);
-    }
-  }
-
-  upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: file.name };
-
-    this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
-      console.log(event)
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
+    this.listaArchivos.forEach(element => {
+      for (let index = 0; index < element.length; index++) {
+        const element1 = element[index];
+        this.listaArchivos2.push(element1.name)
       }
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      window.location.reload();
-    },
-    err => {
-      this.progressInfo[index].value = 0;
-      this.message = 'No se puede subir el archivo ' + file.name;
+    });
+  }
+
+  percentDone: number;
+  uploadSuccess: boolean;
+  uploadFiles(files: File[]){
+    console.log(this.w)
+    console.log(files)
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append('files',f))
+
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccess = true;
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          window.location.reload();
+        }
     });
   }
 
@@ -306,10 +305,13 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             soporte.idHistorial = resHistorial
             this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
               soporte.idUsuario = resUsuario
-              this.listaArchivos2.forEach(element => {
-                contador++
-                soporte.descripcion = element
-                this.registrarSoporte(soporte, contador);
+              this.listaArchivos.forEach(element => {
+                for (let index = 0; index < element.length; index++) {
+                  const element1 = element[index];
+                  contador++
+                  soporte.descripcion = element1.name
+                  this.registrarSoporte(soporte, contador);
+                }
               });
             })
           })
@@ -348,9 +350,9 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      if(this.listaArchivos2.length == cont+1){
-        console.log("entro bien")
-        this.uploadFiles();
+      console.log(cont)
+      if(this.listaArchivos.length == cont){
+        this.uploadFiles(this.w);
       }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')

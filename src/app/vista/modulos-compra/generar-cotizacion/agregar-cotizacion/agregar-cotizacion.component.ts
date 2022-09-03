@@ -1,7 +1,7 @@
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { CotizacionPdfService } from './../../../../servicios/cotizacionPdf.service';
 import { CotizacionPdf } from './../../../../modelos/cotizacionPdf';
-import { HttpResponse, HttpEventType } from '@angular/common/http';
+import { HttpResponse, HttpEventType, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsuarioService } from './../../../../servicios/usuario.service';
 import { Solicitud } from './../../../../modelos/solicitud';
@@ -48,6 +48,7 @@ export class AgregarCotizacionComponent implements OnInit {
   public fecha:Date = new Date();
 
   constructor(
+    private http: HttpClient,
     private servicioSubirPdf : SubirPdfService,
     private servicioCotizacionPdf : CotizacionPdfService,
     private servicioEstado : EstadoService,
@@ -75,41 +76,38 @@ export class AgregarCotizacionComponent implements OnInit {
     });
   }
 
-  selectFiles(event: any) {
+  public w: any
+  selectFiles(event): void {
+    var w = event.target.files
+    this.w = w
+    this.listaArchivos = []
+    this.listaArchivos.push(w)
     this.listaArchivos2 = []
-    this.progressInfo = [];
     event.target.files.length == 1 ? this.fileName = event.target.files[0].name : this.fileName = event.target.files.length + " archivos";
-    this.selectedFiles = event.target.files;
-    this.listaArchivos = event.target.files
-    for (let index = 0; index < this.listaArchivos.length; index++) {
-      const element = this.listaArchivos[index];
-      this.listaArchivos2.push(element.name)
-    }
-  }
-
-  uploadFiles() {
-    this.message = '';
-    for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.listaArchivos[i]);
-    }
-  }
-
-  upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: file };
-
-    this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.fileInfos = this.servicioSubirPdf.listarTodos();
+    this.listaArchivos.forEach(element => {
+      for (let index = 0; index < element.length; index++) {
+        const element1 = element[index];
+        this.listaArchivos2.push(element1.name)
       }
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      this.dialogRef.close();
-      window.location.reload();
-    },
-    err => {
-      this.progressInfo[index].value = 0;
-      this.message = 'No se puede subir el archivo ' + file.name;
+    });
+  }
+
+  percentDone: number;
+  uploadSuccess: boolean;
+  uploadFiles(files: File[]){
+    console.log(this.w)
+    console.log(files)
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append('files',f))
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload', formData, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccess = true;
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          window.location.reload();
+        }
     });
   }
 
@@ -234,7 +232,7 @@ export class AgregarCotizacionComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.uploadFiles()
+      this.uploadFiles(this.w)
     }, error => {
     });
   }

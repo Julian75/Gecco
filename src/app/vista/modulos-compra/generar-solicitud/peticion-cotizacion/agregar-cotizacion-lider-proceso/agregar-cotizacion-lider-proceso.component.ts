@@ -1,7 +1,7 @@
 import { PeticionCotizacionComponent } from './../peticion-cotizacion.component';
 import { CotizacionPdf } from './../../../../../modelos/cotizacionPdf';
 import { Cotizacion } from './../../../../../modelos/cotizacion';
-import { HttpResponse, HttpEventType } from '@angular/common/http';
+import { HttpResponse, HttpEventType, HttpClient } from '@angular/common/http';
 import { UsuarioService } from './../../../../../servicios/usuario.service';
 import { CotizacionService } from './../../../../../servicios/cotizacion.service';
 import { SolicitudService } from './../../../../../servicios/solicitud.service';
@@ -46,6 +46,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
   public fecha:Date = new Date();
 
   constructor(
+    private http: HttpClient,
     private servicioSubirPdf : SubirPdfService,
     private servicioCotizacionPdf: CotizacionPdfService,
     private servicioEstado : EstadoService,
@@ -73,41 +74,38 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     });
   }
 
-  selectFiles(event: any) {
+  public w: any
+  selectFiles(event): void {
+    var w = event.target.files
+    this.w = w
+    this.listaArchivos = []
+    this.listaArchivos.push(w)
     this.listaArchivos2 = []
-    this.progressInfo = [];
     event.target.files.length == 1 ? this.fileName = event.target.files[0].name : this.fileName = event.target.files.length + " archivos";
-    this.selectedFiles = event.target.files;
-    this.listaArchivos = event.target.files
-    for (let index = 0; index < this.listaArchivos.length; index++) {
-      const element = this.listaArchivos[index];
-      this.listaArchivos2.push(element.name)
-    }
-  }
-
-  uploadFiles() {
-    this.message = '';
-    for (let i = 0; i < this.listaArchivos2.length; i++) {
-      this.upload(i, this.listaArchivos[i]);
-    }
-  }
-
-  upload(index:any, file: any) {
-    this.progressInfo[index] = { value: 0, fileName: file };
-    this.servicioSubirPdf.subirArchivo(file).subscribe((event:any) => {
-      console.log(event.type, event, index, file)
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.fileInfos = this.servicioSubirPdf.listarTodos();
+    this.listaArchivos.forEach(element => {
+      for (let index = 0; index < element.length; index++) {
+        const element1 = element[index];
+        this.listaArchivos2.push(element1.name)
       }
-      document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
-      this.dialogRef.close();
-      window.location.reload();
-    },
-    err => {
-      this.progressInfo[index].value = 0;
-      this.message = 'No se puede subir el archivo ' + file.name;
+    });
+  }
+
+  percentDone: number;
+  uploadSuccess: boolean;
+  uploadFiles(files: File[]){
+    console.log(this.w)
+    console.log(files)
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append('files',f))
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload', formData, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccess = true;
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          window.location.reload();
+        }
     });
   }
 
@@ -179,15 +177,18 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     this.servicioConsultasGenerales.listarCotizacion(idSolicitud).subscribe(resCotizacion=>{
       resCotizacion.forEach(element => {
         this.servicioCotizacion.listarPorId(element.id).subscribe(resCotizacion=>{
-          this.listaArchivos2.forEach((element:any) => {
-            this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
-              let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
-              cotizacionPdf.idCotizacion = resCotizacion
-              cotizacionPdf.idEstado = resEstado
-              cotizacionPdf.nombrePdf = element
-              this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
-            })
-          })
+          this.listaArchivos.forEach(element => {
+            for (let index = 0; index < element.length; index++) {
+              const element1 = element[index];
+              this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
+                let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+                cotizacionPdf.idCotizacion = resCotizacion
+                cotizacionPdf.idEstado = resEstado
+                cotizacionPdf.nombrePdf = element1.name
+                this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
+              })
+            }
+          });
         });
       });
     })
@@ -202,7 +203,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.uploadFiles()
+      this.uploadFiles(this.w);
     }, error => {
       Swal.fire({
         position: 'center',

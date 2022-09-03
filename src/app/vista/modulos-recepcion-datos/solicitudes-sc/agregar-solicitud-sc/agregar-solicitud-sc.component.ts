@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
-import { HttpResponse, HttpEventType } from '@angular/common/http';
+import { HttpResponse, HttpEventType, HttpClient } from '@angular/common/http';
 import { MotivoSolicitudService } from 'src/app/servicios/motivoSolicitud.service';
 import { TipoServicioService } from 'src/app/servicios/tipoServicio.service';
 import { SolicitudSC } from 'src/app/modelos/solicitudSC';
@@ -38,6 +38,7 @@ export class AgregarSolicitudScComponent implements OnInit {
   public listaClientes: any = [];
   public fecha: Date = new Date();
   public fechaActual: any;
+  public validamos: boolean = false;
 
   //Lista de archivos seleccionados
   selectedFiles!: FileList;
@@ -55,6 +56,7 @@ export class AgregarSolicitudScComponent implements OnInit {
   fileInfos!: Observable<any>;
 
   constructor(
+    private http: HttpClient,
     private fb: FormBuilder,
     private servicioSubirPdf : SubirPdfService,
     private servicioMotivoSolicitud : MotivoSolicitudService,
@@ -152,76 +154,41 @@ export class AgregarSolicitudScComponent implements OnInit {
     });
   }
 
-  selectFiles(event: any) {
+  public w: any
+  selectFiles(event): void {
+    var w = event.target.files
+    this.w = w
+    this.listaArchivos = []
+    this.listaArchivos.push(w)
     this.listaArchivos2 = []
-    this.progressInfo = [];
     event.target.files.length == 1 ? this.fileName = event.target.files[0].name : this.fileName = event.target.files.length + " archivos";
-    this.selectedFiles = event.target.files;
-    this.listaArchivos = event.target.files
-    for (let index = 0; index < this.listaArchivos.length; index++) {
-      const element = this.listaArchivos[index];
-      this.listaArchivos2.push(element.name)
-    }
-  }
-
-  uploadFiles() {
-    console.log("holis 1")
-    this.message = '';
-    this.upload(this.listaArchivos);
-    // for (let i = 0; i < this.listaArchivos2.length; i++) {
-    //   console.log("holis 2", this.listaArchivos2, this.listaArchivos, this.listaArchivos[i])
-    //   this.upload(i, this.listaArchivos[i]);
-    // }
-  }
-
-  uploadedFiles: any = []
-  upload(file) {
-    console.log(this.listaArchivos)
-    console.log("holas")
-    for (let index = 0; index < this.listaArchivos.length; index++) {
-      console.log("holis3")
-      const element = this.listaArchivos[index];
-      this.servicioSubirPdf.subirArchivoSegunda(element).subscribe(res=>{
-        console.log("holis2")
-        console.log(res)
-      })
-      if(index+1 == this.listaArchivos.length){
-        console.log("holis")
-        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-        this.router.navigate(['/solicitudesSC']);
-        window.location.reload();
+    this.listaArchivos.forEach(element => {
+      for (let index = 0; index < element.length; index++) {
+        const element1 = element[index];
+        this.listaArchivos2.push(element1.name)
       }
-    }
-    // const formData = new FormData();
-    // this.uploadedFiles = this.listaArchivos.map(function(item) {
-    //   return formData.append('file', item, item.name)
-    //   });
-    // this.servicioSubirPdf.subirArchivoSegunda(file).subscribe(result => console.log(result));
-    // console.log("holis 3", file)
-    // this.servicioSubirPdf.subirArchivoSegunda(file).subscribe(event => {
-    //   console.log(event)
-    // })
-    // console.log(this.listaArchivos2.length)
-    // this.progressInfo[index] = { value: 0, fileName: file.name };
-    // this.servicioSubirPdf.subirArchivoSegunda(file).subscribe((event:any) => {
-    //   console.log("holis 4")
-    //   console.log(event)
-    //   if (event.type === HttpEventType.UploadProgress) {
-    //     console.log("holis 5")
-    //     this.progressInfo[index].value = Math.round(100 * event.loaded / event.total);
-    //   } else if (event instanceof HttpResponse) {
-    //     console.log("holis 4")
-    //     this.fileInfos = this.servicioSubirPdf.listarTodosSegunda();
-    //   }
-    //   console.log(this.fileInfos)
-    //   document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-    //   // this.router.navigate(['/solicitudesSC']);
-    //   // window.location.reload();
-    // },
-    // err => {
-    //   // this.progressInfo[index].value = 0;
-    //   // this.message = 'No se puede subir el archivo ' + file.name;
-    // });
+    });
+  }
+
+  percentDone: number;
+  uploadSuccess: boolean;
+  uploadFiles(files: File[]){
+    console.log(this.w)
+    console.log(files)
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append('files',f))
+
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccess = true;
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          this.router.navigate(['/solicitudesSC']);
+          window.location.reload();
+        }
+    });
   }
 
   public guardar(){
@@ -307,15 +274,20 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public registrarSoportes(solicitud: any){
     var contador = 0
-    if(this.listaArchivos2.length >= 1){
+    if(this.listaArchivos.length >= 1){
       let archivo : ArchivoSolicitud = new ArchivoSolicitud();
       this.servicioSolicitudSc.listarPorId(solicitud.id).subscribe(resSolicitud=>{
         archivo.idSolicitudSC = resSolicitud
-          this.listaArchivos2.forEach(element => {
-            contador++
-            archivo.nombreArchivo = element
-            console.log("biens hasta ahi2", contador)
-            this.registrarSoportes2(archivo, contador);
+          this.listaArchivos.forEach(element => {
+            for (let index = 0; index < element.length; index++) {
+              const element1 = element[index];
+              console.log(element1)
+              contador++
+              console.log(element1)
+              archivo.nombreArchivo = element1.name
+              console.log("biens hasta ahi2", contador)
+              this.registrarSoportes2(archivo, contador);
+            }
           });
         })
     }else{
@@ -341,11 +313,9 @@ export class AgregarSolicitudScComponent implements OnInit {
         timer: 1500
       })
       console.log("biens hasta ahi", cont)
-      if (this.listaArchivos2.length == cont) {
-        console.log("entra bien")
-        this.uploadFiles();
+      if (this.listaArchivos.length == cont) {
+        this.uploadFiles(this.w);
       }
-      // window.location.reload();
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({

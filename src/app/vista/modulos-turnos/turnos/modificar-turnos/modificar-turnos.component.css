@@ -97,3 +97,144 @@ h2{
   .nombre3{ margin-left: 0%; margin-top: 3%;}
   .nombre4{ margin-left: 0%; margin-top: 3%;}
 }
+
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .nombre, .nombre1{
+    width: 225px;
+    margin-left: 0%;
+  }
+  .nombre2{ margin-left: 0%; }
+  .guardarModal{
+    margin-left: 87%;
+  }
+  .nombre3{ margin-left: 54%; margin-top: -45.4%;}
+  .nombre4{ margin-left: 54%; margin-top: 3%;}
+}
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  .guardarModal{
+    margin-left: 85%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -36.3%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.8%;}
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  .nombre, .nombre1{
+    width: 225px;
+    margin-left: 0%;
+  }
+  .nombre2{ margin-left: 0%; }
+  .guardarModal{
+    margin-left: 87%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -43.5%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.4%;}
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  .guardarModal{
+    margin-left: 82%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -32%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.4%;}
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  .guardarModal{
+    margin-left: 77%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -27.6%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.7%;}
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  .nombre, .nombre1{
+    width: 288px;
+  }
+  /* .nombre2{ margin-left: 0%; } */
+  .guardarModal{
+    margin-left: 76%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -21.5%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.4%;}
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .guardarModal{
+    margin-left: 69%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -18.3%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.3%;}
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .guardarModal{
+    margin-left: 68%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -17.3%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.3%;}
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .guardarModal{
+    margin-left: 68%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -16.3%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .guardarModal{
+    margin-left: 65%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -14.3%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .guardarModal{
+    margin-left: 65%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -13.5%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .guardarModal{
+    margin-left: 64%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -12.5%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .guardarModal{
+    margin-left: 62%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -10.5%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .guardarModal{
+    margin-left: 61%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -10%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .guardarModal{
+    margin-left: 58%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -6.4%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.5%;}
+}

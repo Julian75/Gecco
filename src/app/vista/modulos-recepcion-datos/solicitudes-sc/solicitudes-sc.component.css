@@ -23,40 +23,9 @@
   background-color: #C6EFCE;
   color: #006100;
 }
-
-
 table{
   width: 100%;
   height: 100%;
-}
-h3{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.btnVisualizar{
-  background-color: #97B4E2;
-  width: 10%;
-}
-
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-.excelButton{
-  background-color: #6DBE53;
-  color: white;
-}
-
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
-td{
-  border: 1px solid #000;
-  text-align: left;
-  font-size: 11px;
 }
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -66,16 +35,6 @@ td{
 .btnedit{ background-color: #97B4E2; color: white;}
 .btnremove{ background-color: #DA161A; color: white; }
 .btnPriority{ background-color: #00235C; color: white; }
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
-td.mat-cell:first-of-type{ padding-left: 0px; }
-.botonagregar2, .btnremove, .btnedit, .btnver, .btnedit2, .btnPriority{ width: 44px; height: 31px; }
-.botonagregar, .excelButton{ width: 64px; height: 36px; }
-.excelButton{ margin-left: -1%; }
-.excelButton i{ position: relative; top: -3px; font-size: 20px;}
 #idSpa, #nombreSpa, #fechaISpa, #nombreOficSpa, #nombreSitioVSpa, #inci, #motivo, #radicacion, #tiposervicio,#auxiliar,#escala, #opcSpa, .btnedit2{ position: relative; }
 #idSpa{ left: 7px; }
 #fechaISpa{ left: 19px; }
@@ -88,22 +47,11 @@ td.mat-cell:first-of-type{ padding-left: 0px; }
 #nombreSitioVSpa{ left: 32px; }
 #turnoSpa{ left: 15px; }
 #opcSpa{ left: 0px; }
-.excelButton i{ position: relative; top: 1px; }
-td button mat-icon{ margin-top: -6%; font-size: 20px; margin-left: -20%; }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
-  .botonagregar mat-icon{ font-size: 18px; }
-  .excelButton{ margin-left: -5%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  td { font-size: 11px; height: 0px;}
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-  button i{ position: relative; top: -15%; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
+  td button{ margin-top: 5%; }
   #idSpa{ left: -2px; }
   #fechaISpa{ left: 8px; }
   #fechaFSpa { left: 8px; }
@@ -117,28 +65,11 @@ td button mat-icon{ margin-top: -6%; font-size: 20px; margin-left: -20%; }
   #nombreSitioVSpa{ left: 9px; }
   #nombreSpa{ left: 6px; }
   #opcSpa{ left: 8px; }
-  .excelButton i{ top: -3px; font-size: 15px;}
-  .btnedit{
-    width: 20px !important;
-    height: 23px;
-    position: relative;
-    left: -8%;
-    top: 25%;
-    margin-bottom: 8%;
-  }
-  .btnedit2{
-    width: 20px !important;
-    height: 23px;
-    position: relative;
-    left: 63%;
-    margin-top: -86%;
-    margin-bottom: 8%;
-  }
-  td button mat-icon{
-    font-size: 12px;
-    margin-left: -12px;
-    margin-top: -2px;
-  }
+}
+
+/* Movil pequeño - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+
 }
 /* Movil medio - Samsung Galaxy S8 */
 @media screen and (min-width: 360px) and (max-width: 493px){

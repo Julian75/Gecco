@@ -118,3 +118,87 @@ td.mat-cell{ padding-left: 1%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: -9%; }
 }
+
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:272%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:293%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:293%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:361%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:378%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:423%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:565%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 30% ; }
+  #descripSp{left:615%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+  #idSp{left: 42% ; }
+  #descripSp{left:1160%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
