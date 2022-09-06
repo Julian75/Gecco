@@ -176,26 +176,33 @@ export class AgregarCotizacionComponent implements OnInit {
   }
 
   public registroCotiPdf(idSolicitud:number){
+    var contador = 0
     this.servicioConsultasGenerales.listarCotizacion(idSolicitud).subscribe(resCotizacion=>{
       resCotizacion.forEach(element => {
         this.servicioCotizacion.listarPorId(element.id).subscribe(resCotizacion=>{
-          this.listaArchivos2.forEach((element:any) => {
-            this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
-              let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
-              cotizacionPdf.idCotizacion = resCotizacion
-              cotizacionPdf.idEstado = resEstado
-              cotizacionPdf.nombrePdf = element
-              this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
-            })
-          })
+          this.listaArchivos.forEach(element => {
+            for (let index = 0; index < element.length; index++) {
+              const element1 = element[index];
+              this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
+                contador++
+                let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
+                cotizacionPdf.idCotizacion = resCotizacion
+                cotizacionPdf.idEstado = resEstado
+                cotizacionPdf.nombrePdf = element1.name
+                this.registrarCotizacionPdf(cotizacionPdf, idSolicitud, contador)
+              })
+            }
+          });
         });
       });
     })
   }
 
-  public registrarCotizacionPdf(cotizacionPdf: CotizacionPdf, idSolicitud: number){
+  public registrarCotizacionPdf(cotizacionPdf: CotizacionPdf, idSolicitud: number, contador){
     this.servicioCotizacionPdf.registrar(cotizacionPdf).subscribe(res=>{
-      this.actualizarSolicitud(idSolicitud)
+      if (this.listaArchivos.length == contador) {
+        this.actualizarSolicitud(idSolicitud)
+      }
     }, error => {
       Swal.fire({
         position: 'center',

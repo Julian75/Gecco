@@ -19,39 +19,176 @@ table{
 
 .btnremove mat-icon{ left: -3px; top: -1px;}
 #idSpa, #idSp, #idSp2, #descSpa, #valorP, #opcSp, #producto, #mes, #opcSpa{ position: relative;}
-#idSpa{ left: 27px; }
-#idSp{ left: 30px; }
-#descSpa{ left: 95px; }
-#valorP{ left: 87px; }
-#producto{ left: 51px; }
-#mes{ left: 70px; }
-#opcSpa{ left: 10px; }
 #opcSp{ padding-right: 0%; }
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
-  #idSpa{ left: 8px; }
-  #idSp{ left: 8px; }
-  #descSpa{ left: 8px; }
-  #valorP{ left: 8px; }
-  #producto{ left: 8px; }
-  #mes{ left: 8px; }
-  #opcSpa{ left: 8px; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
+  #idSpa{ margin-left: 80%; }
+  #descSpa{ margin-left: 15%; }
+  #valorP{ margin-left: 10%; }
+  #producto{ margin-left: 10%; }
+  #mes{ margin-left: 50%; }
+  #opcSpa{ margin-left: 15%; }
   td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
-  #idSpa{ left: 8px; }
-  #idSp{ left: 8px; }
-  #descSpa{ left: 8px; }
-  #valorP{ left: 8px; }
-  #producto{ left: 8px; }
-  #mes{ left: 14px; }
-  #opcSpa{ left: 8px; }
-  .botonagregar mat-icon{ margin-left: -50%; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
+  #idSpa{ margin-left: 80%; }
+  #descSpa{ margin-left: 15%; }
+  #valorP{ margin-left: 10%; }
+  #producto{ margin-left: 15%; }
+  #mes{ margin-left: 50%; }
+  #opcSpa{ margin-left: 15%; }
+}
+
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
+  #idSpa{ margin-left: 80%; }
+  #descSpa{ margin-left: 15%; }
+  #valorP{ margin-left: 10%; }
+  #producto{ margin-left: 15%; }
+  #mes{ margin-left: 100%; }
+  #opcSpa{ margin-left: 20%; }
+}
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  #idSpa{ margin-left: 90%; }
+  #descSpa{ margin-left: 50%; }
+  #valorP{ margin-left: 35%; }
+  #producto{ margin-left: 30%; }
+  #mes{ margin-left: 140%; }
+  #opcSpa{ margin-left: 30%; }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  #idSpa{ margin-left: 90%; }
+  #descSpa{ margin-left: 20%; }
+  #valorP{ margin-left: 20%; }
+  #producto{ margin-left: 16%; }
+  #mes{ margin-left: 100%; }
+  #opcSpa{ margin-left: 20%; }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  #idSpa{ margin-left: 110%; }
+  #descSpa{ margin-left: 60%; }
+  #valorP{ margin-left: 50%; }
+  #producto{ margin-left: 40%; }
+  #mes{ margin-left: 150%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  #idSpa{ margin-left: 110%; }
+  #descSpa{ margin-left: 80%; }
+  #valorP{ margin-left: 60%; }
+  #producto{ margin-left: 60%; }
+  #mes{ margin-left: 200%; }
+  #opcSpa{ margin-left: 15%; }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  #idSpa{ margin-left: 200%; }
+  #descSpa{ margin-left: 110%; }
+  #valorP{ margin-left: 80%; }
+  #producto{ margin-left: 90%; }
+  #mes{ margin-left: 250%; }
+  #opcSpa{ margin-left: 15%; }
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  #idSpa{ margin-left: 200%; }
+  #descSpa{ margin-left: 110%; }
+  #valorP{ margin-left: 90%; }
+  #producto{ margin-left: 90%; }
+  #mes{ margin-left: 270%; }
+  #opcSpa{ margin-left: 10%; }
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  #idSpa{ margin-left: 200%; }
+  #descSpa{ margin-left: 110%; }
+  #valorP{ margin-left: 90%; }
+  #producto{ margin-left: 85%; }
+  #mes{ margin-left: 300%; }
+  #opcSpa{ margin-left: 10%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  #idSpa{ margin-left: 200%; }
+  #descSpa{ margin-left: 125%; }
+  #valorP{ margin-left: 100%; }
+  #producto{ margin-left: 90%; }
+  #mes{ margin-left: 330%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  #idSpa{ margin-left: 200%; }
+  #descSpa{ margin-left: 126%; }
+  #valorP{ margin-left: 110%; }
+  #producto{ margin-left: 105%; }
+  #mes{ margin-left: 350%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  #idSpa{ margin-left: 290%; }
+  #descSpa{ margin-left: 160%; }
+  #valorP{ margin-left: 140%; }
+  #producto{ margin-left: 125%; }
+  #mes{ margin-left: 420%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  #idSpa{ margin-left: 290%; }
+  #descSpa{ margin-left: 180%; }
+  #valorP{ margin-left: 150%; }
+  #producto{ margin-left: 140%; }
+  #mes{ margin-left: 450%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  #idSpa{ margin-left: 320%; }
+  #descSpa{ margin-left: 190%; }
+  #valorP{ margin-left: 165%; }
+  #producto{ margin-left: 160%; }
+  #mes{ margin-left: 490%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  #idSpa{ margin-left: 420%; }
+  #descSpa{ margin-left: 260%; }
+  #valorP{ margin-left: 220%; }
+  #producto{ margin-left: 230%; }
+  #mes{ margin-left: 650%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  #idSpa{ margin-left: 420%; }
+  #descSpa{ margin-left: 260%; }
+  #valorP{ margin-left: 250%; }
+  #producto{ margin-left: 240%; }
+  #mes{ margin-left: 700%; }
+  #opcSpa{ margin-left: 10%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  #idSpa{ margin-left: 870%; }
+  #descSpa{ margin-left: 500%; }
+  #valorP{ margin-left: 520%; }
+  #producto{ margin-left: 500%; }
+  #mes{ margin-left: 1400%; }
+  #opcSpa{ margin-left: 10%; }
 }

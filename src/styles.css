@@ -47,18 +47,18 @@ table{
   h2{
     font-size: 13px;
   }
-  .botonagregar, .excelButton, .botonagregar2, .boton{ width: 38px; height: 30px; }
+  .botonagregar, .excelButton, .botonagregar2{ width: 38px; height: 30px; }
   .excelButton{ margin-left: -5%; }
   h3{
     font-size: 12px;
   }
   td { font-size: 11px; height: 0px; padding-left: 1% !important;}
-  .btnremove, .btnedit, .btnver, .btnedit2{
+  .btnremove, .btnedit, .btnver, .btnedit2, .botonagregar, .bot, .boton{
     width: 31px !important;
     height: 29px !important;
   }
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -8%;}
+  .botonagregar mat-icon, .botonagregar2 mat-icon, .botonagregar mat-icon, .bot mat-icon, .boton mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -8%;}
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }

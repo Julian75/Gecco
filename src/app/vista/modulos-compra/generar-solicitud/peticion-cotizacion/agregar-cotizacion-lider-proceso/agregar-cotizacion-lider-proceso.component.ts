@@ -104,7 +104,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
         } else if (event instanceof HttpResponse) {
           this.uploadSuccess = true;
           document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          window.location.reload();
+          // window.location.reload();
         }
     });
   }
@@ -116,17 +116,25 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     });
   }
 
+  existeImport: any = []
+  existe:boolean;
   public guardar(){
+    this.nombresExistentes = []
+    this.listarExiste = []
+    this.listarExiste2 = []
+    this.existeImport = []
     this.dialogRef.close();
+    console.log(this.data)
     document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
     let cotizacion : Cotizacion = new Cotizacion();
     this.servicioEstado.listarPorId(31).subscribe(resEstado=>{
-      cotizacion.idEstado = resEstado
+      console.log("home")
       this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-        cotizacion.idSolicitud = resSolicitud
+        console.log("home2")
         this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-          cotizacion.idUsuario = resUsuario
+          console.log("home3")
           this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf=>{
+            console.log("home4")
             resCotizacionPdf.forEach(elementCotizacion => {
               this.listaArchivos2.forEach((elementArchivo:any) => {
                 if(elementCotizacion.nombrePdf == elementArchivo){
@@ -137,11 +145,14 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
                 }
                 this.listarExiste.push(this.encontrado)
               })
-              const existe = this.listarExiste.includes( true )
-              this.listarExiste2.push(existe)
+              this.existe = this.listarExiste.includes(true)
+              this.existeImport.push(this.existe)
             });
+            console.log(this.existeImport)
             const existe2 = this.listarExiste.includes( true )
+            console.log(existe2)
             if(existe2 == true){
+              console.log("home6")
               document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
               Swal.fire({
                 position: 'center',
@@ -151,6 +162,13 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
                 timer: 4000
               })
             }else if(existe2 == false){
+              console.log("home7")
+              cotizacion.idEstado = resEstado
+              cotizacion.idSolicitud = resSolicitud
+              cotizacion.idUsuario = resUsuario
+              console.log(cotizacion, cotizacion.idSolicitud.id, resSolicitud)
+              console.log(resEstado)
+              console.log(resUsuario)
               this.registrarCotizacion(cotizacion, cotizacion.idSolicitud.id)
             }
           })
@@ -160,7 +178,9 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
   }
 
   public registrarCotizacion(cotizacion: Cotizacion, idSolicitud:any){
+    console.log(cotizacion)
     this.servicioCotizacion.registrar(cotizacion).subscribe(res=>{
+      console.log("home8")
       this.registroCotiPdf(idSolicitud)
     }, error => {
       Swal.fire({
@@ -174,6 +194,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
   }
 
   public registroCotiPdf(idSolicitud:number){
+    var contador = 0
     this.servicioConsultasGenerales.listarCotizacion(idSolicitud).subscribe(resCotizacion=>{
       resCotizacion.forEach(element => {
         this.servicioCotizacion.listarPorId(element.id).subscribe(resCotizacion=>{
@@ -181,11 +202,12 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
             for (let index = 0; index < element.length; index++) {
               const element1 = element[index];
               this.servicioEstado.listarPorId(38).subscribe(resEstado=>{
+                contador++
                 let cotizacionPdf : CotizacionPdf = new CotizacionPdf();
                 cotizacionPdf.idCotizacion = resCotizacion
                 cotizacionPdf.idEstado = resEstado
                 cotizacionPdf.nombrePdf = element1.name
-                this.registrarCotizacionPdf(cotizacionPdf, idSolicitud)
+                this.registrarCotizacionPdf(cotizacionPdf, idSolicitud, contador)
               })
             }
           });
@@ -194,7 +216,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     })
   }
 
-  public registrarCotizacionPdf(cotizacionPdf: CotizacionPdf, idSolicitud: number){
+  public registrarCotizacionPdf(cotizacionPdf: CotizacionPdf, idSolicitud: number, contador){
     this.servicioCotizacionPdf.registrar(cotizacionPdf).subscribe(res=>{
       Swal.fire({
         position: 'center',
@@ -203,7 +225,9 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.uploadFiles(this.w);
+      if (this.listaArchivos.length == contador) {
+        this.uploadFiles(this.w);
+      }
     }, error => {
       Swal.fire({
         position: 'center',

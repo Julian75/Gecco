@@ -34,7 +34,9 @@ export class PeticionCotizacionComponent implements OnInit {
   }
 
   public capturarOpcion(decision: number){
+    console.log(decision)
     if(decision != null){
+      console.log("holas2")
       document.getElementById('snipper')?.setAttribute('style', 'display: block;')
       let solicitud : Solicitud = new Solicitud();
       solicitud.fecha = this.fecha
@@ -58,6 +60,7 @@ export class PeticionCotizacionComponent implements OnInit {
 
   public registrarSolicitud(solicitud: Solicitud, decision){
     this.servicioSolicitud.registrar(solicitud).subscribe(res=>{
+      console.log("holas3")
       this.detalleSolicitud(res, decision)
     }, error => {
       Swal.fire({
@@ -87,6 +90,7 @@ export class PeticionCotizacionComponent implements OnInit {
       }
       this.listadoArtSel = this.data
       for (let index = 0; index < this.listadoArtSel.length; index++) {
+        console.log("holas24")
         const element = this.listadoArtSel[index];
         let detalleSolicitud : DetalleSolicitud = new DetalleSolicitud();
         detalleSolicitud.idArticulos = element.articulo
@@ -98,7 +102,7 @@ export class PeticionCotizacionComponent implements OnInit {
           detalleSolicitud.observacion = element.observacion
           this.servicioEstado.listarPorId(28).subscribe(resEstado=>{
             detalleSolicitud.idEstado = resEstado
-            this.registrarDetalleSolicitud(detalleSolicitud, solicitud, decision, this.listadoArtSel, index)
+            this.registrarDetalleSolicitud(detalleSolicitud, elementSolicitud, decision, this.listadoArtSel, index)
           })
         });
       }
@@ -107,6 +111,7 @@ export class PeticionCotizacionComponent implements OnInit {
 
   public registrarDetalleSolicitud(detalleSolicitud: DetalleSolicitud, solicitud: any, decision, lista, i){
     this.servicioDetalleSolicitud.registrar(detalleSolicitud).subscribe(res=>{
+      console.log("holas23")
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       console.log(lista, this.contador, decision, i)
       if(lista.length == i+1){

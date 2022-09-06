@@ -73,7 +73,7 @@ export class ListaCotizacionesComponent implements OnInit {
       })
       this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf => {
         resCotizacionPdf.forEach(elementCotizacionPdf => {
-          if(elementCotizacionPdf.idCotizacion.idSolicitud.id == this.listaCotizaciones[0].idSolicitud.id && elementCotizacionPdf.idCotizacion.idEstado.id == 31 ){
+          if(elementCotizacionPdf.idCotizacion.idSolicitud.id == this.listaCotizaciones[0].idSolicitud.id && elementCotizacionPdf.idCotizacion.idEstado.id == 31 && elementCotizacionPdf.idEstado.id != 40){
             this.listaCotizacionesPdf.push(elementCotizacionPdf)
           }
         });

@@ -798,9 +798,15 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 20],
                     },
                     {
+                      text: 'Autorizo',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 50, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
                       text: this.nombreGerente,
                       relativePosition: {x: 350, y: -25},
-                      margin: [-320, 140, 0, 0],
+                      margin: [-320, 20, 0, 0],
                       fontSize: 13,
                     },
                     {
@@ -810,9 +816,15 @@ export class PasosComponent implements OnInit {
                       fontSize: 10,
                     },
                     {
-                      text: this.nombreAdministrador,
+                      text: 'Aprobó',
                       relativePosition: {x: 350, y: -25},
                       margin: [-320, 85, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.nombreAdministrador,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
                       fontSize: 10
                     },
                     {
@@ -822,25 +834,37 @@ export class PasosComponent implements OnInit {
                       fontSize: 10
                     },
                     {
-                      text: this.nombreCompras,
+                      text: 'Realizó',
                       relativePosition: {x: 350, y: -25},
-                      margin: [-10, -123, 0, 0],
-                      fontSize: 10
+                      margin: [-10, -163, 0, 0],
+                      fontSize: 10,
                     },
                     {
-                      text: 'Compras',
+                      text: this.nombreCompras,
                       relativePosition: {x: 350, y: -25},
                       margin: [-10, 20, 0, 0],
                       fontSize: 10
                     },
                     {
-                      text: this.idSolicitud,
+                      text: 'Profesional Logistico',
                       relativePosition: {x: 350, y: -25},
-                      margin: [-10, 85, 0, 0],
+                      margin: [-10, 20, 0, 0],
                       fontSize: 10
                     },
                     {
-                      text: 'Solicitante',
+                      text: 'Solicito',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 85, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.idSolicitud,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Lider del Proceso',
                       relativePosition: {x: 350, y: -25},
                       margin: [-10, 20, 0, 20],
                       fontSize: 10

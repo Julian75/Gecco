@@ -109,6 +109,7 @@ export class RechazarRegistroComponent implements OnInit {
             ordenCompra.idSolicitud = resOrdenCompra.idSolicitud.id
             ordenCompra.descuento = resOrdenCompra.descuento
             ordenCompra.subtotal = resOrdenCompra.subtotal
+            ordenCompra.idUsuario = resOrdenCompra.idUsuario.id
             this.servicioEstado.listarPorId(45).subscribe(resEstado=>{
               ordenCompra.idEstado = resEstado.id
               this.actualizarOrdenCompra(ordenCompra, idUsuario, idSolicitud);

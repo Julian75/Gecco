@@ -66,423 +66,308 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-.dato{
-  margin-left: 0%;
-}
-.nombre{
-  width: 225px;
-}
-.guardar{
-  width: 60%;
-  font-size: 13px;
-  margin-left: 18%;
-  margin-top: 51%;
-}
-
-.documento{
-  width: 80%;
-  margin-left: 0%;
-  margin-top: -1%;
-}
-.direccion{
-  width: 222px;
-  margin-left: 0%;
-  margin-top: 0%;
-}
-.tele{
-  width: 223px;
-  margin-left: 0%;
-  margin-top: 0%;
-}
-.obser{
-  width: 224px;
-  margin-left: 0%;
-  margin-top: 0%;
-}
-.esta{
-  margin-left: 0%;
-  margin-top: 0.5%;
-  width: 80%;
-}
-.tipoDo{
-  width: 80%;
-  margin-left: 0%;
-}
-.nombre1{
-  margin-left: 0%;
-  margin-top: 0.5%;
-  width: 80%;
-}
+  .dato{margin-left: 0%;}
+  .nombre{width: 225px;}
+  .documento{width: 80%;  margin-left: 0%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 0%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 0%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 0%; margin-top: 0%;}
+  .esta{margin-left: 0%; margin-top: 0.5%; width: 80%;}
+  .tipoDo{width: 80%; margin-left: 0%;}
+  .nombre1{margin-left: 0%; margin-top: 0.5%; width: 80%;}
+  .guardarModal{ margin-left: 73%; top: -20%;}
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-.dato{
-  margin-left: 0%;
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 286px;}
+  .documento{width: 80%;  margin-left: 0%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 0%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 0%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 0%; margin-top: 0%;}
+  .esta{margin-left: 0%; margin-top: 0.5%; width: 80%;}
+  .tipoDo{width: 80%; margin-left: 0%;}
+  .nombre1{margin-left: 0%; margin-top: 0.5%; width: 80%;}
+  .guardarModal{ margin-left: 77%; top: -20%;}
 }
-.nombre{
-  width: 290px;
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 220px;}
+  .documento{margin-left: 54%; margin-top: -22%;}
+  .direccion{width: 222px; margin-left: 0%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 0%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 0%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -21%;}
+  .tipoDo{width: 80%; margin-left: 0%;}
+  .nombre1{margin-left: 54%; margin-top: -21%;}
+  .guardarModal{margin-left: 85%; top: -196%;}
 }
-.guardar{
-  width: 60%;
-  font-size: 13px;
-  margin-left: 21%;
-  margin-top: 45%;
+/*Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 767px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 220px;}
+  .documento{margin-left: 54%; margin-top: -16%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -17%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -16%;}
+  .guardarModal{margin-left: 80%; top: -196%;}
 }
-.documento{
-  width: 80%;
-  margin-left: 0%;
-  margin-top: -1%;
+/* Tablet 2*/
+@media screen and (min-width: 768px) and (max-width: 799px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 220px;}
+  .documento{margin-left: 54%; margin-top: -16%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -17%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -16%;}
+  .guardarModal{margin-left: 80%; top: -196%;}
 }
-.direccion{
-  width: 222px;
-  margin-left: 0%;
-  margin-top: 0%;
-}
-.tele{
-  width: 223px;
-  margin-left: 0%;
-  margin-top: 0%;
-}
-.obser{
-  width: 224px;
-  margin-left: 0%;
-  margin-top: 0%;
-}
-.esta{
-  margin-left: 0%;
-  margin-top: 0.5%;
-  width: 80%;
-}
-.tipoDo{
-  width: 80%;
-  margin-left: 0%;
-}
-.nombre1{
-  margin-left: 0%;
-  margin-top: 0.5%;
-  width: 80%;
-}
-}
-
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-.tipoDo{
-  width: 80%;
-  margin-left: 5%;
-}
-.nombre{
-  width: 194px;
-}
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -24%;
-}
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 0%;
-}
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -24%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -24%;
-}
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 40%;
-  height: 40px;
-  font-size: large;
-  margin-left: 60.5%;
-  top: -78px;
-}
-.dato{
-  margin-left: 0%;
-}
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 0%;
-}
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 0%;
-}
+/* Tablet 3*/
+@media screen and (min-width: 800px) and (max-width: 959px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 220px;}
+  .documento{margin-left: 54%; margin-top: -20%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -20%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -20%;}
+  .guardarModal{margin-left: 80%; top: -196%;}
 }
 
-
-
-/* Tablet pequeña */
-@media screen and (min-width: 721px) and (max-width: 768px){
-.tipoDo{
-  width: 80%;
-  margin-left: 5%;
-  margin-top: 4%;
+/*Portatil 2*/
+@media screen and (min-width: 960px) and (max-width: 1079px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 220px;}
+  .documento{margin-left: 54%; margin-top: -17%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .esta{margin-left: 54%; margin-top: -17%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -17%;}
+  .guardarModal{margin-left: 80%; top: -196%;}
 }
-.nombre{
-  width: 194px;
+/* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1024px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 220px;}
+  .documento{margin-left: 54%; margin-top: -14.5%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -2%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -2%;}
+  .esta{margin-left: 54%; margin-top: -14.5%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -14.5%;}
+  .guardarModal{margin-left: 76%; top: -196%;}
 }
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -17%;
+/* Tablet 5  */
+@media screen and (min-width: 1025px) and (max-width: 1080px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -14%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .esta{margin-left: 54%; margin-top: -14%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -14%;}
+  .guardarModal{margin-left:83%; top: -196%;}
 }
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 4%;
-}
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -16%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -17%;
-
-}
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 30%;
-  height: 40px;
-  font-size: large;
-  margin-left: 56.5%;
-  top: -78px;
-}
-.dato{
-  margin-left: 0%;
-}
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 4%;
-}
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 5%;
-}
+/* Tablet 6 */
+@media screen and (min-width: 1081px) and (max-width: 1200px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -14%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .esta{margin-left: 54%; margin-top: -14%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -14%;}
+  .guardarModal{margin-left: 80%; top: -196%;}
 }
 
-/* Tablet medio */
-@media screen and (min-width: 769px) and (max-width: 1023px){
-.tipoDo{
-  width: 80%;
-  margin-left: 5%;
-  margin-top: 4%;
+/* Tablet 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1201px) and (max-width: 1280px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -12%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .esta{margin-left: 54%; margin-top: -12%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -12%;}
+  .guardarModal{margin-left: 79%; top: -196%;}
 }
-.nombre{
-  width: 194px;
-}
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -20%;
-}
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 4%;
-}
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -20%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -20%;
-
-}
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 37%;
-  height: 40px;
-  font-size: large;
-  margin-left: 56.5%;
-  top: -78px;
-}
-.dato{
-  margin-left: 0%;
-}
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 4%;
-}
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 5%;
-}
-}
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-.tipoDo{
-  width: 100%;
-  margin-left: 5%;
-  margin-top: 0%;
-}
-.nombre{
-  width: 261px;
-}
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -11%;
+/* Compu. Mesa 5 */
+@media screen and (min-width: 1281px) and (max-width: 1400px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -10.8%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .esta{margin-left: 54%; margin-top: -10.8%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -10.8%;}
+  .guardarModal{margin-left: 76%; top: -196%;}
 }
 
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 2%;
+/* Tablet 8*/
+@media screen and (min-width: 1401px) and (max-width: 1536px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -10%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .esta{margin-left: 54%; margin-top: -10%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -10%;}
+  .guardarModal{margin-left: 75%; top: -196%;}
 }
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -11%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -12%;
 
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -9.5%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -9.5%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -9.5%;}
+  .guardarModal{margin-left: 74%; top: -252%;}
 }
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 30%;
-  height: 40px;
-  font-size: large;
-  margin-left: 55.5%;
-  top: -93px;
-}
-.dato{
-  margin-left: 0%;
-}
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 3%;
-}
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 5%;
-}
-}
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-.tipoDo{
-  width: 100%;
-  margin-left: 5%;
-  margin-top: 0%;
-}
-.nombre{
-  width: 261px;
-}
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -11%;
-}
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 2%;
-}
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -11%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -12%;
 
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -7.9%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -7.5%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -7.5%;}
+  .guardarModal{margin-left: 71%; top: -252%;}
 }
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 28%;
-  height: 40px;
-  font-size: large;
-  margin-left: 55.5%;
-  top: -93px;
-}
-.dato{
-  margin-left: 0%;
-}
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 3%;
-}
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 5%;
-}
-}
-/* Portatil Grande */
-@media screen and (min-width: 1441px){
-.tipoDo{
-  width: 100%;
-  margin-left: 5%;
-  margin-top: 0%;
-}
-.nombre{
-  width: 261px;
-}
-.documento{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -9%;
-}
-.direccion{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 2%;
-}
-.nombre1{
-  width: 250px;
-  margin-left: 55%;
-  margin-top: -9.5%;
-}
-.esta{
-  margin-left: 55%;
-  margin-top: -9%;
 
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -7.9%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -7.5%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -7.5%;}
+  .guardarModal{margin-left: 71%; top: -252%;}
 }
-.guardar{
-  background-color: #00235C;
-  color: white;
-  width: 24%;
-  height: 40px;
-  font-size: large;
-  margin-left: 55.5%;
-  top: -93px;
+
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 280px;}
+  .documento{margin-left: 54%; margin-top: -7%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -7%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -7%;}
+  .guardarModal{margin-left: 69%; top: -252%;}
 }
-.dato{
-  margin-left: 0%;
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 350px;}
+  .documento{margin-left: 54%; margin-top: -6%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -6%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -6%;}
+  .guardarModal{margin-left: 70%; top: -252%;}
 }
-.tele{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 3%;
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 350px;}
+  .documento{margin-left: 54%; margin-top: -5.5%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -5.5%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -5.5%;}
+  .guardarModal{margin-left: 69%; top: -252%;}
 }
-.obser{
-  width: 250px;
-  margin-left: 5%;
-  margin-top: 5%;
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 350px;}
+  .documento{margin-left: 54%; margin-top: -5%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -5%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -5%;}
+  .guardarModal{margin-left: 68%; top: -252%;}
 }
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 350px;}
+  .documento{margin-left: 54%; margin-top: -4%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -4%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -4%;}
+  .guardarModal{margin-left: 65%; top: -252%;}
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 350px;}
+  .documento{margin-left: 54%; margin-top: -3.8%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .esta{margin-left: 54%; margin-top: -3.8%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -3.8%;}
+  .guardarModal{margin-left: 64%; top: -252%;}
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .dato{margin-left: 0%;}
+  .nombre{width: 350px;}
+  .documento{margin-left: 54%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 3%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 3%;}
+  .esta{margin-left: 54%; margin-top: -1%;}
+  .tipoDo{width: 80%; margin-left: 4%;}
+  .nombre1{margin-left: 54%; margin-top: -1.5%;}
+  .guardarModal{margin-left: 59%; margin-top: 1%;}
 }

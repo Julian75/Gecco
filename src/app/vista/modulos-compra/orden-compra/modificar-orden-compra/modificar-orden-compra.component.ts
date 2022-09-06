@@ -186,6 +186,7 @@ export class ModificarOrdenCompraComponent implements OnInit {
         ordenCompra.anticipoPorcentaje = this.anticipoVal2
         ordenCompra.idProveedor = resOrdenCompra.idProveedor.id
         ordenCompra.idSolicitud = solicitud.id
+        ordenCompra.idUsuario = resOrdenCompra.idUsuario.id
         this.servicioEstado.listarPorId(43).subscribe(resEstado=>{
           ordenCompra.idEstado = resEstado.id
           this.actualizarOrdenCompra(ordenCompra, idSolicitud)

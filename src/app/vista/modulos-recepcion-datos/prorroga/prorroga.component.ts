@@ -86,10 +86,8 @@ export class ProrrogaComponent implements OnInit {
           solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
           solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
           solicitudSc.incidente = resSolicitud.incidente
-          this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
-            solicitudSc.idEstado = resEstado.id
-            this.modificarSolicitudSc(solicitudSc);
-          })
+          solicitudSc.idEstado = resSolicitud.idEstado.id
+          this.modificarSolicitudSc(solicitudSc);
         })
       }
     }

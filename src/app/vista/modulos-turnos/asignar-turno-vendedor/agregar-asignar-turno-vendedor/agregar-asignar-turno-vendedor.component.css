@@ -77,620 +77,166 @@ padding-bottom: 4%;
 mat-option{ font-size: 10.5px; }
 .btnremove mat-icon, .btnedit mat-icon{ left: -3px; top: -1px;}
 #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ position: relative; }
-#idSpa{ left: 8px; }
-#nombreSpa{ left: 30px; }
-#nombreOficSpa{ left: 15px; }
-#nombreSitioVSpa, #fechaISpa, #fechaFSpa{ left: 25px; }
-#turnoSpa{ left: 5px; }
-#opcSpa{ left: 10px; }
 #idSp2{ padding-left: 0%; }
 th.mat-header-cell{ padding-right: 15px; }
 .btnremove { position: relative; left: 10px; }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  h1{
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
-  }
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
-  }
-  .nombre{
-    width: 218px;
-    margin-left: -5%;
-  }
-  .nombre1{
-    width: 225px;
-    margin-left: -70%;
-  }
-  .tur{
-    width: 225px;
-    margin-left: -6%;
-  }
-  .ven{
-    width: 225px;
-    margin-left: -7%;
-  }
-  .fec1{
-    width: 225px;
-    margin-left: -70%;
-  }
-  .fec2{
-    width: 225px;
-    margin-left: -7%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: -1%;
-    top: 0%;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
-  .oficina2{
-    width: 100%;
-    margin-left: -5%;
-  }
-  .sitio{
-    width: 100%;
-    margin-left: -67%;
-    margin-top: 10%;
-  }
-  .tit{
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-  .Turno{
-    width: 100%;
-    margin-left: -5%;
-    top: -2%;
-  }
-  .vendedor1{
-    width: 100%;
-    margin-top: -5%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-left: -70%;
-    margin-top: 10%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-left: -5%;
-    margin-top: -5%;
-  }
-  .nombre4{ margin-left: 5%; margin-top: -4%;}
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  td { font-size: 11px; height: 0px;}
-  .btnremove{
-    width: 20px !important;
-    height: 23px;
-    position: relative;
-    left: 12%;
-  }
-  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
-}
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  h1{
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 13px;
-    position: relative;
-    left: 7px;
-  }
-  #idtable{
-    width: 100%;
-    position: relative;
-    left: -5px;
-  }
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
-  }
-  .nombre{
-    width: 285px;
-    margin-left: -5%;
-  }
-  .nombre1{
-    width: 285px;
-    margin-left: -68%;
-  }
-  .tur{
-    width: 285px;
-    margin-left: -7%;
-  }
-  .ven{
-    width: 285px;
-    margin-left: -7%;
-  }
-  .fec1{
-    width: 285px;
-    margin-left: -70%;
-  }
-  .fec2{
-    width: 285px;
-    margin-left: -7%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 150px;
-    height: 40px;
-    font-size: large;
-    margin-left: 44%;
-    top: 0%;
-    margin-left: 21%;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
-  .oficina2{
-    width: 100%;
-    margin-left: -5%;
-  }
-  .sitio{
-    width: 100%;
-    margin-left: -67%;
-    margin-top: 10%;
-  }
-  .tit{
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-  .Turno{
-    width: 100%;
-    margin-left: -8%;
-    top: -2%;
-  }
-  .vendedor1{
-    width: 100%;
-    margin-left: -8%;
-    margin-top: -5%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-left: -68%;
-    margin-top: 13%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-left: -5%;
-    margin-top: -5%;
-  }
-  .nombre4{ margin-left: 5%; margin-top: -4%;}
-  .btnremove{
-    width: 20px !important;
-    height: 23px;
-    position: relative;
-    left: 12%;
-  }
-  td button mat-icon{ font-size: 13px; margin-left: -12px; margin-top: -2px; }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
-}
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  h1{
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 20px;
-    position: relative;
-    left: 7px;
-  }
-  #idtable{
-    width: 100%;
-    position: relative;
-    left: -5px;
-  }
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
-  }
-  .nombre{
-    width: 410px;
-  }
-  .nombre1{
-    width: 410px;
-    margin-left: -58%;
-  }
-  .tur{
-    width: 410px;
-  }
-  .ven{
-    width: 410px;
-  }
-  .fec1{
-    width: 410px;
-    margin-left: -58%;
-  }
-  .fec2{
-    width: 410px;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 150px;
-    height: 40px;
-    font-size: large;
-    margin-left: 65%;
-    top: 0%;
-    margin-left: 5%;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
-  .oficina2{
-    width: 100%;
-  }
-  .sitio{
-    width: 100%;
-    margin-left: -58%;
-    margin-top: 12%;
-  }
-  .tit{
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10px;
-    font-size: 20px;
-    margin-left: 5%;
-  }
-  .Turno{
-    width: 100%;
-    margin-top: 2%;
-  }
-  .vendedor1{
-    width: 100%;
-    margin-top: -5%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-left: -58%;
-    margin-top: 12%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-top: 2%;
-  }
-  .nombre4{ margin-left: 5%; margin-top: -4%;}
-  .btnremove{
-    width: 64px; height: 36px;
-    position: relative;
-    left: 12%;
-  }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
-}
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
-  }
-  .nombre{
-    width: 260px;
-  }
-  .nombre1{
-    width: 260px;
-    margin-left: 30%;
-  }
-  .tur{
-    width: 260px;
-  }
-  .ven{
-    width: 260px;
-    margin-left: 56%;
-  }
-  .fec1{
-    width: 260px;
-    margin-left: -58%;
-  }
-  .fec2{
-    width: 260px;
-    margin-left: 56%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 150px;
-    height: 40px;
-    font-size: large;
-    margin-left: 5%;
-    top: 0%;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
-  .oficina2{
-    width: 100%;
-  }
-  .sitio{
-    width: 100%;
-    margin-left: 30%;
-    margin-top: -28%;
-  }
-  .tit{
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-  .Turno{
-    width: 100%;
-    margin-top: 2%;
-  }
-  .vendedor1{
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -20%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-left: -58%;
-    margin-top: 12%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -17.6%;
-  }
-  .nombre4{ margin-left: 5%; margin-top: -4%;}
-  .btnremove{
-    width: 64px; height: 36px;
-    position: relative;
-    left: 12%;
-  }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
+  .nombre { width: 225px; }
+  .nombre2, .nombre3, .nombre4, .nombre5, .nombre6, .nombre7 { margin-top: 0%; margin-left: 0%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -50%; }
+  td button{ margin-top: 5%; }
 }
 
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  .container{
-    width: 80%;
-    background-color: white;
-    margin-left: 10%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    margin-top: 10%;
-    box-shadow: 1px 2px 10px #959595;
-  }
-  .nombre{
-    width: 218px;
-    margin-left: -4%;
-  }
-  .nombre1{
-    width: 218px;
-    margin-left: 30%;
-  }
-  .tur{
-    width: 218px;
-    margin-left: -4%;
-  }
-  .ven{
-    width: 218px;
-    margin-left: 56%;
-  }
-  .fec1{
-    width: 218px;
-    margin-left: -65%;
-  }
-  .fec2{
-    width: 218px;
-    margin-left: 56%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 150px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 0%;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-  }
-  .contenedor{
-    width: 80% !important; margin-left: 10%; margin-top: 4%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove{ background-color: #DA161A; color: white; }
-  .oficina2{
-    width: 100%;
-    margin-left: -4%;
-  }
-  .sitio{
-    width: 100%;
-    margin-left: 30%;
-    margin-top: -33%;
-  }
-  .tit{
-    text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-  .Turno{
-    width: 100%;
-    margin-top: 2%;
-    margin-left: -4%;
-  }
-  .vendedor1{
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -24%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-left: -65%;
-    margin-top: 12%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -21%;
-  }
-  .nombre4{ margin-left: 5%; margin-top: -4%;}
-  .btnremove{
-    width: 64px; height: 36px;
-    position: relative;
-    left: 12%;
-  }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
+  .nombre { width: 250px; }
+  .nombre2, .nombre3, .nombre4, .nombre5, .nombre6, .nombre7 { margin-top: 0%; margin-left: 5%; }
+  .guardar { margin-left: 15%; }
+  #idtable{ margin-left: -50%; }
 }
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  .sitio{
-    width: 100%;
-    margin-left: 0%;
-    margin-top: -20%;
-  }
-  .Turno{
-    width: 100%;
-    margin-top: -45%;
-  }
-  .ven{
-    width: 28%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-top: -20%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-top: -45%;
 
-  }
-  .fec1{
-    width: 48%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 200px;
-    height: 40px;
-    font-size: large;
-    margin-left: 74%;
-    top: -25%;
-  }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
+  .nombre { width: 410px; }
+  .nombre2, .nombre3, .nombre4, .nombre5, .nombre6, .nombre7 { margin-top: 0%; margin-left: 5%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -50%; }
 }
-/* Portatil Medio */
-@media screen and (min-width: 1366px) and (max-width: 1440px){
-  .sitio{
-    width: 100%;
-    margin-left: 0%;
-    margin-top: -19%;
-  }
-  .Turno{
-    width: 100%;
-    margin-top: -42%;
-  }
-  .ven{
-    width: 28%;
-  }
-  .fecha1{
-    width: 100%;
-    margin-top: -18%;
-  }
-  .fecha2{
-    width: 100%;
-    margin-top: -42%;
-  }
-  .fec1{
-    width: 45%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 200px;
-    height: 40px;
-    font-size: large;
-    margin-left: 74%;
-    top: -25%;
-  }
-  #idSpa, #nombreSpa, #nombreOficSpa, #nombreSitioVSpa, #fechaISpa, #fechaFSpa, #turnoSpa, #opcSpa{ left: 8px ; }
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre4, .nombre6 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre5, .nombre7 { margin-top: -17%; margin-left: 55%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  .nombre { width: 225px; }
+  .nombre2, .nombre4, .nombre6 { margin-top: 0%; margin-left: 0%; }
+  .nombre3, .nombre5, .nombre7 { margin-top: -21%; margin-left: 55%; }
+  .guardar { margin-left: 0%; }
+  #idtable{ margin-left: -90%; }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre4, .nombre6 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre5, .nombre7 { margin-top: -15%; margin-left: 55%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre4, .nombre6 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre5, .nombre7 { margin-top: -13%; margin-left: 55%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre4, .nombre6 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre5, .nombre7 { margin-top: -10%; margin-left: 55%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -9.5%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -9.5%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -8%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -8%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -7.5%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -7.5%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -7%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -7%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -6%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -6%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -90%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -5.5%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -5.5%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -30%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -5%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -5%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -30%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -3.5%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -3.5%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -30%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -3.5%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -3.5%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -30%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .nombre { width: 250px; }
+  .nombre2, .nombre5 { margin-top: 0%; margin-left: 5%; }
+  .nombre3, .nombre6 { margin-top: -1%; margin-left: 35%; }
+  .nombre4, .nombre7 { margin-top: -1%; margin-left: 65%; }
+  .guardar { margin-left: 5%; }
+  #idtable{ margin-left: -30%; }
 }

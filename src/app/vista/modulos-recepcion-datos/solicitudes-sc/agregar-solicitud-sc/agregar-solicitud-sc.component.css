@@ -159,13 +159,9 @@ mat-option{ font-size: 11px; }
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
   .row1{ margin-top: 39%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
-  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
-  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre3, .nombre4, .nombre7, .nombre8, .nombre9{ margin-left: 1% !important; margin-top: 0% !important;  }
   .nombre5{ margin-top: 0.8% !important; margin-left: 0% !important; }
   .nombre6{ margin-left: 1% !important; margin-top: 0% !important; width: 96%;  }
-  .nombre7{ margin-left: 1% !important; margin-top: 0% !important;  }
-  .nombre8{margin-left: 1% !important; margin-top: 0% !important;  }
-  .nombre9{ margin-left: 1% !important; margin-top: 0% !important;  }
   .ven { width: 221px;}
   .nombre{width: 221px; }
   .nombre1{width: 221px;}
@@ -181,6 +177,7 @@ mat-option{ font-size: 11px; }
   #opcSpa{ left: 8px; }
   td button{ margin-top: 5%; }
   .botonagregar mat-icon{ margin-left: -50%; }
+  .archivos{ margin-left: -120%; width: 212%; margin-top: 8%; }
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){

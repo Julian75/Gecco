@@ -5,7 +5,7 @@
     border-bottom: 20%;
     box-shadow: 1px none #000;
     margin-bottom: 3% !important;
-  }
+}
   table{
     width: 100%;
     height: 100%;
@@ -28,217 +28,243 @@
   #estSp{ left: 42px; }
   #estSp2{ left: 33px; }
   #estSp3{ left: 27px; }
-  #jerSp{ left: 70px; }
   #opcSp{ padding-right: 0%; }
   #idSp2{ padding-left: 0%; }
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 8px; }
+  #estSp2{ left: 9px; }
+  #nomSp{ left: 8px;}
+  #obSp{ left: 11px;}
+  #estSp3{ left: 9px; }
+  #estaSp{ left: 10px;}
+  #opcSp{ left: 12px;}
+  td button mat-icon{ font-size: 17px !important; margin-left: -6px;margin-top: -1px; }
+  .btnedit{ margin-top: 11%; position: static;}
+  .btnremove{position: static; margin-top: 11%; margin-bottom: 11%;}
+}
 
-  /* Movil pequeño - Galaxy Fold*/
-  @media screen and (min-width: 280px) and (max-width: 359px){
-    h3{
-      margin-left: 3%;
-      font-size: 12px;
-    }
-    td{ font-size: 11px;}
-    .botonagregar, .excelButton, .btnver{ width: 38px; height: 30px; }
-    .botonagregar mat-icon{ font-size: 18px; }
-    .btnremove, .btnedit, .btnver{
-      width: 20px !important;
-      height: 23px;
-      position: relative;
-      left: 6%;
-      margin-top: 8%;
-      margin-bottom: 8%;
-    }
-    #estaSp{left: 8px; position: relative;}
-    #obSp{left: 8px; position: relative; }
-    #nomSp { left: 8px; position: relative; }
-    .btnver{ left: 1%; }
-    .excelButton{ margin-left: -5%; }
-    .botonagregar, .excelButton{
-      width: 38px;
-      height: 30px;
-      margin-top: 8%;
-      margin-bottom: 8%;
-    }
-    .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-    i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
-    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-    td button mat-icon{ font-size: 10px; margin-left: -12px; margin-top: -2px; }
-    #idSp{ left: 7px; }
-    #idSp2{ padding-left: 0%; }
-    #desSp{ left: 8px; }
-    #estSp, #estSp2, #estSp3{ left: 8px; }
-    #jerSp{ left: 8px; }
-    #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -7px; font-size: 15px;}
-  }
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 8px; }
+  #estSp2{ left: 9px; }
+  #nomSp{ left: 8px;}
+  #obSp{ left: 11px;}
+  #estSp3{ left: 9px; }
+  #estaSp{ left: 10px;}
+  #opcSp{ left: 12px;}
+  td button mat-icon{ font-size: 17px !important; margin-left: -6px;margin-top: -1px; }
+  .btnedit{ margin-top: 11%; position: static;}
+  .btnremove{position: static; margin-top: 11%; margin-bottom: 11%;}
+}
 
-  /* Movil medio - Samsung Galaxy S8 */
-  @media screen and (min-width: 360px) and (max-width: 493px){
-    h3{
-      margin-left: 3%;
-      font-size: 13px;
-    }
-    td{ font-size: 12px;}
-    .botonagregar, .excelButton{ width: 38px; height: 30px; }
-    .botonagregar mat-icon{ font-size: 18px; }
-    .excelButton{ margin-left: -5%; }
-    #estaSp{left: 8px; position: relative;}
-    #obSp{left: 8px; position: relative; }
-    #nomSp { left: 8px; position: relative; }
-    .btnremove, .btnedit, .btnver{
-      width: 27px !important;
-      height: 26px;
-      position: relative;
-      left: 8%;
-      margin-top: 8%;
-      margin-bottom: 8%;
-    }
-    .edi{
-      margin-left: -10%;
-    }
-    .remo{
-      margin-left: -6%;
-    }
-    td button mat-icon{ font-size: 14px; margin-left: -11px; margin-top: -1px; }
-    .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
-    button i{ position: relative; top: -15%; }
-    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-    #idSp{ left: 7px; }
-    #idSp2{ padding-left: 0%; }
-    #desSp{ left: 8px; }
-    #estSp, #estSp2, #estSp3{ left: 8px; }
-    #jerSp{ left: 8px; }
-    #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -8px; font-size: 15px;}
-  }
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 8px; }
+  #estSp2{ left: 9px; }
+  #nomSp{ left: 8px;}
+  #obSp{ left: 11px;}
+  #estSp3{ left: 9px; }
+  #estaSp{ left: 10px;}
+  #opcSp{ left: 12px;}
+  td button mat-icon{ font-size: 17px !important; margin-left: -6px;margin-top: -1px; }
+  .btnedit{ margin-top: 11%; position: static;}
+  .btnremove{position: static; margin-top: 11%; margin-bottom: 11%;}
+}
 
-  /* Movil grande - Surface Duo*/
-  @media screen and (min-width: 494px) and (max-width: 720px){
-    h3{
-      margin-left: 3%;
-      font-size: 19px;
-    }
-    #estaSp{left: 8px; position: relative;}
-    #obSp{left: 8px; position: relative; }
-    #nomSp { left: 8px; position: relative; }
-    td{ font-size: 16px;}
-    .btnedit{
-      position: relative;
-      top: 6px;
-      left: 6%;
-    }
-    .btnremove{
-      position: relative;
-      top: 11px;
-      left: 6%;
-      margin-bottom: 18%;
-    }
-    .btnver{ position: relative; left: -2%; }
-    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    #idSp{ left: 7px; }
-    #idSp2{ padding-left: 0%; }
-    #desSp{ left: 8px; }
-    #estSp, #estSp2, #estSp3{ left: 8px; }
-    #jerSp{ left: 8px; }
-    #opcSp2{ padding-right: 0%; }
-  }
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 8px; }
+  #estSp2{ left: 9px; }
+  #nomSp{ left: 13px;}
+  #obSp{ left: 11px;}
+  #estSp3{ left: 9px; }
+  #estaSp{ left: 10px;}
+  #opcSp{ left: 12px;}
+  .btnedit{ margin-top: 11%; position: static;}
+  .btnremove{position: static; margin-top: 11%; margin-bottom: 11%;}
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 8px; }
+  #estSp2{ left: 9px; }
+  #nomSp{ left: 13px;}
+  #obSp{ left: 11px;}
+  #estSp3{ left: 9px; }
+  #estaSp{ left: 10px;}
+  #opcSp{ left: 12px;}
+  .btnedit{ margin-top: 11%; position: static;}
+  .btnremove{position: static; margin-top: 11%; margin-bottom: 11%;}
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 9px; }
+  #estSp{ left: 8px; }
+  #estSp2{ left: 9px; }
+  #nomSp{ left: 36%;}
+  #obSp{ left: 11px;}
+  #estSp3{ left: 9px; }
+  #estaSp{ left: 10px;}
+  #opcSp{ left: 12px;}
+  .btnedit{ margin-top: 11%; position: static;}
+  .btnremove{position: static; margin-top: 11%; margin-bottom: 11%;}
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  #idSp{ left: 9px; }
+  #desSp{ left: 16px; }
+  #estSp{ left: 18px; }
+  #estSp2{ left: 16px; }
+  #nomSp{ left: 51%;}
+  #obSp{ left: 15px;}
+  #estSp3{ left: 14px; }
+  #estaSp{ left: 12px;}
+  #opcSp{ left: 12px;}
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  #idSp{ left: 15px; }
+  #desSp{ left: 30px; }
+  #estSp{ left: 40px; }
+  #estSp2{ left: 30px; }
+  #nomSp{ left: 80%;}
+  #obSp{ left: 28px;}
+  #estSp3{ left: 25px; }
+  #estaSp{ left: 26px;}
+  #opcSp{ left: 12px;}
+}
 
-  /* Tablet pequeña - iPad Mini*/
-  @media screen and (min-width: 721px) and (max-width: 768px){
-    td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    .btnedit{
-      position: relative;
-      top: 5%;
-      left: 6%;
-    }
-    .btnremove{
-      position: relative;
-      top: 12%;
-      left: 6%;
-      margin-bottom: 18%;
-    }
-    #estaSp{left: 10px; position: relative;}
-    #obSp{left: 10px; position: relative; }
-    #nomSp { left: 10px; position: relative; }
-    #idSp{ left: 10px; }
-    #idSp2{ padding-left: 0%; }
-    #desSp{ left: 9px; }
-    #estSp, #estSp2, #estSp3{ left: 8px; }
-    #jerSp{ left: 28px; }
-    #opcSp2{ padding-right: 0%; }
-  }
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  #idSp{ left: 15px; }
+  #desSp{ left: 30px; }
+  #estSp{ left: 40px; }
+  #estSp2{ left: 36px; }
+  #nomSp{ left: 80%;}
+  #obSp{ left: 34px;}
+  #estSp3{ left: 25px; }
+  #estaSp{ left: 26px;}
+  #opcSp{ left: 12px;}
+}
 
-  /* Tablet medio - iPad Air*/
-  @media screen and (min-width: 769px) and (max-width: 1023px){
-    td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-    .btnedit{
-      position: relative;
-      top: 5%;
-      left: 6%;
-    }
-    .btnremove{
-      position: relative;
-      top: 12%;
-      left: 6%;
-      margin-bottom: 18%;
-    }
-    #estaSp{left: 10px; position: relative;}
-    #obSp{left: 10px; position: relative; }
-    #nomSp { left: 10px; position: relative; }
-    #idSp{ left: 7px; }
-    #idSp2{ padding-left: 0%; }
-    #desSp{ left: 9px; }
-    #estSp , #estSp2, #estSp3{ left: 7px; }
-    #jerSp{ left: 14px; }
-    #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -3px; }
-  }
 
-  /* Portatil Pequeño */
-  @media screen and (min-width: 1024px) and (max-width: 1366px){
-    td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 22%; margin-left: 77%; }
-    #idSp{ margin-left: -48%; }
-    #idSp2{ padding-left: 1px; }
-    #desSp{ margin-left: -14%; }
-    #estSp{ left: 11%; }
-    #jerSp{ left: 60%; }
-    #nomSp{left: 25px; position: relative; }
-    #obSp {left: 9px; position: relative; }
-    #estaSp, #estSp2, #estSp3{left: 8px; position: relative; }
-    #opcSp2{ padding-right: 0%; }
-    .excelButton i{  top: -3px; }
-    .btnedit{top: 6px; position: relative;}
-    .btnremove{
-      margin-top: 8%;
-      margin-bottom: 8%;
-    }
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  #idSp{ left: 18px; }
+  #desSp{ left: 42px; }
+  #estSp{ left: 51px; }
+  #estSp2{ left: 41px; }
+  #nomSp{ left: 97%;}
+  #obSp{ left: 42px;}
+  #estSp3{ left: 32px; }
+  #estaSp{ left: 30px;}
+  #opcSp{ left: 12px;}
+}
 
-  }
-  /* Portatil Medio */
-  @media screen and (min-width: 1367px) and (max-width: 1440px){
-    td { font-size: 16px; height: 0px;}
-    mat-form-field{ width: 22%; margin-left: 77%; }
-    #idSp{ margin-left: -48%; }
-    #idSp2{ padding-left: 1px; }
-    #desSp{ margin-left: -14%; }
-    #estSp{ left: 9%; }
-    #jerSp{ left: 60%; }
-    #nomSp{left: 25px; position: relative; }
-    #obSp {left: 9px; position: relative; }
-    #estaSp, #estSp2, #estSp3{left: 8px; position: relative; }
-    #opcSp2{ padding-right: 0%; }
-    .btnedit{
-      left: 4px;
-      position: relative;
-    }
-    .excelButton i{ top: -3px; }
-    .btnremove{
-      margin-top: 8%;
-      margin-bottom: 8%;
-      margin-left: 2%;
-    }
-  }
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  #idSp{ left: 18px; }
+  #desSp{ left: 48px; }
+  #estSp{ left: 62px; }
+  #estSp2{ left: 45px; }
+  #nomSp{ left: 102%;}
+  #obSp{ left: 42px;}
+  #estSp3{ left: 35px; }
+  #estaSp{ left: 30px;}
+  #opcSp{ left: 12px;}
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  #idSp{ left: 18px; }
+  #desSp{ left: 55px; }
+  #estSp{ left: 71px; }
+  #estSp2{ left: 45px; }
+  #nomSp{ left: 113%;}
+  #obSp{ left: 57px;}
+  #estSp3{ left: 43px; }
+  #estaSp{ left: 38px;}
+  #opcSp{ left: 12px;}
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  #idSp{ left: 26px; }
+  #desSp{ left: 70px; }
+  #estSp{ left: 92px; }
+  #estSp2{ left: 65px; }
+  #nomSp{ left: 145%;}
+  #obSp{ left: 71px;}
+  #estSp3{ left: 56px; }
+  #estaSp{ left: 51px;}
+  #opcSp{ left: 12px;}
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  #idSp{ left: 26px; }
+  #desSp{ left: 77px; }
+  #estSp{ left: 104px; }
+  #estSp2{ left: 77px; }
+  #nomSp{ left: 156%;}
+  #obSp{ left: 80px;}
+  #estSp3{ left: 63px; }
+  #estaSp{ left: 56px;}
+  #opcSp{ left: 12px;}
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  #idSp{ left: 33px; }
+  #desSp{ left: 85px; }
+  #estSp{ left: 120px; }
+  #estSp2{ left: 92px; }
+  #nomSp{ left: 180%;}
+  #obSp{ left: 95px;}
+  #estSp3{ left: 75px; }
+  #estaSp{ left: 68px;}
+  #opcSp{ left: 12px;}
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  #idSp{ left: 44px; }
+  #desSp{ left: 130px; }
+  #estSp{ left: 186px; }
+  #estSp2{ left: 140px; }
+  #nomSp{ left: 254%;}
+  #obSp{ left: 151px;}
+  #estSp3{ left: 120px; }
+  #estaSp{ left: 98px;}
+  #opcSp{ left: 12px;}
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  #idSp{ left: 44px; }
+  #desSp{ left: 130px; }
+  #estSp{ left: 186px; }
+  #estSp2{ left: 149px; }
+  #nomSp{ left: 280%;}
+  #obSp{ left: 140px;}
+  #estSp3{ left: 105px; }
+  #estaSp{ left: 98px;}
+  #opcSp{ left: 12px;}
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  #idSp{ left: 107px; }
+  #desSp{ left: 303px; }
+  #estSp{ left: 400px; }
+  #estSp2{ left: 293px; }
+  #nomSp{ left: 554%;}
+  #obSp{ left: 298px;}
+  #estSp3{ left: 235px; }
+  #estaSp{ left: 195px;}
+  #opcSp{ left: 12px;}
+}
