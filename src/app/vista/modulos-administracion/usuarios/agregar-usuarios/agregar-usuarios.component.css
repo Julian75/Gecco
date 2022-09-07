@@ -140,9 +140,18 @@ h2{
   .nombre3{ margin-left: 55%; margin-top: -90%;}
   .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 }
-
-/* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 700px){
+  .guardarModal{ margin-left: 87%;}
+  .nombre, .estado, .nombre1{
+    width: 226px;
+  }
+  .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
+  .nombre3{ margin-left: 55%; margin-top: -84.8%;}
+  .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+}
+/* Tablet 2 */
+@media screen and (min-width: 701px) and (max-width: 768px){
   .guardarModal{ margin-left: 85%;}
   .nombre, .estado, .nombre1{
     width: 250px;
@@ -248,7 +257,7 @@ h2{
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1601px) and (max-width: 1920px){
-  .guardarModal{ margin-left: 72%;}
+  .guardarModal{ margin-left: 69%;}
   .nombre, .estado, .nombre1{
     width: 250px;
   }
@@ -279,11 +288,11 @@ h2{
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
-  .guardarModal{ margin-left: 70%;}
+  .guardarModal{ margin-left: 73%;}
   .nombre, .estado, .nombre1{
-    width: 324px;
+    width: 380px;
   }
-  .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
+  .nombre2, .estado2{ margin-left: 12%; margin-top: 1.5%; }
   .nombre3{ margin-left: 55%; margin-top: -28.2%;}
   .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 }
@@ -314,7 +323,7 @@ h2{
   .nombre, .estado, .nombre1{
     width: 425px;
   }
-  .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
+  .nombre2, .estado2{ margin-left: 13%; margin-top: 1.5%; }
   .nombre3{ margin-left: 55%; margin-top: -20.2%;}
   .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 }
@@ -324,7 +333,7 @@ h2{
   .nombre, .estado, .nombre1{
     width: 425px;
   }
-  .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
+  .nombre2, .estado2{ margin-left: 16%; margin-top: 1.5%; }
   .nombre3{ margin-left: 55%; margin-top: -19.3%;}
   .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 }
@@ -334,7 +343,7 @@ h2{
   .nombre, .estado, .nombre1{
     width: 425px;
   }
-  .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
+  .nombre2, .estado2{ margin-left: 20%; margin-top: 1.5%; }
   .nombre3{ margin-left: 55%; margin-top: -12.4%;}
   .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 }

@@ -129,9 +129,7 @@ export class ModificarClienteScComponent implements OnInit {
             }else if(documento != res.documento || correo != res.correo){
               this.servicioCliente.listarTodos().subscribe(resClient=>{
                 resClient.forEach(element => {
-                  if(res.id != element.id && correo == element.correo){
-                    this.existe = true
-                  }else if(res.id != element.id && documento == element.documento){
+                  if(res.id != element.id && documento == element.documento){
                     this.existe = true
                   }else{
                     this.existe = false

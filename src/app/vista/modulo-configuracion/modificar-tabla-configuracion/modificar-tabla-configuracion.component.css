@@ -49,6 +49,6 @@ h2{
 
 /* PORTATILES */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  .guardarModal{ margin-left: 69%;}
-  .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
+  .guardarModal{ margin-left: 81%;}
+  .nombre{width: 60%;  margin-left: 0%; margin-top: 0%;}
 }

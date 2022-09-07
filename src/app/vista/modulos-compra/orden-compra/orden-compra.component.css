@@ -223,7 +223,7 @@ mat-option{ font-size: 10.5px; }
 
   .o{
     position: relative;
-    left: 42px;
+    left: 0px;
     top: 6px;
   }
   .v{
@@ -367,7 +367,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 50px;
+    left: -5px;
     top: 5px;
   }
   .cant{
@@ -508,7 +508,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 34px;
+    left: 0px;
     top: 5px;
   }
   .cant{
@@ -638,7 +638,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 46px;
+    left: 0px;
     top: 5px;
   }
   .cant{
@@ -772,7 +772,7 @@ mat-option{ font-size: 10.5px; }
   }
   .o{
     position: relative;
-    left: 46px;
+    left: 0px;
     top: 5px;
   }
   .cant{
@@ -897,24 +897,24 @@ mat-option{ font-size: 10.5px; }
   }
   .ar{
     position: relative;
-    top: 5px;
-    left: 10px;
+    top: px;
+    left: -13px;
   }
   .v{
     position: relative;
-    top: 5px;
-    left: 36px;
+    top: 2px;
+    left: 5px;
   }
   .o{
     position: relative;
-    left: 75px;
-    top: 5px;
+    left: 0px;
+    top: 2px;
   }
   .cant{
     margin-left: 20px;
-    left: 13px;
+    left: -13px;
     position: relative;
-    top: 5px;
+    top: 2px;
   }
   td{
     padding-left: 1%;
@@ -1015,23 +1015,23 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 100px;
+    top: 115px;
   }
   .sub{
     position: relative;
-    top: 120px;
+    top: 150px;
   }
   .val{
     position: relative;
-    top: 113px;
+    top: 138px;
   }
   .des{
     position: relative;
-    top: 106px;
+    top: 128px;
   }
   .to{
     position: relative;
-    top: 100px;
+    top: 115px;
   }
 }
 

@@ -19,7 +19,7 @@ h2{
 .nombre, .estado{
   width: 250px;
 }
-.nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
+.nombre2, .estado2{ margin-left: 10%; margin-top: 1%; }
 .estado2{ width: 300px; }
 .guardar{
   background-color: #00235C ;
@@ -51,7 +51,7 @@ h2{
 
 /* PORTATILES */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  .guardarModal{ margin-left: 72%;}
-  .nombre, .estado{width: 100%;  margin-left: 0%; margin-top: 0%;}
+  .guardarModal{ margin-left: 82%;}
+  .nombre, .estado{width: 60%;  margin-left: 0%; margin-top: 0%;}
 }
 

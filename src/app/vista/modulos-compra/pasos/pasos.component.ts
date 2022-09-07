@@ -659,6 +659,7 @@ export class PasosComponent implements OnInit {
       resOrdenCom.forEach(element => {
         var body = []
         this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
+          this.nombreCompras = resOrden.idUsuario.nombre+" "+resOrden.idUsuario.apellido
           this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
             resDetalle.forEach(element => {
               if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
@@ -677,6 +678,7 @@ export class PasosComponent implements OnInit {
                 body.push(now)
               }
             });
+
             this.servicioGestionProceso.listarTodos().subscribe(resGestionProc=>{
               resGestionProc.forEach(element => {
                 if(element.idDetalleSolicitud.id == element.idDetalleSolicitud.id){
@@ -707,6 +709,7 @@ export class PasosComponent implements OnInit {
                 }
               });
             })
+
             this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
               const formatterPeso = new Intl.NumberFormat('es-CO', {
                 style: 'currency',
@@ -958,27 +961,51 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 20],
                     },
                     {
-                      text: 'Gerencia General',
+                      text: 'Autorizo',
                       relativePosition: {x: 350, y: -25},
                       margin: [-320, 150, 0, 0],
                       fontSize: 10,
                     },
                     {
-                      text: 'Dirección Administrativa',
+                      text: 'Gerencia General',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: 'Aprobó',
                       relativePosition: {x: 350, y: -25},
                       margin: [-320, 100, 0, 0],
-                      fontSize: 10
+                      fontSize: 10,
                     },
                     {
-                      text: 'Compras',
+                      text: 'Dirección Administrativa',
                       relativePosition: {x: 350, y: -25},
-                      margin: [-10, -105, 0, 0],
+                      margin: [-320, 20, 0, 0],
                       fontSize: 10
                     },
                     {
-                      text: 'Solicitante',
+                      text: 'Realizó',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, -140, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Profesional Logistico',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Solicito',
                       relativePosition: {x: 350, y: -25},
                       margin: [-10, 100, 0, 20],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Lider del Proceso',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 0, 0, 20],
                       fontSize: 10
                     },
                   ]

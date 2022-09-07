@@ -88,25 +88,8 @@ h1{
   width: 10%;
 }
 
-th{
-  background-color: #00235C;
-  color: #fff;
-  position: relative;
-  margin-left: 15px;
-}
-
-td {
-  border: 1px solid #000;
-  text-align: center;
-}
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 6%;
-}
-.boton{ background-color: #00235C; }
-.btnremove{ background-color: #DA161A; color: white; }
-
-h2{
-  margin: 0;
 }
 .container{
   width: 80%;
@@ -198,6 +181,7 @@ mat-option{ font-size: 10.5px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
+  .articulo { position: static; margin-top: 18%;}
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/

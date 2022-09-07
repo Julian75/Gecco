@@ -42,13 +42,13 @@ table{
   }
   .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
   .estado2{ width: 300px; }
-  .guardar{
+  .guardarModal{
     background-color: #00235C ;
     color: white;
-    width: 200px;
+    width: 64px;
     height: 40px;
     font-size: large;
-    margin-left: 5%;
+    margin-left: 80%;
   }
 
   .row1{
@@ -64,13 +64,13 @@ table{
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   .nombre, .estado{ width: 237px; }
-  .guardar{ margin-left: 12%; }
+  .guardarModal{ margin-left: 73%; }
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
   .nombre, .estado{ width: 267px; }
   .nombre2, .estado2{ margin-left: 10%; }
-  .guardar{ margin-left: 43%; width:163px; }
+  .guardarModal{ margin-left: 72%;}
 }
 /* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){

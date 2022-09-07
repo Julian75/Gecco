@@ -111,16 +111,27 @@ h2{
   .nombre3{ margin-left: 54%; margin-top: -45.4%;}
   .nombre4{ margin-left: 54%; margin-top: 3%;}
 }
-/* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 699px){
+  .guardarModal{
+    margin-left: 91%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -42.3%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.8%;}
+  .nombre{ width: 225px; }
+  .nombre2{ margin-left: 0%; }
+}
+
+/* Tablet 2 */
+@media screen and (min-width: 700px) and (max-width: 768px){
   .guardarModal{
     margin-left: 85%;
   }
   .nombre3{ margin-left: 55%; margin-top: -36.3%;}
   .nombre4{ margin-left: 55%; margin-top: 2.8%;}
 }
-/* Tablet 3,  Portatil 2*/
-@media screen and (min-width: 769px) and (max-width: 960px){
+/* Tablet 3 */
+@media screen and (min-width: 769px) and (max-width: 899px){
   .nombre, .nombre1{
     width: 225px;
     margin-left: 0%;
@@ -132,6 +143,19 @@ h2{
   .nombre3{ margin-left: 55%; margin-top: -43.5%;}
   .nombre4{ margin-left: 55%; margin-top: 2.4%;}
 }
+
+/* Portatil 2*/
+@media screen and (min-width: 900px) and (max-width: 960px){
+  .nombre, .nombre1{
+    width: 250px;
+  }
+  .guardarModal{
+    margin-left: 86%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -37%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.4%;}
+}
+
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
   .guardarModal{
@@ -140,12 +164,21 @@ h2{
   .nombre3{ margin-left: 55%; margin-top: -32%;}
   .nombre4{ margin-left: 55%; margin-top: 2.4%;}
 }
-/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
-@media screen and (min-width: 1081px) and (max-width: 1280px){
+/* Tablet 6 y 7 */
+@media screen and (min-width: 1081px) and (max-width: 1200px){
   .guardarModal{
     margin-left: 77%;
   }
   .nombre3{ margin-left: 55%; margin-top: -27.6%;}
+  .nombre4{ margin-left: 55%; margin-top: 2.7%;}
+}
+
+/* portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1201px) and (max-width: 1280px){
+  .guardarModal{
+    margin-left: 77%;
+  }
+  .nombre3{ margin-left: 55%; margin-top: -26%;}
   .nombre4{ margin-left: 55%; margin-top: 2.7%;}
 }
 /* Tablet 8, Compu. Mesa 5*/

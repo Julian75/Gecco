@@ -56,9 +56,17 @@ td.mat-cell { padding-left: 1%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: -50%; }
 }
-
-/* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* Portatil 1 */
+@media screen and (min-width: 640px) and (max-width: 700px){
+  td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
+  #idSpa{left: 21%; }
+  #descSpa{left: 81%;}
+  #opcSpa{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: -9%; }
+}
+/* Tablet 2*/
+@media screen and (min-width: 701px) and (max-width: 768px){
   td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
   #idSpa{left: 21%; }
   #descSpa{left: 111%;}

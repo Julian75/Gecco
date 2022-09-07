@@ -225,7 +225,9 @@
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton{ font-size: 20px; }
-    .excelButton i{ top: -3px; }
+    .excelButton i{ top: -6px; }
+    .botonvolver{ width: 38px !important; height: 30px !important; }
+    .botonvolver mat-icon{ font-size: 17px !important; margin-left: -55%; }
   }
 
   /* Tablet pequeña - iPad Mini*/
@@ -263,7 +265,7 @@
     #estSp{ left: 8px; }
     #jerSp{ left: 28px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
+    .excelButton i{ top: -3px; }
   }
 
   /* Tablet medio - iPad Air*/
@@ -301,7 +303,7 @@
     #estSp{ left: 11px; }
     #jerSp{ left: 14px; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
+    .excelButton i{ top: -3px; }
   }
 
   /* Portatil Pequeño */
@@ -339,7 +341,7 @@
     #estSp{ left: 27%; }
     #jerSp{ left: 60%; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
+    .excelButton i{ top: -2px; }
   }
   /* Portatil Medio */
   @media screen and (min-width: 1367px) and (max-width: 1440px){

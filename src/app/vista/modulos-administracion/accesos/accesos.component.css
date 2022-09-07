@@ -22,7 +22,7 @@ h2{ font-weight: 700; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
 td button mat-icon{ left: -18%; top: -11%; }
-.botonagregar{ margin-left: 1%; }
+.botonagregar{ margin-left: 2%; }
 #idSpa, #moduloSpa, #rolSpa, #opcSpa{ position: relative; }
 #idSpa{left: 28%; position: absolute;}
 #moduloSpa{ left: 230px; position: absolute; }
@@ -39,8 +39,9 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 19%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 5%; }
-  .excelButton{ left: 6.8% ;}
-  .botonagregar2 mat-icon{ left: -7px; position: relative;}
+  .botonagregar{ margin-left: 4%; }
+  .excelButton{ left: 9% ;}
+  .botonagregar2 mat-icon{ left: 0px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
 
@@ -52,8 +53,9 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 30%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 5%; }
-  .excelButton{ left: 6% ;}
-  .botonagregar2 mat-icon{ left: -7px; position: relative;}
+  .botonagregar{ margin-left: 4%; }
+  .excelButton{ left: 9% ;}
+  .botonagregar2 mat-icon{ left: 0px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
 
@@ -65,7 +67,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 34%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 5%; }
-  .excelButton{ left: 3% ;}
+  .excelButton{ left: 4% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
@@ -78,7 +80,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 38%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 2% ;}
+  .excelButton{ left: 3% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative;}
   .botonagregar mat-icon{ margin-left: -4%; }
 }
@@ -90,7 +92,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 38%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 2% ;}
+  .excelButton{ left: 3% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -3%;}
 }
@@ -102,7 +104,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 38%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 2% ;}
+  .excelButton{ left: 3% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -3%;}
 }
@@ -114,7 +116,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 38%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 2%;}
+  .excelButton{ left: 3%;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -126,13 +128,26 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 44%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 2% ;}
+  .excelButton{ left: 3% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
 
-/*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/
-@media screen and (min-width: 1537px) and (max-width: 1920px){
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1600px){
+  td button mat-icon{ font-size: 17px ; margin-left: 0px;margin-top: 1px; }
+  #idSpa{left: 28% ; }
+  #moduloSpa{left: 42%;}
+  #rolSpa{ left: 41%;}
+  #OpcSpa{ margin-left: 20%; }
+  td button{ margin-top: 0%; }
+  .excelButton{ left: 3% ;}
+  .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
+  .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1601px) and (max-width: 1920px){
   td button mat-icon{ font-size: 17px ; margin-left: 0px;margin-top: 1px; }
   #idSpa{left: 28% ; }
   #moduloSpa{left: 42%;}
@@ -152,7 +167,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 45%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -164,7 +179,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 45%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -176,7 +191,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 45%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -188,7 +203,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 45%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -200,7 +215,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 47%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -212,7 +227,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 48%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -224,7 +239,7 @@ td.mat-cell{ padding-left: 1%;}
   #rolSpa{ left: 48%;}
   #OpcSpa{ margin-left: 20%; }
   td button{ margin-top: 0%; }
-  .excelButton{ left: 1% ;}
+  .excelButton{ left: 2% ;}
   .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
   .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
 }
@@ -238,7 +253,7 @@ td.mat-cell{ padding-left: 1%;}
     #rolSpa{ left: 48%;}
     #OpcSpa{ margin-left: 20%; }
     td button{ margin-top: 0%; }
-    .excelButton{ left: 1%;}
+    .excelButton{ left: 2%;}
     .botonagregar2 mat-icon{ left: -1px; position: relative; top: -1px;}
     .botonagregar mat-icon{ margin-left: -4%; margin-top: -2%;}
   }

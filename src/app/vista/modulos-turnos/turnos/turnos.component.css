@@ -59,18 +59,21 @@ table{
   #idSpa{ margin-left: 87% !important; }
   #descSpa{ margin-left: 10%; }
   #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 24%; }
+  td button{ margin-top: 5%; }
 }
 /* Tablet 2,  Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 768px){
   #idSpa{ margin-left: 100% !important; }
   #descSpa{ margin-left: 20%; }
   #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 38% }
+  td button{ margin-top: 5%; }
 }
 /* Tablet 3,  Portatil 2*/
 @media screen and (min-width: 769px) and (max-width: 960px){
   #idSpa{ margin-left: 55% !important; }
   #descSpa{ margin-left: 14%; }
   #horaISpa, #horaFSpa, #estadoSpa, #tipoTurSpa{ margin-left: 30%; }
+  td button{ margin-top: 5%; }
 }
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){

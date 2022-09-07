@@ -55,7 +55,7 @@ th{
   color: white;
 }
 
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+.pdfButton, .printButton{ position: relative; left: 25px; }
 td {
   border: 1px solid #000;
   text-align: center;
@@ -64,34 +64,182 @@ td {
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
-mat-form-field{
-  width: 20%;
-  margin-left: 79.5%;
-  margin-top: -15%;
-}
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
-.botonagregar mat-icon{ font-size: 24px; }
-.excelButton{ margin-left: -2%; }
-.excelButton i{ position: relative; top: 1px; font-size: 20px;}
+.btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ position: relative; }
-#oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 11px; }
-#nombreVSpa{left: 20px;}
-#sitioVASpa{left: 17px;}
-#sitioVISpa{ left: 25px;}
-#oficinaSpa{ left: 50px; }
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
-  #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
-  td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -10px; margin-top: 0px; }
+  #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ margin-left: 15%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
-  #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 8px; }
-  .botonagregar mat-icon{ margin-left: -50%; }
+  td button mat-icon{ font-size: 17px !important; margin-left: -10px; margin-top: 0px; }
+  #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ margin-left: 15%; }
+}
+
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
+  #nombreVSpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ margin-left: 15%; }
+  #oficinaSpa{ margin-left: 20%; }
+  #sitioVASpa, #sitioVISpa{ margin-left: 25%; }
+}
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #nombreVSpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ margin-left: 15%; }
+  #oficinaSpa{ margin-left: 20%; }
+  #sitioVASpa, #sitioVISpa{ margin-left: 25%; }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #nombreVSpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ margin-left: 15%; }
+  #oficinaSpa{ margin-left: 20%; }
+  #sitioVASpa, #sitioVISpa{ margin-left: 25%; }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #nombreVSpa, #oficinaZSpa, #horaISpa, #estadoSpa, #opcSpa{ margin-left: 25%; }
+  #oficinaSpa{ margin-left: 35%; }
+  #sitioVASpa, #sitioVISpa{ margin-left: 20%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #nombreVSpa, #oficinaZSpa, #horaISpa, #estadoSpa, #opcSpa{ margin-left: 25%; }
+  #oficinaSpa{ margin-left: 65%; }
+  #sitioVASpa, #sitioVISpa{ margin-left: 20%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+  #estadoSpa{ margin-left: 40%; }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #nombreVSpa, #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #oficinaSpa{ margin-left: 120%; }
+  #sitioVASpa, #sitioVISpa{ margin-left: 42%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+  #estadoSpa{ margin-left: 60%; }
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 50%; }
+  #oficinaSpa{ margin-left: 120%; }
+  #sitioVASpa{ margin-left: 48%; }
+  #sitioVISpa{ margin-left: 60%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+  #estadoSpa{ margin-left: 70%; }
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 50%; }
+  #oficinaSpa{ margin-left: 120%; }
+  #sitioVASpa{ margin-left: 48%; }
+  #sitioVISpa{ margin-left: 60%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+  #estadoSpa{ margin-left: 70%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 55%; }
+  #oficinaSpa{ margin-left: 135%; }
+  #sitioVASpa{ margin-left: 56%; }
+  #sitioVISpa{ margin-left: 70%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+  #estadoSpa{ margin-left: 80%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 55%; }
+  #oficinaSpa{ margin-left: 150%; }
+  #sitioVASpa{ margin-left: 63%; }
+  #sitioVISpa{ margin-left: 75%; }
+  #horaASpa, #fechaASpa{ margin-left: 15%; }
+  #estadoSpa{ margin-left: 80%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 75%; }
+  #oficinaSpa{ margin-left: 190%; }
+  #sitioVASpa{ margin-left: 80%; }
+  #sitioVISpa{ margin-left: 95%; }
+  #horaASpa, #fechaASpa{ margin-left: 25%; }
+  #estadoSpa{ margin-left: 125%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #horaISpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 75%; }
+  #oficinaSpa{ margin-left: 205%; }
+  #sitioVASpa{ margin-left: 90%; }
+  #sitioVISpa{ margin-left: 110%; }
+  #horaASpa, #fechaASpa{ margin-left: 40%; }
+  #estadoSpa{ margin-left: 125%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 90%; }
+  #oficinaSpa{ margin-left: 215%; }
+  #sitioVASpa{ margin-left: 95%; }
+  #sitioVISpa{ margin-left: 115%; }
+  #horaASpa, #fechaASpa{ margin-left: 50%; }
+  #horaISpa{ margin-left: 50%; }
+  #estadoSpa{ margin-left: 145%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 130%; }
+  #oficinaSpa{ margin-left: 330%; }
+  #sitioVASpa{ margin-left: 135%; }
+  #sitioVISpa{ margin-left: 155%; }
+  #horaASpa, #fechaASpa{ margin-left: 80%; }
+  #horaISpa{ margin-left: 80%; }
+  #estadoSpa{ margin-left: 200%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 140%; }
+  #oficinaSpa{ margin-left: 340%; }
+  #sitioVASpa{ margin-left: 145%; }
+  #sitioVISpa{ margin-left: 160%; }
+  #horaASpa, #fechaASpa{ margin-left: 80%; }
+  #horaISpa{ margin-left: 80%; }
+  #estadoSpa{ margin-left: 200%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+  #oficinaZSpa, #opcSpa{ margin-left: 25%; }
+  #nombreVSpa{ margin-left: 290%; }
+  #oficinaSpa{ margin-left: 720%; }
+  #sitioVASpa{ margin-left: 280%; }
+  #sitioVISpa{ margin-left: 320%; }
+  #horaASpa, #fechaASpa{ margin-left: 190%; }
+  #horaISpa{ margin-left: 190%; }
+  #estadoSpa{ margin-left: 430%; }
 }

@@ -81,3 +81,102 @@ h2{
   }
 }
 
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .nombre, .estado{
+    width: 290px;
+  }
+}
+

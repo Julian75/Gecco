@@ -70,7 +70,7 @@ export class AgregarClienteScComponent implements OnInit {
     }else{
       this.servicioClienteSC.listarTodos().subscribe(res=>{
         for (let i = 0; i < res.length; i++) {
-          if(res[i].documento == clienteSC.documento || res[i].correo == clienteSC.correo){
+          if(res[i].documento == clienteSC.documento){
             this.encontrado = true
           }else{
             this.encontrado = false
