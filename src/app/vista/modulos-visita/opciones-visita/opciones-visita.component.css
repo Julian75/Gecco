@@ -30,7 +30,7 @@ table{
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  td button mat-icon{ margin-left: -10px; margin-top: -3px; }
+  td button mat-icon{font-size: 18px !important; margin-left: -10px; margin-top: -2px; }
   #idSpa{ margin-left: 66%; }
   #descSpa{ margin-left: 15%; }
   #opcSpa{ left: 8px; }
@@ -38,7 +38,7 @@ table{
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  td button mat-icon{ margin-left: -9px; margin-top: -3px; }
+  td button mat-icon{font-size: 18px !important; margin-left: -9px; margin-top: -2px; }
   #idSpa{ margin-left: 87%; }
   #descSpa{ margin-left: 33%; }
   #opcSpa{ left: 8px; }

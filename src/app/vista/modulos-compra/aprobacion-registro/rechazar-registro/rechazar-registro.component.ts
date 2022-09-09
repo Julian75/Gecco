@@ -122,7 +122,16 @@ export class RechazarRegistroComponent implements OnInit {
 
    public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idUsuario:number, idSolicitud: number){
     this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(res=>{
-      this.crearCorreo(idUsuario, idSolicitud)
+      // this.crearCorreo(idUsuario, idSolicitud)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Ha sido rechazado la orden de compra!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload()
+      this.dialogRef.close();
     }, error => {
       console.log(error)
       Swal.fire({
@@ -135,139 +144,139 @@ export class RechazarRegistroComponent implements OnInit {
     });
   }
 
-  public crearCorreo(idUsuario:number, idSolicitud:number){
-    let correo : Correo = new Correo();
-    const observacion = this.formSolicitud.controls['observacion'].value;
-    this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-      this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
-        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-          resConfiguracion.forEach(elementConfi => {
-            if(elementConfi.nombre == "correo_gecco"){
-              this.correo = elementConfi.valor
-            }
-            if(elementConfi.nombre == "contraseña_correo"){
-              this.contrasena = elementConfi.valor
-            }
-          });
-          console.log(this.correo)
-          correo.correo = this.correo
-          correo.contrasena = this.contrasena
-          correo.to = resUsuario.correo
-          correo.subject = "Cancelacion de Registro"
-          correo.messaje = "<!doctype html>"
-          +"<html>"
-          +"<head>"
-          +"<meta charset='utf-8'>"
-          +"</head>"
-          +"<body>"
-          +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
-          +"<h3 style='color: black;'>"+observacion+"</h3>"
-          +"<br>"
-          +"<table style='border: 1px solid #000; text-align: center;'>"
-          +"<tr>"
-          +"<th style='border: 1px solid #000;'>Articulo</th>"
-          +"<th style='border: 1px solid #000;'>Cantidad</th>"
-          +"<th style='border: 1px solid #000;'>Observacion</th>";
-          +"</tr>";
-          resSolicitud.forEach(element => {
-            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-              this.listaDetalleSolicitud.push(element)
-              correo.messaje += "<tr>"
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-              correo.messaje += "</tr>";
-            }
-          });
-          correo.messaje += "</table>"
-          +"<br>"
-          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-          +"</body>"
-          +"</html>";
+  // public crearCorreo(idUsuario:number, idSolicitud:number){
+  //   let correo : Correo = new Correo();
+  //   const observacion = this.formSolicitud.controls['observacion'].value;
+  //   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+  //     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
+  //       this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+  //         resConfiguracion.forEach(elementConfi => {
+  //           if(elementConfi.nombre == "correo_gecco"){
+  //             this.correo = elementConfi.valor
+  //           }
+  //           if(elementConfi.nombre == "contraseña_correo"){
+  //             this.contrasena = elementConfi.valor
+  //           }
+  //         });
+  //         console.log(this.correo)
+  //         correo.correo = this.correo
+  //         correo.contrasena = this.contrasena
+  //         correo.to = resUsuario.correo
+  //         correo.subject = "Cancelacion de Registro"
+  //         correo.messaje = "<!doctype html>"
+  //         +"<html>"
+  //         +"<head>"
+  //         +"<meta charset='utf-8'>"
+  //         +"</head>"
+  //         +"<body>"
+  //         +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
+  //         +"<h3 style='color: black;'>"+observacion+"</h3>"
+  //         +"<br>"
+  //         +"<table style='border: 1px solid #000; text-align: center;'>"
+  //         +"<tr>"
+  //         +"<th style='border: 1px solid #000;'>Articulo</th>"
+  //         +"<th style='border: 1px solid #000;'>Cantidad</th>"
+  //         +"<th style='border: 1px solid #000;'>Observacion</th>";
+  //         +"</tr>";
+  //         resSolicitud.forEach(element => {
+  //           if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+  //             this.listaDetalleSolicitud.push(element)
+  //             correo.messaje += "<tr>"
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+  //             correo.messaje += "</tr>";
+  //           }
+  //         });
+  //         correo.messaje += "</table>"
+  //         +"<br>"
+  //         +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+  //         +"</body>"
+  //         +"</html>";
 
-          this.enviarCorreo(correo, idSolicitud, observacion);
-        })
-      })
-    })
-  }
+  //         this.enviarCorreo(correo, idSolicitud, observacion);
+  //       })
+  //     })
+  //   })
+  // }
 
-  public enviarCorreo(correo: Correo, idSolicitud:number, observacion:string){
-    for (const [key, value] of Object.entries(this.data)) {
-      this.lista.push(value)
-    }
-    this.servicioCotizacion.listarPorId(this.lista[1]).subscribe(resCotizacion=>{
-      this.servicioCorreo.enviar(correo).subscribe(res =>{
-        let correo : Correo = new Correo();
-        this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-          this.servicioUsuario.listarPorId(resCotizacion.idUsuario.id).subscribe(resUsuario => {
-            this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-              resConfiguracion.forEach(elementConfi => {
-                if(elementConfi.nombre == "correo_gecco"){
-                  this.correo = elementConfi.valor
-                }
-                if(elementConfi.nombre == "contraseña_correo"){
-                  this.contrasena = elementConfi.valor
-                }
-              });
-              console.log(this.correo)
-              correo.correo = this.correo
-              correo.contrasena = this.contrasena
+  // public enviarCorreo(correo: Correo, idSolicitud:number, observacion:string){
+  //   for (const [key, value] of Object.entries(this.data)) {
+  //     this.lista.push(value)
+  //   }
+  //   this.servicioCotizacion.listarPorId(this.lista[1]).subscribe(resCotizacion=>{
+  //     this.servicioCorreo.enviar(correo).subscribe(res =>{
+  //       let correo : Correo = new Correo();
+  //       this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+  //         this.servicioUsuario.listarPorId(resCotizacion.idUsuario.id).subscribe(resUsuario => {
+  //           this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+  //             resConfiguracion.forEach(elementConfi => {
+  //               if(elementConfi.nombre == "correo_gecco"){
+  //                 this.correo = elementConfi.valor
+  //               }
+  //               if(elementConfi.nombre == "contraseña_correo"){
+  //                 this.contrasena = elementConfi.valor
+  //               }
+  //             });
+  //             console.log(this.correo)
+  //             correo.correo = this.correo
+  //             correo.contrasena = this.contrasena
 
-              correo.to = resUsuario.correo
-              correo.subject = "Cancelacion de Registro"
-              correo.messaje = "<!doctype html>"
-              +"<html>"
-              +"<head>"
-              +"<meta charset='utf-8'>"
-              +"</head>"
-              +"<body>"
-              +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
-              +"<h3 style='color: black;'>"+observacion+"</h3>"
-              +"<br>"
-              +"<table style='border: 1px solid #000; text-align: center;'>"
-              +"<tr>"
-              +"<th style='border: 1px solid #000;'>Articulo</th>"
-              +"<th style='border: 1px solid #000;'>Cantidad</th>"
-              +"<th style='border: 1px solid #000;'>Observacion</th>";
-              +"</tr>";
-              resSolicitud.forEach(element => {
-                if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-                  this.listaDetalleSolicitud.push(element)
-                  correo.messaje += "<tr>"
-                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-                  correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-                  correo.messaje += "</tr>";
-                }
-              });
-              correo.messaje += "</table>"
-              +"<br>"
-              +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-              +"</body>"
-              +"</html>";
+  //             correo.to = resUsuario.correo
+  //             correo.subject = "Cancelacion de Registro"
+  //             correo.messaje = "<!doctype html>"
+  //             +"<html>"
+  //             +"<head>"
+  //             +"<meta charset='utf-8'>"
+  //             +"</head>"
+  //             +"<body>"
+  //             +"<h3 style='color: black;'>Su orden de compra ha sido rechaza porque:</h3>"
+  //             +"<h3 style='color: black;'>"+observacion+"</h3>"
+  //             +"<br>"
+  //             +"<table style='border: 1px solid #000; text-align: center;'>"
+  //             +"<tr>"
+  //             +"<th style='border: 1px solid #000;'>Articulo</th>"
+  //             +"<th style='border: 1px solid #000;'>Cantidad</th>"
+  //             +"<th style='border: 1px solid #000;'>Observacion</th>";
+  //             +"</tr>";
+  //             resSolicitud.forEach(element => {
+  //               if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+  //                 this.listaDetalleSolicitud.push(element)
+  //                 correo.messaje += "<tr>"
+  //                 correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+  //                 correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+  //                 correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+  //                 correo.messaje += "</tr>";
+  //               }
+  //             });
+  //             correo.messaje += "</table>"
+  //             +"<br>"
+  //             +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+  //             +"</body>"
+  //             +"</html>";
 
 
-              this.enviarCorreo2(correo);
-            })
-          })
-        })
-      })
-    })
-  }
+  //             this.enviarCorreo2(correo);
+  //           })
+  //         })
+  //       })
+  //     })
+  //   })
+  // }
 
-  public enviarCorreo2(correo: Correo){
-    this.servicioCorreo.enviar(correo).subscribe(res =>{
-      document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Correo enviado al usuario de la solicitud y cotizacion!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload()
-      this.dialogRef.close();
-    })
-  }
+  // public enviarCorreo2(correo: Correo){
+  //   this.servicioCorreo.enviar(correo).subscribe(res =>{
+  //     document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'success',
+  //       title: 'Correo enviado al usuario de la solicitud y cotizacion!',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //     window.location.reload()
+  //     this.dialogRef.close();
+  //   })
+  // }
 
 }

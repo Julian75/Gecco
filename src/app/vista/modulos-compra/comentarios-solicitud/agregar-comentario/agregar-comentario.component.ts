@@ -105,47 +105,47 @@ export class AgregarComentarioComponent implements OnInit {
                   gestionProceso.idEstado = resEstado.id
                   gestionProceso.comentario = "Comentario: "+comentario+". "
                   this.servicioModificar.actualizarGestionProceso(gestionProceso).subscribe(resGestionProceso=>{
-                    let correo : Correo = new Correo();
-                    this.servicioUsuario.listarPorId(gestionProceso.idUsuario).subscribe(resUsuario => {
-                      this.servicioUsuario.listarPorId(elementGestionProceso.idProceso.idUsuario.id).subscribe(resUsuario2 => {
-                        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-                          resConfiguracion.forEach(elementConfi => {
-                            if(elementConfi.nombre == "correo_gecco"){
-                              this.correo = elementConfi.valor
-                            }
-                            if(elementConfi.nombre == "contraseña_correo"){
-                              this.contrasena = elementConfi.valor
-                            }
-                          });
-                          console.log(this.correo)
-                          correo.correo = this.correo
-                          correo.contrasena = this.contrasena
-                          correo.to = resUsuario.correo
-                          correo.subject = "Nuevo Comentario"
-                          correo.messaje = "<!doctype html>"
-                          +"<html>"
-                          +"<head>"
-                          +"<meta charset='utf-8'>"
-                          +"</head>"
-                          +"<body>"
-                          +"<h3 style='color: black;'>Se realizo un nuevo comentario por parte de "+resUsuario2.nombre+" "+resUsuario2.apellido+" al articulo de "+elementGestionProceso.idDetalleSolicitud.idArticulos.descripcion+".</h3>"
-                          +"<br>"
-                          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-                          +"</body>"
-                          +"</html>";
-                          this.servicioCorreo.enviar(correo).subscribe(res =>{
-                          }, error => {
-                            Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: 'Hubo un error al enviar el Correo!',
-                              showConfirmButton: false,
-                              timer: 1500
-                            })
-                          });
-                        })
-                      })
-                    })
+                    // let correo : Correo = new Correo();
+                    // this.servicioUsuario.listarPorId(gestionProceso.idUsuario).subscribe(resUsuario => {
+                    //   this.servicioUsuario.listarPorId(elementGestionProceso.idProceso.idUsuario.id).subscribe(resUsuario2 => {
+                    //     this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                    //       resConfiguracion.forEach(elementConfi => {
+                    //         if(elementConfi.nombre == "correo_gecco"){
+                    //           this.correo = elementConfi.valor
+                    //         }
+                    //         if(elementConfi.nombre == "contraseña_correo"){
+                    //           this.contrasena = elementConfi.valor
+                    //         }
+                    //       });
+                    //       console.log(this.correo)
+                    //       correo.correo = this.correo
+                    //       correo.contrasena = this.contrasena
+                    //       correo.to = resUsuario.correo
+                    //       correo.subject = "Nuevo Comentario"
+                    //       correo.messaje = "<!doctype html>"
+                    //       +"<html>"
+                    //       +"<head>"
+                    //       +"<meta charset='utf-8'>"
+                    //       +"</head>"
+                    //       +"<body>"
+                    //       +"<h3 style='color: black;'>Se realizo un nuevo comentario por parte de "+resUsuario2.nombre+" "+resUsuario2.apellido+" al articulo de "+elementGestionProceso.idDetalleSolicitud.idArticulos.descripcion+".</h3>"
+                    //       +"<br>"
+                    //       +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+                    //       +"</body>"
+                    //       +"</html>";
+                    //       this.servicioCorreo.enviar(correo).subscribe(res =>{
+                    //       }, error => {
+                    //         Swal.fire({
+                    //           position: 'center',
+                    //           icon: 'error',
+                    //           title: 'Hubo un error al enviar el Correo!',
+                    //           showConfirmButton: false,
+                    //           timer: 1500
+                    //         })
+                    //       });
+                    //     })
+                    //   })
+                    // })
                     let solicitudDetalle : DetalleSolicitud2 = new DetalleSolicitud2();
                     solicitudDetalle.id = resDetalleSolicitud.id
                     solicitudDetalle.cantidad = resDetalleSolicitud.cantidad
@@ -302,13 +302,13 @@ export class AgregarComentarioComponent implements OnInit {
     })
   }
 
-  public crearCorreo(idUsuarioCotizacion:number, idUsuarioSolicitud: number, idSolicitud:number){
+  // public crearCorreo(idUsuarioCotizacion:number, idUsuarioSolicitud: number, idSolicitud:number){
 
-  }
+  // }
 
-  public enviarCorreo(correo: Correo, idUsuarioSolicitud: number, idSolicitud:number){
+  // public enviarCorreo(correo: Correo, idUsuarioSolicitud: number, idSolicitud:number){
 
-  }
+  // }
 
 
 }

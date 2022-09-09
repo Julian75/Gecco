@@ -96,7 +96,15 @@ export class SolicitudesComponent implements OnInit {
 
   public actualizarSolicitud(solicitud: Solicitud2){
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario, solicitud.id)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Su solicitud ha sido viable!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload()
+      // this.crearCorreo(solicitud.idUsuario, solicitud.id)
     }, error => {
       console.log(error)
       Swal.fire({
@@ -108,83 +116,83 @@ export class SolicitudesComponent implements OnInit {
       })
     });
  }
- public crearCorreo(idUsuario:number, idSolicitud:number){
-  let correo : Correo = new Correo();
-  this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-    this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
-      this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-        resConfiguracion.forEach(elementConfi => {
-          if(elementConfi.nombre == "correo_gecco"){
-            this.correo = elementConfi.valor
-          }
-          if(elementConfi.nombre == "contraseña_correo"){
-            this.contrasena = elementConfi.valor
-          }
-        });
-        console.log(this.correo)
-        correo.correo = this.correo
-        correo.contrasena = this.contrasena
+//  public crearCorreo(idUsuario:number, idSolicitud:number){
+//   let correo : Correo = new Correo();
+//   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+//     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
+//       this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+//         resConfiguracion.forEach(elementConfi => {
+//           if(elementConfi.nombre == "correo_gecco"){
+//             this.correo = elementConfi.valor
+//           }
+//           if(elementConfi.nombre == "contraseña_correo"){
+//             this.contrasena = elementConfi.valor
+//           }
+//         });
+//         console.log(this.correo)
+//         correo.correo = this.correo
+//         correo.contrasena = this.contrasena
 
-        correo.to = resUsuario.correo
-        correo.subject = "Aceptación de Solicitud"
-        correo.messaje = "<!doctype html>"
-        +"<html>"
-        +"<head>"
-        +"<meta charset='utf-8'>"
-        +"</head>"
-        +"<body>"
-        +"<h3 style='color: black;'>Su solicitud ha sido viable por lo cual a sido aceptada.</h3>"
-        +"<br>"
-        +"<table style='border: 1px solid #000; text-align: center;'>"
-        +"<tr>"
-        +"<th style='border: 1px solid #000;'>Articulo</th>"
-        +"<th style='border: 1px solid #000;'>Cantidad</th>"
-        +"<th style='border: 1px solid #000;'>Observacion</th>";
-        +"</tr>";
-        resSolicitud.forEach(element => {
-          if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-            this.listaDetalleSolicitud.push(element)
-            correo.messaje += "<tr>"
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-            correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-            correo.messaje += "</tr>";
-          }
-        });
-        correo.messaje += "</table>"
-        +"<br>"
-        +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-        +"</body>"
-        +"</html>";
+//         correo.to = resUsuario.correo
+//         correo.subject = "Aceptación de Solicitud"
+//         correo.messaje = "<!doctype html>"
+//         +"<html>"
+//         +"<head>"
+//         +"<meta charset='utf-8'>"
+//         +"</head>"
+//         +"<body>"
+//         +"<h3 style='color: black;'>Su solicitud ha sido viable por lo cual a sido aceptada.</h3>"
+//         +"<br>"
+//         +"<table style='border: 1px solid #000; text-align: center;'>"
+//         +"<tr>"
+//         +"<th style='border: 1px solid #000;'>Articulo</th>"
+//         +"<th style='border: 1px solid #000;'>Cantidad</th>"
+//         +"<th style='border: 1px solid #000;'>Observacion</th>";
+//         +"</tr>";
+//         resSolicitud.forEach(element => {
+//           if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+//             this.listaDetalleSolicitud.push(element)
+//             correo.messaje += "<tr>"
+//             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+//             correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+//             correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+//             correo.messaje += "</tr>";
+//           }
+//         });
+//         correo.messaje += "</table>"
+//         +"<br>"
+//         +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+//         +"</body>"
+//         +"</html>";
 
-        this.enviarCorreo(correo);
-      })
-    })
-  })
-}
+//         this.enviarCorreo(correo);
+//       })
+//     })
+//   })
+// }
 
-public enviarCorreo(correo: Correo){
-  this.servicioCorreo.enviar(correo).subscribe(res =>{
-    document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Correo enviado al usuario de la solicitud!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    window.location.reload()
-  }, error => {
-    console.log(error)
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Hubo un error al enviar el Correo!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-  });
-}
+// public enviarCorreo(correo: Correo){
+//   this.servicioCorreo.enviar(correo).subscribe(res =>{
+//     document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
+//     Swal.fire({
+//       position: 'center',
+//       icon: 'success',
+//       title: 'Correo enviado al usuario de la solicitud!',
+//       showConfirmButton: false,
+//       timer: 1500
+//     })
+//     window.location.reload()
+//   }, error => {
+//     console.log(error)
+//     Swal.fire({
+//       position: 'center',
+//       icon: 'error',
+//       title: 'Hubo un error al enviar el Correo!',
+//       showConfirmButton: false,
+//       timer: 1500
+//     })
+//   });
+// }
 
  rechazarSolicitud(id: number){
    const dialogRef = this.dialog.open(RechazoSolicitudComponent, {

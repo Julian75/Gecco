@@ -39,12 +39,12 @@ button{
 .buttonEnviar{  top: 240px; left: -15%; width: 15%; }
 .imgLogin{
   width: 450px;
-  top: -19%;
+  margin-top: -7%;
   left: 52%;
 }
 .buttonIniciar{ top: 330px; left: -32%;  width: 20%; }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   .formulario{
     width: 75%;
@@ -67,8 +67,34 @@ button{
   .buttonIniciar{ top: 150px; left: 15%;  width: 70%; font-size: 15px;}
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
+/* Movil pequeño 2, movil pequeño 3 */
+@media screen and (min-width: 360px) and (max-width: 410px){
+  .formulario{
+    width: 75%;
+    margin-left: 12%;
+    top: 10%;
+  }
+  .logo{
+    width: 78%;
+    margin-left: 12%;
+    margin-top: 15%;
+  }
+  mat-form-field{ width: 70%; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 170px; left: 15%; }
+  .password{ top: 170px; left: 15%;}
+  .imgLogin{
+    width: 75%;
+    left: 13%;
+    top: -195px;
+  }
+  .buttonEnviar{  top: 170px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 190px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
+}
+
+/* movil pequeño 4*/
+@media screen and (min-width: 411px) and (max-width: 420px){
   .formulario{
     width: 75%;
     margin-left: 12%;
@@ -90,123 +116,483 @@ button{
   }
   .buttonEnviar{  top: 210px; left: 30%; width: 39%; }
   .buttonIniciar{ top: 240px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
 }
 
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
   .formulario{
     width: 75%;
-    margin-left: 13%;
+    margin-left: 12%;
     top: 10%;
   }
   .logo{
-    width: 78%;
-    margin-left: 12%;
-    margin-top: 10%;
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 15%;
   }
-  mat-form-field{ width: 180px; }
+  mat-form-field{ width: 70%; }
   hr{ display: none; }
-  .numIdentificacion{ top: 180px; left: 15%;  width: 70%; }
-  .password{ top: 190px; left: 15%; width: 70%;}
+  .numIdentificacion{ top: 220px; left: 15%; }
+  .password{ top: 220px; left: 15%;}
   .imgLogin{
-    width: 50%;
-    left: 25%;
-    top: -160px;
+    width: 60%;
+    left: 20%;
+    top: -195px;
   }
-  .buttonEnviar{  top: 190px; left: 30%; width: 35%; }
-  .buttonIniciar{ top: 260px; left: -12%;  width: 50%; }
+  .buttonEnviar{  top: 230px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 260px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
 }
-/* Tablet pequeña */
-@media screen and (min-width: 721px) and (max-width: 768px){
+/* Portatil 1 */
+@media screen and (min-width: 640px) and (max-width: 699px){
   .formulario{
     width: 75%;
-    margin-left: 13%;
+    margin-left: 12%;
     top: 10%;
   }
   .logo{
-    width: 78%;
-    margin-left: 12%;
-    margin-top: 10%;
+    width: 60%;
+    margin-left: 18%;
+    margin-top: 6%;
   }
-  mat-form-field{ width: 180px; }
+  mat-form-field{ width: 70%; }
   hr{ display: none; }
-  .numIdentificacion{ top: 320px; left: 15%;  width: 70%; }
-  .password{ top: 340px; left: 15%; width: 70%;}
+  .numIdentificacion{ top: 30px; left: 15%; }
+  .password{ top: 30px; left: 15%;}
+  .imgLogin{
+    display: none;
+  }
+  .buttonEnviar{  top: 30px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 45px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
+}
+/* Tablet 2 */
+@media screen and (min-width: 700px) and (max-width: 768px){
+  .formulario{
+    width: 75%;
+    margin-left: 12%;
+    top: 10%;
+  }
+  .logo{
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 15%;
+  }
+  mat-form-field{ width: 70%; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 310px; left: 15%; }
+  .password{ top: 320px; left: 15%;}
   .imgLogin{
     width: 70%;
-    left: 17%;
-    top: -150px;
+    left: 15%;
+    top: -195px;
   }
-  .buttonEnviar{  top: 430px; left: -35%; width: 30%; }
-  .buttonIniciar{ top: 460px; left: 33%;  width: 33%; }
+  .buttonEnviar{  top: 340px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 370px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
 }
-
-/* Tablet medio */
-@media screen and (min-width: 769px) and (max-width: 1023px){
+/* Tablet 3 */
+@media screen and (min-width: 769px) and (max-width: 899px){
   .formulario{
-    width: 70%;
-    margin-left: 15%;
+    width: 75%;
+    margin-left: 12%;
     top: 10%;
   }
   .logo{
-    width: 65%;
-    margin-left: 15%;
-    margin-top: 10%;
+    width: 70%;
+    margin-left: 14%;
+    margin-top: 15%;
   }
+  mat-form-field{ width: 70%; }
   hr{ display: none; }
-  .numIdentificacion{ top: 400px; left: 23%; }
-  .password{ top: 430px; left: 23%;}
+  .numIdentificacion{ top: 390px; left: 15%; }
+  .password{ top: 430px; left: 15%;}
   .imgLogin{
     width: 80%;
     left: 10%;
-    top: -120px;
+    top: -195px;
   }
-  .buttonEnviar{  top: 530px; left: -20%; width: 30%; }
-  .buttonIniciar{ top: 560px; left: 31%;  width: 33%; }
+  .buttonEnviar{  top: 460px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 520px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
 }
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
+/* Portatil 2 */
+@media screen and (min-width: 900px) and (max-width: 960px){
   .formulario{
-    width: 70%;
-    margin-left: 15%;
+    width: 75%;
+    margin-left: 12%;
     top: 10%;
   }
   .logo{
-    width: 35%;
-    margin-left: 10%;
-    margin-top: 7%;
+    width: 40%;
+    margin-left: 25%;
+    margin-top: 5%;
   }
-  hr{ display: block;  margin-top: -21%; }
-  .numIdentificacion{ top: 160px; left: -35%; width: 35%; }
-  .password{ top: 170px; left: 10%; width: 35%;}
+  mat-form-field{ width: 70%; }
+  hr{ display: none; }
+  .numIdentificacion{ top: 30px; left: 15%; }
+  .password{ top: 30px; left: 15%;}
   .imgLogin{
-    width: 50%;
-    left: 50%;
-    top: -80px;
+    display: none;
   }
-  .buttonEnviar{ top: 260px; left: -23%; width: 30%; }
-  .buttonIniciar{ top: 350px; left: -53%; width: 30%; }
+  .buttonEnviar{  top: 40px; left: 30%; width: 39%; }
+  .buttonIniciar{ top: 70px; left: 15%;  width: 67%; }
+  button{ font-size: 15px; }
 }
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .formulario{
-    width: 70%;
-    margin-left: 15%;
-    top: 10%;
-  }
-  .logo{
-    width: 35%;
-    margin-left: 10%;
-    margin-top: 7%;
-  }
-  hr{ display: block;  margin-top: -21%; }
-  .numIdentificacion{ top: 165px; left: -35%; width: 35%; }
-  .password{ top: 180px; left: 10%; width: 35%;}
+/* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1059px){
+  mat-form-field{ width: 210px; }
   .imgLogin{
-    width: 50%;
-    left: 50%;
-    top: -80px;
+    width: 310px;
+    left: 49%;
+    margin-top: -5%;
   }
-  .buttonEnviar{ top: 275px; left: -23%; width: 30%; }
-  .buttonIniciar{ top: 360px; left: -53%; width: 30%; }
+  .numIdentificacion{ top: 130px; }
+  .buttonEnviar{
+    top: 225px;
+    left: -18%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 300px;
+    left: -37%;
+    width: 24%;
+  }
+  hr{ margin-top: -24.5%; }
+  button{ font-size: 15px; }
+}
+/* Tablet 5 */
+@media screen and (min-width: 1060px) and (max-width: 1080px){
+  .logo{
+    width: 75%;
+    margin-top: 16%;
+    margin-left: 12%;
+  }
+  mat-form-field{ width: 420px; }
+  .imgLogin{
+    width: 90%;
+    left: 5%;
+    margin-top: -10%;
+  }
+  .numIdentificacion{ top: 630px; left: 100px; }
+  .password{ top: 700px; left: 16%; }
+  .buttonEnviar{
+    top: 850px;
+    left: -27%;
+    width: 22%;
+  }
+  .buttonIniciar{
+    top: 950px;
+    left: 35%;
+    width: 30%;
+  }
+  hr{ display: none; }
+  button{ font-size: 15px; }
+}
+/* Tablet 6 */
+@media screen and (min-width: 1081px) and (max-width: 1200px){
+  .logo{
+    width: 75%;
+    margin-top: 16%;
+    margin-left: 12%;
+  }
+  mat-form-field{ width: 420px; }
+  .imgLogin{
+    width: 90%;
+    left: 5%;
+    margin-top: -10%;
+  }
+  .numIdentificacion{ top: 630px; left: 130px; }
+  .password{ top: 700px; left: 19%; }
+  .buttonEnviar{
+    top: 850px;
+    left: -21%;
+    width: 22%;
+  }
+  .buttonIniciar{
+    top: 950px;
+    left: 35%;
+    width: 30%;
+  }
+  hr{ display: none; }
+  button{ font-size: 15px; }
+}
+/* Tablet 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1 */
+@media screen and (min-width: 1201px) and (max-width: 1280px){
+  mat-form-field{ width: 250px; }
+  .imgLogin{
+    width: 380px;
+    left: 50%;
+    margin-top: -2%;
+  }
+  .numIdentificacion{ top: 160px; }
+  .password{ top: 190px; }
+  .buttonEnviar{
+    top: 300px;
+    left: -18%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 380px;
+    left: -37%;
+    width: 24%;
+  }
+  hr{ margin-top: -22.5%; }
+  button{ font-size: 15px; }
+}
+/* Compu. Mesa 5 */
+@media screen and (min-width: 1281px) and (max-width: 1450px){
+  mat-form-field{ width: 280px; }
+  .imgLogin{
+    width: 400px;
+    left: 50%;
+    margin-top: 0%;
+  }
+  .numIdentificacion{ top: 160px; }
+  .password{ top: 190px; }
+  .buttonEnviar{
+    top: 300px;
+    left: -18%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 410px;
+    left: -37%;
+    width: 24%;
+  }
+  hr{ margin-top: -22.5%; }
+  button{ font-size: 15px; }
+}
+/* Tablet 8 */
+@media screen and (min-width: 1451px) and (max-width: 1536px){
+  .logo{
+    width: 75%;
+    margin-top: 16%;
+    margin-left: 12%;
+  }
+  mat-form-field{ width: 450px; }
+  .imgLogin{
+    width: 90%;
+    left: 5%;
+    margin-top: -10%;
+  }
+  .numIdentificacion{ top: 670px; left: 200px; }
+  .password{ top: 810px; left: -26%; }
+  .buttonEnviar{
+    top: 930px;
+    left: 37%;
+    width: 22%;
+  }
+  .buttonIniciar{
+    top: 1100px;
+    left: 11%;
+    width: 30%;
+  }
+  hr{ display: none; }
+  button{ font-size: 15px; }
+}
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  mat-form-field{ width: 380px; }
+  .imgLogin{
+    width: 550px;
+    left: 50%;
+    margin-top: 0%;
+  }
+  .numIdentificacion{ top: 200px; }
+  .password{ top: 220px; }
+  .buttonEnviar{
+    top: 360px;
+    left: -18%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 500px;
+    left: -37%;
+    width: 24%;
+  }
+  hr{ margin-top: -19.5%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  mat-form-field{ width: 390px; }
+  .imgLogin{
+    width: 550px;
+    left: 52%;
+    margin-top: 12%;
+  }
+  .numIdentificacion{ top: 250px; }
+  .password{ top: 300px; }
+  .buttonEnviar{
+    top: 500px;
+    left: -16%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 700px;
+    left: -35%;
+    width: 24%;
+  }
+  hr{ margin-top: -19.5%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  mat-form-field{ width: 390px; }
+  .imgLogin{
+    width: 550px;
+    left: 52%;
+    margin-top: 10%;
+  }
+  .numIdentificacion{ top: 250px; }
+  .password{ top: 300px; }
+  .buttonEnviar{
+    top: 500px;
+    left: -16%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 700px;
+    left: -35%;
+    width: 24%;
+  }
+  hr{ margin-top: -19.5%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  mat-form-field{ width: 460px; }
+  .imgLogin{
+    width: 690px;
+    left: 52%;
+    margin-top: 8%;
+  }
+  .numIdentificacion{ top: 250px; left: -33%; }
+  .password{ top: 300px; left: 10%; }
+  .buttonEnviar{
+    top: 500px;
+    left: -14%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 700px;
+    left: -34%;
+    width: 24%;
+  }
+  hr{ margin-top: -19.5%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  mat-form-field{ width: 470px; }
+  .imgLogin{
+    width: 720px;
+    left: 52%;
+    margin-top: 8%;
+  }
+  .numIdentificacion{ top: 320px; left: -33%; }
+  .password{ top: 380px; left: 10%; }
+  .buttonEnviar{
+    top: 620px;
+    left: -12%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 840px;
+    left: -32%;
+    width: 24%;
+  }
+  hr{ margin-top: -17.5%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  mat-form-field{ width: 530px; }
+  .imgLogin{
+    width: 800px;
+    left: 52%;
+    margin-top: 8%;
+  }
+  .numIdentificacion{ top: 360px; left: -33%; }
+  .password{ top: 420px; left: 10%; }
+  .buttonEnviar{
+    top: 660px;
+    left: -12%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 880px;
+    left: -32%;
+    width: 24%;
+  }
+  hr{ margin-top: -17.5%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  mat-form-field{ width: 670px; }
+  .imgLogin{
+    width: 1000px;
+    left: 52%;
+    margin-top: 6%;
+  }
+  .numIdentificacion{ top: 420px; left: -33%; }
+  .password{ top: 480px; left: 10%; }
+  .buttonEnviar{
+    top: 720px;
+    left: -12%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 960px;
+    left: -32%;
+    width: 24%;
+  }
+  hr{ margin-top: -16.5%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  mat-form-field{ width: 710px; }
+  .imgLogin{
+    width: 1100px;
+    left: 52%;
+    margin-top: 4%;
+  }
+  .numIdentificacion{ top: 420px; left: -33%; }
+  .password{ top: 480px; left: 10%; }
+  .buttonEnviar{
+    top: 720px;
+    left: -12%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 960px;
+    left: -32%;
+    width: 24%;
+  }
+  hr{ margin-top: -16.5%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  mat-form-field{ width: 1410px; }
+  .imgLogin{
+    width: 2000px;
+    left: 52%;
+    margin-top: 4%;
+  }
+  .numIdentificacion{ top: 820px; left: -33%; }
+  .password{ top: 880px; left: 10%; }
+  .buttonEnviar{
+    top: 1420px;
+    left: -12%;
+    width: 15%;
+  }
+  .buttonIniciar{
+    top: 1860px;
+    left: -32%;
+    width: 24%;
+  }
+  hr{ margin-top: -16.5%; }
 }

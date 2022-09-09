@@ -177,8 +177,18 @@ th.mat-header-cell{ padding-right: 15px; }
   #idSp { margin-left: 60%; }
   #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
 }
-/* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 699px){
+  .nombre, .tur, .nombre1 { width: 225px; }
+  .nombre2, .nombre4{ margin-left: 0%; }
+  .nombre3 { margin-left: 55%; margin-top: -20%; }
+  .nombre5 { margin-left: 55%; margin-top: -20%; }
+  .guardar { margin-left: 0%; margin-bottom: 14%; top: 0%; }
+  #idSp { margin-left: 60%; }
+  #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
+}
+/* Tablet 2 */
+@media screen and (min-width: 700px) and (max-width: 768px){
   .nombre, .tur, .nombre1 { width: 250px; }
   .nombre3 { margin-left: 55%; margin-top: -17%; }
   .nombre5 { margin-left: 55%; margin-top: -17%; }
@@ -186,12 +196,22 @@ th.mat-header-cell{ padding-right: 15px; }
   #idSp { margin-left: 60%; }
   #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
 }
-/* Tablet 3,  Portatil 2*/
-@media screen and (min-width: 769px) and (max-width: 960px){
+/* Tablet 3 */
+@media screen and (min-width: 769px) and (max-width: 899px){
   .nombre, .tur, .nombre1 { width: 225px; }
   .nombre2, .nombre4 { margin-left: 0%; }
   .nombre3, .nombre5 { margin-left: 55%; margin-top: -21%; }
   .guardar { margin-left: 0%; margin-bottom: 12%; top: 0%; }
+  #idSp { margin-left: 60%; }
+  #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
+}
+
+/* Portatil 2*/
+@media screen and (min-width: 900px) and (max-width: 960px){
+  .nombre, .tur, .nombre1 { width: 250px; }
+  .nombre2, .nombre4 { margin-left: 5%; }
+  .nombre3, .nombre5 { margin-left: 55%; margin-top: -17%; }
+  .guardar { margin-left: 5%; margin-bottom: 12%; top: 0%; }
   #idSp { margin-left: 60%; }
   #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
 }
@@ -202,9 +222,17 @@ th.mat-header-cell{ padding-right: 15px; }
   #idSp { margin-left: 60%; }
   #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
 }
-/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
-@media screen and (min-width: 1081px) and (max-width: 1280px){
+/* Tablet 6 y 7 */
+@media screen and (min-width: 1081px) and (max-width: 1200px){
   .nombre3, .nombre5 { margin-left: 55%; margin-top: -13%; }
+  .guardar { margin-left: 5%; margin-bottom: 10%; top: 0%; }
+  #idSp { margin-left: 60%; }
+  #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }
+}
+
+/* portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1201px) and (max-width: 1280px){
+  .nombre3, .nombre5 { margin-left: 55%; margin-top: -12%; }
   .guardar { margin-left: 5%; margin-bottom: 10%; top: 0%; }
   #idSp { margin-left: 60%; }
   #estSp, #iniSp, #finSp, #ofcSp, #sitSp, #opcSp{ margin-left: 17%; }

@@ -45,7 +45,6 @@ h2{
 .guardar{
   background-color: #00235C ;
   color: white;
-  width: 200px;
   height: 40px;
   font-size: large;
   margin-left: 5%;
@@ -67,7 +66,7 @@ h2{
     width: 226px;
   }
   .guardar{
-    margin-left: 10%;
+    margin-left: 6%;
   }
 }
 
@@ -76,9 +75,9 @@ h2{
   .nombre, .estado{
     width: 290px;
   }
-  .guardar{
-    margin-left: 18%;
-  }
+  /* .guardar{
+    margin-left: 6%;
+  } */
 }
 
 /* Tablet 1 */

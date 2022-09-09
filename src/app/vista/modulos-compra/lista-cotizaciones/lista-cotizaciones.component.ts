@@ -176,7 +176,17 @@ export class ListaCotizacionesComponent implements OnInit {
 
   public actualizarCotizacion(cotizacion: Cotizacion2, idUsuarioCotizacion:number, idUsuarioSolicitud:number, idSolicitud:number){
     this.servicioModificar.actualizarCotizacion(cotizacion).subscribe(res =>{
-      this.crearCorreo(idUsuarioCotizacion, idUsuarioSolicitud, idSolicitud)
+      // this.crearCorreo(idUsuarioCotizacion, idUsuarioSolicitud, idSolicitud)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se ha aprobado la cotización.',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload()
+      this.dialogRef.close();
+      this.dialogRef2.close();
     }, error => {
       console.log(error)
       Swal.fire({
@@ -189,155 +199,155 @@ export class ListaCotizacionesComponent implements OnInit {
     });
   }
 
-  public crearCorreo(idUsuarioCotizacion:number, idUsuarioSolicitud: number, idSolicitud:number){
-    let correo : Correo = new Correo();
-    this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-      this.servicioUsuario.listarPorId(idUsuarioCotizacion).subscribe(resUsuario => {
-        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-          resConfiguracion.forEach(elementConfi => {
-            if(elementConfi.nombre == "correo_gecco"){
-              this.correo = elementConfi.valor
-            }
-            if(elementConfi.nombre == "contraseña_correo"){
-              this.contrasena = elementConfi.valor
-            }
-          });
-          console.log(this.correo)
-          correo.correo = this.correo
-          correo.contrasena = this.contrasena
+  // public crearCorreo(idUsuarioCotizacion:number, idUsuarioSolicitud: number, idSolicitud:number){
+  //   let correo : Correo = new Correo();
+  //   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+  //     this.servicioUsuario.listarPorId(idUsuarioCotizacion).subscribe(resUsuario => {
+  //       this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+  //         resConfiguracion.forEach(elementConfi => {
+  //           if(elementConfi.nombre == "correo_gecco"){
+  //             this.correo = elementConfi.valor
+  //           }
+  //           if(elementConfi.nombre == "contraseña_correo"){
+  //             this.contrasena = elementConfi.valor
+  //           }
+  //         });
+  //         console.log(this.correo)
+  //         correo.correo = this.correo
+  //         correo.contrasena = this.contrasena
 
-          correo.to = resUsuario.correo
-          correo.subject = "Aceptación de Cotización"
-          correo.messaje = "<!doctype html>"
-          +"<html>"
-          +"<head>"
-          +"<meta charset='utf-8'>"
-          +"</head>"
-          +"<body>"
-          +"<h3 style='color: black;'>Su cotización ha sido aprobada.</h3>"
-          +"<br>"
-          +"<table style='border: 1px solid #000; text-align: center;'>"
-          +"<tr>"
-          +"<th style='border: 1px solid #000;'>Articulo</th>"
-          +"<th style='border: 1px solid #000;'>Cantidad</th>"
-          +"<th style='border: 1px solid #000;'>Observacion</th>";
-          +"</tr>";
-          resSolicitud.forEach(element => {
-            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-              this.listaDetalleSolicitud.push(element)
-              correo.messaje += "<tr>"
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-              correo.messaje += "</tr>";
-            }
-          });
-          correo.messaje += "</table>"
-          +"<br>"
-          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-          +"</body>"
-          +"</html>";
+  //         correo.to = resUsuario.correo
+  //         correo.subject = "Aceptación de Cotización"
+  //         correo.messaje = "<!doctype html>"
+  //         +"<html>"
+  //         +"<head>"
+  //         +"<meta charset='utf-8'>"
+  //         +"</head>"
+  //         +"<body>"
+  //         +"<h3 style='color: black;'>Su cotización ha sido aprobada.</h3>"
+  //         +"<br>"
+  //         +"<table style='border: 1px solid #000; text-align: center;'>"
+  //         +"<tr>"
+  //         +"<th style='border: 1px solid #000;'>Articulo</th>"
+  //         +"<th style='border: 1px solid #000;'>Cantidad</th>"
+  //         +"<th style='border: 1px solid #000;'>Observacion</th>";
+  //         +"</tr>";
+  //         resSolicitud.forEach(element => {
+  //           if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+  //             this.listaDetalleSolicitud.push(element)
+  //             correo.messaje += "<tr>"
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+  //             correo.messaje += "</tr>";
+  //           }
+  //         });
+  //         correo.messaje += "</table>"
+  //         +"<br>"
+  //         +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+  //         +"</body>"
+  //         +"</html>";
 
-          this.enviarCorreo(correo, idUsuarioSolicitud, idSolicitud);
-        })
-      })
-    })
-  }
+  //         this.enviarCorreo(correo, idUsuarioSolicitud, idSolicitud);
+  //       })
+  //     })
+  //   })
+  // }
 
-  public enviarCorreo(correo: Correo, idUsuarioSolicitud: number, idSolicitud:number){
-    this.servicioCorreo.enviar(correo).subscribe(res =>{
-      this.crearCorreo2(idUsuarioSolicitud, idSolicitud)
-    }, error => {
-      console.log(error)
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al enviar el Correo!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
-  }
+  // public enviarCorreo(correo: Correo, idUsuarioSolicitud: number, idSolicitud:number){
+  //   this.servicioCorreo.enviar(correo).subscribe(res =>{
+  //     this.crearCorreo2(idUsuarioSolicitud, idSolicitud)
+  //   }, error => {
+  //     console.log(error)
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'error',
+  //       title: 'Hubo un error al enviar el Correo!',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //   });
+  // }
 
-  public crearCorreo2(idUsuarioSolicitud: number, idSolicitud:number){
-    let correo : Correo = new Correo();
-    this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-      this.servicioUsuario.listarPorId(idUsuarioSolicitud).subscribe(resUsuario => {
-        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-          resConfiguracion.forEach(elementConfi => {
-            if(elementConfi.nombre == "correo_gecco"){
-              this.correo = elementConfi.valor
-            }
-            if(elementConfi.nombre == "contraseña_correo"){
-              this.contrasena = elementConfi.valor
-            }
-          });
-          console.log(this.correo)
-          correo.correo = this.correo
-          correo.contrasena = this.contrasena
+  // public crearCorreo2(idUsuarioSolicitud: number, idSolicitud:number){
+  //   let correo : Correo = new Correo();
+  //   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+  //     this.servicioUsuario.listarPorId(idUsuarioSolicitud).subscribe(resUsuario => {
+  //       this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+  //         resConfiguracion.forEach(elementConfi => {
+  //           if(elementConfi.nombre == "correo_gecco"){
+  //             this.correo = elementConfi.valor
+  //           }
+  //           if(elementConfi.nombre == "contraseña_correo"){
+  //             this.contrasena = elementConfi.valor
+  //           }
+  //         });
+  //         console.log(this.correo)
+  //         correo.correo = this.correo
+  //         correo.contrasena = this.contrasena
 
-          correo.to = resUsuario.correo
-          correo.subject = "Aceptación de Cotización"
-          correo.messaje = "<!doctype html>"
-          +"<html>"
-          +"<head>"
-          +"<meta charset='utf-8'>"
-          +"</head>"
-          +"<body>"
-          +"<h3 style='color: black;'>La cotización ha sido aprobada.</h3>"
-          +"<br>"
-          +"<table style='border: 1px solid #000; text-align: center;'>"
-          +"<tr>"
-          +"<th style='border: 1px solid #000;'>Articulo</th>"
-          +"<th style='border: 1px solid #000;'>Cantidad</th>"
-          +"<th style='border: 1px solid #000;'>Observacion</th>";
-          +"</tr>";
-          resSolicitud.forEach(element => {
-            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-              this.listaDetalleSolicitud.push(element)
-              correo.messaje += "<tr>"
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-              correo.messaje += "</tr>";
-            }
-          });
-          correo.messaje += "</table>"
-          +"<br>"
-          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-          +"</body>"
-          +"</html>";
+  //         correo.to = resUsuario.correo
+  //         correo.subject = "Aceptación de Cotización"
+  //         correo.messaje = "<!doctype html>"
+  //         +"<html>"
+  //         +"<head>"
+  //         +"<meta charset='utf-8'>"
+  //         +"</head>"
+  //         +"<body>"
+  //         +"<h3 style='color: black;'>La cotización ha sido aprobada.</h3>"
+  //         +"<br>"
+  //         +"<table style='border: 1px solid #000; text-align: center;'>"
+  //         +"<tr>"
+  //         +"<th style='border: 1px solid #000;'>Articulo</th>"
+  //         +"<th style='border: 1px solid #000;'>Cantidad</th>"
+  //         +"<th style='border: 1px solid #000;'>Observacion</th>";
+  //         +"</tr>";
+  //         resSolicitud.forEach(element => {
+  //           if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+  //             this.listaDetalleSolicitud.push(element)
+  //             correo.messaje += "<tr>"
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+  //             correo.messaje += "</tr>";
+  //           }
+  //         });
+  //         correo.messaje += "</table>"
+  //         +"<br>"
+  //         +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+  //         +"</body>"
+  //         +"</html>";
 
-          this.enviarCorreo2(correo);
-        })
-      })
-    })
-  }
+  //         this.enviarCorreo2(correo);
+  //       })
+  //     })
+  //   })
+  // }
 
-  public enviarCorreo2(correo: Correo){
-    this.servicioCorreo.enviar(correo).subscribe(res =>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se ha enviado un correo informando su aceptación al lider del proceso y quien genero la cotización.',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload()
-      this.dialogRef.close();
-      this.dialogRef2.close();
-    }, error => {
-      console.log(error)
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al enviar el Correo!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
-  }
+  // public enviarCorreo2(correo: Correo){
+  //   this.servicioCorreo.enviar(correo).subscribe(res =>{
+  //     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'success',
+  //       title: 'Se ha enviado un correo informando su aceptación al lider del proceso y quien genero la cotización.',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //     window.location.reload()
+  //     this.dialogRef.close();
+  //     this.dialogRef2.close();
+  //   }, error => {
+  //     console.log(error)
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'error',
+  //       title: 'Hubo un error al enviar el Correo!',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //   });
+  // }
 
   //Rechazo de cotizacion Pdf
 

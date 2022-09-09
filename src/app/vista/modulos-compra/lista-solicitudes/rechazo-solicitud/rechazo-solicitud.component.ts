@@ -82,87 +82,95 @@ export class RechazoSolicitudComponent implements OnInit {
 
   public rechazarSolicitud(solicitud: Solicitud2){
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
-      this.crearCorreo(solicitud.idUsuario, solicitud.id);
-    })
-  }
-
-  public crearCorreo(idUsuario:number, idSolicitud:number){
-    let correo : Correo = new Correo();
-    const observacion = this.formSolicitud.controls['observacion'].value;
-    this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
-      this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
-        this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-          resConfiguracion.forEach(elementConfi => {
-            if(elementConfi.nombre == "correo_gecco"){
-              this.correo = elementConfi.valor
-            }
-            if(elementConfi.nombre == "contraseña_correo"){
-              this.contrasena = elementConfi.valor
-            }
-          });
-          console.log(this.correo)
-          correo.correo = this.correo
-          correo.contrasena = this.contrasena
-          correo.to = resUsuario.correo
-          correo.subject = "Cancelacion de Solicitud"
-          correo.messaje = "<!doctype html>"
-          +"<html>"
-          +"<head>"
-          +"<meta charset='utf-8'>"
-          +"</head>"
-          +"<body>"
-          +"<h3 style='color: black;'>Su solicitud ha sido rechaza porque:</h3>"
-          +"<h3 style='color: black;'>"+observacion+"</h3>"
-          +"<br>"
-          +"<table style='border: 1px solid #000; text-align: center;'>"
-          +"<tr>"
-          +"<th style='border: 1px solid #000;'>Articulo</th>"
-          +"<th style='border: 1px solid #000;'>Cantidad</th>"
-          +"<th style='border: 1px solid #000;'>Observacion</th>";
-          +"</tr>";
-          resSolicitud.forEach(element => {
-            if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
-              this.listaDetalleSolicitud.push(element)
-              correo.messaje += "<tr>"
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
-              correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-              correo.messaje += "</tr>";
-            }
-          });
-          correo.messaje += "</table>"
-          +"<br>"
-          +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-          +"</body>"
-          +"</html>";
-
-          this.enviarCorreo(correo);
-        })
-      })
-    })
-  }
-
-  public enviarCorreo(correo: Correo){
-    this.servicioCorreo.enviar(correo).subscribe(res =>{
-      document.getElementById('snipper8')?.setAttribute('style', 'display: none;')
+      // this.crearCorreo(solicitud.idUsuario, solicitud.id);
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Correo enviado al usuario de la solicitud!',
+        title: 'Se rechazo la solicitud!',
         showConfirmButton: false,
         timer: 1500
       })
       window.location.reload()
-
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al enviar el Correo!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
+    })
   }
+
+  // public crearCorreo(idUsuario:number, idSolicitud:number){
+  //   let correo : Correo = new Correo();
+  //   const observacion = this.formSolicitud.controls['observacion'].value;
+  //   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
+  //     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
+  //       this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+  //         resConfiguracion.forEach(elementConfi => {
+  //           if(elementConfi.nombre == "correo_gecco"){
+  //             this.correo = elementConfi.valor
+  //           }
+  //           if(elementConfi.nombre == "contraseña_correo"){
+  //             this.contrasena = elementConfi.valor
+  //           }
+  //         });
+  //         console.log(this.correo)
+  //         correo.correo = this.correo
+  //         correo.contrasena = this.contrasena
+  //         correo.to = resUsuario.correo
+  //         correo.subject = "Cancelacion de Solicitud"
+  //         correo.messaje = "<!doctype html>"
+  //         +"<html>"
+  //         +"<head>"
+  //         +"<meta charset='utf-8'>"
+  //         +"</head>"
+  //         +"<body>"
+  //         +"<h3 style='color: black;'>Su solicitud ha sido rechaza porque:</h3>"
+  //         +"<h3 style='color: black;'>"+observacion+"</h3>"
+  //         +"<br>"
+  //         +"<table style='border: 1px solid #000; text-align: center;'>"
+  //         +"<tr>"
+  //         +"<th style='border: 1px solid #000;'>Articulo</th>"
+  //         +"<th style='border: 1px solid #000;'>Cantidad</th>"
+  //         +"<th style='border: 1px solid #000;'>Observacion</th>";
+  //         +"</tr>";
+  //         resSolicitud.forEach(element => {
+  //           if (element.idSolicitud.id == idSolicitud && element.idEstado.id != 59) {
+  //             this.listaDetalleSolicitud.push(element)
+  //             correo.messaje += "<tr>"
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.idArticulos.descripcion+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.cantidad+"</td>";
+  //             correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+  //             correo.messaje += "</tr>";
+  //           }
+  //         });
+  //         correo.messaje += "</table>"
+  //         +"<br>"
+  //         +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+  //         +"</body>"
+  //         +"</html>";
+
+  //         this.enviarCorreo(correo);
+  //       })
+  //     })
+  //   })
+  // }
+
+  // public enviarCorreo(correo: Correo){
+  //   this.servicioCorreo.enviar(correo).subscribe(res =>{
+  //     document.getElementById('snipper8')?.setAttribute('style', 'display: none;')
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'success',
+  //       title: 'Correo enviado al usuario de la solicitud!',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //     window.location.reload()
+
+  //   }, error => {
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'error',
+  //       title: 'Hubo un error al enviar el Correo!',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //     })
+  //   });
+  // }
 
 }

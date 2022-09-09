@@ -55,8 +55,7 @@ th{
   background-color: #6DBE53;
   color: white;
 }
-
-.excelButton, .pdfButton, .printButton{ position: relative; left: 25px; }
+.pdfButton, .printButton{ position: relative; left: 25px; }
 td {
   border: 1px solid #000;
   text-align: center;
@@ -70,16 +69,9 @@ mat-form-field{
   margin-left: 79.5%;
   margin-top: -15%;
 }
-.botonagregar, .excelButton, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
+.botonagregar, .botonagregar2, .btnremove, .btnedit, .btnver{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
-.excelButton{ margin-left: -2%; }
-.excelButton i{ position: relative; top: 1px; font-size: 20px;}
 #nombreVSpa, #oficinaSpa, #sitioVASpa, #sitioVISpa, #oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ position: relative; }
-#oficinaZSpa, #horaASpa, #horaISpa, #fechaASpa, #estadoSpa, #opcSpa{ left: 11px; }
-#nombreVSpa{left: 36px;}
-#sitioVASpa{left: 46px;}
-#sitioVISpa{ left: 8px;}
-#oficinaSpa{ left: 63px; }
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/

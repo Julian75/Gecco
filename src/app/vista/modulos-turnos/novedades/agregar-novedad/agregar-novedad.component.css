@@ -39,6 +39,7 @@ h2{
   .nombre{
     width: 165px;
   }
+  .guardar2{margin-left: 26%;}
 }
 
 /* Movil medio - Samsung Galaxy S8 */
@@ -46,6 +47,7 @@ h2{
   .guardar{
     margin-left: 5%;
   }
+  .guardar2{ margin-left: 30%; }
   .nombre{
     width: 230px;
   }
