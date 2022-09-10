@@ -22,7 +22,7 @@ th h3{
   background-color: #6DBE53;
   color: white;
 }
-.botonagregar, .excelButton, .boton, .bot{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .boton, .bot, .botonagregar2{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 table{
   border: 1px solid #000 !important;
@@ -58,7 +58,7 @@ table{
     height: 29px !important;
   }
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -8%;}
+  .botonagregar mat-icon, .botonagregar2 mat-icon, .bot mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -8%;}
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
@@ -81,7 +81,7 @@ table{
     height: 29px !important;
   }
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -1px; }
+  .botonagregar mat-icon, .botonagregar2 mat-icon, .bot mat-icon{ font-size: 18px; margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }
@@ -103,7 +103,7 @@ table{
     height: 29px !important;
   }
   .buscador{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  .botonagregar mat-icon, .botonagregar2 mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
+  .botonagregar mat-icon, .botonagregar2 mat-icon, .bot mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   .excelButton{ font-size: 15px; }
   .excelButton i{ top: -2px; }

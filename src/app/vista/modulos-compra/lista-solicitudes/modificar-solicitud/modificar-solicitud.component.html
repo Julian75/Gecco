@@ -51,12 +51,12 @@
           </tr>
         </table>
       </section>
-      <button class="btn guardar4" (click)="generarSolicitud()">Modificar Solicitud</button>
+      <button class="btn botonagregar2" (click)="generarSolicitud()"><mat-icon>edit_square</mat-icon></button>
       <mat-paginator [length]="100" [pageSize]="6" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
 
       <!-- Ingresar Nombre -->
-      <div class="nombre2">
+      <div class="nombre2" id="nombre1">
         <h2 class="articulo">Articulo</h2>
         <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Ingrese Articulo</mat-label>
@@ -91,8 +91,8 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button  class="btn guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button  class="btn guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+        <button  class="btn botonagregar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
+        <button  class="btn bot" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
       </div>
     </div>
 

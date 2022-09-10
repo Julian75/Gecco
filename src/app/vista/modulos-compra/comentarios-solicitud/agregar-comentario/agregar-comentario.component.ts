@@ -254,6 +254,7 @@ export class AgregarComentarioComponent implements OnInit {
           document.getElementById('snipper5')?.setAttribute('style', 'display: none;')
           const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
             width: '1000px',
+            height: '430px',
             data: {id:resDetalleSolicitud.idSolicitud.id}
           });
         }else{

@@ -214,6 +214,7 @@ export class ProcesoComponent implements OnInit {
               this.dialogRef.close();
               const dialogRef = this.dialog.open(ListadoObservacionComponent, {
                 width: '1000px',
+                height: '430px',
                 data: {id:detalleSolicitud.idSolicitud}
               });
             }

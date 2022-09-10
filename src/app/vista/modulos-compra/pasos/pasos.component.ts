@@ -193,6 +193,7 @@ export class PasosComponent implements OnInit {
               if(res.idEstado.id == 28){
                 const dialogRef = this.dialog.open(ListadoObservacionComponent, {
                   width: '1000px',
+                  height: '430px',
                   data: {id:this.lista[0]}
                 });
               }else if(res.idEstado.id == 54){
@@ -230,6 +231,7 @@ export class PasosComponent implements OnInit {
                     this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
                       const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
                         width: '1000px',
+                        height: '430px',
                         data: resSolicitud
                       });
                     })
@@ -352,7 +354,7 @@ export class PasosComponent implements OnInit {
                 }if(res.idEstado.id == 30){
                   const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
                     width: '2500px',
-                    height: '700px',
+                    height: '600px',
                     data: this.lista[0]
                   });
                 }
@@ -526,7 +528,7 @@ export class PasosComponent implements OnInit {
               if(res.idEstado.id == 34){
                 const dialogRef = this.dialog.open(OrdenCompraComponent, {
                   width: '1000px',
-                  height: '650px',
+                  height: '480px',
                   data: this.lista[0]
                 });
               }
@@ -606,7 +608,7 @@ export class PasosComponent implements OnInit {
                   resOrdenCompra.forEach(element => {
                     const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
                       width: '1000px',
-                      height: '650px',
+                      height: '450px',
                       data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
                     });
                   });

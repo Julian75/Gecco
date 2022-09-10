@@ -96,14 +96,10 @@ th{
   margin-left: 15px;
 }
 
-td {
-  border: 1px solid #000;
-  text-align: center;
-}
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 6%;
 }
-.boton{ background-color: #00235C; }
+.boton, .botonagregar2{ background-color: #00235C; }
 .btnremove{ background-color: #DA161A; color: white; }
 
 h2{
@@ -133,10 +129,8 @@ h2{
 .nombre4{     position: absolute;
   left: 21%;
   top: 52%;}
-.guardar, .guardar3, .guardar6{
+.botonagregar, .bot , .botonagregar2{
   color: white;
-  width: 64px;
-  height: 40px;
   font-size: large;
   margin-left: 2.3%;
   position: absolute;
@@ -154,10 +148,10 @@ h2{
   position: relative;
   left: 15px;
 }
-.guardar{     left: 18.6%;
+.botonagregar{     left: 18.6%;
   background-color: #00235C;
   top: 69%;}
-.guardar3{ left: 24.5%;
+.bot{ left: 24.5%;
   background-color: #DA161A;
   top: 69%;}
 .guardar6{ left: 21.5%;background-color: #959595 ;}
@@ -200,638 +194,267 @@ mat-option{ font-size: 10.5px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .contenedor{     width: 89% !important;
-    margin-left: 3%;
-    margin-top: -14%; }
-  h2{
-    font-size: 16px;
-  }
-
-  .guardar3 { left: 19%;
-    width: 38px !important;
-    height: 30px;
-    top: 344px; }
-
-    .guardar6 {
-      width: 38px !important;
-      height: 30px;
-      top: 344px; }
-  .guardar{
-    left: 37%;
-    width: 38px !important;
-    height: 30px;
-    top: 344px;
-}
-
-  mat-icon{
-    font-size: 18px;
-    margin-left: -50%;
-    margin-top: -1px;
-  }
+  .contenedor{  width: 93% !important; margin-left: 3%; margin-top: -10%; }
+  .guardar3 { left: 19%; width: 38px !important; height: 30px; top: 385px; }
+  .guardar6 {width: 38px !important; height: 30px; top: 344px; }
+  .dato{ width: 186px; }
+  .guardar{left: 37%; width: 38px !important; height: 30px;top: 385px;}
+  mat-icon{font-size: 18px; margin-left: -50%; margin-top: -1px;}
   .guardar6{ left: 56%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  .ar{
-    margin-left: -58%;
-  }
-  .o{
-    position: relative;
-    margin-left: 34%;
-    left: -20%;
-  }
-  .cant{
-    position: relative;
-    margin-left: 37%;
-    left: -35%;
-
-  }
+  h3{margin-left: 3%;font-size: 12px;}
+  .ar{ margin-left: -58%;}
+  .o{position: relative; margin-left: 34%; left: -20%;}
+  .cant{position: relative; margin-left: 37%; left: -35%;}
   td { font-size: 11px; height: 0px;}
-  .nombre1 {
-    width: 79%;
-    margin-left: -1%;
-    top: -3px;
-  }
+  .nombre1 {width: 102%;  margin-left: -1%; top: -3px;}
   /* , .estado */
-  .nombre{
-    width: 79%;
-    margin-left: 11%;
-    top: -25px;
-  }
-  .can{
-    position: relative;
-    left: 11%;
-    top: -23px;
-  }
-  .obs{
-    position: relative;
-    left: 11%;
-    top: -28px;
-  }
-  .nombres{
-    width: 79%;
-    position: relative;
-    left: 23px;
-    top: -27px;
-  }
-  .nombre2{
-    top: 11%;
-    left: 21%;
-  }
-  .nombre3{     top: 27%;
-    left: 12%;}
-  .nombre4{ top: 40%;
-    left: 13%;}
-  .example-container{
-    max-width: 100%;
-    overflow: auto;
-    margin-top: 200% !important;
-    margin-bottom: 37% !important;
-    margin-left: 0%;
-  }
-  #chet, #chet2{
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .guardar4{
-    margin-left: 9%;
-    margin-top: 53%;
-    width: 86%;
-    font-size: small;
-  }
-  mat-paginator{
-    position: relative;
-    width: 211px;
-    left: -34px;
-    top: -143px;
-  }
+  .nombre{width: 90%;margin-left: 11%;top: -25px;}
+  .can{position: relative; left: 11%; top: -23px;}
+  .obs{position: relative; left: 11%; top: -28px;}
+  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
+  .nombre2{margin-top: -324%; left: 21%; position: static;}
+  .nombre3{margin-top: 4%; margin-left: -13%; position: static;}
+  .nombre4{ margin-top: -7%; margin-left: -13%; position: static;}
+  .example-container{max-width: 100%; overflow: auto; margin-top: 200% !important; margin-bottom: 37% !important; margin-left: 0%;}
+  #chet, #chet2{padding-left: 14px;  padding-right: 14px; }
+  .guardar4{margin-left: 9%; margin-top: 53%; width: 86%; font-size: small;}
+  mat-paginator{ position: static; width: 200px;  margin-left: -25px; margin-top: -135px;}
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
+  .bot {margin-top: -44%; margin-left: 14%; position: static;}
+  .botonagregar{ margin-top: -44%; margin-left: 2%; position: static;}
+  .botonagregar2{ margin-top: 29% !important; margin-left: 73% !important; position: static;}
 }
 
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  .contenedor{     width: 89% !important;
-    margin-left: 3%;
-    margin-top: 4%; }
-  h2{
-    font-size: 16px;
-  }
-
-  .guardar3 {
-    left: 30%;
-    top: 430px;;
-  }
-  .guardar{
-    left: 14%;
-    top: 430px;;
-  }
-
-  .guardar6{ left: 46%;
-    top: 59.7%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  .ar{
-    left: 13%;
-    position: relative;
-  }
-  .cant{
-    left: 27%;
-    position: relative;
-  }
-  .o{
-    left: 33px;
-    position: relative;
-  }
-  td { font-size: 11px; height: 0px;}
-  .nombre1 {
-    width: 129%;
-    margin-left: -1%;
-    top: -3px;
-  }
-  .ar{
-    margin-left: 5%;
-  }
-  .o{
-    position: relative;
-    margin-left: 34%;
-    left: -6%;
-  }
-  .cant{
-    position: relative;
-    margin-left: 37%;
-    left: -22%;
-
-  }
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 374px){
+  .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
+  .guardar3 {left: 30%; top: 430px;}
+  .guardar{left: 14%; top: 430px;}
+  .guardar6{ left: 46%; top: 59.7%; }
+  .ar{left: 13%; position: relative;}
+  .cant{left: 27%; position: relative;}
+  .o{left: 33px; position: relative;}
+  .nombre1 {width: 102%; margin-left: -1%; top: -3px;}
+  .ar{margin-left: -25%;}
+  .o{position: static; margin-left: 15%;}
+  .cant{position: static; margin-left: 2%;}
   /* , .estado */
-  .nombre{
-    width: 129%;
-    margin-left: 11%;
-    top: -25px;
-  }
-  .can{
-    position: relative;
-    left: 11%;
-    top: -23px;
-  }
-  .obs{
-    position: relative;
-    left: 11%;
-    top: -28px;
-  }
-  .nombres{
-    width: 129%;
-    position: relative;
-    left: 23px;
-    top: -27px;
-  }
-  .nombre2{
-    top: 14%;
-    left: 16.5%;;
-  }
-  .nombre3{
-    top: 31%;
-    left: 12%;
-  }
-  .nombre4{     top: 46%;
-    left: 12%;}
-  .example-container{
-    max-width: 100%;
-    overflow: auto;
-    margin-top: 113% !important;
-    margin-bottom: 37% !important;
-    margin-left: 0%;
-  }
-  #chet, #chet2{
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .guardar4{
-    margin-left: 2%;
-    margin-top: 0%;
-    width: 47%;
-
-  }
-  mat-paginator{
-    margin-top: -29px;
-  }
+  .nombre{width: 90%; margin-left: 11%; top: -25px;}
+  .can{position: relative; left: 11%; top: -23px;  }
+  .obs{position: relative; left: 11%; top: -28px;}
+  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
+  .nombre2{margin-top: -312%; margin-left: 3%; position: static;}
+  .nombre3{margin-top: 6%; margin-left: -10%; position: static;}
+  .nombre4{margin-top: -1%; margin-left: -10%; position: static;}
+  .botonagregar{ margin-top: -33%; margin-left: 0%; position: static;}
+  .bot{ margin-top:-33%; margin-left: 7%; position: static;}
+  .example-container{max-width: 100%; overflow: auto; margin-top: 162% !important; margin-bottom: 37% !important; margin-left: 0%;}
+  #chet, #chet2{padding-left: 14px; padding-right: 14px; }
+  .guardar4{margin-left: 2%; margin-top: 18%; width: 23%;}
+  mat-paginator{margin-top: -7%; margin-left: -40%; width: 100%;}
+  .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;}
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
+  .botonagregar2{position: static; margin-top: 10%; margin-left: 83%;}
 }
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  .contenedor{     width: 89% !important;
-    margin-left: 3%;
-    margin-top: 3%; }
-  h2{
-    font-size: 16px;
-  }
-  .guardar3 {     left: 33%;
-    width: 38px !important;
-    height: 30px;
-    top: 424px; }
-  .guardar{      left: 16%;
-    width: 38px !important;
-    height: 30px;
-    top: 424px;
-  }
-  mat-icon{
-    font-size: 18px;
-    margin-left: -50%;
-    margin-top: -1px;
-  }
-  .guardar6{ left: 47%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  .ar{
-    margin-left: -57%;
-  }
-  td { font-size: 11px; height: 0px;}
-  .nombre1 {
-    width: 106%;
-    margin-left: -1%;
-    top: -3px;
-  }
-  .cant{
-    position: relative;
-    margin-left: 1%;
-  }
-  .o{
-    position: relative;
-    margin-left: 14%;
-  }
+
+/*  movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 375px) and (max-width: 410px){
+  .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
+  .guardar3 {left: 30%; top: 430px;}
+  .guardar{left: 14%; top: 430px;}
+  .guardar6{ left: 46%; top: 59.7%; }
+  .ar{left: 13%; position: relative;}
+  .cant{left: 27%; position: relative;}
+  .o{left: 33px; position: relative;}
+  .nombre1 {width: 102%; margin-left: -1%; top: -3px;}
+  .ar{margin-left: -25%;}
+  .o{position: static; margin-left: 15%;}
+  .cant{position: static; margin-left: 2%;}
   /* , .estado */
-  .nombre{
-    width: 106%;
-    margin-left: 11%;
-    top: -25px;
-  }
-  .can{
-    position: relative;
-    left: 11%;
-    top: -23px;
-  }
-  .obs{
-    position: relative;
-    left: 11%;
-    top: -28px;
-  }
-  .nombres{
-    width: 106%;
-    position: relative;
-    left: 23px;
-    top: -27px;
-  }
-  .nombre2{
-    top: 17%;
-    left: 19.5%;
-  }
-  .nombre3{ top: 32%;
-    left: 13%;}
-  .nombre4{ top: 45%;
-    left: 13%;}
-  .example-container{
-    max-width: 100%;
-    overflow: auto;
-    margin-top: 159% !important;
-    margin-bottom: 37% !important;
-    margin-left: 0%;
-  }
-  #chet, #chet2{
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .guardar4{
-    margin-left: 4%;
-    margin-top: 25%;;
-    width: 75%;
-  }
-  mat-paginator{
-    margin-top: -28px;
-    width: 100%;
-    margin-left: -38%;
-  }
+  .nombre{width: 90%; margin-left: 11%; top: -25px;}
+  .can{position: relative; left: 11%; top: -23px;  }
+  .obs{position: relative; left: 11%; top: -28px;}
+  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
+  .nombre2{margin-top: -303%; margin-left: 3%; position: static;}
+  .nombre3{margin-top: 6%; margin-left: -10%; position: static;}
+  .nombre4{margin-top: -1%; margin-left: -10%; position: static;}
+  .botonagregar{ margin-top: -27%; margin-left: 0%; position: static;}
+  .bot{ margin-top:-27%; margin-left: 7%; position: static;}
+  .example-container{max-width: 100%; overflow: auto; margin-top: 162% !important; margin-bottom: 37% !important; margin-left: 0%;}
+  #chet, #chet2{padding-left: 14px; padding-right: 14px; }
+  .guardar4{margin-left: 2%; margin-top: 18%; width: 23%;}
+  mat-paginator{margin-top: -7%; margin-left: -40%; width: 100%;}
+  .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;}
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
+  .botonagregar2{position: static; margin-top: 10%; margin-left: 83%;}
 }
 
-/* Tablet pequeña */
-@media screen and (min-width: 721px) and (max-width: 768px){
-  .contenedor{     width: 89% !important;
-    margin-left: 3%;
-    margin-top: 0%; }
-  h2{
-    font-size: 16px;
-  }
-  .guardar3 {
-    left: 29%;
-    top: 559px;
-  }
-  .guardar{
-    left: 17%;
-    top: 559px;
-  }
-
-  .guardar6{ left: 47%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  .ar{
-    left: 25%;
-    position: relative;
-  }
-  .cant{
-    left: -11%;
-    position: relative;
-  }
-  .o{
-    left: 9px;
-    position: relative;
-  }
-  td { font-size: 11px; height: 0px;}
-  .nombre1 {
-    width: 129%;
-    margin-left: -1%;
-    top: -3px;
-  }
+/*  movil pequeño 4*/
+@media screen and (min-width: 411px) and (max-width: 599px){
+  .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
+  .guardar3 {left: 30%; top: 430px;}
+  .guardar{left: 14%; top: 430px;}
+  .guardar6{ left: 46%; top: 59.7%; }
+  .ar{left: 13%; position: relative;}
+  .cant{left: 27%; position: relative;}
+  .o{left: 33px; position: relative;}
+  .nombre1 {width: 102%; margin-left: -1%; top: -3px;}
+  .ar{margin-left: -25%;}
+  .o{position: static; margin-left: 15%;}
+  .cant{position: static; margin-left: 2%;}
   /* , .estado */
-  .nombre{
-    width: 129%;
-    margin-left: 11%;
-    top: -25px;
-  }
-  .can{
-    position: relative;
-    left: 11%;
-    top: -23px;
-  }
-  .obs{
-    position: relative;
-    left: 11%;
-    top: -28px;
-  }
-  .nombres{
-    width: 129%;
-    position: relative;
-    left: 23px;
-    top: -27px;
-  }
-  .nombre2{
-    top: 23%;
-    left: 18.5%;
-  }
-  .nombre3{
-    top: 35%;
-    left: 15.5%;
-  }
-  .nombre4{  top: 46%;
-    left: 16%;}
-  .example-container{
-    max-width: 100%;
-    overflow: auto;
-    margin-top: 77% !important;
-    margin-bottom: 37% !important;
-    margin-left: 0%;
-  }
-  #chet, #chet2{
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .guardar4{
-    margin-left: 2%;
-    margin-top: -30%;
-    width: 36%;
-  }
-  mat-paginator{
-    margin-top: -65px;
-    width: 100%;
-    margin-left: -36%;
-  }
+  .nombre{width: 90%; margin-left: 11%; top: -25px;}
+  .can{position: relative; left: 11%; top: -23px;  }
+  .obs{position: relative; left: 11%; top: -28px;}
+  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
+  .nombre2{margin-top: -277%; margin-left: 3%; position: static;}
+  .nombre3{margin-top: 6%; margin-left: -10%; position: static;}
+  .nombre4{margin-top: -1%; margin-left: -10%; position: static;}
+  .botonagregar{ margin-top: -27%; margin-left: 0%; position: static;}
+  .bot{ margin-top:-27%; margin-left: 7%; position: static;}
+  .example-container{max-width: 100%; overflow: auto; margin-top: 143% !important; margin-bottom: 37% !important; margin-left: 0%;}
+  #chet, #chet2{padding-left: 14px; padding-right: 14px; }
+  .guardar4{margin-left: 2%; margin-top: 18%; width: 23%;}
+  mat-paginator{margin-top: -7%; margin-left: -40%; width: 100%;}
+  .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;}
   #obse, #obse2{ padding-right: 0%; }
   #chetbox{ left: 3px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
-}
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  .contenedor{     width: 89% !important;
-    margin-left: 3%;
-    margin-top: 0%; }
-  h2{
-    font-size: 16px;
-  }
-  .guardar3 {
-    left: 29%;
-    top: 668px;
-  }
-  .guardar{
-    left: 17%;
-    top: 668px;
-  }
-
-  .guardar6{ left: 43%; top: 56.7%; }
-  h3{
-    margin-left: 3%;
-    font-size: 12px;
-  }
-  .ar{
-    left: 23%;
-    position: relative;
-  }
-  .cant{
-    left: -1%;
-    position: relative;
-  }
-  .o{
-    left: 4px;
-    position: relative;
-  }
-  td { font-size: 11px; height: 0px;}
-  .nombre1 {
-    width: 155%;
-    margin-left: -1%;
-    top: -3px;
-  }
-  /* , .estado */
-  .nombre{
-    width: 155%;
-    margin-left: 11%;
-    top: -25px;
-  }
-  .can{
-    position: relative;
-    left: 11%;
-    top: -23px;
-  }
-  .obs{
-    position: relative;
-    left: 11%;
-    top: -28px;
-  }
-  .nombres{
-    width: 155%;
-    position: relative;
-    left: 23px;
-    top: -27px;
-  }
-  .nombre2{
-    top: 27%;
-    left: 18.5%;
-  }
-  .nombre3{
-    top: 38%;
-    left: 15.5%;
-  }
-  .nombre4{ top: 48%;
-    left: 16%;}
-  .example-container{
-    max-width: 100%;
-    overflow: auto;
-    margin-top: 77% !important;
-    margin-bottom: 37% !important;
-    margin-left: 0%;
-  }
-  #chet, #chet2{
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .guardar4{
-    margin-left: 2%;
-    margin-top: -30%;
-    width: 30%;
-  }
-  mat-paginator{
-    margin-top: -65px;
-    width: 100%;
-    margin-left: -36%;
-  }
-  #obse, #obse2{ padding-right: 0%; }
-  #chetbox{ left: 3px; }
-  #arti{ left: 3px; padding-right: 5px; }
-  #cant{ left: 0px; padding-right: 5px; }
-  #obser{ left: 0px; width: 70px; padding-right: 5px;
-  }
-}
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  .nombre2{
-    position: absolute;
-    left: 21%;
-    top: 17%;
-  }
-
-  .nombre3{
-    position: absolute;
-    left: 21%;
-    top: 33%;
-  }
-
-  .nombre4{
-
-    position: absolute;
-    left: 21%;
-    top: 49%;
-
-  }
-  td { font-size: 15px; height: 0px;}
-  .guardar{ top: 66%; }
-  .nombre1, .nombre, .estado{ width: 120%; margin-left: -1%; margin-top: 2%; }
-  .guardar3 { left: 25%;
-    top: 66%;}
-  .guardar{
-    left: 19%;
-  }
-  .guardar6{ left: 31%;
-    top: 66%; }
-
-  .nombres{
-    width: 118%;
-  }
-  .ar{
-    position: relative;
-    left: 19px;
-  }
-  .cant{
-    position: relative;
-    left: -15px;
-  }
-  .o{
-    position: relative;
-    margin-left: 25%;
-  }
-  .guardar4{     margin-left: 78%;
-    width: 22%; }
-  #obse, #obse2{ padding-right: 0px; }
-  #chetbox{ left: 10px; }
-  #arti{ left: 55px; }
-  #cant{ left: 45px; padding-right: 5px; }
-  #obser{ left: 36px; width: 70px; }
+  .botonagregar2{position: static; margin-top: 10%; margin-left: 83%;}
 }
 
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .nombre2{
-    position: absolute;
-    left: 21%;
-    top: 20%;
-  }
-
-  .nombre3{
-    position: absolute;
-    left: 21%;
-    top: 35%;
-  }
-
-  .nombre4{
-    position: absolute;
-    left: 21%;
-    top: 51%;
-  }
-  td { font-size: 15px; height: 0px;}
-  .guardar{ left: 19%;
-    top: 68%; }
-  .nombre1, .nombre, .estado{ width: 120%; margin-left: -1%; margin-top: 2%; }
-  .guardar3 { left: 25%;
-    top: 68%;}
-  .guardar6{ left: 31%;
-    top: 68%; }
-
-  .nombres{
-    width: 118%;
-  }
-  .ar{
-    position: relative;
-    left: 10px;
-  }
-  .cant{
-    position: relative;
-    left: -15px;
-  }
-  .o{
-    position: relative;
-    margin-left: 32%;
-  }
-  .guardar4{     margin-left: 78%;
-    width: 22%; }
-  #obse, #obse2{ padding-right: 0px; }
-  #chetbox{ left: 10px; }
-  #arti{ left: 55px; }
-  #cant{ left: 45px; padding-right: 5px; }
-  #obser{ left: 36px; width: 70px; }
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 105% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .nombre2{position: static; margin-left: 4%; margin-top: -166%;}
+  .o{position: relative; margin-left: 16%;}
+  .cant{ position: static; margin-left: 0%;}
+  .nombre3{position: static; margin-left: 4%; top: 36%;}
+  .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
+  .botonagregar{margin-top: -8%; margin-left: 4%; position: static;}
+  .bot{position: static; margin-top: -8%; margin-left: 5%;}
+  mat-paginator{ width: 80%; position: static; margin-left: 20%; margin-top: -143px;}
+  .botonagregar2{margin-left: 89%; position: static; margin-top: 31%;}
+  .nombres{width: 154%;}
+  .ar{left: 0px;}
 }
+
+/* Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 700px){
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 110% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .nombre1, .nombre, .nombres{width: 362px;}
+  .nombre2{width: 50%; position: static; margin-left: 4%; margin-top: -185%;}
+  .cant{ position: static; margin-left: 0%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: 0%;  width: 50%;}
+  .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
+  .botonagregar{margin-top: 0%; margin-left: 4%; position: static;}
+  .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .bot{position: static; margin-top: -1%; margin-left: 5%;}
+  .bot mat-icon{position: static; margin-top: -4%;}
+  mat-paginator{margin-top: 4%; width: 100%; margin-left: -40%;}
+  .botonagregar2{margin-left: 83%; position: static; margin-top: 15%;}
+  .botonagregar2 mat-icon{position: static; margin-top: -4%;}
+  .ar{left: 0px;}
+}
+
+/* Tablet 2*/
+@media screen and (min-width: 701px) and (max-width: 768px){
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 89% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .nombre1, .nombre{width: 362px;}
+  .nombre2{ width: 50%; position: static; margin-left: 4%; margin-top: -151%;}
+  .cant{ position: static; margin-left: 0%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: 0%;  width: 50%;}
+  .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
+  .botonagregar{margin-top: -1%; margin-left: 4%; position: static;}
+  .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .bot{position: static; margin-top: -1%; margin-left: 5%;}
+  .bot mat-icon{position: static; margin-top: -4%;}
+  mat-paginator{margin-top: 3%; width: 100%; margin-left: -40%;}
+  .botonagregar2{margin-left: 89%; position: static; margin-top: 12%;}
+  .botonagregar2 mat-icon{position: static; margin-top: -4%;}
+  .nombres{width: 154%;}
+  .ar{left: 0px;}
+}
+
+/* Tablet 3*/
+@media screen and (min-width: 769px) and (max-width: 800px){
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 89% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .nombre1, .nombre{width: 362px;}
+  .nombre2{ width: 50%; position: static; margin-left: 4%; margin-top: -146%;}
+  .cant{ position: static; margin-left: 0%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: -1%; width: 50%;}
+  .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
+  .botonagregar{ margin-top: -1%;  margin-left: 4%; position: static;}
+  .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .bot{ position: static; margin-top: -1%;  margin-left: 5%;}
+  .bot mat-icon{position: static; margin-top: -4%;}
+  mat-paginator{ margin-top: 1%; width: 100%; margin-left: -40%;}
+  .botonagregar2{margin-left: 87%; position: static; margin-top: 13%;}
+  .botonagregar2 mat-icon{position: static; margin-top: -4%;}
+  .nombres{width: 154%;}
+  .ar{left: 0px;}
+}
+
+/* Portatil 2*/
+@media screen and (min-width: 801px) and (max-width: 960px){
+  .example-container{max-width: 100%; overflow: auto; margin-top: 70% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .nombre1, .nombre{width: 362px;}
+  .nombre2{ width: 50%; position: static;  margin-left: 4%; margin-top: -119%;}
+  .cant{ position: static; margin-left: 0%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: -1%; width: 50%;}
+  .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
+  .botonagregar{ margin-top: -1%;  margin-left: 4%; position: static;}
+  .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .bot{ position: static; margin-top: -1%;  margin-left: 5%;}
+  .bot mat-icon{position: static; margin-top: -4%;}
+  mat-paginator{ margin-top: 2%; width: 100%; margin-left: -40%;}
+  .botonagregar2{margin-left: 89%; position: static; margin-top: 9%;}
+  .botonagregar2 mat-icon{position: static; margin-top: -4%;}
+  .ar{left: 0px;}
+}
+
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1024px){
+  .nombre2{left: 21%; top: 23%;}
+  .nombre3{left: 21%; top: 35%;}
+  .nombre4 { left: 21%; top: 47%;}
+  .bot{left: 27%; top: 64%;}
+  .nombre,.nombres, .nombre1{width: 210px;}
+  mat-paginator{top: -18px;}
+  .ar{left: 0px;}
+  .cant{margin-left: 0%;}
+  .o{ margin-left: 17%;}
+  .botonagregar2{top: 45%; margin-left: 54%;}
+  .botonagregar{top: 64%;}
+}
+
+
+
+/* Tablet 5 */
+@media screen and (min-width: 1025px) and (max-width: 1080px){
+  .nombre2{left: 21%; top: 16%;}
+  .nombre3{left: 21%; top: 32%;}
+  .nombre4 { left: 21%; top: 48%;}
+  .bot{left: 27%;}
+  .nombre,.nombres, .nombre1{width: 210px;}
+  mat-paginator{top: -18px;}
+  .ar{left: 0px;}
+  .cant{margin-left: 0%;}
+  .o{ margin-left: 17%;}
+  .botonagregar2{top: 45%; margin-left: 54%;}
+}
+

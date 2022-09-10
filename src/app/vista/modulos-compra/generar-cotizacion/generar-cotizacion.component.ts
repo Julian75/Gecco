@@ -47,6 +47,7 @@ export class GenerarCotizacionComponent implements OnInit {
   verSolicitud(id: number){
     const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
       width: '1000px',
+      height: '430px',
       data: {id: id}
     });
   }

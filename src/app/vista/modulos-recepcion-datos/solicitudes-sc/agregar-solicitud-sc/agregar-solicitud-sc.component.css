@@ -94,8 +94,8 @@ mat-option{ font-size: 11px; }
     margin-top: 4%;
 }
 .nombre6{
-  margin-left: 47% !important;
-  margin-top: -40% !important;
+  margin-left: 47%;
+  margin-top: -40%;
 }
 .archivos{ margin-left: 46%;
   width: 46%;
@@ -106,41 +106,41 @@ mat-option{ font-size: 11px; }
   height: 40px;
   font-size: large;
   left: 25.2%;
-  top: 88.5% !important;
+  top: 88.5%;
   position: absolute;
   width: 7.8%;
 }
 .nombre2{
-  margin-left: 8% !important;
-  margin-top: 1.5% !important;
+  margin-left: 8%;
+  margin-top: 1.5%;
 }
 .nombre3{
-  margin-left: 8% !important;
-  margin-top: 0.5% !important;
+  margin-left: 8%;
+  margin-top: 0.5%;
 }
 .nombre4{
-  margin-left: 8% !important;
-  margin-top: 1% !important;
+  margin-left: 8%;
+  margin-top: 1%;
 }
 .nombre5{
-  margin-top: 0.8% !important;
-  margin-left: 8% !important;
+  margin-top: 0.8%;
+  margin-left: 8%;
 }
 .nombre7{
-  margin-left: 47% !important;
-  margin-top: 0% !important;
+  margin-left: 47%;
+  margin-top: 0%;
 }
 .nombre8{
-  margin-left: 47% !important;
-  margin-top: 1% !important;
+  margin-left: 47%;
+  margin-top: 1%;
 }
 .nombre9{
-  margin-left: 47% !important ;
-  margin-top: 1% !important;
+  margin-left: 47%;
+  margin-top: 1%;
 }
 .nombre5{
-  margin-top: 0.8% !important;
-  margin-left: 8% !important;
+  margin-top: 0.8%;
+  margin-left: 8%;
 }
 #selectButton{ margin-top: -6px; margin-left: -111%; background-color: #97B4E2; color: white; height: 40px;}
 #person{ top: 90.9%; left: 19.6%; background-color: #959595; color: white; height: 40px; position:absolute;}
@@ -182,7 +182,7 @@ mat-option{ font-size: 11px; }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
-  .row1{ margin-top: 39%;}
+  .row1{ margin-top: 32%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
   .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -194,18 +194,23 @@ mat-option{ font-size: 11px; }
   .ven { width: 285px;}
   .nombre{width: 285px; }
   .nombre1{width: 285px;}
-  .guardar{ margin-left: 38%; top: 160.9% !important; width: 26.5%; height: 35px;}
+  .guardar{ margin-left: 38%; top: 156.9% !important; width: 26.5%; height: 35px;}
   .guardar, span{ font-size: 12px;}
   .botonvolver{ width: 31px; height: 31px; position: absolute; margin-left: 6%; top: 89px;}
   .botonvolver mat-icon{ position: static; margin-left: -195%; margin-top: -35%; font-size: 21px;}
   .dato{ position: absolute; top: 21%;}
   #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
   #person mat-icon{ position: absolute; left: 27%; top: 8%;}
-  #selectButton{ margin-left: -120%; width: 60px; height: 31px;}
+  #selectButton{ margin-left: -120%; width: 60px; height: 31px; margin-top: -17px;}
   #selectButton mat-icon{ left: 15.6%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
   td button{ margin-top: 5%; }
   .botonagregar mat-icon{ margin-left: -50%; }
+  .archivos{
+    margin-left: -119%;
+    width: 236%;
+    margin-top: -107%;
+  }
 }
 
 /*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/

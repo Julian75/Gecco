@@ -64,6 +64,7 @@ table{
   #descSpa{ margin-left: 62% !important; }
   #opcSpa{ left: 8px; }
 }
+
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
