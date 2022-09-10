@@ -138,10 +138,10 @@ button{
   .imgLogin{
     width: 60%;
     left: 20%;
-    top: -195px;
+    top: -132px;
   }
-  .buttonEnviar{  top: 230px; left: 30%; width: 39%; }
-  .buttonIniciar{ top: 260px; left: 15%;  width: 67%; }
+  .buttonEnviar{  top: 290px; left: -34%; width: 27%; }
+  .buttonIniciar{ top: 300px; left: 31%; width: 36%; }
   button{ font-size: 15px; }
 }
 /* Portatil 1 */
@@ -163,8 +163,8 @@ button{
   .imgLogin{
     display: none;
   }
-  .buttonEnviar{  top: 30px; left: 30%; width: 39%; }
-  .buttonIniciar{ top: 45px; left: 15%;  width: 67%; }
+  .buttonEnviar{ top: 95px; left: -30%; width: 19%; }
+  .buttonIniciar{ top: 98px; left: 34%; width: 30%; }
   button{ font-size: 15px; }
 }
 /* Tablet 2 */
@@ -186,10 +186,10 @@ button{
   .imgLogin{
     width: 70%;
     left: 15%;
-    top: -195px;
+    top: -118px;
   }
-  .buttonEnviar{  top: 340px; left: 30%; width: 39%; }
-  .buttonIniciar{ top: 370px; left: 15%;  width: 67%; }
+  .buttonEnviar{  top: 400px; left: -30%; width: 20%; }
+  .buttonIniciar{ top: 417px; left: 36%; width: 28%; }
   button{ font-size: 15px; }
 }
 /* Tablet 3 */
@@ -211,10 +211,10 @@ button{
   .imgLogin{
     width: 80%;
     left: 10%;
-    top: -195px;
+    top: -108px;
   }
-  .buttonEnviar{  top: 460px; left: 30%; width: 39%; }
-  .buttonIniciar{ top: 520px; left: 15%;  width: 67%; }
+  .buttonEnviar{  top: 530px; left: -28%; width: 18%; }
+  .buttonIniciar{ top: 572px; left: 37%; width: 28%; }
   button{ font-size: 15px; }
 }
 /* Portatil 2 */
@@ -236,8 +236,8 @@ button{
   .imgLogin{
     display: none;
   }
-  .buttonEnviar{  top: 40px; left: 30%; width: 39%; }
-  .buttonIniciar{ top: 70px; left: 15%;  width: 67%; }
+  .buttonEnviar{  top: 102px; left: -27%; width: 13%; }
+  .buttonIniciar{ top: 113px; left: 38.5%; width: 22%; }
   button{ font-size: 15px; }
 }
 /* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
@@ -476,13 +476,13 @@ button{
   .password{ top: 300px; left: 10%; }
   .buttonEnviar{
     top: 500px;
-    left: -14%;
-    width: 15%;
+    left: -9%;
+    width: 9%;
   }
   .buttonIniciar{
     top: 700px;
-    left: -34%;
-    width: 24%;
+    left: -20.5%;
+    width: 14%;
   }
   hr{ margin-top: -19.5%; }
 }
@@ -520,13 +520,13 @@ button{
   .password{ top: 420px; left: 10%; }
   .buttonEnviar{
     top: 660px;
-    left: -12%;
-    width: 15%;
+    left: -9%;
+    width: 9%;
   }
   .buttonIniciar{
     top: 880px;
-    left: -32%;
-    width: 24%;
+    left: -20%;
+    width: 13%;
   }
   hr{ margin-top: -17.5%; }
 }
@@ -542,13 +542,13 @@ button{
   .password{ top: 480px; left: 10%; }
   .buttonEnviar{
     top: 720px;
-    left: -12%;
-    width: 15%;
+    left: -8%;
+    width: 7%;
   }
   .buttonIniciar{
     top: 960px;
-    left: -32%;
-    width: 24%;
+    left: -16.5%;
+    width: 10%;
   }
   hr{ margin-top: -16.5%; }
 }
@@ -586,13 +586,13 @@ button{
   .password{ top: 880px; left: 10%; }
   .buttonEnviar{
     top: 1420px;
-    left: -12%;
-    width: 15%;
+    left: -8%;
+    width: 4%;
   }
   .buttonIniciar{
     top: 1860px;
-    left: -32%;
-    width: 24%;
+    left: -13%;
+    width: 6%;
   }
   hr{ margin-top: -16.5%; }
 }

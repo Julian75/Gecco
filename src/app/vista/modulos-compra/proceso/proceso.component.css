@@ -109,7 +109,7 @@ mat-radio-button{
   .guardar{
     width: 60%;
     font-size: 13px;
-    margin-left: 17%;
+    margin-left: 40%;
     font-size: 15px;
   }
 }
@@ -121,7 +121,7 @@ mat-radio-button{
   }
   .guardar{
     width: 60%;
-    margin-left: 19%;
+    margin-left: 40%;
   }
 }
 

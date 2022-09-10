@@ -117,7 +117,7 @@ button{
   hr{ display: none !important; }
   .numIdentificacion{ top: 49px !important; left: 23% !important; width: 57% !important; }
   .password{ top: 68px !important; left: 23% !important; width: 57% !important;}
-  button{width: 34% !important; left: -23% !important; top: 128px !important; font-size: small !important;}
+  button{width: 22% !important; left: -17% !important; top: 128px !important; font-size: small !important;}
   .olvido{display: none !important;}
   .olvido2{display: block !important; font-weight: 700 !important; top: 127px !important;  position: relative !important; margin-left: 36% !important; text-decoration: none !important; color: #00235C;}
   .imgLogin{display: none;}
@@ -159,8 +159,8 @@ button{
   .numIdentificacion{ top: 54px!important; left: 29%!important; }
   .password{ top: 148px!important; left: -16%!important;}
   .imgLogin{display: none;}
-  button{ top: 171px!important; left: 32%!important; width: 39%!important;}
-  .olvido{top: 228px!important; left: -3%!important; }
+  button{ top: 171px!important; left: 40%!important; width: 24%!important;}
+  .olvido{top: 228px!important; left: 13%!important; }
   .olvido2{display: none!important;}
 }
 

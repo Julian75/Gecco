@@ -26,6 +26,8 @@ table{
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
+  .botonvolver{ width: 38px; height: 30px; }
+  .botonvolver mat-icon{ font-size: 17px !important; margin-left: -55%; }
   td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
   #idSp{ margin-left: 60%; }
   #desSp{ margin-left: 15%; }
@@ -118,55 +120,67 @@ table{
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1851px) and (max-width: 1920px){
-  #idSp{ margin-left: 90%; }
-  #desSp{ margin-left: 50%; }
-  #estSp{ margin-left: 35%; }
-  #estSp3{ margin-left: 45%; }
-  #estSp2{ margin-left: 55%; }
-  #estaSp{ margin-left: 65%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
-  #idSp{ margin-left: 340%; }
-  #desSp{ margin-left: 230%; }
-  #estSp{ margin-left: 230%; }
-  #estaSp{ margin-left: 420%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
-  #idSp{ margin-left: 350%; }
-  #desSp{ margin-left: 250%; }
-  #estSp{ margin-left: 250%; }
-  #estaSp{ margin-left: 460%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
-  #idSp{ margin-left: 430%; }
-  #desSp{ margin-left: 290%; }
-  #estSp{ margin-left: 300%; }
-  #estaSp{ margin-left: 530%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
-  #idSp{ margin-left: 460%; }
-  #desSp{ margin-left: 320%; }
-  #estSp{ margin-left: 325%; }
-  #estaSp{ margin-left: 590%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
-  #idSp{ margin-left: 530%; }
-  #desSp{ margin-left: 355%; }
-  #estSp{ margin-left: 370%; }
-  #estaSp{ margin-left: 640%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
-  #idSp{ margin-left: 710%; }
-  #desSp{ margin-left: 500%; }
-  #estSp{ margin-left: 480%; }
-  #estaSp{ margin-left: 840%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
@@ -177,8 +191,10 @@ table{
 }
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
-  #idSp{ margin-left: 1400%; }
-  #desSp{ margin-left: 1000%; }
-  #estSp{ margin-left: 1000%; }
-  #estaSp{ margin-left: 1400%; }
+  #idSp{ margin-left: 80%; }
+  #desSp{ margin-left: 25%; }
+  #estSp{ margin-left: 22%; }
+  #estSp3{ margin-left: 20%; }
+  #estSp2{ margin-left: 35%; }
+  #estaSp{ margin-left: 75%; }
 }

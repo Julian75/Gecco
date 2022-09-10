@@ -113,6 +113,7 @@ table{
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 20%;}
   #opcSp{ margin-left: 20%; }
+  td button{ margin-top: 5%; }
 }
 
   /* Tablet 1 */
@@ -126,18 +127,21 @@ table{
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 55%;}
   #opcSp{ margin-left: 20%; }
+  td button{ margin-top: 5%; }
 }
 /* Tablet 2,  Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 768px){
-  td button mat-icon{ margin-left: -4px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px; }
   #idSp{ margin-left: 80%; }
   #desSp{ margin-left: 25%; }
   #estSp{ margin-left: 30%; }
   #estaSp{ margin-left: 85%;}
   #opcSp{ margin-left: 15%; }
+  td button{ margin-top: 5%; }
 }
 /* Tablet 3,  Portatil 2*/
 @media screen and (min-width: 769px) and (max-width: 960px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px; margin-top: 1px; }
   #idSp{ margin-left: 100%; }
   #desSp{ margin-left: 30%; }
   #estSp{ margin-left: 35%; }
@@ -153,6 +157,7 @@ table{
 }
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -2px; margin-top: 0px; }
   #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
   #estSp{ margin-left: 75%; }
@@ -160,7 +165,7 @@ table{
 }
 /* Tablet 8, Compu. Mesa 5*/
 @media screen and (min-width: 1281px) and (max-width: 1536px){
-  td button mat-icon{ margin-top: -2px; }
+  td button mat-icon{ margin-top: -1px; margin-left: -3px; }
   #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
   #estSp{ margin-left: 75%; }
@@ -234,7 +239,7 @@ table{
 }
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
-  td button mat-icon{ margin-left: -3px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px; }
   #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 65%; }
   #estSp{ margin-left: 70%; }

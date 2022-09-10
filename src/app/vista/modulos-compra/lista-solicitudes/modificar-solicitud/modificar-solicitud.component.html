@@ -54,39 +54,41 @@
       <button class="btn botonagregar2" (click)="generarSolicitud()"><mat-icon>edit_square</mat-icon></button>
       <mat-paginator [length]="100" [pageSize]="6" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
+      <div class="generalnum">
+        <div class="nombre2" id="nombre1">
+          <h2 class="articulo">Articulo</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+            <mat-label>Ingrese Articulo</mat-label>
+            <input type="text"
+            aria-label="text"
+            matInput
+            [formControl]="articulos"
+            [matAutocomplete]="auto2" >
+            <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo" >
+              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
+                {{item.descripcion}}
+                <button *ngIf="">Agregar un articulo</button>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="nombre3">
+          <h2 class="can">Cantidad</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese Cantidad del articulo</mat-label>
+          <input type="number" id="cantidad" formControlName="cantidad" name="cantidad" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2 class="obs">Observacion</h2>
+          <mat-form-field class="nombres" [color]="color" appearance="fill">
+          <mat-label>Ingrese observación del articulo</mat-label>
+          <textarea id="observacion" formControlName="observacion" matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
 
       <!-- Ingresar Nombre -->
-      <div class="nombre2" id="nombre1">
-        <h2 class="articulo">Articulo</h2>
-        <mat-form-field class="nombre1" appearance="fill">
-          <mat-label>Ingrese Articulo</mat-label>
-          <input type="text"
-          aria-label="text"
-          matInput
-          [formControl]="articulos"
-          [matAutocomplete]="auto2" >
-          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo" >
-            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
-              {{item.descripcion}}
-              <button *ngIf="">Agregar un articulo</button>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
-      <div class="nombre3">
-        <h2 class="can">Cantidad</h2>
-        <mat-form-field class="nombre" [color]="color" appearance="fill">
-        <mat-label>Ingrese Cantidad del articulo</mat-label>
-        <input type="number" id="cantidad" formControlName="cantidad" name="cantidad" matInput>
-        </mat-form-field>
-      </div>
-      <div class="nombre4">
-        <h2 class="obs">Observacion</h2>
-        <mat-form-field class="nombres" [color]="color" appearance="fill">
-        <mat-label>Ingrese observación del articulo</mat-label>
-        <textarea id="observacion" formControlName="observacion" matInput></textarea>
-        </mat-form-field>
-      </div>
     </div>
     <div class="row">
       <!-- Boton de guardar datos -->
