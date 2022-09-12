@@ -108,13 +108,13 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
 @media screen and (min-width: 640px) and (max-width: 767px){
   .dato{margin-left: 0%;}
   .nombre{width: 220px;}
-  .documento{margin-left: 54%; margin-top: -16%;}
+  .documento{margin-left: 54%; margin-top: -20%;}
   .direccion{width: 222px; margin-left: 4%; margin-top: -2%;}
   .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
   .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
-  .esta{margin-left: 54%; margin-top: -17%;}
+  .esta{margin-left: 54%; margin-top: -20%;}
   .tipoDo{width: 80%; margin-left: 4%;}
-  .nombre1{margin-left: 54%; margin-top: -16%;}
+  .nombre1{margin-left: 54%; margin-top: -20%;}
   .guardarModal{margin-left: 80%; top: -196%;}
 }
 /* Tablet 2*/
@@ -188,9 +188,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -14%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 2%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 2%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 2%;}
   .esta{margin-left: 54%; margin-top: -14%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -14%;}
@@ -202,9 +202,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -12%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
   .esta{margin-left: 54%; margin-top: -12%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -12%;}
@@ -215,9 +215,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -10.8%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
   .esta{margin-left: 54%; margin-top: -10.8%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -10.8%;}
@@ -229,9 +229,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -10%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: -1%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: -1%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: -1%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -10%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -10%;}
@@ -257,9 +257,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -7.9%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -7.5%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -7.5%;}
@@ -271,9 +271,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -7.9%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -7.5%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -7.5%;}
@@ -285,9 +285,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 280px;}
   .documento{margin-left: 54%; margin-top: -7%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -7%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -7%;}
@@ -298,9 +298,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 350px;}
   .documento{margin-left: 54%; margin-top: -6%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -6%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -6%;}
@@ -311,9 +311,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 350px;}
   .documento{margin-left: 54%; margin-top: -5.5%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -5.5%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -5.5%;}
@@ -324,9 +324,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 350px;}
   .documento{margin-left: 54%; margin-top: -5%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -5%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -5%;}
@@ -337,9 +337,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 350px;}
   .documento{margin-left: 54%; margin-top: -4%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -4%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -4%;}
@@ -350,9 +350,9 @@ width: 80% !important; margin-left: 10%; margin-top: 4%;
   .dato{margin-left: 0%;}
   .nombre{width: 350px;}
   .documento{margin-left: 54%; margin-top: -3.8%;}
-  .direccion{width: 222px; margin-left: 4%; margin-top: 0%;}
-  .tele{width: 223px; margin-left: 4%; margin-top: 0%;}
-  .obser{width: 224px; margin-left: 4%; margin-top: 0%;}
+  .direccion{width: 222px; margin-left: 4%; margin-top: 1%;}
+  .tele{width: 223px; margin-left: 4%; margin-top: 1%;}
+  .obser{width: 224px; margin-left: 4%; margin-top: 1%;}
   .esta{margin-left: 54%; margin-top: -3.8%;}
   .tipoDo{width: 80%; margin-left: 4%;}
   .nombre1{margin-left: 54%; margin-top: -3.8%;}

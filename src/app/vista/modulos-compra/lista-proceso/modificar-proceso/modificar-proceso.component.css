@@ -49,6 +49,9 @@ h2{
     font-size: unset;
     margin-left: 5%;
   }
+  .guardarModal{
+    margin-left: 65%;
+  }
 }
 
 /* Movil medio - Samsung Galaxy S8 */
@@ -71,6 +74,9 @@ h2{
     height: 40px;
     font-size: large;
     margin-left: 10%;
+  }
+  .guardarModal{
+    margin-left: 74%;
   }
 }
 
@@ -95,6 +101,9 @@ h2{
     margin-left: 5%;
 
   }
+  .guardarModal{
+    margin-left: 84%;
+  }
 }
 
 /* Tablet pequeña - iPad Mini*/
@@ -117,6 +126,9 @@ h2{
     font-size: large;
     margin-left: 5%;
   }
+  .guardarModal{
+    margin-left: 84%;
+  }
 }
 
 /* Tablet medio - iPad Air*/
@@ -138,5 +150,8 @@ h2{
     height: 40px;
     font-size: large;
     margin-left: 5%;
+  }
+  .guardarModal{
+    margin-left: 84%;
   }
 }

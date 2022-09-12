@@ -69,6 +69,7 @@ export class SolicitudesScComponent implements OnInit {
   public abrirModal(idSolicitud: any){
     const dialogRef = this.dialog.open(AgregarHistorialSolicitudesComponent, {
       width: '500px',
+      height: '430px',
       data: idSolicitud
     });
   }

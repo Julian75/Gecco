@@ -61,22 +61,8 @@ export class SolicitudesComponent implements OnInit {
   public listarSolicitudes(){
     this.solicitudService.listarTodos().subscribe(res => {
       res.forEach(element => {
-        var obj ={
-          solicitud: {},
-          color: ''
-        }
         if (element.id == Number(this.data) ) {
-          obj.solicitud = element
-          if(element.idEstado.id == 28 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 55){
-            obj.color = "azul"
-          }else if(element.idEstado.id == 29 || element.idEstado.id == 34 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 57 || element.idEstado.id == 60){
-            obj.color = "verde"
-          }else if(element.idEstado.id == 30 || element.idEstado.id == 35 || element.idEstado.id == 47 || element.idEstado.id == 61){
-            obj.color = "rojo"
-          }else if(element.idEstado.id == 54){
-            obj.color = "amarillo"
-          }
-          this.listaSolicitudes.push(obj);
+          this.listaSolicitudes.push(element);
         }
       })
       this.dataSource = new MatTableDataSource(this.listaSolicitudes);

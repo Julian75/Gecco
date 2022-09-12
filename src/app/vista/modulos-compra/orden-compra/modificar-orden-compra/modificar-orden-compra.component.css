@@ -22,8 +22,7 @@ td.mat-cell:first-of-type{
 }
 .cant{
   position: relative;
-  left: 25px;
-  top: 7px;
+  left: -3px;
 }
 .sub{
   position: relative;
@@ -44,7 +43,7 @@ td.mat-cell:first-of-type{
 .guardar4{
   background-color: #00235C;
   color: white;
-  width: 258px;
+  width: 108px;
   height: 40px;
   font-size: large;
   margin-left: 0%;
@@ -135,6 +134,11 @@ h1{
   font-size: 20px;
 }
 
+.btnVisualizar{
+  background-color: #97B4E2;
+  width: 10%;
+}
+
 .contenedor{
   width: 80% !important; margin-left: 10%; margin-top: 6%;
 }
@@ -169,7 +173,7 @@ width: 230px;
 .guardar{
 background-color: #00235C ;
 color: white;
-width: 200px;
+width: 50px;
 height: 40px;
 font-size: large;
 margin-left: 78%;
@@ -216,7 +220,7 @@ mat-option{ font-size: 10.5px; }
     left: -1px;
     top: 6px;
   }
-
+  .nombre3{ margin-top: -2%;}
   .o{
     position: relative;
     left: 0px;
@@ -315,11 +319,10 @@ mat-option{ font-size: 10.5px; }
     color: white;
     width: 164px;
     height: 40px;
-    font-size: smaller;
     margin-left: 1%;
     position: relative;
     top: 39px;
-
+    margin-bottom: 30%;
   }
   .sub{
     position: relative;
@@ -346,7 +349,7 @@ mat-option{ font-size: 10.5px; }
     overflow: auto;
     position: relative;
     top: 43px !important;
-    margin-bottom: 10% !important;
+    margin-bottom: 15% !important;
   }
   h3{
     font-size: 12px;
@@ -430,7 +433,7 @@ mat-option{ font-size: 10.5px; }
     left: -163px;
     top: 18px;
   }
-
+  .nombre3{ margin-top: -2%;}
 
 
   .tabla{
@@ -446,10 +449,10 @@ mat-option{ font-size: 10.5px; }
     color: white;
     width: 164px;
     height: 40px;
-    font-size: smaller;
     margin-left: 10%;
     position: relative;
     top: 40px;
+    margin-bottom: 30%;
   }
   td.mat-cell:first-of-type{
     padding-left: 0%;
@@ -582,16 +585,16 @@ mat-option{ font-size: 10.5px; }
     top: -17px;
     margin-bottom: -17px;
   }
-
+  .nombre3{ margin-top: -8%;}
   .guardar4{
     background-color: #00235C;
     color: white;
     width: 215px;
     height: 40px;
-    font-size: initial;
     margin-left: 1%;
     position: relative;
     top: 47px;
+    margin-bottom: 20%;
   }
   .sub{
     position: relative;
@@ -726,6 +729,7 @@ mat-option{ font-size: 10.5px; }
     margin-left: 0%;
     position: relative;
     top: 70px;
+    margin-bottom: 20%;
   }
   .sub{
     position: relative;
@@ -860,6 +864,7 @@ mat-option{ font-size: 10.5px; }
     margin-left: 0%;
     position: relative;
     top: 70px;
+    margin-bottom: 20%;
   }
   .sub{
     position: relative;
@@ -886,7 +891,7 @@ mat-option{ font-size: 10.5px; }
     position: relative;
     top: 41px !important;
     height: 100px;
-    margin-bottom: -55px;
+    margin-bottom: -40px;
   }
   h3{
     font-size: 20px;
@@ -1002,7 +1007,7 @@ mat-option{ font-size: 10.5px; }
     top: -6px;
     margin-bottom: -34px;
   }
-
+  .nombre3{ margin-top: -11%;}
   .guardar4{
     background-color: #00235C;
     color: white;
@@ -1011,7 +1016,8 @@ mat-option{ font-size: 10.5px; }
     font-size: large;
     margin-left: 0%;
     position: relative;
-    top: 115px;
+    top: 135px;
+    margin-bottom: 20%;
   }
   .sub{
     position: relative;
@@ -1019,15 +1025,15 @@ mat-option{ font-size: 10.5px; }
   }
   .val{
     position: relative;
-    top: 138px;
+    top: 145px;
   }
   .des{
     position: relative;
-    top: 128px;
+    top: 140px;
   }
   .to{
     position: relative;
-    top: 115px;
+    top: 135px;
   }
 }
 
@@ -1038,30 +1044,27 @@ mat-option{ font-size: 10.5px; }
     position: relative;
     top: 43px !important;
     height: 100px;
+    margin-bottom: 5%;
   }
   h3{
     font-size: 20px;
   }
   .ar{
     position: relative;
-    top: 5px;
-    left: 10px;
+    left: -15px;
   }
   .v{
     position: relative;
-    top: 5px;
-    left: 36px;
+    left: 10px;
   }
   .o{
     position: relative;
-    left: 71px;
-    top: 5px;
+    left: -5px;
   }
   .cant{
     margin-left: 20px;
-    left: 12px;
+    left: -12px;
     position: relative;
-    top: 5px;
   }
   td{
     font-size: 16px;
@@ -1167,6 +1170,7 @@ mat-option{ font-size: 10.5px; }
     margin-left: 0%;
     position: relative;
     top: 80px;
+    margin-bottom: 11%;
   }
   .sub{
     position: relative;

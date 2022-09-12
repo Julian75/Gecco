@@ -98,7 +98,7 @@ table{
     font-size: 13px;
   }
   td { font-size: 12px; height: 0px; padding-left: 1% !important;}
-  .btnremove, .btnedit, .btnver{
+  .btnremove, .btnedit, .btnver, .btnedit2, .btnPriority{
     width: 31px !important;
     height: 29px !important;
   }

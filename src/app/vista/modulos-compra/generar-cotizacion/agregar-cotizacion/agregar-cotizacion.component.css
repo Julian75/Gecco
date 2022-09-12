@@ -82,13 +82,13 @@ h2{
 }
 .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
 .estado2{ width: 300px; }
-.guardar{
+.guardarModal{
   background-color: #00235C ;
   color: white;
   width: 150px;
   height: 40px;
   font-size: 14px;
-  margin-left: -1%;
+  margin-left: 1%;
 }
 
 .row1{
@@ -96,78 +96,21 @@ h2{
   padding-top: 3%;
   padding-bottom: 4%;
 }
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .guardar{
-    width: 170px;
-    margin-left: 2%;
-  }
-  .nombre{
-    width: 165px;
-  }
+  .guardarModal{ margin-left: 1%;}
+  .nombre{width: 95%;}
+
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  .guardar{
-    width: 200px;
-    margin-left: 5%;
-  }
-  .nombre{
-    width: 230px;
-  }
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .guardarModal{ margin-left: 2%;}
+  .nombre{width: 95%;}
 }
 
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  .guardar{
-    width: 170px;
-    margin-left: 5%;
-  }
-  .nombre{
-    width: 360px;
-  }
-}
-
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
-  .guardar{
-    width: 170px;
-    margin-left: 5%;
-  }
-  .nombre{
-    width: 420px;
-  }
-}
-
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  .guardar{
-    width: 170px;
-    margin-left: 5%;
-  }
-  .nombre{
-    width: 420px;
-  }
-}
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  .guardar{
-    width: 170px;
-    margin-left: 5%;
-  }
-  .nombre{
-    width: 250px;
-  }
-}
-
-/* Portatil Medio - PENDIENTE*/
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  .guardar{
-    width: 170px;
-    margin-left: -2%;
-  }
-  .nombre{
-    width: 165px;
-  }
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .guardarModal{ margin-left: 1%;}
+  .nombre{width: 95%;}
 }

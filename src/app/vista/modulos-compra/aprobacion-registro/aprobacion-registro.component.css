@@ -106,7 +106,7 @@ table{
   #desSp{ margin-left: 20%; }
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 20%;}
-  td button{ margin-top: 5%; }
+  td button{ margin-top: 10%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
@@ -119,6 +119,7 @@ table{
   #desSp{ margin-left: 20%; }
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 20%;}
+  td button{ margin-top: 10%; }
 }
 
   /* Tablet 1 */
@@ -131,6 +132,7 @@ table{
   #desSp{ margin-left: 20%; }
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 25%;}
+  td button{ margin-top: 4%; }
 }
 /* Tablet 2,  Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 768px){
@@ -139,6 +141,7 @@ table{
   #desSp{ margin-left: 25%; }
   #estSp{ margin-left: 30%; }
   #estaSp{ margin-left: 25%;}
+  td button{ margin-top: 4%; }
 }
 /* Tablet 3,  Portatil 2*/
 @media screen and (min-width: 769px) and (max-width: 960px){

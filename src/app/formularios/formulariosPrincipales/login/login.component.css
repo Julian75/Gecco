@@ -222,11 +222,11 @@ button{
   .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
   .logo{width: 35%!important; margin-left: 10%!important; margin-top: 7%!important;}
   hr{ margin-top: -20%!important; }
-  .numIdentificacion{ top: 165px!important; left: -34%!important; width: 35%!important; }
+  .numIdentificacion{ top: 165px!important; left: -35%!important; width: 35%!important; }
   .password{ top: 193px!important; left: 10%!important; width: 35%!important;}
   .imgLogin{width: 50%!important; left: 50%!important; top: -56px!important; }
-  button{top: 305px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 397px!important; left: -49%!important;}
+  button{top: 305px!important;}
+  .olvido{top: 397px!important;}
   .olvido2{display: none!important;}
 }
 
@@ -264,8 +264,8 @@ button{
   .numIdentificacion{ top: 205px!important; left: -35%!important; width: 35%!important; }
   .password{ top: 238px!important; left: 10%!important; width: 35%!important;}
   .imgLogin{width: 50%!important; left: 50%!important; top: -56px!important; }
-  button{top: 398px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 536px!important; left: -45%!important;}
+  button{top: 398px!important; left: -17.8%!important; width: 21%!important;}
+  .olvido{top: 536px!important; left: -35%!important;}
   .olvido2{display: none!important;}
 }
 
@@ -368,8 +368,8 @@ button{
   .numIdentificacion{ top: 709px!important; left: -35%!important; width: 35%!important; font-size: 62px !important; }
   .password{ top: 919px!important; left: 10%!important; width: 35%!important; font-size: 62px !important;}
   .imgLogin{width: 50%!important; left: 50%!important; top: -327px!important; }
-  button{top: 1590px!important; left: -22.8%!important; width: 30%!important; font-size: 54px !important;}
-  .olvido{top: 2185px!important; left: -44%!important; font-size: 65px !important;}
+  button{top: 1590px!important; left: -18%!important; width: 22%!important; font-size: 49px !important;}
+  .olvido{top: 2185px!important; left: -35%!important; font-size: 65px !important; }
   .olvido2{display: none!important;}
 }
 

@@ -61,31 +61,52 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   #idSp{margin-left: 84%; }
   #desSp{margin-left: 46%;}
-  #estSp{ margin-left: 32%;}
-  #catSp{margin-left: 17%;}
+  #estSp{ margin-left: 48%;}
+  #catSp{margin-left: 38%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 5%; }
   .botonagregar mat-icon{ margin-left: -50%; }
 }
-
-/* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* Portatil 1 */
+@media screen and (min-width: 640px) and (max-width: 699px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: 0px; }
+  #idSp{margin-left: 70%; }
+  #desSp{margin-left: 35%;}
+  #estSp{ margin-left: 45%;}
+  #catSp{margin-left: 35%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/* Tablet 2 */
+@media screen and (min-width: 700px) and (max-width: 768px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: 0px; }
+  #idSp{margin-left: 110%; }
+  #desSp{margin-left: 50%;}
+  #estSp{ margin-left: 70%;}
+  #catSp{margin-left: 50%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/* Tablet 3 */
+@media screen and (min-width: 769px) and (max-width: 899px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 52%; }
-  #desSp{margin-left: 64%;}
+  #idSp{margin-left: 50% ; }
+  #desSp{margin-left: 41%;}
   #estSp{ margin-left: 50%;}
   #catSp{margin-left: 40%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
-/* Tablet 3,  Portatil 2*/
-@media screen and (min-width: 769px) and (max-width: 960px){
+/* Portatil 2 */
+@media screen and (min-width: 900px) and (max-width: 960px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 38% ; }
-  #desSp{margin-left: 41%;}
-  #estSp{ margin-left: 33%;}
-  #catSp{margin-left: 22%;}
+  #idSp{margin-left: 90% ; }
+  #desSp{margin-left: 55%;}
+  #estSp{ margin-left: 65%;}
+  #catSp{margin-left: 55%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -93,10 +114,10 @@ td.mat-cell{ padding-left: 1%;}
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 94% ; }
-  #desSp{margin-left: 85%;}
-  #estSp{ margin-left: 62%;}
-  #catSp{margin-left: 51%;}
+  #idSp{margin-left: 120% ; }
+  #desSp{margin-left: 70%;}
+  #estSp{ margin-left: 85%;}
+  #catSp{margin-left: 70%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -104,33 +125,43 @@ td.mat-cell{ padding-left: 1%;}
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 100% ; }
-  #desSp{margin-left: 110%;}
-  #estSp{ margin-left: 89%;}
-  #catSp{margin-left: 81%;}
+  #idSp{margin-left: 150% ; }
+  #desSp{margin-left: 90%;}
+  #estSp{ margin-left: 110%;}
+  #catSp{margin-left: 95%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
-/* Tablet 8, Compu. Mesa 5*/
-@media screen and (min-width: 1281px) and (max-width: 1536px){
+/* Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1310x){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 136% ; }
-  #desSp{margin-left: 150%;}
-  #estSp{ margin-left: 115%;}
-  #catSp{margin-left: 100%;}
+  #idSp{margin-left: 170% ; }
+  #desSp{margin-left: 100%;}
+  #estSp{ margin-left: 125%;}
+  #catSp{margin-left: 115%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
-
+/* Tablet 8 */
+@media screen and (min-width: 1411px) and (max-width: 1536px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  #idSp{margin-left: 170% ; }
+  #desSp{margin-left: 135%;}
+  #estSp{ margin-left: 150%;}
+  #catSp{margin-left: 150%;}
+  #opcSp{ left: 8px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
 /*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 140%; }
-  #desSp{margin-left: 155%;}
-  #estSp{ margin-left: 128%;}
-  #catSp{margin-left: 106%;}
+  #idSp{margin-left: 200%; }
+  #desSp{margin-left: 120%;}
+  #estSp{ margin-left: 155%;}
+  #catSp{margin-left: 130%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -141,9 +172,9 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 1851px) and (max-width: 1920px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   #idSp{margin-left: 177%; }
-  #desSp{margin-left: 155%;}
-  #estSp{ margin-left: 128%;}
-  #catSp{margin-left: 115%;}
+  #desSp{margin-left: 140%;}
+  #estSp{ margin-left: 170%;}
+  #catSp{margin-left: 150%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -152,10 +183,10 @@ td.mat-cell{ padding-left: 1%;}
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 177%; }
-  #desSp{margin-left: 195%;}
-  #estSp{ margin-left: 145%;}
-  #catSp{margin-left: 127%;}
+  #idSp{margin-left: 200%; }
+  #desSp{margin-left: 160%;}
+  #estSp{ margin-left: 180%;}
+  #catSp{margin-left: 160%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -164,9 +195,9 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 2049px) and (max-width: 2160px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   #idSp{margin-left: 214%; }
-  #desSp{margin-left: 195%;}
-  #estSp{ margin-left: 161%;}
-  #catSp{margin-left: 138%;}
+  #desSp{margin-left: 170%;}
+  #estSp{ margin-left: 200%;}
+  #catSp{margin-left: 180%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -175,9 +206,9 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 2161px) and (max-width: 2560px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   #idSp{margin-left: 244%; }
-  #desSp{margin-left: 195%;}
-  #estSp{ margin-left: 188%;}
-  #catSp{margin-left: 166%;}
+  #desSp{margin-left: 210%;}
+  #estSp{ margin-left: 260%;}
+  #catSp{margin-left: 225%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -185,10 +216,10 @@ td.mat-cell{ padding-left: 1%;}
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 244%; }
-  #desSp{margin-left: 276%;}
-  #estSp{ margin-left: 200%;}
-  #catSp{margin-left: 180%;}
+  #idSp{margin-left: 290%; }
+  #desSp{margin-left: 235%;}
+  #estSp{ margin-left: 280%;}
+  #catSp{margin-left: 230%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -196,10 +227,10 @@ td.mat-cell{ padding-left: 1%;}
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 244%; }
-  #desSp{margin-left: 297%;}
-  #estSp{ margin-left: 230%;}
-  #catSp{margin-left: 200%;}
+  #idSp{margin-left: 320%; }
+  #desSp{margin-left: 260%;}
+  #estSp{ margin-left: 290%;}
+  #catSp{margin-left: 270%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -207,10 +238,10 @@ td.mat-cell{ padding-left: 1%;}
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 244%; }
-  #desSp{margin-left: 369%;}
-  #estSp{ margin-left: 327%;}
-  #catSp{margin-left: 280%;}
+  #idSp{margin-left: 440%; }
+  #desSp{margin-left: 355%;}
+  #estSp{ margin-left: 390%;}
+  #catSp{margin-left: 355%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -218,10 +249,10 @@ td.mat-cell{ padding-left: 1%;}
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 244%; }
-  #desSp{margin-left: 423%;}
-  #estSp{ margin-left: 347%;}
-  #catSp{margin-left: 300%;}
+  #idSp{margin-left: 460%; }
+  #desSp{margin-left: 380%;}
+  #estSp{ margin-left: 440%;}
+  #catSp{margin-left: 400%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -229,10 +260,10 @@ td.mat-cell{ padding-left: 1%;}
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
-  #idSp{margin-left: 785%; }
-  #desSp{margin-left: 876%;}
-  #estSp{ margin-left: 693%;}
-  #catSp{margin-left: 670%;}
+  #idSp{margin-left: 980%; }
+  #desSp{margin-left: 800%;}
+  #estSp{ margin-left: 800%;}
+  #catSp{margin-left: 770%;}
   #opcSp{ left: 8px; }
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }

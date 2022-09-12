@@ -124,7 +124,7 @@ h2{
 @media screen and (min-width: 494px) and (max-width: 720px){
 .guardar{
   width: 63%;
-  margin-left: 5%;
+  margin-left: 37%;
 }
 }
 
@@ -132,7 +132,7 @@ h2{
 @media screen and (min-width: 721px) and (max-width: 768px){
 .guardar{
   width: 60%;
-  margin-left: 5%;
+  margin-left: 40%;
 }
 }
 
@@ -140,6 +140,6 @@ h2{
 @media screen and (min-width: 769px) and (max-width: 1023px){
 .guardar{
   width: 60%;
-  margin-left: 5%;
+  margin-left: 40%;
 }
 }

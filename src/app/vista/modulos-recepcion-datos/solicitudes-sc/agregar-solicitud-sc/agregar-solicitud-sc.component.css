@@ -132,7 +132,6 @@ mat-option{ font-size: 11px; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
   .row1{ margin-top: 39%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3, .nombre4, .nombre7, .nombre8, .nombre9{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -151,13 +150,10 @@ mat-option{ font-size: 11px; }
   #selectButton{ margin-left: -120%; width: 44px; height: 31px;}
   #selectButton mat-icon{ left: 41px; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{ margin-left: -120%; width: 212%; margin-top: 8%; }
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
   .row1{ position: static;margin-top: 4%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -181,8 +177,6 @@ mat-option{ font-size: 11px; }
   #selectButton{ margin-left: -120%; width: 60px; height: 31px; margin-top: -90px;}
   #selectButton mat-icon{ left: 15.6%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{
     margin-left: -119%;
     width: 210%;
@@ -192,7 +186,6 @@ mat-option{ font-size: 11px; }
 
 /* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
   .row1{ position: static;margin-top: 4%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -214,8 +207,6 @@ mat-option{ font-size: 11px; }
   #selectButton{ margin-left: -120%; width: 60px; height: 31px; margin-top: -90px;}
   #selectButton mat-icon{ left: 13.6%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{
     margin-left: -119%;
     width: 210%;
@@ -224,7 +215,6 @@ mat-option{ font-size: 11px; }
 }
 /* Tablet 2,  Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 768px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
   .row1{ position: static;margin-top: 1%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -245,8 +235,6 @@ mat-option{ font-size: 11px; }
   #selectButton{ margin-left: -120%; margin-top: -90px; width: 59px;}
   #selectButton mat-icon{ left: 13%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{
     margin-left: -119%;
     width: 210%;
@@ -255,7 +243,6 @@ mat-option{ font-size: 11px; }
 }
 /* Tablet 3,  Portatil 2*/
 @media screen and (min-width: 769px) and (max-width: 960px){
-  td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
   .row1{ position: static;margin-top: 1%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -276,8 +263,6 @@ mat-option{ font-size: 11px; }
   #selectButton{ margin-left: -120%; margin-top: -90px; width: 59px;}
   #selectButton mat-icon{ left: 13%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  td button{ margin-top: 5%; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{
     margin-left: -119%;
     width: 210%;
@@ -287,16 +272,17 @@ mat-option{ font-size: 11px; }
 
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
+  .contenedor{ margin-top: 2%;}
   .row1{ position: static;margin-top: 1%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
   .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
   .nombre5{ margin-top: 0.8% !important; margin-left: 0% !important; }
-  .nombre6{ position: static !important; margin-left: 54% !important; margin-top: -416px; width: 215px;}
-  .nombre7{ margin-left: 54% !important; margin-top: 0% !important;  }
-  .nombre8{margin-left: 54% !important; margin-top: 0% !important;  }
-  .nombre9{ margin-left: 54% !important; margin-top: 0% !important;  }
-  .ven, .nombre, .nombre1{ width: 274px;}
+  .nombre6{ position: static !important; margin-left: 36% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 36% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 36% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 36% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 210px;}
   .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
   .guardar{position: static; margin-left: 312px; margin-top: 54px; width: 35.5%; height: 35px;}
   .guardar, span{ font-size: 12px;}
@@ -307,74 +293,281 @@ mat-option{ font-size: 11px; }
   #selectButton{ margin-left: -120%; margin-top: -90px; width: 59px;}
   #selectButton mat-icon{ left: 13%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{
-    margin-left: -119%;
-    width: 210%;
-    margin-top: -9%;
+    position: static;
+    margin-left: 36%;
+    width: 78%;
+    margin-top: -528px;
   }
 }
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
+  .contenedor{ margin-top: 2%;}
   .row1{ position: static;margin-top: 1%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
   .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
-  .nombre5{ margin-top: 0.8% !important; margin-left: 0% !important; }
-  .nombre6{ position: static !important; margin-left: 54% !important; margin-top: -416px; width: 215px;}
-  .nombre7{ margin-left: 54% !important; margin-top: 0% !important;  }
-  .nombre8{margin-left: 54% !important; margin-top: 0% !important;  }
-  .nombre9{ margin-left: 54% !important; margin-top: 0% !important;  }
-  .ven, .nombre, .nombre1{ width: 274px;}
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 34% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 34% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 34% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 34% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 220px;}
   .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
-  .guardar{position: static; margin-left: 537px; margin-top: 31px; width: 35.5%; height: 35px;}
+  .guardar{position: static; margin-left: 312px; margin-top: 35px; width: 35.5%; height: 35px;}
   .guardar, span{ font-size: 12px;}
   .botonvolver{position: static; margin-left: 0%;}
   .dato{ position: static; margin-top: 2%;}
   #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
   #person mat-icon{ position: absolute; left: 27%; top: 8%;}
-  #selectButton{ margin-left: -120%; margin-top: -125px; width: 59px;}
-  #selectButton mat-icon{ left: 12.5%; position: absolute; margin-top: -13px;}
+  #selectButton{ margin-left: -120%; margin-top: -130px; width: 59px;}
+  #selectButton mat-icon{ left: 12.3%; position: absolute; margin-top: -13px;}
   #opcSpa{ left: 8px; }
-  .botonagregar mat-icon{ margin-left: -50%; }
   .archivos{
-    margin-left: -119%;
-    width: 210%;
-    margin-top: -9%;
+    position: static;
+    margin-left: 21%;
+    width: 78%;
+    margin-top: -517px;
   }
 }
 /* Tablet 8, Compu. Mesa 5*/
 @media screen and (min-width: 1281px) and (max-width: 1536px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 32.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 260px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 393px; margin-top: 35px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -130px; width: 59px;}
+  #selectButton mat-icon{ left: 12.3%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: 21%;
+    width: 78%;
+    margin-top: -528px;
+  }
 }
 /*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 32.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 281px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 463px; margin-top: 35px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -130px; width: 59px;}
+  #selectButton mat-icon{ left: 12.2%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: 21%;
+    width: 78%;
+    margin-top: -536px;
+  }
 }
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1851px) and (max-width: 1920px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 32.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 281px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 526px; margin-top: 35px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -130px; width: 59px;}
+  #selectButton mat-icon{ left: 11.9%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: 17%;
+    width: 78%;
+    margin-top: -553px;
+  }
 }
-
-/*Tablet 9*/
-@media screen and (min-width: 1921px) and (max-width: 2048px){
-}
-/*Tablet 10*/
-@media screen and (min-width: 2049px) and (max-width: 2160px){
+/*Tablet 9 y Tablet 10*/
+@media screen and (min-width: 1921px) and (max-width: 2160px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 32.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 32.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 316px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 593px; margin-top: 35px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -130px; width: 59px;}
+  #selectButton mat-icon{ left: 11.9%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: 17%;
+    width: 78%;
+    margin-top: -553px;
+  }
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 28.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 28.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 28.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 28.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 316px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 638px; margin-top: 7px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -234px; width: 59px;}
+  #selectButton mat-icon{ left: 11.7%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: 0%;
+    width: 65%;
+    margin-top: -584px;
+  }
 }
-/*Tablet 13*/
-@media screen and (min-width: 2561px) and (max-width: 2736px){
+/*Tablet 13 y Tablet 14*/
+@media screen and (min-width: 2561px) and (max-width: 3000px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 28.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 28.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 28.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 28.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 316px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 677px; margin-top: 7px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -234px; width: 59px;}
+  #selectButton mat-icon{ left: 11.7%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: 0%;
+    width: 65%;
+    margin-top: -584px;
+  }
 }
-/*Tablet 14*/
-@media screen and (min-width: 2737px) and (max-width: 3000px){
-}
-/*Portatil 6, Televisor 3*/
-@media screen and (min-width: 3001px) and (max-width: 3840px){
-}
-/*Televisor 4*/
-@media screen and (min-width: 3841px) and (max-width: 4096px){
+/*Portatil 6, Televisor 3, Televisor 4*/
+@media screen and (min-width: 3001px) and (max-width: 4096px){
+  .contenedor{ margin-top: 2%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 24.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 24.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 24.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 24.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 316px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 786px; margin-top: -11px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{ margin-left: -120%; margin-top: -344px; width: 59px;}
+  #selectButton mat-icon{ left: 11.3%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: -18%;
+    width: 65%;
+    margin-top: -654px;
+  }
 }
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
+  .contenedor{ margin-top: 1%;}
+  .row1{ position: static;margin-top: 1%;}
+  .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
+  .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre4{ margin-left: 1% !important; margin-top: 0% !important;  }
+  .nombre5{ margin-top: 1% !important; margin-left: 1% !important; }
+  .nombre6{ position: static !important; margin-left: 24.5% !important; margin-top: -416px; width: 215px;}
+  .nombre7{ margin-left: 24.5% !important; margin-top: 0% !important;  }
+  .nombre8{margin-left: 24.5% !important; margin-top: 0% !important;  }
+  .nombre9{ margin-left: 24.5% !important; margin-top: 0% !important;  }
+  .ven, .nombre, .nombre1{ width: 316px;}
+  .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
+  .guardar{position: static; margin-left: 1421px; margin-top: -62px; width: 35.5%; height: 35px;}
+  .guardar, span{ font-size: 12px;}
+  .botonvolver{position: static; margin-left: 0%;}
+  .dato{ position: static; margin-top: 2%;}
+  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
+  #selectButton{margin-left: -120%; margin-top: -549px; width: 59px;}
+  #selectButton mat-icon{ left: 11.1%; position: absolute; margin-top: -13px;}
+  #opcSpa{ left: 8px; }
+  .archivos{
+    position: static;
+    margin-left: -18%;
+    width: 65%;
+    margin-top: -654px;
+  }
 }

@@ -156,32 +156,29 @@ mat-option{ font-size: 10.5px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .nombre1, .nombre, .estado{ width: 108%; margin-left: -1%; }
-  .nombre2{ top: 20%;}
-  .nombre3{ top: 34%;}
-  .nombre4{ top: 48%;}
+  h2{ margin-bottom: 0%; }
+  .nombre3{ top: 41%; }
+  .nombre4{ top: 57%; }
+  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; margin-top: 8%; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -9px; }
+  .guardar3{ margin-left: 11%; }
+  .guardar6{ margin-left: 20%; }
+  .nombre, .nombre1{ width: 215px; }
   .example-container{
+    margin-top: 170% !important;
+    margin-left: 0%;
     max-width: 100%;
-    overflow: auto;
-    margin-top: 163% !important;
-    margin-bottom: 37% !important;
-    margin-left: 2%;
   }
-  #chet, #chet2{
-    padding-left: 14px;
-    padding-right: 14px;
+  #chetbox{ width: 35px; }
+  #arti{ left: 0px; width: 80px; }
+  #cant{ width: 70; }
+  #obser{ left: 0px; }
+  mat-paginator{
+    width: 100%;
+    left: 0%;
+    top: 0px;
   }
-  .guardar4{
-    margin-left: 22%;
-    margin-top: 20%;
-  }
-  mat-paginator{width: 100%; position: relative; left: 0%; top: -146px; }
-  #obse, #obse2{ padding-right: 0%; }
-  #chetbox{ left: 3px; }
-  #arti{ left: 3px; padding-right: 5px; }
-  #cant{ left: 0px; padding-right: 5px; }
-  #obser{ left: 0px; width: 70px; padding-right: 5px; }
-  .articulo { position: static; margin-top: 18%;}
+  .guardar4{ margin-bottom: 8%; margin-left: 38%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
