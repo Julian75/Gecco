@@ -51,6 +51,7 @@ export class HistorialSolicitudesComponent implements OnInit {
   TelefonoCliente: any
   Auxiliar: any
   Escala:any
+  Incidente:any
   public listarTodo(){
     console.log("holis")
     console.log(this.data)
@@ -60,6 +61,7 @@ export class HistorialSolicitudesComponent implements OnInit {
       this.TelefonoCliente = res.idClienteSC.telefono
       this.Auxiliar = res.auxiliarRadicacion
       this.Escala = res.idEscala.descripcion
+      this.Incidente = res.incidente
     })
     this.servicioHistorial.listarTodos().subscribe( res => {
       res.forEach((element: any) => {

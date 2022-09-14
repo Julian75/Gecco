@@ -9,7 +9,15 @@
       <input id="descripcion" formControlName="descripcion" matInput>
       </mat-form-field>
     </div>
-
+    <div class="nombre2">
+      <h2>Area</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Seleccione el area</mat-label>
+      <select matNativeControl id="area" name="area" formControlName="area">
+        <option *ngFor="let item of listasArea"  value="{{item.id}}">{{item.descripcion}}</option>
+      </select>
+      </mat-form-field>
+    </div>
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->

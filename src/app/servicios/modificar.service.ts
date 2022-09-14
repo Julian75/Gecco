@@ -33,6 +33,8 @@ import { EscalaSolicitudes2 } from '../modelos/modelos2/escalaSolicitudes2';
 import { MotivoSolicitud2 } from '../modelos/modelos2/motivoSolicitud2';
 import { ClienteSC2 } from '../modelos/modelos2/clienteSC2';
 import { AsignacionUsuariosPqrs2 } from '../modelos/modelos2/asignacionUsuariosPQRS2';
+import{ Sedes2 } from '../modelos/modelos2/sedes2';
+import {IngresoPersonalEmpresa2} from '../modelos/modelos2/ingresoPersonalEmpresa2';
 @Injectable({
   providedIn: 'root'
 })
@@ -171,5 +173,13 @@ export class ModificarService {
 
   public actualizarArea(area: Area2){
     return this.http.put<void>(this.path+'/Area/'+ area.id, area);
+  }
+
+  public actualizarSede(sede: Sedes2){
+    return this.http.put<void>(this.path+'/Sede/'+ sede.id, sede);
+  }
+
+  public actualizarIngresoPersonalEmpresa(sede: IngresoPersonalEmpresa2){
+    return this.http.put<void>(this.path+'/IngresoPersonalEmpresa/'+ sede.id, sede);
   }
 }

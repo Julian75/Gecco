@@ -129,7 +129,6 @@ mat-option{ font-size: 11px; }
   width: 80% !important; margin-left: 10%; margin-top: 4%;
 }
 
-
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   .row1{ margin-top: 39%;}
@@ -140,20 +139,21 @@ mat-option{ font-size: 11px; }
   .ven { width: 221px;}
   .nombre{width: 221px; }
   .nombre1{width: 221px;}
-  .guardar{ margin-left: 38%; top: 153.3% !important; width: 26.5%; height: 35px;}
+  .guardar{ position: static; margin-left: 67%; margin-top: -5px; width: 73.5px; height: 35px;}
   .guardar, span{ font-size: 12px;}
   .botonvolver{ width: 31px; height: 31px; position: absolute; margin-left: 6%; top: 89px;}
   .botonvolver mat-icon{ position: static; margin-left: -195%; margin-top: -35%; font-size: 21px;}
   .dato{ position: absolute; top: 21%;}
-  #person{ top: 154%; left: 36.6%; width: 44px; height: 31px;}
-  #person mat-icon{ position: absolute; left: 19%; top: 8%;}
-  #selectButton{ margin-left: -120%; width: 44px; height: 31px;}
-  #selectButton mat-icon{ left: 41px; position: absolute; margin-top: -13px;}
+  #person{ position: static; margin-top: -201px; margin-left: -45px; width: 40px; height: 31px;}
+  #person mat-icon{ font-size: 20px; position: static; margin-left: -5px; margin-top: -2px;}
+  #selectButton{ position: static; margin-top: -72px; margin-left: -120px; width: 40px; height: 31px;}
+  #selectButton mat-icon{ font-size: 20px; position: static; margin-left: -5px; margin-top: -2px;}
   #opcSpa{ left: 8px; }
   .archivos{ margin-left: -120%; width: 212%; margin-top: 8%; }
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
+  .add2{ margin-left: 29%; margin-top: 2%; }
   .row1{ position: static;margin-top: 4%;}
   .nombre2{ margin-left: 1% !important; margin-top: 1.5% !important; }
   .nombre3{ margin-left: 1% !important; margin-top: 0% !important;  }
@@ -167,15 +167,15 @@ mat-option{ font-size: 11px; }
   .nombre{width: 285px; }
   .nombre1{width: 285px;}
   .guardar2{width: 250px; padding-left: 0%; position: static; margin-top: -59px; margin-left: 99px; padding-right: 0%;}
-  .guardar{ position: static; margin-left: 38%; margin-top: 54px; width: 35.5%; height: 35px;}
+  .guardar{ position: static; margin-left: 38%; margin-top: 50px; width: 35.5%; height: 35px;}
   .guardar, span{ font-size: 12px;}
   .botonvolver{ width: 31px; height: 31px; position: static; margin-left: 0%;}
   .botonvolver mat-icon{ position: static; margin-left: -195%; margin-top: -35%; font-size: 21px;}
   .dato{ position: static; margin-top: 2%;}
-  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
-  #person mat-icon{ position: absolute; left: 27%; top: 8%;}
-  #selectButton{ margin-left: -120%; width: 60px; height: 31px; margin-top: -90px;}
-  #selectButton mat-icon{ left: 15.6%; position: absolute; margin-top: -13px;}
+  #person{position: static; width: 40px; height: 33px; margin-top: -133px;}
+  #person mat-icon{ font-size: 20px; position: static; margin-left: -5px; margin-top: -1px;}
+  #selectButton{ margin-left: -120%; width: 40px; height: 33px; margin-top: -83px; }
+  #selectButton mat-icon{ font-size: 20px; position: static; margin-top: -2px; margin-left: -4px;}
   #opcSpa{ left: 8px; }
   .archivos{
     margin-left: -119%;
@@ -202,7 +202,7 @@ mat-option{ font-size: 11px; }
   .botonvolver{ width: 31px; height: 31px; position: static; margin-left: 0%;}
   .botonvolver mat-icon{ position: static; margin-left: -195%; margin-top: -35%; font-size: 21px;}
   .dato{ position: static; margin-top: 2%;}
-  #person{ top: 161.5%; left: 36.6%; width: 60px; height: 33px;}
+  #person{ position: absolute; margin-top: -55px; margin-left: 40px; width: 60px; height: 33px; }
   #person mat-icon{ position: absolute; left: 27%; top: 8%;}
   #selectButton{ margin-left: -120%; width: 60px; height: 31px; margin-top: -90px;}
   #selectButton mat-icon{ left: 13.6%; position: absolute; margin-top: -13px;}

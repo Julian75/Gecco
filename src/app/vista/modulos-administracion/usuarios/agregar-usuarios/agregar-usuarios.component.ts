@@ -100,8 +100,18 @@ export class AgregarUsuariosComponent implements OnInit {
     let usuario : Usuario = new Usuario();
     if(this.formUsuario.valid){
       document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-      usuario.nombre = this.formUsuario.controls['nombre'].value;
-      usuario.apellido = this.formUsuario.controls['apellido'].value;
+      const nombre = this.formUsuario.controls['nombre'].value;
+      const apellido = this.formUsuario.controls['apellido'].value;
+      const nombres = nombre.split(" ");
+      const apellidos = apellido.split(" ");
+      for (let i = 0; i < nombres.length; i++) {
+        nombres[i] = nombres[i].charAt(0).toUpperCase() + nombres[i].substring(1).toLowerCase();
+        usuario.nombre = nombres.join(" ");
+      }
+      for (let i = 0; i < apellidos.length; i++) {
+        apellidos[i] = apellidos[i].charAt(0).toUpperCase() + apellidos[i].substring(1).toLowerCase();
+        usuario.apellido = apellidos.join(" ");
+      }
       usuario.correo = this.formUsuario.controls['correo'].value;
       usuario.ideOficina = Number(this.formUsuario.controls['oficina'].value);
       this.servicioOficinas.listarPorId(usuario.ideOficina).subscribe(resOficina=>{

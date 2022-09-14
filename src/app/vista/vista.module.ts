@@ -140,6 +140,11 @@ import { AreaComponent } from './modulos-recepcion-datos/area/area.component';
 import { AgregarAreaComponent } from './modulos-recepcion-datos/area/agregar-area/agregar-area.component';
 import { ModificarAreaComponent } from './modulos-recepcion-datos/area/modificar-area/modificar-area.component';
 import { DescargasMultiplesComponent } from './modulos-recepcion-datos/descargas-multiples/descargas-multiples.component';
+import { SedesComponent } from './modulos-registro-ingreso/sedes/sedes.component';
+import { AgregarSedesComponent } from './modulos-registro-ingreso/sedes/agregar-sedes/agregar-sedes.component';
+import { ModificarSedesComponent } from './modulos-registro-ingreso/sedes/modificar-sedes/modificar-sedes.component';
+import { RegistroIngresoComponent } from './modulos-registro-ingreso/registro-ingreso/registro-ingreso.component';
+import { AgregarPersonalComponent } from './modulos-registro-ingreso/agregar-personal/agregar-personal.component';
 
 @NgModule({
   declarations: [
@@ -278,6 +283,11 @@ import { DescargasMultiplesComponent } from './modulos-recepcion-datos/descargas
     AgregarAreaComponent,
     ModificarAreaComponent,
     DescargasMultiplesComponent,
+    SedesComponent,
+    AgregarSedesComponent,
+    ModificarSedesComponent,
+    RegistroIngresoComponent,
+    AgregarPersonalComponent,
   ],
   imports: [
     CommonModule,

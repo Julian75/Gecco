@@ -15,7 +15,7 @@ import { AgregarMotivoSolicitudComponent } from './agregar-motivo-solicitud/agre
 })
 export class MotivoSolicitudComponent implements OnInit {
   public motivoSolicitud: any = [];
-  displayedColumns = ['id', 'descripcion','opciones'];
+  displayedColumns = ['id', 'descripcion','area','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

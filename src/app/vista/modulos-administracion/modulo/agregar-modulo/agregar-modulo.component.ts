@@ -37,7 +37,7 @@ export class AgregarModuloComponent implements OnInit {
   public guardar() {
     this.listaExis = []
     let modulo : Modulo = new Modulo();
-    modulo.descripcion=this.formModulo.controls['descripcion'].value;
+    modulo.descripcion=this.formModulo.value.descripcion[0].toUpperCase() + this.formModulo.value.descripcion.slice(1).toLowerCase();
     if(modulo.descripcion==null || modulo.descripcion==""){
       Swal.fire({
         position: 'center',

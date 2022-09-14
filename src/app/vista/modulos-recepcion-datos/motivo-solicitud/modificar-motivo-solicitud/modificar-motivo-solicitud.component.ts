@@ -5,6 +5,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import Swal from 'sweetalert2';
 import { MotivoSolicitudService } from 'src/app/servicios/motivoSolicitud.service';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { AreaService } from 'src/app/servicios/area.service';
+import { MotivoSolicitud2 } from 'src/app/modelos/modelos2/motivoSolicitud2';
 @Component({
   selector: 'app-modificar-motivo-solicitud',
   templateUrl: './modificar-motivo-solicitud.component.html',
@@ -20,6 +22,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
     private router: Router,
     public dialogRef: MatDialogRef<ModificarMotivoSolicitudComponent>,
     private servicioMotivoSolicitud: MotivoSolicitudService,
+    private servicioArea: AreaService,
     private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
@@ -27,20 +30,35 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
   ngOnInit(): void {
     this.listarTodos()
     this.crearFormulario();
+    this.listaArea();
   }
 
   private crearFormulario() {
     this.formMotivoSolicitud = this.fb.group({
       id: [''],
       descripcion: [null,Validators.required],
+      area: [null,Validators.required],
     });
   }
 
+  listasArea:any = []
+  public listaArea(){
+    this.servicioArea.listarTodos().subscribe(resArea=>{
+      this.listasArea = resArea;
+    })
+  }
+
+  idMotivo: any
+  listaMotivo: any = []
   public listarTodos(){
-    this.servicioMotivoSolicitud.listarPorId(Number(this.data)).subscribe(data => {
-      this.formMotivoSolicitud.setValue(data);
-    }
-    );
+    this.idMotivo = this.data;
+    this.servicioMotivoSolicitud.listarPorId(this.idMotivo).subscribe(res => {
+      this.listaMotivo = res;
+      console.log(this.listaMotivo)
+      this.formMotivoSolicitud.controls['id'].setValue(this.listaMotivo.id);
+      this.formMotivoSolicitud.controls['descripcion'].setValue(this.listaMotivo.descripcion);
+      this.formMotivoSolicitud.controls['area'].setValue(this.listaMotivo.idArea.id);
+    })
   }
 
   existe: boolean = false
@@ -50,7 +68,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
     if (this.formMotivoSolicitud.valid) {
       this.servicioMotivoSolicitud.listarPorId(Number(this.data)).subscribe(resMot=>{
         this.servicioMotivoSolicitud.listarTodos().subscribe(resMotivo=>{
-          if(resMot.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase()){
+          if(resMot.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase() && resMot.idArea.id == this.formMotivoSolicitud.value.area){
             Swal.fire({
               icon: 'success',
               title: 'No hubieron cambios!',
@@ -61,7 +79,7 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
             window.location.reload();
           }else{
             resMotivo.forEach(element => {
-              if(element.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase()){
+              if(element.descripcion.toLowerCase() == this.formMotivoSolicitud.value.descripcion.toLowerCase() && element.id != resMot.id){
                 this.existe = true
               }else{
                 this.existe = false
@@ -77,7 +95,12 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
                 timer: 1500
               });
             }else{
-              this.servicioModificar.actualizarMotivoSolicitud(this.formMotivoSolicitud.value).subscribe(data => {
+              let motivoSolicitudActualizar : MotivoSolicitud2 = new MotivoSolicitud2();
+              motivoSolicitudActualizar.id = resMot.id
+              motivoSolicitudActualizar.descripcion = this.formMotivoSolicitud.controls['descripcion'].value;
+              motivoSolicitudActualizar.idArea = Number(this.formMotivoSolicitud.controls['area'].value);
+              console.log(motivoSolicitudActualizar)
+              this.servicioModificar.actualizarMotivoSolicitud(motivoSolicitudActualizar).subscribe(data => {
                 Swal.fire({
                   icon: 'success',
                   title: 'Se actualizo el motivo',

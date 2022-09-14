@@ -1,0 +1,87 @@
+<div class="contenedor">
+    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+
+    <div class="documento">
+        <mat-form-field class="documento1" appearance="fill">
+            <mat-label>Ingrese documento</mat-label>
+            <input type="text"
+              aria-label="text"
+              matInput
+              [formControl]="myControl"
+              [matAutocomplete]="auto" >
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="documento" name="documento">
+              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item" >
+                {{item.documento}} | {{item.nombre}} {{item.apellido}}
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="botones">
+        <button class="btn btnver mx-2" >
+            <mat-icon>person_search</mat-icon>
+        </button>
+        <!-- <button class="btn boton mx-2" *ngIf="num == 0" (click)="abrirModal()">
+            <mat-icon>add</mat-icon>
+        </button> -->
+    </div>
+
+    <!-- <mat-form-field class="buscador" appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field> -->
+    <section class="example-container mat-elevation-z8" tabindex="0">
+      <table id="registroIngreso" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="id" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Nombre</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Fecha</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="horaIng">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Hora Ingreso</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="horaSal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Hora Salida</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Area</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
+          </ng-container>
+
+          <!--Opciones-->
+           <ng-container matColumnDef="opciones">
+            <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
+            <td mat-cell *matCellDef="let item" id="opcSp2">
+              <button class="btn btnremove mx-2" >
+                <!-- (click)="eliminarRol(item.id)" -->
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                aria-label="Select page">
+    </mat-paginator>
+  </div>
+

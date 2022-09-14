@@ -53,7 +53,7 @@ export class ModificarModuloComponent implements OnInit {
     this.listaExis = []
     let modulo : Modulo2 = new Modulo2();
     modulo.id=Number(this.data);
-    modulo.descripcion=this.formModulo.controls['descripcion'].value;
+    modulo.descripcion=this.formModulo.value.descripcion[0].toUpperCase() + this.formModulo.value.descripcion.slice(1).toLowerCase();
     if(modulo.descripcion==null || modulo.descripcion==""){
       Swal.fire({
         position: 'center',

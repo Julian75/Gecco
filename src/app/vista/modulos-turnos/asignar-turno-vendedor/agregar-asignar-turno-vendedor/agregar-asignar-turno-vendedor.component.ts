@@ -590,20 +590,32 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     });
   }
 
+  existe: boolean = false;
+  listaExiste: any = []
   public eliminarAsignarTurnoVendedor(id:number){
+    this.listaExiste = []
+    this.listaAcceso = []
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
       this.servicioAcceso.listarTodos().subscribe(resAcceso=>{
         resAcceso.forEach(element => {
-          if(element.idRol = resUsuario.idRol){
-            this.listaAcceso.push(element)
+          if(element.idRol.id = resUsuario.idRol.id){
+            this.listaAcceso.push(element.idModulo.id)
           }
         });
-        this.listaAcceso.forEach((elementAcceso:any) => {
-          if(elementAcceso.idModulo.id == 21){
-            this.acceso = elementAcceso.idModulo.id
+        console.log(this.listaAcceso)
+        for (let index = 0; index < this.listaAcceso.length; index++) {
+          const element = this.listaAcceso[index];
+          if(element == 21){
+            this.existe = true
+          }else{
+            this.existe = false
           }
-        });
-        if(this.acceso == 21){
+          this.listaExiste.push(this.existe)
+        }
+        console.log(this.listaExiste)
+        const existira = this.listaExiste.includes(true)
+        console.log(existira)
+        if(existira == true){
           let asignarTurno : AsignarTurnoVendedor2 = new AsignarTurnoVendedor2();
           const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -612,7 +624,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
             },
             buttonsStyling: false
           })
-
           swalWithBootstrapButtons.fire({
             title: '¿Estas seguro?',
             text: "No podrás revertir esto!",

@@ -74,6 +74,8 @@ import { AsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignac
 import { AgregarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/agregar-asignacion-usuario-pqr/agregar-asignacion-usuario-pqr.component';
 import { ModificarAsignacionUsuarioPqrComponent } from './modulos-recepcion-datos/asignacion-usuario-pqr/modificar-asignacion-usuario-pqr/modificar-asignacion-usuario-pqr.component';
 import { AreaComponent } from './modulos-recepcion-datos/area/area.component';
+import { SedesComponent } from './modulos-registro-ingreso/sedes/sedes.component';
+import { RegistroIngresoComponent } from './modulos-registro-ingreso/registro-ingreso/registro-ingreso.component';
 
 const routes: Routes = [
   {
@@ -466,6 +468,17 @@ const routes: Routes = [
       {
         path: 'areaPQRS',
         component: AreaComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Registro Ingreso
+      {
+        path: 'sedes',
+        component: SedesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'registroIngreso',
+        component: RegistroIngresoComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

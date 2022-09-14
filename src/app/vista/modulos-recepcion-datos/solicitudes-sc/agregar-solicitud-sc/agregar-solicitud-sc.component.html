@@ -79,9 +79,6 @@
           <input id="auxiliar" formControlName="auxiliar" matInput>
         </mat-form-field>
       </div>
-      <div class="add2" *ngIf="num == 0">
-        <button id="person" class="btn" (click)="agregarClienteServicCliente()"><mat-icon>person_add</mat-icon></button>
-      </div>
     </div>
     <div class="row">
       <!-- Boton de guardar datos -->
@@ -99,6 +96,9 @@
           <li style="margin-top: 5px;" *ngFor="let item of listaArchivos2">{{item}}</li>
         </ul>
       </div>
+    </div>
+    <div class="add2" *ngIf="num == 0">
+      <button id="person" class="btn" (click)="agregarClienteServicCliente()"><mat-icon>person_add</mat-icon></button>
     </div>
   </form>
 </div>

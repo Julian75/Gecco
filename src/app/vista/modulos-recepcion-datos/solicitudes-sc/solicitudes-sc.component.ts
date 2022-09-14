@@ -26,7 +26,12 @@ import { Correo } from 'src/app/modelos/correo';
 import { RegistroCorreo } from 'src/app/modelos/registroCorreo';
 import { SolicitudSC } from 'src/app/modelos/solicitudSC';
 import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
+import {FormGroup, FormControl} from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+const today = new Date();
+const month = today.getMonth();
+const year = today.getFullYear();
 @Component({
   selector: 'app-solicitudes-sc',
   templateUrl: './solicitudes-sc.component.html',
@@ -40,10 +45,15 @@ export class SolicitudesScComponent implements OnInit {
   public listarSolicitud: any = [];
   public tiempoLimite: any;
   public tiempoCaducado: any;
+  public listaFiltrada: any = [];
   displayedColumns = ['id', 'fecha', 'vence', 'municipio', 'incidente', 'motivoSolicitud', 'medioRadicacion', 'tipoServicio', 'estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   constructor(
     private servicioSolicitudSc: SolicitudSCService,
@@ -64,6 +74,26 @@ export class SolicitudesScComponent implements OnInit {
   ngOnInit(): void {
     this.listarTodos();
     this.variables();
+  }
+
+  capturar() {
+    console.log(this.range.value);
+    if (this.range.value.start == null || this.range.value.end == null) {
+      this.dataSource = new MatTableDataSource(this.listarSolicitud);
+    }else{
+      this.dataSource = new MatTableDataSource(this.listarSolicitud.filter((item) => {
+        const fecha = new Date(item.solicitud.fecha);
+        const inicio = new Date(this.range.value.start);
+        const fin = new Date(this.range.value.end);
+        const fechaInicio = new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate());
+        const fechaFin = new Date(fin.getFullYear(), fin.getMonth(), fin.getDate());
+        const fechaSolicitud = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate()+1);
+        if (fechaSolicitud >= fechaInicio && fechaSolicitud <= fechaFin) {
+          console.log("entro");
+          return item;
+        }
+      }));
+    }
   }
 
   public abrirModal(idSolicitud: any){
@@ -280,16 +310,27 @@ export class SolicitudesScComponent implements OnInit {
         }
       })
     })
+
   }
 
   //Descargar si subio soporte el cliente al momento de generar la solicitud
   public descargarPdf(idSolicitudSC: number){
+    console.log("holis1")
+    console.log(idSolicitudSC)
     var listaPdf = []
     this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
+      console.log("holis2")
       this.servicioConsultasGenerales.listarArchivosSC(idSolicitudSC).subscribe(resArchivos=>{
+        console.log("holis2")
+        console.log(resArchivos)
         resArchivos.forEach(elementArchivos => {
+          console.log(elementArchivos)
           for(const i in resPdf){
+            console.log(i)
+            console.log("wenis3", resPdf[i])
             if (elementArchivos.nombreArchivo == resPdf[i].name) {
+              console.log("wenis4")
+              console.log(elementArchivos, resPdf[i])
               listaPdf.push(resPdf[i])
             }
           }
@@ -410,7 +451,7 @@ export class SolicitudesScComponent implements OnInit {
     });
   }
 
-   // Filtrado
+  // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     if(filterValue == ""){
@@ -440,6 +481,9 @@ export class SolicitudesScComponent implements OnInit {
     }
     return search;
   }
+
+
+
 
   name = 'solicitudesPQRS.xlsx';
   exportToExcel(): void {
