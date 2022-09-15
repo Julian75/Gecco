@@ -1,3 +1,4 @@
+import { Sedes } from 'src/app/modelos/sedes';
 import {TipoDocumento} from './tipoDocumento';
 import {Area} from './area';
 import {Estado} from './estado';
@@ -8,9 +9,10 @@ export class IngresoPersonalEmpresa{
     idTipoDocumento !: TipoDocumento;
     public documento: number=0;
     idArea !: Area;
-    public horaIngreso: Date = new Date();
-    public horaSalida: Date = new Date();
+    public horaIngreso: String="";
+    public horaSalida: String="";
     idEstado !: Estado;
+    idSedes !: Sedes;
     public fecha: Date = new Date();
     public ideOficina: number=0;
 }

@@ -10,6 +10,11 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, startWith, map } from 'rxjs';
 import { IngresoPersonalEmpresa } from 'src/app/modelos/ingresoPersonalEmpresa';
 import { IngresoPersonalEmpresaService } from 'src/app/servicios/ingresoPersonalEmpresa.service';
+import { AgregarPersonalComponent } from '../agregar-personal/agregar-personal.component';
+import { IngresoPersonalEmpresa2 } from 'src/app/modelos/modelos2/ingresoPersonalEmpresa2';
+import { EstadoService } from 'src/app/servicios/estado.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-registro-ingreso',
@@ -19,7 +24,10 @@ import { IngresoPersonalEmpresaService } from 'src/app/servicios/ingresoPersonal
 export class RegistroIngresoComponent implements OnInit {
 
   public listaRegistro: any = [];
+  public listaRegistro2: any = [];
   public personasRegistradas: any = [];
+  public lista: any = [];
+  public fecha: Date = new Date();
 
   myControl = new FormControl<string | IngresoPersonalEmpresa>("");
   options: IngresoPersonalEmpresa[] = [];
@@ -32,24 +40,47 @@ export class RegistroIngresoComponent implements OnInit {
 
   constructor(
     private servicioRegistro : IngresoPersonalEmpresaService,
+    private servicioEstado : EstadoService,
+    private servicioModificar : ModificarService,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.listarTodos();
-    this.listaRegistro();
+    this.listarRegistro();
   }
 
-  // abrirModal(): void {
-  //   const dialogRef = this.dialog.open(AgregarTipoDocumentoComponent, {
-  //     width: '500px',
-  //   });
-  // }
+  abrirModal(valor): void {
+    if(typeof(this.document) === "object"){
+      console.log(this.document)
+      if(this.document.idEstado.id == 73){
+        const dialogRef = this.dialog.open(AgregarPersonalComponent, {
+          width: '400px',
+          data: this.document
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ya existe un registro de ingreso!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+      this.document = undefined
+    }else{
+      const dialogRef = this.dialog.open(AgregarPersonalComponent, {
+        width: '850px',
+        data: valor
+      });
+    }
+  }
 
   public listarTodos() {
     this.servicioRegistro.listarTodos().subscribe(res => {
+      this.listaRegistro2 = res
       res.forEach(element => {
-        if(element.idEstado.id == 71){
+        if(element.idEstado.id == 72){
           this.listaRegistro.push(element)
         }
       });
@@ -62,6 +93,19 @@ export class RegistroIngresoComponent implements OnInit {
   public listarRegistro(){
     this.servicioRegistro.listarTodos().subscribe(res=>{
       this.personasRegistradas = res
+
+      let result = this.personasRegistradas.forEach((element: any) => {
+        const registro = this.personasRegistradas.find((registro: any) => registro.documento === element.documento);
+        if (registro) {
+          const index = this.personasRegistradas.indexOf(registro);
+          const index2 = this.personasRegistradas.indexOf(element);
+          if (index !== index2) {
+            this.personasRegistradas.splice(index2, 1);
+            console.log(this.personasRegistradas)
+          }
+
+        }
+      })
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(""),
         map(value => {
@@ -98,6 +142,52 @@ export class RegistroIngresoComponent implements OnInit {
     this.document = event.option.value
   }
 
+  public eliminarIngreso(id: number){
+    let personal : IngresoPersonalEmpresa2 = new IngresoPersonalEmpresa2();
+    this.servicioRegistro.listarPorId(id).subscribe(res=>{
+      personal.id = res.id
+      personal.nombre = res.nombre
+      personal.apellido = res.apellido
+      personal.documento = res.documento
+      personal.fecha = res.fecha
+      personal.horaIngreso = res.horaIngreso
+      personal.ide_oficina = res.ideOficina
+      personal.id_area = res.idArea.id
+      personal.id_sede = res.idSedes.id
+      personal.idTipoDocumento = res.idTipoDocumento.id
+      this.servicioEstado.listarPorId(73).subscribe(resEstado=>{
+        personal.id_estado = resEstado.id
+        if(this.fecha.getMinutes() < 10){
+          personal.horaSalida = this.fecha.getHours()+":0"+this.fecha.getMinutes()
+        }else{
+          personal.horaSalida = this.fecha.getHours()+":"+this.fecha.getMinutes()
+        }
+        this.modificarPersonal(personal);
+      });
+    })
+  }
+
+  public modificarPersonal(personal: IngresoPersonalEmpresa2){
+    this.servicioModificar.actualizarIngresoPersonalEmpresa(personal).subscribe(res => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se cerro el turno correctamente!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload();
+    }, err => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ocurrió un error al eliminar!',
+        showConfirmButton: false,
+        timer: 1500
+        })
+    })
+  }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -109,13 +199,35 @@ export class RegistroIngresoComponent implements OnInit {
   }
   name = 'listaRegistros.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('registroIngreso');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+      this.listaRegistro2.forEach(element => {
+        var obj = {
+          nombre: element.nombre + " " + element.apellido,
+          fecha: element.fecha,
+          horaIng: element.horaIngreso,
+          horaSal: element.horaSalida,
+          area: element.idArea.descripcion,
+        }
+        this.lista.push(obj)
+        console.log(element)
+      });
+      console.log(this.lista)
+      if(this.lista.length > 0){
+        import("xlsx").then(xlsx => {
+          const worksheet = xlsx.utils.json_to_sheet(this.lista);
+          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+          this.saveAsExcelFile(excelBuffer, this.name);
+        });
+      }
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
 }

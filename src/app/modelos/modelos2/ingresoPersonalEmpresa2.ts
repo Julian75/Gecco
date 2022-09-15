@@ -4,10 +4,11 @@ export class IngresoPersonalEmpresa2{
     public apellido: string="";
     public idTipoDocumento: number=0;
     public documento: number=0;
-    public idArea: number=0;
-    public horaIngreso: Date = new Date();
-    public horaSalida: Date = new Date();
-    public idEstado: number=0;
+    public id_area: number=0;
+    public horaIngreso: String="";
+    public horaSalida: String="";
+    public id_estado: number=0;
+    public id_sede: number=0;
     public fecha: Date = new Date();
-    public ideOficina: number=0;
+    public ide_oficina: number=0;
 }

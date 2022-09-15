@@ -114,6 +114,7 @@ export class SolicitudesScComponent implements OnInit {
   public abrirHistorial(idSolicitud: any){
     const dialogRef = this.dialog.open(HistorialSolicitudesComponent, {
       width: '1000px',
+      height: '440px',
       data: idSolicitud
     });
   }
@@ -315,22 +316,12 @@ export class SolicitudesScComponent implements OnInit {
 
   //Descargar si subio soporte el cliente al momento de generar la solicitud
   public descargarPdf(idSolicitudSC: number){
-    console.log("holis1")
-    console.log(idSolicitudSC)
     var listaPdf = []
     this.servicioPdf.listarTodosSegunda().subscribe(resPdf => {
-      console.log("holis2")
       this.servicioConsultasGenerales.listarArchivosSC(idSolicitudSC).subscribe(resArchivos=>{
-        console.log("holis2")
-        console.log(resArchivos)
         resArchivos.forEach(elementArchivos => {
-          console.log(elementArchivos)
           for(const i in resPdf){
-            console.log(i)
-            console.log("wenis3", resPdf[i])
             if (elementArchivos.nombreArchivo == resPdf[i].name) {
-              console.log("wenis4")
-              console.log(elementArchivos, resPdf[i])
               listaPdf.push(resPdf[i])
             }
           }

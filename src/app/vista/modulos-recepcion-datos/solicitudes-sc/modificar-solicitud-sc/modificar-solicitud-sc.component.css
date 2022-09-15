@@ -109,6 +109,12 @@ width: 7.8%;
 border-top: 3px solid #97B4E2;
 padding-bottom: 4%;
 }
-.contenedor{
-width: 80% !important; margin-left: 10%; margin-top: 4%;
+/* Movil pequeño 1, 2, 3 y 4 - MOVILES*/
+@media screen and (min-width: 280px) and (max-width: 639px){
+  .nombre{ width: 95%; top: 8px; left: 0px; }
+  .guardar{ width: 106px; margin-left: 3%; font-size: 15px; }
+}
+/* Tablet 2,3,4,5,6,7,8,9,10,11,12,13,14, Portatil 1,2,3,4,5,6 y 7, Compu. Mesa 1,2,3,4,5,6,7 Televisor 1,2,3,4,5 */
+@media screen and (min-width: 640px) and (max-width: 7680px){
+  .guardar{ position: static; margin-left: 23px; font-size: 15px; width: 106px;}
 }

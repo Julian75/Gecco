@@ -1,1 +1,73 @@
-<p>agregar-personal works!</p>
+<div class="contenedor">
+    <h2 class="dato">Ingresar Nuevo Personal</h2>
+    <form [formGroup]="formPersonal">
+      <div class="row1">
+        <div class="nombre2" id="nom">
+          <h2>Nombre</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese nombre </mat-label>
+          <input id="nombre" formControlName="nombre" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre2">
+          <h2>Sede</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Seleccione Sede </mat-label>
+          <select matNativeControl id="sede" name="sede" formControlName="sede">
+            <option *ngFor="let item of listaSede"  value="{{item.id}}">{{item.descripcion}}</option>
+          </select>
+          </mat-form-field>
+        </div>
+        <div class="nombre2" id="tipoDoc">
+          <h2>Tipo Documento</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese Tipo Documento</mat-label>
+          <select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
+            <option *ngFor="let item of listaTipoDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
+          </select>
+          </mat-form-field>
+        </div>
+        <div class="nombre2">
+          <h2>Area</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Seleccione Area</mat-label>
+          <select matNativeControl id="area" name="area" formControlName="area">
+            <option *ngFor="let item of listaArea"  value="{{item.id}}">{{item.descripcion}}</option>
+          </select>
+          </mat-form-field>
+        </div>
+        <div class="nombre3" id="apell">
+          <h2>Apellido</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese apellido </mat-label>
+          <input id="apellido" formControlName="apellido" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4" id="doc">
+          <h2>Documento</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+            <mat-label>Ingrese documento </mat-label>
+            <input type="number" id="documento" formControlName="documento" matInput minlength="1">
+          </mat-form-field>
+        </div>
+        <div class="nombre4" id="ofic">
+          <h2 class="ofi">Oficina</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Seleccione Oficina</mat-label>
+          <select matNativeControl id="oficina" name="oficina" formControlName="oficina">
+            <option *ngFor="let item of listaOficinas"  value="{{item.ideOficina}}">{{item.ideOficina}} | {{item.nom_oficina}}</option>
+          </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Boton de guardar datos -->
+        <div class="guardar2">
+          <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="solpiner" id="snipper" style="text-align: center; display: none;">
+    <div class="loader"></div>
+  </div>

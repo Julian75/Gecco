@@ -4,7 +4,7 @@
     <div class="documento">
         <mat-form-field class="documento1" appearance="fill">
             <mat-label>Ingrese documento</mat-label>
-            <input type="text"
+            <input #docum type="text"
               aria-label="text"
               matInput
               [formControl]="myControl"
@@ -17,12 +17,9 @@
         </mat-form-field>
     </div>
     <div class="botones">
-        <button class="btn btnver mx-2" >
+        <button class="btn btnver mx-2" (click)="abrirModal(docum.value)">
             <mat-icon>person_search</mat-icon>
         </button>
-        <!-- <button class="btn boton mx-2" *ngIf="num == 0" (click)="abrirModal()">
-            <mat-icon>add</mat-icon>
-        </button> -->
     </div>
 
     <!-- <mat-form-field class="buscador" appearance="standard">
@@ -40,35 +37,34 @@
           <!-- Name Column -->
           <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Nombre</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.nombre}} {{element.apellido}}</td>
           </ng-container>
 
           <ng-container matColumnDef="fecha">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Fecha</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
           </ng-container>
 
           <ng-container matColumnDef="horaIng">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Hora Ingreso</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.horaIngreso}}</td>
           </ng-container>
 
           <ng-container matColumnDef="horaSal">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Hora Salida</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.horaSalida}}</td>
           </ng-container>
 
           <ng-container matColumnDef="area">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Area</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idJerarquia.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.idArea.descripcion}}</td>
           </ng-container>
 
           <!--Opciones-->
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button class="btn btnremove mx-2" >
-                <!-- (click)="eliminarRol(item.id)" -->
+              <button class="btn btnremove mx-2" (click)="eliminarIngreso(item.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
