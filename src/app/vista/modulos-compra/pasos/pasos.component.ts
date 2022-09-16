@@ -354,7 +354,7 @@ export class PasosComponent implements OnInit {
                 }if(res.idEstado.id == 30){
                   const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
                     width: '2500px',
-                    height: '600px',
+                    height: '440px',
                     data: this.lista[0]
                   });
                 }
@@ -608,7 +608,7 @@ export class PasosComponent implements OnInit {
                   resOrdenCompra.forEach(element => {
                     const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
                       width: '1000px',
-                      height: '450px',
+                      height: '440px',
                       data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
                     });
                   });

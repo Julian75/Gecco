@@ -28,6 +28,8 @@ export class RegistroIngresoComponent implements OnInit {
   public personasRegistradas: any = [];
   public lista: any = [];
   public fecha: Date = new Date();
+  public lis: any = [];
+
 
   myControl = new FormControl<string | IngresoPersonalEmpresa>("");
   options: IngresoPersonalEmpresa[] = [];
@@ -51,29 +53,36 @@ export class RegistroIngresoComponent implements OnInit {
   }
 
   abrirModal(valor): void {
-    if(typeof(this.document) === "object"){
-      console.log(this.document)
-      if(this.document.idEstado.id == 73){
-        const dialogRef = this.dialog.open(AgregarPersonalComponent, {
-          width: '400px',
-          data: this.document
-        });
+
+      if(typeof(this.document) === "object"){
+        console.log(this.document)
+        if(this.document.idEstado.id == 73){
+          const dialogRef = this.dialog.open(AgregarPersonalComponent, {
+            width: '400px',
+            data: this.document,
+            backdropClass: 'static',
+            disableClose: true,
+          });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ya existe un registro de ingreso!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+
+        this.document = undefined
       }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Ya existe un registro de ingreso!',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        const dialogRef = this.dialog.open(AgregarPersonalComponent, {
+          width: '850px',
+          data: valor,
+          backdropClass: 'static',
+          disableClose: true,
+        });
       }
-      this.document = undefined
-    }else{
-      const dialogRef = this.dialog.open(AgregarPersonalComponent, {
-        width: '850px',
-        data: valor
-      });
-    }
+
   }
 
   public listarTodos() {
@@ -91,26 +100,20 @@ export class RegistroIngresoComponent implements OnInit {
   }
 
   public listarRegistro(){
+    var personasRegistradas2 = []
     this.servicioRegistro.listarTodos().subscribe(res=>{
       this.personasRegistradas = res
-
-      let result = this.personasRegistradas.forEach((element: any) => {
-        const registro = this.personasRegistradas.find((registro: any) => registro.documento === element.documento);
-        if (registro) {
-          const index = this.personasRegistradas.indexOf(registro);
-          const index2 = this.personasRegistradas.indexOf(element);
-          if (index !== index2) {
-            this.personasRegistradas.splice(index2, 1);
-            console.log(this.personasRegistradas)
-          }
-
+      let result = this.personasRegistradas.filter((item: any, index: any) => {
+        if (index === this.personasRegistradas.findLastIndex((item2: any) => item2.documento === item.documento)) {
+          this.lis.push(item)
         }
-      })
+
+      });
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(""),
         map(value => {
           const num_identificacion = typeof value == 'string' ? value : value?.documento.toString();
-          return num_identificacion ? this._filter(num_identificacion as string, this.personasRegistradas) : this.personasRegistradas.slice();
+          return num_identificacion ? this._filter(num_identificacion as string, this.lis) : this.lis.slice();
         }),
       );
     })

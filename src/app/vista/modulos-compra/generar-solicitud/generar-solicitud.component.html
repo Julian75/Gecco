@@ -1,7 +1,50 @@
 <div class="contenedor">
   <h2 class="dato">Ingresar Nueva Solicitud de Compra</h2>
   <form [formGroup]="formSolicitud">
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button class="btn guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
+        <button class="btn guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+        <button class="btn guardar6" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
+      </div>
+    </div>
+
     <div class="row1">
+      <div class="campos">
+        <!-- Ingresar Nombre -->
+        <div class="nombre2">
+          <h2 class="articulo">Articulo</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+            <mat-label>Ingrese Articulo</mat-label>
+            <input type="text"
+            aria-label="text"
+            matInput
+            [formControl]="articulos"
+            [matAutocomplete]="auto2">
+            <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo">
+              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
+                {{item.descripcion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="nombre3">
+          <h2 class="can">Cantidad</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese Cantidad del articulo</mat-label>
+          <input type="number" id="cantidad" formControlName="cantidad" name="cantidad" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2 class="obs">Observacion</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese observación del articulo</mat-label>
+          <textarea id="observacion" formControlName="observacion" matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
       <section class="example-container mat-elevation-z8" tabindex="0">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla">
 
@@ -50,46 +93,6 @@
       <button  mat-raised-button class="guardar4" (click)="generarSolicitud()">Generar Solicitud</button>
       <mat-paginator  [length]="100" [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
-
-      <!-- Ingresar Nombre -->
-      <div class="nombre2">
-        <h2 class="articulo">Articulo</h2>
-        <mat-form-field class="nombre1" appearance="fill">
-          <mat-label>Ingrese Articulo</mat-label>
-          <input type="text"
-          aria-label="text"
-          matInput
-          [formControl]="articulos"
-          [matAutocomplete]="auto2">
-          <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="capturarArticulo($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo">
-            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
-              {{item.descripcion}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
-      <div class="nombre3">
-        <h2 class="can">Cantidad</h2>
-        <mat-form-field class="nombre" [color]="color" appearance="fill">
-        <mat-label>Ingrese Cantidad del articulo</mat-label>
-        <input type="number" id="cantidad" formControlName="cantidad" name="cantidad" matInput>
-        </mat-form-field>
-      </div>
-      <div class="nombre4">
-        <h2 class="obs">Observacion</h2>
-        <mat-form-field class="nombre" [color]="color" appearance="fill">
-        <mat-label>Ingrese observación del articulo</mat-label>
-        <textarea id="observacion" formControlName="observacion" matInput></textarea>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <!-- Boton de guardar datos -->
-      <div class="guardar2">
-        <button class="btn guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button class="btn guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
-        <button class="btn guardar6" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
-      </div>
     </div>
 
   </form>

@@ -107,6 +107,7 @@ export class SolicitudesScComponent implements OnInit {
   public abrirModificar(idSolicitud: any){
     const dialogRef = this.dialog.open(ModificarHistorialRemisionComponent, {
       width: '500px',
+      height: '440px',
       data: idSolicitud
     });
   }

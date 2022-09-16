@@ -55,7 +55,7 @@ export class GenerarCotizacionComponent implements OnInit {
   public agregarCotizacion(id:number){
     const dialogRef = this.dialog.open(AgregarCotizacionComponent, {
       width: '450px',
-      data: id
+      data: id,
     });
   }
 

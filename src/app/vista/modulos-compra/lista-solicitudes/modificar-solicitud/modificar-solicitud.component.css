@@ -45,6 +45,14 @@
   border-color: #FFF #FFF transparent transparent;
   animation: rotation 1.5s linear infinite;
 }
+th mat-checkbox{
+  padding-left: 3px;
+  padding-right: 23px;
+}
+td mat-checkbox{
+  padding-left: 23px;
+  padding-right: 17px;
+}
 
 @keyframes rotation {
   0% {
@@ -120,15 +128,10 @@ h2{
 .nombre, .estado, .nombre1{
   width: 280px;
 }
-.nombre2{     position: absolute;
-  left: 21%;
-  top: 28%;}
-.nombre3{     position: absolute;
-  left: 21%;
-  top: 40%;}
-.nombre4{     position: absolute;
-  left: 21%;
-  top: 52%;}
+.nombre2{ position: static; margin-left: 5%; margin-top: -27%;
+}
+.nombre3{ position: static;  margin-left: 5%; margin-top: 1%;}
+.nombre4{ position: static; margin-left: 4%; margin-top: 1%; width: 20.5%;}
 .botonagregar, .bot , .botonagregar2{
   color: white;
   font-size: large;
@@ -137,7 +140,7 @@ h2{
   top: 72%;
 }
 
-.botonagregar2{ margin-top: 3%; margin-left: 94%; position: static;}
+.botonagregar2{ margin-top: 3%; margin-left: 93.5%; position: static;}
 .o{
   position: relative;
   margin-left: 30%;
@@ -150,12 +153,8 @@ h2{
   position: relative;
   left: 0px;
 }
-.botonagregar{     left: 18.6%;
-  background-color: #00235C;
-  top: 69%;}
-.bot{ left: 24.5%;
-  background-color: #DA161A;
-  top: 69%;}
+.botonagregar{margin-left: 4%; background-color: #00235C; margin-top: 38%; position: static;}
+.bot{ left: 24.5%; background-color: #DA161A; margin-top: 38%; position: static;}
 .guardar6{ left: 21.5%;background-color: #959595 ;}
 .guardar4{
   margin-left: 83%;
@@ -175,19 +174,13 @@ mat-paginator{
   top: -93px;
 }
 
-.row1{
-border-top: 3px solid #97B4E2;
-padding-top: 3%;
-padding-bottom: 4%;
-}
+.row1{border-top: 3px solid #97B4E2; padding-top: 3%; padding-bottom: 4%; margin-top: -42%;}
 h3{ margin-bottom: 0px; }
 .contenedor{ width: 80% !important; margin-left: 10%; margin-top: 4%; }
 mat-option{ font-size: 10.5px; }
 .btnremove{ width: 64px; height: 36px; }
 #chetbox, #arti, #cant, #obser{ position: relative;}
-#chet, #chet2{
-  padding-left: 0%;
-}
+#chet, #chet2{ padding-left: 0%;}
 #obse, #obse2{ padding-right: 0%; }
 #chetbox{ left: 9px; }
 #arti{ left: 37px; }
@@ -196,6 +189,7 @@ mat-option{ font-size: 10.5px; }
 
 /* Movil pequeño - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
+  .row1{margin-top: -198%;}
   .contenedor{  width: 93% !important; margin-left: 3%; margin-top: -10%; }
   .guardar3 { left: 19%; width: 38px !important; height: 30px; top: 385px; }
   .guardar6 {width: 38px !important; height: 30px; top: 344px; }
@@ -209,30 +203,28 @@ mat-option{ font-size: 10.5px; }
   .cant{position: relative; margin-left: 37%; left: -35%;}
   td { font-size: 11px; height: 0px;}
   .nombre1 {width: 102%;  margin-left: -1%; top: -3px;}
-  /* , .estado */
   .nombre{width: 90%;margin-left: 11%;top: -25px;}
   .can{position: relative; left: 11%; top: -23px;}
   .obs{position: relative; left: 11%; top: -28px;}
-  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
-  .nombre2{margin-top: -324%; left: 21%; position: static;}
+  .nombres{width: 161px; position: relative; left: 7px; top: -27px;}
+  .nombre2{margin-top: -324%; margin-left: 1%; position: static;}
   .nombre3{margin-top: 4%; margin-left: -13%; position: static;}
-  .nombre4{ margin-top: -7%; margin-left: -13%; position: static;}
+  .nombre4{ margin-top: -7%; margin-left: -4%; position: static;}
   .example-container{max-width: 100%; overflow: auto; margin-top: 200% !important; margin-bottom: 37% !important; margin-left: 0%;}
-  #chet, #chet2{padding-left: 14px;  padding-right: 14px; }
   .guardar4{margin-left: 9%; margin-top: 53%; width: 86%; font-size: small;}
   mat-paginator{ position: static; width: 200px;  margin-left: -25px; margin-top: -135px;}
   #obse, #obse2{ padding-right: 0%; }
-  #chetbox{ left: 3px; }
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
-  .bot {margin-top: -44%; margin-left: 14%; position: static;}
-  .botonagregar{ margin-top: -44%; margin-left: 2%; position: static;}
+  .bot {margin-top: 179%; margin-left: 14%; position: static;}
+  .botonagregar{ margin-top: 179%; margin-left: 2%; position: static;}
   .botonagregar2{ margin-top: 29% !important; margin-left: 73% !important; position: static;}
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 374px){
+  .row1{ margin-top: -160%;}
   .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
   .guardar3 {left: 30%; top: 430px;}
   .guardar{left: 14%; top: 430px;}
@@ -248,27 +240,28 @@ mat-option{ font-size: 10.5px; }
   .nombre{width: 90%; margin-left: 11%; top: -25px;}
   .can{position: relative; left: 11%; top: -23px;  }
   .obs{position: relative; left: 11%; top: -28px;}
-  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
-  .nombre2{margin-top: -312%; margin-left: 3%; position: static;}
+  .nombres{width: 207px; position: relative; left: 4px; top: -27px;}
+  .nombre2{margin-top: -303%; margin-left: 3%; position: static;}
   .nombre3{margin-top: 6%; margin-left: -10%; position: static;}
-  .nombre4{margin-top: -1%; margin-left: -10%; position: static;}
-  .botonagregar{ margin-top: -33%; margin-left: 0%; position: static;}
-  .bot{ margin-top:-33%; margin-left: 7%; position: static;}
+  .nombre4{margin-top: -1%; margin-left: 0%; position: static;}
+  .botonagregar{ margin-top: 145%; margin-left: 2%; position: static;}
+  .bot{ margin-top:145%; margin-left: 7%; position: static;}
   .example-container{max-width: 100%; overflow: auto; margin-top: 162% !important; margin-bottom: 37% !important; margin-left: 0%;}
-  #chet, #chet2{padding-left: 14px; padding-right: 14px; }
+  /* #chet, #chet2{padding-left: 14px; padding-right: 14px; } */
   .guardar4{margin-left: 2%; margin-top: 18%; width: 23%;}
-  mat-paginator{margin-top: -7%; margin-left: -40%; width: 100%;}
-  .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;}
+  mat-paginator{margin-top: -18%;margin-left: -40%; width: 100%;}
+  /* .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;} */
   #obse, #obse2{ padding-right: 0%; }
-  #chetbox{ left: 3px; }
+  /* #chetbox{ left: 3px; } */
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
-  .botonagregar2{position: static; margin-top: 10%; margin-left: 83%;}
+  .botonagregar2{position: static; margin-top: 13%; margin-left: 83%;}
 }
 
 /*  movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 375px) and (max-width: 410px){
+  .row1{ margin-top: -157%;}
   .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
   .guardar3 {left: 30%; top: 430px;}
   .guardar{left: 14%; top: 430px;}
@@ -284,27 +277,28 @@ mat-option{ font-size: 10.5px; }
   .nombre{width: 90%; margin-left: 11%; top: -25px;}
   .can{position: relative; left: 11%; top: -23px;  }
   .obs{position: relative; left: 11%; top: -28px;}
-  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
-  .nombre2{margin-top: -303%; margin-left: 3%; position: static;}
+  .nombres{width: 207px; position: relative; left: 4px; top: -27px;}
+  .nombre2{margin-top: -297%; margin-left: 3%; position: static;}
   .nombre3{margin-top: 6%; margin-left: -10%; position: static;}
-  .nombre4{margin-top: -1%; margin-left: -10%; position: static;}
-  .botonagregar{ margin-top: -27%; margin-left: 0%; position: static;}
-  .bot{ margin-top:-27%; margin-left: 7%; position: static;}
+  .nombre4{margin-top: -1%; margin-left: 0%; position: static;}
+  .botonagregar{ margin-top: 141%; margin-left: 2%; position: static;}
+  .bot{ margin-top:141%; margin-left: 7%; position: static;}
   .example-container{max-width: 100%; overflow: auto; margin-top: 162% !important; margin-bottom: 37% !important; margin-left: 0%;}
-  #chet, #chet2{padding-left: 14px; padding-right: 14px; }
+  /* #chet, #chet2{padding-left: 14px; padding-right: 14px; } */
   .guardar4{margin-left: 2%; margin-top: 18%; width: 23%;}
-  mat-paginator{margin-top: -7%; margin-left: -40%; width: 100%;}
-  .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;}
+  mat-paginator{margin-top: -18%;margin-left: -40%; width: 100%;}
+  /* .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;} */
   #obse, #obse2{ padding-right: 0%; }
-  #chetbox{ left: 3px; }
+  /* #chetbox{ left: 3px; } */
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
-  .botonagregar2{position: static; margin-top: 10%; margin-left: 83%;}
+  .botonagregar2{position: static; margin-top: 13%; margin-left: 83%;}
 }
 
 /*  movil pequeño 4*/
 @media screen and (min-width: 411px) and (max-width: 599px){
+  .row1{ margin-top: -138%;}
   .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
   .guardar3 {left: 30%; top: 430px;}
   .guardar{left: 14%; top: 430px;}
@@ -320,70 +314,76 @@ mat-option{ font-size: 10.5px; }
   .nombre{width: 90%; margin-left: 11%; top: -25px;}
   .can{position: relative; left: 11%; top: -23px;  }
   .obs{position: relative; left: 11%; top: -28px;}
-  .nombres{width: 90%; position: relative; left: 23px; top: -27px;}
-  .nombre2{margin-top: -277%; margin-left: 3%; position: static;}
+  .nombres{width: 207px; position: relative; left: 4px; top: -27px;}
+  .nombre2{margin-top: -269%; margin-left: 3%; position: static;}
   .nombre3{margin-top: 6%; margin-left: -10%; position: static;}
-  .nombre4{margin-top: -1%; margin-left: -10%; position: static;}
-  .botonagregar{ margin-top: -27%; margin-left: 0%; position: static;}
-  .bot{ margin-top:-27%; margin-left: 7%; position: static;}
-  .example-container{max-width: 100%; overflow: auto; margin-top: 143% !important; margin-bottom: 37% !important; margin-left: 0%;}
-  #chet, #chet2{padding-left: 14px; padding-right: 14px; }
+  .nombre4{margin-top: -1%; margin-left: 0%; position: static;}
+  .botonagregar{ margin-top: 127%; margin-left: 2%; position: static;}
+  .bot{ margin-top:127%; margin-left: 7%; position: static;}
+  .example-container{max-width: 100%; overflow: auto; margin-top: 142% !important; margin-bottom: 37% !important; margin-left: 0%;}
+  /* #chet, #chet2{padding-left: 14px; padding-right: 14px; } */
   .guardar4{margin-left: 2%; margin-top: 18%; width: 23%;}
-  mat-paginator{margin-top: -7%; margin-left: -40%; width: 100%;}
-  .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;}
+  mat-paginator{margin-top: -18%;margin-left: -40%; width: 100%;}
+  /* .mat-checkbox-inner-container-no-side-margin{ margin-right: 19px;} */
   #obse, #obse2{ padding-right: 0%; }
-  #chetbox{ left: 3px; }
+  /* #chetbox{ left: 3px; } */
   #arti{ left: 3px; padding-right: 5px; }
   #cant{ left: 0px; padding-right: 5px; }
   #obser{ left: 0px; width: 70px; padding-right: 5px; }
-  .botonagregar2{position: static; margin-top: 10%; margin-left: 83%;}
+  .botonagregar2{position: static; margin-top: 13%; margin-left: 83%;}
 }
 
 /* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -105%;}
   .example-container{ max-width: 100%; overflow: auto; margin-top: 105% !important; margin-bottom: 3% !important; margin-left: 0%;}
   .nombre2{position: static; margin-left: 4%; margin-top: -166%;}
   .o{position: relative; margin-left: 16%;}
   .cant{ position: static; margin-left: 0%;}
   .nombre3{position: static; margin-left: 4%; top: 36%;}
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
-  .botonagregar{margin-top: -8%; margin-left: 4%; position: static;}
-  .bot{position: static; margin-top: -8%; margin-left: 5%;}
+  .botonagregar{margin-top: 98%; margin-left: 4%; position: static;}
+  .bot{position: static; margin-top: 98%; margin-left: 5%;}
   mat-paginator{ width: 80%; position: static; margin-left: 20%; margin-top: -143px;}
-  .botonagregar2{margin-left: 89%; position: static; margin-top: 31%;}
+  .botonagregar2{margin-left: 1%; position: static; margin-top: 31%;}
   .nombres{width: 154%;}
   .ar{left: 0px;}
 }
 
 /* Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 700px){
-  .example-container{ max-width: 100%; overflow: auto; margin-top: 110% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .row1{margin-top: -99%;}
+  .todo, .una{ width: 77px; }
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 103% !important; margin-bottom: 3% !important; margin-left: 0%;}
   .nombre1, .nombre, .nombres{width: 362px;}
-  .nombre2{width: 50%; position: static; margin-left: 4%; margin-top: -179%;}
+  .nombre2{width: 50%; position: static; margin-left: 4%; margin-top: -175%;}
   .cant{ position: static; margin-left: 0%;}
-  .nombre3{ position: static; margin-left: 4%; margin-top: 0%;  width: 50%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: -1%;  width: 50%;}
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
-  .botonagregar{margin-top: 0%; margin-left: 4%; position: static;}
+  .botonagregar{margin-top: 89%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
-  .bot{position: static; margin-top: -1%; margin-left: 5%;}
+  .bot{position: static; margin-top: 89%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: -2%; width: 100%; margin-left: -40%;}
-  .botonagregar2{margin-left: 83%; position: static; margin-top: 15%;}
+  .botonagregar2{margin-left: 1%; position: static; margin-top: 15%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
   .ar{left: 0px;}
 }
 
 /* Tablet 2*/
 @media screen and (min-width: 701px) and (max-width: 768px){
+  .row1{margin-top: -85%;}
+  .todo, .una{ width: 77px; }
   .example-container{ max-width: 100%; overflow: auto; margin-top: 89% !important; margin-bottom: 3% !important; margin-left: 0%;}
   .nombre1, .nombre{width: 362px;}
   .nombre2{ width: 50%; position: static; margin-left: 4%; margin-top: -668px;}
   .cant{ position: static; margin-left: 0%;}
   .nombre3{ position: static; margin-left: 4%; margin-top: 0%;  width: 50%;}
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
-  .botonagregar{margin-top: -1%; margin-left: 4%; position: static;}
+  .botonagregar{margin-top: 77%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
-  .bot{position: static; margin-top: -1%; margin-left: 5%;}
+  .bot{position: static; margin-top: 77%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: 0%; width: 100%; margin-left: -40%;}
   .botonagregar2{margin-left: 86%; position: static; margin-top: 12%;}
@@ -394,18 +394,20 @@ mat-option{ font-size: 10.5px; }
 
 /* Tablet 3*/
 @media screen and (min-width: 769px) and (max-width: 800px){
-  .example-container{ max-width: 100%; overflow: auto; margin-top: 89% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .row1{margin-top: -80%;}
+  .todo, .una{ width: 77px; }
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 85% !important; margin-bottom: 3% !important; margin-left: 0%;}
   .nombre1, .nombre{width: 362px;}
-  .nombre2{ width: 50%; position: static; margin-left: 4%; margin-top: -143%;}
+  .nombre2{ width: 50%; position: static; margin-left: 4%; margin-top: -682px;}
   .cant{ position: static; margin-left: 0%;}
-  .nombre3{ position: static; margin-left: 4%; margin-top: -1%; width: 50%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: 0%;  width: 50%;}
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
-  .botonagregar{ margin-top: -1%;  margin-left: 4%; position: static;}
+  .botonagregar{margin-top: 73%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
-  .bot{ position: static; margin-top: -1%;  margin-left: 5%;}
+  .bot{position: static; margin-top: 73%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
-  mat-paginator{ margin-top: -2%; width: 100%; margin-left: -40%;}
-  .botonagregar2{margin-left: 86%; position: static; margin-top: 13%;}
+  mat-paginator{margin-top: 0%; width: 100%; margin-left: -40%;}
+  .botonagregar2{margin-left: 86%; position: static; margin-top: 12%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
   .nombres{width: 154%;}
   .ar{left: 0px;}
@@ -413,35 +415,40 @@ mat-option{ font-size: 10.5px; }
 
 /* Portatil 2*/
 @media screen and (min-width: 801px) and (max-width: 960px){
-  .example-container{max-width: 100%; overflow: auto; margin-top: 70% !important; margin-bottom: 3% !important; margin-left: 0%;}
+  .row1{margin-top: -66%;}
+  .todo, .una{ width: 77px; }
+  .example-container{ max-width: 100%; overflow: auto; margin-top: 68% !important; margin-bottom: 3% !important; margin-left: 0%;}
   .nombre1, .nombre, .nombres{width: 362px;}
-  .nombre2{ width: 50%; position: static;  margin-left: 4%; margin-top: -115%;}
+  .nombre2{width: 50%; position: static; margin-left: 4%; margin-top: -120%;}
   .cant{ position: static; margin-left: 0%;}
-  .nombre3{ position: static; margin-left: 4%; margin-top: -1%; width: 50%;}
+  .nombre3{ position: static; margin-left: 4%; margin-top: 0%;  width: 50%;}
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
-  .botonagregar{ margin-top: -1%;  margin-left: 4%; position: static;}
+  .botonagregar{margin-top: 60%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
-  .bot{ position: static; margin-top: -1%;  margin-left: 5%;}
+  .bot{position: static; margin-top: 60%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
-  mat-paginator{ margin-top: -2%; width: 100%; margin-left: -40%;}
-  .botonagregar2{margin-left: 89%; position: static; margin-top: 9%;}
+  mat-paginator{margin-top: -2%; width: 100%; margin-left: -40%;}
+  .botonagregar2{margin-left: 1%; position: static; margin-top: 15%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
   .ar{left: 0px;}
 }
 
 /* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1024px){
-  .nombre2{position: static; margin-left: 14px; margin-top: -264px;}
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -60%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -272px;}
   .nombre3{ position: static; margin-left: 12px; margin-top: -1px;}
   .nombre4 { margin-left: 13px; margin-top: 0px; position: static;}
-  .bot{margin-top: -4%; position: static;}
+  .bot{ position: static; margin-top: 54%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
   mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
   .botonagregar2{margin-top: 8%; margin-left: 89%;}
-  .botonagregar{ margin-top: -4%; position: static;}
+  .botonagregar{ margin-top: 54%; position: static; margin-left: 2%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -449,17 +456,20 @@ mat-option{ font-size: 10.5px; }
 
 /* Tablet 5 */
 @media screen and (min-width: 1025px) and (max-width: 1080px){
-  .nombre2{margin-left: 3%; margin-top: -25%; position: static;}
-  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 4%; margin-top: -3%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -60%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -272px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -1px;}
+  .nombre4 { margin-left: 13px; margin-top: 0px; position: static;}
+  .bot{ position: static; margin-top: 54%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
-  mat-paginator{ margin-top: -15%; margin-left: 40%; position: static;}
+  mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 90%; position: static;}
-  .botonagregar{ position: static; margin-top: -3%; margin-left: 3%;}
+  .botonagregar2{margin-top: 8%; margin-left: 89%;}
+  .botonagregar{ margin-top: 54%; position: static; margin-left: 2%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -467,17 +477,20 @@ mat-option{ font-size: 10.5px; }
 
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
-  .nombre2{margin-left: 3%; margin-top: -22%; position: static;}
-  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 4%; margin-top: -3%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -47%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -295px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
+  .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .bot{ position: static; margin-top: 42%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
-  mat-paginator{ margin-top: -14%; margin-left: 40%; position: static;}
+  mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 90%; position: static;}
-  .botonagregar{ position: static; margin-top: -3%; margin-left: 3%;}
+  .botonagregar2{margin-top: 8%; margin-left: 89%;}
+  .botonagregar{ margin-top: 42%; position: static; margin-left: 2%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -485,17 +498,20 @@ mat-option{ font-size: 10.5px; }
 
 /* Compu. Mesa 5 */
 @media screen and (min-width: 1281px) and (max-width: 1400px){
-  .nombre2{ margin-left: 3%; margin-top: -20%; position: static;}
-  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 4%; margin-top: -3%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -43%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -295px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
+  .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .bot{ position: static; margin-top: 39%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
-  mat-paginator{ margin-top: -13%; margin-left: 40%; position: static;}
+  mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 90%; position: static;}
-  .botonagregar{ position: static; margin-top: -3%; margin-left: 3%;}
+  .botonagregar2{margin-top: 8%; margin-left: 92%;}
+  .botonagregar{ margin-top: 39%; position: static; margin-left: 2%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -503,36 +519,62 @@ mat-option{ font-size: 10.5px; }
 
 /* Tablet 8*/
 @media screen and (min-width: 1401px) and (max-width: 1536px){
-  .nombre2{ margin-left: 3%; margin-top: -18%; position: static;}
-  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 4%; margin-top: -3%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -40%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -295px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
+  .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .bot{ position: static; margin-top: 36%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
-  mat-paginator{ margin-top: -13%; margin-left: 40%; position: static;}
+  mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 90%; position: static;}
-  .botonagregar{ position: static; margin-top: -3%; margin-left: 3%;}
+  .botonagregar2{margin-top: 8%; margin-left: 89%;}
+  .botonagregar{ margin-top: 36%; position: static; margin-left: 2%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
 }
 
-
-/*Portatil 4, Compu. Mesa 7, Televisor 2*/
-@media screen and (min-width: 1851px) and (max-width: 1920px){
-  .nombre2{ margin-left: 3%; margin-top: -14%; position: static;}
-  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 4%; margin-top: -3%; position: static;}
+/* Compu. Mesa 6 */
+@media screen and (min-width: 1537px) and (max-width: 1600px){
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -37%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -316px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
+  .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .bot{ position: static; margin-top: 34%;  margin-left: 2%;}
   .nombre,.nombres, .nombre1{width: 210px;}
-  mat-paginator{ margin-top: -13%; margin-left: 40%; position: static;}
+  mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 94%; position: static;}
-  .botonagregar{ position: static; margin-top: -3%; margin-left: 3%;}
+  .botonagregar2{margin-top: 8%; margin-left: 92%;}
+  .botonagregar{ margin-top: 34%; position: static; margin-left: 1.5%;}
+  .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .bot mat-icon{position: static; margin-top: -4%;}
+  .botonagregar2 mat-icon{position: static; margin-top: -4%;}
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -31%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -346px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
+  .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .bot{ position: static; margin-top: 28%;  margin-left: 2%;}
+  .nombre,.nombres, .nombre1{width: 305px;}
+  mat-paginator{top: -102px;}
+  .ar{left: 0px;}
+  .cant{margin-left: 0%;}
+  .o{ margin-left: 17%;}
+  .botonagregar2{margin-top: 8%; margin-left: 94.5%;}
+  .botonagregar{ margin-top: 28%; position: static; margin-left: 1.5%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -540,17 +582,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
-  .nombre2{ margin-left: 3%; margin-top: -14%; position: static;}
-  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 4%; margin-top: -3%; position: static;}
-  .nombre,.nombres, .nombre1{width: 330px;}
-  mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .todo, .una{ width: 77px; }
+  .row1{margin-top: -29%;}
+  .nombre2{position: static; margin-left: 14px; margin-top: -303px;}
+  .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
+  .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .bot{ position: static; margin-top: 26%;  margin-left: 2%;}
+  .nombre,.nombres, .nombre1{width: 210px;}
+  mat-paginator{top: -120px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 95%; position: static;}
-  .botonagregar{ position: static; margin-top: -3%; margin-left: 3%;}
+  .botonagregar2{margin-top: 4%; margin-left: 95%;}
+  .botonagregar{ margin-top: 26%; position: static; margin-left: 1%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -558,17 +603,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -29%;}
+  .todo, .una{ width: 77px; }
   .nombre2{ margin-left: 3%; margin-top: -13%; position: static;}
   .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
+  .bot{margin-left: 2%; margin-top: 26%; position: static;}
   .nombre,.nombres, .nombre1{width: 330px;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
   .botonagregar2{    margin-top: 7%; margin-left: 95%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 3%;}
+  .botonagregar{ position: static; margin-top: 26%; margin-left: 3%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -576,17 +624,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
-  .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -23%;}
+  .todo, .una{ width: 77px; }
+  .nombre2{ margin-left: 8%; margin-top: -12%; position: static;}
   .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
+  .bot{margin-left: 2%; margin-top: 21%; position: static;}
   .nombre,.nombres, .nombre1{width: 350px;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 95%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 8%;}
+  .botonagregar2{    margin-top: 7%; margin-left: 96%; position: static;}
+  .botonagregar{ position: static; margin-top: 21%; margin-left: 8%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -594,17 +645,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
-  .nombre2{ margin-left: 5%; margin-top: -10%; position: static;}
-  .nombre3{ margin-left: 5%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 5%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
-  .nombre,.nombres, .nombre1{width: 390px;}
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -22%;}
+  .todo, .una{ width: 77px; }
+  .nombre2{ margin-left: 3%; margin-top: -11%; position: static;}
+  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
+  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
+  .bot{margin-left: 2%; margin-top: 20%; position: static;}
+  .nombre,.nombres, .nombre1{width: 330px;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{    margin-top: 7%; margin-left: 95%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 5.3%;}
+  .botonagregar2{    margin-top: 7%; margin-left: 96%; position: static;}
+  .botonagregar{ position: static; margin-top: 20%; margin-left: 3%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -612,17 +666,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
-  .nombre2{ margin-left: 5%; margin-top: -10%; position: static;}
-  .nombre3{ margin-left: 5%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 5%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
-  .nombre,.nombres, .nombre1{width: 390px;}
-  mat-paginator{ margin-top: -6%; margin-left: 40%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -20%;}
+  .todo, .una{ width: 77px; }
+  .nombre2{ margin-left: 3%; margin-top: -10%; position: static;}
+  .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
+  .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
+  .bot{margin-left: 2%; margin-top: 18%; position: static;}
+  .nombre,.nombres, .nombre1{width: 330px;}
+  mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{ margin-top: 2%; margin-left: 96%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 5.3%;}
+  .botonagregar2{    margin-top: 7%; margin-left: 96%; position: static;}
+  .botonagregar{ position: static; margin-top: 18%; margin-left: 3%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -630,17 +687,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
-  .nombre2{ margin-left: 5%; margin-top: -10%; position: static;}
-  .nombre3{ margin-left: 5%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 5%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
-  .nombre,.nombres, .nombre1{width: 390px;}
-  mat-paginator{ margin-top: -6%; margin-left: 40%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -19%;}
+  .todo, .una{ width: 77px; }
+  .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
+  .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
+  .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
+  .bot{margin-left: 2%; margin-top: 17%; position: static;}
+  .nombre,.nombres, .nombre1{width: 350px;}
+  mat-paginator{ margin-top: -8%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{ margin-top: 2%; margin-left: 96%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 5.3%;}
+  .botonagregar2{    margin-top: 4%; margin-left: 96%; position: static;}
+  .botonagregar{ position: static; margin-top: 17%; margin-left: 8%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -648,17 +708,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
-  .nombre2{ margin-left: 5%; margin-top: -10%; position: static;}
-  .nombre3{ margin-left: 5%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 5%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
-  .nombre,.nombres, .nombre1{width: 390px;}
-  mat-paginator{ margin-top: -6%; margin-left: 40%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -19%;}
+  .todo, .una{ width: 77px; }
+  .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
+  .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
+  .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
+  .bot{margin-left: 2%; margin-top: 17%; position: static;}
+  .nombre,.nombres, .nombre1{width: 350px;}
+  mat-paginator{ margin-top: -8%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{ margin-top: 2%; margin-left: 96%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 5.3%;}
+  .botonagregar2{    margin-top: 4%; margin-left: 96%; position: static;}
+  .botonagregar{ position: static; margin-top: 17%; margin-left: 8%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
@@ -666,17 +729,20 @@ mat-option{ font-size: 10.5px; }
 
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
-  .nombre2{ margin-left: 5%; margin-top: -10%; position: static;}
-  .nombre3{ margin-left: 5%; margin-top: 0%; position: static;}
-  .nombre4 { margin-left: 5%; margin-top: 0%; position: static;}
-  .bot{margin-left: 2%; margin-top: -5%; position: static;}
-  .nombre,.nombres, .nombre1{width: 390px;}
-  mat-paginator{ margin-top: -6%; margin-left: 40%; position: static;}
+  .contenedor{margin-top: 0%;}
+  .row1{margin-top: -19%;}
+  .todo, .una{ width: 77px; }
+  .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
+  .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
+  .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
+  .bot{margin-left: 2%; margin-top: 17%; position: static;}
+  .nombre,.nombres, .nombre1{width: 350px;}
+  mat-paginator{ margin-top: -8%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
   .o{ margin-left: 17%;}
-  .botonagregar2{ margin-top: 2%; margin-left: 96%; position: static;}
-  .botonagregar{ position: static; margin-top: -5%; margin-left: 5.3%;}
+  .botonagregar2{    margin-top: 4%; margin-left: 96%; position: static;}
+  .botonagregar{ position: static; margin-top: 17%; margin-left: 8%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}

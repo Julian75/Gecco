@@ -104,7 +104,7 @@ export class AprobacionRegistroComponent implements OnInit {
             if(element.idSolicitud.id == id){
               const dialogRef = this.dialog.open(VisualizarRegistroComponent, {
                 width: '1000px',
-                height: '480px',
+                height: '440px',
                 data: element.id
               });
             }

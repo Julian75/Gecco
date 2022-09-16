@@ -124,10 +124,9 @@ export class ModificarSolicitudComponent implements OnInit {
         observacion: observacion
       }
       if(this.listadoArtSel.length<1){
-        if(window.innerWidth == 768){
-          this.listadoArtSel.push(obj)
-          this.limpiarCampos();
-        }
+        // document.getElementById('generalnum').style.position = "inherit"
+        this.listadoArtSel.push(obj)
+        this.limpiarCampos();
       }else if(this.listadoArtSel.length>=1){
         this.listadoArtSel.forEach((element:any) => {
           if(element.idArticulos.id == obj.idArticulos.id){
@@ -140,12 +139,9 @@ export class ModificarSolicitudComponent implements OnInit {
         });
         const existe = listaEncontrado.includes( true )
         if(existe == false){
-          if(window.innerWidth == 768){
-            this.listadoArtSel.push(obj)
-            this.limpiarCampos();
-          }
           this.listadoArtSel.push(obj)
           this.limpiarCampos();
+          // document.getElementById('generalnum').style.position = "revert"
         }else if(existe == true){
           Swal.fire({
             position: 'center',

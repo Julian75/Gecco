@@ -98,7 +98,6 @@ export class AgregarPersonalComponent implements OnInit {
   public guardar() {
     let personal : IngresoPersonalEmpresa = new IngresoPersonalEmpresa();
     if(typeof(this.data) === 'object'){
-      console.log(this.data)
       const idArea = this.formPersonal.controls['area'].value;
       const idSede = this.formPersonal.controls['sede'].value;
       if(idArea==null || idSede==null || idArea==undefined || idSede==undefined){
@@ -122,14 +121,17 @@ export class AgregarPersonalComponent implements OnInit {
             personal.idArea = resArea
             this.servicioSedes.listarPorId(idSede).subscribe(resSede => {
               personal.idSedes = resSede
-              personal.horaIngreso = this.fecha.getHours() + ":" + this.fecha.getMinutes();
+              if(this.fecha.getMinutes() < 10){
+                personal.horaIngreso= this.fecha.getHours()+":0"+this.fecha.getMinutes()
+              }else{
+                personal.horaIngreso = this.fecha.getHours()+":"+this.fecha.getMinutes()
+              }
               personal.horaSalida = ""
               this.registrarPersonal(personal);
             })
           })
         });
       }
-      console.log(personal)
     }else{
       this.listarExiste = []
       if(this.formPersonal.valid){
@@ -174,9 +176,9 @@ export class AgregarPersonalComponent implements OnInit {
                     personal.horaSalida = ""
                     personal.fecha = this.fecha
                     if(this.fecha.getMinutes() < 10){
-                      personal.horaSalida = this.fecha.getHours()+":0"+this.fecha.getMinutes()
+                      personal.horaIngreso = this.fecha.getHours()+":"+("0"+this.fecha.getMinutes())
                     }else{
-                      personal.horaSalida = this.fecha.getHours()+":"+this.fecha.getMinutes()
+                      personal.horaIngreso = this.fecha.getHours()+":"+this.fecha.getMinutes()
                     }
                     console.log(personal)
                     if(personal.nombre==null || personal.apellido==null || personal.documento<=0 || personal.nombre=="" || personal.apellido=="" || personal.idEstado==null || personal.idTipoDocumento==null || personal.idArea==null || personal.idSedes==null || personal.idEstado==undefined || personal.idTipoDocumento==undefined || personal.idArea==undefined || personal.idSedes==undefined){

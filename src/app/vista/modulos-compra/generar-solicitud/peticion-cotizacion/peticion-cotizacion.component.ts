@@ -118,7 +118,9 @@ export class PeticionCotizacionComponent implements OnInit {
         if(decision == 1){
           const dialogRef = this.dialog.open(AgregarCotizacionLiderProcesoComponent, {
             width: '500px',
-            data: solicitud.id
+            data: solicitud.id,
+            backdropClass: 'static',
+            disableClose: true,
           })
           this.dialogRef.close();
         }else if(decision == 2 ){

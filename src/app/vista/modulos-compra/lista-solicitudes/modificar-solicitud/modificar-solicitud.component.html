@@ -1,24 +1,28 @@
 <div class="contenedor">
-
   <h2 class="dato">Modificar Solicitud de Compra</h2>
-
   <form [formGroup]="formSolicitud">
-    <!-- id	idArticulos	idSolicitud	valor unitario	cantidad	valor total	observacion 	idestado
-    1	1	1	10000	10	100000		Solicitado -->
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button  class="btn botonagregar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
+        <button  class="btn bot" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+
     <div class="row1">
       <section class="example-container mat-elevation-z8" tabindex="0">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabla">
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
+            <th mat-header-cell *matHeaderCellDef class="todo">
               <mat-checkbox (change)="$event ? toggleAllRows() : null"
                             [checked]="selection.hasValue() && isAllSelected()"
                             [indeterminate]="selection.hasValue() && !isAllSelected()"
                             [aria-label]="checkboxLabel()">
               </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let row">
+            <td mat-cell *matCellDef="let row" class="una">
               <mat-checkbox (click)="$event.stopPropagation()"
                             (change)="$event ? toggle($event, row) : null"
                             [checked]="selection.isSelected(row)"
@@ -54,7 +58,7 @@
       <button class="btn botonagregar2" (click)="generarSolicitud()"><mat-icon>edit_square</mat-icon></button>
       <mat-paginator [length]="100" [pageSize]="6" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
-      <div class="generalnum">
+      <div id="generalnum">
         <div class="nombre2" id="nombre1">
           <h2 class="articulo">Articulo</h2>
           <mat-form-field class="nombre1" appearance="fill">
@@ -90,14 +94,6 @@
 
       <!-- Ingresar Nombre -->
     </div>
-    <div class="row">
-      <!-- Boton de guardar datos -->
-      <div class="guardar2">
-        <button  class="btn botonagregar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button  class="btn bot" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
-      </div>
-    </div>
-
   </form>
 </div>
 <div class="solpiner" id="snipper2" style="text-align: center; display: none;">

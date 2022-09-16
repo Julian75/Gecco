@@ -78,54 +78,20 @@ h2{
 .btnremove{ background-color: #DA161A; color: white; }
 .btnremove, .boton{ width: 64px; height: 36px; margin-left: 16%;}
 
-/* Movil pequeño - Galaxy Fold*/
-@media screen and (min-width: 280px) and (max-width: 359px){
-  .btnremove, .boton{
-    width: 20px !important;
-    height: 23px;
-    position: relative;
-    left: 6%;
-    margin-top: 8%;
-    margin-bottom: 8%;
+/* Movil pequeño 1*/
+@media screen and (min-width: 280px) and (max-width: 350px){
+  .btnremove{
+    width: 64px;
+    height: 36px;
+    margin-left: 26%;
+    margin-top: 5%;
   }
 }
-
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  .btnremove, .boton{
-    width: 27px !important;
-    height: 26px;
-    position: relative;
-    left: 8%;
-    margin-top: 8%;
-    margin-bottom: 8%;
+/* Movil pequeño 2, 3 y 4 - MOVILES*/
+@media screen and (min-width: 351px) and (max-width: 639px){
+  .btnremove{
+    width: 64px !important;
+    height: 36px !important;
+    margin-left: 13%;
   }
-}
-
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  .btnremove, .boton{
-    width: 40px !important;
-    height: 30px;
-  }
-  .boton, .btnremove{ margin-bottom: 5%; margin-top: 5%; }
-}
-
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-}
-
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  mat-form-field{ width: 60%; margin-left: 40%; margin-top: -3%; }
-}
-
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
-  mat-form-field{ width: 22%; margin-left: 77%; }
-}
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
-  mat-form-field{ width: 22%; margin-left: 77%; }
 }

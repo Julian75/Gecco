@@ -113,12 +113,16 @@ mat-radio-button{
   div h2{ font-size: 15px; }
   .nombre1{ width: 95%; top: 8px; }
   #selectButton{ margin-top: 15px; margin-left: 10px; }
-  .guardar{ width: 100px; font-size: 13px; margin-left: 4%; font-size: 15px; }
+  .guardar{ width: 100px; font-size: 13px; margin-left: 4%; font-size: 15px; margin-top: 24px;}
   mat-radio-button{ margin-top: 0% !important; }
+  .contenedor{ width: 90%; }
+  .archivos{ margin-left: 5%; }
 }
 /* Tablet 2,3,4,5,6,7,8,9,10,11,12,13,14  Portatil 1,2,3,4,5,6,7 Compu.Mesa 1,2,3,4,5,6,7 Televisor 1,2,3,4,5*/
 @media screen and (min-width: 640px) and (max-width: 7680px){
-  #selectButton{ margin-top: 15px; margin-left: 18px; }
-  .guardar{ width: 100px; font-size: 13px; margin-left: 4%; font-size: 15px; }
+  #selectButton{ margin-top: 15px; margin-left: 19px; }
+  .guardar{ width: 100px; font-size: 13px; margin-left: 4%; font-size: 15px; margin-top: 24px;}
   mat-radio-button{ margin-top: 0% !important; }
+  .contenedor{ width: 90%; }
+  .archivos{ margin-left: 5% }
 }
