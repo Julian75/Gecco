@@ -43,10 +43,25 @@ export class SolicitudesRealizadasComponent implements OnInit {
   }
 
   public listarSolicitudes(){
+    this.listaSolicitudes = []
     this.solicitudService.listarTodos().subscribe(res => {
       res.forEach(element => {
         if (element.idUsuario.id == Number(sessionStorage.getItem("id"))) {
-         this.listaSolicitudes.push(element);
+          var obj ={
+            solicitud: {},
+            color: ''
+          }
+          obj.solicitud = element
+          if(element.idEstado.id == 36 || element.idEstado.id == 37){
+            obj.color = "azul"
+          }else if(element.idEstado.id == 34 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 60){
+            obj.color = "verde"
+          }else if(element.idEstado.id == 30 || element.idEstado.id == 35 || element.idEstado.id == 47){
+            obj.color = "rojo"
+          }else if(element.idEstado.id == 54){
+            obj.color = "amarillo"
+          }
+          this.listaSolicitudes.push(obj);
         }
       })
       this.listaSolicitudes.reverse();

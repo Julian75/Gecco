@@ -97,6 +97,8 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
+    // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload
+    // http://localhost:9000/api/Pdf/upload
     this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {

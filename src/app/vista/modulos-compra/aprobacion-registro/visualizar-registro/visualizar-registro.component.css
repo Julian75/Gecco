@@ -10,7 +10,7 @@
     width: 100%;
     height: 100%;
   }
-
+  .excelButton i{ top: -2px; }
   .botonvolver{ background-color: #00235C; left: 12px;}
 
   .contenedor{
@@ -67,7 +67,8 @@
     .botonvolver, .excelButton, .btnver{ width: 38px; height: 30px; }
     .botonvolver mat-icon{
       font-size: 16px;
-      left: -5px;
+      left: 0px;
+      top: 1px;
       position: relative;
     }
     .botonagregar mat-icon{ font-size: 18px; }
@@ -225,7 +226,7 @@
     #jerSp{ left: 8px; }
     #opcSp2{ padding-right: 0%; }
     .excelButton{ font-size: 20px; }
-    .excelButton i{ top: -6px; }
+    .excelButton i{ top: -7px; font-size: 17px; }
     .botonvolver{ width: 38px !important; height: 30px !important; }
     .botonvolver mat-icon{ font-size: 17px !important; margin-left: -55%; }
   }
@@ -341,7 +342,7 @@
     #estSp{ left: 27%; }
     #jerSp{ left: 60%; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: -2px; }
+    .excelButton i{ top: -3px; }
   }
   /* Portatil Medio */
   @media screen and (min-width: 1367px) and (max-width: 1440px){
@@ -376,11 +377,11 @@
     #estSp{ left: 27px; }
     #jerSp{ left: 60%; }
     #opcSp2{ padding-right: 0%; }
-    .excelButton i{ top: 2px; }
+    .excelButton i{ top: -3px; }
   }
 
   /* Portatil Grande */
-  @media screen and (min-width: 1441px) and (max-width: 1920px){
+  /* @media screen and (min-width: 1441px) and (max-width: 1920px){
     td { font-size: 16px; height: 0px;}
     mat-form-field{ width: 22%; margin-left: 77%; }
     #idSp{ margin-left: -27px; }
@@ -388,4 +389,4 @@
     #estSp{ left: 27px; }
     #jerSp{ left: 60%; }
     #opcSp2{ padding-right: 0%; }
-  }
+  } */

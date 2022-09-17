@@ -10,33 +10,33 @@
           <!-- Position Column -->
           <ng-container matColumnDef="id" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
-            <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.solicitud.id}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="fecha">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Fecha</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+            <td mat-cell *matCellDef="let element">{{element.solicitud.fecha}}</td>
           </ng-container>
 
           <ng-container matColumnDef="usuario">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Usuario</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}}</td>
+            <td mat-cell *matCellDef="let element">{{element.solicitud.idUsuario.nombre}}</td>
           </ng-container>
 
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estaSp">Estado</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+            <td mat-cell *matCellDef="let element" class="{{element.color}}">{{element.solicitud.idEstado.descripcion}}</td>
           </ng-container>
 
           <!--Opciones-->
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button *ngIf="item.idEstado.id != 54" class="btn btnedit mx-2 edi" (click)="verSolicitud(item.id)">
+              <button *ngIf="item.solicitud.idEstado.id != 54" class="btn btnedit mx-2 edi" (click)="verSolicitud(item.solicitud.id)">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button class="btn btnedit2 mx-2 edi" (click)="verPasos(item.id)">
+              <button class="btn btnedit2 mx-2 edi" (click)="verPasos(item.solicitud.id)">
                 <mat-icon>insights</mat-icon>
               </button>
             </td>

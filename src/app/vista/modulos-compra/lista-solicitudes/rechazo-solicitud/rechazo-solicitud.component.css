@@ -99,19 +99,19 @@ h2{
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .guardarModal{ margin-left: 59%; width: 66%;}
+  .guardarModal{ margin-left: 2%; width: 66%;}
   .nombre{width: 95%;}
 
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  .guardarModal{ margin-left: 60%;}
+  .guardarModal{ margin-left: 54%; width: 108px;}
   .nombre{width: 95%;}
 }
 
 /* PORTATILES */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  .guardarModal{ margin-left: 60%;}
+  .guardarModal{ margin-left: 56%;}
   .nombre{width: 95%;}
 }

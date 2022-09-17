@@ -282,8 +282,7 @@ mat-option{ font-size: 10.5px; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
   .campos{ position: static; margin-top: -225px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -48px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -9.5px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -48px; }
   .guardar3{ margin-left: -10px; }
   .guardar6{ margin-left: -10px; }
   .nombre, .nombre1{ width: 250px; }
@@ -311,13 +310,12 @@ mat-option{ font-size: 10.5px; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
   .campos{ position: static; margin-top: -233px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -55px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -55px; }
   .guardar3{ margin-left: -20px; }
   .guardar6{ margin-left: -20px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 45px !important;
+    margin-top: 50px !important;
     margin-left: 0%;
     max-width: 100%;
     position: static;
@@ -340,13 +338,12 @@ mat-option{ font-size: 10.5px; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
   .campos{ position: static; margin-top: -229px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -47px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -47px; }
   .guardar3{ margin-left: -15px; }
   .guardar6{ margin-left: -15px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 45px !important;
+    margin-top: 50px !important;
     margin-left: 0%;
     max-width: 100%;
     position: static;
@@ -369,13 +366,12 @@ mat-option{ font-size: 10.5px; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
   .campos{ position: static; margin-top: -229px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -56px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -56px; }
   .guardar3{ margin-left: -20px; }
   .guardar6{ margin-left: -20px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 45px !important;
+    margin-top: 50px !important;
     margin-left: 0%;
     max-width: 100%;
     position: static;
@@ -397,9 +393,8 @@ mat-option{ font-size: 10.5px; }
   .nombre2, .estado2{ position: unset; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
-  .campos{ position: static; margin-top: -235px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -64px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; }
+  .campos{ position: static; margin-top: -240px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -64px; }
   .guardar3{ margin-left: -25px; }
   .guardar6{ margin-left: -25px; }
   .nombre, .nombre1{ width: 225px; }
@@ -426,7 +421,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2, .estado2{ position: unset; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
-  .campos{ position: static; margin-top: -235px; }
+  .campos{ position: static; margin-top: -245px; }
   .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -70px; }
   .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; }
   .guardar3{ margin-left: -25px; }
@@ -455,9 +450,8 @@ mat-option{ font-size: 10.5px; }
   .nombre2, .estado2{ position: unset; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
-  .campos{ position: static; margin-top: -240px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -77px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; margin-top: -1px; }
+  .campos{ position: static; margin-top: -245px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -77px; }
   .guardar3{ margin-left: -30px; }
   .guardar6{ margin-left: -30px; }
   .nombre, .nombre1{ width: 225px; }
@@ -484,9 +478,8 @@ mat-option{ font-size: 10.5px; }
   .nombre2, .estado2{ position: unset; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
-  .campos{ position: static; margin-top: -240px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -82px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -10px; margin-top: -1px; }
+  .campos{ position: static; margin-top: -250px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -82px; }
   .guardar3{ margin-left: -35px; }
   .guardar6{ margin-left: -35px; }
   .nombre, .nombre1{ width: 240px; }
@@ -513,11 +506,10 @@ mat-option{ font-size: 10.5px; }
   .nombre2, .estado2{ position: unset; }
   .nombre3{ position: unset; }
   .nombre4{ position: unset; }
-  .campos{ position: static; margin-top: -255px; }
-  .guardar, .guardar3, .guardar6{ width: 31px; height: 29px; position: relative; margin-top: 172px; margin-left: -90px; }
-  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ font-size: 17px; margin-left: -9px; margin-top: -1px; }
-  .guardar3{ margin-left: -35px; }
-  .guardar6{ margin-left: -35px; }
+  .campos{ position: static; margin-top: -260px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -90px; }
+  .guardar3{ margin-left: -40px; }
+  .guardar6{ margin-left: -40px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
     margin-top: -315px !important;
@@ -540,251 +532,288 @@ mat-option{ font-size: 10.5px; }
 /*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 26%; }
-  .nombre3{ top: 39%; }
-  .nombre4{ top: 52%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -2%; }
-  .guardar3{ margin-left: 3%; }
-  .guardar6{ margin-left: 4%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -260px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 172px; margin-left: -100px; }
+  .guardar3{ margin-left: -45px; }
+  .guardar6{ margin-left: -45px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 40%;
-    max-width: 60%;
+    margin-top: -315px !important;
+    margin-left: 30%;
+    max-width: 70%;
+    position: static;
   }
-  #chetbox{ left: 16px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 22px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 70%;
+    left: 30%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 7%; margin-left: 87%; }
+  .guardar4{ margin-top: 60px; margin-left: 86%; }
 }
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1851px) and (max-width: 1920px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 24%; }
-  .nombre3{ top: 34%; }
-  .nombre4{ top: 44%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -10%; }
-  .guardar3{ margin-left: 1%; }
-  .guardar6{ margin-left: -0.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -275px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 165px; margin-left: -123px; }
+  .guardar3{ margin-left: -60px; }
+  .guardar6{ margin-left: -60px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
+    margin-top: -315px !important;
     margin-left: 30%;
     max-width: 70%;
+    position: static;
   }
-  #chetbox{ left: 19px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 22px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 70%;
+    left: 30%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 6%; margin-left: 89%; }
+  .guardar4{ margin-top: 60px; margin-left: 89%; }
 }
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 21%; }
-  .nombre3{ top: 28%; }
-  .nombre4{ top: 35%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -25%; }
-  .guardar3{ margin-left: 1%; }
-  .guardar6{ margin-left: -0.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -275px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 165px; margin-left: -130px; }
+  .guardar3{ margin-left: -65px; }
+  .guardar6{ margin-left: -65px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
+    margin-top: -315px !important;
     margin-left: 30%;
     max-width: 70%;
+    position: static;
   }
-  #chetbox{ left: 19px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 22px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 70%;
+    left: 30%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 5%; margin-left: 90%; }
+  .guardar4{ margin-top: 60px; margin-left: 90%; }
 }
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 21%; }
-  .nombre3{ top: 28%; }
-  .nombre4{ top: 35%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -22%; }
-  .guardar3{ margin-left: 1%; }
-  .guardar6{ margin-left: -0.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -280px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 165px; margin-left: -136px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -70px; }
+  .guardar6{ margin-left: -70px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
-  #chetbox{ left: 19px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 25px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 5%; margin-left: 90%; }
+  .guardar4{ margin-top: 60px; margin-left: 90%; }
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 22%; }
-  .nombre3{ top: 29%; }
-  .nombre4{ top: 36%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -20%; }
-  .guardar3{ margin-left: 1%; }
-  .guardar6{ margin-left: -0.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -295px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 165px; margin-left: -163px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -85px; }
+  .guardar6{ margin-left: -85px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
-  #chetbox{ left: 30px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 32px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 4%; margin-left: 92%; }
+  .guardar4{ margin-top: 50px; margin-left: 92%; }
 }
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 22%; }
-  .nombre3{ top: 28%; }
-  .nombre4{ top: 34.5%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -23%; }
-  .guardar3{ margin-left: 1%; }
-  .guardar6{ margin-left: -0.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -300px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 165px; margin-left: -173px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -90px; }
+  .guardar6{ margin-left: -90px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
-  #chetbox{ left: 30px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 32px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 4%; margin-left: 92%; }
+  .guardar4{ margin-top: 50px; margin-left: 92%; }
 }
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 22%; }
-  .nombre3{ top: 28%; }
-  .nombre4{ top: 34.5%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -23%; }
-  .guardar3{ margin-left: 1%; }
-  .guardar6{ margin-left: -0.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -310px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 165px; margin-left: -190px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -100px; }
+  .guardar6{ margin-left: -100px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
-  #chetbox{ left: 35px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 38px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 4%; margin-left: 93%; }
+  .guardar4{ margin-top: 40px; margin-left: 93%; }
 }
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 22%; }
-  .nombre3{ top: 28%; }
-  .nombre4{ top: 34.5%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -20%; }
-  .guardar3{ margin-left: -1%; }
-  .guardar6{ margin-left: -4.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -345px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 155px; margin-left: -250px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -135px; }
+  .guardar6{ margin-left: -135px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
   #chetbox{ left: 50px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 3%; margin-left: 94%; }
+  .guardar4{ margin-top: 30px; margin-left: 94%; }
 }
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 22%; }
-  .nombre3{ top: 28%; }
-  .nombre4{ top: 34.5%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -19%; }
-  .guardar3{ margin-left: -1%; }
-  .guardar6{ margin-left: -4.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -345px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 155px; margin-left: -260px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -145px; }
+  .guardar6{ margin-left: -145px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
-  #chetbox{ left: 50px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 55px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 3%; margin-left: 95%; }
+  .guardar4{ margin-top: 30px; margin-left: 95%; }
 }
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
   h2{ margin-bottom: 0%; }
-  .nombre2{ top: 22%; }
-  .nombre3{ top: 25%; }
-  .nombre4{ top: 28%; }
-  .guardar, .guardar3, .guardar6{ margin-top: -26%; }
-  .guardar3{ margin-left: -1%; }
-  .guardar6{ margin-left: -4.2%; }
+  .nombre2, .estado2{ position: unset; }
+  .nombre3{ position: unset; }
+  .nombre4{ position: unset; }
+  .campos{ position: static; margin-top: -490px; }
+  .guardar, .guardar3, .guardar6{ position: relative; margin-top: 125px; margin-left: -490px; }
+  .guardar mat-icon, .guardar3 mat-icon, .guardar6 mat-icon{ margin-top: 1px; }
+  .guardar3{ margin-left: -295px; }
+  .guardar6{ margin-left: -295px; }
   .nombre, .nombre1{ width: 250px; }
   .example-container{
-    margin-top: 0% !important;
-    margin-left: 30%;
-    max-width: 70%;
+    margin-top: -315px !important;
+    margin-left: 25%;
+    max-width: 75%;
+    position: static;
   }
-  #chetbox{ left: 50px; }
-  #arti{ left: -6px; }
-  #obser{ left: 0px; }
+  #chetbox{ left: 125px; }
+  #arti{ left: -5px; }
+  #cant{ left: 0px; }
+  #obser{ left: -5px; }
   mat-paginator{
-    width: 60%;
-    left: 40%;
-    top: -120px;
+    width: 75%;
+    left: 25%;
+    top: -110px;
   }
-  .guardar4{ margin-top: 1%; margin-left: 97%; }
+  .guardar4{ margin-top: 10px; margin-left: 97%; }
 }

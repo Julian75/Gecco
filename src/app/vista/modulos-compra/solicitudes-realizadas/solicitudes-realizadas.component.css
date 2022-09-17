@@ -18,7 +18,22 @@ table{
 .btnedit{ background-color: #959595; color: white; }
 .btnedit2{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-
+.azul{
+  background-color: #C4D2E7;
+  color: #2B4E64;
+}
+.amarillo{
+  background-color: #FFEB9C;
+  color: #9C6524;
+}
+.rojo{
+  background-color: #ffc7ce;
+  color: #9B0006;
+}
+.verde{
+  background-color: #C6EFCE;
+  color: #006100;
+}
 .botonagregar2, .btnremove, .btnver, .boton{ width: 64px; height: 36px; }
 .btnedit mat-icon, .btnedit2 mat-icon{ left: -3px; top: -1px;}
 #idSp, #idSp2, #desSp, #estSp, #estaSp, #opcSp, #jerSp{ position: relative;}

@@ -123,23 +123,23 @@ h2{
 /* Movil grande - Surface Duo*/
 @media screen and (min-width: 494px) and (max-width: 720px){
 .guardar{
-  width: 63%;
-  margin-left: 37%;
+  width: 180px;
+  margin-left: 59%;
 }
 }
 
 /* Tablet pequeña */
 @media screen and (min-width: 721px) and (max-width: 768px){
 .guardar{
-  width: 60%;
-  margin-left: 40%;
+  width: 170px;
+  margin-left: 63%;
 }
 }
 
 /* Tablet medio */
 @media screen and (min-width: 769px) and (max-width: 1023px){
 .guardar{
-  width: 60%;
-  margin-left: 40%;
+  width: 170px;
+  margin-left: 62%;
 }
 }

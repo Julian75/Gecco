@@ -33,115 +33,17 @@ h2{
     padding-bottom: 4%;
   }
 
-  /* Movil pequeño - Galaxy Fold*/
-  @media screen and (min-width: 280px) and (max-width: 359px){
-    h2{
-      font-size: 1.4em;
-    }
-    mat-form-field{
-      margin-top: 5%;
-    }
-    .nombre, .estado{
-      width: 100%;
-      margin-left: 0%;
-      margin-top: 0%;
-    }
-    .guardar{
-      background-color: #00235C;
-      color: white;
-      width: 160px;
-      height: 40px;
-      font-size: large;
-      margin-left: 8%;
-    }
-  }
-
-  /* Movil medio - Samsung Galaxy S8 */
-  @media screen and (min-width: 360px) and (max-width: 493px){
-    h2{
-      font-size: 1.4em;
-    }
-    mat-form-field{
-      margin-top: 5%;
-    }
-    .nombre, .estado{
-      width: 100%;
-      margin-left: 0%;
-      margin-top: 0%;
-    }
-    .guardar{
-      background-color: #00235C;
-      color: white;
-      width: 160px;
-      height: 40px;
-      font-size: large;
-      margin-left: 17%;
-    }
-  }
-
-  /* Movil grande - Surface Duo*/
-  @media screen and (min-width: 494px) and (max-width: 720px){
-    h2{
-      font-size: 1.4em;
-    }
-    mat-form-field{
-      margin-top: 5%;
-    }
-    .nombre, .estado{
-      margin-left: 0%;
-      margin-top: 0%;
-    }
-    .guardar{
-      background-color: #00235C;
-      color: white;
-      width: 160px;
-      height: 40px;
-      font-size: large;
-      margin-left: 5%;
-
-    }
-  }
-
-  /* Tablet pequeña - iPad Mini*/
-  @media screen and (min-width: 721px) and (max-width: 768px){
-    h2{
-      font-size: 1.4em;
-    }
-    mat-form-field{
-      margin-top: 5%;
-    }
-    .nombre, .estado{
-      margin-left: 0%;
-      margin-top: 0%;
-    }
-    .guardar{
-      background-color: #00235C;
-      color: white;
-      width: 160px;
-      height: 40px;
-      font-size: large;
-      margin-left: 5%;
-    }
-  }
-
-  /* Tablet medio - iPad Air*/
-  @media screen and (min-width: 769px) and (max-width: 1023px){
-    h2{
-      font-size: 1.4em;
-    }
-    mat-form-field{
-      margin-top: 5%;
-    }
-    .nombre, .estado{
-      margin-left: 0%;
-      margin-top: 0%;
-    }
-    .guardar{
-      background-color: #00235C;
-      color: white;
-      width: 160px;
-      height: 40px;
-      font-size: large;
-      margin-left: 5%;
-    }
-  }
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  h2{ font-size: 1.4em; }
+  mat-form-field{ margin-top: 5%; }
+  .nombre, .estado{ width: 100%; margin-left: 0%; margin-top: 0%; }
+  .guardar{ margin-left: 52%; width: 83px; height: 40px; font-size: 15px;}
+}
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  h2{ font-size: 1.4em; }
+  mat-form-field{ margin-top: 5%; }
+  .nombre, .estado{ width: 100%; margin-left: 0%; margin-top: 0%; }
+  .guardar{ margin-left: 66%; width: 83px; height: 40px; font-size: 15px;}
+}
