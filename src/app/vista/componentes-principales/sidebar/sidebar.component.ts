@@ -55,6 +55,8 @@ export class SidebarComponent implements OnInit {
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39 || this.listaAccessForm[i] == 47 ){
             document.getElementById('RecepcionDatos')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 50 ){
+            document.getElementById('RegistroIngreso')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('1')?.setAttribute('style', 'display: block;')
@@ -137,6 +139,9 @@ export class SidebarComponent implements OnInit {
           if (this.listaAccessForm[i] == 33) {
             document.getElementById('33')?.setAttribute('style', 'display: block;')
           }
+          if (this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39) {
+            document.getElementById('38')?.setAttribute('style', 'display: block;')
+          }
           if (this.listaAccessForm[i] == 40) {
             document.getElementById('40')?.setAttribute('style', 'display: block;')
           }
@@ -161,10 +166,12 @@ export class SidebarComponent implements OnInit {
           if (this.listaAccessForm[i] == 47) {
             document.getElementById('47')?.setAttribute('style', 'display: block;')
           }
-          if (this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39) {
-            document.getElementById('38')?.setAttribute('style', 'display: block;')
+          if (this.listaAccessForm[i] == 49) {
+            document.getElementById('49')?.setAttribute('style', 'display: block;')
           }
-
+          if (this.listaAccessForm[i] == 50) {
+            document.getElementById('50')?.setAttribute('style', 'display: block;')
+          }
         }
       })
     })

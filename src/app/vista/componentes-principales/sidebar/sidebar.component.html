@@ -98,7 +98,7 @@
       <button mat-raised-button id="28" [routerLink]="['/raspalisto']" style="display: none;">Visado Premio</button>
     </div>
   </mat-expansion-panel>
-  <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+  <mat-expansion-panel style="display: none;" id="RegistroIngreso" (opened)="panelOpenState = true"
                         (closed)="panelOpenState = false" >
     <mat-expansion-panel-header class="boton">
       <mat-panel-title >
@@ -106,10 +106,10 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button id="" routerLink="/sedes">Sedes</button>
-      <button mat-raised-button id="" routerLink="/registroIngreso">Registro</button>
+      <button mat-raised-button id="50" routerLink="/sedes" style="display: none;">Sedes</button>
+      <button mat-raised-button id="49" routerLink="/registroIngreso" style="display: none;">Registro</button>
     </div>
-  </mat-expansion-panel> -->
+  </mat-expansion-panel>
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

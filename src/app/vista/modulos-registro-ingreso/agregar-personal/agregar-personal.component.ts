@@ -9,6 +9,9 @@ import { TipoDocumentoService } from 'src/app/servicios/tipoDocumento.service';
 import { AreaService } from 'src/app/servicios/area.service';
 import { SedeService } from 'src/app/servicios/sedes.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Observable, Subject, Observer } from 'rxjs';
+import { HttpResponse, HttpEventType, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-agregar-personal',
@@ -28,6 +31,7 @@ export class AgregarPersonalComponent implements OnInit {
   public fecha: Date = new Date();
 
   constructor(
+    private http: HttpClient,
     private fb: FormBuilder,
     private servicioEstado : EstadoService,
     private servicioPersonal : IngresoPersonalEmpresaService,
@@ -36,7 +40,9 @@ export class AgregarPersonalComponent implements OnInit {
     private servicioSedes : SedeService,
     private servicioTipoDocumento : TipoDocumentoService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
-  ) { }
+  ) {
+    this.windowOPen = false;
+  }
 
   ngOnInit(): void {
     this.crearFormulario();
@@ -45,6 +51,10 @@ export class AgregarPersonalComponent implements OnInit {
     this.listarAreas();
     this.listarSedes();
     this.validar();
+    WebcamUtil.getAvailableVideoInputs()
+      .then((mediaDevices: MediaDeviceInfo[]) => {
+        this.multiplesCamarasDisponibles = mediaDevices && mediaDevices.length > 1;
+      });
   }
 
   private crearFormulario() {
@@ -180,7 +190,6 @@ export class AgregarPersonalComponent implements OnInit {
                     }else{
                       personal.horaIngreso = this.fecha.getHours()+":"+this.fecha.getMinutes()
                     }
-                    console.log(personal)
                     if(personal.nombre==null || personal.apellido==null || personal.documento<=0 || personal.nombre=="" || personal.apellido=="" || personal.idEstado==null || personal.idTipoDocumento==null || personal.idArea==null || personal.idSedes==null || personal.idEstado==undefined || personal.idTipoDocumento==undefined || personal.idArea==undefined || personal.idSedes==undefined){
                       Swal.fire({
                         position: 'center',
@@ -223,6 +232,7 @@ export class AgregarPersonalComponent implements OnInit {
   public registrarPersonal(personal: IngresoPersonalEmpresa) {
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     this.servicioPersonal.registrar(personal).subscribe(res=>{
+      this.uploadFiles(this.imagen);
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -230,7 +240,6 @@ export class AgregarPersonalComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      window.location.reload();
     }, error => {
       Swal.fire({
         position: 'center',
@@ -239,6 +248,139 @@ export class AgregarPersonalComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+    });
+  }
+
+  percentDone: number;
+  uploadSuccess: boolean;
+  uploadFiles(files: File[]){
+    var listaArchivo = FileList;
+    console.log(listaArchivo);
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append('imagenes',f))
+    console.log(formData)
+    this.http.post('http://localhost:9000/api/Pdf/subirImagen', formData, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        console.log("hola")
+        if (event.type === HttpEventType.UploadProgress) {
+          console.log("hola2")
+          this.percentDone = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log("hola3")
+          this.uploadSuccess = true;
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          // window.location.reload();
+        }
+    });
+  }
+
+  //Camara
+
+  // Hacer Toogle on/off
+  public mostrarWebcam = true;
+  public permitirCambioCamara = true;
+  public multiplesCamarasDisponibles = false;
+  public dispositivoId: string;
+  public opcionesVideo: MediaTrackConstraints = {
+    //width: {ideal: 1024};
+    //height: {ideal: 576}
+  }
+
+  // Errores al iniciar la cámara
+  public errors: WebcamInitError[] = [];
+
+  // Ultima captura o foto
+  public imagenWebcam: WebcamImage = null;
+
+  // Cada Trigger para una nueva captura o foto
+  public trigger: Subject<void> = new Subject<void>();
+
+  // Cambiar a la siguiente o anterior cámara
+  private siguienteWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+
+  public triggerCaptura(): void {
+    this.trigger.next();
+    this.createBlobImageFileAndShow();
+  }
+
+  public toggleWebcam(): void {
+    this.mostrarWebcam = !this.mostrarWebcam;
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public showNextWebcam(directionOnDeviceId: boolean|string): void {
+    this.siguienteWebcam.next(directionOnDeviceId);
+  }
+
+  public handleImage(imagenWebcam: WebcamImage): void {
+    this.imagenWebcam = imagenWebcam;
+  }
+
+  public cameraSwitched(dispositivoId: string): void {
+    this.dispositivoId = dispositivoId;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean|string> {
+    return this.siguienteWebcam.asObservable();
+  }
+
+  //Convertir base64 a imagen
+
+  generatedImage: string;
+  windowOPen: boolean;
+  public imagen: any;
+
+  /**Method that will create Blob and show in new window */
+  createBlobImageFileAndShow(): void {
+    this.dataURItoBlob(this.imagenWebcam.imageAsBase64).subscribe((blob: Blob) => {
+      const imageBlob: Blob = blob;
+      const imageName: string = this.generateName();
+      const imageFile: File = new File([imageBlob], imageName, {
+        type: 'image/jpeg',
+      });
+      this.imagen = imageFile
+      this.generatedImage = window.URL.createObjectURL(imageFile);
+      // on demo image not open window
+      if (this.windowOPen) {
+        window.open(this.generatedImage);
+      }
+    });
+  }
+
+  /**Method to Generate a Name for the Image */
+  generateName(): string {
+    const date: number = new Date().valueOf();
+    let text: string = '';
+    const possibleText: string =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 5; i++) {
+      text += possibleText.charAt(
+        Math.floor(Math.random() * possibleText.length)
+      );
+    }
+    // Replace extension according to your media type like this
+    return date + '.' + text + '.jpeg';
+  }
+
+  /* Method to convert Base64Data Url as Image Blob */
+  dataURItoBlob(dataURI: string): Observable<Blob> {
+    return Observable.create((observer: Observer<Blob>) => {
+      const byteString: string = window.atob(dataURI);
+      const arrayBuffer: ArrayBuffer = new ArrayBuffer(byteString.length);
+      const int8Array: Uint8Array = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < byteString.length; i++) {
+        int8Array[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([int8Array], { type: 'image/jpeg' });
+      observer.next(blob);
+      observer.complete();
     });
   }
 

@@ -528,7 +528,7 @@ export class PasosComponent implements OnInit {
               if(res.idEstado.id == 34){
                 const dialogRef = this.dialog.open(OrdenCompraComponent, {
                   width: '1000px',
-                  height: '480px',
+                  height: '440px',
                   data: this.lista[0]
                 });
               }

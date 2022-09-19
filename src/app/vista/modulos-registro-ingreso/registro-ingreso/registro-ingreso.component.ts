@@ -29,6 +29,7 @@ export class RegistroIngresoComponent implements OnInit {
   public lista: any = [];
   public fecha: Date = new Date();
   public lis: any = [];
+  public estados: any = [];
 
 
   myControl = new FormControl<string | IngresoPersonalEmpresa>("");
@@ -60,8 +61,8 @@ export class RegistroIngresoComponent implements OnInit {
           const dialogRef = this.dialog.open(AgregarPersonalComponent, {
             width: '400px',
             data: this.document,
-            backdropClass: 'static',
             disableClose: true,
+            height: '600px',
           });
         }else{
           Swal.fire({
@@ -71,15 +72,15 @@ export class RegistroIngresoComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          window.location.reload();
         }
-
         this.document = undefined
       }else{
         const dialogRef = this.dialog.open(AgregarPersonalComponent, {
           width: '850px',
           data: valor,
-          backdropClass: 'static',
           disableClose: true,
+          height: '600px',
         });
       }
 
@@ -203,15 +204,16 @@ export class RegistroIngresoComponent implements OnInit {
   name = 'listaRegistros.xlsx';
   exportToExcel(): void {
       this.listaRegistro2.forEach(element => {
-        var obj = {
-          nombre: element.nombre + " " + element.apellido,
-          fecha: element.fecha,
-          horaIng: element.horaIngreso,
-          horaSal: element.horaSalida,
-          area: element.idArea.descripcion,
+        if(element.idEstado.id == 72){
+          var obj = {
+            nombre: element.nombre + " " + element.apellido,
+            fecha: element.fecha,
+            horaIng: element.horaIngreso,
+            horaSal: element.horaSalida,
+            area: element.idArea.descripcion,
+          }
+          this.lista.push(obj)
         }
-        this.lista.push(obj)
-        console.log(element)
       });
       console.log(this.lista)
       if(this.lista.length > 0){

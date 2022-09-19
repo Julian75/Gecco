@@ -24,9 +24,9 @@ table{
 
   /* Movil pequeño 1 - Galaxy Fold*/
   @media screen and (min-width: 280px) and (max-width: 359px){
-    td button mat-icon{ margin-left: -6px; margin-top: -1px; }
+    td button mat-icon{margin-left: -7px; margin-top: 0px; font-size: 18px !important; }
     #idSp{left: 15%  }
-    #descripSp{left: 15%  }
+    #descripSp{left: 19%  }
     #opcSp{ left: 8px; }
     td button{ margin-top: 5%; }
     .botonagregar mat-icon{ margin-left: -50%; }
@@ -35,7 +35,7 @@ table{
 
   /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
   @media screen and (min-width: 360px) and (max-width: 420px){
-    td button mat-icon{  margin-left: -7px; margin-top: -1px; }
+    td button mat-icon{margin-left: -7px; margin-top: 0px; font-size: 18px !important; }
     #idSp{left: 25% ; }
     #descripSp{left: 35%;}
     #opcSp{ left: 8px; }
@@ -51,11 +51,20 @@ table{
     td button{ margin-top: 0%; }
   }
 
-  /* Tablet 2,  Portatil 1*/
-  @media screen and (min-width: 640px) and (max-width: 768px){
-    td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
+  /* Tablet 2*/
+  @media screen and (min-width: 640px) and (max-width: 700px){
+    td button mat-icon{margin-left: -1px; margin-top: 1px; }
     #idSp{left: 30%; }
-    #descripSp{left: 111%;}
+    #descripSp{left: 92%;}
+    #opcSp{ left: 8px; }
+    td button{ margin-top: 0%; }
+    .botonagregar mat-icon{ margin-left: -9%; }
+  }
+  /* Portatil 1 */
+  @media screen and (min-width: 701px) and (max-width: 768px){
+    td button mat-icon{margin-left: -1px; margin-top: 1px; }
+    #idSp{left: 30%; }
+    #descripSp{left: 114%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -64,7 +73,7 @@ table{
   @media screen and (min-width: 769px) and (max-width: 960px){
     td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
     #idSp{left: 30%; }
-    #descripSp{left: 82%;}
+    #descripSp{left: 91%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -82,7 +91,7 @@ table{
   @media screen and (min-width: 1081px) and (max-width: 1280px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
     #idSp{left: 30%; }
-    #descripSp{left: 167%;}
+    #descripSp{left: 171%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -91,7 +100,7 @@ table{
   @media screen and (min-width: 1281px) and (max-width: 1536px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
     #idSp{left: 30%; }
-    #descripSp{left:227%;}
+    #descripSp{left:206%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -132,7 +141,7 @@ table{
   @media screen and (min-width: 1921px) and (max-width: 2048px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
     #idSp{left: 30% ; }
-    #descripSp{left:293%;}
+    #descripSp{left:290%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }

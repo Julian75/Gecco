@@ -52,11 +52,11 @@ export class SolicitudesRealizadasComponent implements OnInit {
             color: ''
           }
           obj.solicitud = element
-          if(element.idEstado.id == 36 || element.idEstado.id == 37){
+          if(element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 28){
             obj.color = "azul"
-          }else if(element.idEstado.id == 34 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 60){
+          }else if(element.idEstado.id == 34 || element.idEstado.id == 57 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 60 || element.idEstado.id == 29){
             obj.color = "verde"
-          }else if(element.idEstado.id == 30 || element.idEstado.id == 35 || element.idEstado.id == 47){
+          }else if(element.idEstado.id == 35 || element.idEstado.id == 47 || element.idEstado.id == 30){
             obj.color = "rojo"
           }else if(element.idEstado.id == 54){
             obj.color = "amarillo"

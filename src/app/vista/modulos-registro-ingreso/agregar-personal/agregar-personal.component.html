@@ -66,6 +66,36 @@
           <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
         </div>
       </div>
+      <div>
+        <div class="camara">
+          <webcam [height]="300" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="mostrarWebcam"
+
+                  [switchCamera]="nextWebcamObservable"
+
+                  [imageQuality]="1"
+                  (cameraSwitched)="cameraSwitched($event)"
+                  (initError)="handleInitError($event)"
+          ></webcam>
+          <br/>
+          <button  class="btn btn-primary m-5" (click)="triggerCaptura();">Tomar Foto</button>
+          <!-- <button  class="btn btn-primary m-5" (click)="toggleWebcam();">Mostrar/Ocultar Camara</button> -->
+          <!-- <br/>
+          <button  class="btn btn-primary m-5" (click)="showNextWebcam(true);" [disabled]="!multiplesCamarasDisponibles">Next Webcam</button>
+          <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="permitirCambioCamara"><label for="cameraSwitchCheckbox">Allow Camera Switch</label> -->
+          <!-- <br/>
+          dispositivoId: <input id="dispositivoId" type="text" [(ngModel)]="dispositivoId" style="width: 500px">
+          <button (click)="showNextWebcam(dispositivoId);"  class="btn btn-primary m-5">Activate</button> -->
+        </div>
+      </div>
+
+      <div class="snapshot" *ngIf="imagenWebcam">
+        <img [src]="imagenWebcam.imageAsDataUrl"/>
+      </div>
+
+      <h4 *ngIf="errors.length > 0">Messages:</h4>
+      <ul *ngFor="let error of errors">
+        <li>{{error | json}}</li>
+      </ul>
     </form>
   </div>
   <div class="solpiner" id="snipper" style="text-align: center; display: none;">

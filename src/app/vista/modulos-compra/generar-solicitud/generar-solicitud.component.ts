@@ -302,6 +302,7 @@ export class GenerarSolicitudComponent implements OnInit {
         timer: 1500
       })
     }else{
+      document.getElementById('botonGenerarSolicitud')?.setAttribute('style', 'display: none;')
       const dialogRef = this.dialog.open(PeticionCotizacionComponent, {
         width: '500px',
         data: this.listadoArtSel

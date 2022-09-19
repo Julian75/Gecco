@@ -190,1003 +190,355 @@ padding-bottom: 4%;
 mat-option{ font-size: 10.5px; }
 .btnremove{ width: 64px; height: 36px; }
 
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  h3{
-    font-size: 12px;
-  }
+  .nombre{ top: 0px; left: 15px; width: 150px; }
+  .nombre1{ width: 150px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: -10%; margin-bottom: -10px; }
+  .mat-radio-button{ margin-left: 20% !important; }
   .example-container{
     overflow: auto;
-    position: relative;
     top: 56px !important;
     margin-bottom: 5% !important;
   }
-  td{
-    font-size: 11px;
-    padding-left: 13px;
-    padding-right: 13px;
-  }
-  .ar{
-    position: relative;
-    left: -14px;
-    top: 6px;
-  }
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    padding-right: 0%;
-  }
-  .cant{
-    position: relative;
-    left: -1px;
-    top: 6px;
-  }
-  .nombre3{ margin-top: -2%;}
-  .o{
-    position: relative;
-    left: 0px;
-    top: 6px;
-  }
-  .v{
-    position: relative;
-    left: 11px;
-    top: 6px;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -8px;
-  }
-  .nombre1{
-    width: 160px;
-    left: -8px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -80px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -65px;
-    top: -17px;
-  }
-  .nombre{
-    width: 160px;
-    left: -64px;
-    top: -22px;
-  }
-
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-    width: 159px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -7px;
-    margin-bottom: -7px;
-
-  }
-
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 164px;
-    height: 40px;
-    margin-left: 1%;
-    position: relative;
-    top: 39px;
-    margin-bottom: 30%;
-  }
-  .sub{
-    position: relative;
-    top: 67px;
-  }
-  .val{
-    position: relative;
-    top: 56px;
-  }
-  .des{
-    position: relative;
-    top: 47px;
-  }
-  .to{
-    position: relative;
-    top: 39px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 125px; }
+  #val{ margin-right: 6px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 10px; }
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .nombre{ top: 0px; left: 15px; }
+  .nombre, .nombre1{ width: 190px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: -8%; margin-bottom: -10px; margin-top: -7px; }
+  .mat-radio-button{ margin-left: 11% !important; }
   .example-container{
-    width: 202px;
     overflow: auto;
-    position: relative;
-    top: 43px !important;
-    margin-bottom: 15% !important;
+    top: 56px !important;
+    margin-bottom: 5% !important;
   }
-  h3{
-    font-size: 12px;
-  }
-  .ar{
-    position: relative;
-    top: 5px;
-    left: -13px;
-  }
-  .v{
-    position: relative;
-    top: 5px;
-    left: 13px;
-  }
-  .o{
-    position: relative;
-    left: -5px;
-    top: 5px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -10px;
-    position: relative;
-    top: 5px;
-  }
-  td{
-    font-size: 12px;
-    padding-left: 13px;
-    padding-right: 13px;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -8px;
-  }
-  .nombre1{
-    width: 200px;
-    left: -8px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -93px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -78px;
-    top: -17px;
-  }
-  .nombre{
-    width: 200px;
-    left: -79px;
-    top: -23px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-    width: 200px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .nombre3{ margin-top: -2%;}
-
-
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -7px;
-    margin-bottom: -7px;
-  }
-
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 164px;
-    height: 40px;
-    margin-left: 10%;
-    position: relative;
-    top: 40px;
-    margin-bottom: 30%;
-  }
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    padding-right: 0%;
-  }
-  .sub{
-    position: relative;
-    top: 35px;
-  }
-  .val{
-    position: relative;
-    top: 31px;
-  }
-  .des{
-    position: relative;
-    top: 25px;
-  }
-  .to{
-    position: relative;
-    top: 22px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 125px; }
+  #val{ margin-right: 6px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 10px; }
 }
 
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
+/* Tablet 1 */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .nombre{ top: 0px; left: 15px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: -4%; margin-bottom: -10px; margin-top: -7px; }
+  .mat-radio-button{ margin-left: 5% !important; }
   .example-container{
-    width: 345px;
     overflow: auto;
-    position: relative;
-    top: 65px !important;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: 3% !important;
+    top: 56px !important;
+    margin-bottom: 5% !important;
   }
-  h3{
-    font-size: 20px;
-  }
-  .ar{
-    position: relative;
-    top: 5px;
-    left: -12px;
-  }
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    font-size: 14px;
-    padding-right: 0%;
-  }
-  .v{
-    position: relative;
-    top: 11px;
-    left: 13px;
-  }
-  .o{
-    position: relative;
-    left: 0px;
-    top: 5px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -10px;
-    position: relative;
-    top: 5px;
-  }
-  td{
-    font-size: 14px;
-    position: relative;
-    top: 1px;
-    padding-left: 13px;
-    padding-right: 13px;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
-  }
-  .nombre1{
-    width: 345px;
-    left: -15px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-    font-size: 15px;
-  }
-  li{
-    position: relative;
-    left: -151px;
-    top: 21px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -140px;
-    top: 4px;
-  }
-  .nombre{
-    width: 340px;
-    left: -131px;
-    top: 0px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-    width: 345px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -17px;
-    margin-bottom: -17px;
-  }
-  .nombre3{ margin-top: -8%;}
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 215px;
-    height: 40px;
-    margin-left: 1%;
-    position: relative;
-    top: 47px;
-    margin-bottom: 20%;
-  }
-  .sub{
-    position: relative;
-    top: 67px;
-  }
-  .val{
-    position: relative;
-    top: 56px;
-  }
-  .des{
-    position: relative;
-    top: 47px;
-  }
-  .to{
-    position: relative;
-    top: 39px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 125px; }
+  #val{ margin-right: 8px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
 }
-
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
+/* Portatil 1 */
+@media screen and (min-width: 640px) and (max-width: 699px){
+  .nombre{ top: 0px; left: 15px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: -4%; margin-bottom: -10px; margin-top: -7px; }
+  .mat-radio-button{ margin-left: 5% !important; }
   .example-container{
-    width: 442px;
     overflow: auto;
-    position: relative;
-    top: 48px !important;
+    top: 56px !important;
+    margin-bottom: 5% !important;
   }
-  h3{
-    font-size: 20px;
-  }
-  .ar{
-    position: relative;
-    top: 5px;
-    left: -11px;
-  }
-  .v{
-    position: relative;
-    top: 10px;
-    left: 12px;
-  }
-  .o{
-    position: relative;
-    left: 0px;
-    top: 5px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -10px;
-    position: relative;
-    top: 5px;
-  }
-  td{
-    font-size: 16px;
-    position: relative;
-    top: 1px;
-    padding-left: 13px;
-    padding-right: 13px;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
-  }
-  .nombre1{
-    width: 345px;
-    left: -15px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -185px;
-    top: 50px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -178px;
-    top: 36px;
-  }
-
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    font-size: 16px;
-    padding-right: 0%;
-  }
-  .nombre{
-    width: 240px;
-    left: -63px;
-    top: -30px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 0%;
-    padding-bottom: 4%;
-    width: 442px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -17px;
-    margin-bottom: -17px;
-  }
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 239px;
-    height: 40px;
-    font-size: large;
-    margin-left: 0%;
-    position: relative;
-    top: 70px;
-    margin-bottom: 20%;
-  }
-  .sub{
-    position: relative;
-    top: 60px;
-  }
-  .val{
-    position: relative;
-    top: 55px;
-  }
-  .des{
-    position: relative;
-    top: 50px;
-  }
-  .to{
-    position: relative;
-    top: 46px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 125px; }
+  #val{ margin-right: 8px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
 }
-
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
+/* Tablet 2 */
+@media screen and (min-width: 700px) and (max-width: 768px){
+  .nombre{ top: -50px; left: 122px; }
+  .nombre, .nombre1{ width: 160px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 37%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
   .example-container{
-    width: 442px;
     overflow: auto;
-    position: relative;
-    top: 48px !important;
+    top: 20px;
+    margin-bottom: 5% !important;
   }
-  h3{
-    font-size: 20px;
-  }
-  .ar{
-    position: relative;
-    top: 5px;
-    left: -11px;
-  }
-  .v{
-    position: relative;
-    top: 10px;
-    left: 13px;
-  }
-  .o{
-    position: relative;
-    left: 0px;
-    top: 5px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -10px;
-    position: relative;
-    top: 5px;
-  }
-  td{
-    font-size: 16px;
-    position: relative;
-    top: 1px;
-    padding-left: 13px;
-    padding-right: 13px;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
-  }
-  .nombre1{
-    width: 345px;
-    left: -15px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -185px;
-    top: 50px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -178px;
-    top: 36px;
-  }
-
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    font-size: 16px;
-    padding-right: 0%;
-  }
-  .nombre{
-    width: 240px;
-    left: -63px;
-    top: -30px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 0%;
-    padding-bottom: 4%;
-    width: 442px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -17px;
-    margin-bottom: -17px;
-  }
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 239px;
-    height: 40px;
-    font-size: large;
-    margin-left: 0%;
-    position: relative;
-    top: 70px;
-    margin-bottom: 20%;
-  }
-  .sub{
-    position: relative;
-    top: 60px;
-  }
-  .val{
-    position: relative;
-    top: 55px;
-  }
-  .des{
-    position: relative;
-    top: 50px;
-  }
-  .to{
-    position: relative;
-    top: 46px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 80px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
 }
-
-/* Portatil Pequeño */
-@media screen and (min-width: 1024px) and (max-width: 1366px){
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  .nombre{ top: -50px; left: 122px; }
+  .nombre, .nombre1{ width: 170px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 37%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
   .example-container{
-    width: 724px;
-    position: relative;
-    top: 41px !important;
-    height: 100px;
-    margin-bottom: -40px;
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
   }
-  h3{
-    font-size: 20px;
-  }
-  .ar{
-    position: relative;
-    top: px;
-    left: -13px;
-  }
-  .v{
-    position: relative;
-    top: 2px;
-    left: 5px;
-  }
-  .o{
-    position: relative;
-    left: 0px;
-    top: 2px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -13px;
-    position: relative;
-    top: 2px;
-  }
-  td{
-    padding-left: 1%;
-    font-size: 16px;
-  }
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
-    top: -23px;
-  }
-  .nombre1{
-    width: 345px;
-    left: -15px;
-    top: -21px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -285px;
-    top: 56px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -288px;
-    top: 44px;
-  }
-  .nombre{
-    width: 230px;
-    left: -155px;
-    top: -16px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-    width: 724px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -6px;
-    margin-bottom: -34px;
-  }
-  .nombre3{ margin-top: -11%;}
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 239px;
-    height: 40px;
-    font-size: large;
-    margin-left: 0%;
-    position: relative;
-    top: 135px;
-    margin-bottom: 20%;
-  }
-  .sub{
-    position: relative;
-    top: 150px;
-  }
-  .val{
-    position: relative;
-    top: 145px;
-  }
-  .des{
-    position: relative;
-    top: 140px;
-  }
-  .to{
-    position: relative;
-    top: 135px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 90px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
 }
-
-/* Portatil Medio */
-@media screen and (min-width: 1367px) and (max-width: 1440px){
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 230px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 41%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
   .example-container{
-    width: 724px;
-    position: relative;
-    top: 43px !important;
-    height: 100px;
-    margin-bottom: 5%;
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
   }
-  h3{
-    font-size: 20px;
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 95px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
   }
-  .ar{
-    position: relative;
-    left: -15px;
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
   }
-  .v{
-    position: relative;
-    left: 10px;
-  }
-  .o{
-    position: relative;
-    left: -5px;
-  }
-  .cant{
-    margin-left: 20px;
-    left: -12px;
-    position: relative;
-  }
-  td{
-    font-size: 16px;
-    padding-bottom: 1px;
-    left: 2px;
-    top: 2px;
-    position: relative;
-  }
-  .articulo{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
-    top: -23px;
-  }
-  .nombre1{
-    width: 345px;
-    left: -15px;
-    top: -21px;
-  }
-  .can{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -89px;
-    top: 8px;
-  }
-  .antic{
-    position: relative;
-    left: -7px;
-  }
-  li{
-    position: relative;
-    left: -285px;
-    top: 56px;
-  }
-  mat-radio-button{
-    position: relative;
-    left: -288px;
-    top: 44px;
-  }
-  .nombre{
-    width: 233px;
-    left: -155px;
-    top: -16px;
-  }
-  td.mat-cell:first-of-type{
-    padding-left: 0%;
-    font-size: 16px;
-  }
-  .row1{
-    border-top: 3px solid #97B4E2;
-    padding-top: 3%;
-    padding-bottom: 4%;
-    width: 724px;
-  }
-  .obs{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -164px;
-    top: 18px;
-  }
-  .ob{
-    width: 223px;
-    left: -163px;
-    top: 18px;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 11%;
-  }
-
-  .guardar3{
-    background-color: #00235C;
-    color: white;
-    width: 222px;
-    height: 40px;
-    font-size: large;
-    margin-left: 1%;
-    top: 20%;
-  }
-
-  .tabla{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -6px;
-    margin-bottom: -34px;
-  }
-
-  .guardar4{
-    background-color: #00235C;
-    color: white;
-    width: 239px;
-    height: 40px;
-    font-size: large;
-    margin-left: 0%;
-    position: relative;
-    top: 80px;
-    margin-bottom: 11%;
-  }
-  .sub{
-    position: relative;
-    top: 75px;
-  }
-  .val{
-    position: relative;
-    top: 72px;
-  }
-  .des{
-    position: relative;
-    top: 66px;
-  }
-  .to{
-    position: relative;
-    top: 64px;
-  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
 }
 
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .nombre{ top: -50px; left: 132px; }
+  .nombre, .nombre1{ width: 250px; }
+  .nombre2{ margin-left: 0%; }
+  .nombre3{ margin-left: 36%; margin-top: -94px; }
+  .mat-radio-button{ margin-left: 7% !important; }
+  .example-container{
+    overflow: auto;
+    top: 20px;
+    margin-bottom: 5% !important;
+  }
+  table{ margin-bottom: 0%; margin-top: 0%; }
+  .valores{ margin-top: 100px; }
+  .ar{ left: -12px; }
+  .cant{ left: 0px; }
+  .v{ left: 12px; }
+}

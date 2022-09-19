@@ -53,6 +53,8 @@ export class SideMovilComponent implements OnInit {
             document.getElementById('Compra2')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39 || this.listaAccessForm[i] == 47){
             document.getElementById('RecepcionDatos2')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i]== 49 || this.listaAccessForm[i]== 50 ){
+            document.getElementById('RegistroIngreso2')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('111')?.setAttribute('style', 'display: block;')
@@ -135,7 +137,9 @@ export class SideMovilComponent implements OnInit {
           if (this.listaAccessForm[i] == 33) {
             document.getElementById('3333')?.setAttribute('style', 'display: block;')
           }
-
+          if (this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39) {
+            document.getElementById('3838')?.setAttribute('style', 'display: block;')
+          }
           if (this.listaAccessForm[i] == 40) {
             document.getElementById('4040')?.setAttribute('style', 'display: block;')
           }
@@ -160,8 +164,11 @@ export class SideMovilComponent implements OnInit {
           if (this.listaAccessForm[i] == 47) {
             document.getElementById('4747')?.setAttribute('style', 'display: block;')
           }
-          if (this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39) {
-            document.getElementById('3838')?.setAttribute('style', 'display: block;')
+          if (this.listaAccessForm[i] == 49) {
+            document.getElementById('4949')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 50) {
+            document.getElementById('5050')?.setAttribute('style', 'display: block;')
           }
         }
       })

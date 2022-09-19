@@ -98,5 +98,17 @@
       <button mat-raised-button id="2828" [routerLink]="['/raspalisto']" style="display: none;">Visado Premio</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel style="display: none;" id="RegistroIngreso2" (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Registro Ingreso
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="5050" routerLink="/sedes" style="display: none;">Sedes</button>
+      <button mat-raised-button id="4949" routerLink="/registroIngreso" style="display: none;">Registro</button>
+    </div>
+  </mat-expansion-panel>
   </mat-drawer>
 </mat-drawer-container>

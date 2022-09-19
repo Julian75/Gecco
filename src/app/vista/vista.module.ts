@@ -145,6 +145,7 @@ import { AgregarSedesComponent } from './modulos-registro-ingreso/sedes/agregar-
 import { ModificarSedesComponent } from './modulos-registro-ingreso/sedes/modificar-sedes/modificar-sedes.component';
 import { RegistroIngresoComponent } from './modulos-registro-ingreso/registro-ingreso/registro-ingreso.component';
 import { AgregarPersonalComponent } from './modulos-registro-ingreso/agregar-personal/agregar-personal.component';
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
   declarations: [
@@ -299,7 +300,8 @@ import { AgregarPersonalComponent } from './modulos-registro-ingreso/agregar-per
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    WebcamModule
   ],
   exports: [
     DataTablesModule,

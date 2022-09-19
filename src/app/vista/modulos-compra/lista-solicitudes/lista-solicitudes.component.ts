@@ -35,6 +35,7 @@ export class ListaSolicitudesComponent implements OnInit {
   public listaSolicitudes: any = [];
   public listaDetalleSolicitud: any = [];
   public habilitar: any = false;
+  public habilitar2: any = false;
   public fecha: Date = new Date();
   public listaPdf: any = [];
 
@@ -79,13 +80,13 @@ export class ListaSolicitudesComponent implements OnInit {
                 solicitud: {},
                 color: ''
               }
-              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57 || element.idEstado.id == 60) {
+              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57 || element.idEstado.id == 60) {
                 obj.solicitud = element
-                if(element.idEstado.id == 36 || element.idEstado.id == 37){
+                if(element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 28){
                   obj.color = "azul"
-                }else if(element.idEstado.id == 34 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 60){
+                }else if(element.idEstado.id == 34 || element.idEstado.id == 46 || element.idEstado.id == 57 || element.idEstado.id == 56 || element.idEstado.id == 60 || element.idEstado.id == 29){
                   obj.color = "verde"
-                }else if(element.idEstado.id == 30 || element.idEstado.id == 35 || element.idEstado.id == 47){
+                }else if(element.idEstado.id == 35 || element.idEstado.id == 47){
                   obj.color = "rojo"
                 }else if(element.idEstado.id == 54){
                   obj.color = "amarillo"
@@ -105,13 +106,13 @@ export class ListaSolicitudesComponent implements OnInit {
                 solicitud: {},
                 color: ''
               }
-              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 30 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57 || element.idEstado.id == 60) {
+              if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57 || element.idEstado.id == 60) {
                 obj.solicitud = element
-                if(element.idEstado.id == 28 || element.idEstado.id == 36 || element.idEstado.id == 37){
+                if(element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 28){
                   obj.color = "azul"
-                }else if(element.idEstado.id == 29 || element.idEstado.id == 34 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 57 || element.idEstado.id == 60){
+                }else if(element.idEstado.id == 34 || element.idEstado.id == 57 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 60 || element.idEstado.id == 29){
                   obj.color = "verde"
-                }else if(element.idEstado.id == 30 || element.idEstado.id == 35 || element.idEstado.id == 47){
+                }else if(element.idEstado.id == 35 || element.idEstado.id == 47){
                   obj.color = "rojo"
                 }else if(element.idEstado.id == 54){
                   obj.color = "amarillo"
@@ -189,14 +190,38 @@ export class ListaSolicitudesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  listaSolExcel: any = [];
   name = 'listaSolicitudes.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('rol');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
+      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalleSolic=>{
+        resOrdenCompra.forEach(elementOrdenCompra => {
+          resDetalleSolic.forEach(elementDetSol=>{
+            if(elementDetSol.idSolicitud.id == elementOrdenCompra.idSolicitud.id && elementDetSol.idEstado.id != 59){
+              var objOrdenCompra = {
+                Id_Orden_Compra: elementOrdenCompra.id,
+                Lider_Proceso: elementOrdenCompra.idSolicitud.idUsuario.nombre+" "+elementOrdenCompra.idSolicitud.idUsuario.apellido,
+                Articulo: elementDetSol.idArticulos.descripcion,
+                Cantidad: elementDetSol.cantidad,
+                Valor_Unitario: elementDetSol.valorUnitario,
+                Valor_Total_Articulo: elementDetSol.valorTotal,
+                Proveedor: elementOrdenCompra.idProveedor.nombre,
+                Anticipo: elementOrdenCompra.anticipoPorcentaje+"%",
+                Total: elementOrdenCompra.valorAnticipo
+              }
+              this.listaSolExcel.push(objOrdenCompra)
+            }
+          })
+        });
+        const data = this.listaSolExcel.map(c => ({ 'Id Orden Compra': c.Id_Orden_Compra, 'Lider Proceso': c.Lider_Proceso, 'Articulo': c.Articulo, 'Cantidad': c.Cantidad, 'Valor Unitario': c.Valor_Unitario, 'Proveedor': c.Proveedor, 'Anticipo': c.Anticipo, 'Total': c.Total }));
+        const worksheet = XLSX.utils.json_to_sheet(data);
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+        const book = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
-    XLSX.writeFile(book, this.name);
+        XLSX.writeFile(book, this.name);
+      })
+    })
   }
 }
