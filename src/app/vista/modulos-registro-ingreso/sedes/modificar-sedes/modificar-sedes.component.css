@@ -49,8 +49,8 @@ h2{
   .nombre{width: 95%;}
 }
 
-/* PORTATILES */
+/* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  .guardarModal{ margin-left: 69%;}
+  .guardarModal{ margin-left: 81%;}
   .nombre{width: 95%;}
 }

@@ -114,9 +114,19 @@
   .contenedor{
     width: 80% !important; margin-left: 10%; margin-top: 4%;
   }
+  .botonprimero{ background-color: #00235C; color: white; }
 
   /* Movil pequeño 1 - Galaxy Fold*/
   @media screen and (min-width: 280px) and (max-width: 359px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -207px;
+      margin-left: -4px;
+    }
+    webcam{ margin-left: -60px; }
+    .camara{ left: 56px; top: 21px;}
     .contenedor{margin-top: 0%;}
     .guardarModal{ margin-left: 51%;}
     .mat-dialog-container{height: 0%;}
@@ -125,65 +135,135 @@
     .nombre3{ margin-left: 0%; margin-top: 2%;}
     .nombre4{ margin-left: 0%; margin-top: 1.3%;}
     .nombre1 { width: 135px;}
+    .botonprimero{ width: 35px; margin-top: 151px; margin-left: 56px; height: 35px; }
+    .botonprimero mat-icon{ margin-left: -6px; font-size: 18px; margin-top: 2px; }
   }
 
   /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
   @media screen and (min-width: 360px) and (max-width: 420px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -207px;
+      margin-left: 25px;
+    }
+    webcam{ position: static; margin-left: -31px; }
+    .camara{ left: 56px; top: 21px;}
     .contenedor{margin-top: 0%;}
     .guardarModal{ margin-left: 67%;}
     .nombre{ width: 182px;}
     .nombre3{ margin-left: 4%; margin-top: 2.5%;}
     .nombre4{ margin-left: 5%; margin-top: 1.3%;}
     .nombre1 { width: 182px;}
+    .botonprimero{ width: 35px; margin-top: 151px; margin-left: 98px; height: 35px; }
+    .botonprimero mat-icon{ margin-left: -6px; font-size: 18px; margin-top: 2px; }
   }
 
   /* Tablet 1 */
   @media screen and (min-width: 600px) and (max-width: 639px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -219px;
+      margin-left: 196px;
+    }
     .guardarModal{ margin-left: 81%; margin-top: 8%;}
     .nombre, .estado, .nombre1{width: 153px;}
-    .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -115.8%;}
+    .nombre2, .estado2{ margin-left: 0%; margin-top: -1%; }
+    .nombre3{ margin-left: 55%; margin-top: -173.8%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ margin-left: 251px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; height: 35px; width: 35px;}
+    .botonprimero mat-icon{ margin-left: -6px; font-size: 18px; margin-top: 2px; }
   }
   /* Portatil 1*/
   @media screen and (min-width: 640px) and (max-width: 700px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -220px;
+      margin-left: 210px;
+    }
+    webcam{ margin-left: -35px; }
     .contenedor{margin-top: -4%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 82%; margin-top: 10%;}
     .nombre, .estado, .nombre1{ width: 163px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -115%;}
+    .nombre3{ margin-left: 55%; margin-top: -173.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ margin-left: 248px; width: 64px; height: 36px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /* Tablet 2 */
   @media screen and (min-width: 701px) and (max-width: 768px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -220px;
+      margin-left: 263px;
+    }
+    webcam{ margin-left: -27px; }
     .guardarModal{ margin-left: 81%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 180px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -88%;}
+    .nombre3{ margin-left: 55%; margin-top: -131%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ margin-left: 321px; width: 64px; height: 36px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /* Tablet 3*/
   @media screen and (min-width: 769px) and (max-width: 800px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -223px;
+      margin-left: 269px;
+    }
+    webcam{ margin-left: -27px; }
     .guardarModal{ margin-left: 79%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 180px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -84%;}
+    .nombre3{ margin-left: 55%; margin-top: -125%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 331px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /* Portatil 2 */
   @media screen and (min-width: 801px) and (max-width: 960px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -222px;
+      margin-left: 388px;
+    }
+    webcam{ margin-left: 14px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 80%; margin-top: 5%;}
     .nombre, .estado, .nombre1{ width: 205px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -75.8%;}
+    .nombre3{ margin-left: 55%; margin-top: -114.5%; }
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 467px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /* Tablet 4 ,  Compu. Mesa 1, compu.Mesa 2, */
   @media screen and (min-width: 961px) and (max-width: 1024px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -222px;
+      margin-left: 388px;
+    }
+    webcam{ margin-left: 14px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 81%; margin-top: 5%;}
@@ -191,29 +271,59 @@
       width: 250px;
     }
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -71%;}
+    .nombre3{ margin-left: 55%; margin-top: -107.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 467px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /* Tablet  5 */
   @media screen and (min-width: 1025px) and (max-width: 1080px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -222px;
+      margin-left: 404px;
+    }
+    webcam{ margin-left: 27px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -91%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /* Tablet 6 */
   @media screen and (min-width: 1081px) and (max-width: 1200px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -90.5%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /* Tablet  7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
   @media screen and (min-width: 1201px) and (max-width: 1280px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 81%; margin-top: 5%;}
@@ -221,11 +331,21 @@
       width: 250px;
     }
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Compu. Mesa 5*/
   @media screen and (min-width: 1281px) and (max-width: 1400px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 81%; margin-top: 5%;}
@@ -233,20 +353,40 @@
       width: 250px;
     }
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /* Tablet 8*/
   @media screen and (min-width: 1401px) and (max-width: 1536px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -91%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /* Compu. Mesa 6 */
   @media screen and (min-width: 1537px) and (max-width: 1600px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 81%; margin-top: 5%;}
@@ -254,12 +394,22 @@
       width: 250px;
     }
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103.8%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /*Portatil 4, Compu. Mesa 7, Televisor 2*/
   @media screen and (min-width: 1601px) and (max-width: 1920px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 81%; margin-top: 5%;}
@@ -267,80 +417,162 @@
       width: 250px;
     }
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /*Tablet 9*/
   @media screen and (min-width: 1921px) and (max-width: 2048px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -91%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Tablet 10*/
   @media screen and (min-width: 2049px) and (max-width: 2160px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -90.5%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Tablet 11 y 12, Portatil 5*/
   @media screen and (min-width: 2161px) and (max-width: 2560px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 84%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 250px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Tablet 13*/
   @media screen and (min-width: 2561px) and (max-width: 2736px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -90.5%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
 
   /*Tablet 14*/
   @media screen and (min-width: 2737px) and (max-width: 3000px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .guardarModal{ margin-left: 85%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 255px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: -1%; }
-    .nombre3{ margin-left: 55%; margin-top: -61.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -91.5%;}
     .nombre4{ margin-left: 55%; margin-top: -1%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Portatil 6, Televisor 3*/
   @media screen and (min-width: 3001px) and (max-width: 3840px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 84%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 250px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Televisor 4*/
   @media screen and (min-width: 3841px) and (max-width: 4096px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 84%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 250px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -102.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }
   /*Portatil 7, Televisor 5*/
   @media screen and (min-width: 4097px) and (max-width: 7680px){
+    .snapshot img{
+      width: 150px;
+      height: 112px;
+      position: static;
+      margin-top: -221px;
+      margin-left: 394px;
+    }
+    webcam{ margin-left: 17px; }
     .contenedor{margin-top: 0%;}
     .row1{padding-top: 0%;}
     .guardarModal{ margin-left: 84%; margin-top: 5%;}
     .nombre, .estado, .nombre1{width: 250px;}
     .nombre2, .estado2{ margin-left: 5%; margin-top: 1.5%; }
-    .nombre3{ margin-left: 55%; margin-top: -68.5%;}
+    .nombre3{ margin-left: 55%; margin-top: -103.5%;}
     .nombre4{ margin-left: 55%; margin-top: 1.3%;}
+    .botonprimero{ width: 64px; height: 36px; margin-left: 485px; margin-top: 21px; margin-bottom: 22px; background-color: #00235C; color: white; position: static; }
+    .botonprimero mat-icon{ margin-left: -2px; font-size: 20px; margin-top: 2px; }
   }

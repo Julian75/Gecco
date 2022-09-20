@@ -11,4 +11,9 @@ export class IngresoPersonalEmpresa2{
     public id_sede: number=0;
     public fecha: Date = new Date();
     public ide_oficina: number=0;
+    public nombreImagen: String="";
+    public rh: String="";
+    public telefono: String="";
+    public eps: String="";
+    public arl: String="";
 }

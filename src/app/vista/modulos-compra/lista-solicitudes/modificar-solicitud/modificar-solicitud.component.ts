@@ -19,6 +19,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
+import { AgregarArticulosComponent } from '../../articulos/agregar-articulos/agregar-articulos.component';
 
 @Component({
   selector: 'app-modificar-solicitud',
@@ -55,6 +56,7 @@ export class ModificarSolicitudComponent implements OnInit {
     private servicioDetalleSolicitud: DetalleSolicitudService,
     private servicioModificar: ModificarService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<ModificarSolicitudComponent>,
   ){}
 
@@ -189,10 +191,11 @@ export class ModificarSolicitudComponent implements OnInit {
     }
   }
 
+  num:any
   public _filter(descripcion: string, listaArticulos: any): Articulo[] {
 
     const filterValue = descripcion.toLowerCase();
-
+    this.num = (listaArticulos.filter((listaArticulos:any) => (listaArticulos.descripcion.toLowerCase().includes(filterValue)))).length
     return listaArticulos.filter((listaArticulos:any) => (listaArticulos.descripcion.toLowerCase().includes(filterValue)));
   }
 
@@ -265,6 +268,13 @@ export class ModificarSolicitudComponent implements OnInit {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1},`+this.selection.isSelected(row)+` estas son: `+row;
+  }
+
+  aprobar:boolean = false
+  public agregarArticulo() {
+    const dialogRef = this.dialog.open(AgregarArticulosComponent, {
+      width: '500px',
+    });
   }
 
   public eliminarArticulo(){

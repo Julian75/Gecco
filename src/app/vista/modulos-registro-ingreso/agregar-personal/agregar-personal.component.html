@@ -36,6 +36,20 @@
           </select>
           </mat-form-field>
         </div>
+        <div class="nombre2" id="sangre">
+          <h2>RH</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese la RH</mat-label>
+          <input id="rh" formControlName="rh" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre2" id="telef">
+          <h2>Telefono</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese telefono</mat-label>
+          <input type="number" id="telefono" formControlName="telefono" matInput>
+          </mat-form-field>
+        </div>
         <div class="nombre3" id="apell">
           <h2>Apellido</h2>
           <mat-form-field class="nombre1" appearance="fill">
@@ -59,6 +73,20 @@
           </select>
           </mat-form-field>
         </div>
+        <div class="nombre4" id="epsPer">
+          <h2>Eps</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+            <mat-label>Ingrese la Eps</mat-label>
+            <input id="eps" formControlName="eps" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4" id="arlPer">
+          <h2>Arl</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+            <mat-label>Ingrese la Arl</mat-label>
+            <input id="arl" formControlName="arl" matInput>
+          </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <!-- Boton de guardar datos -->
@@ -66,37 +94,28 @@
           <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
         </div>
       </div>
-      <div>
+      <div id="webCam">
         <div class="camara">
-          <webcam [height]="300" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="mostrarWebcam"
-
+          <webcam [height]="150" [width]="150" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="mostrarWebcam"
                   [switchCamera]="nextWebcamObservable"
-
                   [imageQuality]="1"
                   (cameraSwitched)="cameraSwitched($event)"
                   (initError)="handleInitError($event)"
           ></webcam>
           <br/>
-          <button  class="btn btn-primary m-5" (click)="triggerCaptura();">Tomar Foto</button>
-          <!-- <button  class="btn btn-primary m-5" (click)="toggleWebcam();">Mostrar/Ocultar Camara</button> -->
-          <!-- <br/>
-          <button  class="btn btn-primary m-5" (click)="showNextWebcam(true);" [disabled]="!multiplesCamarasDisponibles">Next Webcam</button>
-          <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="permitirCambioCamara"><label for="cameraSwitchCheckbox">Allow Camera Switch</label> -->
-          <!-- <br/>
-          dispositivoId: <input id="dispositivoId" type="text" [(ngModel)]="dispositivoId" style="width: 500px">
-          <button (click)="showNextWebcam(dispositivoId);"  class="btn btn-primary m-5">Activate</button> -->
+          <button  class="btn botonprimero" (click)="triggerCaptura();"><mat-icon>photo_camera</mat-icon></button>
         </div>
       </div>
 
-      <div class="snapshot" *ngIf="imagenWebcam">
-        <img [src]="imagenWebcam.imageAsDataUrl"/>
-      </div>
 
       <h4 *ngIf="errors.length > 0">Messages:</h4>
       <ul *ngFor="let error of errors">
         <li>{{error | json}}</li>
       </ul>
     </form>
+    <div class="snapshot" *ngIf="imagenWebcam">
+      <img [src]="imagenWebcam.imageAsDataUrl"/>
+    </div>
   </div>
   <div class="solpiner" id="snipper" style="text-align: center; display: none;">
     <div class="loader"></div>

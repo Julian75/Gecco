@@ -67,6 +67,10 @@ export class AgregarPersonalComponent implements OnInit {
       area: [null,Validators.required],
       sede: [null,Validators.required],
       oficina: [null,Validators.required],
+      rh: [null,Validators.required],
+      telefono: [null,Validators.required],
+      eps: [null,Validators.required],
+      arl: [null,Validators.required],
     });
   }
 
@@ -102,10 +106,16 @@ export class AgregarPersonalComponent implements OnInit {
       document.getElementById("apell").setAttribute("style", "display: none;");
       document.getElementById("doc").setAttribute("style", "display: none;");
       document.getElementById("ofic").setAttribute("style", "display: none;");
+      document.getElementById("webCam").setAttribute("style", "display: none;");
+      document.getElementById("sangre").setAttribute("style", "display: none;");
+      document.getElementById("telef").setAttribute("style", "display: none;");
+      document.getElementById("epsPer").setAttribute("style", "display: none;");
+      document.getElementById("arlPer").setAttribute("style", "display: none;");
     }
   }
 
   public guardar() {
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     let personal : IngresoPersonalEmpresa = new IngresoPersonalEmpresa();
     if(typeof(this.data) === 'object'){
       const idArea = this.formPersonal.controls['area'].value;
@@ -125,6 +135,11 @@ export class AgregarPersonalComponent implements OnInit {
         personal.fecha = this.fecha
         personal.idTipoDocumento = this.data['idTipoDocumento'];
         personal.ideOficina = this.data['ideOficina'];
+        personal.nombreImagen = this.data['nombreImagen']
+        personal.rh = this.data['rh']
+        personal.telefono = this.data['telefono']
+        personal.eps = this.data['eps']
+        personal.arl = this.data['arl']
         this.servicioEstado.listarPorId(72).subscribe(resEstado => {
           personal.idEstado = resEstado
           this.servicioAreas.listarPorId(idArea).subscribe(resArea => {
@@ -137,15 +152,15 @@ export class AgregarPersonalComponent implements OnInit {
                 personal.horaIngreso = this.fecha.getHours()+":"+this.fecha.getMinutes()
               }
               personal.horaSalida = ""
-              this.registrarPersonal(personal);
+              this.registrarPersonal2(personal);
             })
           })
         });
       }
     }else{
       this.listarExiste = []
-      if(this.formPersonal.valid){
-        document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+      if(this.formPersonal.valid && (this.imagenWebcam != null || this.imagenWebcam != undefined)){
+        this.createBlobImageFileAndShow();
         const nombre = this.formPersonal.controls['nombre'].value;
         const apellido = this.formPersonal.controls['apellido'].value;
         const nombres = nombre.split(" ");
@@ -172,6 +187,10 @@ export class AgregarPersonalComponent implements OnInit {
           const existe = this.listarExiste.includes(true)
           if(existe == false){
             personal.documento = this.formPersonal.controls['documento'].value;
+            personal.rh = this.formPersonal.controls['rh'].value;
+            personal.telefono = this.formPersonal.controls['telefono'].value;
+            personal.eps = this.formPersonal.controls['eps'].value;
+            personal.arl = this.formPersonal.controls['arl'].value.toUpperCase();
             this.servicioEstado.listarPorId(72).subscribe(res => {
               personal.idEstado = res
               const idTipoDocumento = this.formPersonal.controls['tipoDocumento'].value;
@@ -185,6 +204,7 @@ export class AgregarPersonalComponent implements OnInit {
                     personal.idSedes = res
                     personal.horaSalida = ""
                     personal.fecha = this.fecha
+                    personal.nombreImagen = this.imagen.name
                     if(this.fecha.getMinutes() < 10){
                       personal.horaIngreso = this.fecha.getHours()+":"+("0"+this.fecha.getMinutes())
                     }else{
@@ -218,6 +238,7 @@ export class AgregarPersonalComponent implements OnInit {
           }
         })
       }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -232,7 +253,7 @@ export class AgregarPersonalComponent implements OnInit {
   public registrarPersonal(personal: IngresoPersonalEmpresa) {
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     this.servicioPersonal.registrar(personal).subscribe(res=>{
-      this.uploadFiles(this.imagen);
+      this.uploadFiles();
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -251,25 +272,43 @@ export class AgregarPersonalComponent implements OnInit {
     });
   }
 
+  public registrarPersonal2(personal: IngresoPersonalEmpresa) {
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    this.servicioPersonal.registrar(personal).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Personal Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload()
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
   percentDone: number;
   uploadSuccess: boolean;
-  uploadFiles(files: File[]){
-    var listaArchivo = FileList;
-    console.log(listaArchivo);
+  uploadFiles(){
     var formData = new FormData();
-    Array.from(files).forEach(f => formData.append('imagenes',f))
-    console.log(formData)
+    var lista = []
+    lista.push(this.imagen)
+    Array.from(lista).forEach(f => formData.append('imagenes',f))
     this.http.post('http://localhost:9000/api/Pdf/subirImagen', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
-        console.log("hola")
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("hola2")
           this.percentDone = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          console.log("hola3")
           this.uploadSuccess = true;
           document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          // window.location.reload();
+          window.location.reload();
         }
     });
   }
@@ -300,7 +339,6 @@ export class AgregarPersonalComponent implements OnInit {
 
   public triggerCaptura(): void {
     this.trigger.next();
-    this.createBlobImageFileAndShow();
   }
 
   public toggleWebcam(): void {
@@ -356,17 +394,13 @@ export class AgregarPersonalComponent implements OnInit {
 
   /**Method to Generate a Name for the Image */
   generateName(): string {
-    const date: number = new Date().valueOf();
-    let text: string = '';
-    const possibleText: string =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      text += possibleText.charAt(
-        Math.floor(Math.random() * possibleText.length)
-      );
-    }
+    let nombreImagen: string = '';
+    const nombre = this.formPersonal.controls['nombre'].value;
+    const apellido = this.formPersonal.controls['apellido'].value;
+    const documento = this.formPersonal.controls['documento'].value;
+    nombreImagen += documento+"-"+nombre+"-"+apellido
     // Replace extension according to your media type like this
-    return date + '.' + text + '.jpeg';
+    return nombreImagen + '.jpeg';
   }
 
   /* Method to convert Base64Data Url as Image Blob */

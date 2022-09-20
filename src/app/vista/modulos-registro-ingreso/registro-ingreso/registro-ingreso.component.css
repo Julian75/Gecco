@@ -38,15 +38,14 @@ td.mat-cell {padding-left: 5px;}
 @media screen and (min-width: 280px) and (max-width: 359px){
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{ font-size: 18px !important; margin-left: -10px; margin-top: -2px;}
-  .id{ left: -9px; }
-  #desSp{ margin-left: 24px; position: static; }
-  #fechaSp{ margin-left: 17px; position: static; }
+  .id{ left: -10px; }
+  #desSp, #fechaSp{ margin-left: 17px; position: static; }
   #HoraISp{ margin-left:19%;  position:static;}
   #horaSap{ margin-left: 26%; position:static; }
-  #areaSp{ left: 20px; }
+  #areaSp{margin-left: 13px; position: static;}
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 87%; margin-top: -22%; margin-bottom: 11%;}
-  .botones mat-icon{ position: static; margin-left: -150%; margin-top: -93%;}
+  .botones{position: static; margin-left: 80%; margin-top: -22%; margin-bottom: 11%;}
+  .botones mat-icon{ position: static; font-size: 18px; margin-left: -158%; margin-top: -31%; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -57,15 +56,14 @@ td.mat-cell {padding-left: 5px;}
 @media screen and (min-width: 360px) and (max-width: 375px){
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{ font-size: 18px !important; margin-left: -10px; margin-top: -2px;}
-  .id{ left: -9px; }
-  #desSp{ margin-left: 24px; position: static; }
-  #fechaSp{ margin-left: 17px; position: static; }
+  .id{ left: -10px; }
+  #desSp, #fechaSp{ margin-left: 17px; position: static; }
   #HoraISp{ margin-left:19%;  position:static;}
   #horaSap{ margin-left: 26%; position:static; }
-  #areaSp{ left: 20px; }
+  #areaSp{margin-left: 13px; position: static;}
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 69%; margin-top: -17%; margin-bottom: 7%;}
-  .botones mat-icon{ position: static; margin-left: -150%; margin-top: -93%;}
+  .botones{position: static; margin-left: 205px; margin-top: -60px; margin-bottom: 11%;}
+  .botones mat-icon{ position: static; font-size: 18px; margin-left: -158%; margin-top: -31%; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -76,36 +74,33 @@ td.mat-cell {padding-left: 5px;}
 @media screen and (min-width: 376px) and (max-width: 420px){
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{ font-size: 18px !important; margin-left: -10px; margin-top: -2px;}
-  .id{ left: -9px; }
-  #desSp{ margin-left: 24px; position: static; }
-  #fechaSp{ margin-left: 17px; position: static; }
+  .id{ left: -10px; }
+  #desSp, #fechaSp{ margin-left: 17px; position: static; }
   #HoraISp{ margin-left:19%;  position:static;}
   #horaSap{ margin-left: 26%; position:static; }
-  #areaSp{ left: 20px; }
+  #areaSp{margin-left: 13px; position: static;}
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 60%; margin-top: -15%; margin-bottom: 5%;}
-  .botones mat-icon{ position: static; margin-left: -173%; margin-top: -116%;}
+  .botones{position: static; margin-left: 205px; margin-top: -60px; margin-bottom: 11%;}
+  .botones mat-icon{ position: static; font-size: 18px; margin-left: -158%; margin-top: -31%; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%;  }
 }
 
-
-/* PORTATILES */
+/* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{ font-size: 18px !important; margin-left: -10px; margin-top: -2px;}
   .id{ left: -13px; }
-  #desSp{ margin-left: 31px; position: static; }
-  #fechaSp{ margin-left: 17px; position: static; }
+  #desSp, #fechaSp{ margin-left: 17px; position: static; }
   #HoraISp{ margin-left:19%;  position:static;}
   #horaSap{ margin-left: 26%; position:static; }
   #areaSp{ left: 26px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 44%; margin-top: -11%; margin-bottom: 5%;}
-  .botones mat-icon{ position: static; margin-left: -173%; margin-top: -116%;}
-  #opcSp{ left: 15px; }
+  .botones{position: static; margin-left: 205px; margin-top: -60px; margin-bottom: 11%;}
+  .botones mat-icon{ position: static; font-size: 18px; margin-left: -158%; margin-top: -31%; }
+  #opcSp{ left: 12px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%;  }
@@ -116,13 +111,14 @@ td.mat-cell {padding-left: 5px;}
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{margin-left: -4px; margin-top: -1px; }
   .id{ left: -11px; }
-  #desSp{ margin-left: 43px; position: static; }
-  #fechaSp{ margin-left: 18px; position: static; }
+  #desSp, #fechaSp{ margin-left: 18px; position: static; }
   #HoraISp{ margin-left: 22%;  position:static;}
   #horaSap{ margin-left: 28%; position:static; }
   #areaSp{ left: 25px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 40%; margin-top: -66px;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -133,14 +129,14 @@ td.mat-cell {padding-left: 5px;}
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{margin-left: -4px; margin-top: -1px; }
   .id{ left: -11px; }
-  #desSp{ margin-left: 55px; position: static; }
-  #fechaSp{ margin-left: 18px; position: static; }
-  #HoraISp{ margin-left: 22%;  position:static;}
+  #desSp, #fechaSp, #HoraISp{ margin-left: 26px; position: static; }
   #horaSap{ margin-left: 28%; position:static; }
-  #areaSp{ left: 43px; }
+  #areaSp{ position: static; margin-left: 33px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 35%; margin-top: -66px;}
-  #opcSp{ left: 15px; }
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
+  #opcSp{ left: 12px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
@@ -150,15 +146,15 @@ td.mat-cell {padding-left: 5px;}
 @media screen and (min-width: 769px) and (max-width: 800px){
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{margin-left: -4px; margin-top: -1px; }
-  .id{ left: -11px; }
+  .id{ left: -9px; }
   #desSp{ margin-left: 35px; position: static; }
-  #fechaSp{ margin-left: 18px; position: static; }
-  #HoraISp{ margin-left: 22%;  position:static;}
-  #horaSap{ margin-left: 28%; position:static; }
-  #areaSp{ left: 28px; }
+  #fechaSp, #HoraISp, #horaSap{ margin-left: 27px; position: static; }
+  #areaSp{ position: static; margin-left: 33px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 41%; margin-top: -66px;}
-  #opcSp{ left: 15px; }
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
+  #opcSp{ left: 11px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
@@ -168,15 +164,14 @@ td.mat-cell {padding-left: 5px;}
 @media screen and (min-width: 801px) and (max-width: 960px){
   .excelButton{position: static;margin-left: 0%;}
   td button mat-icon{margin-left: -4px; margin-top: -1px; }
-  .id{ left: -11px; }
-  #desSp{ margin-left: 53px; position: static; }
-  #fechaSp{ margin-left: 18px; position: static; }
-  #HoraISp{ margin-left: 22%;  position:static;}
-  #horaSap{ margin-left: 28%; position:static; }
-  #areaSp{ left: 43px; }
+  .id{ left: -9px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 29px; position: static; }
+  #areaSp{ position: static; margin-left: 33px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 35%; margin-top: -66px;}
-  #opcSp{ left: 15px; }
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
+  #opcSp{ left: 12px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
@@ -184,16 +179,15 @@ td.mat-cell {padding-left: 5px;}
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -4px; margin-top: -1px; }
+  td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   .id{ left: -6px; }
-  #desSp{ margin-left: 64px; position: static; }
-  #fechaSp{ left: 14px; }
-  #HoraISp{ margin-left: 40%;  position:static;}
-  #horaSap{ margin-left: 33%; position:static; }
-  #areaSp{ left: 55px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 32px; position: static; }
+  #areaSp{ position: static; margin-left: 33px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 30%; margin-top: -8%;}
-  #opcSp{ left: 15px; }
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
+  #opcSp{ left: 11px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
@@ -201,15 +195,14 @@ td.mat-cell {padding-left: 5px;}
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -4px; margin-top: -1px; }
+  td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   .id{ left: -4px; }
-  #desSp{ margin-left: 93px; position: static; }
-  #fechaSp{ left: 23px; }
-  #HoraISp{ margin-left: 58%;  position:static;}
-  #horaSap{ margin-left: 63%; position:static; }
-  #areaSp{ left: 75px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 48px; position: static; }
+  #areaSp{ position: static; margin-left: 40px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 25%; margin-top: -66px;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -218,51 +211,48 @@ td.mat-cell {padding-left: 5px;}
 /* Tablet 8, Compu. Mesa 5*/
 @media screen and (min-width: 1281px) and (max-width: 1536px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
   .id{ left: -4px; }
-  #desSp{ margin-left: 103px; position: static; }
-  #fechaSp{ left: 23px; }
-  #HoraISp{ margin-left: 58%;  position:static;}
-  #horaSap{ margin-left: 63%; position:static; }
-  #areaSp{ left: 80px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 58px; position: static; }
+  #areaSp{ position: static; margin-left: 50px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 20%; margin-top: -66px;}
-  #opcSp{ left: 15px; }
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
+  #opcSp{ left: 13px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
 }
 
-/*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/
+/*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1799px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
-  .id{ left: 4px; }
-  #desSp{ margin-left: 150px; position: static; }
-  #fechaSp{ left: 28px; }
-  #HoraISp{ margin-left: 76%;  position:static;}
-  #horaSap{ margin-left: 78%; position:static; }
-  #areaSp{ left: 88px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
+  .id{ left: -4px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 64px; position: static; }
+  #areaSp{ position: static; margin-left: 79px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 21%; margin-top: -66px;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
   .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
 }
 
-/* Compu. Mesa 7 */
+/* Compu. Mesa 7, Televisor 2, Portatil 4 */
 @media screen and (min-width: 1800px) and (max-width: 1920px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
   .id{ left: -1px; }
-  #desSp{ margin-left: 200px; position: static; }
-  #fechaSp{ left: 38px; }
-  #HoraISp{ margin-left: 70%;  position:static;}
-  #horaSap{ margin-left: 75%; position:static; }
-  #areaSp{ left: 110px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 87px; position: static; }
+  #areaSp{ position: static; margin-left: 79px; }
   .documento{ position: static; margin-left:0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 18%; margin-top: -66px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -272,15 +262,14 @@ td.mat-cell {padding-left: 5px;}
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
   .id{ left: -4px; }
-  #desSp{ margin-left: 180px; position: static; }
-  #fechaSp{ left: 40px; }
-  #HoraISp{ margin-left: 72%;  position:static;}
-  #horaSap{ margin-left: 80%; position:static; }
-  #areaSp{ left: 115px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 98px; position: static; }
+  #areaSp{ position: static; margin-left: 79px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 16%; margin-top: -66px;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -289,15 +278,14 @@ td.mat-cell {padding-left: 5px;}
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
   .id{ left: -4px; }
-  #desSp{ margin-left: 261px; position: static; }
-  #fechaSp{ left: 40px; }
-  #HoraISp{ margin-left: 72%;  position:static;}
-  #horaSap{ margin-left: 80%; position:static; }
-  #areaSp{ left: 115px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 108px; position: static; }
+  #areaSp{ position: static; margin-left: 79px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 15%; margin-top: -66px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -306,15 +294,14 @@ td.mat-cell {padding-left: 5px;}
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
   .id{ left: 7px; }
-  #desSp{ margin-left: 365%; position: static; }
-  #fechaSp{ left: 59px; }
-  #HoraISp{ margin-left: 105%;  position:static;}
-  #horaSap{ margin-left: 115%; position:static; }
-  #areaSp{ left: 171px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 136px; position: static; }
+  #areaSp{ position: static; margin-left: 91px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 14%; margin-top: -66px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -323,15 +310,14 @@ td.mat-cell {padding-left: 5px;}
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
   .id{ left: 7px; }
-  #desSp{ margin-left: 365%; position: static; }
-  #fechaSp{ left: 65px; }
-  #HoraISp{ margin-left: 105%;  position:static;}
-  #horaSap{ margin-left: 115%; position:static; }
-  #areaSp{ left: 180px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 136px; position: static; }
+  #areaSp{ position: static; margin-left: 91px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 12%; margin-top: -66px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -340,15 +326,14 @@ td.mat-cell {padding-left: 5px;}
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
-  .id{ left: 7px; }
-  #desSp{ margin-left: 422%; position: static; }
-  #fechaSp{ left: 80px; }
-  #HoraISp{ margin-left: 130%;  position:static;}
-  #horaSap{ margin-left: 130%; position:static; }
-  #areaSp{ left: 200px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
+  .id{ left: 2px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 160px; position: static; }
+  #areaSp{ position: static; margin-left: 122px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 11%; margin-top: -66px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; }
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -357,15 +342,14 @@ td.mat-cell {padding-left: 5px;}
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
-  .id{ left: 28px; }
-  #desSp{ margin-left: 561%; position: static; }
-  #fechaSp{ left: 113px; }
-  #HoraISp{ margin-left: 181%;  position:static;}
-  #horaSap{ margin-left: 180%; position:static; }
-  #areaSp{ left: 270px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
+  .id{ left: 9px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 231px; position: static; }
+  #areaSp{ position: static; margin-left: 174px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 10%; margin-top: -63px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; margin-bottom: 5%;}
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -374,15 +358,14 @@ td.mat-cell {padding-left: 5px;}
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
-  .id{ left: 28px; }
-  #desSp{ margin-left: 561%; position: static; }
-  #fechaSp{ left: 113px; }
-  #HoraISp{ margin-left: 181%;  position:static;}
-  #horaSap{ margin-left: 180%; position:static; }
-  #areaSp{ left: 270px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
+  .id{ left: 4px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 231px; position: static; }
+  #areaSp{ position: static; margin-left: 174px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 8%; margin-top: -63px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; margin-bottom: 5%;}
   td.mat-cell:first-of-type { padding-left: 5px;}
@@ -391,15 +374,14 @@ td.mat-cell {padding-left: 5px;}
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
   .excelButton{position: static;margin-left: 0%;}
-  td button mat-icon{ font-size: 18px !important; margin-left: -3px; margin-top: -1px;}
-  .id{ left: 88px; }
-  #desSp{ margin-left: 1158%; position: static; }
-  #fechaSp{ left: 224px; }
-  #HoraISp{ margin-left: 416%;  position:static;}
-  #horaSap{ margin-left: 413%; position:static; }
-  #areaSp{ left: 562px; }
+  td button mat-icon{ margin-left: -3px; margin-top: -1px;}
+  .id{ left: 14px; }
+  #desSp, #fechaSp, #HoraISp, #horaSap{ margin-left: 231px; position: static; }
+  #areaSp{ position: static; margin-left: 174px; }
   .documento{ position: static; margin-left: 0%; margin-top: 2%;}
-  .botones{position: static; margin-left: 4%; margin-top: -63px; margin-bottom: -1%;}
+  .botones{position: static; margin-left: 219px; margin-top: -63px;}
+  .botones .btnver{ width: 64px; height: 36px;}
+  .botones .btnver mat-icon{ font-size: 20px; }
   #opcSp{ left: 15px; }
   td button{ margin-top: 5%; margin-bottom: 5%;}
   td.mat-cell:first-of-type { padding-left: 5px;}

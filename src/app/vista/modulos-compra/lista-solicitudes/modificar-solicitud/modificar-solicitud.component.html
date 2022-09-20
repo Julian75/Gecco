@@ -6,6 +6,7 @@
       <div class="guardar2">
         <button  class="btn botonagregar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
         <button  class="btn bot" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+        <button class="btn boton" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
       </div>
     </div>
 

@@ -30,6 +30,7 @@ export class RegistroIngresoComponent implements OnInit {
   public fecha: Date = new Date();
   public lis: any = [];
   public estados: any = [];
+  public validar :any =[]
 
 
   myControl = new FormControl<string | IngresoPersonalEmpresa>("");
@@ -40,7 +41,11 @@ export class RegistroIngresoComponent implements OnInit {
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+  datepipe: any;
   constructor(
     private servicioRegistro : IngresoPersonalEmpresaService,
     private servicioEstado : EstadoService,
@@ -54,15 +59,13 @@ export class RegistroIngresoComponent implements OnInit {
   }
 
   abrirModal(valor): void {
-
       if(typeof(this.document) === "object"){
-        console.log(this.document)
         if(this.document.idEstado.id == 73){
           const dialogRef = this.dialog.open(AgregarPersonalComponent, {
             width: '400px',
             data: this.document,
             disableClose: true,
-            height: '600px',
+            height: '440px',
           });
         }else{
           Swal.fire({
@@ -80,7 +83,7 @@ export class RegistroIngresoComponent implements OnInit {
           width: '850px',
           data: valor,
           disableClose: true,
-          height: '600px',
+          height: '440px',
         });
       }
 
@@ -153,12 +156,19 @@ export class RegistroIngresoComponent implements OnInit {
       personal.nombre = res.nombre
       personal.apellido = res.apellido
       personal.documento = res.documento
-      personal.fecha = res.fecha
+      var fecha = new Date(res.fecha)
+      fecha.setDate(fecha.getDate()+1)
+      personal.fecha = fecha
       personal.horaIngreso = res.horaIngreso
       personal.ide_oficina = res.ideOficina
       personal.id_area = res.idArea.id
       personal.id_sede = res.idSedes.id
       personal.idTipoDocumento = res.idTipoDocumento.id
+      personal.nombreImagen = res.nombreImagen
+      personal.rh = res.rh
+      personal.telefono = res.telefono
+      personal.eps = res.eps
+      personal.arl = res.arl
       this.servicioEstado.listarPorId(73).subscribe(resEstado=>{
         personal.id_estado = resEstado.id
         if(this.fecha.getMinutes() < 10){
@@ -191,7 +201,74 @@ export class RegistroIngresoComponent implements OnInit {
         })
     })
   }
+  fechaInicio: any;
+  fechaFin: any;
+  star: any;
+  end: any;
+  noRegistro = false;
 
+  capturar(){
+    this.range.valueChanges.subscribe((res:any)=>{
+      const fechaInicio = new Date(res.start);
+      const fechaFin = new Date(res.end);
+      if(fechaInicio.getDate() < 10 && fechaFin.getDate() < 10 && fechaInicio.getMonth() < 10 && fechaFin.getMonth() < 10){
+        this.star = fechaInicio.getFullYear()+"-0"+(fechaInicio.getMonth()+1)+"-0"+fechaInicio.getDate()
+        this.end = fechaFin.getFullYear()+"-0"+(fechaFin.getMonth()+1)+"-0"+fechaFin.getDate()
+      }else if(fechaInicio.getMonth() <= 10 && fechaFin.getMonth() <= 10){
+        this.star = fechaInicio.getFullYear()+"-0"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate()
+        this.end = fechaFin.getFullYear()+"-0"+(fechaFin.getMonth()+1)+"-"+fechaFin.getDate()
+      }else{
+        this.star = fechaInicio.getFullYear()+"-"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate()
+        this.end = fechaFin.getFullYear()+"-"+(fechaFin.getMonth()+1)+"-"+fechaFin.getDate()
+      }
+    })
+    this.lista = []
+    this.validar = []
+      const fechaInicio = new Date(this.range.value.start);
+      const fechaFin = new Date(this.range.value.end);
+      const fechaInicio2 = fechaInicio.getFullYear() + "-" + (fechaInicio.getMonth() + 1) + "-" + fechaInicio.getDate();
+      const fechaFin2 = fechaFin.getFullYear() + "-" + (fechaFin.getMonth() + 1) + "-" + fechaFin.getDate();
+      if(fechaInicio.getMonth() < 10 && fechaFin.getMonth() < 10){
+        this.fechaInicio = fechaInicio.getFullYear() + "-0" + (fechaInicio.getMonth() + 1) + "-" + fechaInicio.getDate();
+        this.fechaFin = fechaFin.getFullYear() + "-0" + (fechaFin.getMonth() + 1) + "-" + fechaFin.getDate();
+      }else{
+        this.fechaInicio = fechaInicio.getFullYear() + "-" + (fechaInicio.getMonth() + 1) + "-" + fechaInicio.getDate();
+        this.fechaFin = fechaFin.getFullYear() + "-" + (fechaFin.getMonth() + 1) + "-" + fechaFin.getDate();
+      }
+      this.listaRegistro2.forEach(element => {
+        if(element.fecha <= this.fechaFin){
+          var obj = {
+            nombre: element.nombre + " " + element.apellido,
+            sede: element.idSedes.descripcion,
+            documento: element.documento,
+            tipoDocumento: element.idTipoDocumento.descripcion,
+            oficina: element.ideOficina,
+            area: element.idArea.descripcion,
+            eps: element.eps,
+            rh: element.rh,
+            arl: element.arl,
+            telefono: element.telefono,
+            fecha: element.fecha,
+            horaIng: element.horaIngreso,
+            horaSal: element.horaSalida,
+          }
+            this.lista.push(obj)
+            console.log(obj)
+        }
+      });
+      if(this.lista.length > 0){
+        import("xlsx").then(xlsx => {
+          const worksheet = xlsx.utils.json_to_sheet(this.lista);
+          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+          this.saveAsExcelFile(excelBuffer, this.name);
+        });
+      }
+
+
+
+
+  }
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -202,30 +279,6 @@ export class RegistroIngresoComponent implements OnInit {
     }
   }
   name = 'listaRegistros.xlsx';
-  exportToExcel(): void {
-      this.listaRegistro2.forEach(element => {
-        if(element.idEstado.id == 72){
-          var obj = {
-            nombre: element.nombre + " " + element.apellido,
-            fecha: element.fecha,
-            horaIng: element.horaIngreso,
-            horaSal: element.horaSalida,
-            area: element.idArea.descripcion,
-          }
-          this.lista.push(obj)
-        }
-      });
-      console.log(this.lista)
-      if(this.lista.length > 0){
-        import("xlsx").then(xlsx => {
-          const worksheet = xlsx.utils.json_to_sheet(this.lista);
-          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-          this.saveAsExcelFile(excelBuffer, this.name);
-        });
-      }
-  }
-
   saveAsExcelFile(buffer: any, fileName: string): void {
     let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     let EXCEL_EXTENSION = '.xlsx';

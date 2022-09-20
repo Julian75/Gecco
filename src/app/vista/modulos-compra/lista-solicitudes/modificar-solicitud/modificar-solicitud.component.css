@@ -132,7 +132,8 @@ h2{
 }
 .nombre3{ position: static;  margin-left: 5%; margin-top: 1%;}
 .nombre4{ position: static; margin-left: 4%; margin-top: 1%; width: 20.5%;}
-.botonagregar, .bot , .botonagregar2{
+.boton{ margin-left: 2.3%!important;  margin-top: 34%; position: static !important; background-color: #959595 ;}
+.botonagregar, .bot , .botonagregar2, .boton{
   color: white;
   font-size: large;
   margin-left: 2.3%;
@@ -193,6 +194,7 @@ mat-option{ font-size: 10.5px; }
   .contenedor{  width: 93% !important; margin-left: 3%; margin-top: -10%; }
   .guardar3 { left: 19%; width: 38px !important; height: 30px; top: 385px; }
   .guardar6 {width: 38px !important; height: 30px; top: 344px; }
+  .boton{ margin-left: 12.3%!important; margin-top: 179%;}
   .dato{ width: 186px; }
   .guardar{left: 37%; width: 38px !important; height: 30px;top: 385px;}
   mat-icon{font-size: 18px; margin-left: -50%; margin-top: -1px;}
@@ -222,10 +224,11 @@ mat-option{ font-size: 10.5px; }
   .botonagregar2{ margin-top: 29% !important; margin-left: 73% !important; position: static;}
 }
 
-/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+/* Movil pequeño 2*/
 @media screen and (min-width: 360px) and (max-width: 374px){
   .row1{ margin-top: -160%;}
   .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
+  .boton{ margin-left: 7%!important; margin-top: 144%;}
   .guardar3 {left: 30%; top: 430px;}
   .guardar{left: 14%; top: 430px;}
   .guardar6{ left: 46%; top: 59.7%; }
@@ -259,11 +262,12 @@ mat-option{ font-size: 10.5px; }
   .botonagregar2{position: static; margin-top: 13%; margin-left: 83%;}
 }
 
-/*  movil pequeño 3 y movil pequeño 4*/
+/*  movil pequeño 3*/
 @media screen and (min-width: 375px) and (max-width: 410px){
   .row1{ margin-top: -157%;}
   .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
   .guardar3 {left: 30%; top: 430px;}
+  .boton{ margin-left: 7%!important; margin-top: 141%;}
   .guardar{left: 14%; top: 430px;}
   .guardar6{ left: 46%; top: 59.7%; }
   .ar{left: 13%; position: relative;}
@@ -300,6 +304,7 @@ mat-option{ font-size: 10.5px; }
 @media screen and (min-width: 411px) and (max-width: 599px){
   .row1{ margin-top: -138%;}
   .contenedor{ width: 89% !important; margin-left: 3%; margin-top: 0%; }
+  .boton{ margin-left: 7%!important; margin-top: 127%;}
   .guardar3 {left: 30%; top: 430px;}
   .guardar{left: 14%; top: 430px;}
   .guardar6{ left: 46%; top: 59.7%; }
@@ -344,6 +349,7 @@ mat-option{ font-size: 10.5px; }
   .nombre3{position: static; margin-left: 4%; top: 36%;}
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
   .botonagregar{margin-top: 98%; margin-left: 4%; position: static;}
+  .boton{margin-left: 5.3%!important; margin-top: 98%;}
   .bot{position: static; margin-top: 98%; margin-left: 5%;}
   mat-paginator{ width: 80%; position: static; margin-left: 20%; margin-top: -143px;}
   .botonagregar2{margin-left: 1%; position: static; margin-top: 31%;}
@@ -363,6 +369,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
   .botonagregar{margin-top: 89%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .boton{ margin-left: 5.3%!important; margin-top: 89%;}
   .bot{position: static; margin-top: 89%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: -2%; width: 100%; margin-left: -40%;}
@@ -383,6 +390,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
   .botonagregar{margin-top: 77%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .boton{margin-left: 5.3%!important; margin-top: 77%;}
   .bot{position: static; margin-top: 77%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: 0%; width: 100%; margin-left: -40%;}
@@ -404,6 +412,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
   .botonagregar{margin-top: 73%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .boton{margin-left: 5.3%!important; margin-top: 73%;}
   .bot{position: static; margin-top: 73%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: 0%; width: 100%; margin-left: -40%;}
@@ -425,6 +434,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4{position: static; width: 52%; margin-left: 4%; margin-top: 0%;}
   .botonagregar{margin-top: 60%; margin-left: 4%; position: static;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .boton{ margin-left: 5.3%!important; margin-top: 60%;}
   .bot{position: static; margin-top: 60%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: -2%; width: 100%; margin-left: -40%;}
@@ -443,6 +453,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4 { margin-left: 13px; margin-top: 0px; position: static;}
   .bot{ position: static; margin-top: 54%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
+  .boton{margin-left: 4%!important; margin-top: 54%;}
   mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
@@ -471,6 +482,7 @@ mat-option{ font-size: 10.5px; }
   .botonagregar2{margin-top: 8%; margin-left: 89%;}
   .botonagregar{ margin-top: 54%; position: static; margin-left: 2%;}
   .botonagregar mat-icon{position: static; margin-top: -4%;}
+  .boton{margin-left: 4.3%!important; margin-top: 54%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
 }
@@ -480,6 +492,8 @@ mat-option{ font-size: 10.5px; }
   .contenedor{margin-top: 0%;}
   .todo, .una{ width: 77px; }
   .row1{margin-top: -47%;}
+  .boton{margin-left: 4%!important; margin-top: 42%;}
+  .boton mat-icon{position: static; margin-top: -1%;}
   .nombre2{position: static; margin-left: 14px; margin-top: -295px;}
   .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
   .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
@@ -506,6 +520,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
   .bot{ position: static; margin-top: 39%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
+  .boton{margin-left: 4%!important; margin-top: 39%;}
   mat-paginator{top: -102px;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
@@ -525,6 +540,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{position: static; margin-left: 14px; margin-top: -295px;}
   .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
   .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .boton{margin-left: 4.3%!important; margin-top: 36%;}
   .bot{ position: static; margin-top: 36%;  margin-left: 4%;}
   .nombre,.nombres, .nombre1{width: 210px;}
   mat-paginator{top: -102px;}
@@ -568,6 +584,7 @@ mat-option{ font-size: 10.5px; }
   .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
   .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
   .bot{ position: static; margin-top: 28%;  margin-left: 2%;}
+  .boton{margin-top: 28%;}
   .nombre,.nombres, .nombre1{width: 305px;}
   mat-paginator{top: -102px;}
   .ar{left: 0px;}
@@ -588,6 +605,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{position: static; margin-left: 14px; margin-top: -303px;}
   .nombre3{ position: static; margin-left: 12px; margin-top: -6px;}
   .nombre4 { margin-left: 13px; margin-top: -4px; position: static;}
+  .boton{margin-top: 26%;}
   .bot{ position: static; margin-top: 26%;  margin-left: 2%;}
   .nombre,.nombres, .nombre1{width: 210px;}
   mat-paginator{top: -120px;}
@@ -609,6 +627,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{ margin-left: 3%; margin-top: -13%; position: static;}
   .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
+  .boton{margin-top: 26%;}
   .bot{margin-left: 2%; margin-top: 26%; position: static;}
   .nombre,.nombres, .nombre1{width: 330px;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
@@ -632,6 +651,7 @@ mat-option{ font-size: 10.5px; }
   .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
   .bot{margin-left: 2%; margin-top: 21%; position: static;}
   .nombre,.nombres, .nombre1{width: 350px;}
+  .boton{margin-top: 21%;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
   .ar{left: 0px;}
   .cant{margin-left: 0%;}
@@ -651,6 +671,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{ margin-left: 3%; margin-top: -11%; position: static;}
   .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
+  .boton{margin-top: 20%;}
   .bot{margin-left: 2%; margin-top: 20%; position: static;}
   .nombre,.nombres, .nombre1{width: 330px;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
@@ -672,6 +693,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{ margin-left: 3%; margin-top: -10%; position: static;}
   .nombre3{ margin-left: 3%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 3%; margin-top: 0%; position: static;}
+  .boton{margin-top: 18%;}
   .bot{margin-left: 2%; margin-top: 18%; position: static;}
   .nombre,.nombres, .nombre1{width: 330px;}
   mat-paginator{ margin-top: -12%; margin-left: 40%; position: static;}
@@ -693,6 +715,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
   .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
+  .boton{margin-top: 17%;}
   .bot{margin-left: 2%; margin-top: 17%; position: static;}
   .nombre,.nombres, .nombre1{width: 350px;}
   mat-paginator{ margin-top: -8%; margin-left: 40%; position: static;}
@@ -713,6 +736,7 @@ mat-option{ font-size: 10.5px; }
   .todo, .una{ width: 77px; }
   .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
   .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
+  .boton{margin-top: 17%;}
   .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
   .bot{margin-left: 2%; margin-top: 17%; position: static;}
   .nombre,.nombres, .nombre1{width: 350px;}
@@ -735,6 +759,7 @@ mat-option{ font-size: 10.5px; }
   .nombre2{ margin-left: 8%; margin-top: -11%; position: static;}
   .nombre3{ margin-left: 8%; margin-top: 0%; position: static;}
   .nombre4 { margin-left: 8%; margin-top: 0%; position: static;}
+  .boton{ margin-top: 17%;}
   .bot{margin-left: 2%; margin-top: 17%; position: static;}
   .nombre,.nombres, .nombre1{width: 350px;}
   mat-paginator{ margin-top: -8%; margin-left: 40%; position: static;}
