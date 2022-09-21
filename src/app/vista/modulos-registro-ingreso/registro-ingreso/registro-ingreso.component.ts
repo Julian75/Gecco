@@ -31,6 +31,8 @@ export class RegistroIngresoComponent implements OnInit {
   public lis: any = [];
   public estados: any = [];
   public validar :any =[]
+  public reporte : any = []
+
 
 
   myControl = new FormControl<string | IngresoPersonalEmpresa>("");
@@ -111,7 +113,6 @@ export class RegistroIngresoComponent implements OnInit {
         if (index === this.personasRegistradas.findLastIndex((item2: any) => item2.documento === item.documento)) {
           this.lis.push(item)
         }
-
       });
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(""),
@@ -201,71 +202,74 @@ export class RegistroIngresoComponent implements OnInit {
         })
     })
   }
-  fechaInicio: any;
-  fechaFin: any;
   star: any;
   end: any;
-  noRegistro = false;
-
+  horaMayor = false;
+  starAnterior: any;
+  endAnterior: any;
   capturar(){
-    this.range.valueChanges.subscribe((res:any)=>{
-      const fechaInicio = new Date(res.start);
-      const fechaFin = new Date(res.end);
-      if(fechaInicio.getDate() < 10 && fechaFin.getDate() < 10 && fechaInicio.getMonth() < 10 && fechaFin.getMonth() < 10){
-        this.star = fechaInicio.getFullYear()+"-0"+(fechaInicio.getMonth()+1)+"-0"+fechaInicio.getDate()
-        this.end = fechaFin.getFullYear()+"-0"+(fechaFin.getMonth()+1)+"-0"+fechaFin.getDate()
-      }else if(fechaInicio.getMonth() <= 10 && fechaFin.getMonth() <= 10){
-        this.star = fechaInicio.getFullYear()+"-0"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate()
-        this.end = fechaFin.getFullYear()+"-0"+(fechaFin.getMonth()+1)+"-"+fechaFin.getDate()
-      }else{
-        this.star = fechaInicio.getFullYear()+"-"+(fechaInicio.getMonth()+1)+"-"+fechaInicio.getDate()
-        this.end = fechaFin.getFullYear()+"-"+(fechaFin.getMonth()+1)+"-"+fechaFin.getDate()
-      }
-    })
     this.lista = []
     this.validar = []
-      const fechaInicio = new Date(this.range.value.start);
-      const fechaFin = new Date(this.range.value.end);
-      const fechaInicio2 = fechaInicio.getFullYear() + "-" + (fechaInicio.getMonth() + 1) + "-" + fechaInicio.getDate();
-      const fechaFin2 = fechaFin.getFullYear() + "-" + (fechaFin.getMonth() + 1) + "-" + fechaFin.getDate();
-      if(fechaInicio.getMonth() < 10 && fechaFin.getMonth() < 10){
-        this.fechaInicio = fechaInicio.getFullYear() + "-0" + (fechaInicio.getMonth() + 1) + "-" + fechaInicio.getDate();
-        this.fechaFin = fechaFin.getFullYear() + "-0" + (fechaFin.getMonth() + 1) + "-" + fechaFin.getDate();
+    this.reporte = []
+    if(this.range.value.start == null || this.range.value.end == null){
+      this.range.value.start = null
+      this.range.value.end = null
+    }else{
+      if(this.range.value.start.getMonth() <= 10 && this.range.value.start.getDate() <= 10 && this.range.value.end.getMonth() <= 10 && this.range.value.end.getDate() <= 10){
+        this.star = this.range.value.start.getFullYear()+"-0"+(this.range.value.start.getMonth()+1)+"-0"+this.range.value.start.getDate()
+        this.end = this.range.value.end.getFullYear()+"-0"+(this.range.value.end.getMonth()+1)+"-0"+this.range.value.end.getDate()
+      }else if(this.range.value.start.getMonth() <= 10 && this.range.value.end.getMonth() <= 10){
+        this.star = this.range.value.start.getFullYear()+"-0"+(this.range.value.start.getMonth()+1)+"-"+this.range.value.start.getDate()
+        this.end = this.range.value.end.getFullYear()+"-0"+(this.range.value.end.getMonth()+1)+"-"+this.range.value.end.getDate()
       }else{
-        this.fechaInicio = fechaInicio.getFullYear() + "-" + (fechaInicio.getMonth() + 1) + "-" + fechaInicio.getDate();
-        this.fechaFin = fechaFin.getFullYear() + "-" + (fechaFin.getMonth() + 1) + "-" + fechaFin.getDate();
+        this.star = this.range.value.start.getFullYear()+"-"+(this.range.value.start.getMonth()+1)+"-"+this.range.value.start.getDate()
+        this.end = this.range.value.end.getFullYear()+"-"+(this.range.value.end.getMonth()+1)+"-"+this.range.value.end.getDate()
       }
-      this.listaRegistro2.forEach(element => {
-        if(element.fecha <= this.fechaFin){
-          var obj = {
-            nombre: element.nombre + " " + element.apellido,
-            sede: element.idSedes.descripcion,
-            documento: element.documento,
-            tipoDocumento: element.idTipoDocumento.descripcion,
-            oficina: element.ideOficina,
-            area: element.idArea.descripcion,
-            eps: element.eps,
-            rh: element.rh,
-            arl: element.arl,
-            telefono: element.telefono,
-            fecha: element.fecha,
-            horaIng: element.horaIngreso,
-            horaSal: element.horaSalida,
-          }
+    }
+    if(this.range.value.end != null){
+      this.servicioRegistro.listarTodos().subscribe(res=>{
+        res.forEach(element => {
+          if(element.fecha >= this.star && element.fecha <= this.end){
+            var obj = {
+              nombre: element.nombre + " " + element.apellido,
+              sede: element.idSedes.descripcion,
+              documento: element.documento,
+              tipoDocumento: element.idTipoDocumento.descripcion,
+              oficina: element.ideOficina,
+              area: element.idArea.descripcion,
+              eps: element.eps,
+              rh: element.rh,
+              arl: element.arl,
+              telefono: element.telefono,
+              fecha: element.fecha,
+              horaIng: element.horaIngreso,
+              horaSal: element.horaSalida,
+            }
             this.lista.push(obj)
-            console.log(obj)
-        }
-      });
-      if(this.lista.length > 0){
-        import("xlsx").then(xlsx => {
-          const worksheet = xlsx.utils.json_to_sheet(this.lista);
-          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-          this.saveAsExcelFile(excelBuffer, this.name);
+          }
         });
-      }
-
-
+        if(this.lista.length > 0){
+          import("xlsx").then(xlsx => {
+            const worksheet = xlsx.utils.json_to_sheet(this.lista);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, "ExportExcel");
+          });
+          this.range.reset()
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay datos para exportar!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.range.reset()
+        }
+      })
+    }else{
+      this.end = null
+    }
 
 
   }

@@ -128,7 +128,7 @@ button{
 @media screen and (min-width: 961px) and (max-width: 1024px){
   .iconMenu{ display: none; }
   .nombre{ margin-left: 48%; }
-  .person{ width: 44px; height: 51%; margin-left: 2%;}
+  .person{ width: 44px; height: 42px; margin-left: 2%;}
   mat-select-arrow{ margin-left: 37px; }
   mat-toolbar{height: 13%;}
 }
@@ -136,7 +136,7 @@ button{
 @media screen and (min-width: 1025px) and (max-width: 1080px){
   .iconMenu{ display: none; }
   .nombre{ margin-left: 43%; font-size: 22px; }
-  .person{ width: 47px; height: 48%; margin-left: 2%;}
+  .person{ width: 55px; height: 48%; margin-left: 2%;}
   mat-toolbar{ height: 5.6%;}
 }
 
@@ -152,14 +152,14 @@ button{
 @media screen and (min-width: 1201px) and (max-width: 1280px){
   .iconMenu{ display: none; }
   .nombre{margin-left: 53%; font-size: 23px;}
-  .person{ width: 48px; height: 41%; margin-left: 1%;}
+  .person{ width: 42px; height: 41%; margin-left: 1%;}
   mat-toolbar{ height: 13%;}
 }
 /* Compu Mesa 5 */
 @media screen and (min-width: 1281px) and (max-width: 1400px){
   .iconMenu{ display: none; }
   .nombre{margin-left: 57%; font-size: 23px;}
-  .person{width: 63px; height: 34%; margin-left: 1%;}
+  .person{ width: 46px; height: 34%; margin-left: 1%;}
   mat-toolbar{ height: 13.7%;}
 }
 /* Compu Mesa 6 */
@@ -174,7 +174,7 @@ button{
 @media screen and (min-width: 1851px) and (max-width: 1920px){
   .iconMenu{ display: none; }
   .nombre{margin-left: 67%; font-size: 23px;}
-  .person{width: 58px; height: 35%; margin-left: 1%;}
+  .person{width: 58px; height: 47%; margin-left: 1%;}
   mat-toolbar{  height: 9%;}
 }
 /* Tablet 8 */
@@ -189,19 +189,19 @@ button{
 @media screen and (min-width: 1921px) and (max-width: 2048px){
   .iconMenu{ display: none; }
   .nombre{margin-left: 69%; font-size: 23px;}
-  .person{ width: 68px; height: 40%; margin-left: 1%;}
+  .person{ width: 62px; height: 40%; margin-left: 1%;}
   mat-toolbar{ height: 9%;}
 }
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
   .iconMenu{ display: none; }
   .nombre{margin-left: 69%; font-size: 23px;}
-  .person{ width: 68px; height: 40%; margin-left: 1%;}
+  .person{ width: 61px; height: 40%; margin-left: 1%;}
   mat-toolbar{ height: 9%;}
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
-  .person{ height: 34%; width: 62px; margin-left: 1%;}
+  .person{ height: 34%; width: 55px; margin-left: 1%;}
   .flecha{ margin-left: -10%;}
   .nombre{ margin-left: 73%; font-size: 22px;}
   mat-toolbar{height: 8.3%;}
@@ -224,7 +224,7 @@ button{
 }
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
-  .person{ height: 46%; width: 75px; margin-left: 1%;}
+  .person{ height: 39%; width: 81px; margin-left: 1%;}
   .flecha{ margin-left: -10%;}
   .nombre{margin-left: 76%; font-size: 30px;}
   mat-toolbar{height: 8.8%;}
@@ -240,7 +240,7 @@ button{
 
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
-  .person{ height: 48%; width: 195px; margin-left: 1%;}
+  .person{ height: 48%; width: 169px; margin-left: 1%;}
   .flecha{ margin-left: -10%;}
   .nombre{margin-left: 74%; font-size: 60px;}
   mat-toolbar{height: 7%;}

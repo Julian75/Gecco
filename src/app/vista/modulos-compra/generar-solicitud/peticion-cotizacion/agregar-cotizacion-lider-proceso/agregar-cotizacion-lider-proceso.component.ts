@@ -99,7 +99,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     Array.from(files).forEach(f => formData.append('files',f))
     // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload
     // http://localhost:9000/api/Pdf/upload
-    this.http.post('http://localhost:9000/api/Pdf/upload', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);

@@ -392,6 +392,30 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             })
           })
         })
+      }else if(this.opcion2 == 4){
+        let historial2 : HistorialSolicitudes = new HistorialSolicitudes();
+        historial2.observacion = ""
+        this.servicioEstado.listarPorId(65).subscribe(resEstado=>{
+          historial2.idEstado = resEstado
+          this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+            historial2.idSolicitudSC = resSolicitud
+            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+              historial2.idUsuario = resUsuario
+              this.servicioHistorial.registrar(historial2).subscribe(resHist=>{
+                this.datosSolicitud(res)
+              }, error => {
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Hubo un error al generar el comentario para el Historial de Matrix!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              })
+            })
+          })
+        })
       }
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')

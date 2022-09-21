@@ -87,7 +87,7 @@ button{ width: 125%; margin-left: -12%; border-radius: 0%; background-color: whi
   .opciones button{ font-size: 12px; width: 197px; margin-left: -24%; }
   mat-panel-title{ font-size: 16px; }
   .opciones button{ font-size: 17px;  }
-  
+
 }
 
 /* Tablet 8 */
@@ -95,7 +95,7 @@ button{ width: 125%; margin-left: -12%; border-radius: 0%; background-color: whi
   .logo{margin-top: 14%;}
   mat-expansion-panel{top: 2%;}
 }
-
+/*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
   .logo{width: 77%; margin-top: 7%;}
   mat-expansion-panel{top: 4%;}

@@ -352,7 +352,7 @@ mat-option{ font-size: 10.5px; }
   .boton{margin-left: 5.3%!important; margin-top: 98%;}
   .bot{position: static; margin-top: 98%; margin-left: 5%;}
   mat-paginator{ width: 80%; position: static; margin-left: 20%; margin-top: -143px;}
-  .botonagregar2{margin-left: 1%; position: static; margin-top: 31%;}
+  .botonagregar2{margin-left: 89%; position: static; margin-top: 31%;}
   .nombres{width: 154%;}
   .ar{left: 0px;}
 }
@@ -373,7 +373,7 @@ mat-option{ font-size: 10.5px; }
   .bot{position: static; margin-top: 89%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: -2%; width: 100%; margin-left: -40%;}
-  .botonagregar2{margin-left: 1%; position: static; margin-top: 15%;}
+  .botonagregar2{margin-left: 82%; position: static; margin-top: 15%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
   .ar{left: 0px;}
 }
@@ -438,7 +438,7 @@ mat-option{ font-size: 10.5px; }
   .bot{position: static; margin-top: 60%; margin-left: 5%;}
   .bot mat-icon{position: static; margin-top: -4%;}
   mat-paginator{margin-top: -2%; width: 100%; margin-left: -40%;}
-  .botonagregar2{margin-left: 1%; position: static; margin-top: 15%;}
+  .botonagregar2{margin-left: 89%; position: static; margin-top: 15%;}
   .botonagregar2 mat-icon{position: static; margin-top: -4%;}
   .ar{left: 0px;}
 }
