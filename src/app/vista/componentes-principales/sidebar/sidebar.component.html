@@ -108,6 +108,25 @@
     <div class="opciones">
       <button mat-raised-button id="50" routerLink="/sedes" style="display: none;">Sedes</button>
       <button mat-raised-button id="49" routerLink="/registroIngreso" style="display: none;">Registro</button>
+      <button mat-raised-button id="51" routerLink="/reporteRegistroIngreso" style="display: none;">Reporte Ingreso</button>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel style="display: none;" id="Inventario" (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false" >
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Inventario
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button id="52" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
+      <button mat-raised-button id="53" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
+      <button mat-raised-button id="54" routerLink="/detalleArticulo" style="display: none;">Detalle Articulo</button>
+      <button mat-raised-button id="55" routerLink="/historialArticulo" style="display: none;">Historial Articulo</button>
+      <button mat-raised-button id="56" routerLink="/asignacionProceso" style="display: none;">Asignaciones Procesos</button>
+      <button mat-raised-button id="57" routerLink="/asignacionArticulo" style="display: none;">Asignaciones Articulos</button>
+      <button mat-raised-button id="58" routerLink="/asignacionPuntoVenta" style="display: none;">Asignaciones Punto de Venta</button>
     </div>
   </mat-expansion-panel>
   </mat-drawer>

@@ -55,8 +55,10 @@ export class SidebarComponent implements OnInit {
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 39 || this.listaAccessForm[i] == 47 ){
             document.getElementById('RecepcionDatos')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 50 ){
+          }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 50 || this.listaAccessForm[i] == 51 ){
             document.getElementById('RegistroIngreso')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 52 || this.listaAccessForm[i] == 53 || this.listaAccessForm[i] == 54 || this.listaAccessForm[i] == 55 || this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 57 || this.listaAccessForm[i] == 58 ) {
+            document.getElementById('Inventario')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('1')?.setAttribute('style', 'display: block;')
@@ -171,6 +173,30 @@ export class SidebarComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 50) {
             document.getElementById('50')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 51) {
+            document.getElementById('51')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 52) {
+            document.getElementById('52')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 53) {
+            document.getElementById('53')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 54) {
+            document.getElementById('54')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 55) {
+            document.getElementById('55')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 56) {
+            document.getElementById('56')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 57) {
+            document.getElementById('57')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 58) {
+            document.getElementById('58')?.setAttribute('style', 'display: block;')
           }
         }
       })

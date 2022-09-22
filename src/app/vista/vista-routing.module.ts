@@ -1,3 +1,4 @@
+import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/agregar-detalle-articulo/agregar-detalle-articulo.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
 import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
 import { AgregarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/agregar-presupuesto-venta-mensual/agregar-presupuesto-venta-mensual.component';
@@ -76,6 +77,14 @@ import { ModificarAsignacionUsuarioPqrComponent } from './modulos-recepcion-dato
 import { AreaComponent } from './modulos-recepcion-datos/area/area.component';
 import { SedesComponent } from './modulos-registro-ingreso/sedes/sedes.component';
 import { RegistroIngresoComponent } from './modulos-registro-ingreso/registro-ingreso/registro-ingreso.component';
+import { ReporteIngresoComponent } from './modulos-registro-ingreso/reporte-ingreso/reporte-ingreso.component';
+import { TipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/tipo-activo.component';
+import { TipoProcesoComponent } from './modulos-inventarios/tipo-proceso/tipo-proceso.component';
+import { DetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/detalle-articulo.component';
+import { HistorialArticuloComponent } from './modulos-inventarios/historial-articulo/historial-articulo.component';
+import { AsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/asignar-proceso-usuario.component';
+import { AsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/asignar-articulos-usuario.component';
+import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
 
 const routes: Routes = [
   {
@@ -479,6 +488,52 @@ const routes: Routes = [
       {
         path: 'registroIngreso',
         component: RegistroIngresoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'reporteIngreso',
+        component: ReporteIngresoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Inventario
+      {
+        path: 'tipoActivo',
+        component: TipoActivoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'tipoProceso',
+        component: TipoProcesoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'detalleArticulo',
+        component: DetalleArticuloComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarDetalleArticulo',
+        component: AgregarDetalleArticuloComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'historialArticulo',
+        component: HistorialArticuloComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'asignacionProceso',
+        component: AsignarProcesoUsuarioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'asignacionArticulo',
+        component: AsignarArticulosUsuarioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'asignacionPuntoVenta',
+        component: AsignarPuntoVentaArticuloComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

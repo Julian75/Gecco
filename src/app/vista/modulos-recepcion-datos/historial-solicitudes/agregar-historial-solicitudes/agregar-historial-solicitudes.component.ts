@@ -131,6 +131,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
     this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          window.location.reload();
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
@@ -144,8 +146,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   public guardar(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var comentario = this.formComentario.controls['comentario'].value;
-    var opcion = this.formComentario.controls['opcion'].value;
-    var opcion2 = this.formComentario.controls['opcion2'].value;
+    var opcion = this.formComentario.controls['opcion'].value; // Escalar a matrix
+    var opcion2 = this.formComentario.controls['opcion2'].value; // remitir  1 y 2
     console.log(comentario, opcion, opcion2)
     if(comentario == "" || comentario == null || opcion == null || opcion2 == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -368,7 +370,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   public registrarHistorial3(historial: HistorialSolicitudes){
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      if (this.opcion2 == 3) {
+      var opcion = this.formComentario.controls['opcion'].value;
+      if (opcion == 3) {
         let historial2 : HistorialSolicitudes = new HistorialSolicitudes();
         historial2.observacion = ""
         this.servicioEstado.listarPorId(65).subscribe(resEstado=>{
@@ -392,7 +395,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             })
           })
         })
-      }else if(this.opcion2 == 4){
+      }else if(opcion == 4){
         let historial2 : HistorialSolicitudes = new HistorialSolicitudes();
         historial2.observacion = ""
         this.servicioEstado.listarPorId(65).subscribe(resEstado=>{
@@ -430,23 +433,19 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   }
 
   public datosSolicitud(idHistorial:any){
+    var opcion = this.formComentario.controls['opcion'].value;
     let solicitudSc : SolicitudSC2 = new SolicitudSC2();
-    this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-      this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
-        this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
-          this.servicioEstado.listarPorId(67).subscribe(resEstado2=>{
+    if(opcion == 3){
+      this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+        this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
+          this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
             solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
             var fechaActual = new Date(resSolicitud.fecha)
             fechaActual.setDate(fechaActual.getDate()+1)
             solicitudSc.fecha = fechaActual
             solicitudSc.id = resSolicitud.id
-            if(this.opcion2 == 3){
-                solicitudSc.idEscalaSolicitudes = resEscala.id
-                solicitudSc.idEstado = resEstado.id
-            }else{
-              solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
-              solicitudSc.idEstado = resEstado2.id
-            }
+            solicitudSc.idEscalaSolicitudes = resEscala.id
+            solicitudSc.idEstado = resEstado.id
             solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
             solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
             solicitudSc.incidente = resSolicitud.incidente
@@ -461,7 +460,30 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           })
         })
       })
-    })
+    }else if(opcion == 4){
+      this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+        this.servicioEstado.listarPorId(67).subscribe(resEstado=>{
+          solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+          var fechaActual = new Date(resSolicitud.fecha)
+          fechaActual.setDate(fechaActual.getDate()+1)
+          solicitudSc.fecha = fechaActual
+          solicitudSc.id = resSolicitud.id
+          solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+          solicitudSc.idEstado = resEstado.id
+          solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+          solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+          solicitudSc.incidente = resSolicitud.incidente
+          solicitudSc.prorroga = resSolicitud.prorroga
+          solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+          solicitudSc.municipio = resSolicitud.municipio
+          var fechavence = new Date(resSolicitud.vence)
+          fechavence.setDate(fechavence.getDate()+1)
+          solicitudSc.vence = fechavence
+          solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+          this.modificarSolicitudSc2(solicitudSc, idHistorial);
+        })
+      })
+    }
   }
 
   public modificarSolicitudSc2(solicitudSc: SolicitudSC2, idHistorial:any){

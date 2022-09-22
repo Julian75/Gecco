@@ -146,6 +146,26 @@ import { ModificarSedesComponent } from './modulos-registro-ingreso/sedes/modifi
 import { RegistroIngresoComponent } from './modulos-registro-ingreso/registro-ingreso/registro-ingreso.component';
 import { AgregarPersonalComponent } from './modulos-registro-ingreso/agregar-personal/agregar-personal.component';
 import { WebcamModule } from 'ngx-webcam';
+import { ReporteIngresoComponent } from './modulos-registro-ingreso/reporte-ingreso/reporte-ingreso.component';
+import { DetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/detalle-articulo.component';
+import { TipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/tipo-activo.component';
+import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/agregar-detalle-articulo/agregar-detalle-articulo.component';
+import { ModificarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/modificar-detalle-articulo/modificar-detalle-articulo.component';
+import { AgregarTipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/agregar-tipo-activo/agregar-tipo-activo.component';
+import { ModificarTipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/modificar-tipo-activo/modificar-tipo-activo.component';
+import { HistorialArticuloComponent } from './modulos-inventarios/historial-articulo/historial-articulo.component';
+import { TipoProcesoComponent } from './modulos-inventarios/tipo-proceso/tipo-proceso.component';
+import { AgregarTipoProcesoComponent } from './modulos-inventarios/tipo-proceso/agregar-tipo-proceso/agregar-tipo-proceso.component';
+import { ModificarTipoProcesoComponent } from './modulos-inventarios/tipo-proceso/modificar-tipo-proceso/modificar-tipo-proceso.component';
+import { AsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/asignar-proceso-usuario.component';
+import { AgregarAsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/agregar-asignar-proceso-usuario/agregar-asignar-proceso-usuario.component';
+import { ModificarAsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/modificar-asignar-proceso-usuario/modificar-asignar-proceso-usuario.component';
+import { AsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/asignar-articulos-usuario.component';
+import { AgregarAsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/agregar-asignar-articulos-usuario/agregar-asignar-articulos-usuario.component';
+import { ModificarAsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/modificar-asignar-articulos-usuario/modificar-asignar-articulos-usuario.component';
+import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
+import { AgregarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo.component';
+import { ModificarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo.component';
 
 @NgModule({
   declarations: [
@@ -289,6 +309,26 @@ import { WebcamModule } from 'ngx-webcam';
     ModificarSedesComponent,
     RegistroIngresoComponent,
     AgregarPersonalComponent,
+    ReporteIngresoComponent,
+    DetalleArticuloComponent,
+    TipoActivoComponent,
+    AgregarDetalleArticuloComponent,
+    ModificarDetalleArticuloComponent,
+    AgregarTipoActivoComponent,
+    ModificarTipoActivoComponent,
+    HistorialArticuloComponent,
+    TipoProcesoComponent,
+    AgregarTipoProcesoComponent,
+    ModificarTipoProcesoComponent,
+    AsignarProcesoUsuarioComponent,
+    AgregarAsignarProcesoUsuarioComponent,
+    ModificarAsignarProcesoUsuarioComponent,
+    AsignarArticulosUsuarioComponent,
+    AgregarAsignarArticulosUsuarioComponent,
+    ModificarAsignarArticulosUsuarioComponent,
+    AsignarPuntoVentaArticuloComponent,
+    AgregarAsignarPuntoVentaArticuloComponent,
+    ModificarAsignarPuntoVentaArticuloComponent,
   ],
   imports: [
     CommonModule,

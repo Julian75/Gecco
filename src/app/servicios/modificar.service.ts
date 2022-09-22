@@ -35,6 +35,13 @@ import { ClienteSC2 } from '../modelos/modelos2/clienteSC2';
 import { AsignacionUsuariosPqrs2 } from '../modelos/modelos2/asignacionUsuariosPQRS2';
 import{ Sedes2 } from '../modelos/modelos2/sedes2';
 import {IngresoPersonalEmpresa2} from '../modelos/modelos2/ingresoPersonalEmpresa2';
+import { TipoActivo2 } from '../modelos/modelos2/tipoActivo2';
+import { TipoProceso2 } from '../modelos/modelos2/tipoProceso2';
+import { DetalleArticulo2 } from '../modelos/modelos2/detalleArticulo2';
+import { HistorialArticulos2 } from '../modelos/modelos2/historialArticulo';
+import { AsignacionProceso2 } from '../modelos/modelos2/asignacionProceso2';
+import {AsignacionArticulos2} from '../modelos/modelos2/asignacionArticulos2';
+import { AsignacionPuntoVenta2 } from '../modelos/modelos2/asignacionPuntoVenta2';
 @Injectable({
   providedIn: 'root'
 })
@@ -179,7 +186,35 @@ export class ModificarService {
     return this.http.put<void>(this.path+'/Sede/'+ sede.id, sede);
   }
 
-  public actualizarIngresoPersonalEmpresa(sede: IngresoPersonalEmpresa2){
-    return this.http.put<void>(this.path+'/IngresoPersonalEmpresa/'+ sede.id, sede);
+  public actualizarIngresoPersonalEmpresa(ingresoPersonalEmpresa: IngresoPersonalEmpresa2){
+    return this.http.put<void>(this.path+'/IngresoPersonalEmpresa/'+ ingresoPersonalEmpresa.id, ingresoPersonalEmpresa);
+  }
+
+  public actualizarTipoActivo(tipoActivo: TipoActivo2){
+    return this.http.put<void>(this.path+'/TipoActivo/'+ tipoActivo.id, tipoActivo);
+  }
+
+  public actualizarTipoProceso(tipoProceso: TipoProceso2){
+    return this.http.put<void>(this.path+'/TipoProceso/'+ tipoProceso.id, tipoProceso);
+  }
+
+  public actualizarDetalleArticulo(detalleArticulo: DetalleArticulo2){
+    return this.http.put<void>(this.path+'/DetalleArticulo/'+ detalleArticulo.id, detalleArticulo);
+  }
+
+  public actualizarHistorialArticulos(historialArticulos: HistorialArticulos2){
+    return this.http.put<void>(this.path+'/HistorialArticulo/'+ historialArticulos.id, historialArticulos);
+  }
+
+  public actualizarAsignacionProceso(asignacionProceso: AsignacionProceso2){
+    return this.http.put<void>(this.path+'/AsignacionProceso/'+ asignacionProceso.id, asignacionProceso);
+  }
+
+  public actualizarAsignacionArticulos(asignacionArticulos: AsignacionArticulos2){
+    return this.http.put<void>(this.path+'/AsignacionArticulos/'+ asignacionArticulos.id, asignacionArticulos);
+  }
+
+  public actualizarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta2){
+    return this.http.put<void>(this.path+'/AsignacionPuntoVenta/'+ asignacionPuntoVenta.id, asignacionPuntoVenta);
   }
 }
