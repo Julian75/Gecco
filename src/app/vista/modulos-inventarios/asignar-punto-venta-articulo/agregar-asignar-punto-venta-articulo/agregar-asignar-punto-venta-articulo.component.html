@@ -1,1 +1,55 @@
-<p>agregar-asignar-punto-venta-articulo works!</p>
+<h2 class="dato">Ingresar Nueva Asignacion</h2>
+<form [formGroup]="formAsigancionPuntoVenta">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+        <h2 class="Turno">Articulo</h2>
+        <mat-form-field class="tur" appearance="fill">
+        <mat-label>Seleccione el Articulo</mat-label>
+        <select matNativeControl id="articulo" name="articulo" formControlName="articulo">
+          <option *ngFor="let item of listaArticulos" value="{{item.id}}" >{{item.idDetalleArticulo.idArticulo.descripcion}}</option>
+        </select>
+        </mat-form-field>
+    </div>
+    <div class="nombre2">
+        <h2>Cantidad del articulo</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese la Cantidad</mat-label>
+          <input type="number" id="cantidad" formControlName="cantidad" matInput minlength="1">
+        </mat-form-field>
+      </div>
+    <div class="nombre2">
+        <h2 class="oficina2">Oficina</h2>
+        <mat-form-field class="nombre"  appearance="fill">
+          <mat-label>Ingrese oficina</mat-label>
+          <select matNativeControl id="oficina" name="oficina" formControlName="oficina" [(ngModel)]="id" (change)="idOficina()">
+            <option></option>
+            <option *ngFor="let item of listaOficinas"  value="{{item.id}}" [ngValue]="item">{{item.ideOficina}} | {{item.nom_oficina}}</option>
+          </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2 class="sitio">Sitio Venta</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+        <mat-label>Ingrese Sitio Venta</mat-label>
+          <input type="text"
+           aria-label="text"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto" >
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="sitioVenta" name="sitioVenta">
+            <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.ideSitioventa" >
+              {{item.ideSitioventa}} | {{item.nom_sitioventa}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+</form>
+

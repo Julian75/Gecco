@@ -462,7 +462,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
       })
     }else if(opcion == 4){
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-        this.servicioEstado.listarPorId(67).subscribe(resEstado=>{
+        this.servicioEstado.listarPorId(63).subscribe(resEstado=>{
           solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
           var fechaActual = new Date(resSolicitud.fecha)
           fechaActual.setDate(fechaActual.getDate()+1)

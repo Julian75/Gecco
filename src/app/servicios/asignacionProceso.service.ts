@@ -8,7 +8,7 @@ import { SharedService } from '../shared.service';
 })
 export class AsignacionProcesoService {
 
-  private path = this.sharedService.APIUrl+'/AsignacionProceso';
+  private path = this.sharedService.APIUrl+'/AsignacionesProcesos';
 
   constructor(private http:HttpClient,
     private sharedService:SharedService

@@ -3,7 +3,7 @@ import {AsignacionProceso} from './asignacionProceso';
 import {Estado} from './estado';
 export class AsignacionArticulos {
     id: number;
-    idAsignacionProceso !: AsignacionProceso;
+    idAsignacionesProcesos !: AsignacionProceso;
     idDetalleArticulo !: DetalleArticulo;
     idEstado !: Estado;
 }

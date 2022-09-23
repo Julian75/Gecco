@@ -94,6 +94,9 @@
             <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id == 3 && item.aprobar == true && item.solicitud.idEstado.id != 68"(click)="abrirModificar(item.solicitud.id)">
               <mat-icon>add_comment</mat-icon>
             </button>
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id != 3 && item.aprobar == true && item.solicitud.idEstado.id == 63 && item.mostrarModalPao == true"(click)="abrirModificar(item.solicitud.id)">
+              <mat-icon>add_comment</mat-icon>
+            </button>
             <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
               <mat-icon>visibility</mat-icon>
             </button>
@@ -111,6 +114,9 @@
             </button>
             <button *ngIf="item.solicitud.idEscala.id == 3 && item.solicitud.incidente == '' && idModulo == 38" class="btn btnPriority mx-2" (click)="editar(item.solicitud.id)">
               <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="item.solicitud.idEstado.id != 67" class="btn btnArchivo mx-2" (click)="agregarArchivo(item.solicitud.id)">
+              <mat-icon>attach_file_add</mat-icon>
             </button>
           </td>
         </ng-container>

@@ -1,3 +1,4 @@
+import { SubirArchivoSolicitudComponent } from './../subir-archivo-solicitud/subir-archivo-solicitud.component';
 import { ModificarSolicitudScComponent } from './modificar-solicitud-sc/modificar-solicitud-sc.component';
 import { AsignarUsuariosPqrService } from './../../../servicios/asignacionUsuariosPqrs.service';
 import { ClienteSCService } from './../../../servicios/clienteSC.service';
@@ -178,10 +179,13 @@ export class SolicitudesScComponent implements OnInit {
                 nombre: "",
                 aprobar: false,
                 archivo: false,
-                prorroga: false
+                prorroga: false,
+                mostrarModalPao: false
               }
               var listaHistorialPao = []
               var pendienteHistorialPao = false
+              var listaModalModificarPao = []
+              var modalModificarPao = false
               var fechaActual = this.fecha3.getTime();
               var fechaFin = new Date(elementSolicitud.vence);
               var fecha2 = fechaFin.getTime();
@@ -225,16 +229,23 @@ export class SolicitudesScComponent implements OnInit {
                       pendienteHistorialPao = true
                     }else if(elementHistorial.idUsuario == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado == 65){
                       pendienteHistorialPao = true
+                      modalModificarPao = true
                     }else if(elementHistorial.idUsuario == Number(sessionStorage.getItem('id')) && elementHistorial.idEstado == 65){
                       pendienteHistorialPao = true
+                      modalModificarPao = true
                     }
                     listaHistorialPao.push(pendienteHistorialPao)
+                    listaModalModificarPao.push(modalModificarPao)
                   })
                   const listaHisPao = listaHistorialPao.includes( true );
+                  const ListmodalModificarPao = listaHistorialPao.includes( true );
                   if(listaHisPao == true){
                     obj.aprobar = true
                   }else if(elementSolicitud.idEstado.id == 68){
                     obj.aprobar = true
+                  }
+                  if(ListmodalModificarPao == true){
+                    obj.mostrarModalPao = true
                   }
                 }else if(resHistorial.length<1 && elementSolicitud.idEstado.id == 62){
                   obj.aprobar = true
@@ -496,6 +507,15 @@ export class SolicitudesScComponent implements OnInit {
 
   public editar(idSolicitud){
     const dialogRef = this.dialog.open(ModificarSolicitudScComponent, {
+      width: '500px',
+      height: '250px',
+      data: idSolicitud
+    });
+  }
+
+  listHistorialId: any = []
+  public agregarArchivo(idSolicitud){
+    const dialogRef = this.dialog.open(SubirArchivoSolicitudComponent, {
       width: '500px',
       height: '250px',
       data: idSolicitud

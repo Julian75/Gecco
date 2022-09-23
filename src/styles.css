@@ -22,7 +22,7 @@ th h3{
   background-color: #6DBE53;
   color: white;
 }
-.botonagregar, .excelButton, .boton, .bot, .botonagregar2{ width: 64px; height: 36px; }
+.botonagregar, .excelButton, .boton, .bot, .botonagregar2, .excelReporte{ width: 64px; height: 36px; }
 .botonagregar mat-icon{ font-size: 24px; }
 table{
   border: 1px solid #000 !important;

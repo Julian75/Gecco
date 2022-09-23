@@ -109,6 +109,7 @@ table{
 #jerSp{ left: 70px; }
 #opcSp{ padding-right: 0%; }
 #idSp2{ padding-left: 0%; }
+.excelReporte{ background-color: #9C6524; color: white; margin-left: 50px; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

@@ -194,6 +194,7 @@ export class ListaSolicitudesComponent implements OnInit {
   listaSolExcel: any = [];
   name = 'listaSolicitudes.xlsx';
   exportToExcel(): void {
+    this.listaSolExcel = []
     this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
       this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalleSolic=>{
         resOrdenCompra.forEach(elementOrdenCompra => {
@@ -221,6 +222,54 @@ export class ListaSolicitudesComponent implements OnInit {
         XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
         XLSX.writeFile(book, this.name);
+      })
+    })
+  }
+
+  listaSolPen: any = [];
+  name2 = 'solicitudesPendientes.xlsx';
+  exportToExcelSolicPendientes(): void{
+    document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
+    this.listaSolPen = []
+    this.solicitudService.listarTodos().subscribe(resSolicitudes=>{
+      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalleSol=>{
+        resSolicitudes.forEach(element => {
+          if(element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 54 || element.idEstado.id == 55 || element.idEstado.id == 56 || element.idEstado.id == 57){
+            resDetalleSol.forEach(elementDetalleSol => {
+              if(elementDetalleSol.idSolicitud.id == element.id && elementDetalleSol.idEstado.id != 59){
+                var objDetalleSolicitud = {
+                  Id_Solicitud: element.id,
+                  Articulo: elementDetalleSol.idArticulos.descripcion,
+                  Cantidad: elementDetalleSol.cantidad,
+                  Observacion: elementDetalleSol.observacion,
+                  Fecha: element.fecha,
+                  Estado: element.idEstado.descripcion,
+                  Usuario: element.idUsuario.nombre+" "+element.idUsuario.apellido
+                }
+                this.listaSolPen.push(objDetalleSolicitud)
+              }
+            });
+          }
+        });
+
+        if(this.listaSolPen.length < 1){
+          document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No tiene ninguna solicitud pendiente!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else{
+          document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
+          const data = this.listaSolPen.map(c => ({ 'Id Solicitud': c.Id_Solicitud, 'Articulo': c.Articulo, 'Cantidad': c.Cantidad, 'Observacion Articulo': c.Observacion, 'Fecha Solicitud': c.Fecha, 'Estado': c.Estado, 'Usuario': c.Usuario }));
+          const worksheet = XLSX.utils.json_to_sheet(data);
+
+          const book = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+          XLSX.writeFile(book, this.name2);
+        }
       })
     })
   }

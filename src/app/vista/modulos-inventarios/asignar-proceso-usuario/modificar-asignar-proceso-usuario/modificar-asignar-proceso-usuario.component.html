@@ -1,1 +1,32 @@
-<p>modificar-asignar-proceso-usuario works!</p>
+<h2 class="dato">Modifique la Asignación Proceso</h2>
+<form [formGroup]="formAsignacionProcesoUsuario">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Usuario</h2>
+      <mat-form-field class="nombre1" appearance="fill">
+      <mat-label>Ingrese el usuario</mat-label>
+      <select matNativeControl id="estado" name="estado" formControlName="idUsuario">
+        <option *ngFor="let item of listaUsuarios"  value="{{item.id}}">{{item.nombre}} {{item.apellido}}</option>
+      </select>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Tipo Proceso</h2>
+      <mat-form-field class="nombre1" appearance="fill">
+      <mat-label>Ingrese el Tipo Proceso</mat-label>
+      <select matNativeControl id="estado" name="estado" formControlName="idTiposProcesos">
+        <option *ngFor="let item of listaProceso"  value="{{item.id}}">{{item.descripcion}}</option>
+      </select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+</form>
+
+

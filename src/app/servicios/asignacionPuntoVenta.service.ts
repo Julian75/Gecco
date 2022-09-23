@@ -6,9 +6,9 @@ import { SharedService } from '../shared.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AsignacionArticulosService {
+export class AsignacionPuntoVentaService {
 
-  private path = this.sharedService.APIUrl+'/AsignacionPuntoVenta';
+  private path = this.sharedService.APIUrl+'/AsignacionPuntoVentaArticulo';
 
   constructor(private http:HttpClient,
     private sharedService:SharedService

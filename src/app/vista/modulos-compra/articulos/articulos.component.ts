@@ -47,12 +47,6 @@ export class ArticulosComponent implements OnInit {
     })
   }
 
-  abrirModal(): void {
-    const dialogRef = this.dialog.open(AgregarArticulosComponent, {
-      width: '500px',
-    });
-  }
-
   modificarRol(id: number): void {
     const dialogRef = this.dialog.open(ModificarArticulosComponent, {
       width: '500px',

@@ -195,7 +195,7 @@ export class ModificarService {
   }
 
   public actualizarTipoProceso(tipoProceso: TipoProceso2){
-    return this.http.put<void>(this.path+'/TipoProceso/'+ tipoProceso.id, tipoProceso);
+    return this.http.put<void>(this.path+'/TiposProcesos/'+ tipoProceso.id, tipoProceso);
   }
 
   public actualizarDetalleArticulo(detalleArticulo: DetalleArticulo2){
@@ -207,11 +207,11 @@ export class ModificarService {
   }
 
   public actualizarAsignacionProceso(asignacionProceso: AsignacionProceso2){
-    return this.http.put<void>(this.path+'/AsignacionProceso/'+ asignacionProceso.id, asignacionProceso);
+    return this.http.put<void>(this.path+'/AsignacionesProcesos/'+ asignacionProceso.id, asignacionProceso);
   }
 
   public actualizarAsignacionArticulos(asignacionArticulos: AsignacionArticulos2){
-    return this.http.put<void>(this.path+'/AsignacionArticulos/'+ asignacionArticulos.id, asignacionArticulos);
+    return this.http.put<void>(this.path+'/AsignacionesArticulos/'+ asignacionArticulos.id, asignacionArticulos);
   }
 
   public actualizarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta2){

@@ -19,13 +19,24 @@ h2{
 .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
 .estado2{ width: 300px; }
 .guardarModal{
-  margin-left: 82%;
+  margin-left: 66%;
 }
 
 .row1{
   border-top: 3px solid #97B4E2;
   padding-top: 3%;
   padding-bottom: 4%;
+}
+.contenedor{
+  width: 90%; margin-left: 5%; margin-top: 3%;
+}
+.nombre3{
+  margin-left: 620px;
+  margin-top: -330px;
+}
+.nombre4{
+  margin-top: 1%;
+  margin-left: 620px;
 }
 
 /* Movil pequeño - Galaxy Fold*/

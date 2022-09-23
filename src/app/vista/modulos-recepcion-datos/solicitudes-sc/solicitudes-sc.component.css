@@ -38,6 +38,7 @@ table{
 .boton{ background-color: #00235C; }
 .btnedit2{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white;}
+.btnArchivo{ background-color: #2B4E64; color: white;}
 .btnremove{ background-color: #DA161A; color: white; }
 .btnPriority{ background-color: #00235C; color: white; }
 #idSpa, #nombreSpa, #fechaISpa, #nombreOficSpa, #nombreSitioVSpa, #inci, #motivo, #radicacion, #tiposervicio,#auxiliar,#escala, #opcSpa, .btnedit2{ position: relative; }

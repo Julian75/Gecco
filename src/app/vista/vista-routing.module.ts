@@ -1,3 +1,4 @@
+import { AgregarArticulosComponent } from './modulos-compra/articulos/agregar-articulos/agregar-articulos.component';
 import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/agregar-detalle-articulo/agregar-detalle-articulo.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
 import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
@@ -294,6 +295,11 @@ const routes: Routes = [
       {
         path: 'articulos',
         component: ArticulosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'agregarArticulos',
+        component: AgregarArticulosComponent,
         canActivate: [AutorizacionGuard]
       },
       {

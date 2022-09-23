@@ -166,6 +166,7 @@ import { ModificarAsignarArticulosUsuarioComponent } from './modulos-inventarios
 import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
 import { AgregarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo.component';
 import { ModificarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo.component';
+import { SubirArchivoSolicitudComponent } from './modulos-recepcion-datos/subir-archivo-solicitud/subir-archivo-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -329,6 +330,7 @@ import { ModificarAsignarPuntoVentaArticuloComponent } from './modulos-inventari
     AsignarPuntoVentaArticuloComponent,
     AgregarAsignarPuntoVentaArticuloComponent,
     ModificarAsignarPuntoVentaArticuloComponent,
+    SubirArchivoSolicitudComponent,
   ],
   imports: [
     CommonModule,
