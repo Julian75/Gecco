@@ -142,7 +142,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
               const elementSitio = resSitioVenta[i];
               if(elementSitio.ideSitioventa == sitioVent){
                 resAsigancionTurnoVendedor.forEach(element => {
-                  if(element.idAsignacionesArticulos.idDetalleArticulo.idArticulos == resAsignacionArticulo.idDetalleArticulo.idArticulos && element.idSitioVenta == sitioVent){
+                  if(element.idAsignacionesArticulos.idDetalleArticulo.idArticulo == resAsignacionArticulo.idDetalleArticulo.idArticulo && element.idSitioVenta == sitioVent){
                     this.encontrado = true;
                   }else{
                     this.encontrado = false;

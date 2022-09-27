@@ -127,7 +127,7 @@ export class OrdenCompraComponent implements OnInit {
       for (let index = 0; index < this.lista.length; index++) {
         const element = this.lista[index];
         console.log(element)
-        if(element.solicitudDetalle.idArticulos.id == solicitudDetalle.idArticulos.id){
+        if(element.solicitudDetalle.id == solicitudDetalle.id){
           element.cantidad = valor.target.value
           element.valorUnitario = element.solicitudDetalle.cantidad * Number(valor.target.value)
           this.lista.splice(index,1)

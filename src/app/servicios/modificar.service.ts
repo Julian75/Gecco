@@ -215,6 +215,6 @@ export class ModificarService {
   }
 
   public actualizarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta2){
-    return this.http.put<void>(this.path+'/AsignacionPuntoVenta/'+ asignacionPuntoVenta.id, asignacionPuntoVenta);
+    return this.http.put<void>(this.path+'/AsignacionPuntoVentaArticulo/'+ asignacionPuntoVenta.id, asignacionPuntoVenta);
   }
 }

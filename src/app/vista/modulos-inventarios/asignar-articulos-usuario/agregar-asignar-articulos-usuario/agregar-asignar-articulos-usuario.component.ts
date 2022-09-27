@@ -46,7 +46,7 @@ export class AgregarAsignarArticulosUsuarioComponent implements OnInit {
   public listarEstados(){
     this.serviceEstado.listarTodos().subscribe(data => {
       data.forEach((element: any) => {
-        if (element.id == 74) {
+        if (element.id == 78) {
           this.listaEstado.push(element);
         }
       })
@@ -76,12 +76,12 @@ export class AgregarAsignarArticulosUsuarioComponent implements OnInit {
         this.formAsignarArticulos.value.idAsignacionesProcesos = data;
         this.serviceDetalleArticulo.listarPorId(Number(this.formAsignarArticulos.value.idDetalleArticulo)).subscribe(data => {
           this.formAsignarArticulos.value.idDetalleArticulo = data;
-          this.serviceEstado.listarPorId(74).subscribe(data => {
+          this.serviceEstado.listarPorId(78).subscribe(data => {
             this.formAsignarArticulos.value.idEstado = data;
             this.serviceAsignacionArticulo.listarTodos().subscribe(data => {
               console.log(this.formAsignarArticulos.value);
               data.forEach((element: any) => {
-                if (element.idAsignacionProceso.id == this.formAsignarArticulos.value.idAsignacionesProcesos.id && element.idDetalleArticulo.id == this.formAsignarArticulos.value.idDetalleArticulo.id) {
+                if (element.idAsignacionesProcesos.id == this.formAsignarArticulos.value.idAsignacionesProcesos.id && element.idDetalleArticulo.id == this.formAsignarArticulos.value.idDetalleArticulo.id) {
                   this.iguales = true;
                 }else{
                   this.iguales = false;
@@ -92,8 +92,9 @@ export class AgregarAsignarArticulosUsuarioComponent implements OnInit {
               if (validar == true) {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Oops...',
                   text: 'El articulo ya fue asignado a este proceso',
+                  showConfirmButton: false,
+                  timer: 1500
                 })
               }else{
                 this.serviceAsignacionArticulo.registrar(this.formAsignarArticulos.value).subscribe(data => {

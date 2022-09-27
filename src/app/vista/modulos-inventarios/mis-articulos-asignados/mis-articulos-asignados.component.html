@@ -1,6 +1,5 @@
 <div class="contenedor">
     <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-
     <mat-form-field class="buscador" appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -35,13 +34,9 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button *ngIf="item.idEstado.id == 76" class="btn btnedit mx-2" (click)="modificarAsignacionProceso(item.id)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button *ngIf="item.idEstado.id == 78" class="btn btnedit mx-2" (click)="modificarAsignacionProceso(item.id)">
-              <mat-icon>edit</mat-icon>
-            </button>
-
+            <button *ngIf="item.idEstado.id == 78" class="btn btnver mx-2" (click)="aceptar(item.id)">
+                <mat-icon>check_circle</mat-icon>
+              </button>
             <button class="btn btnremove mx-2" (click)="eliminarAsignacionProceso(item.id)">
               <mat-icon>delete</mat-icon>
             </button>

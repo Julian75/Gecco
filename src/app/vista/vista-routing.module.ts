@@ -86,6 +86,8 @@ import { HistorialArticuloComponent } from './modulos-inventarios/historial-arti
 import { AsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/asignar-proceso-usuario.component';
 import { AsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/asignar-articulos-usuario.component';
 import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
+import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articulos-asignados/mis-articulos-asignados.component';
+import { ModificarArticulosComponent } from './modulos-compra/articulos/modificar-articulos/modificar-articulos.component';
 
 const routes: Routes = [
   {
@@ -523,6 +525,11 @@ const routes: Routes = [
         canActivate: [AutorizacionGuard]
       },
       {
+        path: 'modificarArticulo/:id',
+        component: ModificarArticulosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
         path: 'historialArticulo',
         component: HistorialArticuloComponent,
         canActivate: [AutorizacionGuard]
@@ -540,6 +547,11 @@ const routes: Routes = [
       {
         path: 'asignacionPuntoVenta',
         component: AsignarPuntoVentaArticuloComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'misArticulos',
+        component: MisArticulosAsignadosComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

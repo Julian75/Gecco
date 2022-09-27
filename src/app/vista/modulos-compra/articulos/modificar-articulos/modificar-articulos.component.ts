@@ -1,7 +1,10 @@
+import { DetalleArticulo2 } from './../../../../modelos/modelos2/detalleArticulo2';
+import { DetalleArticulo } from './../../../../modelos/detalleArticulo';
+import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.service';
 import { CategoriaService } from './../../../../servicios/Categoria.service';
 import { Articulo } from '../../../../modelos/articulo';
 import { Articulo2 } from '../../../../modelos/articulo2';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,6 +12,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ArticuloService } from 'src/app/servicios/articulo.service';
 import Swal from 'sweetalert2';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { TipoActivoService } from 'src/app/servicios/tipoActivo.service';
 
 @Component({
   selector: 'app-modificar-articulos',
@@ -20,13 +24,11 @@ export class ModificarArticulosComponent implements OnInit {
   public formArticulo!: FormGroup;
   public idArticulo : any;
   public listaArticulo : any = [];
-  public listarEstado : any = [];
-  public estadosDisponibles : any = [];
   public categoriasDisponibles : any = [];
   public listaCategorias : any = [];
-  public listaEstados: any = [];
   public encontrado : boolean = false;
   public encontrados: any = [];
+  public listaTipoActivos: any = [];
   color = ('primary');
 
   constructor(
@@ -34,26 +36,29 @@ export class ModificarArticulosComponent implements OnInit {
     private servicioEstado: EstadoService,
     private servicioCategoria: CategoriaService,
     private servicioModificar: ModificarService,
-    public dialogRef: MatDialogRef<ModificarArticulosComponent>,
+    private servicioTipoActivos: TipoActivoService,
+    private servicioDetalleArticulo: DetalleArticuloService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: MatDialog
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
     this.listarporidArticulo();
-    this.listaEstado();
+    this.listarTipoActivos();
     this.listarCategorias();
   }
 
   private crearFormulario() {
     this.formArticulo = this.fb.group({
-      id: [''],
+      id: 0,
       descripcion: [null,Validators.required],
-      idEstado: [null,Validators.required],
-      idCategoria: [null,Validators.required],
+      categoria: [null,Validators.required],
+      serial: [null,Validators.required],
+      placa: [null,Validators.required],
+      marca: [null,Validators.required],
+      tipoActivo: [null,Validators.required]
     });
   }
 
@@ -68,102 +73,136 @@ export class ModificarArticulosComponent implements OnInit {
     });
   }
 
-  public listaEstado() {
-    this.servicioEstado.listarTodos().subscribe(res => {
-      res.forEach(element => {
-        if(element.idModulo.id == 22){
-          this.estadosDisponibles.push(element)
-        }
-      });
-      this.listarEstado = this.estadosDisponibles
-  })
-  ;}
+  public listarTipoActivos() {
+    this.servicioTipoActivos.listarTodos().subscribe(resTipoActivos => {
+      this.listaTipoActivos = resTipoActivos
+    });
+  }
 
+  detalleArticulo: any = [];
   public listarporidArticulo() {
-    this.idArticulo = this.data;
-    this.servicioArticulo.listarPorId(this.idArticulo).subscribe(res => {
-      this.listaArticulo = res;
-      this.formArticulo.controls['id'].setValue(this.listaArticulo.id);
-      this.formArticulo.controls['descripcion'].setValue(this.listaArticulo.descripcion);
-      this.formArticulo.controls['idEstado'].setValue(this.listaArticulo.idEstado.id);
-      this.formArticulo.controls['idCategoria'].setValue(this.listaArticulo.idCategoria.id);
+    this.detalleArticulo = []
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.idArticulo = params.get('id');
+      this.servicioArticulo.listarPorId(this.idArticulo).subscribe(res => {
+        this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
+          resDetallesArticulos.forEach(elementDetalleArticulo => {
+            if(elementDetalleArticulo.idArticulo.id == res.id){
+              this.detalleArticulo = elementDetalleArticulo
+            }
+          });
+          this.listaArticulo = res;
+          this.formArticulo.controls['id'].setValue(this.listaArticulo.id);
+          this.formArticulo.controls['descripcion'].setValue(this.listaArticulo.descripcion);
+          this.formArticulo.controls['categoria'].setValue(this.listaArticulo.idCategoria.id);
+          this.formArticulo.controls['serial'].setValue(this.detalleArticulo.serial);
+          this.formArticulo.controls['placa'].setValue(this.detalleArticulo.placa);
+          this.formArticulo.controls['marca'].setValue(this.detalleArticulo.marca);
+          this.formArticulo.controls['tipoActivo'].setValue(this.detalleArticulo.idTipoActivo.id);
+        })
+      })
     })
   }
 
+  detalleArticulito: any = []
+  aprobar: boolean = false;
+  listAprobar: any = [];
+  aprobar2: boolean = false;
+  listAprobar2: any = [];
+  idDetalleArticulo: any;
   public guardar() {
     this.encontrados = [];
+    this.listAprobar = []
+    this.listAprobar2 = []
+    this.detalleArticulito = [];
     let articulo : Articulo2 = new Articulo2();
-    this.formArticulo.value.id=Number(this.data);
-    const artic = this.formArticulo.value.descripcion;
-    const idEstado = this.formArticulo.controls['idEstado'].value;
-    if(this.formArticulo.valid){
-      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-        this.formArticulo.value.idEstado = res.id
-        const idCategoria= this.formArticulo.controls['idCategoria'].value;
-        this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria => {
-          this.formArticulo.value.idCategoria = resCategoria.id
-          this.formArticulo.value.descripcion = artic
-          this.servicioArticulo.listarPorId(this.formArticulo.value.id).subscribe(resArticulo => {
-            if(resArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() ){
-              this.servicioModificar.actualizarArticulos(this.formArticulo.value).subscribe(res => {
+    let detalleArticulo : DetalleArticulo2 = new DetalleArticulo2();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.idArticulo = params.get('id');
+      const descripcion = this.formArticulo.controls['descripcion'].value;
+      const categoria = this.formArticulo.controls['categoria'].value;
+      const serial = this.formArticulo.controls['serial'].value;
+      const placa = this.formArticulo.controls['placa'].value;
+      const marca = this.formArticulo.controls['marca'].value;
+      const tipoActivo = this.formArticulo.controls['tipoActivo'].value;
+      if(this.formArticulo.valid){
+        this.servicioArticulo.listarPorId(this.idArticulo).subscribe(resArticulo=>{
+          this.servicioDetalleArticulo.listarTodos().subscribe(resDetalleArticulo=>{
+            resDetalleArticulo.forEach(elementDetalleArt => {
+              if(elementDetalleArt.idArticulo.id == this.idArticulo){
+                this.idDetalleArticulo = elementDetalleArt.id
+                if(resArticulo.descripcion.toLowerCase() == descripcion.toLowerCase() && resArticulo.idCategoria.id == categoria && elementDetalleArt.serial.toLowerCase() == serial.toLowerCase() && elementDetalleArt.placa.toLowerCase() == placa.toLowerCase() && elementDetalleArt.marca.toLowerCase() == marca.toLowerCase() && elementDetalleArt.idTipoActivo.id == tipoActivo){
+                  this.aprobar = true
+                }else{
+                  this.aprobar = false
+                }
+                this.listAprobar.push(this.aprobar)
+              }
+            });
+            const existe = this.listAprobar.includes(true)
+            if(existe == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'No hubo cambios',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              window.location.reload();
+            }else{
+              resDetalleArticulo.forEach(elementDetalleArt => {
+                if(elementDetalleArt.idArticulo.id != this.idArticulo){
+                  if(resArticulo.descripcion.toLowerCase() == descripcion.toLowerCase()){
+                    this.aprobar2 = true
+                  }else{
+                    this.aprobar2 = false
+                  }
+                  this.listAprobar2.push(this.aprobar2)
+                }
+              });
+              const existe2 = this.listAprobar2.includes(true)
+              if(existe2 == true){
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
-                  title: 'No se hubo cambio',
+                  title: 'Ese articulo ya existe',
                   showConfirmButton: false,
                   timer: 1500
                 })
-                this.dialogRef.close();
-                window.location.reload();
-              });
-            }else{
-              this.servicioArticulo.listarTodos().subscribe(res => {
-                res.forEach(elementArticulo => {
-                  if(elementArticulo.descripcion.toLowerCase() == this.formArticulo.value.descripcion.toLowerCase() ){
-                    this.encontrado = true
-                  }else{
-                    this.encontrado = false
-                  }
-                  this.encontrados.push(this.encontrado)
-                });
-                const encontrados = this.encontrados.find(encontrado => encontrado == true)
-                console.log(encontrados)
-                if(encontrados == true){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Ya existe ese articulo',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                }else{
-                  this.servicioModificar.actualizarArticulos(this.formArticulo.value).subscribe(res => {
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'success',
-                      title: 'Se modificó correctamente',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                    this.dialogRef.close();
-                    window.location.reload();
-                  });
-                }
-              })
+              }else{
+                this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulito=>{
+                  articulo.descripcion = descripcion
+                  articulo.idCategoria = categoria
+                  articulo.idEstado = resArticulo.idEstado.id
+                  detalleArticulo.codigo = resDetalleArticulito.codigoUnico
+                  detalleArticulo.idArticulos = this.idDetalleArticulo
+                  detalleArticulo.idEstado = resDetalleArticulito.idEstado.id
+                  detalleArticulo.idTipoActivo = tipoActivo
+                  detalleArticulo.idUsuario = resDetalleArticulito.idUsuario.id
+                  detalleArticulo.marca = marca
+                  detalleArticulo.placa = placa
+                  detalleArticulo.serial = serial
+                  this.modificarDetalleArticulo(detalleArticulo)
+                })
+
+              }
             }
           })
-
         })
-      })
-    }else{
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Campos vacios',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Campos vacios',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+  }
+
+  public modificarDetalleArticulo(detalleArticulo: DetalleArticulo2){
+
   }
 
   public actualizarArticulo(articulo: Articulo2) {
@@ -175,7 +214,6 @@ export class ModificarArticulosComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.dialogRef.close();
       window.location.reload();
     }, error => {
       Swal.fire({
@@ -185,7 +223,6 @@ export class ModificarArticulosComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.dialogRef.close();
       window.location.reload();
     });
  }

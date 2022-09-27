@@ -1,37 +1,63 @@
-<h2 class="dato">Ingresar Nuevo Articulo</h2>
-<form [formGroup]="formArticulo">
-  <div class="row1">
-    <!-- Ingresar Nombre -->
-    <div class="nombre2">
-      <h2>Descripción</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese descripción del Articulo</mat-label>
-      <input id="descripcion" formControlName="descripcion" matInput>
-      </mat-form-field>
+<div class="contenedor">
+  <h2 class="dato">Ingresar Nuevo Articulo</h2>
+  <form [formGroup]="formArticulo">
+    <div class="row1">
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Descripción</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese descripción del Articulo</mat-label>
+        <input id="descripcion" formControlName="descripcion" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Categoria</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Categoria del Articulo</mat-label>
+        <select matNativeControl id="categoria" name="categoria" formControlName="categoria">
+          <option *ngFor="let item of listaCategorias"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Serial</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese serial del Articulo</mat-label>
+        <input id="serial" formControlName="serial" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre3">
+        <h2>Placa</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese placa del Articulo</mat-label>
+        <input id="placa" formControlName="placa" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Marca</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese marca del Articulo</mat-label>
+        <input id="marca" formControlName="marca" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Tipo Activo</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Seleccion el tipo activo</mat-label>
+        <select matNativeControl id="tipoActivo" name="tipoActivo" formControlName="tipoActivo">
+          <option *ngFor="let item of listaTipoActivos"  value="{{item.id}}">{{item.descripcion}}</option>
+        </select>
+        </mat-form-field>
+      </div>
     </div>
-    <div class="nombre2">
-      <h2>Estado</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese Estado del Articulo</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="estado">
-        <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
-      </mat-form-field>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+      </div>
     </div>
-    <div class="nombre2">
-      <h2>Categoria</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese Categoria del Articulo</mat-label>
-      <select matNativeControl id="categoria" name="categoria" formControlName="categoria">
-        <option *ngFor="let item of listaCategorias"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row">
-    <!-- Boton de guardar datos -->
-    <div class="guardar2">
-      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

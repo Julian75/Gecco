@@ -136,13 +136,7 @@ export class GenerarSolicitudComponent implements OnInit {
           this.articulos = new FormControl<string | Articulo>("");
           this.listarArticulos();
         }else if(existe == true){
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Este articulo ya esta agregado!',
-            showConfirmButton: false,
-            timer: 1500
-          })
+          this.listadoArtSel.push(obj)
           this.crearFormulario();
           this.articulos = new FormControl<string | Articulo>("");
           this.listarArticulos();

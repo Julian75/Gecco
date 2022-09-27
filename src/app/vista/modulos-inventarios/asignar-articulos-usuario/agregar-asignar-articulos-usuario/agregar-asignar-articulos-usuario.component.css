@@ -40,6 +40,7 @@ h2{
   @media screen and (min-width: 280px) and (max-width: 359px){
     .guardarModal{ margin-left: 63%;}
     .nombre, .estado{width: 100%;  margin-left: 0%; margin-top: 0%;}
+    .nombre2{ margin-left: 1%;}
 
   }
 
@@ -47,6 +48,7 @@ h2{
   @media screen and (min-width: 360px) and (max-width: 420px){
     .guardarModal{ margin-left: 72%;}
     .nombre, .estado{width: 100%;  margin-left: 0%; margin-top: 0%;}
+    .nombre2{ margin-left: 1%;}
   }
 
   /* PORTATILES */

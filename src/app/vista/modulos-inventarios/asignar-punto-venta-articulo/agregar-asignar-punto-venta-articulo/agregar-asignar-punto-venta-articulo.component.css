@@ -19,7 +19,7 @@ h2{
   .guardarModal{
     margin-left: 82%;
   }
-  .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
+  .nombre2, .nombre3, .nombre4, .nombre5, .estado2{ margin-left: 5%; margin-top: 1%; }
   .estado2{ width: 300px; }
   .guardar{
     background-color: #00235C ;
@@ -49,8 +49,24 @@ h2{
   .nombre{width: 95%;}
   }
 
-  /* PORTATILES */
+  /* Tablet 1 */
   @media screen and (min-width: 600px) and (max-width: 639px){
-  .guardarModal{ margin-left: 69%;}
+  .guardarModal{ margin-left: 82%;}
   .nombre{width: 95%;}
+  }
+
+  /*Portatil 1*/
+  @media screen and (min-width: 640px) and (max-width: 700px){
+    .guardarModal{ margin-left: 84%;}
+    .nombre4{ margin-left: 50%; margin-top: -46%; }
+    .nombre5{ margin-left: 50%; margin-top: 0%; }
+    .nombre{width: 175px;}
+  }
+
+  /*  Portatil 2*/
+  @media screen and (min-width: 801px) and (max-width: 960px){
+    .guardarModal{ margin-left: 84%;}
+    .nombre4{ margin-left: 50%; margin-top: -46%; }
+    .nombre5{ margin-left: 50%; margin-top: 0%; }
+    .nombre{width: 175px;}
   }

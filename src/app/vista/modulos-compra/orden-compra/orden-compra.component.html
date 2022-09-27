@@ -62,10 +62,10 @@
         <th mat-header-cell *matHeaderCellDef><h3 class="v"> Valor Total </h3></th>
         <td mat-cell *matCellDef="let element">
           <div *ngFor="let item of lista">
-              <div *ngIf="element.solicitudDetalle.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion == item.posicion">
+              <div *ngIf="element.solicitudDetalle.id == item.solicitudDetalle.id && ultimaPosicion == item.posicion">
                   ${{item.valorUnitario | currency:'COP':'symbol':'1.0-0'}}
               </div>
-              <div *ngIf="element.solicitudDetalle.idArticulos.id == item.solicitudDetalle.idArticulos.id && ultimaPosicion != item.posicion">
+              <div *ngIf="element.solicitudDetalle.id == item.solicitudDetalle.id && ultimaPosicion != item.posicion">
                   ${{item.valorUnitario | currency:'COP':'symbol':'1.0-0'}}
               </div>
           </div>

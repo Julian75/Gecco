@@ -48,8 +48,8 @@
   @media screen and (min-width: 360px) and (max-width: 420px){
     td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
     #idSpa{ margin-left: 87% !important; }
-    #descSpa{ margin-left: 10% !important; }
-    #obsSpa{ margin-left: 10% !important; }
+    #descSpa{ margin-left: 25% !important; }
+    #obsSpa{ margin-left: 20% !important; }
     #opcSpa{ left: 8px; }
     td button{ margin-top: 5%; }
   }
@@ -57,98 +57,100 @@
   @media screen and (min-width: 600px) and (max-width: 639px){
     td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 0px; }
     #idSpa{ margin-left: 169% !important; }
-    #descSpa{ margin-left: 42% !important; }
-    #obsSpa{ margin-left: 42% !important; }
+    #descSpa{ margin-left: 73% !important; }
+    #obsSpa{ left: 45% !important; position: relative; }
   }
   /* Tablet 2,  Portatil 1*/
   @media screen and (min-width: 640px) and (max-width: 768px){
     #idSpa{ margin-left: 169% !important; }
-    #descSpa{ margin-left: 62% !important; }
-    #obsSpa{ margin-left: 62% !important; }
+    #descSpa{ margin-left: 100% !important; }
+    #obsSpa{ left: 64% !important; position: relative; }
   }
   /* Tablet 3,  Portatil 2*/
   @media screen and (min-width: 769px) and (max-width: 960px){
-    #idSpa{ margin-left: 150% !important; }
-    #descSpa{ margin-left: 50% !important; }
-    #obsSpa{ margin-left: 50% !important; }
+    #idSpa{ margin-left: 201% !important; }
+    #descSpa{ margin-left: 102% !important; }
+    #obsSpa{ left: 76% !important; position: relative; }
+    td button mat-icon{ top: -2px;}
   }
   /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
   @media screen and (min-width: 961px) and (max-width: 1080px){
     #idSpa{ margin-left: 242% !important; }
-    #descSpa{ margin-left: 84% !important; }
-    #obsSpa{ margin-left: 84% !important; }
+    #descSpa{ margin-left: 111% !important; }
+    #obsSpa{ left: 83% !important; position: relative;}
   }
   /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
   @media screen and (min-width: 1081px) and (max-width: 1280px){
-    #idSpa{ margin-left: 276% !important; }
-    #descSpa{ margin-left: 110% !important; }
-    #obsSpa{ margin-left: 110% !important; }
+    #idSpa{ margin-left: 287% !important; }
+    #descSpa{ margin-left: 155% !important; }
+    #obsSpa{ left: 120% !important; position: relative;}
   }
   /* Tablet 8, Compu. Mesa 5*/
   @media screen and (min-width: 1281px) and (max-width: 1536px){
     #idSpa{ margin-left: 367% !important; }
-    #descSpa{ margin-left: 150% !important; }
-    #obsSpa{ margin-left: 150% !important; }
+    #descSpa{ margin-left: 165% !important; }
+    #obsSpa{ left: 140% !important; position: relative; }
   }
   /*Compu. Mesa 6*/
   @media screen and (min-width: 1537px) and (max-width: 1850px){
     #idSpa{ margin-left: 367% !important; }
-    #descSpa{ margin-left: 150% !important; }
-    #obsSpa{ margin-left: 160% !important; }
+    #descSpa{ margin-left: 200% !important; }
+    #obsSpa{ left: 155% !important; position: relative; }
   }
 
   /*Portatil 4, Compu. Mesa 7, Televisor 2*/
   @media screen and (min-width: 1851px) and (max-width: 1920px){
-    #idSpa{ margin-left: 381% !important; }
-    #descSpa{ margin-left: 166% !important; }
-    #obsSpa{ margin-left: 166% !important; }
+    #idSpa{ margin-left: 367% !important; }
+    #descSpa{ margin-left: 226% !important; }
+    #obsSpa{ left: 165% !important; position: relative; }
   }
 
   /*Tablet 9*/
   @media screen and (min-width: 1921px) and (max-width: 2048px){
     #idSpa{ margin-left: 418% !important; }
-    #descSpa{ margin-left: 190% !important; }
-    #obsSpa{ margin-left: 190% !important; }
+    #descSpa{ margin-left: 250% !important; }
+    #obsSpa{ left: 190% !important; position: relative; }
   }
   /*Tablet 10*/
   @media screen and (min-width: 2049px) and (max-width: 2160px){
     #idSpa{ margin-left: 439% !important; }
-    #descSpa{ margin-left: 200% !important; }
-    #obsSpa{ margin-left: 200% !important; }
+    #descSpa{ margin-left: 280% !important; }
+    #obsSpa{ left: 205% !important; position: relative;}
   }
   /*Tablet 11 y 12, Portatil 5*/
   @media screen and (min-width: 2161px) and (max-width: 2560px){
     #idSpa{ margin-left: 519% !important; }
-    #descSpa{ margin-left: 250% !important; }
-    #obsSpa{ margin-left: 250% !important; }
+    #descSpa{ margin-left: 330% !important; }
+    #obsSpa{ left: 250% !important; position: relative; }
   }
   /*Tablet 13*/
   @media screen and (min-width: 2561px) and (max-width: 2736px){
-    #idSpa{ margin-left: 577% !important; }
-    #descSpa{ margin-left: 258% !important; }
-    #obsSpa{ margin-left: 258% !important; }
+    #idSpa{ margin-left: 597% !important; }
+    #descSpa{ margin-left: 343% !important; }
+    #obsSpa{ left: 260% !important; position: relative;}
   }
   /*Tablet 14*/
   @media screen and (min-width: 2737px) and (max-width: 3000px){
-    #idSpa{ margin-left: 600% !important; }
-    #descSpa{ margin-left: 300% !important; }
-    #obsSpa{ margin-left: 300% !important; }
+    #idSpa{ margin-left: 597% !important; }
+    #descSpa{ margin-left: 401% !important; }
+    #obsSpa{ left: 287% !important; position: relative;}
   }
   /*Portatil 6, Televisor 3*/
   @media screen and (min-width: 3001px) and (max-width: 3840px){
-    #idSpa{ margin-left: 800% !important; }
-    #descSpa{ margin-left: 390% !important; }
-    #obsSpa{ margin-left: 390% !important; }
+    #idSpa{ margin-left: 769% !important; }
+    #descSpa{ margin-left: 552% !important; }
+    #obsSpa{ left: 410% !important; position: relative; }
   }
   /*Televisor 4*/
   @media screen and (min-width: 3841px) and (max-width: 4096px){
-    #idSpa{ margin-left: 800% !important; }
-    #descSpa{ margin-left: 440% !important; }
-    #obsSpa{ margin-left: 440% !important; }
+    #idSpa{ margin-left: 850% !important; }
+    #descSpa{ margin-left: 552% !important; }
+    #obsSpa{ left: 430% !important; position: relative; }
+    td button mat-icon{top: -2px;}
   }
   /*Portatil 7, Televisor 5*/
   @media screen and (min-width: 4097px) and (max-width: 7680px){
     #idSpa{ margin-left: 1600% !important; }
-    #descSpa{ margin-left: 900% !important; }
-    #obsSpa{ margin-left: 900% !important; }
+    #descSpa{ margin-left:1063% !important; }
+    #obsSpa{ left: 869% !important; position: relative; }
   }

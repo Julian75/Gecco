@@ -459,13 +459,11 @@ export class PasosComponent implements OnInit {
                   });
                 }
                 if(res.idEstado.id == 36){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Aún no se ha validado la cotización!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
+                  const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
+                    width: '1000px',
+                    height: '430px',
+                    data: this.lista[0]
+                  });
                 }
               })
             }else{
@@ -590,13 +588,11 @@ export class PasosComponent implements OnInit {
           if(this.habilitar2 == true){
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
               if(res.idEstado.id == 37){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'warning',
-                  title: 'Aún no se ha validado su registro!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
+                const dialogRef = this.dialog.open(AprobacionRegistroComponent, {
+                  width: '1000px',
+                  height: '400px',
+                  data: this.lista[0]
+                });
               }else if(res.idEstado.id == 46){
                 this.firma = false
                 this.requisicion(this.firma);
@@ -912,7 +908,7 @@ export class PasosComponent implements OnInit {
                     },
                     {
                       text: 'Orden Compra: '+res.id,
-                      relativePosition: {x: 250, y: -25},
+                      // relativePosition: {x: 250, y: -25},
                       margin: [0, 0, 0, 20]
                     },
                     {
@@ -923,7 +919,7 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 20]
                     },{
                       table: {
-                        widths: ['*', '*', '*', '*'],
+                        widths: [250, 50, '*', '*'],
                         body: [
                           [
                             'Articulo',
@@ -937,7 +933,7 @@ export class PasosComponent implements OnInit {
                     },
                     {
                       table: {
-                        widths: ['*', '*', '*', '*'],
+                        widths: [250, 50, '*', '*'],
                         body: body
                       },
                       margin: [0, 0, 0, 40]
@@ -963,51 +959,92 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 20],
                     },
                     {
+                      table: {
+                        widths: ['*', '*'],
+                        heights: 30,
+                        body: [
+                          [
+                            '',
+                            ''
+                          ],
+                        ]
+                      },
+                      margin: [0, -15, 0, 2],
+                      // pageBreak: 'before'
+                    },
+                    {
                       text: 'Autorizo',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 150, 0, 0],
-                      fontSize: 10,
+                      margin: [100, 5, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      // margin: [-320, 30, 0, 0],
+                      fontSize: 10
                     },
                     {
                       text: 'Gerencia General',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 20, 0, 0],
-                      fontSize: 10,
-                    },
-                    {
-                      text: 'Aprobó',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 100, 0, 0],
-                      fontSize: 10,
-                    },
-                    {
-                      text: 'Dirección Administrativa',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 20, 0, 0],
+                      margin: [80, 5, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      // margin: [-320, 20, 0, 0],
                       fontSize: 10
                     },
                     {
                       text: 'Realizó',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, -140, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [370, -28, 0, 0],
                       fontSize: 10
                     },
                     {
                       text: 'Profesional Logistico',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 20, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [340, 5, 0, 0],
                       fontSize: 10
                     },
                     {
+                      table: {
+                        widths: ['*', '*'],
+                        heights: 30,
+                        body: [
+                          [
+                            '',
+                            ''
+                          ],
+                        ]
+                      },
+                      margin: [0, 40, 0, 0]
+                    },
+                    {
+                      text: 'Aprobó',
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [110, 5, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Dirección Administrativa',
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [75, 5, 0, 0],
+                      fontSize: 10
+                    },
+                    // {
+                    //   text: 'Realizó',
+                    //   // relativePosition: {x: 350, y: -25},
+                    //   margin: [-10, -140, 0, 0],
+                    //   fontSize: 10
+                    // },
+                    // {
+                    //   text: 'Profesional Logistico',
+                    //   // relativePosition: {x: 350, y: -25},
+                    //   margin: [-10, 20, 0, 0],
+                    //   fontSize: 10
+                    // },
+                    {
                       text: 'Solicito',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 100, 0, 20],
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [370, -28, 0, 20],
                       fontSize: 10
                     },
                     {
                       text: 'Lider del Proceso',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 0, 0, 20],
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [348, -15, 0, 20],
                       fontSize: 10
                     },
                   ]

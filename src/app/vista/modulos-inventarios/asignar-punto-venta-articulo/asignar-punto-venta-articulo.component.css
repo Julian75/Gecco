@@ -222,8 +222,11 @@ table{
   /*Tablet 11 y 12, Portatil 5*/
   @media screen and (min-width: 2161px) and (max-width: 2560px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #idSp{left: 30% ; }
-    #descripSp{left:361%;}
+    #idSp{left: -20% ; }
+    #descripSp{left: 90%;}
+    #cantSp{ left: 110%; }
+    #oficiSp{ left: 270%; }
+    #sitiVentSp{ left: 320%; }
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -231,8 +234,11 @@ table{
   /*Tablet 13*/
   @media screen and (min-width: 2561px) and (max-width: 2736px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #idSp{left: 30% ; }
-    #descripSp{left:378%;}
+    #idSp{left: -20% ; }
+    #descripSp{left: 100%;}
+    #cantSp{ left: 125%; }
+    #oficiSp{ left: 290%; }
+    #sitiVentSp{ left: 340%; }
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -240,8 +246,11 @@ table{
   /*Tablet 14*/
   @media screen and (min-width: 2737px) and (max-width: 3000px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #idSp{left: 30% ; }
-    #descripSp{left:423%;}
+    #idSp{left: -20% ; }
+    #descripSp{left: 120%;}
+    #cantSp{ left: 140%; }
+    #oficiSp{ left: 320%; }
+    #sitiVentSp{ left: 380%; }
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -249,8 +258,11 @@ table{
   /*Portatil 6, Televisor 3*/
   @media screen and (min-width: 3001px) and (max-width: 3840px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #idSp{left: 30% ; }
-    #descripSp{left:565%;}
+    #idSp{left: 0% ; }
+    #descripSp{left: 170%;}
+    #cantSp{ left: 200%; }
+    #oficiSp{ left: 420%; }
+    #sitiVentSp{ left: 500%; }
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -258,8 +270,11 @@ table{
   /*Televisor 4*/
   @media screen and (min-width: 3841px) and (max-width: 4096px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #idSp{left: 30% ; }
-    #descripSp{left:615%;}
+    #idSp{left: 0% ; }
+    #descripSp{left: 170%;}
+    #cantSp{ left: 200%; }
+    #oficiSp{ left: 460%; }
+    #sitiVentSp{ left: 500%; }
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
@@ -267,8 +282,11 @@ table{
   /*Portatil 7, Televisor 5*/
   @media screen and (min-width: 4097px) and (max-width: 7680px){
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #idSp{left: 42% ; }
-    #descripSp{left:1160%;}
+    #idSp{left: 0% ; }
+    #descripSp{left: 370%;}
+    #cantSp{ left: 450%; }
+    #oficiSp{ left: 880%; }
+    #sitiVentSp{ left: 1000%; }
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
