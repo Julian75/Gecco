@@ -85,4 +85,28 @@ export class SubirPdfService {
   public eliminarImagen(filename: string){
     return this.http.get(`${this.path}/eliminarImagen/${filename}`);
   }
+
+  //---------------------Cuarta Carpeta---------------------------------------
+
+  public listarTodasFirmas(){
+    return this.http.get(`${this.path}/listarFirmas`);
+  }
+
+  public listarUnaFirma(nombreArchivo: String){
+    return this.http.get(this.path+'/listarFirma/'+nombreArchivo);
+  }
+  public subirFirma(file: File): Observable<HttpEvent<any>>{
+    const formData: FormData = new FormData();
+    formData.append('files', file);
+    console.log(formData)
+    const  req = new HttpRequest('POST', `${this.path}/subirFirma`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+
+  public eliminarFirma(filename: string){
+    return this.http.get(`${this.path}/eliminarFirma/${filename}`);
+  }
 }

@@ -23,8 +23,14 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
   public listDetalleArticulo: any = []
   public listaEstado: any = []
   public validar: any = []
+  public validar2: any = []
   public articulos: any = []
+  public articulos2: any = []
   public ultimoArticulo: any = []
+  public objetos: any = []
+  public encontrado: any = []
+  public valida = false;
+  public noValido: boolean = false;
   color = ('primary');
   constructor(
     private serviceAsignacionProceso: AsignacionProcesoService,
@@ -81,70 +87,27 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
     })
   }
 
-  valida: boolean = false;
+
   public guardar() {
+    this.validar2 = [];
     this.validar = [];
+    this.objetos = [];
+    this.articulos2 = [];
+    let asignacionArticulos = new AsignacionArticulos();
+    let asignacionArticulos1 = new AsignacionArticulos2();
     if (this.formAsignarArticulos.valid) {
+      this.validar = [];
       this.serviceAsignacionArticulo.listarTodos().subscribe(data => {
         data.forEach((element: any) => {
           if (element.idAsignacionesProcesos.id == this.formAsignarArticulos.value.idAsignacionesProcesos && element.idDetalleArticulo.id == this.formAsignarArticulos.value.idDetalleArticulo && element.idEstado.id == this.formAsignarArticulos.value.idEstado) {
             this.valida = true
-          }else{
-            this.valida = false
+            this.articulos.push(element);
           }
           this.validar.push(this.valida)
+          this.articulos2.push(element)
         })
-        const validar = this.validar.filter((element: any) => element == true)
-        if (validar.length == 0) {
-          this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
-            if(data.idAsignacionesProcesos.idUsuario.documento == Number(sessionStorage.getItem('usuario'))){
-              this.serviceAsignacionProceso.listarPorId(this.formAsignarArticulos.value.idAsignacionesProcesos).subscribe(data1 => {
-                this.formAsignarArticulos.value.idAsignacionesProcesos = data1.id;
-                this.serviceDetalleArticulo.listarPorId(this.formAsignarArticulos.value.idDetalleArticulo).subscribe(data2 => {
-                  this.formAsignarArticulos.value.idDetalleArticulo = data2.id;
-                  this.serviceEstado.listarPorId(this.formAsignarArticulos.value.idEstado).subscribe(data3 => {
-                    this.formAsignarArticulos.value.idEstado = data3.id;
-                    this.servicioModificar.actualizarAsignacionArticulos(this.formAsignarArticulos.value).subscribe(data => {
-                      Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Se ha modificado correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
-                      this.dialogRef.close();
-                      window.location.reload();
-                      this.formAsignarArticulos.reset();
-                    })
-                  })
-                })
-              })
-            }else if(data.idAsignacionesProcesos.idUsuario.documento != Number(sessionStorage.getItem('usuario'))){
-              this.serviceAsignacionProceso.listarPorId(this.formAsignarArticulos.value.idAsignacionesProcesos).subscribe(data1 => {
-                this.formAsignarArticulos.value.idAsignacionesProcesos = data1;
-                this.serviceDetalleArticulo.listarPorId(this.formAsignarArticulos.value.idDetalleArticulo).subscribe(data2 => {
-                  this.formAsignarArticulos.value.idDetalleArticulo = data2;
-                  this.serviceEstado.listarPorId(this.formAsignarArticulos.value.idEstado).subscribe(data3 => {
-                    this.formAsignarArticulos.value.idEstado = data3;
-                    this.serviceAsignacionArticulo.registrar(this.formAsignarArticulos.value).subscribe(data => {
-                      Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Se ha modificado correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
-                      // this.dialogRef.close();
-                      // window.location.reload();
-                      this.formAsignarArticulos.reset();
-                      this.registrar();
-                    })
-                  })
-                })
-              })
-            }
-          })
-        }else{
+        const validar = this.validar.find((element: any) => element == true)
+        if (validar == true) {
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -154,6 +117,99 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
           })
           this.dialogRef.close();
           window.location.reload();
+        }else{
+          this.serviceAsignacionArticulo.listarTodos().subscribe(data => {
+            this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(art => {
+              for (let i = 0; i < data.length; i++) {
+                console.log(this.formAsignarArticulos.value.idAsignacionesProcesos)
+                console.log(data[i].idAsignacionesProcesos.id)
+                if (data[i].idAsignacionesProcesos.id == this.formAsignarArticulos.value.idAsignacionesProcesos ) {
+                  this.noValido = true;
+                  this.objetos.push(data[i]);
+                }else{
+                  this.noValido = false;
+                }
+                this.validar2.push(this.noValido)
+              }
+              const validar2 = this.validar2.find((element: any) => element == true)
+
+              if (validar2 == true) {
+                console.log("Entró");
+                asignacionArticulos1.id = this.objetos[0].id;
+                this.serviceAsignacionProceso.listarPorId(this.objetos[0].idAsignacionesProcesos.id).subscribe(data => {
+                  asignacionArticulos1.idAsignacionesProcesos = data.id;
+                  this.serviceDetalleArticulo.listarPorId(this.formAsignarArticulos.value.idDetalleArticulo).subscribe(data => {
+                    asignacionArticulos1.idDetalleArticulo = data.id;
+                    if(this.objetos[0].idAsignacionesProcesos.idUsuario.id == sessionStorage.getItem('id')){
+                      this.serviceEstado.listarPorId(this.formAsignarArticulos.value.idEstado).subscribe(data => {
+                        asignacionArticulos1.idEstado = data.id;
+                        this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulos1).subscribe(data => {
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Se modificó correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                          this.dialogRef.close();
+                          window.location.reload();
+                        })
+                      })
+                    }else{
+                      this.serviceEstado.listarPorId(this.formAsignarArticulos.value.idEstado).subscribe(data => {
+                        asignacionArticulos1.idEstado = data.id;
+                        this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulos1).subscribe(data => {
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Se modificó correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                          this.dialogRef.close();
+                          window.location.reload();
+                        })
+                      })
+                    }
+                  })
+                })
+              }else{
+                console.log("No entró");
+                this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
+                  console.log(data);
+                  asignacionArticulos1.id = data.id;
+                  asignacionArticulos1.idAsignacionesProcesos = data.idAsignacionesProcesos.id;
+                  asignacionArticulos1.idDetalleArticulo = data.idDetalleArticulo.id;
+                  asignacionArticulos1.idEstado = 79;
+                  this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulos1).subscribe(data => {
+                    asignacionArticulos.id = 0;
+                    this.serviceAsignacionProceso.listarPorId(this.formAsignarArticulos.value.idAsignacionesProcesos).subscribe(data1 => {
+                      asignacionArticulos.idAsignacionesProcesos = data1;
+                      this.serviceDetalleArticulo.listarPorId(this.formAsignarArticulos.value.idDetalleArticulo).subscribe(data2 => {
+                        asignacionArticulos.idDetalleArticulo = data2;
+                        this.serviceEstado.listarPorId(this.formAsignarArticulos.value.idEstado).subscribe(data3 => {
+                          asignacionArticulos.idEstado = data3;
+                          console.log(asignacionArticulos);
+                          console.log(this.formAsignarArticulos.value);
+                          this.serviceAsignacionArticulo.registrar(asignacionArticulos).subscribe(data => {
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'success',
+                              title: 'Se modificó correctamente',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                            this.dialogRef.close();
+                            window.location.reload();
+                          })
+                        })
+                      })
+                    })
+                  })
+                })
+              }
+            })
+          })
         }
       })
     }else{
@@ -166,59 +222,6 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
     }
   }
 
-  public registrar (){
-    this.articulos = [];
-    this.ultimoArticulo = [];
-    let asignacionArticulos = new AsignacionArticulos();
-    let asignacionArticulos1 = new AsignacionArticulos2();
-    this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(articulo => {
-      var obj = {
-        id: articulo.id,
-        idAsignacionesProcesos: articulo.idAsignacionesProcesos,
-        idDetalleArticulo: articulo.idDetalleArticulo,
-        idEstado: articulo.idEstado,
-      }
-        this.serviceAsignacionArticulo.listarTodos().subscribe(arti => {
-          arti.forEach((element: any) => {
-            if (element.idAsignacionesProcesos.id == obj.idAsignacionesProcesos.id && element.idDetalleArticulo.id == obj.idDetalleArticulo.id ) {
-              this.articulos.push(element)
-            }
-          })
-          console.log(this.articulos);
-          if (this.articulos.length == 1) {
-            console.log('nuevo');
-            asignacionArticulos.id = 0;
-            asignacionArticulos.idAsignacionesProcesos = obj.idAsignacionesProcesos;
-            asignacionArticulos.idDetalleArticulo = obj.idDetalleArticulo;
-            this.serviceEstado.listarPorId(obj.idEstado.id).subscribe(est => {
-              asignacionArticulos.idEstado = est;
-              this.serviceAsignacionArticulo.registrar(asignacionArticulos).subscribe(data => {
-                // this.dialogRef.close();
-                // window.location.reload();
-              })
-            })
-          }else{
-            console.log("existe");
-            let result = this.articulos.filter((element: any, index: any) => {
-              if(index === this.articulos.findLastIndex((e: any) => e.idDetalleArticulo.id === element.idDetalleArticulo.id)){
-                this.ultimoArticulo.push(element)
-              }
-            })
-            console.log(this.ultimoArticulo);
-            // this.ultimoArticulo.forEach((element: any) => {
-            //   asignacionArticulos.id = 0;
-            //   asignacionArticulos.idAsignacionesProcesos = obj.idAsignacionesProcesos;
-            //   asignacionArticulos.idDetalleArticulo = obj.idDetalleArticulo;
-            //   this.serviceEstado.listarPorId(this.formAsignarArticulos.value.idEstado).subscribe(est => {
-            //     asignacionArticulos.idEstado = est;
-            //     this.serviceAsignacionArticulo.registrar(asignacionArticulos).subscribe(data => {
-            //       this.dialogRef.close();
-            //       window.location.reload();
-            //     })
-            //   })
-            // })
-          }
-        })
-      })
+  public registrar(asignacionArticulos1: AsignacionArticulos2){
   }
 }

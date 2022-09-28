@@ -173,15 +173,34 @@ export class AprobacionRegistroComponent implements OnInit {
  public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idUsuario:number, idSolicitud: number, idCotizacion:number){
   this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(res=>{
     // this.crearCorreo(idUsuario, idSolicitud, idCotizacion)
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Se aprobo el registro!',
-      showConfirmButton: false,
-      timer: 1500
+    let usuariosAdministracion : UsuariosAdministracion = new UsuariosAdministracion();
+    this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
+      usuariosAdministracion.idSolicitud = resSolicitud
+      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        usuariosAdministracion.idUsuario = resUsuario
+        this.servicioUsuarioAdministracion.registrar(usuariosAdministracion).subscribe(resUsuAdmin=>{
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Correo enviado al usuario de la solicitud y cotizacion!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.dialogRef.close();
+          window.location.reload();
+        })
+      })
     })
-    this.dialogRef.close();
-    window.location.reload();
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: 'Se aprobo el registro!',
+    //   showConfirmButton: false,
+    //   timer: 1500
+    // })
+    // this.dialogRef.close();
+    // window.location.reload();
   }, error => {
     console.log(error)
     Swal.fire({

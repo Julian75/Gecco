@@ -22,7 +22,6 @@ import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.se
   styleUrls: ['./agregar-articulos.component.css']
 })
 export class AgregarArticulosComponent implements OnInit {
-
   public formArticulo!: FormGroup;
   public listarEstado: any = [];
   public listarExiste: any = [];

@@ -88,6 +88,7 @@ import { AsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-
 import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
 import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articulos-asignados/mis-articulos-asignados.component';
 import { ModificarArticulosComponent } from './modulos-compra/articulos/modificar-articulos/modificar-articulos.component';
+import { FirmasComponent } from './modulos-compra/firmas/firmas.component';
 
 const routes: Routes = [
   {
@@ -332,6 +333,11 @@ const routes: Routes = [
       {
         path: 'proceso',
         component: ListaProcesoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'firmas',
+        component: FirmasComponent,
         canActivate: [AutorizacionGuard]
       },
       // Proveedores

@@ -1,69 +1,52 @@
-import { EstadoService } from 'src/app/servicios/estado.service';
-import { ModificarArticulosComponent } from './modificar-articulos/modificar-articulos.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AgregarArticulosComponent } from './agregar-articulos/agregar-articulos.component';
-import { ArticuloService } from 'src/app/servicios/articulo.service';
-import * as XLSX from 'xlsx';
+import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { VisualizarHistorialArticuloComponent } from './visualizar-historial-articulo/visualizar-historial-articulo.component';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { AgregarFirmasComponent } from './agregar-firmas/agregar-firmas.component';
+import { FirmasService } from 'src/app/servicios/Firmas.service';
+import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-articulos',
-  templateUrl: './articulos.component.html',
-  styleUrls: ['./articulos.component.css']
+  selector: 'app-firmas',
+  templateUrl: './firmas.component.html',
+  styleUrls: ['./firmas.component.css']
 })
-export class ArticulosComponent implements OnInit {
-  public listaArticulos: any = [];
+export class FirmasComponent implements OnInit {
 
-  displayedColumns = ['id', 'descripcion','estado', 'categoria','opciones'];
+  public listaFirmas: any = [];
+
+  displayedColumns = ['id', 'usuario','firma','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
-    private servicioArticulo: ArticuloService,
-    private servicioEstado: EstadoService,
+    private servicioFirma: FirmasService,
     public dialog: MatDialog
   ) { }
-
 
   ngOnInit(): void {
     this.listarTodos();
   }
 
   public listarTodos () {
-    this.servicioArticulo.listarTodos().subscribe( res =>{
-      res.forEach(element => {
-        if(element.idEstado.id == 26){
-          this.listaArticulos.push(element)
-        }
-      });
-      this.dataSource = new MatTableDataSource( this.listaArticulos);
+    this.servicioFirma.listarTodos().subscribe( res =>{
+      this.listaFirmas = res;
+      this.dataSource = new MatTableDataSource( this.listaFirmas);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
     })
   }
 
-  modificarRol(id: number): void {
-    const dialogRef = this.dialog.open(ModificarArticulosComponent, {
+  abrirModal(): void {
+    const dialogRef = this.dialog.open(AgregarFirmasComponent, {
       width: '500px',
-      data: id
     });
   }
 
-  mostrarHistorial(idArticulo:number):void{
-    const dialogRef = this.dialog.open(VisualizarHistorialArticuloComponent, {
-      width: '600px',
-      height: '440px',
-      data: idArticulo
-    });
-  }
-
-  eliminarRol(id:number){
+  eliminarFirma(id:number){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -82,10 +65,11 @@ export class ArticulosComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.servicioArticulo.eliminar(id).subscribe(res=>{
+        this.servicioFirma.eliminar(id).subscribe(res=>{
+          this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se eliminó el Articulo.',
+            'Se elimino la Firma.',
             'success'
           )
         })
@@ -99,7 +83,6 @@ export class ArticulosComponent implements OnInit {
           'error'
         )
       }
-      window.location.reload();
     })
   }
 
@@ -112,9 +95,9 @@ export class ArticulosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  name = 'listaArticulos.xlsx';
+  name = 'listaFirmas.xlsx';
   exportToExcel(): void {
-    let element = document.getElementById('rol');
+    let element = document.getElementById('firmas');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();
@@ -122,4 +105,5 @@ export class ArticulosComponent implements OnInit {
 
     XLSX.writeFile(book, this.name);
   }
+
 }

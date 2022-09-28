@@ -101,122 +101,97 @@ h2{
     transform: rotate(-360deg);
   }
 }
-
-/* Movil pequeño - Galaxy Fold*/
+/* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  h2{
-    font-size: 1.4em;
-  }
-  mat-form-field{
-    margin-top: 5%;
-  }
-  .nombre, .estado{
-    width: 100%;
-    margin-left: 0%;
-    margin-top: 0%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 160px;
-    height: 40px;
-    font-size: large;
-    margin-left: 8%;
-  }
-  .guardarModal{
-    margin-left: 65%;
-  }
+  .guardarModal{ margin-left: 70%; margin-bottom: 10%; }
+  .nombre{ width: 95%;  margin-left: 0%; margin-top: 0%; }
+  .nombre3{ margin-left: 13px; margin-top: 3px; }
+  .nombre4{ margin-left: 13px; }
+}
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .guardarModal{ margin-left: 75%; position: static; margin-bottom: 5%; }
+  .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
+  .nombre3{ margin-left: 19px; margin-top: 3px; }
+  .nombre4{ margin-left: 19px; }
+}
+/* Tablet 1*/
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .guardarModal{ margin-left: 81%; position: static; margin-bottom: 5%; }
+  .nombre{width: 215px;  margin-left: 0%; margin-top: 0%;}
+  .nombre3{ margin-left: 289px; margin-top: -319px; }
+  .nombre4{ margin-left: 289px; }
+}
+/* Portatil 1 */
+@media screen and (min-width: 640px) and (max-width: 699px){
+  .guardarModal{ margin-left: 496px; margin-bottom: 25px; }
+  .nombre3{ margin-left: 310px; margin-top: -322px; }
+  .nombre4{ margin-left: 310px; }
+}
+/* Tablet 2, Tablet 3 */
+@media screen and (min-width: 700px) and (max-width: 899px){
+  .guardarModal{ margin-left: 561px; }
+  .nombre3{ margin-left: 374px; margin-top: -322px; }
+  .nombre4{ margin-left: 374px; }
+}
+/* Portatil 2 */
+@media screen and (min-width: 900px) and (max-width: 960px){
+  .guardarModal{ margin-left: 600px; }
+  .nombre3{ margin-left: 414px; margin-top: -322px; }
+  .nombre4{ margin-left: 414px; }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  .guardarModal{ margin-left: 600px; }
+  .nombre3{ margin-left: 414px; margin-top: -322px; }
+  .nombre4{ margin-left: 414px; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  .guardarModal{ margin-left: 661px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -322px; }
+  .nombre4{ margin-left: 475px; }
+}
+/* Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1410px){
+  .guardarModal{ margin-left: 665px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -322px; }
+  .nombre4{ margin-left: 475px; }
+}
+/* Tablet 8 */
+@media screen and (min-width: 1411px) and (max-width: 1536px){
+  .guardarModal{ margin-left: 662px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -322px; }
+  .nombre4{ margin-left: 475px; }
+}
+/*Tablet 9, 10, 11, 12 y 13 Portatil 4, 5 Compu. Mesa 6, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1537px) and (max-width: 2736px){
+  .guardarModal{ margin-left: 662px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -338px; }
+  .nombre4{ margin-left: 475px; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .guardarModal{ margin-left: 662px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -354px; }
+  .nombre4{ margin-left: 475px; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .guardarModal{ margin-left: 662px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -366px; }
+  .nombre4{ margin-left: 475px; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .guardarModal{ margin-left: 662px; position: static; }
+  .nombre3{ margin-left: 475px; margin-top: -371px; }
+  .nombre4{ margin-left: 475px; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .guardarModal{ margin-left: 858px; position: static; }
+  .nombre3{ margin-left: 685px; margin-top: -425px; }
+  .nombre4{ margin-left: 685px; }
 }
 
-/* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
-  h2{
-    font-size: 1.4em;
-  }
-  mat-form-field{
-    margin-top: 5%;
-  }
-  .nombre, .estado{
-    width: 100%;
-    margin-left: 0%;
-    margin-top: 0%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 160px;
-    height: 40px;
-    font-size: large;
-    margin-left: 17%;
-  }
-  .guardarModal{
-    margin-left: 75%;
-  }
-}
-
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  h2{
-    font-size: 1.4em;
-  }
-  mat-form-field{
-    margin-top: 5%;
-  }
-  .nombre, .estado{
-    margin-left: 0%;
-    margin-top: 0%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 160px;
-    height: 40px;
-    font-size: large;
-    margin-left: 5%;
-
-  }
-}
-
-/* Tablet pequeña - iPad Mini*/
-@media screen and (min-width: 721px) and (max-width: 768px){
-  h2{
-    font-size: 1.4em;
-  }
-  mat-form-field{
-    margin-top: 5%;
-  }
-  .nombre, .estado{
-    margin-left: 0%;
-    margin-top: 0%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 160px;
-    height: 40px;
-    font-size: large;
-    margin-left: 5%;
-  }
-}
-
-/* Tablet medio - iPad Air*/
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  h2{
-    font-size: 1.4em;
-  }
-  mat-form-field{
-    margin-top: 5%;
-  }
-  .nombre, .estado{
-    margin-left: 0%;
-    margin-top: 0%;
-  }
-  .guardar{
-    background-color: #00235C;
-    color: white;
-    width: 160px;
-    height: 40px;
-    font-size: large;
-    margin-left: 5%;
-  }
-}

@@ -799,77 +799,108 @@ export class PasosComponent implements OnInit {
                       margin: [0, 0, 0, 20],
                     },
                     {
+                      table: {
+                        widths: ['*', '*'],
+                        heights: 30,
+                        body: [
+                          [
+                            '',
+                            ''
+                          ],
+                        ]
+                      },
+                      margin: [0, -15, 0, 2],
+                      // pageBreak: 'before'
+                    },
+                    {
                       text: 'Autorizo',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 50, 0, 0],
-                      fontSize: 10,
-                    },
-                    {
-                      text: this.nombreGerente,
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 20, 0, 0],
-                      fontSize: 13,
-                    },
-                    {
-                      text: 'Gerencia General',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 20, 0, 0],
-                      fontSize: 10,
-                    },
-                    {
-                      text: 'Aprobó',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 85, 0, 0],
-                      fontSize: 10,
-                    },
-                    {
-                      text: this.nombreAdministrador,
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 20, 0, 0],
+                      margin: [100, 5, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      // margin: [-320, 30, 0, 0],
                       fontSize: 10
                     },
                     {
-                      text: 'Dirección Administrativa',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-320, 20, 0, 0],
+                      text: this.nombreGerente,
+                      margin: [90, 5, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: 'Gerencia General',
+                      margin: [80, 5, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      // margin: [-320, 20, 0, 0],
                       fontSize: 10
                     },
                     {
                       text: 'Realizó',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, -163, 0, 0],
-                      fontSize: 10,
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [370, -45, 0, 0],
+                      fontSize: 10
                     },
                     {
                       text: this.nombreCompras,
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 20, 0, 0],
+                      margin: [330, 5, 0, 0],
                       fontSize: 10
                     },
                     {
                       text: 'Profesional Logistico',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 20, 0, 0],
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [340, 5, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      table: {
+                        widths: ['*', '*'],
+                        heights: 30,
+                        body: [
+                          [
+                            {
+                              image: await this.getBase64ImageFromURL(
+                                'assets/logo/suchance.png'
+                              ),
+                              margin: [50, 0, 0, 0],
+                              width: 150,
+                            },
+                            ''
+                          ],
+                        ]
+                      },
+                      margin: [0, 40, 0, 0]
+                    },
+                    {
+                      text: 'Aprobó',
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [110, 5, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: this.nombreAdministrador,
+                      margin: [60, 5, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Dirección Administrativa',
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [75, 5, 0, 0],
                       fontSize: 10
                     },
                     {
                       text: 'Solicito',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 85, 0, 0],
-                      fontSize: 10,
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [370, -45, 0, 20],
+                      fontSize: 10
                     },
                     {
                       text: this.idSolicitud,
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 20, 0, 0],
+                      margin: [320, -15, 0, 0],
                       fontSize: 10
                     },
                     {
                       text: 'Lider del Proceso',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [-10, 20, 0, 20],
+                      // relativePosition: {x: 350, y: -25},
+                      margin: [348, 5, 0, 20],
                       fontSize: 10
-                    },
+                    }
                   ]
                 }
                 const pdf = pdfMake.createPdf(pdfDefinition);

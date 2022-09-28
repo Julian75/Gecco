@@ -1,0 +1,47 @@
+<div class="contenedor">
+  <h2>HISTORIAL DEL ARTICULO {{articulo | uppercase }}</h2>
+  <button class="btn bot botonvolver text-white my-2" [routerLink]="['/articulos']" routerLinkActive="router-link-active" >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field>
+  <section class="example-container mat-elevation-z8" tabindex="0">
+    <table id="historialArticulo" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
+          <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Fecha</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="observacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="obsSp">Observacion</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.observacion}}</td>
+        </ng-container>
+
+        <!--Opciones-->
+        <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Usuario</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+  </mat-paginator>
+
+</div>

@@ -111,6 +111,7 @@ export class ModificarArticulosComponent implements OnInit {
   listAprobar2: any = [];
   idDetalleArticulo: any;
   public guardar() {
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.encontrados = [];
     this.listAprobar = []
     this.listAprobar2 = []
@@ -126,70 +127,76 @@ export class ModificarArticulosComponent implements OnInit {
       const marca = this.formArticulo.controls['marca'].value;
       const tipoActivo = this.formArticulo.controls['tipoActivo'].value;
       if(this.formArticulo.valid){
-        this.servicioArticulo.listarPorId(this.idArticulo).subscribe(resArticulo=>{
-          this.servicioDetalleArticulo.listarTodos().subscribe(resDetalleArticulo=>{
-            resDetalleArticulo.forEach(elementDetalleArt => {
-              if(elementDetalleArt.idArticulo.id == this.idArticulo){
-                this.idDetalleArticulo = elementDetalleArt.id
-                if(resArticulo.descripcion.toLowerCase() == descripcion.toLowerCase() && resArticulo.idCategoria.id == categoria && elementDetalleArt.serial.toLowerCase() == serial.toLowerCase() && elementDetalleArt.placa.toLowerCase() == placa.toLowerCase() && elementDetalleArt.marca.toLowerCase() == marca.toLowerCase() && elementDetalleArt.idTipoActivo.id == tipoActivo){
-                  this.aprobar = true
-                }else{
-                  this.aprobar = false
-                }
-                this.listAprobar.push(this.aprobar)
-              }
-            });
-            const existe = this.listAprobar.includes(true)
-            if(existe == true){
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'No hubo cambios',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              window.location.reload();
-            }else{
+        this.servicioArticulo.listarTodos().subscribe(resArticulosCompletos=>{
+          this.servicioArticulo.listarPorId(this.idArticulo).subscribe(resArticulo=>{
+            this.servicioDetalleArticulo.listarTodos().subscribe(resDetalleArticulo=>{
               resDetalleArticulo.forEach(elementDetalleArt => {
-                if(elementDetalleArt.idArticulo.id != this.idArticulo){
-                  if(resArticulo.descripcion.toLowerCase() == descripcion.toLowerCase()){
-                    this.aprobar2 = true
+                if(elementDetalleArt.idArticulo.id == this.idArticulo){
+                  detalleArticulo.id = elementDetalleArt.id
+                  if(resArticulo.descripcion.toLowerCase() == descripcion.toLowerCase() && resArticulo.idCategoria.id == categoria && elementDetalleArt.serial.toLowerCase() == serial.toLowerCase() && elementDetalleArt.placa.toLowerCase() == placa.toLowerCase() && elementDetalleArt.marca.toLowerCase() == marca.toLowerCase() && elementDetalleArt.idTipoActivo.id == tipoActivo){
+                    this.aprobar = true
                   }else{
-                    this.aprobar2 = false
+                    this.aprobar = false
                   }
-                  this.listAprobar2.push(this.aprobar2)
+                  this.listAprobar.push(this.aprobar)
                 }
               });
-              const existe2 = this.listAprobar2.includes(true)
-              if(existe2 == true){
+              const existe = this.listAprobar.includes(true)
+              if(existe == true){
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
-                  title: 'Ese articulo ya existe',
+                  title: 'No hubo cambios',
                   showConfirmButton: false,
                   timer: 1500
                 })
+                window.location.reload();
               }else{
-                this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulito=>{
-                  articulo.descripcion = descripcion
-                  articulo.idCategoria = categoria
-                  articulo.idEstado = resArticulo.idEstado.id
-                  detalleArticulo.codigo = resDetalleArticulito.codigoUnico
-                  detalleArticulo.idArticulos = this.idDetalleArticulo
-                  detalleArticulo.idEstado = resDetalleArticulito.idEstado.id
-                  detalleArticulo.idTipoActivo = tipoActivo
-                  detalleArticulo.idUsuario = resDetalleArticulito.idUsuario.id
-                  detalleArticulo.marca = marca
-                  detalleArticulo.placa = placa
-                  detalleArticulo.serial = serial
-                  this.modificarDetalleArticulo(detalleArticulo)
-                })
-
+                resArticulosCompletos.forEach(elementArticulo => {
+                  if(elementArticulo.id != this.idArticulo){
+                    if(elementArticulo.descripcion.toLowerCase() == descripcion.toLowerCase()){
+                      this.aprobar2 = true
+                    }else{
+                      this.aprobar2 = false
+                    }
+                    this.listAprobar2.push(this.aprobar2)
+                  }
+                });
+                const existe2 = this.listAprobar2.includes(true)
+                if(existe2 == true){
+                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Ese articulo ya existe',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }else{
+                  this.servicioDetalleArticulo.listarPorId(detalleArticulo.id).subscribe(resDetalleArticulito=>{
+                    console.log(resDetalleArticulito)
+                    articulo.id = this.idArticulo
+                    articulo.descripcion = descripcion
+                    articulo.idCategoria = categoria
+                    articulo.idEstado = resArticulo.idEstado.id
+                    detalleArticulo.codigoUnico = resDetalleArticulito.codigoUnico
+                    detalleArticulo.idArticulo = resDetalleArticulito.idArticulo.id
+                    detalleArticulo.idEstado = resDetalleArticulito.idEstado.id
+                    detalleArticulo.idTipoActivo = tipoActivo
+                    detalleArticulo.idUsuario = resDetalleArticulito.idUsuario.id
+                    detalleArticulo.marca = marca
+                    detalleArticulo.placa = placa
+                    detalleArticulo.serial = serial
+                    this.modificarArticulo(articulo, detalleArticulo)
+                  })
+                }
               }
-            }
+            })
           })
         })
       }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -201,30 +208,64 @@ export class ModificarArticulosComponent implements OnInit {
     })
   }
 
-  public modificarDetalleArticulo(detalleArticulo: DetalleArticulo2){
-
+  public modificarArticulo(articulo: Articulo2, detalleArticulo: DetalleArticulo2){
+    this.servicioModificar.actualizarArticulos(articulo).subscribe(res => {
+      this.servicioModificar.actualizarDetalleArticulo(detalleArticulo).subscribe(resDetalleArticulo=>{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Articulo modificado!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        window.location.reload();
+      }, error => {
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocurrio un error al modificar el detalle del articulo!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      });
+    }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Ocurrio un error al modificar el articulo!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 
-  public actualizarArticulo(articulo: Articulo2) {
-    this.servicioModificar.actualizarArticulos(articulo).subscribe(res => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Articulo modificado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload();
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Articulo modificado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload();
-    });
- }
+  // public modificarDetalleArticulo(detalleArticulo: DetalleArticulo2){
+  //   this.servicioModificar.actualizarDetalleArticulo.()
+  // }
+
+//   public actualizarArticulo(articulo: Articulo2) {
+//     this.servicioModificar.actualizarArticulos(articulo).subscribe(res => {
+//       Swal.fire({
+//         position: 'center',
+//         icon: 'success',
+//         title: 'Articulo modificado!',
+//         showConfirmButton: false,
+//         timer: 1500
+//       })
+//       window.location.reload();
+//     }, error => {
+//       Swal.fire({
+//         position: 'center',
+//         icon: 'success',
+//         title: 'Articulo modificado!',
+//         showConfirmButton: false,
+//         timer: 1500
+//       })
+//       window.location.reload();
+//     });
+//  }
 
 }

@@ -98,7 +98,7 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
         this.serviceAsignacionArticulos.eliminar(id).subscribe(res=>{
           Swal.fire(
             '¡Eliminado!',
-            'La asignación ha sido eliminado.',
+            'El registro ha sido eliminado.',
             'success'
           )
           window.location.reload()

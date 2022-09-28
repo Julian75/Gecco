@@ -16,7 +16,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="idasignacionesprocesos">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Asignación del Proceso</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idAsignacionesProcesos.idTiposProcesos.descripcion}} </td>
+          <td mat-cell *matCellDef="let element">{{element.idAsignacionesProcesos.idUsuario.nombre}} {{element.idAsignacionesProcesos.idUsuario.apellido}} | {{element.idAsignacionesProcesos.idTiposProcesos.descripcion}} </td>
         </ng-container>
 
         <!-- Name Column -->

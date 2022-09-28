@@ -82,7 +82,7 @@ export class SubirArchivoSolicitudComponent implements OnInit {
     });
   }
 
-  idSolicitud: any; 
+  idSolicitud: any;
   listHistorialId: any = []
   public guardar(){
     this.idSolicitud = this.data
@@ -98,6 +98,7 @@ export class SubirArchivoSolicitudComponent implements OnInit {
       const idHistorialMen = Math.min.apply(null, this.listHistorialId)
       this.servicioSolicitudSc.listarPorId(this.idSolicitud).subscribe(resSolicitud=>{
         this.servicioHistorial.listarPorId(idHistorialMen).subscribe(resHistorial=>{
+          console.log(idHistorialMen)
           let soporte : SoporteSC = new SoporteSC();
           soporte.idSolicitudSC = resSolicitud
           soporte.idHistorial = resHistorial
@@ -113,7 +114,7 @@ export class SubirArchivoSolicitudComponent implements OnInit {
       })
     })
   }
-  
+
   public registrarSoporte(soporte: SoporteSC, cont){
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
       Swal.fire({

@@ -24,10 +24,10 @@
   .btnedit{ background-color: #97B4E2; color: white; }
   .btnremove{ background-color: #DA161A; color: white; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp{ position: relative;}
-  #idSp{ margin-left: 140%;}
-  #desSp{ left: 58%;}
-  #estSp{ left: 68%;}
-  #jerSp{margin-left: 189%;}
+  #idSp{ margin-left: 54%;}
+  #desSp{ left: 123%;}
+  #estSp{ left: 45%;}
+  #jerSp{margin-left: 143%;}
   #opcSp{ padding-right: 0%;}
   #idSp2{ padding-left: 1%;}
   td button mat-icon{left: -18%; top: -10%;}
@@ -95,7 +95,7 @@
   @media screen and (min-width: 961px) and (max-width: 1080px){
     td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 1px;}
     #idSp{margin-left: 55%;}
-    #desSp{margin-left: -40%;}
+    #desSp{margin-left: -52%;}
     #estSp{margin-left: -49%;}
     #jerSp{margin-left: 46%;}
     #opcSp{ left: 8px; }

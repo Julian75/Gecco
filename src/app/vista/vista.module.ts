@@ -168,6 +168,9 @@ import { AgregarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios
 import { ModificarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo.component';
 import { SubirArchivoSolicitudComponent } from './modulos-recepcion-datos/subir-archivo-solicitud/subir-archivo-solicitud.component';
 import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articulos-asignados/mis-articulos-asignados.component';
+import { FirmasComponent } from './modulos-compra/firmas/firmas.component';
+import { AgregarFirmasComponent } from './modulos-compra/firmas/agregar-firmas/agregar-firmas.component';
+import { VisualizarHistorialArticuloComponent } from './modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
 
 @NgModule({
   declarations: [
@@ -333,6 +336,9 @@ import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articu
     ModificarAsignarPuntoVentaArticuloComponent,
     SubirArchivoSolicitudComponent,
     MisArticulosAsignadosComponent,
+    FirmasComponent,
+    AgregarFirmasComponent,
+    VisualizarHistorialArticuloComponent,
   ],
   imports: [
     CommonModule,
