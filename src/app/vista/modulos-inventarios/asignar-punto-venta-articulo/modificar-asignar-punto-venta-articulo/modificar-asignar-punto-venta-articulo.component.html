@@ -6,7 +6,7 @@
         <h2 class="Turno">Articulo</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Seleccione el Articulo</mat-label>
-        <select matNativeControl id="articulo" name="articulo" formControlName="articulo">
+        <select matNativeControl id="articulo" name="articulo" formControlName="articulo" readonly>
           <option *ngFor="let item of listaArticulos" value="{{item.id}}" >{{item.idDetalleArticulo.idArticulo.descripcion}}</option>
         </select>
         </mat-form-field>

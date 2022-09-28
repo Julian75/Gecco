@@ -183,10 +183,17 @@ export class AprobacionRegistroComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Correo enviado al usuario de la solicitud y cotizacion!',
+            title: 'Se aprobo el registro!',
             showConfirmButton: false,
             timer: 1500
           })
+          // Swal.fire({
+          //   position: 'center',
+          //   icon: 'success',
+          //   title: 'Correo enviado al usuario de la solicitud y cotizacion!',
+          //   showConfirmButton: false,
+          //   timer: 1500
+          // })
           this.dialogRef.close();
           window.location.reload();
         })

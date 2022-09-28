@@ -15,13 +15,13 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="idasignacionesprocesos">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Asignación del Proceso</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Usuario - Area</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idAsignacionesProcesos.idUsuario.nombre}} {{element.idAsignacionesProcesos.idUsuario.apellido}} | {{element.idAsignacionesProcesos.idTiposProcesos.descripcion}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="iddetalleArticulo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Detalle Articulo</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Articulo</h3></th>
           <td mat-cell *matCellDef="let element">{{element.idDetalleArticulo.idArticulo.descripcion}}</td>
         </ng-container>
 

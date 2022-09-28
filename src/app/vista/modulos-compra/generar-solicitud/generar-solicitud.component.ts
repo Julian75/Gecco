@@ -18,6 +18,7 @@ import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.serv
 import Swal from 'sweetalert2';
 import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
 import { AgregarArticulosComponent } from '../articulos/agregar-articulos/agregar-articulos.component';
+import { AgregarArticulosModalComponent } from '../articulos/agregar-articulos-modal/agregar-articulos-modal.component';
 
 @Component({
   selector: 'app-generar-solicitud',
@@ -255,9 +256,11 @@ export class GenerarSolicitudComponent implements OnInit {
   }
 
   aprobar:boolean = false
-  public agregarArticulo() {
-    const dialogRef = this.dialog.open(AgregarArticulosComponent, {
-      width: '500px',
+  public agregarArticulo(textoCampoArticulo: any) {
+    const dialogRef = this.dialog.open(AgregarArticulosModalComponent, {
+      width: '900px',
+      height: '440px',
+      data: textoCampoArticulo,
     });
   }
 

@@ -26,7 +26,6 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<VisualizarHistorialArticuloComponent>,
     private servicioHistorialArticulo: HistorialArticuloService,
-    private servicioArticulo: ArticuloService,
     private servicioDetalleArticulo: DetalleArticuloService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
@@ -38,24 +37,18 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
   idDetalleArticulo: any;
   public listarTodos () {
     this.listarHistorialArticulo = [];
-    this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
-      resDetallesArticulos.forEach(elementDetalleArticulo => {
-        if(elementDetalleArticulo.idArticulo.id == Number(this.data)){
-          this.idDetalleArticulo = elementDetalleArticulo.id
-        }
-      });
-      this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulo=>{
-        this.articulo = resDetalleArticulo.idArticulo.descripcion
-        this.servicioHistorialArticulo.listarTodos().subscribe(resHistorialesArticulos=>{
-          resHistorialesArticulos.forEach(elementHistorialArticulo => {
-            if(elementHistorialArticulo.idDetalleArticulo.id == resDetalleArticulo.id){
-              this.listarHistorialArticulo.push(elementHistorialArticulo)
-            }
-          });
-          this.dataSource = new MatTableDataSource(this.listarHistorialArticulo);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        })
+    this.idDetalleArticulo = this.data
+    this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulo=>{
+      this.articulo = resDetalleArticulo.idArticulo.descripcion
+      this.servicioHistorialArticulo.listarTodos().subscribe(resHistorialesArticulos=>{
+        resHistorialesArticulos.forEach(elementHistorialArticulo => {
+          if(elementHistorialArticulo.idDetalleArticulo.id == resDetalleArticulo.id){
+            this.listarHistorialArticulo.push(elementHistorialArticulo)
+          }
+        });
+        this.dataSource = new MatTableDataSource(this.listarHistorialArticulo);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     })
   }

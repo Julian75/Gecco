@@ -13,27 +13,14 @@
     </div>
     <div class="nombre2">
       <h2>Articulo</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese el articulo</mat-label>
-      <select matNativeControl id="jerarquia" name="jerarquia" formControlName="idDetalleArticulo">
-        <option *ngFor="let item of listDetalleArticulo"  value="{{item.id}}">{{item.idArticulo.descripcion}}</option>
-      </select>
-      </mat-form-field>
+      <p >{{nombreArticulo}}</p>
     </div>
-    <div class="nombre2">
-      <h2>Estado</h2>
-      <mat-form-field class="nombre" [color]="color"  appearance="fill">
-      <mat-label>Ingrese el Estado</mat-label>
-      <select matNativeControl  name="jerarquia" formControlName="idEstado" id="estado">
-        <option *ngFor="let item of listaEstado"  value="{{item.id}}" >{{item.descripcion}}</option>
-      </select>
-      </mat-form-field>
-    </div>
+
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->
     <div class="guardar2">
-      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>edit_square</mat-icon></button>
     </div>
   </div>
 </form>

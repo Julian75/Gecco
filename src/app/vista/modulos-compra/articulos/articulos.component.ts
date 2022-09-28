@@ -1,3 +1,4 @@
+import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { ModificarArticulosComponent } from './modificar-articulos/modificar-articulos.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,12 +21,13 @@ import { VisualizarHistorialArticuloComponent } from './visualizar-historial-art
 export class ArticulosComponent implements OnInit {
   public listaArticulos: any = [];
 
-  displayedColumns = ['id', 'descripcion','estado', 'categoria','opciones'];
+  displayedColumns = ['id', 'descripcion', 'categoria', 'estado','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioArticulo: ArticuloService,
+    private servicioDetalleArticulo: DetalleArticuloService,
     private servicioEstado: EstadoService,
     public dialog: MatDialog
   ) { }
@@ -36,10 +38,10 @@ export class ArticulosComponent implements OnInit {
   }
 
   public listarTodos () {
-    this.servicioArticulo.listarTodos().subscribe( res =>{
-      res.forEach(element => {
-        if(element.idEstado.id == 26){
-          this.listaArticulos.push(element)
+    this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
+      resDetallesArticulos.forEach(elementDetalleArticulo => {
+        if(elementDetalleArticulo.idArticulo.idEstado.id == 26){
+          this.listaArticulos.push(elementDetalleArticulo)
         }
       });
       this.dataSource = new MatTableDataSource( this.listaArticulos);

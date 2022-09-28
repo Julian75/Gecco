@@ -13,6 +13,9 @@ import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
 import { AsignacionPuntoVenta2 } from 'src/app/modelos/modelos2/asignacionPuntoVenta2';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.service';
 
 @Component({
   selector: 'app-modificar-asignar-punto-venta-articulo',
@@ -36,6 +39,7 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
   public listaIdSitioVenta: any = [];
   public idAsignacion: any;
   public listaAsignacion: any = [];
+  public fecha: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +48,8 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
     private servicioOficina : OficinasService,
     private servicioSitioVenta : SitioVentaService,
     private servicioAsignacionArticulo: AsignacionArticulosService,
+    private servicioHistorial: HistorialArticuloService,
+    private servicioUsuario: UsuarioService,
     private servicioModificar: ModificarService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
@@ -156,7 +162,7 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
               window.location.reload();
               document.getElementById('snipper')?.setAttribute('style', 'display: none;')
             }else{
-              this.servicioSitioVenta.listarTodos().subscribe(resSitioVenta=>{
+              this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{
                 for (let i = 0; i < resSitioVenta.length; i++) {
                   const elementSitio = resSitioVenta[i];
                   if(elementSitio.ideSitioventa == sitioVent.ideSitioventa){
@@ -171,19 +177,28 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
                     const existe = this.encontrados.includes(true);
                     if(existe == true){
                       if(cantidad != resAsigancionTurno.cantidad){
-                        asignacionPuntoVenta.id = resAsigancionTurno.id
-                        asignacionPuntoVenta.idAsignacionesArticulos = resAsigancionTurno.idAsignacionesArticulos.id
-                        asignacionPuntoVenta.idOficina = resAsigancionTurno.idOficina
-                        asignacionPuntoVenta.idSitioVenta = resAsigancionTurno.idSitioVenta
-                        asignacionPuntoVenta.cantidad = cantidad
-                        asignacionPuntoVenta.nombreOficina = resAsigancionTurno.nombreOficina
-                        asignacionPuntoVenta.nombreSitioVenta = resAsigancionTurno.nombreSitioVenta
-                        this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);
+                        let historialArticulo : HistorialArticulos = new HistorialArticulos();
+                        historialArticulo.fecha = this.fecha
+                        this.servicioAsignacionArticulo.listarPorId(resAsignacionArticulo.id).subscribe(resAsignacion=>{
+                          historialArticulo.idDetalleArticulo = resAsignacion.idDetalleArticulo
+                          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                            historialArticulo.idUsuario = resUsuario
+                            historialArticulo.observacion = "La cantidad del articulo "+resAsignacion.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" que fue asignado a la oficina "+oficina.nom_oficina.toLowerCase()+" del sitio de venta "+elementSitio.nom_sitioventa.toLowerCase()+" paso de "+resAsigancionTurno.cantidad+" a "+cantidad+"."
+                            asignacionPuntoVenta.id = resAsigancionTurno.id
+                            asignacionPuntoVenta.idAsignacionesArticulos = resAsigancionTurno.idAsignacionesArticulos.id
+                            asignacionPuntoVenta.idOficina = resAsigancionTurno.idOficina
+                            asignacionPuntoVenta.idSitioVenta = resAsigancionTurno.idSitioVenta
+                            asignacionPuntoVenta.cantidad = cantidad
+                            asignacionPuntoVenta.nombreOficina = resAsigancionTurno.nombreOficina
+                            asignacionPuntoVenta.nombreSitioVenta = resAsigancionTurno.nombreSitioVenta
+                            this.agregarHistorial(historialArticulo, asignacionPuntoVenta);
+                          })
+                        })
                       }else{
                         Swal.fire({
                           position: 'center',
                           icon: 'error',
-                          title: 'La Asignacion ya existe!',
+                          title: 'La asignación de ese articulo ya existe en ese sitio de venta!',
                           showConfirmButton: false,
                           timer: 1500
                         })
@@ -192,14 +207,34 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
                         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                       }
                     }else{
-                      asignacionPuntoVenta.id = this.formAsigancionPuntoVenta.value.id
-                      asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo.id
-                      asignacionPuntoVenta.idOficina = oficina.ideOficina
-                      asignacionPuntoVenta.idSitioVenta = sitioVent.ideSitioventa
-                      asignacionPuntoVenta.cantidad = cantidad
-                      asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
-                      asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
-                      this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);
+                      if(resAsigancionTurno.nombreOficina != oficina.nom_oficina || resAsigancionTurno.nombreSitioVenta != elementSitio.nom_sitioventa){
+                        let historialArticulo : HistorialArticulos = new HistorialArticulos();
+                        historialArticulo.fecha = this.fecha
+                        this.servicioAsignacionArticulo.listarPorId(resAsignacionArticulo.id).subscribe(resAsignacion=>{
+                          historialArticulo.idDetalleArticulo = resAsignacion.idDetalleArticulo
+                          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                            historialArticulo.idUsuario = resUsuario
+                            historialArticulo.observacion = "Se traslado el articulo "+resAsignacion.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" a la oficina "+oficina.nom_oficina.toLowerCase()+" del sitio de venta "+elementSitio.nom_sitioventa.toLowerCase()+"."
+                            asignacionPuntoVenta.id = this.formAsigancionPuntoVenta.value.id
+                            asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo.id
+                            asignacionPuntoVenta.idOficina = oficina.ideOficina
+                            asignacionPuntoVenta.idSitioVenta = sitioVent.ideSitioventa
+                            asignacionPuntoVenta.cantidad = cantidad
+                            asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
+                            asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
+                            this.agregarHistorial(historialArticulo, asignacionPuntoVenta);
+                          })
+                        })
+                      }else{
+                        asignacionPuntoVenta.id = this.formAsigancionPuntoVenta.value.id
+                        asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo.id
+                        asignacionPuntoVenta.idOficina = oficina.ideOficina
+                        asignacionPuntoVenta.idSitioVenta = sitioVent.ideSitioventa
+                        asignacionPuntoVenta.cantidad = cantidad
+                        asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
+                        asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
+                        this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);
+                      }
                     }
                     break
                   }
@@ -226,7 +261,7 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Asignacion Modificada!',
+        title: 'Asignación modificada!',
         showConfirmButton: false,
         timer: 1500
       })
@@ -244,6 +279,20 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload();
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    });
+  }
+
+  public agregarHistorial(historialArticulo: HistorialArticulos, asignacionPuntoVenta: AsignacionPuntoVenta2){
+    this.servicioHistorial.registrar(historialArticulo).subscribe(res=>{
+      this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar el historial!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     });
   }
 

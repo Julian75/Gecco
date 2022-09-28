@@ -21,6 +21,7 @@
   }
   .boton{ background-color: #00235C; }
   .btnver{ background-color: #00235C; color: white; }
+  .btnver2{ background-color: #959595; color: white; }
   .btnedit{ background-color: #97B4E2; color: white; }
   .btnremove{ background-color: #DA161A; color: white; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp{ position: relative;}

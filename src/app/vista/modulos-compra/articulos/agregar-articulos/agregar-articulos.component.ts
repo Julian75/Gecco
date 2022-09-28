@@ -248,5 +248,4 @@ export class AgregarArticulosComponent implements OnInit {
       window.location.reload();
     })
   }
-
 }

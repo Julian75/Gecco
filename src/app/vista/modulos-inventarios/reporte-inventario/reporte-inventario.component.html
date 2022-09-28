@@ -1,0 +1,57 @@
+<div class="contenedor">
+    <h2 class="dato">Reporte Inventario</h2>
+    <form [formGroup]="formInventario">
+      <div class="row1">
+        <div class="nombre2">
+          <h2 class="oficina2">Oficina</h2>
+          <mat-form-field class="nombre"  appearance="fill">
+            <mat-label>Ingrese oficina</mat-label>
+            <select matNativeControl id="oficina" name="oficina" formControlName="oficina" [(ngModel)]="id" (change)="idOficina()">
+              <option></option>
+              <option *ngFor="let item of listaOficinas"  value="{{item.id}}" [ngValue]="item">{{item.ideOficina}} | {{item.nom_oficina}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+        <div class="nombre3">
+          <h2 class="sitio">Sitio Venta</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese Sitio Venta</mat-label>
+            <input type="text"
+             aria-label="text"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto" >
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="sitioVenta" name="sitioVenta">
+              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.ideSitioventa" >
+                {{item.ideSitioventa}} | {{item.nom_sitioventa}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2>Serial</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese Serial</mat-label>
+          <input id="serial" formControlName="serial" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre5">
+          <h2>Placa</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese Placa</mat-label>
+          <input id="placa" formControlName="placa" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Boton de guardar datos -->
+        <div class="guardar2">
+          <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="solpiner" id="snipper" style="text-align: center; display: none;">
+    <div class="loader"></div>
+  </div>
+

@@ -1,3 +1,4 @@
+import { FirmasService } from 'src/app/servicios/Firmas.service';
 import { ListaCotizacionesLiderProcesoComponent } from './../lista-cotizaciones-lider-proceso/lista-cotizaciones-lider-proceso.component';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { CotizacionService } from './../../../servicios/cotizacion.service';
@@ -29,6 +30,7 @@ import { AprobacionRegistroComponent } from '../aprobacion-registro/aprobacion-r
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { SolicitudConformeComponent } from '../solicitud-conforme/solicitud-conforme.component';
+import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -59,6 +61,8 @@ export class PasosComponent implements OnInit {
     private servicioSolicitudDetalle: DetalleSolicitudService,
     private servicioAccesos: AccesoService,
     private servicioUsuario: UsuarioService,
+    private servicioFirmas: FirmasService,
+    private servicioSubirPdf: SubirPdfService,
     private servicioUsuarioAdministradores: UsuariosAdministracionService,
     private servicioGestionProceso: GestionProcesoService,
     private servicioCotizacion: CotizacionService,
@@ -651,443 +655,508 @@ export class PasosComponent implements OnInit {
     })
   }
 
+  idProfesionalLogistico: any;
+  idLiderProceso: any;
+  firmaGerente: any;
+  nombreFirmaProfesionalLogisitico: any;
+  firmaProfesionalLogistico: any;
+  nombreFirmaDireccionAdministrativa: any;
+  firmaDireccionAdministrativa: any;
+  nombreFirmaLiderProceso: any;
+  firmaLiderProceso: any;
+  listFirmasPdf: any = [];
   public requisicion(firmaDecision){
     document.getElementById('snipper3')?.setAttribute('style', 'display: block;')
     this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCom=>{
-      resOrdenCom.forEach(element => {
-        var body = []
-        this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
-          this.nombreCompras = resOrden.idUsuario.nombre+" "+resOrden.idUsuario.apellido
-          this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
-            resDetalle.forEach(element => {
-              if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
-                this.idSolicitud = element.idSolicitud.idUsuario.nombre + " " + element.idSolicitud.idUsuario.apellido
-                this.idCompras = element.id
-                var now = new Array
-                now.push(element.idArticulos.descripcion)
-                now.push(element.cantidad)
-                const formatterPeso = new Intl.NumberFormat('es-CO', {
-                  style: 'currency',
-                  currency: 'COP',
-                  minimumFractionDigits: 0
-                })
-                now.push(formatterPeso.format(element.valorUnitario))
-                now.push(formatterPeso.format(element.valorTotal))
-                body.push(now)
-              }
-            });
-
+      this.servicioFirmas.listarTodos().subscribe(resFirmas=>{
+        this.servicioSubirPdf.listarTodasFirmas().subscribe(resImagenesFirmas=>{
+          this.servicioSubirPdf.listarTodasFirmas().subscribe(resFirmasImagenes=>{
             this.servicioGestionProceso.listarTodos().subscribe(resGestionProc=>{
-              resGestionProc.forEach(element => {
-                if(element.idDetalleSolicitud.id == element.idDetalleSolicitud.id){
-                  this.nombreCompras = element.idUsuario.nombre+" "+element.idUsuario.apellido
-                }
-              });
-            })
+              this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                this.listFirmasPdf = resFirmasImagenes
+                resOrdenCom.forEach(element => {
+                  var body = []
+                  this.servicioOrdenCompra.listarPorId(element.id).subscribe(resOrden=>{
+                    this.servicioConsultasGenerales.listarUsuariosAdministracion(element.idSolicitud).subscribe(resUsuariosAdministracion=>{
+                      this.nombreCompras = resOrden.idUsuario.nombre+" "+resOrden.idUsuario.apellido
+                      this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalle=>{
+                        resDetalle.forEach(element => {
+                          if(element.idSolicitud.id == resOrden.idSolicitud.id && element.idEstado.id != 59){
+                            this.idSolicitud = element.idSolicitud.idUsuario.nombre + " " + element.idSolicitud.idUsuario.apellido
+                            this.idLiderProceso = element.idSolicitud.idUsuario.id
+                            this.idCompras = element.id
+                            var now = new Array
+                            now.push(element.idArticulos.descripcion)
+                            now.push(element.cantidad)
+                            const formatterPeso = new Intl.NumberFormat('es-CO', {
+                              style: 'currency',
+                              currency: 'COP',
+                              minimumFractionDigits: 0
+                            })
+                            now.push(formatterPeso.format(element.valorUnitario))
+                            now.push(formatterPeso.format(element.valorTotal))
+                            body.push(now)
+                          }
+                        });
 
-            this.servicioConsultasGenerales.listarUsuariosAdministracion(element.idSolicitud).subscribe(resUsuariosAdministracion=>{
-              resUsuariosAdministracion.forEach(element => {
-                this.idAdministrador = element.idUsuario
-              });
-              this.servicioUsuario.listarPorId(this.idAdministrador).subscribe(resUsuario=>{
-                this.nombreAdministrador = resUsuario.nombre+" "+resUsuario.apellido
+                        resGestionProc.forEach(element => {
+                          if(element.idDetalleSolicitud.id == element.idDetalleSolicitud.id){
+                            this.idProfesionalLogistico = element.idUsuario.id
+                            this.nombreCompras = element.idUsuario.nombre+" "+element.idUsuario.apellido
+                          }
+                        });
+                        resUsuariosAdministracion.forEach(element => {
+                          this.idAdministrador = element.idUsuario
+                        });
+                        this.servicioUsuario.listarPorId(this.idAdministrador).subscribe(resUsuario=>{
+                          this.nombreAdministrador = resUsuario.nombre+" "+resUsuario.apellido
+                        })
+                        resConfiguracion.forEach(element => {
+                          if(element.nombre == 'nombre_entidad'){
+                            this.nombreEmpresa = element.valor
+                          }
+                          if(element.nombre == 'Nombre_Gerencia'){
+                            this.nombreGerente = element.valor
+                          }
+                          if(element.nombre == 'nit_empresa'){
+                            this.nitEmpresa = element.valor
+                          }
+                        });
+                        resFirmas.forEach(elementFirma => {
+                          if(elementFirma.idUsuario.id == this.idProfesionalLogistico){
+                            this.nombreFirmaProfesionalLogisitico = elementFirma.firma
+                          }
+                          if(elementFirma.idUsuario.id == this.idAdministrador){
+                            this.nombreFirmaDireccionAdministrativa = elementFirma.firma
+                          }
+                          if(elementFirma.idUsuario.id == this.idLiderProceso){
+                            this.nombreFirmaLiderProceso = elementFirma.firma
+                          }
+                        });
+                        for (let index = 0; index < this.listFirmasPdf.length; index++) {
+                          const element = this.listFirmasPdf[index];
+                          if(element.name == this.nombreFirmaProfesionalLogisitico){
+                            this.firmaProfesionalLogistico = element.url
+                          }
+                          if(element.name == this.nombreFirmaDireccionAdministrativa){
+                            this.firmaDireccionAdministrativa = element.url
+                          }
+                          if(element.name == this.nombreFirmaLiderProceso){
+                            this.firmaLiderProceso = element.url
+                          }
+                        }
+                        console.log(this.firmaProfesionalLogistico, this.firmaLiderProceso, this.firmaDireccionAdministrativa)
+
+                        this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+                          const formatterPeso = new Intl.NumberFormat('es-CO', {
+                            style: 'currency',
+                            currency: 'COP',
+                            minimumFractionDigits: 0
+                          })
+                          if(firmaDecision == true){
+
+                            const pdfDefinition: any = {
+                              content: [
+                                {
+                                  image: await this.getBase64ImageFromURL(
+                                    'assets/logo/suchance.png'
+                                  ),
+                                  relativePosition: {x: 0, y: 0},
+                                  width: 150,
+                                },
+                                {
+                                  text: 'Nombre Empresa: '+this.nombreEmpresa,
+                                  bold: true,
+                                  margin: [0, 80, 0, 10]
+                                },
+                                {
+                                  text: 'Nit Empresa: '+this.nitEmpresa,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Fecha: '+res.idSolicitud.fecha,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Proveedor: '+res.idProveedor.nombre,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Orden Compra: '+res.id,
+                                  relativePosition: {x: 250, y: -25},
+                                  margin: [0, 0, 0, 20]
+                                },
+                                {
+                                  text: 'Requisición',
+                                  bold: true,
+                                  fontSize: 20,
+                                  alignment: 'center',
+                                  margin: [0, 0, 0, 20]
+                                },{
+                                  table: {
+                                    widths: ['*', '*', '*', '*'],
+                                    body: [
+                                      [
+                                        'Articulo',
+                                        'Cantidad',
+                                        'Valor Unitario',
+                                        'Valor Total'
+                                      ],
+                                    ]
+                                  },
+                                  margin: [0, 0, 0, 0.3]
+                                },
+                                {
+                                  table: {
+                                    widths: ['*', '*', '*', '*'],
+                                    body: body
+                                  },
+                                  margin: [0, 0, 0, 40]
+                                },
+                                {
+                                  text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  table: {
+                                    widths: ['*', '*'],
+                                    heights: 30,
+                                    body: [
+                                      [
+                                        {
+                                          image: await this.getBase64ImageFromURL(
+                                            'assets/logo/suchance.png'
+                                          ),
+                                          margin: [50, 0, 0, 0],
+                                          width: 60,
+                                          heigth: 60
+                                        },
+                                        {
+                                          image: await this.getBase64ImageFromURL(
+                                            this.firmaProfesionalLogistico
+                                          ),
+                                          margin: [50, 0, 0, 0],
+                                          width: 60,
+                                          heigth: 60
+                                        }
+                                      ],
+                                    ]
+                                  },
+                                  margin: [0, -15, 0, 2],
+                                  // pageBreak: 'before'
+                                },
+                                {
+                                  text: 'Autorizo',
+                                  margin: [100, 5, 0, 0],
+                                  // relativePosition: {x: 350, y: -25},
+                                  // margin: [-320, 30, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: this.nombreGerente,
+                                  margin: [90, 5, 0, 0],
+                                  fontSize: 10,
+                                },
+                                {
+                                  text: 'Gerencia General',
+                                  margin: [80, 5, 0, 0],
+                                  // relativePosition: {x: 350, y: -25},
+                                  // margin: [-320, 20, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Realizó',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [370, -45, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: this.nombreCompras,
+                                  margin: [330, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Profesional Logistico',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [340, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  table: {
+                                    widths: ['*', '*'],
+                                    heights: 30,
+                                    body: [
+                                      [
+                                        {
+                                          image: await this.getBase64ImageFromURL(
+                                            this.firmaDireccionAdministrativa
+                                          ),
+                                          margin: [50, 0, 0, 0],
+                                          width: 60,
+                                          heigth: 60
+                                        },
+                                        {
+
+                                          image: await this.getBase64ImageFromURL(
+                                            this.firmaLiderProceso
+                                          ),
+                                          margin: [50, 0, 0, 0],
+                                          width: 60,
+                                          heigth: 60
+                                        },
+                                      ],
+                                    ]
+                                  },
+                                  margin: [0, 40, 0, 0]
+                                },
+                                {
+                                  text: 'Aprobó',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [110, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: this.nombreAdministrador,
+                                  margin: [60, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Dirección Administrativa',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [75, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Solicito',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [370, -45, 0, 20],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: this.idSolicitud,
+                                  margin: [320, -15, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Lider del Proceso',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [348, 5, 0, 20],
+                                  fontSize: 10
+                                }
+                              ]
+                            }
+                            const pdf = pdfMake.createPdf(pdfDefinition);
+                            pdf.open();
+                            localStorage.removeItem('idDireccionAdministrativa')
+                          }else if(firmaDecision == false){
+
+                            const pdfDefinition: any = {
+                              content: [
+                                {
+                                  image: await this.getBase64ImageFromURL(
+                                    'assets/logo/suchance.png'
+                                  ),
+                                  relativePosition: {x: 0, y: 0},
+                                  width: 150,
+                                },
+                                {
+                                  text: 'Nombre Empresa: '+this.nombreEmpresa,
+                                  bold: true,
+                                  margin: [0, 80, 0, 10]
+                                },
+                                {
+                                  text: 'Nit Empresa: '+this.nitEmpresa,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Fecha: '+res.idSolicitud.fecha,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Proveedor: '+res.idProveedor.nombre,
+                                  margin: [0, 0, 0, 10]
+                                },
+                                {
+                                  text: 'Orden Compra: '+res.id,
+                                  // relativePosition: {x: 250, y: -25},
+                                  margin: [0, 0, 0, 20]
+                                },
+                                {
+                                  text: 'Requisición',
+                                  bold: true,
+                                  fontSize: 20,
+                                  alignment: 'center',
+                                  margin: [0, 0, 0, 20]
+                                },{
+                                  table: {
+                                    widths: [250, 50, '*', '*'],
+                                    body: [
+                                      [
+                                        'Articulo',
+                                        'Cantidad',
+                                        'Valor Unitario',
+                                        'Valor Total'
+                                      ],
+                                    ]
+                                  },
+                                  margin: [0, 0, 0, 0.3]
+                                },
+                                {
+                                  table: {
+                                    widths: [250, 50, '*', '*'],
+                                    body: body
+                                  },
+                                  margin: [0, 0, 0, 40]
+                                },
+                                {
+                                  text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
+                                  relativePosition: {x: 350, y: -25},
+                                  margin: [0, 0, 0, 20],
+                                },
+                                {
+                                  table: {
+                                    widths: ['*', '*'],
+                                    heights: 30,
+                                    body: [
+                                      [
+                                        '',
+                                        ''
+                                      ],
+                                    ]
+                                  },
+                                  margin: [0, -15, 0, 2],
+                                  // pageBreak: 'before'
+                                },
+                                {
+                                  text: 'Autorizo',
+                                  margin: [100, 5, 0, 0],
+                                  // relativePosition: {x: 350, y: -25},
+                                  // margin: [-320, 30, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Gerencia General',
+                                  margin: [80, 5, 0, 0],
+                                  // relativePosition: {x: 350, y: -25},
+                                  // margin: [-320, 20, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Realizó',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [370, -28, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Profesional Logistico',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [340, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  table: {
+                                    widths: ['*', '*'],
+                                    heights: 30,
+                                    body: [
+                                      [
+                                        '',
+                                        ''
+                                      ],
+                                    ]
+                                  },
+                                  margin: [0, 40, 0, 0]
+                                },
+                                {
+                                  text: 'Aprobó',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [110, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Dirección Administrativa',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [75, 5, 0, 0],
+                                  fontSize: 10
+                                },
+                                // {
+                                //   text: 'Realizó',
+                                //   // relativePosition: {x: 350, y: -25},
+                                //   margin: [-10, -140, 0, 0],
+                                //   fontSize: 10
+                                // },
+                                // {
+                                //   text: 'Profesional Logistico',
+                                //   // relativePosition: {x: 350, y: -25},
+                                //   margin: [-10, 20, 0, 0],
+                                //   fontSize: 10
+                                // },
+                                {
+                                  text: 'Solicito',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [370, -28, 0, 20],
+                                  fontSize: 10
+                                },
+                                {
+                                  text: 'Lider del Proceso',
+                                  // relativePosition: {x: 350, y: -25},
+                                  margin: [348, -15, 0, 20],
+                                  fontSize: 10
+                                },
+                              ]
+                            }
+                            const pdf = pdfMake.createPdf(pdfDefinition);
+                            pdf.open();
+                          }
+                          document.getElementById('snipper3')?.setAttribute('style', 'display: none;')
+                        })
+                      })
+                    })
+                  })
+                });
               })
-            })
-
-            this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-              resConfiguracion.forEach(element => {
-                if(element.nombre == 'nombre_entidad'){
-                  this.nombreEmpresa = element.valor
-                }
-                if(element.nombre == 'Nombre_Gerencia'){
-                  this.nombreGerente = element.valor
-                }
-                if(element.nombre == 'nit_empresa'){
-                  this.nitEmpresa = element.valor
-                }
-              });
-            })
-
-            this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
-              const formatterPeso = new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0
-              })
-              if(firmaDecision == true){
-
-                const pdfDefinition: any = {
-                  content: [
-                    {
-                      image: await this.getBase64ImageFromURL(
-                        'assets/logo/suchance.png'
-                      ),
-                      relativePosition: {x: 0, y: 0},
-                      width: 150,
-                    },
-                    {
-                      text: 'Nombre Empresa: '+this.nombreEmpresa,
-                      bold: true,
-                      margin: [0, 80, 0, 10]
-                    },
-                    {
-                      text: 'Nit Empresa: '+this.nitEmpresa,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Fecha: '+res.idSolicitud.fecha,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Proveedor: '+res.idProveedor.nombre,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Orden Compra: '+res.id,
-                      relativePosition: {x: 250, y: -25},
-                      margin: [0, 0, 0, 20]
-                    },
-                    {
-                      text: 'Requisición',
-                      bold: true,
-                      fontSize: 20,
-                      alignment: 'center',
-                      margin: [0, 0, 0, 20]
-                    },{
-                      table: {
-                        widths: ['*', '*', '*', '*'],
-                        body: [
-                          [
-                            'Articulo',
-                            'Cantidad',
-                            'Valor Unitario',
-                            'Valor Total'
-                          ],
-                        ]
-                      },
-                      margin: [0, 0, 0, 0.3]
-                    },
-                    {
-                      table: {
-                        widths: ['*', '*', '*', '*'],
-                        body: body
-                      },
-                      margin: [0, 0, 0, 40]
-                    },
-                    {
-                      text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      table: {
-                        widths: ['*', '*'],
-                        heights: 30,
-                        body: [
-                          [
-                            '',
-                            ''
-                          ],
-                        ]
-                      },
-                      margin: [0, -15, 0, 2],
-                      // pageBreak: 'before'
-                    },
-                    {
-                      text: 'Autorizo',
-                      margin: [100, 5, 0, 0],
-                      // relativePosition: {x: 350, y: -25},
-                      // margin: [-320, 30, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: this.nombreGerente,
-                      margin: [90, 5, 0, 0],
-                      fontSize: 10,
-                    },
-                    {
-                      text: 'Gerencia General',
-                      margin: [80, 5, 0, 0],
-                      // relativePosition: {x: 350, y: -25},
-                      // margin: [-320, 20, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Realizó',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [370, -45, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: this.nombreCompras,
-                      margin: [330, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Profesional Logistico',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [340, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      table: {
-                        widths: ['*', '*'],
-                        heights: 30,
-                        body: [
-                          [
-                            {
-                              image: await this.getBase64ImageFromURL(
-                                'assets/logo/suchance.png'
-                              ),
-                              margin: [50, 0, 0, 0],
-                              width: 150,
-                            },
-                            ''
-                          ],
-                        ]
-                      },
-                      margin: [0, 40, 0, 0]
-                    },
-                    {
-                      text: 'Aprobó',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [110, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: this.nombreAdministrador,
-                      margin: [60, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Dirección Administrativa',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [75, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Solicito',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [370, -45, 0, 20],
-                      fontSize: 10
-                    },
-                    {
-                      text: this.idSolicitud,
-                      margin: [320, -15, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Lider del Proceso',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [348, 5, 0, 20],
-                      fontSize: 10
-                    }
-                  ]
-                }
-                const pdf = pdfMake.createPdf(pdfDefinition);
-                pdf.open();
-              }else if(firmaDecision == false){
-
-                const pdfDefinition: any = {
-                  content: [
-                    {
-                      image: await this.getBase64ImageFromURL(
-                        'assets/logo/suchance.png'
-                      ),
-                      relativePosition: {x: 0, y: 0},
-                      width: 150,
-                    },
-                    {
-                      text: 'Nombre Empresa: '+this.nombreEmpresa,
-                      bold: true,
-                      margin: [0, 80, 0, 10]
-                    },
-                    {
-                      text: 'Nit Empresa: '+this.nitEmpresa,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Lider del Proceso: '+res.idSolicitud.idUsuario.nombre+' '+res.idSolicitud.idUsuario.apellido,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Fecha: '+res.idSolicitud.fecha,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Proveedor: '+res.idProveedor.nombre,
-                      margin: [0, 0, 0, 10]
-                    },
-                    {
-                      text: 'Orden Compra: '+res.id,
-                      // relativePosition: {x: 250, y: -25},
-                      margin: [0, 0, 0, 20]
-                    },
-                    {
-                      text: 'Requisición',
-                      bold: true,
-                      fontSize: 20,
-                      alignment: 'center',
-                      margin: [0, 0, 0, 20]
-                    },{
-                      table: {
-                        widths: [250, 50, '*', '*'],
-                        body: [
-                          [
-                            'Articulo',
-                            'Cantidad',
-                            'Valor Unitario',
-                            'Valor Total'
-                          ],
-                        ]
-                      },
-                      margin: [0, 0, 0, 0.3]
-                    },
-                    {
-                      table: {
-                        widths: [250, 50, '*', '*'],
-                        body: body
-                      },
-                      margin: [0, 0, 0, 40]
-                    },
-                    {
-                      text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
-                      relativePosition: {x: 350, y: -25},
-                      margin: [0, 0, 0, 20],
-                    },
-                    {
-                      table: {
-                        widths: ['*', '*'],
-                        heights: 30,
-                        body: [
-                          [
-                            '',
-                            ''
-                          ],
-                        ]
-                      },
-                      margin: [0, -15, 0, 2],
-                      // pageBreak: 'before'
-                    },
-                    {
-                      text: 'Autorizo',
-                      margin: [100, 5, 0, 0],
-                      // relativePosition: {x: 350, y: -25},
-                      // margin: [-320, 30, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Gerencia General',
-                      margin: [80, 5, 0, 0],
-                      // relativePosition: {x: 350, y: -25},
-                      // margin: [-320, 20, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Realizó',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [370, -28, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Profesional Logistico',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [340, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      table: {
-                        widths: ['*', '*'],
-                        heights: 30,
-                        body: [
-                          [
-                            '',
-                            ''
-                          ],
-                        ]
-                      },
-                      margin: [0, 40, 0, 0]
-                    },
-                    {
-                      text: 'Aprobó',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [110, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Dirección Administrativa',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [75, 5, 0, 0],
-                      fontSize: 10
-                    },
-                    // {
-                    //   text: 'Realizó',
-                    //   // relativePosition: {x: 350, y: -25},
-                    //   margin: [-10, -140, 0, 0],
-                    //   fontSize: 10
-                    // },
-                    // {
-                    //   text: 'Profesional Logistico',
-                    //   // relativePosition: {x: 350, y: -25},
-                    //   margin: [-10, 20, 0, 0],
-                    //   fontSize: 10
-                    // },
-                    {
-                      text: 'Solicito',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [370, -28, 0, 20],
-                      fontSize: 10
-                    },
-                    {
-                      text: 'Lider del Proceso',
-                      // relativePosition: {x: 350, y: -25},
-                      margin: [348, -15, 0, 20],
-                      fontSize: 10
-                    },
-                  ]
-                }
-                const pdf = pdfMake.createPdf(pdfDefinition);
-                pdf.open();
-              }
-              document.getElementById('snipper3')?.setAttribute('style', 'display: none;')
             })
           })
         })
-      });
+      })
     })
   }
 

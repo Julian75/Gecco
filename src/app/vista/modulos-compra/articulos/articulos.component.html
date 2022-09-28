@@ -14,32 +14,32 @@
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
-          <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+          <td mat-cell *matCellDef="let element" id="idSp2">{{element.idArticulo.id}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="descripcion">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Descripcion</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.idArticulo.descripcion}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="catSp">Categoria</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.idArticulo.idCategoria.descripcion}}</td>
         </ng-container>
 
         <ng-container matColumnDef="estado">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Estado</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.idArticulo.idEstado.descripcion}}</td>
         </ng-container>
-
-        <ng-container matColumnDef="categoria">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="catSp">Categoria</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idCategoria.descripcion}}</td>
-        </ng-container>
-
         <!--Opciones-->
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button class="btn btnver mx-2 edi" (click)="mostrarHistorial(item.id)">
+            <!-- <button class="btn btnver mx-2 edi" (click)="mostrarHistorial(item.id)">
               <mat-icon>manage_search</mat-icon>
-            </button>
+            </button> -->
             <button class="btn btnedit mx-2 edi" [routerLink]="['/modificarArticulo', item.id]">
               <mat-icon>edit</mat-icon>
             </button>

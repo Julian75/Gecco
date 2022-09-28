@@ -598,7 +598,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
       this.servicioAcceso.listarTodos().subscribe(resAcceso=>{
         resAcceso.forEach(element => {
-          if(element.idRol.id = resUsuario.idRol.id){
+          if(element.idRol.id == resUsuario.idRol.id){
             this.listaAcceso.push(element.idModulo.id)
           }
         });

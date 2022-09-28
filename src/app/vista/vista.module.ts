@@ -171,6 +171,8 @@ import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articu
 import { FirmasComponent } from './modulos-compra/firmas/firmas.component';
 import { AgregarFirmasComponent } from './modulos-compra/firmas/agregar-firmas/agregar-firmas.component';
 import { VisualizarHistorialArticuloComponent } from './modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
+import { AgregarArticulosModalComponent } from './modulos-compra/articulos/agregar-articulos-modal/agregar-articulos-modal.component';
+import { ReporteInventarioComponent } from './modulos-inventarios/reporte-inventario/reporte-inventario.component';
 
 @NgModule({
   declarations: [
@@ -339,6 +341,8 @@ import { VisualizarHistorialArticuloComponent } from './modulos-compra/articulos
     FirmasComponent,
     AgregarFirmasComponent,
     VisualizarHistorialArticuloComponent,
+    AgregarArticulosModalComponent,
+    ReporteInventarioComponent,
   ],
   imports: [
     CommonModule,

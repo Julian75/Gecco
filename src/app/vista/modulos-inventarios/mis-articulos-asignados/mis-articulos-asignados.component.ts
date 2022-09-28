@@ -1,3 +1,4 @@
+import { VisualizarHistorialArticuloComponent } from './../../modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -35,6 +36,14 @@ export class MisArticulosAsignadosComponent implements OnInit {
     this.listarTodos();
   }
 
+  mostrarHistorial(idArticulo:number):void{
+    const dialogRef = this.dialog.open(VisualizarHistorialArticuloComponent, {
+      width: '600px',
+      height: '440px',
+      data: idArticulo
+    });
+  }
+
   public listarTodos(){
     this.serviceAsignacionArticulos.listarTodos().subscribe(res=>{
       res.forEach(element => {
@@ -48,6 +57,10 @@ export class MisArticulosAsignadosComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+  }
+
+  reAsignarArticulo(idAsignacionArticulo){
+
   }
 
   aceptar(id:number){

@@ -12,6 +12,9 @@ import { SitioVenta } from 'src/app/modelos/modelosSiga/sitioVenta';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
+import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.service';
 
 @Component({
   selector: 'app-agregar-asignar-punto-venta-articulo',
@@ -34,6 +37,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
   public listaSitioVenta: any = [];
   public listaArticulos: any = [];
   public listaIdSitioVenta: any = [];
+  public fecha: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +46,8 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     private servicioOficina : OficinasService,
     private servicioSitioVenta : SitioVentaService,
     private servicioAsignacionArticulo: AsignacionArticulosService,
+    private servicioHistorial: HistorialArticuloService,
+    private servicioUsuario: UsuarioService,
     private router: Router
   ) { }
 
@@ -128,6 +134,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
   }
 
   public guardar() {
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.encontrados = [];
     let asignacionPuntoVenta : AsignacionPuntoVenta = new AsignacionPuntoVenta();
     var articulo = this.formAsigancionPuntoVenta.controls['articulo'].value;
@@ -137,12 +144,12 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     if(oficina != undefined && articulo != null && sitioVent != 0 && cantidad != 0){
       this.servicioAsignarPuntoVenta.listarTodos().subscribe(resAsigancionTurnoVendedor => {
         this.servicioAsignacionArticulo.listarPorId(articulo).subscribe(resAsignacionArticulo=>{
-          this.servicioSitioVenta.listarTodos().subscribe(resSitioVenta=>{
+          this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{
             for (let i = 0; i < resSitioVenta.length; i++) {
               const elementSitio = resSitioVenta[i];
               if(elementSitio.ideSitioventa == sitioVent){
                 resAsigancionTurnoVendedor.forEach(element => {
-                  if(element.idAsignacionesArticulos.idDetalleArticulo.idArticulo == resAsignacionArticulo.idDetalleArticulo.idArticulo && element.idSitioVenta == sitioVent){
+                  if(element.idAsignacionesArticulos.idDetalleArticulo.idArticulo.id == resAsignacionArticulo.idDetalleArticulo.idArticulo.id && element.idSitioVenta == sitioVent){
                     this.encontrado = true;
                   }else{
                     this.encontrado = false;
@@ -154,10 +161,14 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
                   Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: 'La Asignacion ya existe!',
+                    title: 'La asignación de ese articulo ya existe en ese sitio de venta!',
                     showConfirmButton: false,
                     timer: 1500
                   })
+                  localStorage.removeItem("v")
+                  this.dialogRef.close();
+                  window.location.reload();
+                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                 }else{
                   asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo
                   asignacionPuntoVenta.idOficina = oficina.ideOficina
@@ -186,24 +197,54 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
 
   public registrarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta) {
     this.servicioAsignarPuntoVenta.registrar(asignacionPuntoVenta).subscribe(res=>{
+      let historialArticulo : HistorialArticulos = new HistorialArticulos();
+      historialArticulo.fecha = this.fecha
+      historialArticulo.idDetalleArticulo = asignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo
+      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        historialArticulo.idUsuario = resUsuario
+        historialArticulo.observacion = "Se realizo una nueva asignación del articulo "+asignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" a la oficina "+asignacionPuntoVenta.nombreOficina.toLowerCase()+" del sitio de venta "+asignacionPuntoVenta.nombreSitioVenta.toLowerCase()+"."
+        this.agregarHistorial(historialArticulo);
+      })
+    }, error => {
       Swal.fire({
         position: 'center',
-        icon: 'success',
-        title: 'Asignacion Registrado!',
+        icon: 'error',
+        title: 'Hubo un error al agregar la Asignacion!',
         showConfirmButton: false,
         timer: 1500
       })
       localStorage.removeItem("v")
       this.dialogRef.close();
       window.location.reload();
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    });
+  }
+
+  public agregarHistorial(historialArticulo: HistorialArticulos){
+    this.servicioHistorial.registrar(historialArticulo).subscribe(res=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Asignación registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      localStorage.removeItem("v")
+      this.dialogRef.close();
+      window.location.reload();
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     }, error => {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Hubo un error al agregar!',
+        title: 'Hubo un error al agregar el historial!',
         showConfirmButton: false,
         timer: 1500
       })
+      localStorage.removeItem("v")
+      this.dialogRef.close();
+      window.location.reload();
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     });
   }
 

@@ -77,7 +77,7 @@ export class AsignarPuntoVentaArticuloComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino la Asignacion.',
+            'Se elimino la asignación del articulo al sitio de venta.',
             'success'
           )
         })
