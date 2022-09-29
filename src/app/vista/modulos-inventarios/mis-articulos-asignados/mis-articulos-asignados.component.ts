@@ -1,3 +1,5 @@
+import { AgregarSolicitudBajaArticuloComponent } from './agregar-solicitud-baja-articulo/agregar-solicitud-baja-articulo.component';
+import { ReasignarArticuloComponent } from './reasignar-articulo/reasignar-articulo.component';
 import { VisualizarHistorialArticuloComponent } from './../../modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -60,7 +62,11 @@ export class MisArticulosAsignadosComponent implements OnInit {
   }
 
   reAsignarArticulo(idAsignacionArticulo){
-
+    const dialogRef = this.dialog.open(ReasignarArticuloComponent, {
+      width: '500px',
+      height: '350px',
+      data: idAsignacionArticulo
+    });
   }
 
   aceptar(id:number){
@@ -76,7 +82,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Asignacion de articulo aceptada',
+            title: 'Asignación de articulo aceptada',
             showConfirmButton: false,
             timer: 1500
           })
@@ -86,28 +92,78 @@ export class MisArticulosAsignadosComponent implements OnInit {
     })
   }
 
+  solicitudBajaArticulo(idAsignacionArticulo){
+    const dialogRef = this.dialog.open(AgregarSolicitudBajaArticuloComponent, {
+      width: '500px',
+      height: '300px',
+      data: idAsignacionArticulo
+    });
+  }
 
+  listaAsignArticulos: any = [];
   eliminarAsignacionProceso(id:number){
-    let asignacionArticulo: AsignacionArticulos2 = new AsignacionArticulos2();
+    this.listaAsignArticulos = []
+    let asignacionArticuloMod: AsignacionArticulos2 = new AsignacionArticulos2();
+    let asignacionArticuloCompras: AsignacionArticulos2 = new AsignacionArticulos2();
+    console.log(id)
     this.serviceAsignacionArticulos.listarPorId(id).subscribe(res=>{
-      console.log(res);
-      asignacionArticulo.id = res.id;
-      asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticulo.idDetalleArticulo = res.idDetalleArticulo.id;
-      this.servicioEstado.listarPorId(77).subscribe(res=>{
-        asignacionArticulo.idEstado = res.id;
-        this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulo).subscribe(res=>{
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Asignacion de articulo rechazada',
-            showConfirmButton: false,
-            timer: 1500
+      console.log(res)
+      asignacionArticuloMod.id = res.id;
+      asignacionArticuloMod.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
+      asignacionArticuloMod.idDetalleArticulo = res.idDetalleArticulo.id;
+      this.servicioEstado.listarPorId(77).subscribe(resEstado=>{
+        asignacionArticuloMod.idEstado = resEstado.id;
+        this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigArticulos=>{
+          resAsigArticulos.forEach(elementAsigArticulo => {
+            if(elementAsigArticulo.idDetalleArticulo.id == res.idDetalleArticulo.id){
+              this.listaAsignArticulos.push(elementAsigArticulo.id)
+            }
+          });
+          const idAsigMen = Math.min(...this.listaAsignArticulos);
+          console.log(idAsigMen)
+          this.serviceAsignacionArticulos.listarPorId(idAsigMen).subscribe(resAsignCompras=>{
+            asignacionArticuloCompras.id = resAsignCompras.id;
+            asignacionArticuloCompras.idAsignacionesProcesos = resAsignCompras.idAsignacionesProcesos.id;
+            asignacionArticuloCompras.idDetalleArticulo = resAsignCompras.idDetalleArticulo.id;
+            this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
+              asignacionArticuloCompras.idEstado = resEstado.id;
+              this.servicioActualizarModyCompras(asignacionArticuloMod, asignacionArticuloCompras)
+            })
           })
-          window.location.reload()
         })
       })
     })
+  }
+
+  servicioActualizarModyCompras(asignacionArticuloMod: AsignacionArticulos2, asignacionArticuloCompra: AsignacionArticulos2){
+    this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloMod).subscribe(resAsigModificado=>{
+      this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloCompra).subscribe(resAsigCompras=>{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Asignación de articulo rechazada!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        window.location.reload()
+      }, error => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Hubo un error al actualizar asignación de compras!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      });
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al actualizar asignación rechazada!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 
    // Filtrado

@@ -42,6 +42,7 @@ import { HistorialArticulos2 } from '../modelos/modelos2/historialArticulo';
 import { AsignacionProceso2 } from '../modelos/modelos2/asignacionProceso2';
 import {AsignacionArticulos2} from '../modelos/modelos2/asignacionArticulos2';
 import { AsignacionPuntoVenta2 } from '../modelos/modelos2/asignacionPuntoVenta2';
+import { SolicitudBajasArticulos2} from '../modelos/modelos2/solicitudBajasArticulos2';
 @Injectable({
   providedIn: 'root'
 })
@@ -216,5 +217,9 @@ export class ModificarService {
 
   public actualizarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta2){
     return this.http.put<void>(this.path+'/AsignacionPuntoVentaArticulo/'+ asignacionPuntoVenta.id, asignacionPuntoVenta);
+  }
+
+  public actualizarSolicitudBajaArticulo(solicitudBajasArticulos: SolicitudBajasArticulos2){
+    return this.http.put<void>(this.path+'/SolicitudBajasArticulos/'+ solicitudBajasArticulos.id, solicitudBajasArticulos);
   }
 }

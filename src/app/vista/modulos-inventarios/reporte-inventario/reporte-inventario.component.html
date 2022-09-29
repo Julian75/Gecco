@@ -3,6 +3,16 @@
     <form [formGroup]="formInventario">
       <div class="row1">
         <div class="nombre2">
+          <h2 class="oficina2">Opciones Reporte</h2>
+          <mat-form-field class="nombre"  appearance="fill">
+            <mat-label>Seleccione la forma de reporte</mat-label>
+            <select matNativeControl id="reporte" name="reporte" formControlName="reporte" [(ngModel)]="opcion" (change)="reporte()">
+              <option></option>
+              <option *ngFor="let item of listaOpciones" value="{{item}}" [ngValue]="item">{{item}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+        <div class="nombre2" id="oficinaDiv" style="display: none;">
           <h2 class="oficina2">Oficina</h2>
           <mat-form-field class="nombre"  appearance="fill">
             <mat-label>Ingrese oficina</mat-label>
@@ -12,7 +22,7 @@
             </select>
           </mat-form-field>
         </div>
-        <div class="nombre3">
+        <div class="nombre3" id="sitioVentaDiv" style="display: none;">
           <h2 class="sitio">Sitio Venta</h2>
           <mat-form-field class="nombre" appearance="fill">
           <mat-label>Ingrese Sitio Venta</mat-label>
@@ -28,25 +38,34 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div class="nombre4">
+        <div class="nombre2" id="serialDiv" style="display: none;">
           <h2>Serial</h2>
           <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Ingrese Serial</mat-label>
           <input id="serial" formControlName="serial" matInput>
           </mat-form-field>
         </div>
-        <div class="nombre5">
+        <div class="nombre2" id="placaDiv" style="display: none;">
           <h2>Placa</h2>
           <mat-form-field class="nombre1" appearance="fill">
           <mat-label>Ingrese Placa</mat-label>
           <input id="placa" formControlName="placa" matInput>
           </mat-form-field>
         </div>
+        <div class="nombre2" id="usuarioDiv" style="display: none;">
+          <h2>Usuario</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Seleccione un usuario</mat-label>
+          <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+            <option *ngFor="let item of listaUsuarios"  value="{{item.id}}">{{item.nombre}} {{item.apellido}}</option>
+          </select>
+          </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <!-- Boton de guardar datos -->
         <div class="guardar2">
-          <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+          <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>assignment_returned</mat-icon></button>
         </div>
       </div>
     </form>

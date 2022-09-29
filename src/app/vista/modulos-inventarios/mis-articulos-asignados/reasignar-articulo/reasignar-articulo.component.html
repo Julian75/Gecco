@@ -1,0 +1,26 @@
+<h2 class="dato"> Reasignar el Articulo</h2>
+<form [formGroup]="formAsignarArticulos">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Asignaciones Procesos</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Seleccione el usuario a resignar</mat-label>
+      <select matNativeControl name="idAsignacionesProcesos" id="idAsignacionesProcesos" formControlName="idAsignacionesProcesos">
+        <option *ngFor="let item of listaAsignacionesProcesos"  value="{{item.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}} | {{item.idTiposProcesos.descripcion}}</option>
+      </select>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Articulo</h2>
+      <p>{{nombreArticulo}}</p>
+    </div>
+
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>edit_square</mat-icon></button>
+    </div>
+  </div>
+</form>

@@ -90,6 +90,8 @@ import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articu
 import { ModificarArticulosComponent } from './modulos-compra/articulos/modificar-articulos/modificar-articulos.component';
 import { FirmasComponent } from './modulos-compra/firmas/firmas.component';
 import { ReporteInventarioComponent } from './modulos-inventarios/reporte-inventario/reporte-inventario.component';
+import { ListaAutorizacionesBajaArticulosComponent } from './modulos-inventarios/lista-autorizaciones-baja-articulos/lista-autorizaciones-baja-articulos.component';
+import { ListaConfirmacionesBajaArticulosComponent } from './modulos-inventarios/lista-confirmaciones-baja-articulos/lista-confirmaciones-baja-articulos.component';
 
 const routes: Routes = [
   {
@@ -564,6 +566,16 @@ const routes: Routes = [
       {
         path: 'reporteInventario',
         component: ReporteInventarioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'listaAutorizaciones',
+        component: ListaAutorizacionesBajaArticulosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'listaConfirmaciones',
+        component: ListaConfirmacionesBajaArticulosComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

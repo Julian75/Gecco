@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit {
             document.getElementById('RecepcionDatos')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 50 || this.listaAccessForm[i] == 51 ){
             document.getElementById('RegistroIngreso')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 52 || this.listaAccessForm[i] == 53 || this.listaAccessForm[i] == 54 || this.listaAccessForm[i] == 55 || this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 57 || this.listaAccessForm[i] == 58 || this.listaAccessForm[i] == 59) {
+          }else if(this.listaAccessForm[i] == 52 || this.listaAccessForm[i] == 53 || this.listaAccessForm[i] == 54 || this.listaAccessForm[i] == 55 || this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 57 || this.listaAccessForm[i] == 58 || this.listaAccessForm[i] == 59 || this.listaAccessForm[i] == 60 || this.listaAccessForm[i] == 61) {
             document.getElementById('Inventario')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
@@ -200,6 +200,12 @@ export class SidebarComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 59) {
             document.getElementById('59')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 60) {
+            document.getElementById('60')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 61) {
+            document.getElementById('61')?.setAttribute('style', 'display: block;')
           }
         }
       })

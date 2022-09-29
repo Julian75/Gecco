@@ -1,0 +1,282 @@
+.example-container {
+    max-width: 100%;
+    overflow: auto;
+    margin-top: 3% !important;
+    border-bottom: 20%;
+    box-shadow: 1px none #000;
+    margin-bottom: 3% !important;
+  }
+  table{
+    width: 100%;
+    height: 100%;
+  }
+  .id{
+    width: 10%;
+    position: absolute;
+    margin-left: 11%;
+  }
+  .contenedor{
+    width: 90% !important; margin-left: 5%; margin-top: 3%;
+  }
+  .boton{ background-color: #00235C; color: white;}
+  .btnver{ background-color: #959595; color: white; }
+  .btnedit{ background-color: #97B4E2; color: white; }
+  .btnremove{ background-color: #DA161A; color: white; }
+
+  .btnedit mat-icon{ left: -3px;  top: -2px;}
+  #fecha ,#observacion,#usuario,#idDetalleArticulo,#estado,#opcSp{ position: relative; }
+  #fecha { left: 100px; position: absolute; }
+  #observacion{ left: 110px; position: absolute; display: block;}
+  #usuario{ left: 13%; position: absolute; display: block; }
+  #idDetalleArticulo{ left: 7px; position: absolute; }
+  #estado{ left: 94px; position: absolute; }
+  #opcSp{ left: 5px; }
+  #usuarioEn{ padding-left: 0%; }
+  td.mat-cell:first-of-type{ padding-left: 1%;}
+  td.mat-cell {padding-left: 5px;}
+  /* Movil pequeño 1 - Galaxy Fold*/
+  @media screen and (min-width: 280px) and (max-width: 359px){
+    td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+    .id{ left: -12px; }
+    #fecha { margin-left: 18px; position: static; }
+    #observacion{ left: 60px; }
+    #usuario{ margin-left: 16px;  position:static;}
+    #idDetalleArticulo{ margin-left: 19%; position:static; }
+    #estado{ left: 21px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    .botonagregar mat-icon{ margin-left: -50%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+  }
+
+  /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+  @media screen and (min-width: 360px) and (max-width: 420px){
+    td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+    .id{ left: -12px; }
+    #fecha { margin-left: 18px; position: static; }
+    #observacion{ left: 60px; }
+    #usuario{ margin-left: 16px;  position:static;}
+    #idDetalleArticulo{ margin-left: 19%; position:static; }
+    #estado{ left: 21px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -50%; }
+  }
+
+
+  /* PORTATILES */
+  @media screen and (min-width: 600px) and (max-width: 639px){
+    td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+    .id{ left: -12px; }
+    #fecha { margin-left: 18px; position: static; }
+    #observacion{ left: 60px; }
+    #usuario{ margin-left: 16px;  position:static;}
+    #idDetalleArticulo{ margin-left: 19%; position:static; }
+    #estado{ left: 21px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -50%; }
+  }
+
+  /* Tablet 2,  Portatil 1*/
+  @media screen and (min-width: 640px) and (max-width: 768px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -12px; }
+    #fecha { margin-left: 37px; position: static; }
+    #observacion{ left: 60px; }
+    #usuario{ margin-left: 16px;  position:static;}
+    #idDetalleArticulo{ margin-left: 19%; position:static; }
+    #estado{ left: 33px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /* Tablet 3,  Portatil 2*/
+  @media screen and (min-width: 769px) and (max-width: 960px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -12px; }
+    #fecha { margin-left: 14px; position: static; }
+    #observacion{ left: 60px; }
+    #usuario{ margin-left: 16px;  position:static;}
+    #idDetalleArticulo{ margin-left: 19%; position:static; }
+    #estado{ left: 22px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+  @media screen and (min-width: 961px) and (max-width: 1080px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -12px; }
+    #fecha { margin-left: 28%; position: static; }
+    #observacion{ left: 60px; }
+    #usuario{ margin-left: 111%;  position:static;}
+    #idDetalleArticulo{ margin-left: 19%; position:static; }
+    #estado{ left: 32px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+  @media screen and (min-width: 1081px) and (max-width: 1280px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -12px; }
+    #fecha { margin-left: 26px; position: static; }
+    #observacion{ left: 80px; }
+    #usuario{ margin-left: 75px;  position:static;}
+    #idDetalleArticulo{ margin-left: 30%; position:static; }
+    #estado{ left: 49px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /* Tablet 8, Compu. Mesa 5*/
+  @media screen and (min-width: 1281px) and (max-width: 1536px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -12px; }
+    #fecha { margin-left: 37px; position: static; }
+    #observacion{ left: 100px; }
+    #usuario{ margin-left: 186%;  position:static;}
+    #idDetalleArticulo{ margin-left: 36%; position:static; }
+    #estado{ left: 54px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 5%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+
+  /*Portatil 4, Compu. Mesa 6 y 7, Televisor 2*/
+  @media screen and (min-width: 1537px) and (max-width: 1920px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -3px; }
+    #fecha { margin-left: 100px; position: static; }
+    #observacion{ left: 100px; }
+    #usuario{ margin-left: 51%;  position:static;}
+    #idDetalleArticulo{ margin-left: 57%; position:static; }
+    #estado{ left: 64px; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: -3%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+
+  /*Tablet 9*/
+  @media screen and (min-width: 1921px) and (max-width: 2048px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -3px; }
+    #fecha { margin-left: 245%; position: static; }
+    #observacion{ left: 41%; }
+    #usuario{ margin-left: 59%;  position:static;}
+    #idDetalleArticulo{ margin-left: 57%; position:static; }
+    #estado{ left: 45%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: -3%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Tablet 10*/
+  @media screen and (min-width: 2049px) and (max-width: 2160px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: -3px; }
+    #fecha { margin-left: 255%; position: static; }
+    #observacion{ left: 41%; }
+    #usuario{ margin-left: 59%;  position:static;}
+    #idDetalleArticulo{ margin-left: 57%; position:static; }
+    #estado{ left: 45%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: -3%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Tablet 11 y 12, Portatil 5*/
+  @media screen and (min-width: 2161px) and (max-width: 2560px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: 6px; }
+    #fecha { margin-left: 313%; position: static; }
+    #observacion{ left: 41%; }
+    #usuario{ margin-left: 80%;  position:static;}
+    #idDetalleArticulo{ margin-left: 84%; position:static; }
+    #estado{ left: 45%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: -3%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Tablet 13*/
+  @media screen and (min-width: 2561px) and (max-width: 2736px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: 6px; }
+    #fecha { margin-left: 346%; position: static; }
+    #observacion{ left: 42%; }
+    #usuario{ margin-left: 92%;  position:static;}
+    #idDetalleArticulo{ margin-left: 99%; position:static; }
+    #estado{ left: 46%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: -3%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Tablet 14*/
+  @media screen and (min-width: 2737px) and (max-width: 3000px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: 6px; }
+    #fecha { margin-left: 346%; position: static; }
+    #observacion{ left: 42%; }
+    #usuario{ margin-left: 92%;  position:static;}
+    #idDetalleArticulo{ margin-left: 99%; position:static; }
+    #estado{ left: 46%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: -3%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Portatil 6, Televisor 3*/
+  @media screen and (min-width: 3001px) and (max-width: 3840px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: 21px; }
+    #fecha { margin-left: 465%; position: static; }
+    #observacion{ left: 44%; }
+    #usuario{ margin-left: 136%;  position:static;}
+    #idDetalleArticulo{ margin-left: 160%; position:static; }
+    #estado{ left: 46%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 0%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Televisor 4*/
+  @media screen and (min-width: 3841px) and (max-width: 4096px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: 21px; }
+    #fecha { margin-left: 511%; position: static; }
+    #observacion{ left: 48%; }
+    #usuario{ margin-left: 150%;  position:static;}
+    #idDetalleArticulo{ margin-left: 160%; position:static; }
+    #estado{ left: 48%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 0%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+  /*Portatil 7, Televisor 5*/
+  @media screen and (min-width: 4097px) and (max-width: 7680px){
+    td button mat-icon{ margin-left: -3px; margin-top: -2px;}
+    .id{ left: 21px; }
+    #fecha { margin-left: 511%; position: static; }
+    #observacion{ left: 48%; }
+    #usuario{ margin-left: 150%;  position:static;}
+    #idDetalleArticulo{ margin-left: 160%; position:static; }
+    #estado{ left: 48%; }
+    #opcSp{ left: 15px; }
+    td button{ margin-top: 0%; }
+    td.mat-cell:first-of-type { padding-left: 5px;}
+    .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
+  }
+
+

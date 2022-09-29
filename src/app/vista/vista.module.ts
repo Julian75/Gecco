@@ -173,6 +173,11 @@ import { AgregarFirmasComponent } from './modulos-compra/firmas/agregar-firmas/a
 import { VisualizarHistorialArticuloComponent } from './modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
 import { AgregarArticulosModalComponent } from './modulos-compra/articulos/agregar-articulos-modal/agregar-articulos-modal.component';
 import { ReporteInventarioComponent } from './modulos-inventarios/reporte-inventario/reporte-inventario.component';
+import { ReasignarArticuloComponent } from './modulos-inventarios/mis-articulos-asignados/reasignar-articulo/reasignar-articulo.component';
+import { ListaAutorizacionesBajaArticulosComponent } from './modulos-inventarios/lista-autorizaciones-baja-articulos/lista-autorizaciones-baja-articulos.component';
+import { ListaConfirmacionesBajaArticulosComponent } from './modulos-inventarios/lista-confirmaciones-baja-articulos/lista-confirmaciones-baja-articulos.component';
+import { AgregarSolicitudBajaArticuloComponent } from './modulos-inventarios/mis-articulos-asignados/agregar-solicitud-baja-articulo/agregar-solicitud-baja-articulo.component';
+import { RechazoSolicitudBajaArticuloComponent } from './modulos-inventarios/lista-autorizaciones-baja-articulos/rechazo-solicitud-baja-articulo/rechazo-solicitud-baja-articulo.component';
 
 @NgModule({
   declarations: [
@@ -343,6 +348,11 @@ import { ReporteInventarioComponent } from './modulos-inventarios/reporte-invent
     VisualizarHistorialArticuloComponent,
     AgregarArticulosModalComponent,
     ReporteInventarioComponent,
+    ReasignarArticuloComponent,
+    ListaAutorizacionesBajaArticulosComponent,
+    ListaConfirmacionesBajaArticulosComponent,
+    AgregarSolicitudBajaArticuloComponent,
+    RechazoSolicitudBajaArticuloComponent,
   ],
   imports: [
     CommonModule,

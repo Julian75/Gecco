@@ -1,32 +1,36 @@
-import { Component,Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { AsignacionProcesoService } from 'src/app/servicios/asignacionProceso.service';
-import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.service';
-import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
-import { EstadoService } from 'src/app/servicios/estado.service';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ModificarService } from 'src/app/servicios/modificar.service';
-import { AsignacionArticulos } from 'src/app/modelos/asignacionArticulos';
-import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticulos2';
-import { HistorialService } from 'src/app/servicios/serviciosSiga/historial.service';
-import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
-import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.service';
+import { EstadoService } from 'src/app/servicios/estado.service';
+import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
+import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.service';
+import { AsignacionProcesoService } from 'src/app/servicios/asignacionProceso.service';
+import { ModificarService } from 'src/app/servicios/modificar.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AsignacionArticulos } from 'src/app/modelos/asignacionArticulos';
+import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
+import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticulos2';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-modificar-asignar-articulos-usuario',
-  templateUrl: './modificar-asignar-articulos-usuario.component.html',
-  styleUrls: ['./modificar-asignar-articulos-usuario.component.css']
+  selector: 'app-reasignar-articulo',
+  templateUrl: './reasignar-articulo.component.html',
+  styleUrls: ['./reasignar-articulo.component.css']
 })
-export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
+export class ReasignarArticuloComponent implements OnInit {
   public formAsignarArticulos!: FormGroup;
   public listarProcesos: any = []
   public listarEstado: any = []
   public listDetalleArticulo: any = []
   public fechaActual: Date = new Date();
-
+  dataSource!:MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   color = ('primary');
   constructor(
     private serviceAsignacionProceso: AsignacionProcesoService,
@@ -36,16 +40,16 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
     private servicioModificar: ModificarService,
     private serviceHistorial: HistorialArticuloService,
     private serviceUsuario: UsuarioService,
-    public dialogRef: MatDialogRef<ModificarAsignarArticulosUsuarioComponent>,
+    public dialogRef: MatDialogRef<ReasignarArticuloComponent>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
+
   ) { }
 
   ngOnInit(): void {
     this.listarAsignacionProceso();
-    this.listarDetalleArticulo();
     this.listarTodos();
     this.crearFormulario();
   }
@@ -53,32 +57,37 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
   private crearFormulario(){
     this.formAsignarArticulos = this.formBuilder.group({
       id: [this.data],
-      idAsignacionesProcesos: ['', Validators.required],
-      idDetalleArticulo: ['', Validators.required],
-      idEstado: ['', Validators.required],
+      idAsignacionesProcesos: ['', Validators.required]
     });
   }
 
   nombreArticulo: any;
+  listaAsigArti: any = []
   public listarTodos(){
-    this.serviceEstado.listarTodos().subscribe(data => {
-      this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
-        this.formAsignarArticulos.get('idEstado')?.setValue(data.idEstado.id);
-        this.formAsignarArticulos.get('idAsignacionesProcesos')?.setValue(data.idAsignacionesProcesos.id);
-        this.formAsignarArticulos.get('idDetalleArticulo')?.setValue(data.idDetalleArticulo.id);
-        this.nombreArticulo = data.idDetalleArticulo.idArticulo.descripcion
-      })
-    })
-  }
-  public listarAsignacionProceso(){
-    this.serviceAsignacionProceso.listarTodos().subscribe(data => {
-      this.listarProcesos = data;
+    this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
+      this.listaAsigArti = data
+      console.log(this.listaAsigArti)
+      this.formAsignarArticulos.controls['idAsignacionesProcesos'].setValue(this.listaAsigArti.idAsignacionesProcesos.id);
+      this.nombreArticulo = data.idDetalleArticulo.idArticulo.descripcion
     })
   }
 
-  public listarDetalleArticulo(){
-    this.serviceDetalleArticulo.listarTodos().subscribe(data => {
-      this.listDetalleArticulo = data;
+  listaAsignacionesProcesos: any = []
+  public listarAsignacionProceso(){
+    this.listaAsignacionesProcesos = []
+    this.serviceAsignacionProceso.listarTodos().subscribe(resAsignacionProceso => {
+      this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignacionArticulo => {
+        console.log(resAsignacionArticulo)
+        resAsignacionProceso.forEach(elementAsignacionProceso => {
+          if(resAsignacionArticulo.idAsignacionesProcesos.idTiposProcesos.id == elementAsignacionProceso.idTiposProcesos.id){
+            this.listaAsignacionesProcesos.push(elementAsignacionProceso)
+          }
+        });
+        console.log(this.listaAsignacionesProcesos)
+        this.dataSource = new MatTableDataSource(this.listaAsignacionesProcesos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
     })
   }
 
@@ -237,7 +246,6 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
       })
     }
   }
-
   public servicioRegistrarModficarAsigAr(asignacionArticuloMod: AsignacionArticulos2, asignacionArticuloReg: AsignacionArticulos, historial: HistorialArticulos){
     this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloMod).subscribe(resAsignActualizada=>{
       this.serviceAsignacionArticulo.registrar(asignacionArticuloReg).subscribe(resAsigArtNuevo=>{
@@ -311,5 +319,4 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
       })
     });
   }
-
 }
