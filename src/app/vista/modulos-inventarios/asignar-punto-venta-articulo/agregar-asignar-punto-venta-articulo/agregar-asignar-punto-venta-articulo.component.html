@@ -7,17 +7,10 @@
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Seleccione el Articulo</mat-label>
         <select matNativeControl id="articulo" name="articulo" formControlName="articulo">
-          <option *ngFor="let item of listaArticulos" value="{{item.id}}" >{{item.idDetalleArticulo.idArticulo.descripcion}}</option>
+          <option *ngFor="let item of listaArticulos" value="{{item.id}}" >{{item.idArticulo.descripcion}}</option>
         </select>
         </mat-form-field>
     </div>
-    <div class="nombre3">
-        <h2>Cantidad del articulo</h2>
-        <mat-form-field class="nombre" appearance="fill">
-          <mat-label>Ingrese la Cantidad</mat-label>
-          <input type="number" id="cantidad" formControlName="cantidad" matInput minlength="1">
-        </mat-form-field>
-      </div>
     <div class="nombre4">
         <h2 class="oficina2">Oficina</h2>
         <mat-form-field class="nombre"  appearance="fill">

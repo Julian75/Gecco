@@ -49,7 +49,7 @@
             <button *ngIf="item.idEstado.id == 76" class="btn btndelete mx-2" (click)="solicitudBajaArticulo(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <button *ngIf="item.idEstado.id == 76" class="btn btnasigPuntoVenta mx-2" (click)="asignarArticuloPuntoVenta(item.id)">
+            <button *ngIf="item.idEstado.id == 76 && aparece==true" class="btn btnasigPuntoVenta mx-2" (click)="asignarArticuloPuntoVenta(item.id)">
               <mat-icon>domain_add</mat-icon>
             </button>
           </td>

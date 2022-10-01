@@ -1,0 +1,87 @@
+Pedido Accesorios
+Aretes
+
+->ARETE TRIPLE CORAZON
+Cantidad: 1
+Precio: 23.000
+Total: 23.000
+Vender: 28.000
+
+->Topo R amante B
+Cantidad: 1
+Precio: 10.000
+Total: 10.000
+Vender: 20.000
+
+Cadenas
+Cadena de Iluminacion - Yo :3
+Cantidad: 1
+Precio: 12.000
+Total: 12.000
+Vender: 22.000
+
+->Cadena Triple Mujer - Pao(CallCenter - 1), Milena(CallCenter - 1)
+Cantidad: 2
+Precio: 13.500
+Total: 27.000
+Vender: 24.500
+
+->Collar triple Sirena - Jef(Tecnico - 1)
+Cantidad: 2
+Precio: 14.000
+Total: 28.000
+Vender: 24.000
+
+->Chocker mariposa - Jazmina(Casa - 1)
+Cantidad: 1
+Precio: 11.000
+Total: 11.000
+Vender: 21.000
+
+->Chocker E - Pao(CallCenter - 1)
+Cantidad: 1
+Precio: 12.000
+Total: 12.000
+Vender: 22.000
+
+->Collar amor de Dios - Doña Eli(Aseo Suchance - 1)
+Cantidad: 1
+Precio: 13.000
+Total: 13.000
+Vender: 24.000
+
+Pulseras
+->Set Magia - Milena(Callcenter)
+Cantidad: 1
+Precio: 12.000
+Total: 12.000
+Vender: 22.000
+
+Pulseras Piedras Magicas - Ingeniero Felipe(Tics - PAGO)
+Cantidad:1
+Precio: 10.000
+Total: 10.000
+Vender:20.000
+
+Pulsera Estrella PASTEL  - Ingeniero Felipe(Tics)
+Cantidad:1
+Precio: 11.000
+Total: 11.000
+Vender:21.000
+ 
+TOTAL GANANCIAS: 
+150
+
+camara
+teclado
+carpeta
+
+52 - esta se eliminio
+orden compra-19
+
+cantidad 1
+valor total 0
+arituclo 131
+estado 28
+solicitud 67
+observacion CIERRA PUERTA SEDE PRINCIPAL

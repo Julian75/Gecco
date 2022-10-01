@@ -1,3 +1,4 @@
+import { MovimientoComprasInventario2 } from './../modelos/modelos2/movimientosComprasInventario2';
 import { Area2 } from './../modelos/modelos2/area2';
 import { SolicitudSC2 } from './../modelos/modelos2/solicitudSC2';
 import { Historial2 } from './../modelos/modelos2/Historial2';
@@ -43,6 +44,8 @@ import { AsignacionProceso2 } from '../modelos/modelos2/asignacionProceso2';
 import {AsignacionArticulos2} from '../modelos/modelos2/asignacionArticulos2';
 import { AsignacionPuntoVenta2 } from '../modelos/modelos2/asignacionPuntoVenta2';
 import { SolicitudBajasArticulos2} from '../modelos/modelos2/solicitudBajasArticulos2';
+import { Compras } from '../modelos/compras';
+import { Compras2 } from '../modelos/modelos2/compras2';
 @Injectable({
   providedIn: 'root'
 })
@@ -221,5 +224,13 @@ export class ModificarService {
 
   public actualizarSolicitudBajaArticulo(solicitudBajasArticulos: SolicitudBajasArticulos2){
     return this.http.put<void>(this.path+'/SolicitudBajasArticulos/'+ solicitudBajasArticulos.id, solicitudBajasArticulos);
+  }
+
+  public actualizarCompras(compra: Compras2){
+    return this.http.put<void>(this.path+'/Compras/'+ compra.id, compra);
+  }
+
+  public actualizarMovimientoCI(movimientoComprasInventario: MovimientoComprasInventario2){
+    return this.http.put<void>(this.path+'/MovimientoComprasInventario/'+ movimientoComprasInventario.id, movimientoComprasInventario);
   }
 }

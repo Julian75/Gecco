@@ -61,7 +61,6 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     this.formAsigancionPuntoVenta = this.fb.group({
       id: 0,
       articulo: [null,Validators.required],
-      cantidad: [null,Validators.required],
       oficina: [null,Validators.required],
     });
   }
@@ -75,6 +74,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
   public listarArticulos() {
     this.servicioAsignacionArticulo.listarTodos().subscribe(res => {
       this.listaArticulos = res
+      console.log(res)
     });
   }
 
@@ -140,8 +140,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     var articulo = this.formAsigancionPuntoVenta.controls['articulo'].value;
     var oficina = this.formAsigancionPuntoVenta.controls['oficina'].value;
     var sitioVent = Number(localStorage.getItem("v"));
-    var cantidad = this.formAsigancionPuntoVenta.controls['cantidad'].value;
-    if(oficina != undefined && articulo != null && sitioVent != 0 && cantidad != 0){
+    if(oficina != undefined && articulo != null && sitioVent != 0){
       this.servicioAsignarPuntoVenta.listarTodos().subscribe(resAsigancionTurnoVendedor => {
         this.servicioAsignacionArticulo.listarPorId(articulo).subscribe(resAsignacionArticulo=>{
           this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{
@@ -173,7 +172,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
                   asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo
                   asignacionPuntoVenta.idOficina = oficina.ideOficina
                   asignacionPuntoVenta.idSitioVenta = sitioVent
-                  asignacionPuntoVenta.cantidad = cantidad
+                  asignacionPuntoVenta.cantidad = 0
                   asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
                   asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
                   this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);

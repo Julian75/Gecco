@@ -1,0 +1,87 @@
+{
+                      text: 'Anticipo: '+ res.anticipoPorcentaje +'%',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Valor Anticipo: '+ formatterPeso.format(res.descuento) +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Total: '+ formatterPeso.format(res.valorAnticipo) +' COP',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [0, 0, 0, 20],
+                    },
+                    {
+                      text: 'Autorizo',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 50, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.nombreGerente,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 13,
+                    },
+                    {
+                      text: 'Gerencia General',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: 'Aprobó',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 85, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.nombreAdministrador,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Dirección Administrativa',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-320, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Realizó',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, -163, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.nombreCompras,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Profesional Logistico',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Solicito',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 85, 0, 0],
+                      fontSize: 10,
+                    },
+                    {
+                      text: this.idSolicitud,
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 0],
+                      fontSize: 10
+                    },
+                    {
+                      text: 'Lider del Proceso',
+                      relativePosition: {x: 350, y: -25},
+                      margin: [-10, 20, 0, 20],
+                      fontSize: 10
+                    },

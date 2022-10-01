@@ -25,6 +25,11 @@ import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
 import { Compras } from 'src/app/modelos/compras';
 import { CompraService } from 'src/app/servicios/compra.service';
+import { Compras2 } from 'src/app/modelos/modelos2/compras2';
+import { ArticuloService } from 'src/app/servicios/articulo.service';
+import { MovimientoComprasInventario } from 'src/app/modelos/movimientoComprasInventario';
+import { MovimientosComprasInventarioService } from 'src/app/servicios/movimientosComprasInventario.service';
+import { MovimientoComprasInventario2 } from 'src/app/modelos/modelos2/movimientosComprasInventario2';
 
 @Component({
   selector: 'app-orden-compra',
@@ -61,7 +66,9 @@ export class OrdenCompraComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
     private servicioModificar: ModificarService,
+    private servicioArticulo: ArticuloService,
     private servicioCompras: CompraService,
+    private servicioMovimientoComprasInventario: MovimientosComprasInventarioService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<OrdenCompraComponent>,
   ) { }
@@ -317,27 +324,16 @@ export class OrdenCompraComponent implements OnInit {
     });
   }
 
-  existeCompra: boolean = false;
-  listaExisteCompra: any = [];
+
   public actualizarSolicitudDetalle(solicitudDetalle: DetalleSolicitud2){
     this.servicioModificar.actualizarDetalleSolicitud(solicitudDetalle).subscribe(res=>{
-      this.servicioCompras.listarTodos().subscribe(resCompras=>{
-        resCompras.forEach(elementCompra => {
-          // if(elementCompra.idArticulo.id == )
-        });
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se registro correctamente la orden de compra!',
+        showConfirmButton: false,
+        timer: 1500
       })
-      // let compra : Compras = new Compras();
-
-      // document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      // Swal.fire({
-      //   position: 'center',
-      //   icon: 'success',
-      //   title: 'Se hizo el registro!',
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // })
-      // window.location.reload()
-      // this.dialogRef.close();
     }, error => {
       console.log(error)
       Swal.fire({

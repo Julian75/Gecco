@@ -1,0 +1,6 @@
+solicitud_sc
+soporte_sc
+archivo_solicitud
+historial_solicitudes
+48
+12 soportes

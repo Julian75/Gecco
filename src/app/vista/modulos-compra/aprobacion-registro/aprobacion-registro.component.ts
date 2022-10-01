@@ -1,3 +1,11 @@
+import { MovimientoComprasInventario } from './../../../modelos/movimientoComprasInventario';
+import { MovimientoComprasInventario2 } from './../../../modelos/modelos2/movimientosComprasInventario2';
+import { Compras2 } from './../../../modelos/modelos2/compras2';
+import { Compras } from 'src/app/modelos/compras';
+import { MovimientosComprasInventarioService } from 'src/app/servicios/movimientosComprasInventario.service';
+import { CompraService } from 'src/app/servicios/compra.service';
+import { ArticuloService } from 'src/app/servicios/articulo.service';
+import { ProveedorService } from 'src/app/servicios/proveedor.service';
 import { ConfiguracionService } from './../../../servicios/configuracion.service';
 import { UsuariosAdministracionService } from './../../../servicios/usuariosAdministracion.service';
 import { UsuariosAdministracion } from './../../../modelos/usuariosAdministracion';
@@ -67,6 +75,11 @@ export class AprobacionRegistroComponent implements OnInit {
     private servicioModificar: ModificarService,
     private servicioUsuarioAdministracion: UsuariosAdministracionService,
     private servicioConfiguracion: ConfiguracionService,
+    private servicioProveedor: ProveedorService,
+    private servicioArticulo: ArticuloService,
+    private servicioCompras: CompraService,
+    private servicioMovimientoComprasInventario: MovimientosComprasInventarioService,
+
     private route: ActivatedRoute,
   ) { }
 
@@ -170,6 +183,12 @@ export class AprobacionRegistroComponent implements OnInit {
     })
  }
 
+ existeCompra: boolean = false;
+ listaExisteCompra: any = [];
+ idCompraExiste: any;
+ existeMovCI: boolean = false;
+ listaExisteMovCI: any = [];
+ idMoviCI: any;
  public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idUsuario:number, idSolicitud: number, idCotizacion:number){
   this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(res=>{
     // this.crearCorreo(idUsuario, idSolicitud, idCotizacion)
@@ -179,14 +198,93 @@ export class AprobacionRegistroComponent implements OnInit {
       this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
         usuariosAdministracion.idUsuario = resUsuario
         this.servicioUsuarioAdministracion.registrar(usuariosAdministracion).subscribe(resUsuAdmin=>{
-          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se aprobo el registro!',
-            showConfirmButton: false,
-            timer: 1500
+          this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalleSOlicitudes=>{
+            resDetalleSOlicitudes.forEach(solicitudDetalle => {
+              if(solicitudDetalle.idSolicitud.id == idSolicitud && solicitudDetalle.idEstado.id == 37){
+                this.listaExisteCompra = []
+                this.listaExisteMovCI = []
+                let compras : Compras2 = new Compras2();
+                let comprasRegistro : Compras = new Compras();
+                let movimientoCIModificar : MovimientoComprasInventario2 = new MovimientoComprasInventario2();
+                let movimientoCIRegistro : MovimientoComprasInventario = new MovimientoComprasInventario();
+                this.servicioCompras.listarTodos().subscribe(resCompras=>{
+                this.servicioMovimientoComprasInventario.listarTodos().subscribe(resMovimientosComprasInventario=>{
+                  resCompras.forEach(elementCompra => {
+                    if(elementCompra.idArticulo.id == solicitudDetalle.idArticulos.id){
+                      this.existeCompra = true
+                      this.idCompraExiste = elementCompra.id
+                    }else{
+                      this.existeCompra = false
+                    }
+                    this.listaExisteCompra.push(this.existeCompra)
+                  });
+                  const existeCompra = this.listaExisteCompra.includes(true)
+                  if(existeCompra == true){
+                    this.servicioCompras.listarPorId(this.idCompraExiste).subscribe(resCompras=>{
+                      compras.id = resCompras.id
+                      var cantidad = resCompras.cantidad
+                      compras.cantidad = cantidad + solicitudDetalle.cantidad
+                      compras.id_articulo = solicitudDetalle.idArticulos.id
+                      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                        compras.id_usuario = resUsuario.id
+                        console.log(movimientoCIModificar)
+                        this.actualizarCompras(compras)
+                      })
+                    })
+                  }else{
+                    console.log("entro aqui13")
+                    comprasRegistro.cantidad = solicitudDetalle.cantidad
+                    this.servicioArticulo.listarPorId(solicitudDetalle.idArticulos.id).subscribe(resArticulo=>{
+                      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                        comprasRegistro.idUsuario = resUsuario
+                        comprasRegistro.idArticulo = resArticulo
+                        this.registrarCompras(comprasRegistro)
+                      })
+                    })
+                  }
+                  resMovimientosComprasInventario.forEach(elementMoviCI => {
+                    if(elementMoviCI.idArticulo.id == solicitudDetalle.idArticulos.id){
+                      this.existeMovCI = true
+                      this.idMoviCI = elementMoviCI.id
+                    }else{
+                      this.existeMovCI = false
+                    }
+                    this.listaExisteMovCI.push(this.existeMovCI)
+                  });
+                  console.log(this.listaExisteMovCI)
+                  const existeMovCI = this.listaExisteMovCI.includes(true)
+                  console.log(existeMovCI)
+                  if(existeMovCI == true){
+                    console.log("entro aqui12")
+                    this.servicioMovimientoComprasInventario.listarPorId(this.idMoviCI).subscribe(resExisteMovimientoCI=>{
+                      movimientoCIModificar.id = resExisteMovimientoCI.id
+                      var cantidadMovCI = resExisteMovimientoCI.cantidad
+                      movimientoCIModificar.cantidad = cantidadMovCI + solicitudDetalle.cantidad
+                      movimientoCIModificar.idArticulo = solicitudDetalle.idArticulos.id
+                      console.log(movimientoCIModificar)
+                      this.actualizarMovimientoCI(movimientoCIModificar)
+                    })
+                  }else{
+                    console.log("entro aqui13")
+                    movimientoCIRegistro.cantidad = solicitudDetalle.cantidad
+                    this.servicioArticulo.listarPorId(solicitudDetalle.idArticulos.id).subscribe(resArticulo=>{
+                      movimientoCIRegistro.idArticulo = resArticulo
+                      this.registrarMovimientoCI(movimientoCIRegistro)
+                    })
+                  }
+                })
+              })
+              }
+            });
           })
+          // document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          // Swal.fire({
+          //   position: 'center',
+          //   icon: 'success',
+          //   title: 'Se aprobo el registro!',
+          //   showConfirmButton: false,
+          //   timer: 1500
+          // })
           // Swal.fire({
           //   position: 'center',
           //   icon: 'success',
@@ -194,8 +292,8 @@ export class AprobacionRegistroComponent implements OnInit {
           //   showConfirmButton: false,
           //   timer: 1500
           // })
-          this.dialogRef.close();
-          window.location.reload();
+          // this.dialogRef.close();
+          // window.location.reload();
         })
       })
     })
@@ -218,6 +316,57 @@ export class AprobacionRegistroComponent implements OnInit {
       timer: 1500
     })
   });
+}
+
+actualizarCompras(comprasActualizar: Compras2){
+  this.servicioModificar.actualizarCompras(comprasActualizar).subscribe(resCompraActualizada=>{
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+  })
+}
+
+registrarCompras(comprasRegistrar: Compras){
+  this.servicioCompras.registrar(comprasRegistrar).subscribe(resCompraRegistro=>{
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: 'Se hizo el registro!',
+    //   showConfirmButton: false,
+    //   timer: 1500
+    // })
+    // window.location.reload()
+    // this.dialogRef.close();
+  })
+}
+
+actualizarMovimientoCI(movCIActualizar: MovimientoComprasInventario2){
+  this.servicioModificar.actualizarMovimientoCI(movCIActualizar).subscribe(resMovimientoCIActualizado=>{
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: 'Se hizo el registro!',
+    //   showConfirmButton: false,
+    //   timer: 1500
+    // })
+    // this.dialogRef.close();
+    // window.location.reload()
+  })
+}
+
+registrarMovimientoCI(movCIRegistrar: MovimientoComprasInventario){
+  this.servicioMovimientoComprasInventario.registrar(movCIRegistrar).subscribe(resMovimientoCIRegistro=>{
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: 'Se hizo el registro!',
+    //   showConfirmButton: false,
+    //   timer: 1500
+    // })
+    // this.dialogRef.close();
+    // window.location.reload()
+  })
 }
 
 //  public crearCorreo(idUsuario:number, idSolicitud:number, idCotizacion:number){

@@ -1,0 +1,70 @@
+<div class="contenedor">
+    <h2 class="dato">Ingresar Nuevo Articulo</h2>
+    <form [formGroup]="formArticulo">
+      <div class="row1">
+        <!-- Ingresar Nombre -->
+        <div class="nombre3">
+          <h2 class="sitio">Artículos</h2>
+          <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Ingrese el artículo</mat-label>
+            <input type="text"
+             aria-label="text"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto" >
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo">
+              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
+                {{item.descripcion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="nombre2">
+          <h2>Serial</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese serial del Articulo</mat-label>
+          <input id="serial" formControlName="serial" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre3">
+          <h2>Placa</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese placa del Articulo</mat-label>
+          <input id="placa" formControlName="placa" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2>Marca</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese marca del Articulo</mat-label>
+          <input id="marca" formControlName="marca" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2>Tipo Activo</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Seleccion el tipo activo</mat-label>
+          <select matNativeControl id="tipoActivo" name="tipoActivo" formControlName="tipoActivo">
+            <option *ngFor="let item of listaTipoActivos"  value="{{item.id}}">{{item.descripcion}}</option>
+          </select>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2>Cantidad</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese Cantidad</mat-label>
+          <input type="number" id="cantidad" formControlName="cantidad" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Boton de guardar datos -->
+        <div class="guardar2">
+          <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="solpiner" id="snipper" style="text-align: center; display: none;">
+    <div class="loader"></div>
+  </div>

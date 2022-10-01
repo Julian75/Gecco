@@ -13,6 +13,8 @@ import { ModificarService } from 'src/app/servicios/modificar.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticulos2';
 import { ModificarAsignarArticulosUsuarioComponent } from '../asignar-articulos-usuario/modificar-asignar-articulos-usuario/modificar-asignar-articulos-usuario.component';
+import { AgregarAsignarPuntoVentaArticuloComponent } from '../asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo.component';
+import { AsignacionPuntoVentaService } from 'src/app/servicios/asignacionPuntoVenta.service';
 
 @Component({
   selector: 'app-mis-articulos-asignados',
@@ -31,6 +33,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
     private serviceAsignacionArticulos: AsignacionArticulosService,
     private servicioModificar: ModificarService,
     private servicioEstado: EstadoService,
+    private servicioAsignacionPuntoVent: AsignacionPuntoVentaService,
     public dialog: MatDialog
   ) { }
 
@@ -47,9 +50,14 @@ export class MisArticulosAsignadosComponent implements OnInit {
   }
 
   asignarArticuloPuntoVenta(id){
-
+    const dialogRef = this.dialog.open(AgregarAsignarPuntoVentaArticuloComponent, {
+      width: '600px',
+      height: '440px',
+      data: id
+    });
   }
 
+  aparece = true
   public listarTodos(){
     this.serviceAsignacionArticulos.listarTodos().subscribe(res=>{
       res.forEach(element => {
@@ -60,6 +68,13 @@ export class MisArticulosAsignadosComponent implements OnInit {
             this.listarAsignacionArticulos.push(element);
           }
         }
+        this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
+          resAsignacion.forEach(elementAsignacion => {
+            if(element.idArticulo.descripcion == elementAsignacion.idAsignacionesArticulos.idArticulo.descripcion && element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+              this.aparece = false;
+            }
+          });
+        })
       });
       this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
       this.dataSource.paginator = this.paginator;
