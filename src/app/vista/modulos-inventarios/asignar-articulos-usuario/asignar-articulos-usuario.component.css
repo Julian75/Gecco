@@ -24,10 +24,10 @@
   .btnedit{ background-color: #97B4E2; color: white; }
   .btnremove{ background-color: #DA161A; color: white; }
   #idSp, #idSp2, #desSp, #estSp, #opcSp{ position: relative;}
-  #idSp{ margin-left: 54%;}
-  #desSp{ left: 123%;}
-  #estSp{ left: 45%;}
-  #jerSp{margin-left: 143%;}
+  #idSp{ margin-left: 50%;}
+  #desSp{ left: 270%;}
+  #estSp{ left: 70%;}
+  #jerSp{margin-left: 160%;}
   #opcSp{ padding-right: 0%;}
   #idSp2{ padding-left: 1%;}
   td button mat-icon{left: -18%; top: -10%;}
@@ -38,7 +38,7 @@
     td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: 0px; }
     #idSp{margin-left: 33% ; }
     #desSp{left: 7%; width: 124px; }
-    #estSp{ left: 15%;}
+    #estSp{ left: 28%;}
     #jerSp{margin-left: 17%;}
     #opcSp{ margin-left: 13px; }
     td button{ margin-top: 5%; }
@@ -50,91 +50,99 @@
     td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: 1px; }
     #idSp{margin-left: 40% ; }
     #desSp{left: 8%; width: 100px;}
-    #estSp{ left: 15%;}
+    #estSp{ left: 26%;}
     #jerSp{margin-left: 17%;}
     #opcSp{ margin-left: 13px; }
     td button{ margin-top: 5%; }
     .botonagregar mat-icon{ margin-left: -50%; }
   }
 
-  /* PORTATILES */
+  /* Tablet 1 */
   @media screen and (min-width: 600px) and (max-width: 639px){
     td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }
-    #idSp{margin-left: 2%; }
-    #desSp{left: 5%;}
-    #estSp{left: 10%;}
-    #jerSp{margin-left: 17%;}
+    #idSp{margin-left: 29%; }
+    #desSp{left: 80%;}
+    #estSp{left: 18%;}
+    #jerSp{margin-left: 55%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 5%; }
     .botonagregar mat-icon{ margin-left: -50%; }
   }
 
-  /* Tablet 2,  Portatil 1*/
-  @media screen and (min-width: 640px) and (max-width: 768px){
-    td button mat-icon{ font-size: 17px !important;  margin-left: 0px; margin-top: 1px;}
-    #idSp{margin-left: 52%; }
-    #desSp{left: 7%; width: 131px;}
-    #estSp{ left: 13%; width: 91px;}
-    #jerSp{ margin-left: 25%; width: 48px;}
+  /*   Portatil 1*/
+  @media screen and (min-width: 640px) and (max-width: 700px){
+    td button mat-icon{  margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 17%; }
+    #desSp{left: 35%; width: 131px;}
+    #estSp{ left: 9%; width: 91px;}
+    #jerSp{ margin-left: 40%; width: 48px;}
     #opcSp{ left: 8px; }
-    td button{ margin-top: 0%; }
+    td button{ margin-top: 5%; }
+    .botonagregar mat-icon{ margin-left: 0%; }
+  }
+  /* Tablet 2 */
+  @media screen and (min-width: 700px) and (max-width: 768px){
+    td button mat-icon{  margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 10%; }
+    #desSp{left: 60%; width: 131px;}
+    #estSp{ left: 10%; width: 91px;}
+    #jerSp{ margin-left: 65%; width: 48px;}
+    #opcSp{ left: 8px; }
+    td button{ margin-top: 5%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /* Tablet 3,  Portatil 2*/
   @media screen and (min-width: 769px) and (max-width: 960px){
-    td button mat-icon{ font-size: 17px !important;  margin-left: 0px; margin-top: 1px;}
-    #idSp{margin-left: 52%; }
-    #desSp{left: 25%; width: 131px;}
-    #estSp{ left: 28%; width: 91px;}
-    #jerSp{ margin-left: 42%; width: 48px;}
+    td button mat-icon{  margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 15%; }
+    #desSp{left: 65%; width: 131px;}
+    #estSp{ left: 10%; width: 91px;}
+    #jerSp{ margin-left: 65%; width: 48px;}
     #opcSp{ left: 8px; }
-    td button{ margin-top: 0%; }
+    td button{ margin-top: 5%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
   @media screen and (min-width: 961px) and (max-width: 1080px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 1px;}
-    #idSp{margin-left: 55%;}
-    #desSp{margin-left: -52%;}
-    #estSp{margin-left: -49%;}
-    #jerSp{margin-left: 46%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 40%;}
+    #desSp{margin-left: -30%;}
+    #estSp{margin-left: -85%;}
+    #jerSp{margin-left: 85%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
   @media screen and (min-width: 1081px) and (max-width: 1280px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px;}
-    #idSp{margin-left: 100% ; }
-    #desSp{margin-left: -23%;}
-    #estSp{ margin-left: -20%;}
-    #jerSp{margin-left: 72%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px;}
+    #idSp{margin-left: 30% ; }
+    #desSp{margin-left: 5px;}
+    #estSp{ margin-left: -70%;}
+    #jerSp{margin-left: 120%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /* Tablet 8, Compu. Mesa 5*/
   @media screen and (min-width: 1281px) and (max-width: 1536px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px; }
-    #idSp{margin-left: 136% ; }
-    #desSp{ left: 56%;}
-    #estSp{ left: 68%;}
-    #jerSp{margin-left: 85%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px; }
+    #idSp{margin-left: 79% ; }
+    #desSp{ left: 250%;}
+    #estSp{ left: 75%;}
+    #jerSp{margin-left: 150%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
 
-
-
-
   /*Portatil 4, Compu. Mesa 7, Televisor 2*/
   @media screen and (min-width: 1851px) and (max-width: 1920px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 1px; }
-    #idSp{margin-left: 86%; }
-    #desSp{left: 70%;}
-    #estSp{left: 84%;}
-    #jerSp{margin-left: 105%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 1px; }
+    #idSp{margin-left: 50%; }
+    #desSp{left: 290%;}
+    #estSp{left: 65%;}
+    #jerSp{margin-left: 180%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
@@ -142,88 +150,88 @@
 
   /*Tablet 9*/
   @media screen and (min-width: 1921px) and (max-width: 2048px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px;}
-    #idSp{margin-left: 102%; }
-    #desSp{left: 85%;}
-    #estSp{ left: 93%;}
-    #jerSp{margin-left: 138%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px;}
+    #idSp{margin-left: 50%; }
+    #desSp{left: 300%;}
+    #estSp{ left: 80%;}
+    #jerSp{margin-left: 200%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Tablet 10*/
   @media screen and (min-width: 2049px) and (max-width: 2160px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px;}
-    #idSp{margin-left: 214%; }
-    #desSp{left: 87%;}
-    #estSp{ left: 100%;}
-    #jerSp{margin-left: 138%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px;}
+    #idSp{margin-left: 50%; }
+    #desSp{left: 330%;}
+    #estSp{ left: 85%;}
+    #jerSp{margin-left: 215%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Tablet 11 y 12, Portatil 5*/
   @media screen and (min-width: 2161px) and (max-width: 2560px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 1px;}
-    #idSp{margin-left: 214%; }
-    #desSp{left: 115%;}
-    #estSp{ left: 113%;}
-    #jerSp{margin-left: 138%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 70%; }
+    #desSp{left: 390%;}
+    #estSp{ left: 110%;}
+    #jerSp{margin-left: 250%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Tablet 13*/
   @media screen and (min-width: 2561px) and (max-width: 2736px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 1px;}
-    #idSp{margin-left: 214%; }
-    #desSp{left: 123%;}
-    #estSp{ left: 135%;}
-    #jerSp{margin-left: 180%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 80%; }
+    #desSp{left: 420%;}
+    #estSp{ left: 120%;}
+    #jerSp{margin-left: 260%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Tablet 14*/
   @media screen and (min-width: 2737px) and (max-width: 3000px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 1px;}
-    #idSp{margin-left: 214%; }
-    #desSp{left: 137%;}
-    #estSp{ left: 152%;}
-    #jerSp{margin-left: 200%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 1px;}
+    #idSp{margin-left: 80%; }
+    #desSp{left: 460%;}
+    #estSp{ left: 140%;}
+    #jerSp{margin-left: 320%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Portatil 6, Televisor 3*/
   @media screen and (min-width: 3001px) and (max-width: 3840px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px;}
-    #idSp{margin-left: 100% ; }
-    #desSp{left: 202%;}
-    #estSp{ left: 221%;}
-    #jerSp{margin-left: 283%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px;}
+    #idSp{margin-left: 160% ; }
+    #desSp{left: 560%;}
+    #estSp{ left: 200%;}
+    #jerSp{margin-left: 420%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Televisor 4*/
   @media screen and (min-width: 3841px) and (max-width: 4096px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px;}
-    #idSp{margin-left: 100% ; }
-    #desSp{left: 210%;}
-    #estSp{ left: 235%;}
-    #jerSp{margin-left: 300%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px;}
+    #idSp{margin-left: 150%; }
+    #desSp{left: 370%;}
+    #estSp{ left: 220%;}
+    #jerSp{margin-left: 445%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
   /*Portatil 7, Televisor 5*/
   @media screen and (min-width: 4097px) and (max-width: 7680px){
-    td button mat-icon{ font-size: 17px !important; margin-left: 0px; margin-top: 2px;}
-    #idSp{margin-left: 100% ; }
-    #desSp{ left: 425%;}
-    #estSp{ left: 475%;}
-    #jerSp{margin-left: 607%;}
+    td button mat-icon{ margin-left: 0px; margin-top: 2px;}
+    #idSp{margin-left: 370% ; }
+    #desSp{ left: 1360%;}
+    #estSp{ left: 450%;}
+    #jerSp{margin-left: 870%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }

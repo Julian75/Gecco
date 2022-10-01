@@ -1,3 +1,7 @@
+import { Articulo2 } from './../../../modelos/articulo2';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RechazoSolicitudBajaArticuloLiderProcesoComponent } from './rechazo-solicitud-baja-articulo-lider-proceso/rechazo-solicitud-baja-articulo-lider-proceso.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +13,7 @@ import { SolicitudBajasArticulosService } from 'src/app/servicios/solicitudBajas
 import { SolicitudBajasArticulos2 } from 'src/app/modelos/modelos2/solicitudBajasArticulos2';
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
+import { ArticuloService } from 'src/app/servicios/articulo.service';
 
 @Component({
   selector: 'app-lista-confirmaciones-baja-articulos',
@@ -27,6 +32,9 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     private serviceSolicitudBajasArticulos: SolicitudBajasArticulosService,
     private serviceModificar: ModificarService,
     private serviceEstado: EstadoService,
+    private servicioUsuario: UsuarioService,
+    private servicioArticulo: ArticuloService,
+    public dialog: MatDialog
 
   ) { }
 
@@ -47,33 +55,56 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     })
   }
 
-  aceptarAutorizacion( id:number){
+  aceptarConfirmacion( id:number){
     let solicitudBaja = new SolicitudBajasArticulos2();
     this.serviceSolicitudBajasArticulos.listarPorId(id).subscribe(res=>{
-      this.serviceEstado.listarPorId(82).subscribe(resEstado=>{
-        solicitudBaja.id = res.id;
-        solicitudBaja.fecha = res.fecha;
-        solicitudBaja.observacion = res.observacion;
-        solicitudBaja.id_usuario = res.idUsuario.id;
-        solicitudBaja.id_estado = resEstado.id;
-        solicitudBaja.id_detalle_articulo = res.idDetalleArticulo.id;
-        this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(res=>{
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Autorización aceptada',
-            showConfirmButton: false,
-            timer: 1500
+      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        this.serviceEstado.listarPorId(82).subscribe(resEstado=>{
+          solicitudBaja.id = res.id;
+          var fecha = new Date(res.fecha)
+          fecha.setDate(fecha.getDate()+1)
+          solicitudBaja.fecha = fecha;
+          solicitudBaja.observacion = res.observacion;
+          solicitudBaja.id_usuario = res.idUsuario.id;
+          solicitudBaja.id_estado = resEstado.id;
+          solicitudBaja.id_articulo = res.idArticulo.id;
+          solicitudBaja.usuario_autorizacion = res.usuarioAutorizacion
+          solicitudBaja.usuario_confirmacion = resUsuario.id
+          this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(resSolicitudBajaArticulo=>{
+            this.servicioArticulo.listarPorId(res.idArticulo.id).subscribe(resArticulo=>{
+              this.serviceEstado.listarPorId(27).subscribe(resEstadoInaccesible=>{
+                let articuloModificar : Articulo2 = new Articulo2();
+                articuloModificar.id = resArticulo.id
+                articuloModificar.descripcion = resArticulo.descripcion
+                articuloModificar.idCategoria = resArticulo.idCategoria.id
+                articuloModificar.idEstado = resEstadoInaccesible.id
+                this.actualizarArticuloInaccesible(articuloModificar)
+              })
+            })
           })
-          this.listarSolicitudesBajas = [];
-          this.listarTodos();
         })
       })
     })
   }
 
-  rechazarAutorizacion(id:number){
+  actualizarArticuloInaccesible(articuloModificar: Articulo2){
+    this.serviceModificar.actualizarArticulos(articuloModificar).subscribe(resArticuloActualizado=>{
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se dio de baja correctamente el articulo!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+  }
 
+  rechazarConfirmacion(id:number){
+    const dialogRef = this.dialog.open(RechazoSolicitudBajaArticuloLiderProcesoComponent, {
+      width: '500px',
+      height: '300px',
+      data: id
+    });
   }
   // Filtrado
   applyFilter(event: Event) {

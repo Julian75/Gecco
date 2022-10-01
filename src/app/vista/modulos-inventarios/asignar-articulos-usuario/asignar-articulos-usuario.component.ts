@@ -40,11 +40,10 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
   public listarTodos(){
     this.serviceAsignacionArticulos.listarTodos().subscribe(res=>{
       res.forEach(element => {
-        if(element.idEstado.id == 76 || element.idEstado.id==78){
+        if(element.idEstado.id == 76 && element.idArticulo.idEstado.id == 26){
           this.listarAsignacionArticulos.push(element);
-        }
-        if(element.idEstado.id == 76){
-          console.log(element);
+        }else if(element.idEstado.id == 78 && element.idArticulo.idEstado.id == 26){
+          this.listarAsignacionArticulos.push(element);
         }
       });
       this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
@@ -66,7 +65,7 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
       console.log(res);
       asignacionArticulo.id = res.id;
       asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticulo.idDetalleArticulo = res.idDetalleArticulo.id;
+      asignacionArticulo.idArticulo = res.idArticulo.id;
       this.servicioEstado.listarPorId(76).subscribe(res=>{
         asignacionArticulo.idEstado = res.id;
         this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulo).subscribe(res=>{

@@ -29,13 +29,18 @@ export class AgregarArticulosModalComponent implements OnInit {
   public estadosDisponibles:any = [];
   public categoriasDisponibles:any = [];
   public listaCategorias:any = [];
+  public fechaActual: Date = new Date();
   color = ('primary');
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AgregarArticulosComponent>,
     private servicioArticulos: ArticuloService,
     private servicioEstado : EstadoService,
-    private servicioCategoria : CategoriaService
+    private servicioAsigProceso : AsignacionProcesoService,
+    private servicioAsigArt: AsignacionArticulosService,
+    private servicioCategoria : CategoriaService,
+    private servicioUsario : UsuarioService,
+    private servicioHistorialArticulo : HistorialArticuloService
   ) { }
 
 
@@ -77,8 +82,12 @@ export class AgregarArticulosModalComponent implements OnInit {
   }
 
   aprobar:boolean = false
+  idAsignProceso: any;
+  existeProceso: boolean = false;
+  listaExisteProceso: any = [];
   public guardar() {
     this.listarExiste = []
+    this.listaExisteProceso = [];
     this.aprobar = false
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
@@ -109,7 +118,29 @@ export class AgregarArticulosModalComponent implements OnInit {
                 timer: 1500
               })
             }else{
-              this.registrarArticulo(articulo);
+              this.servicioAsigProceso.listarTodos().subscribe(resAsignProceso=>{
+                resAsignProceso.forEach(elementAsignProceso => {
+                  if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
+                    this.idAsignProceso = elementAsignProceso.id
+                    this.existeProceso = true
+                  }else{
+                    this.existeProceso = false
+                  }
+                  this.listaExisteProceso.push(this.existeProceso)
+                });
+                const existeProceso = this.listaExisteProceso.includes(true)
+                if(existeProceso == true){
+                  this.registrarArticulo(articulo, this.idAsignProceso);
+                }else if(existeProceso == false){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Primero debe tener una asignacion de proceso este usuario logueado!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
+              })
             }
           })
         })
@@ -127,18 +158,27 @@ export class AgregarArticulosModalComponent implements OnInit {
 
   }
 
-  public registrarArticulo(articulo: Articulo) {
+  idArticulo: any;
+  public registrarArticulo(articulo: Articulo, idAsignacionProceso) {
     this.servicioArticulos.registrar(articulo).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Articulo Registrado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.dialogRef.close();
-      window.location.reload();
-
+        this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
+          this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
+            resArticulo.forEach(elementArticulo => {
+              if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
+                this.idArticulo = elementArticulo.id
+              }
+            });
+            this.servicioAsigProceso.listarPorId(idAsignacionProceso).subscribe(resAsignProcesito=>{
+              this.servicioArticulos.listarPorId(this.idArticulo).subscribe(resArticulo=>{
+                let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
+                asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
+                asignArticuloUsuario.idArticulo = resArticulo
+                asignArticuloUsuario.idEstado = resEstado
+                this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resArticulo)
+              })
+            })
+          })
+        })
     }, error => {
       Swal.fire({
         position: 'center',
@@ -148,5 +188,33 @@ export class AgregarArticulosModalComponent implements OnInit {
         timer: 1500
       })
     });
+  }
+
+  public registrarAsignacionArticuloUsuario(asignacionArticuloUsuario: AsignacionArticulos, resArticulito){
+    this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      this.servicioAsigArt.registrar(asignacionArticuloUsuario).subscribe(resAsignArtUsuario=>{
+        let historialArticulo: HistorialArticulos = new HistorialArticulos()
+        historialArticulo.fecha = this.fechaActual
+        historialArticulo.idArticulo = resArticulito
+        historialArticulo.idUsuario = resUsuario
+        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idArticulo.descripcion.toLowerCase()+" quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
+        this.registrarHistorialArticulo(historialArticulo)
+      })
+    })
+  }
+
+  public registrarHistorialArticulo(historialArticulo: HistorialArticulos){
+    this.servicioHistorialArticulo.registrar(historialArticulo).subscribe(resHistorialArticulo=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Articulo Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.dialogRef.close();
+      window.location.reload();
+    })
   }
 }

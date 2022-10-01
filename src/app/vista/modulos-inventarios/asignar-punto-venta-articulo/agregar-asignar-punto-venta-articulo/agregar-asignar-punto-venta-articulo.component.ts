@@ -149,7 +149,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
               const elementSitio = resSitioVenta[i];
               if(elementSitio.ideSitioventa == sitioVent){
                 resAsigancionTurnoVendedor.forEach(element => {
-                  if(element.idAsignacionesArticulos.idDetalleArticulo.idArticulo.id == resAsignacionArticulo.idDetalleArticulo.idArticulo.id && element.idSitioVenta == sitioVent){
+                  if(element.idAsignacionesArticulos.idArticulo.id == resAsignacionArticulo.idArticulo.id && element.idSitioVenta == sitioVent){
                     this.encontrado = true;
                   }else{
                     this.encontrado = false;
@@ -199,10 +199,10 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     this.servicioAsignarPuntoVenta.registrar(asignacionPuntoVenta).subscribe(res=>{
       let historialArticulo : HistorialArticulos = new HistorialArticulos();
       historialArticulo.fecha = this.fecha
-      historialArticulo.idDetalleArticulo = asignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo
+      historialArticulo.idArticulo = asignacionPuntoVenta.idAsignacionesArticulos.idArticulo
       this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
         historialArticulo.idUsuario = resUsuario
-        historialArticulo.observacion = "Se realizo una nueva asignación del articulo "+asignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" a la oficina "+asignacionPuntoVenta.nombreOficina.toLowerCase()+" del sitio de venta "+asignacionPuntoVenta.nombreSitioVenta.toLowerCase()+"."
+        historialArticulo.observacion = "Se realizo una nueva asignación del articulo "+asignacionPuntoVenta.idAsignacionesArticulos.idArticulo.descripcion.toLowerCase()+" a la oficina "+asignacionPuntoVenta.nombreOficina.toLowerCase()+" del sitio de venta "+asignacionPuntoVenta.nombreSitioVenta.toLowerCase()+"."
         this.agregarHistorial(historialArticulo);
       })
     }, error => {

@@ -28,27 +28,24 @@ export class AgregarArticulosComponent implements OnInit {
   public estadosDisponibles:any = [];
   public categoriasDisponibles:any = [];
   public listaCategorias:any = [];
-  public listaTipoActivos:any = [];
-  public listaAsigUsuarios: any = [];
   public fechaActual: Date = new Date();
   color = ('primary');
   constructor(
     private fb: FormBuilder,
+    public dialogRef: MatDialogRef<AgregarArticulosComponent>,
     private servicioArticulos: ArticuloService,
-    private servicioDetalleArticulo: DetalleArticuloService,
-    private servicioAsigArtiUsuario: AsignacionArticulosService,
-    private servicioAsigProceso: AsignacionProcesoService,
     private servicioEstado : EstadoService,
+    private servicioAsigProceso : AsignacionProcesoService,
+    private servicioAsigArt: AsignacionArticulosService,
     private servicioCategoria : CategoriaService,
-    private servicioTipoActivos: TipoActivoService,
-    private servicioUsario: UsuarioService,
-    private servicioHistorialArticulo: HistorialArticuloService,
+    private servicioUsario : UsuarioService,
+    private servicioHistorialArticulo : HistorialArticuloService
   ) { }
 
 
   ngOnInit(): void {
     this.crearFormulario();
-    this.listarTipoActivos();
+    this.listarEstados();
     this.listarCategorias();
   }
 
@@ -56,11 +53,8 @@ export class AgregarArticulosComponent implements OnInit {
     this.formArticulo = this.fb.group({
       id: 0,
       descripcion: [null,Validators.required],
-      categoria: [null,Validators.required],
-      serial: [null,Validators.required],
-      placa: [null,Validators.required],
-      marca: [null,Validators.required],
-      tipoActivo: [null,Validators.required]
+      estado: [null,Validators.required],
+      categoria: [null,Validators.required]
     });
   }
 
@@ -75,24 +69,31 @@ export class AgregarArticulosComponent implements OnInit {
     });
   }
 
-  public listarTipoActivos() {
-    this.servicioTipoActivos.listarTodos().subscribe(resTipoActivos => {
-      this.listaTipoActivos = resTipoActivos
+  public listarEstados() {
+    this.servicioEstado.listarTodos().subscribe(res => {
+      res.forEach(element => {
+        if(element.idModulo.id == 22){
+          this.estadosDisponibles.push(element)
+        }
+      });
+      this.listarEstado = this.estadosDisponibles
     });
   }
 
   aprobar:boolean = false
+  idAsignProceso: any;
+  existeProceso: boolean = false;
+  listaExisteProceso: any = [];
   public guardar() {
-    console.log("articulo")
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.listarExiste = []
+    this.listaExisteProceso = [];
     this.aprobar = false
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
+    const idEstado = this.formArticulo.controls['estado'].value;
     const idCategoria = this.formArticulo.controls['categoria'].value;
     if(this.formArticulo.valid){
-      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-      this.servicioEstado.listarPorId(26).subscribe(res => {
+      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
         articulo.idEstado = res
         this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria=>{
           articulo.idCategoria = resCategoria
@@ -108,7 +109,6 @@ export class AgregarArticulosComponent implements OnInit {
             console.log(this.listarExiste)
             const existe = this.listarExiste.includes( true );
             if(existe == true){
-              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
               Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -117,14 +117,35 @@ export class AgregarArticulosComponent implements OnInit {
                 timer: 1500
               })
             }else{
-              this.registrarArticulo(articulo);
+              this.servicioAsigProceso.listarTodos().subscribe(resAsignProceso=>{
+                resAsignProceso.forEach(elementAsignProceso => {
+                  if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
+                    this.idAsignProceso = elementAsignProceso.id
+                    this.existeProceso = true
+                  }else{
+                    this.existeProceso = false
+                  }
+                  this.listaExisteProceso.push(this.existeProceso)
+                });
+                const existeProceso = this.listaExisteProceso.includes(true)
+                if(existeProceso == true){
+                  this.registrarArticulo(articulo, this.idAsignProceso);
+                }else if(existeProceso == false){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Primero debe tener una asignacion de proceso este usuario logueado!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
+              })
             }
           })
         })
 
       })
     }else{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -137,45 +158,27 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   idArticulo: any;
-  public registrarArticulo(articulo: Articulo) {
-    const tipoActivo = this.formArticulo.controls['tipoActivo'].value;
-    const marca = this.formArticulo.controls['marca'].value;
-    const serial = this.formArticulo.controls['serial'].value;
-    const placa = this.formArticulo.controls['placa'].value;
+  public registrarArticulo(articulo: Articulo, idAsignacionProceso) {
     this.servicioArticulos.registrar(articulo).subscribe(res=>{
-      this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
-        resArticulo.forEach(elementArticulo => {
-          if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
-            this.idArticulo = elementArticulo.id
-          }
-        });
-        console.log(this.idArticulo)
-        this.servicioArticulos.listarPorId(Number(this.idArticulo)).subscribe(resArticulito=>{
-          this.servicioTipoActivos.listarPorId(tipoActivo).subscribe(resTipoActivo=>{
-            this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-              this.servicioEstado.listarPorId(74).subscribe(resEstadoDetalleArticulo=>{
-                let detalleArticulo : DetalleArticulo = new DetalleArticulo()
-                detalleArticulo.idEstado = resEstadoDetalleArticulo
-                detalleArticulo.idArticulo = resArticulito
-                detalleArticulo.idTipoActivo = resTipoActivo
-                detalleArticulo.idUsuario = resUsuario
-                detalleArticulo.marca = marca
-                detalleArticulo.placa = placa
-                detalleArticulo.serial = serial
-                var numero = Math.floor(Math.random())
-                console.log(numero, resArticulito.id)
-                detalleArticulo.codigoUnico = String((numero*resArticulito.id)+""+resArticulito.id)
-                console.log(detalleArticulo)
-                this.registrarDetalleArticulo(detalleArticulo)
+        this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
+          this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
+            resArticulo.forEach(elementArticulo => {
+              if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
+                this.idArticulo = elementArticulo.id
+              }
+            });
+            this.servicioAsigProceso.listarPorId(idAsignacionProceso).subscribe(resAsignProcesito=>{
+              this.servicioArticulos.listarPorId(this.idArticulo).subscribe(resArticulo=>{
+                let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
+                asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
+                asignArticuloUsuario.idArticulo = resArticulo
+                asignArticuloUsuario.idEstado = resEstado
+                this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resArticulo)
               })
             })
           })
-
         })
-      })
-
     }, error => {
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -186,49 +189,14 @@ export class AgregarArticulosComponent implements OnInit {
     });
   }
 
-  idDetalleArti: any;
-  idAsignProceso: any;
-  public registrarDetalleArticulo(detalleArticulo: DetalleArticulo){
-    this.servicioDetalleArticulo.registrar(detalleArticulo).subscribe(resDetalleArticulo=>{
-      this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
-        resDetallesArticulos.forEach(elementDetalleArticulo => {
-          if(elementDetalleArticulo.codigoUnico == detalleArticulo.codigoUnico && elementDetalleArticulo.idArticulo.id == detalleArticulo.idArticulo.id && elementDetalleArticulo.idTipoActivo.id == detalleArticulo.idTipoActivo.id && elementDetalleArticulo.serial == detalleArticulo.serial && elementDetalleArticulo.marca == detalleArticulo.marca && elementDetalleArticulo.placa == detalleArticulo.placa){
-            this.idDetalleArti = elementDetalleArticulo.id
-          }
-        })
-        this.servicioDetalleArticulo.listarPorId(this.idDetalleArti).subscribe(resDetalleArticulito=>{
-          this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
-            this.servicioAsigProceso.listarTodos().subscribe(resAsignProceso=>{
-              resAsignProceso.forEach(elementAsignProceso => {
-                if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
-                  this.idAsignProceso = elementAsignProceso.id
-                }
-              });
-              console.log(this.idAsignProceso)
-              this.servicioAsigProceso.listarPorId(this.idAsignProceso).subscribe(resAsignProcesito=>{
-                let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
-                asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
-                asignArticuloUsuario.idDetalleArticulo = resDetalleArticulito
-                asignArticuloUsuario.idEstado = resEstado
-                console.log(asignArticuloUsuario)
-                this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resDetalleArticulito)
-              })
-            })
-          })
-        })
-      })
-    })
-  }
-
-  public registrarAsignacionArticuloUsuario(asignacionArticuloUsuario: AsignacionArticulos, resDetalleArticulito){
+  public registrarAsignacionArticuloUsuario(asignacionArticuloUsuario: AsignacionArticulos, resArticulito){
     this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-      this.servicioAsigArtiUsuario.registrar(asignacionArticuloUsuario).subscribe(resAsignArtUsuario=>{
+      this.servicioAsigArt.registrar(asignacionArticuloUsuario).subscribe(resAsignArtUsuario=>{
         let historialArticulo: HistorialArticulos = new HistorialArticulos()
         historialArticulo.fecha = this.fechaActual
-        console.log(this.fechaActual)
-        historialArticulo.idDetalleArticulo = resDetalleArticulito
+        historialArticulo.idArticulo = resArticulito
         historialArticulo.idUsuario = resUsuario
-        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
+        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idArticulo.descripcion.toLowerCase()+" quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
         this.registrarHistorialArticulo(historialArticulo)
       })
     })
@@ -236,7 +204,6 @@ export class AgregarArticulosComponent implements OnInit {
 
   public registrarHistorialArticulo(historialArticulo: HistorialArticulos){
     this.servicioHistorialArticulo.registrar(historialArticulo).subscribe(resHistorialArticulo=>{
-      console.log(resHistorialArticulo)
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
@@ -245,6 +212,7 @@ export class AgregarArticulosComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      this.dialogRef.close();
       window.location.reload();
     })
   }

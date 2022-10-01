@@ -1,0 +1,63 @@
+<div class="contenedor">
+  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field>
+  <section class="example-container mat-elevation-z8" tabindex="0">
+
+    <table datatable [dtOptions]="dtOptions" id="actasBajas" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header ><h3 class="id">Id</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fecha ">fecha</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="observacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="observacion">observacion</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.observacion}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="tipoDocSp">usuario</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="idDetalleArticulo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="idDetalleArticulo">Artículo</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.idArticulo.descripcion}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header ><h3 id="estado">Estado</h3></th>
+          <td mat-cell *matCellDef="let element" >{{element.idEstado.descripcion}}</td>
+        </ng-container>
+
+        <!--Opciones-->
+        <ng-container matColumnDef="opciones">
+          <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSp">Opciones</h3></th>
+          <td mat-cell *matCellDef="let item" id="tamañoOpc">
+              <button class="btn btnedit mx-2" (click)="abrirPdf(item.id)">
+                  <mat-icon>file_open</mat-icon>
+                </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+  </mat-paginator>
+</div>
+

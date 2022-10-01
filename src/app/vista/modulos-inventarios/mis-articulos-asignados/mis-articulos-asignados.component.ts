@@ -46,11 +46,17 @@ export class MisArticulosAsignadosComponent implements OnInit {
     });
   }
 
+  asignarArticuloPuntoVenta(id){
+
+  }
+
   public listarTodos(){
     this.serviceAsignacionArticulos.listarTodos().subscribe(res=>{
       res.forEach(element => {
         if(element.idAsignacionesProcesos.idUsuario.documento == Number(sessionStorage.getItem('usuario')) ){
-          if(element.idEstado.id == 76 || element.idEstado.id == 78){
+          if(element.idEstado.id == 76 && element.idArticulo.idEstado.id == 26){
+            this.listarAsignacionArticulos.push(element);
+          }else if(element.idEstado.id == 78 && element.idArticulo.idEstado.id == 26){
             this.listarAsignacionArticulos.push(element);
           }
         }
@@ -75,7 +81,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
       console.log(res);
       asignacionArticulo.id = res.id;
       asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticulo.idDetalleArticulo = res.idDetalleArticulo.id;
+      asignacionArticulo.idArticulo = res.idArticulo.id;
       this.servicioEstado.listarPorId(76).subscribe(res=>{
         asignacionArticulo.idEstado = res.id;
         this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulo).subscribe(res=>{
@@ -110,12 +116,12 @@ export class MisArticulosAsignadosComponent implements OnInit {
       console.log(res)
       asignacionArticuloMod.id = res.id;
       asignacionArticuloMod.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticuloMod.idDetalleArticulo = res.idDetalleArticulo.id;
+      asignacionArticuloMod.idArticulo = res.idArticulo.id;
       this.servicioEstado.listarPorId(77).subscribe(resEstado=>{
         asignacionArticuloMod.idEstado = resEstado.id;
         this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigArticulos=>{
           resAsigArticulos.forEach(elementAsigArticulo => {
-            if(elementAsigArticulo.idDetalleArticulo.id == res.idDetalleArticulo.id){
+            if(elementAsigArticulo.idArticulo.id == res.idArticulo.id){
               this.listaAsignArticulos.push(elementAsigArticulo.id)
             }
           });
@@ -124,7 +130,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
           this.serviceAsignacionArticulos.listarPorId(idAsigMen).subscribe(resAsignCompras=>{
             asignacionArticuloCompras.id = resAsignCompras.id;
             asignacionArticuloCompras.idAsignacionesProcesos = resAsignCompras.idAsignacionesProcesos.id;
-            asignacionArticuloCompras.idDetalleArticulo = resAsignCompras.idDetalleArticulo.id;
+            asignacionArticuloCompras.idArticulo = resAsignCompras.idArticulo.id;
             this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
               asignacionArticuloCompras.idEstado = resEstado.id;
               this.servicioActualizarModyCompras(asignacionArticuloMod, asignacionArticuloCompras)

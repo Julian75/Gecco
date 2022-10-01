@@ -1,3 +1,4 @@
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -30,6 +31,7 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
   constructor(
     private serviceSolicitudBajasArticulos: SolicitudBajasArticulosService,
     private serviceModificar: ModificarService,
+    private serviceUsuario: UsuarioService,
     private serviceEstado: EstadoService,
     public dialog: MatDialog
   ) { }
@@ -54,23 +56,29 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
   aceptarAutorizacion( id:number){
     let solicitudBaja = new SolicitudBajasArticulos2();
     this.serviceSolicitudBajasArticulos.listarPorId(id).subscribe(res=>{
-      this.serviceEstado.listarPorId(81).subscribe(resEstado=>{
-        solicitudBaja.id = res.id;
-        solicitudBaja.fecha = res.fecha;
-        solicitudBaja.observacion = res.observacion;
-        solicitudBaja.id_usuario = res.idUsuario.id;
-        solicitudBaja.id_estado = resEstado.id;
-        solicitudBaja.id_detalle_articulo = res.idDetalleArticulo.id;
-        this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(res=>{
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Autorización aceptada',
-            showConfirmButton: false,
-            timer: 1500
+      this.serviceUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        this.serviceEstado.listarPorId(81).subscribe(resEstado=>{
+          solicitudBaja.id = res.id;
+          var fecha = new Date(res.fecha)
+          fecha.setDate(fecha.getDate()+1)
+          solicitudBaja.fecha = fecha
+          solicitudBaja.observacion = res.observacion;
+          solicitudBaja.id_usuario = res.idUsuario.id;
+          solicitudBaja.id_estado = resEstado.id;
+          solicitudBaja.id_articulo = res.idArticulo.id;
+          solicitudBaja.usuario_autorizacion = resUsuario.id
+          solicitudBaja.usuario_confirmacion = 0
+          this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(res=>{
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Autorización aceptada',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload();
+
           })
-          this.listarSolicitudesBajas = [];
-          this.listarTodos();
         })
       })
 

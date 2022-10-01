@@ -23,6 +23,8 @@ import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
+import { Compras } from 'src/app/modelos/compras';
+import { CompraService } from 'src/app/servicios/compra.service';
 
 @Component({
   selector: 'app-orden-compra',
@@ -59,6 +61,7 @@ export class OrdenCompraComponent implements OnInit {
     private servicioSolicitud: SolicitudService,
     private servicioOrdenCompra: OrdenCompraService,
     private servicioModificar: ModificarService,
+    private servicioCompras: CompraService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<OrdenCompraComponent>,
   ) { }
@@ -314,18 +317,27 @@ export class OrdenCompraComponent implements OnInit {
     });
   }
 
+  existeCompra: boolean = false;
+  listaExisteCompra: any = [];
   public actualizarSolicitudDetalle(solicitudDetalle: DetalleSolicitud2){
     this.servicioModificar.actualizarDetalleSolicitud(solicitudDetalle).subscribe(res=>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se hizo el registro!',
-        showConfirmButton: false,
-        timer: 1500
+      this.servicioCompras.listarTodos().subscribe(resCompras=>{
+        resCompras.forEach(elementCompra => {
+          // if(elementCompra.idArticulo.id == )
+        });
       })
-      window.location.reload()
-      this.dialogRef.close();
+      // let compra : Compras = new Compras();
+
+      // document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      // Swal.fire({
+      //   position: 'center',
+      //   icon: 'success',
+      //   title: 'Se hizo el registro!',
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // })
+      // window.location.reload()
+      // this.dialogRef.close();
     }, error => {
       console.log(error)
       Swal.fire({

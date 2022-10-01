@@ -1,8 +1,8 @@
-import {DetalleArticulo} from './detalleArticulo';
+import { Articulo } from './articulo';
 import {Usuario} from './usuario';
 export class HistorialArticulos {
     public id: number;
-    idDetalleArticulo !: DetalleArticulo;
+    idArticulo !: Articulo;
     public fecha: Date = new Date();
     public observacion: string = "";
     idUsuario !: Usuario;

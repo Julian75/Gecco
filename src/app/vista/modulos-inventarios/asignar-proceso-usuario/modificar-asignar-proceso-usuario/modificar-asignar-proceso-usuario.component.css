@@ -38,15 +38,18 @@ h2{
 
   /* Movil pequeño 1 - Galaxy Fold*/
   @media screen and (min-width: 280px) and (max-width: 359px){
-    .guardarModal{ margin-left: 59%;}
-    .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
-
+    .nombre, .estado{width: 150px;}
+    .guardarModal{ margin-left: 62%;}
+    .nombre{ margin-left: 0%;}
+    mat-form-field{ width: 165px;}
   }
 
   /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
   @media screen and (min-width: 360px) and (max-width: 420px){
-    .guardarModal{ margin-left: 69%;}
-    .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
+    .nombre, .estado{width: 216px;}
+    .guardarModal{margin-left: 68%;}
+    .nombre{ margin-left: 0%;}
+    mat-form-field{ width: 213px;}
   }
 
   /* PORTATILES */

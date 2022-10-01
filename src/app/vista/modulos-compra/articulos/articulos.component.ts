@@ -38,10 +38,10 @@ export class ArticulosComponent implements OnInit {
   }
 
   public listarTodos () {
-    this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
-      resDetallesArticulos.forEach(elementDetalleArticulo => {
-        if(elementDetalleArticulo.idArticulo.idEstado.id == 26){
-          this.listaArticulos.push(elementDetalleArticulo)
+    this.servicioArticulo.listarTodos().subscribe(resArticulos=>{
+      resArticulos.forEach(elementArticulo => {
+        if(elementArticulo.idEstado.id == 26){
+          this.listaArticulos.push(elementArticulo)
         }
       });
       this.dataSource = new MatTableDataSource( this.listaArticulos);
@@ -54,6 +54,13 @@ export class ArticulosComponent implements OnInit {
     const dialogRef = this.dialog.open(ModificarArticulosComponent, {
       width: '500px',
       data: id
+    });
+  }
+
+  agregarArticulo(): void {
+    const dialogRef = this.dialog.open(AgregarArticulosComponent, {
+      width: '500px',
+      height: '440px',
     });
   }
 

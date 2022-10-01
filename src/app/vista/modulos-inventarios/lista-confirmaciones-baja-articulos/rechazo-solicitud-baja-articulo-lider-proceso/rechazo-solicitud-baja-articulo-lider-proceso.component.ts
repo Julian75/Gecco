@@ -1,28 +1,27 @@
-import { CorreoService } from './../../../../servicios/Correo.service';
-import { ConfiguracionService } from './../../../../servicios/configuracion.service';
-import { Correo } from './../../../../modelos/correo';
-import { SolicitudBajasArticulos2 } from './../../../../modelos/modelos2/solicitudBajasArticulos2';
+import { Correo } from 'src/app/modelos/correo';
+import { SolicitudBajasArticulos2 } from 'src/app/modelos/modelos2/solicitudBajasArticulos2';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SolicitudBajasArticulosService } from './../../../../servicios/solicitudBajasArticulos.service';
-import { EstadoService } from './../../../../servicios/estado.service';
-import { AsignacionArticulosService } from './../../../../servicios/asignacionArticulo.service';
-import { UsuarioService } from './../../../../servicios/usuario.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+import { SolicitudBajasArticulosService } from 'src/app/servicios/solicitudBajasArticulos.service';
+import { EstadoService } from 'src/app/servicios/estado.service';
+import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
+import { CorreoService } from 'src/app/servicios/Correo.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-rechazo-solicitud-baja-articulo',
-  templateUrl: './rechazo-solicitud-baja-articulo.component.html',
-  styleUrls: ['./rechazo-solicitud-baja-articulo.component.css']
+  selector: 'app-rechazo-solicitud-baja-articulo-lider-proceso',
+  templateUrl: './rechazo-solicitud-baja-articulo-lider-proceso.component.html',
+  styleUrls: ['./rechazo-solicitud-baja-articulo-lider-proceso.component.css']
 })
-export class RechazoSolicitudBajaArticuloComponent implements OnInit {
+export class RechazoSolicitudBajaArticuloLiderProcesoComponent implements OnInit {
 
   public formRechazoSolicitudBajaArticulo!: FormGroup;
   public idSolicitudArticuloBaja:any;
   color = ('primary');
-  public fechaActual:Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +32,7 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
     public servicioSolicitudBajasArticulos: SolicitudBajasArticulosService,
     public servicioConfiguracion: ConfiguracionService,
     public servicioModificar: ModificarService,
-    public dialogRef: MatDialogRef<RechazoSolicitudBajaArticuloComponent>,
+    public dialogRef: MatDialogRef<RechazoSolicitudBajaArticuloLiderProcesoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
 
@@ -68,7 +67,7 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
       this.idSolicitudArticuloBaja = this.data
       console.log(this.idSolicitudArticuloBaja)
       this.servicioSolicitudBajasArticulos.listarPorId(this.idSolicitudArticuloBaja).subscribe(resSolicitudBajaArticulo=>{
-        this.servicioEstado.listarPorId(83).subscribe(resEstado=>{
+        this.servicioEstado.listarPorId(84).subscribe(resEstado=>{
           let solicitudBajasArticulos : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
           var fecha = new Date(resSolicitudBajaArticulo.fecha)
           fecha.setDate(fecha.getDate()+1)
@@ -78,9 +77,8 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
           solicitudBajasArticulos.id_estado = resEstado.id
           solicitudBajasArticulos.id_usuario = resSolicitudBajaArticulo.idUsuario.id
           solicitudBajasArticulos.observacion = resSolicitudBajaArticulo.observacion
-          solicitudBajasArticulos.usuario_autorizacion = 0
+          solicitudBajasArticulos.usuario_autorizacion = resSolicitudBajaArticulo.usuarioAutorizacion
           solicitudBajasArticulos.usuario_confirmacion = 0
-          console.log(solicitudBajasArticulos)
           this.actualizarSolicitudBajaArticulo(solicitudBajasArticulos, observacion, resSolicitudBajaArticulo)
         })
       })
@@ -126,7 +124,7 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
         +"<meta charset='utf-8'>"
         +"</head>"
         +"<body>"
-        +"<h3 style='color: black;'>La solicitud que realizo para dar de baja al articulo "+resSolicitudBajaArticulito.idArticulo.descripcion.toLowerCase()+" ha sido rechazada porque "+observacion.toLowerCase()+" siendo rechazada por parte del usuario "+resUsuario.nombre.toLowerCase()+" "+resUsuario.apellido.toLowerCase()+" de compras.</h3>"
+        +"<h3 style='color: black;'>La solicitud que realizo para dar de baja al articulo "+resSolicitudBajaArticulito.idArticulo.descripcion.toLowerCase()+" ha sido rechazada porque "+observacion.toLowerCase()+" siendo rechazada por parte del usuario "+resUsuario.nombre.toLowerCase()+" "+resUsuario.apellido.toLowerCase()+" lider del proceso.</h3>"
         +"<br>"
         +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
         +"</body>"

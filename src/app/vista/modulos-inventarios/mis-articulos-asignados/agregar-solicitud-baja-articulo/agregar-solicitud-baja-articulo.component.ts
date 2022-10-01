@@ -62,7 +62,7 @@ export class AgregarSolicitudBajaArticuloComponent implements OnInit {
       this.servicioAsignacionArticulo.listarPorId(this.idSolicitudAsignArticulo).subscribe(resAsignArticulo=>{
         this.servicioSolicitudBajasArticulos.listarTodos().subscribe(resSolicitudesBajas=>{
           resSolicitudesBajas.forEach(elementSolicitudBaja => {
-            if(elementSolicitudBaja.idDetalleArticulo.id == resAsignArticulo.idDetalleArticulo.id){
+            if(elementSolicitudBaja.idArticulo.id == resAsignArticulo.idArticulo.id && resAsignArticulo.idEstado.id == 80){
               this.validar = true
               this.idSolicitudBaja = elementSolicitudBaja.id
             }else{
@@ -77,7 +77,7 @@ export class AgregarSolicitudBajaArticuloComponent implements OnInit {
               Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: 'Ya existe una solicitud de baja del articulo '+resSolicitudBaja.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+' por parte del usuario '+resSolicitudBaja.idUsuario.nombre+' '+resSolicitudBaja.idUsuario.apellido+' y tiene el estado de '+resSolicitudBaja.idEstado.descripcion.toLowerCase()+'.',
+                title: 'Ya existe una solicitud de baja del articulo '+resSolicitudBaja.idArticulo.descripcion.toLowerCase()+' por parte del usuario '+resSolicitudBaja.idUsuario.nombre+' '+resSolicitudBaja.idUsuario.apellido+' y tiene el estado de '+resSolicitudBaja.idEstado.descripcion.toLowerCase()+'.',
                 showConfirmButton: false,
                 timer: 1500
               })
@@ -87,10 +87,12 @@ export class AgregarSolicitudBajaArticuloComponent implements OnInit {
               this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
                 let solicitudBajasArticulos : SolicitudBajasArticulos = new SolicitudBajasArticulos();
                 solicitudBajasArticulos.fecha = this.fechaActual
-                solicitudBajasArticulos.idDetalleArticulo = resAsignArticulo.idDetalleArticulo
+                solicitudBajasArticulos.idArticulo = resAsignArticulo.idArticulo
                 solicitudBajasArticulos.idEstado = resEstado
                 solicitudBajasArticulos.idUsuario = resUsuario
                 solicitudBajasArticulos.observacion = observacion
+                solicitudBajasArticulos.usuarioAutorizacion = 0
+                solicitudBajasArticulos.usuarioConfirmacion = 0
                 this.registrarSolicitudBajasArticulos(solicitudBajasArticulos)
               })
             })

@@ -15,7 +15,7 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fecha ">fecha</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fecha">fecha</h3></th>
             <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
           </ng-container>
 
@@ -26,13 +26,13 @@
           </ng-container>
 
           <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="tipoDocSp">usuario</h3></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="usuario">usuario</h3></th>
             <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
           </ng-container>
 
           <ng-container matColumnDef="idDetalleArticulo">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="idDetalleArticulo">Artículo</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.idDetalleArticulo.idArticulo.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.idArticulo.descripcion}}</td>
           </ng-container>
 
           <ng-container matColumnDef="estado">
@@ -44,11 +44,11 @@
           <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="tamañoOpc">
-                <button class="btn btnedit mx-2" (click)="aceptarAutorizacion(item.id)">
+                <button class="btn btnedit2 mx-2" (click)="aceptarConfirmacion(item.id)">
                     <mat-icon>check_circle</mat-icon>
                   </button>
 
-                  <button class="btn btnremove mx-2" (click)="rechazarAutorizacion(item.id)">
+                  <button class="btn btnremove mx-2" (click)="rechazarConfirmacion(item.id)">
                     <mat-icon>delete</mat-icon>
                   </button>
             </td>

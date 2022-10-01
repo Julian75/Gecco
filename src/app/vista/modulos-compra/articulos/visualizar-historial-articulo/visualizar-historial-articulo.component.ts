@@ -27,6 +27,7 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
     public dialogRef: MatDialogRef<VisualizarHistorialArticuloComponent>,
     private servicioHistorialArticulo: HistorialArticuloService,
     private servicioDetalleArticulo: DetalleArticuloService,
+    private servicioArticulo: ArticuloService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -34,15 +35,15 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
     this.listarTodos();
   }
 
-  idDetalleArticulo: any;
+  idArticulo: any;
   public listarTodos () {
     this.listarHistorialArticulo = [];
-    this.idDetalleArticulo = this.data
-    this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulo=>{
-      this.articulo = resDetalleArticulo.idArticulo.descripcion
+    this.idArticulo = this.data
+    this.servicioArticulo.listarPorId(this.idArticulo).subscribe(resArticulo=>{
+      this.articulo = resArticulo.descripcion
       this.servicioHistorialArticulo.listarTodos().subscribe(resHistorialesArticulos=>{
         resHistorialesArticulos.forEach(elementHistorialArticulo => {
-          if(elementHistorialArticulo.idDetalleArticulo.id == resDetalleArticulo.id){
+          if(elementHistorialArticulo.idArticulo.id == resArticulo.id){
             this.listarHistorialArticulo.push(elementHistorialArticulo)
           }
         });
