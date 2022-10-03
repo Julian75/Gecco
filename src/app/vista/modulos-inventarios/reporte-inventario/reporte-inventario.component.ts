@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import * as FileSaver from 'file-saver';
 import { AsignacionPuntoVentaService } from 'src/app/servicios/asignacionPuntoVenta.service';
 import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
+import { InventarioService } from 'src/app/servicios/inventario.service';
 
 @Component({
   selector: 'app-reporte-inventario',
@@ -33,6 +34,7 @@ export class ReporteInventarioComponent implements OnInit {
   public listaSitioVenta: any = [];
   public listaIdSitioVenta: any = [];
   public listaUsuarios: any = [];
+  public listaInventario: any = [];
 
   public lista:any = []
 
@@ -43,6 +45,7 @@ export class ReporteInventarioComponent implements OnInit {
     private servicioUsuario : UsuarioService,
     private servicioAsignacionPuntoVenta : AsignacionPuntoVentaService,
     private servicioAsignacionArticulo : AsignacionArticulosService,
+    private servicioInventario : InventarioService,
   ) { }
 
   ngOnInit(): void {
@@ -175,214 +178,247 @@ export class ReporteInventarioComponent implements OnInit {
   }
 
   public guardar(){
-    // var oficina = this.formInventario.controls["oficina"].value
-    // var sitioVent = Number(localStorage.getItem("v"))
-    // var serial = this.formInventario.controls["serial"].value
-    // var placa = this.formInventario.controls["placa"].value
-    // var usua = this.formInventario.controls["usuario"].value
-    // if(oficina != null && sitioVent != 0 && serial == null && placa == null && usua == null){
-    //   this.reporteSitioVenta();
-    // }else if(oficina == null && sitioVent == 0 && serial != null && placa == null && usua == null){
-    //   this.reporteSerial();
-    // }else if(oficina == null && sitioVent == 0 && serial == null && placa != null && usua == null){
-    //   this.reportePlaca();
-    // }else if(oficina == null && sitioVent == 0 && serial == null && placa == null && usua != null){
-    //   this.reporteUsuario();
-    // }else{
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Campos vacios o no ha seleccionado ninguna opcion!',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    // }
+    var oficina = this.formInventario.controls["oficina"].value
+    var sitioVent = Number(localStorage.getItem("v"))
+    var serial = this.formInventario.controls["serial"].value
+    var placa = this.formInventario.controls["placa"].value
+    var usua = this.formInventario.controls["usuario"].value
+    if(oficina != null && sitioVent != 0 && serial == null && placa == null && usua == null){
+      this.reporteSitioVenta();
+    }else if(oficina == null && sitioVent == 0 && serial != null && placa == null && usua == null){
+      this.reporteSerial();
+    }else if(oficina == null && sitioVent == 0 && serial == null && placa != null && usua == null){
+      this.reportePlaca();
+    }else if(oficina == null && sitioVent == 0 && serial == null && placa == null && usua != null){
+      this.reporteUsuario();
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Campos vacios o no ha seleccionado ninguna opcion!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
   }
 
   reporteSitioVenta(){
-    // this.lista = []
-    // this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacion=>{
-    //   resAsignacion.forEach(element => {
-    //     if(element.idSitioVenta == Number(localStorage.getItem('v'))){
-    //       var obj = {
-    //         Articulo: element.idAsignacionesArticulos.idArticulo.descripcion,
-    //         Categoria: element.idAsignacionesArticulos.idArticulo.idCategoria.descripcion,
-    //         Cantidad: element.cantidad,
-    //         "Nombre oficina": element.nombreOficina,
-    //         "Nombre sitio venta": element.nombreSitioVenta,
-    //         "Usuario asignado para el articulo": element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido,
-    //         Estado: element.idAsignacionesArticulos.idEstado.descripcion,
-    //         Observacion: "",
-    //       }
-    //       if(element.idAsignacionesArticulos.idEstado.id == 76){
-    //         obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }else{
-    //         obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }
-    //       this.lista.push(obj)
-    //     }
-    //   });
-    //   if(this.lista.length > 0){
-    //     import("xlsx").then(xlsx => {
-    //       const worksheet = xlsx.utils.json_to_sheet(this.lista);
-    //       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    //       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-    //       this.saveAsExcelFile(excelBuffer, "ReporteInventarioSitioVenta");
-    //     });
-    //   }else{
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'No hay datos para exportar!',
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     })
-    //     window.location.reload();
-    //     localStorage.removeItem("v");
-    //   }
-    // })
+    this.lista = []
+    this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacion=>{
+      this.servicioInventario.listarTodos().subscribe(resInventario=>{
+        resAsignacion.forEach(element => {
+          resInventario.forEach(elementInventario => {
+            if(element.idSitioVenta == Number(localStorage.getItem('v'))){
+              if(elementInventario.idDetalleArticulo.idArticulo.id == element.idAsignacionesArticulos.idArticulo.id){
+                var obj = {
+                  Articulo: element.idAsignacionesArticulos.idArticulo.descripcion,
+                  "Codigo unico": "",
+                  Placa: "",
+                  Marca: "",
+                  Serial: "",
+                  "Tipo de activo": "",
+                  Categoria: element.idAsignacionesArticulos.idArticulo.idCategoria.descripcion,
+                  "Nombre oficina": element.nombreOficina,
+                  "Nombre sitio venta": element.nombreSitioVenta,
+                  "Usuario asignado para el articulo": element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido,
+                  Estado: element.idAsignacionesArticulos.idEstado.descripcion,
+                  Observacion: "",
+                }
+                obj['Codigo unico'] = elementInventario.idDetalleArticulo.codigoUnico
+                obj.Placa = elementInventario.idDetalleArticulo.placa
+                obj.Marca = elementInventario.idDetalleArticulo.marca
+                obj.Serial = elementInventario.idDetalleArticulo.serial
+                obj['Tipo de activo'] = elementInventario.idDetalleArticulo.idTipoActivo.descripcion
+                if(element.idAsignacionesArticulos.idEstado.id == 76){
+                  obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"."
+                }else{
+                  obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"."
+                }
+                this.lista.push(obj)
+              }
+            }
+          });
+          if(this.lista.length > 0){
+            import("xlsx").then(xlsx => {
+              const worksheet = xlsx.utils.json_to_sheet(this.lista);
+              const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+              const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+              this.saveAsExcelFile(excelBuffer, "ReporteInventarioSitioVenta");
+            });
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'No hay datos para exportar!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload();
+            localStorage.removeItem("v");
+          }
+        });
+      })
+    })
   }
 
   reporteSerial(){
-    // this.lista = []
-    // var serial = this.formInventario.controls["serial"].value
-    // this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacion=>{
-    //   resAsignacion.forEach(element => {
-    //     if(element.idDetalleArticulo.serial == serial && (element.idEstado.id == 76 || element.idEstado.id == 78)){
-    //       var obj = {
-    //         Articulo: element.idArticulo.descripcion,
-    //         "Codigo unico": element.idDetalleArticulo.codigoUnico,
-    //         Placa: element.idDetalleArticulo.placa,
-    //         Marca: element.idDetalleArticulo.marca,
-    //         Serial: element.idDetalleArticulo.serial,
-    //         "Tipo de activo": element.idDetalleArticulo.idTipoActivo.descripcion,
-    //         Categoria: element.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-    //         "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
-    //         Estado: element.idEstado.descripcion,
-    //         Observacion: "",
-    //       }
-    //       if(element.idEstado.id == 76){
-    //         obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }else{
-    //         obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }
-    //       this.lista.push(obj)
-    //     }
-    //   });
-    //   if(this.lista.length > 0){
-    //     import("xlsx").then(xlsx => {
-    //       const worksheet = xlsx.utils.json_to_sheet(this.lista);
-    //       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    //       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-    //       this.saveAsExcelFile(excelBuffer, "ReporteInventarioSerial");
-    //     });
-    //   }else{
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'No hay datos para exportar!',
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     })
-    //     window.location.reload();
-    //     localStorage.removeItem("v");
-    //   }
-    // })
+    this.lista = []
+    var serial = this.formInventario.controls["serial"].value
+    this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacion=>{
+      this.servicioInventario.listarTodos().subscribe(resInventario=>{
+        resAsignacion.forEach(element => {
+          resInventario.forEach(elementInventario => {
+            if(elementInventario.idDetalleArticulo.serial.toLowerCase() == serial.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.idArticulo.id == element.idArticulo.id){
+              var obj = {
+                Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
+                "Codigo unico": elementInventario.idDetalleArticulo.codigoUnico,
+                Placa: elementInventario.idDetalleArticulo.placa,
+                Marca: elementInventario.idDetalleArticulo.marca,
+                Serial: elementInventario.idDetalleArticulo.serial,
+                "Tipo de activo": elementInventario.idDetalleArticulo.idTipoActivo.descripcion,
+                Categoria: elementInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion,
+                "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
+                Estado: element.idEstado.descripcion,
+                Observacion: "",
+              }
+              if(element.idEstado.id == 76){
+                obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+              }else{
+                obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+              }
+              this.lista.push(obj)
+            }
+          });
+        })
+        if(this.lista.length > 0){
+          import("xlsx").then(xlsx => {
+            const worksheet = xlsx.utils.json_to_sheet(this.lista);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, "ReporteInventarioSerial");
+          });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay datos para exportar!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          window.location.reload();
+          localStorage.removeItem("v");
+        }
+      })
+    })
   }
 
   reportePlaca(){
-    // this.lista = []
-    // var placa = this.formInventario.controls["placa"].value
-    // this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacion=>{
-    //   resAsignacion.forEach(element => {
-    //     if(element.idDetalleArticulo.placa == placa && (element.idEstado.id == 76 || element.idEstado.id == 78)){
-    //       var obj = {
-    //         Articulo: element.idDetalleArticulo.idArticulo.descripcion,
-    //         "Codigo unico": element.idDetalleArticulo.codigoUnico,
-    //         Placa: element.idDetalleArticulo.placa,
-    //         Marca: element.idDetalleArticulo.marca,
-    //         Serial: element.idDetalleArticulo.serial,
-    //         "Tipo de activo": element.idDetalleArticulo.idTipoActivo.descripcion,
-    //         Categoria: element.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-    //         "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
-    //         Estado: element.idEstado.descripcion,
-    //         Observacion: "",
-    //       }
-    //       if(element.idEstado.id == 76){
-    //         obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }else{
-    //         obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }
-    //       this.lista.push(obj)
-    //     }
-    //   });
-    //   if(this.lista.length > 0){
-    //     import("xlsx").then(xlsx => {
-    //       const worksheet = xlsx.utils.json_to_sheet(this.lista);
-    //       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    //       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-    //       this.saveAsExcelFile(excelBuffer, "ReporteInventarioPlaca");
-    //     });
-    //   }else{
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'No hay datos para exportar!',
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     })
-    //     window.location.reload();
-    //     localStorage.removeItem("v");
-    //   }
-    // })
+    this.lista = []
+    var placa = this.formInventario.controls["placa"].value
+    this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacion=>{
+      this.servicioInventario.listarTodos().subscribe(resInventario=>{
+        resAsignacion.forEach(element => {
+          resInventario.forEach(elementInventario => {
+          if(elementInventario.idDetalleArticulo.placa.toLowerCase() == placa.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.idArticulo.id == element.idArticulo.id){
+            var obj = {
+              Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
+              "Codigo unico": elementInventario.idDetalleArticulo.codigoUnico,
+              Placa: elementInventario.idDetalleArticulo.placa,
+              Marca: elementInventario.idDetalleArticulo.marca,
+              Serial: elementInventario.idDetalleArticulo.serial,
+              "Tipo de activo": elementInventario.idDetalleArticulo.idTipoActivo.descripcion,
+              Categoria: elementInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion,
+              "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
+              Estado: element.idEstado.descripcion,
+              Observacion: "",
+            }
+            if(element.idEstado.id == 76){
+              obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+            }else{
+              obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+            }
+            this.lista.push(obj)
+            }
+          })
+        });
+        if(this.lista.length > 0){
+          import("xlsx").then(xlsx => {
+            const worksheet = xlsx.utils.json_to_sheet(this.lista);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, "ReporteInventarioPlaca");
+          });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay datos para exportar!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          window.location.reload();
+          localStorage.removeItem("v");
+        }
+      })
+    })
   }
 
   reporteUsuario(){
-    // this.lista = []
-    // var usua = this.formInventario.controls["usuario"].value
-    // this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacion=>{
-    //   resAsignacion.forEach(element => {
-    //     console.log(usua)
-    //     if(element.idAsignacionesProcesos.idUsuario.id == usua && (element.idEstado.id == 76 || element.idEstado.id == 78)){
-    //       var obj = {
-    //         Articulo: element.idDetalleArticulo.idArticulo.descripcion,
-    //         "Codigo unico": element.idDetalleArticulo.codigoUnico,
-    //         Placa: element.idDetalleArticulo.placa,
-    //         Marca: element.idDetalleArticulo.marca,
-    //         Serial: element.idDetalleArticulo.serial,
-    //         "Tipo de activo": element.idDetalleArticulo.idTipoActivo.descripcion,
-    //         Categoria: element.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-    //         "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
-    //         Estado: element.idEstado.descripcion,
-    //         Observacion: "",
-    //       }
-    //       if(element.idEstado.id == 76){
-    //         obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }else{
-    //         obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-    //       }
-    //       this.lista.push(obj)
-    //     }
-    //   });
-    //   if(this.lista.length > 0){
-    //     import("xlsx").then(xlsx => {
-    //       const worksheet = xlsx.utils.json_to_sheet(this.lista);
-    //       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    //       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-    //       this.saveAsExcelFile(excelBuffer, "ReporteInventarioUsuario");
-    //     });
-    //   }else{
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'error',
-    //       title: 'No hay datos para exportar!',
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     })
-    //     window.location.reload();
-    //     localStorage.removeItem("v");
-    //   }
-    // })
+    this.lista = []
+    var usua = this.formInventario.controls["usuario"].value
+    this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacion=>{
+      this.servicioInventario.listarTodos().subscribe(resInventario=>{
+        resAsignacion.forEach(element => {
+          resInventario.forEach(elementInventario => {
+            if(element.idAsignacionesProcesos.idUsuario.id == usua && (element.idEstado.id == 76 || element.idEstado.id == 78)){
+              if(elementInventario.idDetalleArticulo.idArticulo.id == element.idArticulo.id){
+                var obj = {
+                  Articulo: element.idArticulo.descripcion,
+                  "Codigo unico": "",
+                  Placa: "",
+                  Marca: "",
+                  Serial: "",
+                  "Tipo de activo": "",
+                  Categoria: element.idArticulo.idCategoria.descripcion,
+                  "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
+                  Estado: element.idEstado.descripcion,
+                  Observacion: "",
+                }
+                obj['Codigo unico'] = elementInventario.idDetalleArticulo.codigoUnico
+                obj.Placa = elementInventario.idDetalleArticulo.placa
+                obj.Marca = elementInventario.idDetalleArticulo.marca
+                obj.Serial = elementInventario.idDetalleArticulo.serial
+                obj['Tipo de activo'] = elementInventario.idDetalleArticulo.idTipoActivo.descripcion
+                if(element.idEstado.id == 76){
+                  obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+                }else{
+                  obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+                }
+                this.lista.push(obj)
+              }
+            }
+          });
+        })
+        if(this.lista.length > 0){
+          import("xlsx").then(xlsx => {
+            const worksheet = xlsx.utils.json_to_sheet(this.lista);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, "ReporteInventarioUsuario");
+          });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay datos para exportar!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          window.location.reload();
+          localStorage.removeItem("v");
+        }
+      })
+    })
   }
 
   name = 'ReporteInventario.xlsx';

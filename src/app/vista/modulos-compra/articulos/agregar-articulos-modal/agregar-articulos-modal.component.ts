@@ -118,29 +118,30 @@ export class AgregarArticulosModalComponent implements OnInit {
                 timer: 1500
               })
             }else{
-              this.servicioAsigProceso.listarTodos().subscribe(resAsignProceso=>{
-                resAsignProceso.forEach(elementAsignProceso => {
-                  if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
-                    this.idAsignProceso = elementAsignProceso.id
-                    this.existeProceso = true
-                  }else{
-                    this.existeProceso = false
-                  }
-                  this.listaExisteProceso.push(this.existeProceso)
-                });
-                const existeProceso = this.listaExisteProceso.includes(true)
-                if(existeProceso == true){
-                  this.registrarArticulo(articulo, this.idAsignProceso);
-                }else if(existeProceso == false){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Primero debe tener una asignacion de proceso este usuario logueado!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                }
-              })
+              this.registrarArticulo(articulo, this.idAsignProceso);
+              // this.servicioAsigProceso.listarTodos().subscribe(resAsignProceso=>{
+              //   resAsignProceso.forEach(elementAsignProceso => {
+              //     if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
+              //       this.idAsignProceso = elementAsignProceso.id
+              //       this.existeProceso = true
+              //     }else{
+              //       this.existeProceso = false
+              //     }
+              //     this.listaExisteProceso.push(this.existeProceso)
+              //   });
+              //   const existeProceso = this.listaExisteProceso.includes(true)
+              //   if(existeProceso == true){
+              //     this.registrarArticulo(articulo, this.idAsignProceso);
+              //   }else if(existeProceso == false){
+              //     Swal.fire({
+              //       position: 'center',
+              //       icon: 'error',
+              //       title: 'Primero debe tener una asignacion de proceso este usuario logueado!',
+              //       showConfirmButton: false,
+              //       timer: 1500
+              //     })
+              //   }
+              // })
             }
           })
         })
@@ -161,24 +162,33 @@ export class AgregarArticulosModalComponent implements OnInit {
   idArticulo: any;
   public registrarArticulo(articulo: Articulo, idAsignacionProceso) {
     this.servicioArticulos.registrar(articulo).subscribe(res=>{
-        this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
-          this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
-            resArticulo.forEach(elementArticulo => {
-              if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
-                this.idArticulo = elementArticulo.id
-              }
-            });
-            this.servicioAsigProceso.listarPorId(idAsignacionProceso).subscribe(resAsignProcesito=>{
-              this.servicioArticulos.listarPorId(this.idArticulo).subscribe(resArticulo=>{
-                let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
-                asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
-                asignArticuloUsuario.idArticulo = resArticulo
-                asignArticuloUsuario.idEstado = resEstado
-                this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resArticulo)
-              })
-            })
-          })
-        })
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Articulo Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.dialogRef.close();
+      window.location.reload();
+        // this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
+        //   this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
+        //     resArticulo.forEach(elementArticulo => {
+        //       if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
+        //         this.idArticulo = elementArticulo.id
+        //       }
+        //     });
+        //     this.servicioAsigProceso.listarPorId(idAsignacionProceso).subscribe(resAsignProcesito=>{
+        //       this.servicioArticulos.listarPorId(this.idArticulo).subscribe(resArticulo=>{
+        //         let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
+        //         asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
+        //         asignArticuloUsuario.idArticulo = resArticulo
+        //         asignArticuloUsuario.idEstado = resEstado
+        //         this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resArticulo)
+        //       })
+        //     })
+        //   })
+        // })
     }, error => {
       Swal.fire({
         position: 'center',

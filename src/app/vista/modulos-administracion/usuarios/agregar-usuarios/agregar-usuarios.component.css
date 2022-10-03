@@ -213,7 +213,7 @@ h2{
   .nombre4{ margin-left: 55%; margin-top: 1.3%;}
 }
 
-/* Tablet  7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+/* Tablet 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1201px) and (max-width: 1280px){
   .guardarModal{ margin-left: 77%;}
   .nombre, .estado, .nombre1{

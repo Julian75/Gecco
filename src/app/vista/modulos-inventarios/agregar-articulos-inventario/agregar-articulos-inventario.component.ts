@@ -43,6 +43,10 @@ export class AgregarArticulosInventarioComponent implements OnInit {
   public listaCategorias:any = [];
   public listaTipoActivos:any = [];
   public listaAsigUsuarios: any = [];
+  public listarArticulo: any = [];
+  public listaArticulo: any = [];
+  public listAprobar: any = [];
+  public articulo : any = [];
   public fechaActual: Date = new Date();
   color = ('primary');
   constructor(
@@ -66,12 +70,12 @@ export class AgregarArticulosInventarioComponent implements OnInit {
     this.crearFormulario();
     this.listarTipoActivos();
     this.listarCategorias();
+    this.listarArticulos();
   }
 
   private crearFormulario() {
     this.formArticulo = this.fb.group({
       id: 0,
-      articulo: ['', Validators.required],
       serial: [null,Validators.required],
       placa: [null,Validators.required],
       marca: [null,Validators.required],
@@ -99,45 +103,45 @@ export class AgregarArticulosInventarioComponent implements OnInit {
 
   aprobar:boolean = false
   public guardar() {
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    this.listarExiste = []
-    this.aprobar = false
-    let articulo : Articulo = new Articulo();
-    articulo.descripcion=this.formArticulo.controls['descripcion'].value;
-    const idCategoria = this.formArticulo.controls['categoria'].value;
+    this.listAprobar = []
+    this.articulo = []
     if(this.formArticulo.valid){
-      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-      this.servicioEstado.listarPorId(26).subscribe(res => {
-        articulo.idEstado = res
-        this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria=>{
-          articulo.idCategoria = resCategoria
-          this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
-            resArticulos.forEach(element => {
-              if(element.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() ){
+      let articulo = this.myControl.value as Articulo
+      this.articulo.push(articulo)
+      if(this.myControl.value == ""){
+        Swal.fire({
+          icon: 'error',
+          title: 'Debe seleccionar al menos un articulo!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else{
+        this.servicioMovimientoCompraInventario.listarTodos().subscribe(res => {
+          for(let i = 0; i < res.length; i++){
+            if(this.articulo.length > 0){
+              if(res[i].idArticulo.id == this.articulo[0].id){
                 this.aprobar = true
               }else{
                 this.aprobar = false
               }
-              this.listarExiste.push(this.aprobar);
-            });
-            console.log(this.listarExiste)
-            const existe = this.listarExiste.includes( true );
-            if(existe == true){
-              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Ese articulo ya existe!',
-                showConfirmButton: false,
-                timer: 1500
-              })
             }else{
-              this.registrarArticulo(articulo);
+              this.aprobar = false
             }
-          })
+            this.listAprobar.push(this.aprobar)
+          }
+          if(this.listAprobar.includes(true)){
+            document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+            this.registrarArticulo(articulo)
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'El articulo que seleccionó no se ha comprado!!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
         })
-
-      })
+      }
     }else{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -147,7 +151,6 @@ export class AgregarArticulosInventarioComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      console.log(this.formArticulo.value)
     }
 
   }
@@ -158,7 +161,6 @@ export class AgregarArticulosInventarioComponent implements OnInit {
     const marca = this.formArticulo.controls['marca'].value;
     const serial = this.formArticulo.controls['serial'].value;
     const placa = this.formArticulo.controls['placa'].value;
-    this.servicioArticulos.registrar(articulo).subscribe(res=>{
       this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
         resArticulo.forEach(elementArticulo => {
           if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
@@ -178,8 +180,9 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                 detalleArticulo.marca = marca
                 detalleArticulo.placa = placa
                 detalleArticulo.serial = serial
-                var numero = Math.floor(Math.random())
-                console.log(numero, resArticulito.id)
+                var min = 1
+                var numero = Math.floor(Math.random()*(min+1)+min);
+                console.log(numero)
                 detalleArticulo.codigoUnico = String((numero*resArticulito.id)+""+resArticulito.id)
                 console.log(detalleArticulo)
                 this.registrarDetalleArticulo(detalleArticulo , articulo)
@@ -189,37 +192,26 @@ export class AgregarArticulosInventarioComponent implements OnInit {
 
         })
       })
-
-    }, error => {
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al agregar!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
   }
 
   idMovimientoCompraInventario: any;
   public registrarDetalleArticulo(detalleArticulo: DetalleArticulo , articulo: Articulo) {
     let inventario : Inventario = new Inventario()
     let movimientoCompraInventario : MovimientoComprasInventario2 = new MovimientoComprasInventario2()
-    this.servicioDetalleArticulo.registrar(detalleArticulo).subscribe(resDetalleArticulo=>{
-      this.servicioMovimientoCompraInventario.listarTodos().subscribe(resMovimientoCompraInventario=>{
-        resMovimientoCompraInventario.forEach(elementMovimientoCompraInventario => {
-          if(elementMovimientoCompraInventario.idArticulo.id == articulo.id){
-            this.idMovimientoCompraInventario = elementMovimientoCompraInventario.id
-          }
-        });
-        this.servicioMovimientoCompraInventario.listarPorId(Number(this.idMovimientoCompraInventario)).subscribe(resMovimientoCompraInventarioModel=>{
-          if(this.formArticulo.controls['cantidad'].value <= resMovimientoCompraInventarioModel.cantidad){
-            inventario.id_articulo = resMovimientoCompraInventarioModel.idArticulo
-            inventario.id_detalle_articulo = detalleArticulo
+    this.servicioMovimientoCompraInventario.listarTodos().subscribe(resMovimientoCompraInventario=>{
+      resMovimientoCompraInventario.forEach(elementMovimientoCompraInventario => {
+        if(elementMovimientoCompraInventario.idArticulo.id == articulo.id){
+          this.idMovimientoCompraInventario = elementMovimientoCompraInventario.id
+        }
+      });
+      this.servicioMovimientoCompraInventario.listarPorId(Number(this.idMovimientoCompraInventario)).subscribe(resMovimientoCompraInventarioModel=>{
+        if(this.formArticulo.controls['cantidad'].value <= resMovimientoCompraInventarioModel.cantidad){
+          this.servicioDetalleArticulo.registrar(detalleArticulo).subscribe(resDetalleArticulo=>{
+            inventario.idArticulo = resMovimientoCompraInventarioModel.idArticulo
+            inventario.idDetalleArticulo = detalleArticulo
             inventario.cantidad = Number(this.formArticulo.controls['cantidad'].value)
             movimientoCompraInventario.id = resMovimientoCompraInventarioModel.id
-            movimientoCompraInventario.idArticulo = resMovimientoCompraInventarioModel.idArticulo.id
+            movimientoCompraInventario.id_articulo = resMovimientoCompraInventarioModel.idArticulo.id
             movimientoCompraInventario.cantidad = resMovimientoCompraInventarioModel.cantidad - Number(inventario.cantidad)
             this.servicioInventario.registrar(inventario).subscribe(resInventario=>{
               this.servicioModificar.actualizarMovimientoCI(movimientoCompraInventario).subscribe(resMovimientoCompraInventario=>{
@@ -252,59 +244,53 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                 timer: 1500
               })
             })
-          }else{
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'La cantidad ingresada es mayor a la cantidad del articulo en el inventario!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
-        })
+          })
+        }else{
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'La cantidad ingresada es mayor a la cantidad que se ha comprado, solo hay '+resMovimientoCompraInventarioModel.cantidad+'.',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       })
-
     })
   }
 
-  textoArticulo:any
-  displayFn(articulo: Articulo): any {
-    this.textoArticulo = articulo
-    if(this.textoArticulo == ""){
-      this.textoArticulo = " "
-    }else{
-      this.textoArticulo = articulo.descripcion
-
-      return this.textoArticulo;
-    }
-  }
-
-  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
-    this.idArticulos(event.option.value)
-  }
-
-  listaIdArticulo: any = [];
-  listaArticuloTabla: any = [];
-  listaArticulosTabla: any = [];
-  public idArticulos(articulo:any){
-    const listaArticulo = articulo
-    this.listaIdArticulo.push(listaArticulo.id)
-    let ultimo = this.listaIdArticulo[this.listaIdArticulo.length - 1]
-    localStorage.setItem("v", ultimo)
-    let penultimo = this.listaIdArticulo[this.listaIdArticulo.length - 2]
-    if(ultimo != penultimo || penultimo == undefined){
-      this.servicioArticulos.listarTodos().subscribe(res=>{
-        this.listaArticuloTabla =[]
-        for (let index = 0; index < res.length; index++) {
-          const element = res[index];
-          if (element.id == ultimo){
-            this.listaArticuloTabla.push(element)
-          }
+  public listarArticulos() {
+    this.servicioArticulos.listarTodos().subscribe(res => {
+      this.listarArticulo = res;
+      let result = this.listarArticulo.filter((item:any, index:any) => {
+        if(item.idEstado.id == 26){
+          this.listaArticulo.push(item)
         }
-        this.listaArticulosTabla = this.listaArticuloTabla
-
       })
-    }
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          const descripcion = typeof value === 'string' ? value : value.descripcion;
+          return descripcion ? this._filter(descripcion as string, this.listaArticulo) : this.listaArticulo.slice();
+        }),
+      );
+    })
   }
+
+  public _filter(descripcion: string, listaArticulo: any): Articulo[] {
+    const filterValue = descripcion.toLowerCase();
+    return listaArticulo.filter((option: any) => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  ar: any;
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.ar = event.option.value
+  }
+
+  displayFn(articulo: Articulo): string {
+    return articulo && articulo.descripcion ? articulo.descripcion : '';
+  }
+
+
 }
 

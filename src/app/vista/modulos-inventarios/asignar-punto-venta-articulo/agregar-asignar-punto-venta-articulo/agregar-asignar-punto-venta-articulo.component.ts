@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AsignacionPuntoVentaService } from 'src/app/servicios/asignacionPuntoVenta.service';
 import { AsignacionPuntoVenta } from 'src/app/modelos/asignacionPuntoVenta';
@@ -48,19 +48,20 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     private servicioAsignacionArticulo: AsignacionArticulosService,
     private servicioHistorial: HistorialArticuloService,
     private servicioUsuario: UsuarioService,
-    private router: Router
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
     this.listarOficinas();
-    this.listarArticulos();
+    // this.listarArticulos();
   }
 
   private crearFormulario() {
     this.formAsigancionPuntoVenta = this.fb.group({
       id: 0,
-      articulo: [null,Validators.required],
+      // articulo: [null,Validators.required],
       oficina: [null,Validators.required],
     });
   }
@@ -71,12 +72,15 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     });
   }
 
-  public listarArticulos() {
-    this.servicioAsignacionArticulo.listarTodos().subscribe(res => {
-      this.listaArticulos = res
-      console.log(res)
-    });
-  }
+  // public listarArticulos() {
+  //   this.servicioAsignacionArticulo.listarTodos().subscribe(res => {
+  //     res.forEach(element => {
+  //       if(element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id')) && (element.idEstado.id == 76 || element.idEstado.id == 76)){
+  //         this.listaArticulos.push(element)
+  //       }
+  //     });
+  //   });
+  // }
 
   id: any // Id de la oficina capturado - 18
 
@@ -137,12 +141,12 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.encontrados = [];
     let asignacionPuntoVenta : AsignacionPuntoVenta = new AsignacionPuntoVenta();
-    var articulo = this.formAsigancionPuntoVenta.controls['articulo'].value;
+    // var articulo = this.formAsigancionPuntoVenta.controls['articulo'].value;
     var oficina = this.formAsigancionPuntoVenta.controls['oficina'].value;
     var sitioVent = Number(localStorage.getItem("v"));
-    if(oficina != undefined && articulo != null && sitioVent != 0){
+    if(oficina != undefined && sitioVent != 0){
       this.servicioAsignarPuntoVenta.listarTodos().subscribe(resAsigancionTurnoVendedor => {
-        this.servicioAsignacionArticulo.listarPorId(articulo).subscribe(resAsignacionArticulo=>{
+        this.servicioAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignacionArticulo=>{
           this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{
             for (let i = 0; i < resSitioVenta.length; i++) {
               const elementSitio = resSitioVenta[i];

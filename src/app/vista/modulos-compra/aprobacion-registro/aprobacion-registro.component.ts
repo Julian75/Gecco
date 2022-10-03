@@ -189,8 +189,21 @@ export class AprobacionRegistroComponent implements OnInit {
  existeMovCI: boolean = false;
  listaExisteMovCI: any = [];
  idMoviCI: any;
+ listaTotalDetalleSolicitudes: any = []
+ i = 0;
+ listaComprasRegistrar: any = []
+ listaComprasModificar: any = []
+ listaInventariosRegistrar: any = []
+ listaInventariosModificar: any = []
+ listaCompras2: any = []
+ listaInventarios2: any = []
  public actualizarOrdenCompra(ordenCompra: OrdenCompra2, idUsuario:number, idSolicitud: number, idCotizacion:number){
   this.servicioModificar.actualizarOrdenCompra(ordenCompra).subscribe(res=>{
+    this.listaTotalDetalleSolicitudes = []
+    this.listaComprasRegistrar = []
+    this.listaInventariosRegistrar = []
+    this.listaComprasModificar = []
+    this.listaInventariosModificar = []
     // this.crearCorreo(idUsuario, idSolicitud, idCotizacion)
     let usuariosAdministracion : UsuariosAdministracion = new UsuariosAdministracion();
     this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud=>{
@@ -199,83 +212,125 @@ export class AprobacionRegistroComponent implements OnInit {
         usuariosAdministracion.idUsuario = resUsuario
         this.servicioUsuarioAdministracion.registrar(usuariosAdministracion).subscribe(resUsuAdmin=>{
           this.servicioSolicitudDetalle.listarTodos().subscribe(resDetalleSOlicitudes=>{
-            resDetalleSOlicitudes.forEach(solicitudDetalle => {
-              if(solicitudDetalle.idSolicitud.id == idSolicitud && solicitudDetalle.idEstado.id == 37){
-                this.listaExisteCompra = []
-                this.listaExisteMovCI = []
-                let compras : Compras2 = new Compras2();
-                let comprasRegistro : Compras = new Compras();
-                let movimientoCIModificar : MovimientoComprasInventario2 = new MovimientoComprasInventario2();
-                let movimientoCIRegistro : MovimientoComprasInventario = new MovimientoComprasInventario();
-                this.servicioCompras.listarTodos().subscribe(resCompras=>{
-                this.servicioMovimientoComprasInventario.listarTodos().subscribe(resMovimientosComprasInventario=>{
-                  resCompras.forEach(elementCompra => {
-                    if(elementCompra.idArticulo.id == solicitudDetalle.idArticulos.id){
-                      this.existeCompra = true
-                      this.idCompraExiste = elementCompra.id
-                    }else{
-                      this.existeCompra = false
-                    }
-                    this.listaExisteCompra.push(this.existeCompra)
-                  });
-                  const existeCompra = this.listaExisteCompra.includes(true)
-                  if(existeCompra == true){
-                    this.servicioCompras.listarPorId(this.idCompraExiste).subscribe(resCompras=>{
-                      compras.id = resCompras.id
-                      var cantidad = resCompras.cantidad
-                      compras.cantidad = cantidad + solicitudDetalle.cantidad
-                      compras.id_articulo = solicitudDetalle.idArticulos.id
-                      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-                        compras.id_usuario = resUsuario.id
-                        console.log(movimientoCIModificar)
-                        this.actualizarCompras(compras)
-                      })
-                    })
-                  }else{
-                    console.log("entro aqui13")
-                    comprasRegistro.cantidad = solicitudDetalle.cantidad
-                    this.servicioArticulo.listarPorId(solicitudDetalle.idArticulos.id).subscribe(resArticulo=>{
-                      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-                        comprasRegistro.idUsuario = resUsuario
-                        comprasRegistro.idArticulo = resArticulo
-                        this.registrarCompras(comprasRegistro)
-                      })
-                    })
-                  }
-                  resMovimientosComprasInventario.forEach(elementMoviCI => {
-                    if(elementMoviCI.idArticulo.id == solicitudDetalle.idArticulos.id){
-                      this.existeMovCI = true
-                      this.idMoviCI = elementMoviCI.id
-                    }else{
-                      this.existeMovCI = false
-                    }
-                    this.listaExisteMovCI.push(this.existeMovCI)
-                  });
-                  console.log(this.listaExisteMovCI)
-                  const existeMovCI = this.listaExisteMovCI.includes(true)
-                  console.log(existeMovCI)
-                  if(existeMovCI == true){
-                    console.log("entro aqui12")
-                    this.servicioMovimientoComprasInventario.listarPorId(this.idMoviCI).subscribe(resExisteMovimientoCI=>{
-                      movimientoCIModificar.id = resExisteMovimientoCI.id
-                      var cantidadMovCI = resExisteMovimientoCI.cantidad
-                      movimientoCIModificar.cantidad = cantidadMovCI + solicitudDetalle.cantidad
-                      movimientoCIModificar.idArticulo = solicitudDetalle.idArticulos.id
-                      console.log(movimientoCIModificar)
-                      this.actualizarMovimientoCI(movimientoCIModificar)
-                    })
-                  }else{
-                    console.log("entro aqui13")
-                    movimientoCIRegistro.cantidad = solicitudDetalle.cantidad
-                    this.servicioArticulo.listarPorId(solicitudDetalle.idArticulos.id).subscribe(resArticulo=>{
-                      movimientoCIRegistro.idArticulo = resArticulo
-                      this.registrarMovimientoCI(movimientoCIRegistro)
-                    })
+            this.servicioCompras.listarTodos().subscribe(resCompras=>{
+              this.servicioMovimientoComprasInventario.listarTodos().subscribe(resMovimientosComprasInventario=>{
+                resDetalleSOlicitudes.forEach(solicitudDetalle => {
+                  if(solicitudDetalle.idSolicitud.id == idSolicitud && solicitudDetalle.idEstado.id == 37){
+                    this.listaTotalDetalleSolicitudes.push(solicitudDetalle)
+                    this.listaComprasRegistrar.push(solicitudDetalle.id)
+                    this.listaComprasModificar.push(solicitudDetalle.id)
+                    this.listaInventariosRegistrar.push(solicitudDetalle.id)
+                    this.listaInventariosModificar.push(solicitudDetalle.id)
                   }
                 })
+                resDetalleSOlicitudes.forEach(solicitudDetalle => {
+                  if(solicitudDetalle.idSolicitud.id == idSolicitud && solicitudDetalle.idEstado.id == 37){
+                    resCompras.forEach(elementCompra => {
+                      this.listaExisteCompra = []
+                      if(elementCompra.idArticulo.id == solicitudDetalle.idArticulos.id){
+                        var indice = this.listaComprasRegistrar.indexOf(solicitudDetalle.id); // obtenemos el indice
+                        this.listaComprasRegistrar.splice(indice, 1);
+                      }
+                    });
+                    resMovimientosComprasInventario.forEach(elementMoviCI => {
+                      if(elementMoviCI.idArticulo.id == solicitudDetalle.idArticulos.id){
+                        var indice = this.listaInventariosRegistrar.indexOf(solicitudDetalle.id); // obtenemos el indice
+                        this.listaInventariosRegistrar.splice(indice, 1);
+                      }
+                    });
+                  }
+                });
+                for (let index = 0; index < this.listaComprasRegistrar.length; index++) {
+                  const element = this.listaComprasRegistrar[index];
+                  console.log(element)
+                  var indice = this.listaComprasModificar.indexOf(element); // obtenemos el indice
+                  this.listaComprasModificar.splice(indice, 1);
+                }
+                for (let index = 0; index < this.listaInventariosRegistrar.length; index++) {
+                  const element = this.listaInventariosRegistrar[index];
+                  console.log(element)
+                  var indice = this.listaInventariosModificar.indexOf(element); // obtenemos el indice
+                  this.listaInventariosModificar.splice(indice, 1);
+                }
+                console.log(this.listaComprasModificar, this.listaComprasRegistrar)
+                if(this.listaComprasModificar.length >= 1){
+                  for (let index = 0; index < this.listaComprasModificar.length; index++) {
+                    const element = this.listaComprasModificar[index];
+                    let compras : Compras2 = new Compras2();
+                    this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
+                      this.servicioCompras.listarTodos().subscribe(resCompras=>{
+                        resCompras.forEach(elementCompra => {
+                          if(elementCompra.idArticulo.id == resDetalleSolicitud.idArticulos.id){
+                            this.idCompraExiste = elementCompra.id
+                          }
+                        });
+                        this.servicioCompras.listarPorId(this.idCompraExiste).subscribe(resCompras=>{
+                          compras.id = resCompras.id
+                          var cantidad = resCompras.cantidad
+                          compras.cantidad = cantidad + resDetalleSolicitud.cantidad
+                          compras.id_articulo = resDetalleSolicitud.idArticulos.id
+                          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                            compras.id_usuario = resUsuario.id
+                            this.actualizarCompras(compras)
+                          })
+                        })
+                      })
+                    })
+                  }
+                }
+                if(this.listaComprasRegistrar.length >= 1){
+                  for (let index = 0; index < this.listaComprasRegistrar.length; index++) {
+                    const element = this.listaComprasRegistrar[index];
+                    let comprasRegistro : Compras = new Compras();
+                    this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
+                      comprasRegistro.cantidad = resDetalleSolicitud.cantidad
+                      this.servicioArticulo.listarPorId(resDetalleSolicitud.idArticulos.id).subscribe(resArticulo=>{
+                        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                          comprasRegistro.idUsuario = resUsuario
+                          comprasRegistro.idArticulo = resArticulo
+                          this.registrarCompras(comprasRegistro)
+                        })
+                      })
+                    })
+                  }
+                }
+                if(this.listaInventariosModificar.length >= 1){
+                  for (let index = 0; index < this.listaInventariosModificar.length; index++) {
+                    const element = this.listaInventariosModificar[index];
+                    let movimientoCIModificar : MovimientoComprasInventario2 = new MovimientoComprasInventario2();
+                    this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
+                      this.servicioMovimientoComprasInventario.listarTodos().subscribe(resMovimientosComprasInventario=>{
+                        resMovimientosComprasInventario.forEach(elementMovimientoComprasInventario => {
+                          if(elementMovimientoComprasInventario.idArticulo.id == resDetalleSolicitud.idArticulos.id){
+                            this.idMoviCI = elementMovimientoComprasInventario.id
+                          }
+                        });
+                        this.servicioMovimientoComprasInventario.listarPorId(this.idMoviCI).subscribe(resExisteMovimientoCI=>{
+                          movimientoCIModificar.id = resExisteMovimientoCI.id
+                          var cantidadMovCI = resExisteMovimientoCI.cantidad
+                          movimientoCIModificar.cantidad = cantidadMovCI + resDetalleSolicitud.cantidad
+                          movimientoCIModificar.id_articulo = resDetalleSolicitud.idArticulos.id
+                          this.actualizarMovimientoCI(movimientoCIModificar)
+                        })
+                      })
+                    })
+                  }
+                }
+                if(this.listaInventariosRegistrar.length >= 1){
+                  for (let index = 0; index < this.listaComprasRegistrar.length; index++) {
+                    const element = this.listaComprasRegistrar[index];
+                    let movimientoCIRegistro : MovimientoComprasInventario = new MovimientoComprasInventario();
+                    this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
+                      movimientoCIRegistro.cantidad = resDetalleSolicitud.cantidad
+                      this.servicioArticulo.listarPorId(resDetalleSolicitud.idArticulos.id).subscribe(resArticulo=>{
+                        movimientoCIRegistro.idArticulo = resArticulo
+                        this.registrarMovimientoCI(movimientoCIRegistro)
+                      })
+                    })
+                  }
+                }
               })
-              }
-            });
+            })
           })
           // document.getElementById('snipper')?.setAttribute('style', 'display: none;')
           // Swal.fire({
@@ -513,6 +568,7 @@ registrarMovimientoCI(movCIRegistrar: MovimientoComprasInventario){
 
   //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
+    this.listaPdf = []
     this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
       console.log(res.nombrePdf)
       this.servicioPdf.listarTodos().subscribe(resPdf => {

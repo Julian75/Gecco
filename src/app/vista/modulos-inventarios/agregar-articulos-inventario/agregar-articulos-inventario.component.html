@@ -3,21 +3,21 @@
     <form [formGroup]="formArticulo">
       <div class="row1">
         <!-- Ingresar Nombre -->
-        <div class="nombre3">
+        <div class="nombre1">
           <h2 class="sitio">Artículos</h2>
-          <mat-form-field class="nombre1" appearance="fill">
-          <mat-label>Ingrese el artículo</mat-label>
-            <input type="text"
-             aria-label="text"
-             matInput
-             [formControl]="myControl"
-             [matAutocomplete]="auto" >
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="articulo" name="articulo" formControlName="articulo">
-              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item.id" >
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+            <mat-label>Ingrese Artículo</mat-label>
+            <input #docum id="documentos2" type="text"
+              aria-label="text"
+              matInput
+              [formControl]="myControl"
+              [matAutocomplete]="auto" >
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)" [displayWith]="displayFn" id="articulo" name="articulo">
+              <mat-option *ngFor="let item of filteredOptions | async"  [value]="item" ngValue="item" >
                 {{item.descripcion}}
               </mat-option>
             </mat-autocomplete>
-          </mat-form-field>
+        </mat-form-field>
         </div>
         <div class="nombre2">
           <h2>Serial</h2>

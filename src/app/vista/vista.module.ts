@@ -181,6 +181,7 @@ import { RechazoSolicitudBajaArticuloComponent } from './modulos-inventarios/lis
 import { RechazoSolicitudBajaArticuloLiderProcesoComponent } from './modulos-inventarios/lista-confirmaciones-baja-articulos/rechazo-solicitud-baja-articulo-lider-proceso/rechazo-solicitud-baja-articulo-lider-proceso.component';
 import { ListaActasBajasComponent } from './modulos-inventarios/lista-actas-bajas/lista-actas-bajas.component';
 import { AgregarArticulosInventarioComponent } from './modulos-inventarios/agregar-articulos-inventario/agregar-articulos-inventario.component';
+import { SolicitudArticulosBajaComponent } from './modulos-inventarios/solicitud-articulos-baja/solicitud-articulos-baja.component';
 
 @NgModule({
   declarations: [
@@ -359,6 +360,7 @@ import { AgregarArticulosInventarioComponent } from './modulos-inventarios/agreg
     RechazoSolicitudBajaArticuloLiderProcesoComponent,
     ListaActasBajasComponent,
     AgregarArticulosInventarioComponent,
+    SolicitudArticulosBajaComponent,
   ],
   imports: [
     CommonModule,

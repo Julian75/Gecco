@@ -103,6 +103,7 @@ h2{
   }
   /* Movil pequeño 1 - Galaxy Fold*/
   @media screen and (min-width: 280px) and (max-width: 359px){
+    .nombre1{ position: relative; left: 5%;}
     .guardarModal{ margin-left: 70%; margin-bottom: 10%; }
     .nombre{ width: 95%;  margin-left: 0%; margin-top: 0%; }
     .nombre3{ margin-left: 13px; margin-top: 3px; }
@@ -112,6 +113,7 @@ h2{
   /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
   @media screen and (min-width: 360px) and (max-width: 420px){
     .guardarModal{ margin-left: 75%; position: static; margin-bottom: 5%; }
+    .nombre1{position: relative; left: 5%;}
     .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
     .nombre3{ margin-left: 19px; margin-top: 3px; }
     .nombre4{ margin-left: 19px; }
@@ -119,80 +121,146 @@ h2{
 
   /* Tablet 1*/
   @media screen and (min-width: 600px) and (max-width: 639px){
-    .guardarModal{ margin-left: 81%; position: static; margin-bottom: 5%; }
+    .guardarModal{ margin-left: 81%; position: relative; top: -322px;}
+    .nombre1{ position: relative; left: 5%;}
     .nombre{width: 215px;  margin-left: 0%; margin-top: 0%;}
-    .nombre3{ margin-left: 289px; margin-top: -319px; }
-    .nombre4{ margin-left: 289px; }
+    .nombre3{margin-left: 28px; margin-top: 6px; }
+    .nombre4{ margin-left: 289px; position: relative; top: -325px; }
   }
   /* Portatil 1 */
   @media screen and (min-width: 640px) and (max-width: 699px){
-    .guardarModal{ margin-left: 496px; margin-bottom: 25px; }
-    .nombre3{ margin-left: 310px; margin-top: -322px; }
-    .nombre4{ margin-left: 310px; }
+    .guardarModal{ margin-left: 496px;position: relative; top: -325px; }
+    .nombre1{left: 5%; position: relative;}
+    .nombre3{ margin-left: 27px; margin-top: 6px;}
+    .nombre4{ margin-left: 310px; position: relative; top: -326px;}
   }
   /* Tablet 2, Tablet 3 */
   @media screen and (min-width: 700px) and (max-width: 899px){
-    .guardarModal{ margin-left: 561px; }
-    .nombre3{ margin-left: 374px; margin-top: -322px; }
-    .nombre4{ margin-left: 374px; }
+    .guardarModal{ margin-left: 568px;position: relative; top: -325px; }
+    .nombre1{left: 5%; position: relative;}
+    .nombre3{ margin-left: 27px; margin-top: 6px;}
+    .nombre4{ margin-left: 385px; position: relative; top: -326px;}
   }
   /* Portatil 2 */
   @media screen and (min-width: 900px) and (max-width: 960px){
-    .guardarModal{ margin-left: 600px; }
-    .nombre3{ margin-left: 414px; margin-top: -322px; }
-    .nombre4{ margin-left: 414px; }
+    .guardarModal{ margin-left: 617px;position: relative; top: -325px; }
+    .nombre1{left: 10.5%; position: relative;}
+    .nombre2{margin-left: 10.5%;}
+    .nombre3{ margin-left: 76px; margin-top: 6px;}
+    .nombre4{ margin-left: 430px; position: relative; top: -330px;}
   }
   /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
   @media screen and (min-width: 961px) and (max-width: 1080px){
-    .guardarModal{ margin-left: 600px; }
-    .nombre3{ margin-left: 414px; margin-top: -322px; }
-    .nombre4{ margin-left: 414px; }
+    .guardarModal{ margin-left: 600px; position: relative; top: -341px;}
+    .nombre1{position: relative; left: 5%;}
+    .nombre2{ margin-top: 1%;}
+    .nombre3{margin-left: 39px; margin-top: 10px; }
+    .nombre4{ margin-left: 414px; position: relative; top: -335px; }
   }
   /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
   @media screen and (min-width: 1081px) and (max-width: 1280px){
-    .guardarModal{ margin-left: 661px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -322px; }
-    .nombre4{ margin-left: 475px; }
+    .guardarModal{ margin-left: 688px; position: relative; top: -341px;}
+    .nombre1{position: relative; left: 12%;}
+    .nombre2{ margin-top: 1%; margin-left: 12%;}
+    .nombre3{margin-left: 119px; margin-top: 10px; }
+    .nombre4{ margin-left: 500px; position: relative; top: -335px; }
   }
   /* Compu. Mesa 5*/
   @media screen and (min-width: 1281px) and (max-width: 1410px){
-    .guardarModal{ margin-left: 665px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -322px; }
-    .nombre4{ margin-left: 475px; }
+    .guardarModal{ margin-left: 767px; position: relative; top: -341px;}
+    .nombre1{position: relative; left: 12%;}
+    .nombre2{ margin-top: 1%; margin-left: 12%;}
+    .nombre3{margin-left: 128px; margin-top: 10px; }
+    .nombre4{ margin-left: 580px; position: relative; top: -341px; }
   }
   /* Tablet 8 */
   @media screen and (min-width: 1411px) and (max-width: 1536px){
-    .guardarModal{ margin-left: 662px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -322px; }
-    .nombre4{ margin-left: 475px; }
+    .guardarModal{ margin-left: 843px; position: relative; top: -341px;}
+    .nombre1{position: relative; left: 19%;}
+    .nombre2{ margin-top: 1%; margin-left: 19%;}
+    .nombre3{margin-left: 226px; margin-top: 10px; }
+    .nombre4{ margin-left: 663px; position: relative; top: -345px; }
   }
-  /*Tablet 9, 10, 11, 12 y 13 Portatil 4, 5 Compu. Mesa 6, Compu. Mesa 7, Televisor 2*/
-  @media screen and (min-width: 1537px) and (max-width: 2736px){
-    .guardarModal{ margin-left: 662px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -338px; }
-    .nombre4{ margin-left: 475px; }
+
+  /*Tablet 9*/
+  @media screen and (min-width: 1921px) and (max-width: 2048px){
+    .guardarModal{ margin-left: 1159px; position: relative; top: -341px;}
+    .nombre1{position: relative; left: 19%;}
+    .nombre2{ margin-top: 1%; margin-left: 19%;}
+    .nombre3{margin-left: 304px; margin-top: 15px; }
+    .nombre4{ margin-left: 975px; position: relative; top: -356px; }
   }
+  /*Tablet 10*/
+  @media screen and (min-width: 2049px) and (max-width: 2160px){
+    .guardarModal{ margin-left: 1050px; position: relative; top: -396px;}
+    .nombre1{ margin-left: 15%;}
+    .nombre3{ margin-left: 251px; margin-top: 14px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 10%;}
+    .nombre4{ position: relative; top: -359px; left: 241px;}
+  }
+  /* Portatil 5 Compu. Mesa 6*/
+  @media screen and (min-width: 1537px) and (max-width: 1600px){
+    .guardarModal{ margin-left: 895px; position: relative; top: -352px; }
+    .nombre1{ margin-left: 15%;}
+    .nombre3{ margin-left: 184px; margin-top: 9px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 10%;}
+    .nombre4{ position: relative; top: -344px; left: 87px;}
+  }
+  /*Portatil 4, Compu. Mesa 7, Televisor 2*/
+  @media screen and (min-width: 1601px) and (max-width: 1920px){
+    .guardarModal{ margin-left: 895px; position: relative; top: -352px; }
+    .nombre1{ margin-left: 15%;}
+    .nombre3{ margin-left: 219px; margin-top: 9px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 10%;}
+    .nombre4{ position: relative; top: -349px; left: 227px;}
+  }
+  /*Tablet 11 y 12, Portatil 5*/
+  @media screen and (min-width: 2161px) and (max-width: 2560px){
+    .guardarModal{ margin-left: 1235px; position: relative; top: -411px;}
+    .nombre1{ margin-left: 15%;}
+    .nombre3{ margin-left: 297px; margin-top: 9px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 10%;}
+    .nombre4{ position: relative; top: -366px; left: 426px;}
+  }
+
+  /*Tablet 13*/
+  @media screen and (min-width: 2561px) and (max-width: 2736px){
+    .guardarModal{ margin-left: 1235px; position: relative; top: -411px;}
+    .nombre1{ margin-left: 15%;}
+    .nombre3{ margin-left: 297px; margin-top: 9px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 10%;}
+    .nombre4{ position: relative; top: -366px; left: 426px;}
+  }
+
   /*Tablet 14*/
   @media screen and (min-width: 2737px) and (max-width: 3000px){
-    .guardarModal{ margin-left: 662px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -354px; }
-    .nombre4{ margin-left: 475px; }
+    .guardarModal{ margin-left: 1235px; position: relative; top: -411px;}
+    .nombre1{ margin-left: 15%;}
+    .nombre3{ margin-left: 344px; margin-top: 20px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 10%;}
+    .nombre4{ position: relative; top: -378px; left: 426px;}
   }
   /*Portatil 6, Televisor 3*/
   @media screen and (min-width: 3001px) and (max-width: 3840px){
-    .guardarModal{ margin-left: 662px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -366px; }
-    .nombre4{ margin-left: 475px; }
+    .guardarModal{ margin-left: 1805px; position: relative; top: -411px;}
+    .nombre1{ margin-left: 22%;}
+    .nombre3{ margin-left: 651px; margin-top: 24px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 17%;}
+    .nombre4{position: relative; top: -396px; left: 1000px;}
   }
   /*Televisor 4*/
   @media screen and (min-width: 3841px) and (max-width: 4096px){
-    .guardarModal{ margin-left: 662px; position: static; }
-    .nombre3{ margin-left: 475px; margin-top: -371px; }
-    .nombre4{ margin-left: 475px; }
+    .guardarModal{ margin-left: 2033px; position: relative; top: -498px;}
+    .nombre1{ margin-left: 22%;}
+    .nombre3{ margin-left: 692px; margin-top: 38px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 17%;}
+    .nombre4{position: relative; top: -409px; left: 1229px;}
   }
   /*Portatil 7, Televisor 5*/
   @media screen and (min-width: 4097px) and (max-width: 7680px){
-    .guardarModal{ margin-left: 858px; position: static; }
-    .nombre3{ margin-left: 685px; margin-top: -425px; }
-    .nombre4{ margin-left: 685px; }
+    .guardarModal{ margin-left: 3020px; position: relative; top: -645px;}
+    .nombre1{ margin-left: 22%;}
+    .nombre3{ margin-left: 1296px;  margin-top: 58px;}
+    .nombre2{  margin-top: 1%; position: relative; left: 17%;}
+    .nombre4{position: relative; top: -488px; left: 2222px;}
   }
