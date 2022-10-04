@@ -10,6 +10,7 @@ export class DetalleArticulo{
     idUsuario !: Usuario;
     public placa : string="";
     public marca : string="";
+    public codigoContable : string="";
     idTipoActivo !: TipoActivo;
     public codigoUnico : string="";
 }

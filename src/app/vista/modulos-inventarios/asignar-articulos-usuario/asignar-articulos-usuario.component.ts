@@ -1,3 +1,4 @@
+import { forEach } from 'jszip';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -38,12 +39,21 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
   }
 
   public listarTodos(){
-    this.serviceAsignacionArticulos.listarTodos().subscribe(res=>{
-      res.forEach(element => {
-        if(element.idEstado.id == 76 && element.idArticulo.idEstado.id == 26){
-          this.listarAsignacionArticulos.push(element);
-        }else if(element.idEstado.id == 78 && element.idArticulo.idEstado.id == 26){
-          this.listarAsignacionArticulos.push(element);
+    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsignArticulos=>{
+      resAsignArticulos.forEach(elementAsigArticulo => {
+        if(elementAsigArticulo.idEstado.id != 79){
+          var obj = {
+            asignacionArticulo: {},
+            usuario: false
+          }
+          if(elementAsigArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+            obj.asignacionArticulo = elementAsigArticulo
+            obj.usuario = true
+          }else{
+            obj.asignacionArticulo = elementAsigArticulo
+            obj.usuario = false
+          }
+          this.listarAsignacionArticulos.push(obj)
         }
       });
       this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);

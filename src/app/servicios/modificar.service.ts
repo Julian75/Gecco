@@ -46,6 +46,7 @@ import { AsignacionPuntoVenta2 } from '../modelos/modelos2/asignacionPuntoVenta2
 import { SolicitudBajasArticulos2} from '../modelos/modelos2/solicitudBajasArticulos2';
 import { Compras } from '../modelos/compras';
 import { Compras2 } from '../modelos/modelos2/compras2';
+import { OpcionArticuloBaja2 } from '../modelos/modelos2/opcionArticuloBaja2';
 @Injectable({
   providedIn: 'root'
 })
@@ -232,5 +233,9 @@ export class ModificarService {
 
   public actualizarMovimientoCI(movimientoComprasInventario: MovimientoComprasInventario2){
     return this.http.put<void>(this.path+'/MovimientoComprasInventario/'+ movimientoComprasInventario.id, movimientoComprasInventario);
+  }
+
+  public actualizarOpcionArticuloBaja(opcionArticuloBaja: OpcionArticuloBaja2){
+    return this.http.put<void>(this.path+'/OpcionArticuloBaja/'+ opcionArticuloBaja.id, opcionArticuloBaja);  
   }
 }

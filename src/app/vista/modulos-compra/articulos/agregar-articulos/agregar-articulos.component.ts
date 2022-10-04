@@ -117,29 +117,7 @@ export class AgregarArticulosComponent implements OnInit {
                 timer: 1500
               })
             }else{
-              this.servicioAsigProceso.listarTodos().subscribe(resAsignProceso=>{
-                resAsignProceso.forEach(elementAsignProceso => {
-                  if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
-                    this.idAsignProceso = elementAsignProceso.id
-                    this.existeProceso = true
-                  }else{
-                    this.existeProceso = false
-                  }
-                  this.listaExisteProceso.push(this.existeProceso)
-                });
-                const existeProceso = this.listaExisteProceso.includes(true)
-                if(existeProceso == true){
-                  this.registrarArticulo(articulo, this.idAsignProceso);
-                }else if(existeProceso == false){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Primero debe tener una asignacion de proceso este usuario logueado!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                }
-              })
+              this.registrarArticulo(articulo);
             }
           })
         })
@@ -158,53 +136,8 @@ export class AgregarArticulosComponent implements OnInit {
   }
 
   idArticulo: any;
-  public registrarArticulo(articulo: Articulo, idAsignacionProceso) {
+  public registrarArticulo(articulo: Articulo) {
     this.servicioArticulos.registrar(articulo).subscribe(res=>{
-        this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
-          this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
-            resArticulo.forEach(elementArticulo => {
-              if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
-                this.idArticulo = elementArticulo.id
-              }
-            });
-            this.servicioAsigProceso.listarPorId(idAsignacionProceso).subscribe(resAsignProcesito=>{
-              this.servicioArticulos.listarPorId(this.idArticulo).subscribe(resArticulo=>{
-                let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
-                asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
-                asignArticuloUsuario.idArticulo = resArticulo
-                asignArticuloUsuario.idEstado = resEstado
-                this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resArticulo)
-              })
-            })
-          })
-        })
-    }, error => {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al agregar!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
-  }
-
-  public registrarAsignacionArticuloUsuario(asignacionArticuloUsuario: AsignacionArticulos, resArticulito){
-    this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-      this.servicioAsigArt.registrar(asignacionArticuloUsuario).subscribe(resAsignArtUsuario=>{
-        let historialArticulo: HistorialArticulos = new HistorialArticulos()
-        historialArticulo.fecha = this.fechaActual
-        historialArticulo.idArticulo = resArticulito
-        historialArticulo.idUsuario = resUsuario
-        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idArticulo.descripcion.toLowerCase()+" quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
-        this.registrarHistorialArticulo(historialArticulo)
-      })
-    })
-  }
-
-  public registrarHistorialArticulo(historialArticulo: HistorialArticulos){
-    this.servicioHistorialArticulo.registrar(historialArticulo).subscribe(resHistorialArticulo=>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -214,6 +147,14 @@ export class AgregarArticulosComponent implements OnInit {
       })
       this.dialogRef.close();
       window.location.reload();
-    })
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 }

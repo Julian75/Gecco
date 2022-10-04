@@ -5,6 +5,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
+import { OpcionArticuloBajaService } from 'src/app/servicios/opcionArticuloBaja.service';
+import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { InventarioService } from 'src/app/servicios/inventario.service';
+import {MatDialog} from '@angular/material/dialog';
+import { InformacionDetalladaActivosComponent } from './informacion-detallada-activos/informacion-detallada-activos.component';
 
 @Component({
   selector: 'app-solicitud-articulos-baja',
@@ -13,29 +19,86 @@ import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo
 })
 export class SolicitudArticulosBajaComponent implements OnInit {
 
-  displayedColumns = ['id', 'asignacionArticulo', 'cantidad', 'oficina', 'sitioVenta', 'opciones'];
+  displayedColumns = ['id', 'activo', 'placa', 'serial', 'categoria', 'observacion'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   public listaArticulos: any = [];
+  public listaOpciones: any = [];
+  public formSolicitud!: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private servicioAsignacionArticulo: AsignacionArticulosService,
+    private servicioOpcionesBajas: OpcionArticuloBajaService,
+    private servicioConfiguracion: ConfiguracionService,
+    private servicioInventario: InventarioService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.listarArticulos();
+    this.listarOpciones();
+    this.crearFormulario();
   }
 
-  public listarArticulos(){
-    this.servicioAsignacionArticulo.listarTodos().subscribe(res=>{
-      res.forEach(element => {
-        if(element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
-          this.listaArticulos.push(element)
-          console.log(element)
-        }
-      });
+  private crearFormulario() {
+    this.formSolicitud = this.fb.group({
+      id: 0,
+      dato: [null,Validators.required],
+    });
+  }
+
+  public listarOpciones(){
+    this.servicioOpcionesBajas.listarTodos().subscribe(res=>{
+      this.listaOpciones = res
+    })
+  }
+
+  opcion: any;
+  capturarOpcion(opcion:any){
+    this.opcion=opcion
+  }
+
+  validar = true;
+  public abrirDetalle(){
+    this.servicioInventario.listarTodos().subscribe(resInventario=>{
+      var dato = this.formSolicitud.controls['dato'].value;
+      if(dato != null || dato != undefined && this.opcion != null){
+        for (let i = 0; i < resInventario.length; i++) {
+          const element = resInventario[i];
+          if(element.idDetalleArticulo.placa.toLowerCase() == dato.toLowerCase() || element.idDetalleArticulo.serial.toLowerCase() == dato.toLowerCase()){
+            const dialogRef = this.dialog.open(InformacionDetalladaActivosComponent, {
+              width: '900px',
+              height: '440px',
+              data: element
+            });
+            dialogRef.afterClosed().subscribe(() =>{
+              console.log("hola")
+            });
+            this.validar = false
+          }else{
+            if(i == resInventario.length && this.validar == true){
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'No se encontro ningun activo con esa placa o serial!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          }
+          console.log(this.validar)
+        };
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'El campo y la seleccion no pueden estar vacios!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     })
   }
 

@@ -12,7 +12,6 @@ import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 import { VisualizarHistorialArticuloComponent } from './visualizar-historial-articulo/visualizar-historial-articulo.component';
 
-
 @Component({
   selector: 'app-articulos',
   templateUrl: './articulos.component.html',
@@ -60,15 +59,15 @@ export class ArticulosComponent implements OnInit {
   agregarArticulo(): void {
     const dialogRef = this.dialog.open(AgregarArticulosComponent, {
       width: '500px',
-      height: '440px',
+      height: '400px',
     });
   }
 
-  mostrarHistorial(idArticulo:number):void{
-    const dialogRef = this.dialog.open(VisualizarHistorialArticuloComponent, {
-      width: '600px',
-      height: '440px',
-      data: idArticulo
+  modificarArticulo(id): void {
+    const dialogRef = this.dialog.open(ModificarArticulosComponent, {
+      width: '500px',
+      height: '400px',
+      data: id
     });
   }
 

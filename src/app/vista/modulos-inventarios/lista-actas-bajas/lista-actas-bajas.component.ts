@@ -6,6 +6,10 @@ import { EstadoService } from 'src/app/servicios/estado.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-lista-actas-bajas',
@@ -20,9 +24,11 @@ export class ListaActasBajasComponent implements OnInit {
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
     private serviceSolicitudBajasArticulos: SolicitudBajasArticulosService,
     private serviceEstado: EstadoService,
+    private servicioConfiguracion: ConfiguracionService,
     public dialog: MatDialog
 
   ) { }
@@ -45,10 +51,117 @@ export class ListaActasBajasComponent implements OnInit {
     })
   }
 
+  nombreEmpresa:any;
+  nitEmpresa: any;
   abrirPdf(idSolicitudBajaArticulo){
+    this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+      resConfiguracion.forEach(element => {
+        if(element.nombre == 'nombre_entidad'){
+          this.nombreEmpresa = element.valor
+        }
+        if(element.nombre == 'nit_empresa'){
+          this.nitEmpresa = element.valor
+        }
+      });
+      const pdfDefinition: any = {
+        content: [
+          // {
+          //   image: await this.getBase64ImageFromURL(
+          //     'assets/logo/suchance.png'
+          //   ),
+          //   relativePosition: {x: 0, y: 0},
+          //   width: 150,
+          // },
+          {
+            text: 'Nombre Empresa: '+this.nombreEmpresa,
+            bold: true,
+            margin: [0, 80, 0, 10]
+          },
+          {
+            text: 'Nit Empresa: '+this.nitEmpresa,
+            margin: [0, 0, 0, 10]
+          },
+          {
+            text: 'Codigo acta: ',
+            margin: [0, 0, 0, 10]
+          },
+          {
+            text: 'Fecha: ',
+            margin: [0, 0, 0, 10]
+          },
+          {
+            text: 'Intervinieron: ',
+            margin: [0, 0, 0, 10]
+          },
+          {
+            text: 'Solicito: ',
+            relativePosition: {x: 250, y: -25},
+            margin: [0, 0, 0, 20]
+          },
+           {
+            text: 'Compras Autorizo: ',
+            relativePosition: {x: 250, y: -25},
+            margin: [0, 0, 0, 20]
+          },
+           {
+            text: 'Control Interno Confirmo: ',
+            relativePosition: {x: 250, y: -25},
+            margin: [0, 0, 0, 20]
+          },
+          {
+            text: 'ARTICULOS DE BAJA',
+            bold: true,
+            fontSize: 20,
+            alignment: 'center',
+            margin: [0, 0]
+          },{
+            table: {
+              widths: ['*', '*'],
+              body: [
+                [
+                  'Articulo',
+                  'Cantidad',
+                ],
+              ]
+            },
+            margin: [0, 0]
+          },
+          {
+            table: {
+              widths: ['*', '*'],
+              // body: body
+            },
+            margin: [0, 0]
+          }
+        ]
+      }
+      const pdf = pdfMake.createPdf(pdfDefinition);
+      pdf.open();
+
+    })
     this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaArticulo).subscribe(resSolicitudBajaArticulo=>{
 
     })
+  }
+
+  getBase64ImageFromURL(url) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        resolve(dataURL);
+      };
+      img.onerror = error => {
+        reject(error);
+      };
+      img.src = url;
+    });
   }
 
   // Filtrado

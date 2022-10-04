@@ -95,6 +95,8 @@ import { ListaConfirmacionesBajaArticulosComponent } from './modulos-inventarios
 import { ListaActasBajasComponent } from './modulos-inventarios/lista-actas-bajas/lista-actas-bajas.component';
 import { AgregarArticulosInventarioComponent } from './modulos-inventarios/agregar-articulos-inventario/agregar-articulos-inventario.component';
 import { SolicitudArticulosBajaComponent } from './modulos-inventarios/solicitud-articulos-baja/solicitud-articulos-baja.component';
+import { OpcionesSolicitudBajasComponent } from './modulos-inventarios/opciones-solicitud-bajas/opciones-solicitud-bajas.component';
+import { ListaArticulosInventarioComponent } from './modulos-inventarios/lista-articulos-inventario/lista-articulos-inventario.component';
 
 const routes: Routes = [
   {
@@ -594,6 +596,16 @@ const routes: Routes = [
       {
         path: 'solicitudBajaArticulos',
         component: SolicitudArticulosBajaComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'opcionArticulosBaja',
+        component: OpcionesSolicitudBajasComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'listaArticuloInventario',
+        component: ListaArticulosInventarioComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

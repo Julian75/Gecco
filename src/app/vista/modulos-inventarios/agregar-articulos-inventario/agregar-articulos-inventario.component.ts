@@ -81,6 +81,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
       marca: [null,Validators.required],
       tipoActivo: [null,Validators.required],
       cantidad: [0,Validators.required],
+      codigoContable: [null,Validators.required],
     });
   }
 
@@ -116,31 +117,41 @@ export class AgregarArticulosInventarioComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.servicioMovimientoCompraInventario.listarTodos().subscribe(res => {
-          for(let i = 0; i < res.length; i++){
-            if(this.articulo.length > 0){
-              if(res[i].idArticulo.id == this.articulo[0].id){
-                this.aprobar = true
+        if(this.formArticulo.value.cantidad > 0){
+          this.servicioMovimientoCompraInventario.listarTodos().subscribe(res => {
+            for(let i = 0; i < res.length; i++){
+              if(this.articulo.length > 0){
+                if(res[i].idArticulo.id == this.articulo[0].id){
+                  this.aprobar = true
+                }else{
+                  this.aprobar = false
+                }
               }else{
                 this.aprobar = false
               }
-            }else{
-              this.aprobar = false
+              this.listAprobar.push(this.aprobar)
             }
-            this.listAprobar.push(this.aprobar)
-          }
-          if(this.listAprobar.includes(true)){
-            document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-            this.registrarArticulo(articulo)
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'El articulo que seleccionó no se ha comprado!!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
-        })
+            if(this.listAprobar.includes(true)){
+              document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+              this.registrarArticulo(articulo)
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'El articulo que seleccionó no se ha comprado!!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          })
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'La cantidad debe ser mayor a 0 (cero)!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       }
     }else{
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -157,6 +168,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
 
   idArticulo: any;
   public registrarArticulo(articulo: Articulo) {
+    const codigoContable = this.formArticulo.value.codigoContable;
     const tipoActivo = this.formArticulo.controls['tipoActivo'].value;
     const marca = this.formArticulo.controls['marca'].value;
     const serial = this.formArticulo.controls['serial'].value;
@@ -178,10 +190,12 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                 detalleArticulo.idTipoActivo = resTipoActivo
                 detalleArticulo.idUsuario = resUsuario
                 detalleArticulo.marca = marca
+                detalleArticulo.codigoContable = codigoContable
                 detalleArticulo.placa = placa
                 detalleArticulo.serial = serial
                 var min = 1
-                var numero = Math.floor(Math.random()*(min+1)+min);
+                var max = 100000000
+                var numero = Math.floor(Math.random()*(min+max)+min);
                 console.log(numero)
                 detalleArticulo.codigoUnico = String((numero*resArticulito.id)+""+resArticulito.id)
                 console.log(detalleArticulo)
@@ -195,6 +209,8 @@ export class AgregarArticulosInventarioComponent implements OnInit {
   }
 
   idMovimientoCompraInventario: any;
+  idAsignProceso: any;
+  idDetalleArticulin: any;
   public registrarDetalleArticulo(detalleArticulo: DetalleArticulo , articulo: Articulo) {
     let inventario : Inventario = new Inventario()
     let movimientoCompraInventario : MovimientoComprasInventario2 = new MovimientoComprasInventario2()
@@ -205,57 +221,107 @@ export class AgregarArticulosInventarioComponent implements OnInit {
         }
       });
       this.servicioMovimientoCompraInventario.listarPorId(Number(this.idMovimientoCompraInventario)).subscribe(resMovimientoCompraInventarioModel=>{
-        if(this.formArticulo.controls['cantidad'].value <= resMovimientoCompraInventarioModel.cantidad){
-          this.servicioDetalleArticulo.registrar(detalleArticulo).subscribe(resDetalleArticulo=>{
-            inventario.idArticulo = resMovimientoCompraInventarioModel.idArticulo
-            inventario.idDetalleArticulo = detalleArticulo
-            inventario.cantidad = Number(this.formArticulo.controls['cantidad'].value)
-            movimientoCompraInventario.id = resMovimientoCompraInventarioModel.id
-            movimientoCompraInventario.id_articulo = resMovimientoCompraInventarioModel.idArticulo.id
-            movimientoCompraInventario.cantidad = resMovimientoCompraInventarioModel.cantidad - Number(inventario.cantidad)
-            this.servicioInventario.registrar(inventario).subscribe(resInventario=>{
-              this.servicioModificar.actualizarMovimientoCI(movimientoCompraInventario).subscribe(resMovimientoCompraInventario=>{
-                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Articulo Registrado!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-                window.location.reload();
-              },  error => {
-                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Hubo un error al modificar el movimientoCompra!',
-                  showConfirmButton: false,
-                  timer: 1500
+        this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(usuLog => {
+          if(this.formArticulo.controls['cantidad'].value <= resMovimientoCompraInventarioModel.cantidad){
+            this.servicioDetalleArticulo.registrar(detalleArticulo).subscribe(resDetalleArticulo=>{
+              this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
+                this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
+                  this.servicioAsigProceso.listarTodos().subscribe(resAsigProceso=>{
+                    resAsigProceso.forEach(elementAsignProceso => {
+                        if(elementAsignProceso.idUsuario.id == Number(sessionStorage.getItem('id'))){
+                        this.idAsignProceso = elementAsignProceso.id
+                      }
+                    });
+                    resDetallesArticulos.forEach(elementDetalleArticulo => {
+                      if(elementDetalleArticulo.codigoUnico == detalleArticulo.codigoUnico && elementDetalleArticulo.idArticulo.id == detalleArticulo.idArticulo.id && elementDetalleArticulo.placa == detalleArticulo.placa && elementDetalleArticulo.serial == detalleArticulo.serial){
+                        this.idDetalleArticulin = elementDetalleArticulo.id
+                      }
+                    });
+                    this.servicioAsigProceso.listarPorId(this.idAsignProceso).subscribe(resAsignProcesito=>{
+                      this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulin).subscribe(resDetalleArticulo=>{
+                        let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
+                        asignArticuloUsuario.idArticulo = resDetalleArticulo.idArticulo
+                        asignArticuloUsuario.idDetalleArticulo = resDetalleArticulo
+                        asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
+                        asignArticuloUsuario.idEstado = resEstado
+                        inventario.idArticulo = resMovimientoCompraInventarioModel.idArticulo
+                        inventario.fecha = new Date()
+                        inventario.idUsuario = usuLog
+                        inventario.idDetalleArticulo = resDetalleArticulo
+                        inventario.cantidad = Number(this.formArticulo.controls['cantidad'].value)
+                        movimientoCompraInventario.id = resMovimientoCompraInventarioModel.id
+                        movimientoCompraInventario.id_articulo = resMovimientoCompraInventarioModel.idArticulo.id
+                        movimientoCompraInventario.cantidad = resMovimientoCompraInventarioModel.cantidad - Number(inventario.cantidad)
+                        this.servicioInventario.registrar(inventario).subscribe(resInventario=>{
+                          this.servicioModificar.actualizarMovimientoCI(movimientoCompraInventario).subscribe(resMovimientoCompraInventario=>{
+                            this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resDetalleArticulo)
+                          },  error => {
+                            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'error',
+                              title: 'Hubo un error al modificar el movimientoCompra!',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                          })
+                        }, error => {
+                          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Hubo un error al agregar!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        })
+                      })
+                    })
+                  })
                 })
               })
-            }, error => {
-              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Hubo un error al agregar!',
-                showConfirmButton: false,
-                timer: 1500
-              })
+              
             })
-          })
-        }else{
-          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'La cantidad ingresada es mayor a la cantidad que se ha comprado, solo hay '+resMovimientoCompraInventarioModel.cantidad+'.',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }
+          }else{
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'La cantidad ingresada es mayor a la cantidad que se ha comprado, solo hay '+resMovimientoCompraInventarioModel.cantidad+'.',
+              showConfirmButton: false,
+              timer: 2500
+            })
+          }
+        })
       })
+    })
+  }
+
+  public registrarAsignacionArticuloUsuario(asignacionArticuloUsuario: AsignacionArticulos, resDetalleArticulito){
+    this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+      this.servicioAsigArtiUsuario.registrar(asignacionArticuloUsuario).subscribe(resAsignArtUsuario=>{
+        let historialArticulo: HistorialArticulos = new HistorialArticulos()
+        historialArticulo.fecha = this.fechaActual
+        historialArticulo.idArticulo = resDetalleArticulito.idArticulo
+        historialArticulo.idDetalleArticulo = resDetalleArticulito
+        historialArticulo.idUsuario = resUsuario
+        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idArticulo.descripcion.toLowerCase()+" con el serial "+resDetalleArticulito.serial+" y la placa "+resDetalleArticulito.placa+", quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
+        this.registrarHistorialArticulo(historialArticulo)
+      })
+    })
+  }
+
+public registrarHistorialArticulo(historialArticulo: HistorialArticulos){
+    this.servicioHistorialArticulo.registrar(historialArticulo).subscribe(resHistorialArticulo=>{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Articulo Registrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.reload();
     })
   }
 
