@@ -14,6 +14,7 @@ export class InformacionDetalladaActivosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    public dialogRef: MatDialogRef<InformacionDetalladaActivosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -35,17 +36,17 @@ export class InformacionDetalladaActivosComponent implements OnInit {
   }
 
   public llenarDatos(){
-    console.log(this.data)
     this.datos = this.data
-    this.formInfo.controls['activo'].setValue(this.datos.id_articulo.descripcion);
+    this.formInfo.controls['activo'].setValue(this.datos.idDetalleArticulo.idArticulo.descripcion);
     this.formInfo.controls['codigo'].setValue(this.datos.idDetalleArticulo.codigoUnico);
     this.formInfo.controls['marca'].setValue(this.datos.idDetalleArticulo.marca);
     this.formInfo.controls['placa'].setValue(this.datos.idDetalleArticulo.placa);
     this.formInfo.controls['serial'].setValue(this.datos.idDetalleArticulo.serial);
-    this.formInfo.controls['categoria'].setValue(this.datos.id_articulo.idCategoria.descripcion);
+    this.formInfo.controls['categoria'].setValue(this.datos.idDetalleArticulo.idArticulo.idCategoria.descripcion);
   }
 
   public guardar(){
-    
+    localStorage.setItem("valido", "true")
+    this.dialogRef.close();
   }
 }

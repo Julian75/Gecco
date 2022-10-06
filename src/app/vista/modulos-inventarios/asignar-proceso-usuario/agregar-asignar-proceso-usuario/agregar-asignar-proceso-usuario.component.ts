@@ -59,7 +59,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
           console.log(this.formAsignacionProcesoUsuario.value);
           this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
             data.forEach((element: any) => {
-              if(element.idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario.id && element.idTiposProcesos.id == this.formAsignacionProcesoUsuario.value.idTiposProcesos.id){
+              if(element.idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario.id ){
                 this.iguales = true;
               }else{
                 this.iguales = false;
@@ -71,8 +71,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
             if(validar == true){
               Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
-                text: 'El usuario ya tiene asignado esta asignación!',
+                title: 'El usuario ya tiene asignado esta asignación!',
                 showConfirmButton: false,
                 timer: 1500
               })

@@ -240,11 +240,9 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                     this.servicioAsigProceso.listarPorId(this.idAsignProceso).subscribe(resAsignProcesito=>{
                       this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulin).subscribe(resDetalleArticulo=>{
                         let asignArticuloUsuario: AsignacionArticulos = new AsignacionArticulos()
-                        asignArticuloUsuario.idArticulo = resDetalleArticulo.idArticulo
                         asignArticuloUsuario.idDetalleArticulo = resDetalleArticulo
                         asignArticuloUsuario.idAsignacionesProcesos = resAsignProcesito
                         asignArticuloUsuario.idEstado = resEstado
-                        inventario.idArticulo = resMovimientoCompraInventarioModel.idArticulo
                         inventario.fecha = new Date()
                         inventario.idUsuario = usuLog
                         inventario.idDetalleArticulo = resDetalleArticulo
@@ -280,7 +278,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                   })
                 })
               })
-              
+
             })
           }else{
             document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -302,10 +300,9 @@ export class AgregarArticulosInventarioComponent implements OnInit {
       this.servicioAsigArtiUsuario.registrar(asignacionArticuloUsuario).subscribe(resAsignArtUsuario=>{
         let historialArticulo: HistorialArticulos = new HistorialArticulos()
         historialArticulo.fecha = this.fechaActual
-        historialArticulo.idArticulo = resDetalleArticulito.idArticulo
         historialArticulo.idDetalleArticulo = resDetalleArticulito
         historialArticulo.idUsuario = resUsuario
-        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idArticulo.descripcion.toLowerCase()+" con el serial "+resDetalleArticulito.serial+" y la placa "+resDetalleArticulito.placa+", quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
+        historialArticulo.observacion = "Se registro el articulo "+asignacionArticuloUsuario.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" con el serial "+resDetalleArticulito.serial+" y la placa "+resDetalleArticulito.placa+", quedando a cargo del usuario "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.nombre+" "+asignacionArticuloUsuario.idAsignacionesProcesos.idUsuario.apellido+"."
         this.registrarHistorialArticulo(historialArticulo)
       })
     })

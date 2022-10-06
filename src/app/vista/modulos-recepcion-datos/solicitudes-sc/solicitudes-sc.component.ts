@@ -29,6 +29,8 @@ import { SolicitudSC } from 'src/app/modelos/solicitudSC';
 import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
 import {FormGroup, FormControl} from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import Swal from 'sweetalert2';
+import * as FileSaver from 'file-saver';
 
 const today = new Date();
 const month = today.getMonth();
@@ -489,20 +491,55 @@ export class SolicitudesScComponent implements OnInit {
 
 
   name = 'solicitudesPQRS.xlsx';
+  listaSolicitudesSC: any = [];
   exportToExcel(): void {
-    // document.getElementById('asignarTurnoVendedor').
-    // for (let index = 0; index < 2; index++) {
-    //   const element = 2[index];
-    //   document.getElementById("opcion").remove();
-    // }
-    let element = document.getElementById('asignarTurnoVendedor');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1')
-    XLSX.writeFile(book, this.name);
+    this.servicioSolicitudSc.listarTodos().subscribe(resSolicitudesSc=>{
+      resSolicitudesSc.forEach(elementSolicitudSC => {
+        var obj = {
+          Id: elementSolicitudSC.id,
+          Fecha: elementSolicitudSC.fecha,
+          Escalado: elementSolicitudSC.idEscala.descripcion,
+          Incidente: elementSolicitudSC.incidente,
+          Vence: elementSolicitudSC.vence,
+          Municipio: elementSolicitudSC.municipio,
+          "Nombre Cliente": elementSolicitudSC.idClienteSC.nombre+" "+elementSolicitudSC.idClienteSC.apellido,
+          "Documento Cliente": elementSolicitudSC.idClienteSC.documento,
+          Motivo: elementSolicitudSC.idMotivoSolicitud.descripcion,
+          Radicado: elementSolicitudSC.medioRadicacion,
+          Servicio: elementSolicitudSC.idTipoServicio.descripcion,
+          "Auxiliar Radico": elementSolicitudSC.auxiliarRadicacion,
+          Estado: elementSolicitudSC.idEstado.descripcion
+        }
+        this.listaSolicitudesSC.push(obj)
+      });
+      if(this.listaSolicitudesSC.length > 0){
+        import("xlsx").then(xlsx => {
+          const worksheet = xlsx.utils.json_to_sheet(this.listaSolicitudesSC);
+          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+          this.saveAsExcelFile(excelBuffer, "listaSolicitudesPQRS");
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No hay datos para exportar!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        window.location.reload();
+      }
+    })
+  }
 
-    var porcentaje = JSON.stringify(document.getElementById('asignarTurnoVendedor'));
-    console.log(porcentaje)
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+    window.location.reload();
   }
 
   public editar(idSolicitud){

@@ -1,9 +1,9 @@
 <div class="contenedor">
-  <button class="btn boton botonagregar text-white my-2" routerLink="/agregarUsuario">
+  <button class="btn boton botonagregar text-white my-2" routerLink="/agregarUsuario" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un usuario">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta Lista de Usuarios"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un usuario">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -47,7 +47,7 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="tamañoOpc">
-            <button class="btn btnedit mx-2" [routerLink]="['/modificarUsuario', item.id]">
+            <button class="btn btnedit mx-2"data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica el usuario" [routerLink]="['/modificarUsuario', item.id]">
               <mat-icon>edit</mat-icon>
             </button>
           </td>

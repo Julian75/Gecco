@@ -28,7 +28,8 @@ table{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
 
-.boton{ background-color: #00235C; }
+.botonvolver{ background-color: #00235C; }
+.botonagregar{ background-color: #00235C; }
 td button mat-icon{ left: -18%; top: -11%; }
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
@@ -145,7 +146,7 @@ h2{ font-weight: 700; }
   #desSp{left: 142%;}
   #obsSp{ left: 140%;}
   #opcSp{ margin-left: 11%; }
-  .boton{ margin-left: -4% !important; }
+  .boton{ margin-left: 1% !important; }
 }
 
 

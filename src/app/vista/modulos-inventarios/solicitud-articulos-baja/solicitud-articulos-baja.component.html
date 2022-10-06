@@ -1,4 +1,6 @@
 <div class="contenedor">
+  <h2 class="dato">Generar solicitud de baja de Activo</h2>
+  <div class="row1">
     <!-- <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button> -->
     <form [formGroup]="formSolicitud">
       <div class="nombre2">
@@ -18,72 +20,89 @@
           </mat-radio-group>
         </ul>
       </div>
-    </form>
     <button class="btn boton botonagregar text-white my-2" (click)="abrirDetalle();">
       <mat-icon>add_circle</mat-icon>
     </button>
+    <button class="btn btnremove" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
+    <button class="btn btnedit" (click)="crearSolicitud()"><mat-icon>post_add</mat-icon></button>
     <!-- <mat-form-field class="buscador" appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field> -->
     <section class="example-container mat-elevation-z8" tabindex="0">
       <table id="asignacionPuntoVenta" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-        <!-- Position Column -->
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
-          <td mat-cell *matCellDef="let element" id="idSp2">0</td>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef id="chet">
+            <mat-checkbox id="chetbox" (change)="$event ? toggleAllRows() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td id="chet2" mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? toggle($event, row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="activo">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descripSp">Activo</h3></th>
-          <td mat-cell *matCellDef="let element">0</td>
+          <td mat-cell *matCellDef="let element">{{element.articulo.idDetalleArticulo.idArticulo.descripcion}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="placa">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descripSp">Placa</h3></th>
-          <td mat-cell *matCellDef="let element">0</td>
+          <td mat-cell *matCellDef="let element">{{element.articulo.idDetalleArticulo.placa}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="serial">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantSp">Serial</h3></th>
-          <td mat-cell *matCellDef="let element">0</td>
+          <td mat-cell *matCellDef="let element">{{element.articulo.idDetalleArticulo.serial}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="categoria">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficiSp">Categoria</h3></th>
-            <td mat-cell *matCellDef="let element">0</td>
-          </ng-container>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficiSp">Categoria</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.articulo.idDetalleArticulo.idArticulo.idCategoria.descripcion}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficiSp">Estado</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.opcion.descripcion}}</td>
+        </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="observacion">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficiSp">Observacion</h3></th>
-          <td mat-cell *matCellDef="let element">0</td>
-        </ng-container>
-
-        <!--Opciones-->
-        <!-- <ng-container matColumnDef="opciones">
-          <th mat-header-cell *matHeaderCellDef><h3 id="opcSp">Opciones</h3></th>
-          <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" (click)="modificarAsignacionPuntoVenta(item.id)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button class="btn btnremove mx-2" (click)="eliminarAsignacionPuntoVenta(item.id)">
-              <mat-icon>delete</mat-icon>
-            </button>
+          <td mat-cell *matCellDef="let element">
+            <mat-form-field class="nombre" appearance="fill">
+              <mat-label>Ingrese observación del activo</mat-label>
+              <textarea id="observacion" formControlName="observacion" matInput (keyup)="textoObservacion($event, element)"></textarea>
+            </mat-form-field>
           </td>
-        </ng-container> -->
+        </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </section>
+    </form>
     <mat-paginator [length]="100"
                 [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 25, 100]"
                 aria-label="Select page">
     </mat-paginator>
+  </div>
+</div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
 </div>

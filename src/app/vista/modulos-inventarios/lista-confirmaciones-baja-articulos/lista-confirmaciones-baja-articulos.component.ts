@@ -64,23 +64,21 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
           var fecha = new Date(res.fecha)
           fecha.setDate(fecha.getDate()+1)
           solicitudBaja.fecha = fecha;
-          solicitudBaja.observacion = res.observacion;
           solicitudBaja.id_usuario = res.idUsuario.id;
           solicitudBaja.id_estado = resEstado.id;
-          solicitudBaja.id_articulo = res.idArticulo.id;
           solicitudBaja.usuario_autorizacion = res.usuarioAutorizacion
           solicitudBaja.usuario_confirmacion = resUsuario.id
           this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(resSolicitudBajaArticulo=>{
-            this.servicioArticulo.listarPorId(res.idArticulo.id).subscribe(resArticulo=>{
-              this.serviceEstado.listarPorId(27).subscribe(resEstadoInaccesible=>{
-                let articuloModificar : Articulo2 = new Articulo2();
-                articuloModificar.id = resArticulo.id
-                articuloModificar.descripcion = resArticulo.descripcion
-                articuloModificar.idCategoria = resArticulo.idCategoria.id
-                articuloModificar.idEstado = resEstadoInaccesible.id
-                this.actualizarArticuloInaccesible(articuloModificar)
-              })
-            })
+            // this.servicioArticulo.listarPorId(res.idArticulo.id).subscribe(resArticulo=>{
+            //   this.serviceEstado.listarPorId(27).subscribe(resEstadoInaccesible=>{
+            //     let articuloModificar : Articulo2 = new Articulo2();
+            //     articuloModificar.id = resArticulo.id
+            //     articuloModificar.descripcion = resArticulo.descripcion
+            //     articuloModificar.idCategoria = resArticulo.idCategoria.id
+            //     articuloModificar.idEstado = resEstadoInaccesible.id
+            //     this.actualizarArticuloInaccesible(articuloModificar)
+            //   })
+            // })
           })
         })
       })

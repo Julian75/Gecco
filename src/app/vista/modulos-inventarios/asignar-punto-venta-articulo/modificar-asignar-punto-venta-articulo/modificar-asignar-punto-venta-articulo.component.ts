@@ -167,7 +167,7 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
                   const elementSitio = resSitioVenta[i];
                   if(elementSitio.ideSitioventa == sitioVent.ideSitioventa){
                     resAsigancionTurnoVendedor.forEach(element => {
-                      if(element.idAsignacionesArticulos.idArticulo.id == resAsignacionArticulo.idArticulo.id && element.idSitioVenta == sitioVent.ideSitioventa){
+                      if(element.idAsignacionesArticulos.idDetalleArticulo.id == resAsignacionArticulo.idDetalleArticulo.id && element.idSitioVenta == sitioVent.ideSitioventa){
                         this.encontrado = true;
                       }else{
                         this.encontrado = false;
@@ -180,10 +180,10 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
                         let historialArticulo : HistorialArticulos = new HistorialArticulos();
                         historialArticulo.fecha = this.fecha
                         this.servicioAsignacionArticulo.listarPorId(resAsignacionArticulo.id).subscribe(resAsignacion=>{
-                          historialArticulo.idArticulo = resAsignacion.idArticulo
+                          historialArticulo.idDetalleArticulo = resAsignacion.idDetalleArticulo
                           this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
                             historialArticulo.idUsuario = resUsuario
-                            historialArticulo.observacion = "La cantidad del articulo "+resAsignacion.idArticulo.descripcion.toLowerCase()+" que fue asignado a la oficina "+oficina.nom_oficina.toLowerCase()+" del sitio de venta "+elementSitio.nom_sitioventa.toLowerCase()+" paso de "+resAsigancionTurno.cantidad+" a "+cantidad+"."
+                            historialArticulo.observacion = "La cantidad del articulo "+resAsignacion.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" que fue asignado a la oficina "+oficina.nom_oficina.toLowerCase()+" del sitio de venta "+elementSitio.nom_sitioventa.toLowerCase()+" paso de "+resAsigancionTurno.cantidad+" a "+cantidad+"."
                             asignacionPuntoVenta.id = resAsigancionTurno.id
                             asignacionPuntoVenta.idAsignacionesArticulos = resAsigancionTurno.idAsignacionesArticulos.id
                             asignacionPuntoVenta.idOficina = resAsigancionTurno.idOficina
@@ -211,10 +211,10 @@ export class ModificarAsignarPuntoVentaArticuloComponent implements OnInit {
                         let historialArticulo : HistorialArticulos = new HistorialArticulos();
                         historialArticulo.fecha = this.fecha
                         this.servicioAsignacionArticulo.listarPorId(resAsignacionArticulo.id).subscribe(resAsignacion=>{
-                          historialArticulo.idArticulo = resAsignacion.idArticulo
+                          historialArticulo.idDetalleArticulo = resAsignacion.idDetalleArticulo
                           this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
                             historialArticulo.idUsuario = resUsuario
-                            historialArticulo.observacion = "Se traslado el articulo "+resAsignacion.idArticulo.descripcion.toLowerCase()+" a la oficina "+oficina.nom_oficina.toLowerCase()+" del sitio de venta "+elementSitio.nom_sitioventa.toLowerCase()+"."
+                            historialArticulo.observacion = "Se traslado el articulo "+resAsignacion.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" a la oficina "+oficina.nom_oficina.toLowerCase()+" del sitio de venta "+elementSitio.nom_sitioventa.toLowerCase()+"."
                             asignacionPuntoVenta.id = this.formAsigancionPuntoVenta.value.id
                             asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo.id
                             asignacionPuntoVenta.idOficina = oficina.ideOficina

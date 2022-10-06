@@ -73,10 +73,8 @@ export class RechazoSolicitudBajaArticuloLiderProcesoComponent implements OnInit
           fecha.setDate(fecha.getDate()+1)
           solicitudBajasArticulos.fecha = fecha
           solicitudBajasArticulos.id = resSolicitudBajaArticulo.id
-          solicitudBajasArticulos.id_articulo = resSolicitudBajaArticulo.idArticulo.id
           solicitudBajasArticulos.id_estado = resEstado.id
           solicitudBajasArticulos.id_usuario = resSolicitudBajaArticulo.idUsuario.id
-          solicitudBajasArticulos.observacion = resSolicitudBajaArticulo.observacion
           solicitudBajasArticulos.usuario_autorizacion = resSolicitudBajaArticulo.usuarioAutorizacion
           solicitudBajasArticulos.usuario_confirmacion = 0
           this.actualizarSolicitudBajaArticulo(solicitudBajasArticulos, observacion, resSolicitudBajaArticulo)

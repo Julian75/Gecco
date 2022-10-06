@@ -54,7 +54,6 @@ export class AgregarArticulosModalComponent implements OnInit {
     this.formArticulo = this.fb.group({
       id: 0,
       descripcion: [null,Validators.required],
-      estado: [null,Validators.required],
       categoria: [null,Validators.required]
     });
   }
@@ -91,11 +90,11 @@ export class AgregarArticulosModalComponent implements OnInit {
     this.aprobar = false
     let articulo : Articulo = new Articulo();
     articulo.descripcion=this.formArticulo.controls['descripcion'].value;
-    const idEstado = this.formArticulo.controls['estado'].value;
     const idCategoria = this.formArticulo.controls['categoria'].value;
     if(this.formArticulo.valid){
-      this.servicioEstado.listarPorId(idEstado).subscribe(res => {
-        articulo.idEstado = res
+      document.getElementById('snipper8')?.setAttribute('style', 'display: block;')
+      this.servicioEstado.listarPorId(26).subscribe(resEstado=>{
+        articulo.idEstado = resEstado
         this.servicioCategoria.listarPorId(idCategoria).subscribe(resCategoria=>{
           articulo.idCategoria = resCategoria
           this.servicioArticulos.listarTodos().subscribe(resArticulos=>{
@@ -107,9 +106,9 @@ export class AgregarArticulosModalComponent implements OnInit {
               }
               this.listarExiste.push(this.aprobar);
             });
-            console.log(this.listarExiste)
             const existe = this.listarExiste.includes( true );
             if(existe == true){
+              document.getElementById('snipper8')?.setAttribute('style', 'display: none;')
               Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -122,7 +121,6 @@ export class AgregarArticulosModalComponent implements OnInit {
             }
           })
         })
-
       })
     }else{
       Swal.fire({
@@ -138,6 +136,7 @@ export class AgregarArticulosModalComponent implements OnInit {
 
   idArticulo: any;
   public registrarArticulo(articulo: Articulo) {
+    document.getElementById('snipper8')?.setAttribute('style', 'display: none;')
     this.servicioArticulos.registrar(articulo).subscribe(res=>{
       Swal.fire({
         position: 'center',

@@ -10,15 +10,6 @@
       </mat-form-field>
     </div>
     <div class="nombre2">
-      <h2>Estado</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese Estado del Articulo</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="estado">
-        <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
-      </mat-form-field>
-    </div>
-    <div class="nombre2">
       <h2>Categoria</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Ingrese Categoria del Articulo</mat-label>
@@ -35,3 +26,6 @@
     </div>
   </div>
 </form>
+<div class="solpiner" id="snipper8" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

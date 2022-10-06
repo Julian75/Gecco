@@ -55,13 +55,11 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
   ngOnInit(): void {
     this.crearFormulario();
     this.listarOficinas();
-    // this.listarArticulos();
   }
 
   private crearFormulario() {
     this.formAsigancionPuntoVenta = this.fb.group({
       id: 0,
-      // articulo: [null,Validators.required],
       oficina: [null,Validators.required],
     });
   }
@@ -71,16 +69,6 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
       this.listaOficinas = res
     });
   }
-
-  // public listarArticulos() {
-  //   this.servicioAsignacionArticulo.listarTodos().subscribe(res => {
-  //     res.forEach(element => {
-  //       if(element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id')) && (element.idEstado.id == 76 || element.idEstado.id == 76)){
-  //         this.listaArticulos.push(element)
-  //       }
-  //     });
-  //   });
-  // }
 
   id: any // Id de la oficina capturado - 18
 
@@ -152,7 +140,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
               const elementSitio = resSitioVenta[i];
               if(elementSitio.ideSitioventa == sitioVent){
                 resAsigancionTurnoVendedor.forEach(element => {
-                  if(element.idAsignacionesArticulos.idArticulo.id == resAsignacionArticulo.idArticulo.id && element.idSitioVenta == sitioVent){
+                  if(element.idAsignacionesArticulos.idDetalleArticulo.id == resAsignacionArticulo.idDetalleArticulo.id && element.idSitioVenta == sitioVent && element.idOficina == Number(oficina)){
                     this.encontrado = true;
                   }else{
                     this.encontrado = false;
@@ -202,10 +190,10 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     this.servicioAsignarPuntoVenta.registrar(asignacionPuntoVenta).subscribe(res=>{
       let historialArticulo : HistorialArticulos = new HistorialArticulos();
       historialArticulo.fecha = this.fecha
-      historialArticulo.idArticulo = asignacionPuntoVenta.idAsignacionesArticulos.idArticulo
+      historialArticulo.idDetalleArticulo = asignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo
       this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
         historialArticulo.idUsuario = resUsuario
-        historialArticulo.observacion = "Se realizo una nueva asignación del articulo "+asignacionPuntoVenta.idAsignacionesArticulos.idArticulo.descripcion.toLowerCase()+" a la oficina "+asignacionPuntoVenta.nombreOficina.toLowerCase()+" del sitio de venta "+asignacionPuntoVenta.nombreSitioVenta.toLowerCase()+"."
+        historialArticulo.observacion = "Se realizo una nueva asignación del articulo "+asignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" a la oficina "+asignacionPuntoVenta.nombreOficina.toLowerCase()+" del sitio de venta "+asignacionPuntoVenta.nombreSitioVenta.toLowerCase()+"."
         this.agregarHistorial(historialArticulo);
       })
     }, error => {

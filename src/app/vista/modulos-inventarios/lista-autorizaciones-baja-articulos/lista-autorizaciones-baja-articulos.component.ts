@@ -62,10 +62,8 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
           var fecha = new Date(res.fecha)
           fecha.setDate(fecha.getDate()+1)
           solicitudBaja.fecha = fecha
-          solicitudBaja.observacion = res.observacion;
           solicitudBaja.id_usuario = res.idUsuario.id;
           solicitudBaja.id_estado = resEstado.id;
-          solicitudBaja.id_articulo = res.idArticulo.id;
           solicitudBaja.usuario_autorizacion = resUsuario.id
           solicitudBaja.usuario_confirmacion = 0
           this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(res=>{

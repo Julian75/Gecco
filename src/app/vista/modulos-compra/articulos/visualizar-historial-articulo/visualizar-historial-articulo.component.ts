@@ -35,15 +35,15 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
     this.listarTodos();
   }
 
-  idArticulo: any;
+  idDetalleArticulo: any;
   public listarTodos () {
     this.listarHistorialArticulo = [];
-    this.idArticulo = this.data
-    this.servicioArticulo.listarPorId(this.idArticulo).subscribe(resArticulo=>{
-      this.articulo = resArticulo.descripcion
+    this.idDetalleArticulo = this.data
+    this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulo=>{
+      this.articulo = resDetalleArticulo.idArticulo.descripcion
       this.servicioHistorialArticulo.listarTodos().subscribe(resHistorialesArticulos=>{
         resHistorialesArticulos.forEach(elementHistorialArticulo => {
-          if(elementHistorialArticulo.idArticulo.id == resArticulo.id){
+          if(elementHistorialArticulo.idDetalleArticulo.id == resDetalleArticulo.id){
             this.listarHistorialArticulo.push(elementHistorialArticulo)
           }
         });

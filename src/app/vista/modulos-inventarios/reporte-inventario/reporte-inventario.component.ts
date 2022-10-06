@@ -209,15 +209,15 @@ export class ReporteInventarioComponent implements OnInit {
         resAsignacion.forEach(element => {
           resInventario.forEach(elementInventario => {
             if(element.idSitioVenta == Number(localStorage.getItem('v'))){
-              if(elementInventario.idDetalleArticulo.idArticulo.id == element.idAsignacionesArticulos.idArticulo.id){
+              if(elementInventario.idDetalleArticulo.id == element.idAsignacionesArticulos.idDetalleArticulo.id){
                 var obj = {
-                  Articulo: element.idAsignacionesArticulos.idArticulo.descripcion,
+                  Articulo: element.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion,
                   "Codigo unico": "",
                   Placa: "",
                   Marca: "",
                   Serial: "",
                   "Tipo de activo": "",
-                  Categoria: element.idAsignacionesArticulos.idArticulo.idCategoria.descripcion,
+                  Categoria: element.idAsignacionesArticulos.idDetalleArticulo.idArticulo.idCategoria.descripcion,
                   "Nombre oficina": element.nombreOficina,
                   "Nombre sitio venta": element.nombreSitioVenta,
                   "Usuario asignado para el articulo": element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido,
@@ -239,6 +239,7 @@ export class ReporteInventarioComponent implements OnInit {
             }
           });
           if(this.lista.length > 0){
+            console.log(this.lista)
             import("xlsx").then(xlsx => {
               const worksheet = xlsx.utils.json_to_sheet(this.lista);
               const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
@@ -268,7 +269,7 @@ export class ReporteInventarioComponent implements OnInit {
       this.servicioInventario.listarTodos().subscribe(resInventario=>{
         resAsignacion.forEach(element => {
           resInventario.forEach(elementInventario => {
-            if(elementInventario.idDetalleArticulo.serial.toLowerCase() == serial.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.idArticulo.id == element.idArticulo.id){
+            if(elementInventario.idDetalleArticulo.serial.toLowerCase() == serial.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
               var obj = {
                 Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
                 "Codigo unico": elementInventario.idDetalleArticulo.codigoUnico,
@@ -319,7 +320,7 @@ export class ReporteInventarioComponent implements OnInit {
       this.servicioInventario.listarTodos().subscribe(resInventario=>{
         resAsignacion.forEach(element => {
           resInventario.forEach(elementInventario => {
-          if(elementInventario.idDetalleArticulo.placa.toLowerCase() == placa.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.idArticulo.id == element.idArticulo.id){
+          if(elementInventario.idDetalleArticulo.placa.toLowerCase() == placa.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
             var obj = {
               Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
               "Codigo unico": elementInventario.idDetalleArticulo.codigoUnico,
@@ -371,15 +372,15 @@ export class ReporteInventarioComponent implements OnInit {
         resAsignacion.forEach(element => {
           resInventario.forEach(elementInventario => {
             if(element.idAsignacionesProcesos.idUsuario.id == usua && (element.idEstado.id == 76 || element.idEstado.id == 78)){
-              if(elementInventario.idDetalleArticulo.idArticulo.id == element.idArticulo.id){
+              if(elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
                 var obj = {
-                  Articulo: element.idArticulo.descripcion,
+                  Articulo: element.idDetalleArticulo.idArticulo.descripcion,
                   "Codigo unico": "",
                   Placa: "",
                   Marca: "",
                   Serial: "",
                   "Tipo de activo": "",
-                  Categoria: element.idArticulo.idCategoria.descripcion,
+                  Categoria: element.idDetalleArticulo.idArticulo.idCategoria.descripcion,
                   "Usuario asignado para el articulo": element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
                   Estado: element.idEstado.descripcion,
                   Observacion: "",

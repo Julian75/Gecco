@@ -1,12 +1,12 @@
 <div class="contenedor">
   <h2>LISTA DE ACCESOS AL ROL {{nombreRol | uppercase }}</h2>
-  <button class="btn bot botonagregar2 text-white my-2" [routerLink]="['/roles']" routerLinkActive="router-link-active" >
+  <button class="btn bot botonagregar2 text-white my-2" [routerLink]="['/roles']" routerLinkActive="router-link-active" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal()">
+  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un acceso al rol {{nombreRol | uppercase }}">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta Lista de Acessos del Rol {{nombreRol | uppercase }}"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field class="buscador" appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -34,7 +34,7 @@
     <ng-container matColumnDef="opciones">
       <th mat-header-cell *matHeaderCellDef ><h3 id="OpcSpa">Opciones</h3></th>
       <td mat-cell *matCellDef="let item">
-        <button class="btn btnremove mx-2" (click)="eliminarAcceso(item.id)">
+        <button class="btn btnremove mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Elimina este acceso del rol {{nombreRol | uppercase }}"(click)="eliminarAcceso(item.id)" >
           <mat-icon>delete</mat-icon>
         </button>
       </td>

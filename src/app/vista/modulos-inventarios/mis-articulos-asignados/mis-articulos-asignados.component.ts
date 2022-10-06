@@ -1,3 +1,5 @@
+import { HistorialArticuloService } from './../../../servicios/historialArticulo.service';
+import { HistorialArticulos } from './../../../modelos/historialArticulos';
 import { AgregarSolicitudBajaArticuloComponent } from './agregar-solicitud-baja-articulo/agregar-solicitud-baja-articulo.component';
 import { ReasignarArticuloComponent } from './reasignar-articulo/reasignar-articulo.component';
 import { VisualizarHistorialArticuloComponent } from './../../modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
@@ -15,6 +17,8 @@ import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticul
 import { ModificarAsignarArticulosUsuarioComponent } from '../asignar-articulos-usuario/modificar-asignar-articulos-usuario/modificar-asignar-articulos-usuario.component';
 import { AgregarAsignarPuntoVentaArticuloComponent } from '../asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo.component';
 import { AsignacionPuntoVentaService } from 'src/app/servicios/asignacionPuntoVenta.service';
+import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
   selector: 'app-mis-articulos-asignados',
@@ -25,15 +29,18 @@ export class MisArticulosAsignadosComponent implements OnInit {
   dtOptions: any = {};
   public listarAsignacionArticulos: any = [];
 
-  displayedColumns = ['id', 'idasignacionesprocesos','iddetalleArticulo','idEstado','opciones'];
+  displayedColumns = ['id','iddetalleArticulo','idasignacionesprocesos','codigoUnico','serial','placa','idEstado','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private serviceAsignacionArticulos: AsignacionArticulosService,
+    private servicioDetalleArticulo: DetalleArticuloService,
     private servicioModificar: ModificarService,
     private servicioEstado: EstadoService,
     private servicioAsignacionPuntoVent: AsignacionPuntoVentaService,
+    private servicioUsuario: UsuarioService,
+    private serviceHistorial: HistorialArticuloService,
     public dialog: MatDialog
   ) { }
 
@@ -59,26 +66,58 @@ export class MisArticulosAsignadosComponent implements OnInit {
 
   aparece = true
   public listarTodos(){
-    this.serviceAsignacionArticulos.listarTodos().subscribe(res=>{
-      res.forEach(element => {
-        if(element.idAsignacionesProcesos.idUsuario.documento == Number(sessionStorage.getItem('usuario')) ){
-          if(element.idEstado.id == 76 && element.idArticulo.idEstado.id == 26){
-            this.listarAsignacionArticulos.push(element);
-          }else if(element.idEstado.id == 78 && element.idArticulo.idEstado.id == 26){
-            this.listarAsignacionArticulos.push(element);
-          }
-        }
-        this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
-          resAsignacion.forEach(elementAsignacion => {
-            if(element.idArticulo.descripcion == elementAsignacion.idAsignacionesArticulos.idArticulo.descripcion && element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
-              this.aparece = false;
+    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigArticulos=>{
+      this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
+        resAsigArticulos.forEach(elementAsignArticulo => {
+          if(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+            if(elementAsignArticulo.idEstado.id == 76 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
+              var obj = {
+                asignArticulo: elementAsignArticulo,
+                existeAsigPuntoVenta: false
+              }
+              resAsignacion.forEach(elementAsignacionPuntoVenta => {
+                if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                  obj.existeAsigPuntoVenta = true
+                }
+              })
+              this.listarAsignacionArticulos.push(obj);
+            }else if(elementAsignArticulo.idEstado.id == 78 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
+              var obj = {
+                asignArticulo: elementAsignArticulo,
+                existeAsigPuntoVenta: false
+              }
+              resAsignacion.forEach(elementAsignacionPuntoVenta => {
+                if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                  obj.existeAsigPuntoVenta = true
+                }
+              })
+              this.listarAsignacionArticulos.push(obj);
             }
-          });
+          }
         })
-      });
-      this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+
+        // res.forEach(element => {
+        //   if(element.idAsignacionesProcesos.idUsuario.documento == Number(sessionStorage.getItem('usuario')) ){
+        //     // var obj = {
+        //     //   asignacionArticulo: {},
+        //     //   existeAsignPuntoVenta: false
+        //     // }
+        //     if(element.idEstado.id == 76 && element.idDetalleArticulo.idArticulo.idEstado.id == 26){
+        //       this.listarAsignacionArticulos.push(element);
+        //     }else if(element.idEstado.id == 78 && element.idDetalleArticulo.idArticulo.idEstado.id == 26){
+        //       this.listarAsignacionArticulos.push(element);
+        //     }
+        //   }
+        //     resAsignacion.forEach(elementAsignacion => {
+        //       if(element.idDetalleArticulo.idArticulo.descripcion == elementAsignacion.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion && element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+        //         this.aparece = false;
+        //       }
+        //     });
+        // });
+        this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
     })
   }
 
@@ -93,10 +132,9 @@ export class MisArticulosAsignadosComponent implements OnInit {
   aceptar(id:number){
     let asignacionArticulo: AsignacionArticulos2 = new AsignacionArticulos2();
     this.serviceAsignacionArticulos.listarPorId(id).subscribe(res=>{
-      console.log(res);
       asignacionArticulo.id = res.id;
       asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticulo.idArticulo = res.idArticulo.id;
+      asignacionArticulo.idDetalleArticulo = res.idDetalleArticulo.id
       this.servicioEstado.listarPorId(76).subscribe(res=>{
         asignacionArticulo.idEstado = res.id;
         this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulo).subscribe(res=>{
@@ -113,30 +151,22 @@ export class MisArticulosAsignadosComponent implements OnInit {
     })
   }
 
-  solicitudBajaArticulo(idAsignacionArticulo){
-    const dialogRef = this.dialog.open(AgregarSolicitudBajaArticuloComponent, {
-      width: '500px',
-      height: '300px',
-      data: idAsignacionArticulo
-    });
-  }
-
   listaAsignArticulos: any = [];
+  fechaActual: Date = new Date();
   eliminarAsignacionProceso(id:number){
     this.listaAsignArticulos = []
     let asignacionArticuloMod: AsignacionArticulos2 = new AsignacionArticulos2();
     let asignacionArticuloCompras: AsignacionArticulos2 = new AsignacionArticulos2();
-    console.log(id)
+    let historial = new HistorialArticulos();
     this.serviceAsignacionArticulos.listarPorId(id).subscribe(res=>{
-      console.log(res)
       asignacionArticuloMod.id = res.id;
       asignacionArticuloMod.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticuloMod.idArticulo = res.idArticulo.id;
+      asignacionArticuloMod.idDetalleArticulo = res.idDetalleArticulo.id
       this.servicioEstado.listarPorId(77).subscribe(resEstado=>{
         asignacionArticuloMod.idEstado = resEstado.id;
         this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigArticulos=>{
           resAsigArticulos.forEach(elementAsigArticulo => {
-            if(elementAsigArticulo.idArticulo.id == res.idArticulo.id){
+            if(elementAsigArticulo.idDetalleArticulo.id == res.idDetalleArticulo.id){
               this.listaAsignArticulos.push(elementAsigArticulo.id)
             }
           });
@@ -145,10 +175,16 @@ export class MisArticulosAsignadosComponent implements OnInit {
           this.serviceAsignacionArticulos.listarPorId(idAsigMen).subscribe(resAsignCompras=>{
             asignacionArticuloCompras.id = resAsignCompras.id;
             asignacionArticuloCompras.idAsignacionesProcesos = resAsignCompras.idAsignacionesProcesos.id;
-            asignacionArticuloCompras.idArticulo = resAsignCompras.idArticulo.id;
+            asignacionArticuloCompras.idDetalleArticulo = resAsignCompras.idDetalleArticulo.id;
             this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
-              asignacionArticuloCompras.idEstado = resEstado.id;
-              this.servicioActualizarModyCompras(asignacionArticuloMod, asignacionArticuloCompras)
+              this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                asignacionArticuloCompras.idEstado = resEstado.id;
+                historial.fecha = this.fechaActual
+                historial.observacion = "Se reasignó el artículo " +resAsignCompras.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+ " al usuario "+resAsignCompras.idAsignacionesProcesos.idUsuario.nombre.toLowerCase()+ " " +resAsignCompras.idAsignacionesProcesos.idUsuario.apellido.toLowerCase()+ " del área "+resAsignCompras.idAsignacionesProcesos.idTiposProcesos.descripcion.toLowerCase()
+                historial.idDetalleArticulo = resAsignCompras.idDetalleArticulo
+                historial.idUsuario = resUsuario
+                this.servicioActualizarModyCompras(asignacionArticuloMod, asignacionArticuloCompras, historial)
+              })
             })
           })
         })
@@ -156,17 +192,28 @@ export class MisArticulosAsignadosComponent implements OnInit {
     })
   }
 
-  servicioActualizarModyCompras(asignacionArticuloMod: AsignacionArticulos2, asignacionArticuloCompra: AsignacionArticulos2){
+  servicioActualizarModyCompras(asignacionArticuloMod: AsignacionArticulos2, asignacionArticuloCompra: AsignacionArticulos2, historial: HistorialArticulos){
     this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloMod).subscribe(resAsigModificado=>{
       this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloCompra).subscribe(resAsigCompras=>{
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Asignación de articulo rechazada!',
-          showConfirmButton: false,
-          timer: 1500
+        this.serviceHistorial.registrar(historial).subscribe(resHistorialNuevo =>{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Asignación de articulo rechazada!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          window.location.reload()
+        }, error => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Ocurrio un error al registrar el historial!',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
-        window.location.reload()
+
       }, error => {
         Swal.fire({
           position: 'center',

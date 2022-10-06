@@ -397,21 +397,28 @@ registrarCompras(comprasRegistrar: Compras){
 actualizarMovimientoCI(movCIActualizar: MovimientoComprasInventario2){
   this.servicioModificar.actualizarMovimientoCI(movCIActualizar).subscribe(resMovimientoCIActualizado=>{
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-    // Swal.fire({
-    //   position: 'center',
-    //   icon: 'success',
-    //   title: 'Se hizo el registro!',
-    //   showConfirmButton: false,
-    //   timer: 1500
-    // })
-    // this.dialogRef.close();
-    // window.location.reload()
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Se hizo el registro!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.dialogRef.close();
+    window.location.reload()
   })
 }
 
 registrarMovimientoCI(movCIRegistrar: MovimientoComprasInventario){
   this.servicioMovimientoComprasInventario.registrar(movCIRegistrar).subscribe(resMovimientoCIRegistro=>{
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Se aprobo el registro!',
+      showConfirmButton: false,
+      timer: 1500
+    })
     // Swal.fire({
     //   position: 'center',
     //   icon: 'success',

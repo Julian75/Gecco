@@ -258,8 +258,8 @@ export class GenerarSolicitudComponent implements OnInit {
   aprobar:boolean = false
   public agregarArticulo(textoCampoArticulo: any) {
     const dialogRef = this.dialog.open(AgregarArticulosModalComponent, {
-      width: '900px',
-      height: '440px',
+      width: '400px',
+      height: '400px',
       data: textoCampoArticulo,
     });
   }

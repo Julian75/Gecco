@@ -75,7 +75,6 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
       console.log(res);
       asignacionArticulo.id = res.id;
       asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticulo.idArticulo = res.idArticulo.id;
       this.servicioEstado.listarPorId(76).subscribe(res=>{
         asignacionArticulo.idEstado = res.id;
         this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulo).subscribe(res=>{
