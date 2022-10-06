@@ -14,6 +14,11 @@ import { SolicitudBajasArticulos2 } from 'src/app/modelos/modelos2/solicitudBaja
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { ArticuloService } from 'src/app/servicios/articulo.service';
+import { VisualizarActivosBajasSolicitudComponent } from '../visualizar-activos-bajas-solicitud/visualizar-activos-bajas-solicitud.component';
+import { Correo } from 'src/app/modelos/correo';
+import { ArticulosBajaService } from 'src/app/servicios/articulosBaja.service';
+import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
+import { CorreoService } from 'src/app/servicios/Correo.service';
 
 @Component({
   selector: 'app-lista-confirmaciones-baja-articulos',
@@ -24,7 +29,7 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
   dtOptions: any = {};
   public listarSolicitudesBajas: any = [];
 
-  displayedColumns = ['id', 'fecha', 'observacion', 'usuario', 'idDetalleArticulo', 'estado', 'opciones'];
+  displayedColumns = ['id', 'fecha', 'usuario','estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -34,6 +39,9 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     private serviceEstado: EstadoService,
     private servicioUsuario: UsuarioService,
     private servicioArticulo: ArticuloService,
+    public servicioBajaArticulos: ArticulosBajaService,
+    public servicioConfiguracion: ConfiguracionService,
+    public servicioCorreo: CorreoService,
     public dialog: MatDialog
 
   ) { }
@@ -55,7 +63,10 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     })
   }
 
+  correo: any;
+  contrasena: any;
   aceptarConfirmacion( id:number){
+    document.getElementById('snipper03')?.setAttribute('style', 'display: block;')
     let solicitudBaja = new SolicitudBajasArticulos2();
     this.serviceSolicitudBajasArticulos.listarPorId(id).subscribe(res=>{
       this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
@@ -69,32 +80,98 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
           solicitudBaja.usuario_autorizacion = res.usuarioAutorizacion
           solicitudBaja.usuario_confirmacion = resUsuario.id
           this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(resSolicitudBajaArticulo=>{
-            // this.servicioArticulo.listarPorId(res.idArticulo.id).subscribe(resArticulo=>{
-            //   this.serviceEstado.listarPorId(27).subscribe(resEstadoInaccesible=>{
-            //     let articuloModificar : Articulo2 = new Articulo2();
-            //     articuloModificar.id = resArticulo.id
-            //     articuloModificar.descripcion = resArticulo.descripcion
-            //     articuloModificar.idCategoria = resArticulo.idCategoria.id
-            //     articuloModificar.idEstado = resEstadoInaccesible.id
-            //     this.actualizarArticuloInaccesible(articuloModificar)
-            //   })
-            // })
+            let correo : Correo = new Correo();
+            this.servicioBajaArticulos.listarTodos().subscribe(resBajasActivos=>{
+              this.servicioUsuario.listarPorId(res.idUsuario.id).subscribe(resUsuario =>{
+                this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                  resConfiguracion.forEach(elementConfi => {
+                    if(elementConfi.nombre == "correo_gecco"){
+                      this.correo = elementConfi.valor
+                    }
+                    if(elementConfi.nombre == "contraseña_correo"){
+                      this.contrasena = elementConfi.valor
+                    }
+                  });
+                  correo.correo = this.correo
+                  correo.contrasena = this.contrasena
+                  correo.to = resUsuario.correo
+                  correo.subject = "Aprobación de solicitud"
+                  correo.messaje = "<!doctype html>"
+                  +"<html>"
+                    +"<head>"
+                    +"<meta charset='utf-8'>"
+                    +"</head>"
+                    +"<body>"
+                    +"<h3 style='color: black;'>Su solicitud para dar de baja algunos activos, ha sido aprobada por compras y control interno.</h3>"
+                    +"<br>"
+                    +"<table style='border: 1px solid #000; text-align: center;'>"
+                    +"<tr>"
+                    +"<th style='border: 1px solid #000;'>Activo</th>"
+                    +"<th style='border: 1px solid #000;'>Serial</th>"
+                    +"<th style='border: 1px solid #000;'>Placa</th>"
+                    +"<th style='border: 1px solid #000;'>Marca</th>"
+                    +"<th style='border: 1px solid #000;'>Estado</th>"
+                    +"<th style='border: 1px solid #000;'>Observacion</th>";
+                    +"</tr>";
+                    resBajasActivos.forEach(element => {
+                      if (element.idSolicitudBaja.id == res.id) {
+                        correo.messaje += "<tr>"
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.idArticulo.descripcion+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.serial+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.placa+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.marca+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idOpcionBaja.descripcion+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+                        correo.messaje += "</tr>";
+                      }
+                    });
+                    correo.messaje += "</table>"
+                    +"<br>"
+                    +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+                    +"</body>"
+                    +"</html>";
+                  this.enviarCorreo(correo, solicitudBaja.id);
+                })
+              })
+            })
           })
         })
       })
     })
   }
 
-  actualizarArticuloInaccesible(articuloModificar: Articulo2){
-    this.serviceModificar.actualizarArticulos(articuloModificar).subscribe(resArticuloActualizado=>{
+  public enviarCorreo(correo: Correo, idSolicitudBajaActivo){
+    this.servicioCorreo.enviar(correo).subscribe(res =>{
+      this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaActivo).subscribe(resSolicitudBajas=>{
+
+      })
+      document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Se dio de baja correctamente el articulo!',
+        title: 'Se aprobo correctamente la solciitud!',
         showConfirmButton: false,
         timer: 1500
       })
-    })
+      window.location.reload();
+    }, error => {
+      document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al enviar el Correo!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
+
+  visualizarActivosBajas(id:number){
+    const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
+      width: '800px',
+      height: '440px',
+      data: id
+    });
   }
 
   rechazarConfirmacion(id:number){

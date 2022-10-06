@@ -9,6 +9,8 @@ import * as XLSX from 'xlsx';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { ArticulosBajaService } from 'src/app/servicios/articulosBaja.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -20,15 +22,17 @@ export class ListaActasBajasComponent implements OnInit {
   dtOptions: any = {};
   public listarSolicitudesBajas: any = [];
 
-  displayedColumns = ['id', 'fecha', 'observacion', 'usuario', 'idDetalleArticulo', 'estado', 'opciones'];
+  displayedColumns = ['id', 'fecha', 'usuario', 'estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private serviceSolicitudBajasArticulos: SolicitudBajasArticulosService,
+    private servicioBajaArticulo: ArticulosBajaService,
     private serviceEstado: EstadoService,
     private servicioConfiguracion: ConfiguracionService,
+    private servicioUsuario: UsuarioService,
     public dialog: MatDialog
 
   ) { }
@@ -54,93 +58,125 @@ export class ListaActasBajasComponent implements OnInit {
   nombreEmpresa:any;
   nitEmpresa: any;
   abrirPdf(idSolicitudBajaArticulo){
-    this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-      resConfiguracion.forEach(element => {
-        if(element.nombre == 'nombre_entidad'){
-          this.nombreEmpresa = element.valor
-        }
-        if(element.nombre == 'nit_empresa'){
-          this.nitEmpresa = element.valor
-        }
-      });
-      const pdfDefinition: any = {
-        content: [
-          // {
-          //   image: await this.getBase64ImageFromURL(
-          //     'assets/logo/suchance.png'
-          //   ),
-          //   relativePosition: {x: 0, y: 0},
-          //   width: 150,
-          // },
-          {
-            text: 'Nombre Empresa: '+this.nombreEmpresa,
-            bold: true,
-            margin: [0, 80, 0, 10]
-          },
-          {
-            text: 'Nit Empresa: '+this.nitEmpresa,
-            margin: [0, 0, 0, 10]
-          },
-          {
-            text: 'Codigo acta: ',
-            margin: [0, 0, 0, 10]
-          },
-          {
-            text: 'Fecha: ',
-            margin: [0, 0, 0, 10]
-          },
-          {
-            text: 'Intervinieron: ',
-            margin: [0, 0, 0, 10]
-          },
-          {
-            text: 'Solicito: ',
-            relativePosition: {x: 250, y: -25},
-            margin: [0, 0, 0, 20]
-          },
-           {
-            text: 'Compras Autorizo: ',
-            relativePosition: {x: 250, y: -25},
-            margin: [0, 0, 0, 20]
-          },
-           {
-            text: 'Control Interno Confirmo: ',
-            relativePosition: {x: 250, y: -25},
-            margin: [0, 0, 0, 20]
-          },
-          {
-            text: 'ARTICULOS DE BAJA',
-            bold: true,
-            fontSize: 20,
-            alignment: 'center',
-            margin: [0, 0]
-          },{
-            table: {
-              widths: ['*', '*'],
-              body: [
-                [
-                  'Articulo',
-                  'Cantidad',
-                ],
-              ]
-            },
-            margin: [0, 0]
-          },
-          {
-            table: {
-              widths: ['*', '*'],
-              // body: body
-            },
-            margin: [0, 0]
-          }
-        ]
-      }
-      const pdf = pdfMake.createPdf(pdfDefinition);
-      pdf.open();
+    this.servicioBajaArticulo.listarTodos().subscribe(resActivosBajas=>{
+      this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaArticulo).subscribe(resSolicitudBajasActivos=>{
+        this.servicioUsuario.listarPorId(Number(resSolicitudBajasActivos.usuarioAutorizacion)).subscribe(resUsuarioAutorizacion=>{
+          this.servicioUsuario.listarPorId(Number(resSolicitudBajasActivos.usuarioConfirmacion)).subscribe(resUsuarioConfirmacion=>{
+            this.servicioConfiguracion.listarTodos().subscribe(async resConfiguracion=>{
+              var body = []
+              resActivosBajas.forEach(elementActivoBaja => {
+                if(elementActivoBaja.idSolicitudBaja.id == idSolicitudBajaArticulo){
+                  var now = new Array
+                  now.push(elementActivoBaja.idDetalleArticulo.idArticulo.descripcion)
+                  now.push(elementActivoBaja.idDetalleArticulo.serial)
+                  now.push(elementActivoBaja.idDetalleArticulo.placa)
+                  now.push(elementActivoBaja.idDetalleArticulo.marca)
+                  now.push(elementActivoBaja.idOpcionBaja.descripcion)
+                  now.push(elementActivoBaja.observacion)
+                  body.push(now)
+                }
+              });
+              console.log(body)
+              resConfiguracion.forEach(element => {
+                if(element.nombre == 'nombre_entidad'){
+                  this.nombreEmpresa = element.valor
+                }
+                if(element.nombre == 'nit_empresa'){
+                  this.nitEmpresa = element.valor
+                }
+              });
+              const pdfDefinition: any = {
+                content: [
+                  {
+                    image: await this.getBase64ImageFromURL(
+                      'assets/logo/suchance.png'
+                    ),
+                    relativePosition: {x: 0, y: 0},
+                    width: 150,
+                  },
+                  {
+                    text: 'Nombre Empresa: '+this.nombreEmpresa,
+                    bold: true,
+                    margin: [0, 80, 0, 10]
+                  },
+                  {
+                    text: 'Nit Empresa: '+this.nitEmpresa,
+                    margin: [0, 0, 0, 10]
+                  },
+                  {
+                    text: 'Codigo acta: ' ,
+                    margin: [0, 0, 0, 10]
+                  },
+                  {
+                    text: 'Fecha: '+resSolicitudBajasActivos.fecha,
+                    margin: [0, 0, 0, 10]
+                  },
+                  {
+                    text: 'Solicito: '+resSolicitudBajasActivos.idUsuario.nombre+' '+resSolicitudBajasActivos.idUsuario.apellido,
+                    margin: [0, 0, 0, 20]
+                  },
+                  {
+                    text: 'ARTICULOS DE BAJA',
+                    bold: true,
+                    fontSize: 20,
+                    alignment: 'center',
+                    margin: [0, 0]
+                  },
+                  {
+                    table: {
+                      widths: ['*', '*', '*', '*', '*', 20],
+                      body: [
+                        [
+                          'Activo',
+                          'Serial',
+                          'Placa',
+                          'Marca',
+                          'Estado',
+                          'Observacion',
+                        ],
+                      ]
+                    },
+                    margin: [0, 0],
 
-    })
-    this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaArticulo).subscribe(resSolicitudBajaArticulo=>{
-
+                  },
+                  {
+                    table: {
+                      widths: ['*', '*', '*', '*', '*', 20],
+                      body: body
+                    },
+                    margin: [0, 0]
+                  },
+                  {
+                    table: {
+                      widths: ['*', '*'],
+                      heights: 30,
+                      body: [
+                        [
+                          '',
+                          ''
+                        ],
+                      ]
+                    },
+                    margin: [0, -15, 0, 2],
+                  },
+                  // {
+                  //   text: 'Autorizo',
+                  //   margin: [100, 5, 0, 0],
+                  //   fontSize: 10
+                  // },
+                  // {
+                  //   text: 'Confirmo',
+                  //   margin: [370, -28, 0, 0],
+                  //   fontSize: 10
+                  // },
+                ]
+              }
+              const pdf = pdfMake.createPdf(pdfDefinition);
+              pdf.open();
+            })
+          })
+        })
+      })
     })
   }
 

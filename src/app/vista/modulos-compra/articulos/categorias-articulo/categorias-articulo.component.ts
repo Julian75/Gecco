@@ -53,14 +53,14 @@ export class CategoriasArticuloComponent implements OnInit {
     });
   }
 
-  modificarRol(id: number): void {
+  modificarCategoria(id: number): void {
     const dialogRef = this.dialog.open(ModificarCategoriaComponent, {
       width: '500px',
       data: id
     });
   }
 
-  eliminarRol(id:number){
+  eliminarCategoria(id:number){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',

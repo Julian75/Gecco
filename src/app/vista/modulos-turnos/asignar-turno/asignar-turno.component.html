@@ -1,10 +1,10 @@
 <!-- Tabla de asignacion de turnos a los puntos de venta -->
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarAsignarTurno">
+    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarAsignarTurno" data-bs-toggle="tooltip" data-bs-placement="top" title="Asignar turno a un punto de venta">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de asignar turnos"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar asignación de un punto de venta">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>

@@ -1,9 +1,9 @@
 <div class="contenedor">
-  <button *ngIf="idModulo == 38" class="btn boton botonagregar text-white my-2" routerLink="/agregarSolicitudesSC">
+  <button *ngIf="idModulo == 38" class="btn boton botonagregar text-white my-2" routerLink="/agregarSolicitudesSC" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar solicitud pqrs">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field appearance="fill" class="fechas">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-placement="top" title="Exportar lista de solicitudes pqrs"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field appearance="fill" class="fechas" data-bs-toggle="tooltip" data-bs-placement="top" title="Consultar pqrs por rango de fecha">
     <mat-label>Selecciona dos fechas</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker" >
       <input matStartDate formControlName="start" placeholder="Fecha Inicio" (dateChange)="capturar()">
@@ -15,7 +15,7 @@
     <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
     <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
   </mat-form-field>
-  <mat-form-field class="buscador">
+  <mat-form-field class="buscador" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar una solicitud pqrs">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="buscar">
   </mat-form-field>
@@ -79,43 +79,43 @@
         <ng-container matColumnDef="opciones">
           <th id="opcion" mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td id="opcion" mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 62" (click)="abrirModal(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 62" (click)="abrirModal(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar comentario a esta pqrs">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 68" (click)="abrirModal(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.aprobar == true && item.solicitud.idEstado.id == 68" (click)="abrirModal(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar comentario a esta pqrs">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 39 && usuarioMatrix2 == true" (click)="abrirModificar(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 39 && usuarioMatrix2 == true" (click)="abrirModificar(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar comentario a esta pqrs">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 39 && usuarioMatrix2 == false" (click)="abrirModificar(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 39 && usuarioMatrix2 == false" (click)="abrirModificar(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar comentario a esta pqrs">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id == 3 && item.aprobar == true && item.solicitud.idEstado.id != 68"(click)="abrirModificar(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id == 3 && item.aprobar == true && item.solicitud.idEstado.id != 68"(click)="abrirModificar(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar comentario a esta pqrs">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id != 3 && item.aprobar == true && item.solicitud.idEstado.id == 63 && item.mostrarModalPao == true"(click)="abrirModificar(item.solicitud.id)">
+            <button class="btn btnedit mx-2" *ngIf="idModulo == 38 && item.solicitud.idEscala.id != 3 && item.aprobar == true && item.solicitud.idEstado.id == 63 && item.mostrarModalPao == true"(click)="abrirModificar(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar comentario a esta pqrs">
               <mat-icon>add_comment</mat-icon>
             </button>
-            <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)">
+            <button class="btn btnedit2 mx-2" (click)="abrirHistorial(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar trazabilidad de pqrs">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button id="download-button" *ngIf="item.archivo == true" class="btn btnedit mx-2" (click)="descargarPdf(item.solicitud.id)">
+            <button id="download-button" *ngIf="item.archivo == true" class="btn btnedit mx-2" (click)="descargarPdf(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Descargar archivos">
               <mat-icon>file_download</mat-icon>
             </button>
-            <button *ngIf="item.solicitud.idEstado.id == 64" class="btn btnPriority mx-2" (click)="masonoRemisiones(item.solicitud)">
+            <button *ngIf="item.solicitud.idEstado.id == 64" class="btn btnPriority mx-2" (click)="masonoRemisiones(item.solicitud)" data-bs-toggle="tooltip" data-bs-placement="top" title="Verificacion de solicitud pqrs">
               <mat-icon>verified</mat-icon>
             </button>
-            <button *ngIf="item.prorroga == true" class="btn btnPriority mx-2" (click)="prorroga(item.solicitud.id)">
+            <button *ngIf="item.prorroga == true" class="btn btnPriority mx-2" (click)="prorroga(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar solicitud de prorroga">
               <mat-icon>event_repeat</mat-icon>
             </button>
-            <button *ngIf="item.incidente == true && idModulo == 39 && usuarioMatrix2 == true && item.solicitud.idEscala.id == 3" class="btn btnPriority mx-2" (click)="editar(item.solicitud.id)">
+            <button *ngIf="item.incidente == true && idModulo == 39 && usuarioMatrix2 == true && item.solicitud.idEscala.id == 3" class="btn btnPriority mx-2" (click)="editar(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar incidente a la pqrs">
               <mat-icon>edit</mat-icon>
             </button>
-            <button *ngIf="item.solicitud.idEscala.id == 3 && item.solicitud.incidente == '' && idModulo == 38" class="btn btnPriority mx-2" (click)="editar(item.solicitud.id)">
+            <button *ngIf="item.solicitud.idEscala.id == 3 && item.solicitud.incidente == '' && idModulo == 38" class="btn btnPriority mx-2" (click)="editar(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar incidente a la pqrs">
               <mat-icon>edit</mat-icon>
             </button>
-            <button *ngIf="item.solicitud.idEstado.id != 67" class="btn btnArchivo mx-2" (click)="agregarArchivo(item.solicitud.id)">
+            <button *ngIf="item.solicitud.idEstado.id != 67" class="btn btnArchivo mx-2" (click)="agregarArchivo(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Subir archivos adicionales">
               <mat-icon>attach_file_add</mat-icon>
             </button>
           </td>

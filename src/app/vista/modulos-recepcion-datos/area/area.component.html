@@ -1,9 +1,9 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar area">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-placement="top" title="Exportar lista de areas"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar una area">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -24,10 +24,10 @@
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSpa">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button class="btn btnedit mx-2" (click)="modificarTipoServicio(item.id)">
+              <button class="btn btnedit mx-2" (click)="modificarTipoServicio(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar este area">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button class="btn btnremove mx-2" (click)="eliminarTipoServicio(item.id)">
+              <button class="btn btnremove mx-2" (click)="eliminarTipoServicio(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar este area">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

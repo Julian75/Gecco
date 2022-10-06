@@ -20,7 +20,7 @@
       <ul style="margin-top:5%;">
         <li style="margin-top: 5px;" *ngFor="let item of listaArchivos2">{{item}}</li>
       </ul>
-      <button id="uploadButton" class="guardarModal" mat-raised-button *ngIf="selectFiles" [disabled]="!selectFiles" (click)="guardar()" style="margin-top: 15px;">
+      <button id="uploadButton" class="guardarModal" mat-raised-button *ngIf="selectFiles" [disabled]="!selectFiles" (click)="guardar()" style="margin-top: 15px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar nueva firma">
           <mat-icon>add</mat-icon>
       </button>
     </div>

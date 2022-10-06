@@ -4,9 +4,9 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button class="btn guardar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button class="btn guardar3" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
-        <button class="btn guardar6" (click)="agregarArticulo(nomArticulo.value)" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
+        <button class="btn guardar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar nueva solicitud de compra"><mat-icon>add_circle</mat-icon></button>
+        <button class="btn guardar3" (click)="eliminarArticulo()" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar artículo"><mat-icon>delete</mat-icon></button>
+        <button class="btn guardar6" (click)="agregarArticulo(nomArticulo.value)" *ngIf="num == 0" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar artículo"><mat-icon>add_box</mat-icon></button>
       </div>
     </div>
 
@@ -90,7 +90,7 @@
           </tr>
         </table>
       </section>
-      <button  mat-raised-button class="guardar4" id="botonGenerarSolicitud" (click)="generarSolicitud()">Generar Solicitud</button>
+      <button  mat-raised-button class="guardar4" id="botonGenerarSolicitud" (click)="generarSolicitud()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar solicitud">Generar Solicitud</button>
       <mat-paginator  [length]="100" [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
     </div>

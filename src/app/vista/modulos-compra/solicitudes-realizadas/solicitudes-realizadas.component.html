@@ -1,6 +1,6 @@
 <div class="contenedor">
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de solicitudes realizadas"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar solicitud realizadas">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -33,10 +33,10 @@
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button *ngIf="item.solicitud.idEstado.id != 54" class="btn btnedit mx-2 edi" (click)="verSolicitud(item.solicitud.id)">
+              <button *ngIf="item.solicitud.idEstado.id != 54" class="btn btnedit mx-2 edi" (click)="verSolicitud(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar solicitud">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button class="btn btnedit2 mx-2 edi" (click)="verPasos(item.solicitud.id)">
+              <button class="btn btnedit2 mx-2 edi" (click)="verPasos(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar pasos">
                 <mat-icon>insights</mat-icon>
               </button>
             </td>

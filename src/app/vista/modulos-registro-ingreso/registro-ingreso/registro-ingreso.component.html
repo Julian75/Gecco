@@ -15,7 +15,7 @@
         </mat-form-field>
     </div>
     <div class="botones">
-        <button class="btn btnver mx-2" (click)="abrirModal(docum.value)">
+        <button class="btn btnver mx-2" (click)="abrirModal(docum.value)" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar Registro">
             <mat-icon>person_search</mat-icon>
         </button>
     </div>
@@ -62,7 +62,7 @@
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button class="btn btnremove mx-2" (click)="eliminarIngreso(item.id)">
+              <button class="btn btnremove mx-2" (click)="eliminarIngreso(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Registro">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

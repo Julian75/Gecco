@@ -6,7 +6,7 @@
   <button class="btn boton botonagregar text-white my-2" (click)="abrirModal()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un acceso al rol {{nombreRol | uppercase }}">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta Lista de Acessos del Rol {{nombreRol | uppercase }}"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de acessos del rol {{nombreRol | uppercase }}"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field class="buscador" appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>

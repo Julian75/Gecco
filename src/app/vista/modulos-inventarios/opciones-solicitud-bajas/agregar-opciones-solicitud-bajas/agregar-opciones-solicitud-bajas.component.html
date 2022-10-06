@@ -1,4 +1,4 @@
-<h2 class="dato">Ingresar Nueva Opcion de Visita</h2>
+<h2 class="dato">Ingresar Nueva Solicutud de Baja</h2>
 <form [formGroup]="formOpcion">
   <div class="row1">
     <!-- Ingresar Nombre -->
@@ -13,7 +13,7 @@
   <div class="row">
     <!-- Boton de guardar datos -->
     <div class="guardar2">
-      <button mat-raised-button class="guardarModal" (click)="guardar()"><mat-icon>add</mat-icon></button>
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar solicitud"><mat-icon>add</mat-icon></button>
     </div>
   </div>
 </form>

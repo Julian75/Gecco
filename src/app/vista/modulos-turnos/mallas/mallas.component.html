@@ -1,6 +1,6 @@
 <div class="contenedor">
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard">
+  <button class="btn excelButton" (click)="exportToExcel()"  data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de mallas"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard"  data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar mallas por estados">
     <mat-label>Buscar</mat-label>
     <select matNativeControl [(ngModel)]="descripcion" (change)="applyFilter()">
       <option></option>
@@ -60,10 +60,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx3" *ngIf="item.validar != true && item.estado.id!=17" style="margin-left: 20px;" (click)="agregarNovedad(item.listaAsignarTurnoVendedor.id, item.estado.descripcion, item.tipoMalla)">
+            <button class="btn btnedit mx3" *ngIf="item.validar != true && item.estado.id!=17" style="margin-left: 20px;" (click)="agregarNovedad(item.listaAsignarTurnoVendedor.id, item.estado.descripcion, item.tipoMalla)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar novedad">
               <mat-icon>playlist_add_circle</mat-icon>
             </button>
-            <button class="btn btnver mx3" *ngIf="item.validar == true && item.estado.id!=15" style="margin-left: 20px;" (click)="visualizarNovedad(item.listaAsignarTurnoVendedor.id)">
+            <button class="btn btnver mx3" *ngIf="item.validar == true && item.estado.id!=15" style="margin-left: 20px;" (click)="visualizarNovedad(item.listaAsignarTurnoVendedor.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar novedad">
               <mat-icon>visibility</mat-icon>
             </button>
           </td>

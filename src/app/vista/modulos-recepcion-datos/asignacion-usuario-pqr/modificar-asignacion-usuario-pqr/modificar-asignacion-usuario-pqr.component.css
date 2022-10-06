@@ -21,10 +21,9 @@ h2{
   .guardar{
     background-color: #00235C ;
     color: white;
-    width: 53%;
     height: 40px;
     font-size: large;
-    margin-left: 45%;
+    margin-left: 86%;
   }
 
   .row1{
@@ -39,43 +38,17 @@ h2{
     width: 95%;
   }
   .guardar{
-    width: 100%;
     font-size: 13px;
-    margin-left: 0%;
+    margin-left: 64%;
   }
 }
 
 /* Movil medio - Samsung Galaxy S8 */
-@media screen and (min-width: 360px) and (max-width: 493px){
+@media screen and (min-width: 360px) and (max-width: 420px){
   .nombre{
     width: 95%;
   }
   .guardar{
-    width: 100%;
-    margin-left: 0%;
-  }
-}
-
-/* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
-  .guardar{
-    width: 63%;
-    margin-left: 5%;
-  }
-}
-
-/* Tablet pequeña */
-@media screen and (min-width: 721px) and (max-width: 768px){
-  .guardar{
-    width: 60%;
-    margin-left: 5%;
-  }
-}
-
-/* Tablet medio */
-@media screen and (min-width: 769px) and (max-width: 1023px){
-  .guardar{
-    width: 60%;
-    margin-left: 5%;
+    margin-left: 74%;
   }
 }

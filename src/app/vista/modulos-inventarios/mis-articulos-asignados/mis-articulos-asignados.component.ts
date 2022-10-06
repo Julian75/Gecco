@@ -1,3 +1,4 @@
+import { ConsultasGeneralesService } from './../../../servicios/consultasGenerales.service';
 import { HistorialArticuloService } from './../../../servicios/historialArticulo.service';
 import { HistorialArticulos } from './../../../modelos/historialArticulos';
 import { AgregarSolicitudBajaArticuloComponent } from './agregar-solicitud-baja-articulo/agregar-solicitud-baja-articulo.component';
@@ -41,6 +42,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
     private servicioAsignacionPuntoVent: AsignacionPuntoVentaService,
     private servicioUsuario: UsuarioService,
     private serviceHistorial: HistorialArticuloService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     public dialog: MatDialog
   ) { }
 
@@ -65,58 +67,51 @@ export class MisArticulosAsignadosComponent implements OnInit {
   }
 
   aparece = true
+  listaAsignActivosCompletos: any = []
   public listarTodos(){
-    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigArticulos=>{
+    this.listaAsignActivosCompletos = []
+    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigActivos=>{
       this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
-        resAsigArticulos.forEach(elementAsignArticulo => {
-          if(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
-            if(elementAsignArticulo.idEstado.id == 76 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
-              var obj = {
-                asignArticulo: elementAsignArticulo,
-                existeAsigPuntoVenta: false
+        this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAsignacionesActivosSinBaja=>{
+          resAsignacionesActivosSinBaja.forEach(elementAsignSinBaja => {
+            resAsigActivos.forEach(elementAsignActivos => {
+              if(elementAsignActivos.id == elementAsignSinBaja.id){
+                this.listaAsignActivosCompletos.push(elementAsignActivos)
               }
-              resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                  obj.existeAsigPuntoVenta = true
+            });
+          });
+          this.listaAsignActivosCompletos.forEach(elementAsignArticulo => {
+            if(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+              if(elementAsignArticulo.idEstado.id == 76 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
+                var obj = {
+                  asignArticulo: elementAsignArticulo,
+                  existeAsigPuntoVenta: false
                 }
-              })
-              this.listarAsignacionArticulos.push(obj);
-            }else if(elementAsignArticulo.idEstado.id == 78 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
-              var obj = {
-                asignArticulo: elementAsignArticulo,
-                existeAsigPuntoVenta: false
+                resAsignacion.forEach(elementAsignacionPuntoVenta => {
+                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                    obj.existeAsigPuntoVenta = true
+                  }
+                })
+                this.listarAsignacionArticulos.push(obj);
+              }else if(elementAsignArticulo.idEstado.id == 78 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
+                var obj = {
+                  asignArticulo: elementAsignArticulo,
+                  existeAsigPuntoVenta: false
+                }
+                resAsignacion.forEach(elementAsignacionPuntoVenta => {
+                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                    obj.existeAsigPuntoVenta = true
+                  }
+                })
+                this.listarAsignacionArticulos.push(obj);
               }
-              resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                  obj.existeAsigPuntoVenta = true
-                }
-              })
-              this.listarAsignacionArticulos.push(obj);
             }
-          }
-        })
+          })
+          this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
 
-        // res.forEach(element => {
-        //   if(element.idAsignacionesProcesos.idUsuario.documento == Number(sessionStorage.getItem('usuario')) ){
-        //     // var obj = {
-        //     //   asignacionArticulo: {},
-        //     //   existeAsignPuntoVenta: false
-        //     // }
-        //     if(element.idEstado.id == 76 && element.idDetalleArticulo.idArticulo.idEstado.id == 26){
-        //       this.listarAsignacionArticulos.push(element);
-        //     }else if(element.idEstado.id == 78 && element.idDetalleArticulo.idArticulo.idEstado.id == 26){
-        //       this.listarAsignacionArticulos.push(element);
-        //     }
-        //   }
-        //     resAsignacion.forEach(elementAsignacion => {
-        //       if(element.idDetalleArticulo.idArticulo.descripcion == elementAsignacion.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion && element.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
-        //         this.aparece = false;
-        //       }
-        //     });
-        // });
-        this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        })
       })
     })
   }

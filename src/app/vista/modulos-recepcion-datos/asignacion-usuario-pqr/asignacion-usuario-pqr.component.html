@@ -1,9 +1,9 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar asignacion a usuario">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-placement="top" title="Exportar lista de asignaciones usuarios"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar una asignacion de usuario">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -29,10 +29,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" (click)="modificarTipoDocumento(item.id)">
+            <button class="btn btnedit mx-2" (click)="modificarTipoDocumento(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar esta asignacion usuario">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" (click)="eliminarTipoDocumento(item.id)">
+            <button class="btn btnremove mx-2" (click)="eliminarTipoDocumento(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar esta asignacion usuario">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

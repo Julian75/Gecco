@@ -7,6 +7,8 @@ import * as XLSX from 'xlsx';
 import { InventarioService } from 'src/app/servicios/inventario.service';
 import { VisualizarHistorialArticuloComponent } from '../../modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ArticulosBajaService } from 'src/app/servicios/articulosBaja.service';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 @Component({
   selector: 'app-lista-articulos-inventario',
   templateUrl: './lista-articulos-inventario.component.html',
@@ -22,6 +24,8 @@ export class ListaArticulosInventarioComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioInventario: InventarioService,
+    private servicioSolicitudBaja: ArticulosBajaService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     public dialog: MatDialog
   ) { }
 
@@ -29,12 +33,23 @@ export class ListaArticulosInventarioComponent implements OnInit {
     this.listarTodo()
   }
 
+  listaCompletaInventario: any = []
   public listarTodo(){
-    this.servicioInventario.listarTodos().subscribe(invenTodo=>{
-      this.listarInventario = invenTodo
-      this.dataSource = new MatTableDataSource( this.listarInventario);
-      this.dataSource.paginator = this.paginator;
+    this.listaCompletaInventario = []
+    this.servicioInventario.listarTodos().subscribe(resInventariosCompletos=>{
+      this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventariosSinBaja=>{
+        resInventariosSinBaja.forEach(elementInventarioSinBaja => {
+          resInventariosCompletos.forEach(elementInventario => {
+            if(elementInventario.id == elementInventarioSinBaja.id){
+              this.listaCompletaInventario.push(elementInventario)
+            }
+          });
+        });
+        this.listaCompletaInventario.sort()
+        this.dataSource = new MatTableDataSource( this.listaCompletaInventario);
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      })
     })
   }
 

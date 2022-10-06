@@ -4,9 +4,9 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button  class="btn botonagregar" (click)="guardar()"><mat-icon>add_circle</mat-icon></button>
-        <button  class="btn bot" (click)="eliminarArticulo()"><mat-icon>delete</mat-icon></button>
-        <button class="btn boton" (click)="agregarArticulo()" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
+        <button  class="btn botonagregar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar solcitud"><mat-icon>add_circle</mat-icon></button>
+        <button  class="btn bot" (click)="eliminarArticulo()" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar artículos"><mat-icon>delete</mat-icon></button>
+        <button class="btn boton" (click)="agregarArticulo()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar artículos" *ngIf="num == 0"><mat-icon>add_box</mat-icon></button>
       </div>
     </div>
 
@@ -56,7 +56,7 @@
           </tr>
         </table>
       </section>
-      <button class="btn botonagregar2" (click)="generarSolicitud()"><mat-icon>edit_square</mat-icon></button>
+      <button class="btn botonagregar2" (click)="generarSolicitud()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar solicitud"><mat-icon>edit_square</mat-icon></button>
       <mat-paginator [length]="100" [pageSize]="6" [pageSizeOptions]="[2, 5, 10, 25, 100]" aria-label="Select page">
       </mat-paginator>
       <div id="generalnum">

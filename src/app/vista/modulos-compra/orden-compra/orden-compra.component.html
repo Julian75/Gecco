@@ -83,7 +83,7 @@
       <p class="des">Valor Anticipo: ${{descuento | currency:'COP':'symbol':'1.0-0'}}</p>
       <p class="to">Total: ${{total | currency:'COP':'symbol':'1.0-0'}}</p>
 
-    <button mat-raised-button class="guardar4" (click)="generarOrden()">Generar</button>
+    <button mat-raised-button class="guardar4" (click)="generarOrden()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar orden de compra">Generar</button>
   </form>
 </div>
 <div class="solpiner" id="snipper" style="text-align: center; display: none;">

@@ -1,5 +1,5 @@
 <div class="contenedor">
-  <button class="btn botonvolver text-white my-2" routerLink="/solicitudesSC">
+  <button class="btn botonvolver text-white my-2" routerLink="/solicitudesSC" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <h2 class="dato">Generar Nueva Solicitud</h2>
@@ -83,11 +83,11 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button mat-raised-button class="guardar" (click)="guardar()">Generar</button>
+        <button mat-raised-button class="guardar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar solicitud pqrs">Generar</button>
       </div>
     </div>
     <div class="add">
-      <button id="selectButton" class="btn" (click)="fileInput.click()" ><mat-icon>post_add</mat-icon></button>
+      <button id="selectButton" class="btn" (click)="fileInput.click()" data-bs-toggle="tooltip" data-bs-placement="top" title="Subir archivos"><mat-icon>post_add</mat-icon></button>
       <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" /><br>
       <div class="archivos">
         <span *ngIf="fileName" style="position: relative; top: 15px;"><strong style="margin-right: 5px;">Cantidad de archivos: </strong>{{fileName}}</span><br>

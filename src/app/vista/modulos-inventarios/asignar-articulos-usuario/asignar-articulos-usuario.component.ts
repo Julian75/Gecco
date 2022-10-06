@@ -13,6 +13,7 @@ import { AsignacionArticulos } from 'src/app/modelos/asignacionArticulos';
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticulos2';
 import { EstadoService } from 'src/app/servicios/estado.service';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 
 @Component({
   selector: 'app-asignar-articulos-usuario',
@@ -31,6 +32,7 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
     private serviceAsignacionArticulos: AsignacionArticulosService,
     private servicioModificar: ModificarService,
     private servicioEstado: EstadoService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     public dialog: MatDialog
   ) { }
 
@@ -38,28 +40,42 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
     this.listarTodos();
   }
 
+  listaCompletaActivos: any = []
   public listarTodos(){
-    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsignArticulos=>{
-      resAsignArticulos.forEach(elementAsigArticulo => {
-        if(elementAsigArticulo.idEstado.id != 79){
-          var obj = {
-            asignacionArticulo: {},
-            usuario: false
+    this.listaCompletaActivos = []
+    this.listarAsignacionArticulos = []
+    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsignacionesArticulos=>{
+      this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resActivosSinBaja=>{
+        resActivosSinBaja.forEach(elementActivosSinBaja => {
+          resAsignacionesArticulos.forEach(elementAsignArti => {
+            if(elementAsignArti.id == elementActivosSinBaja.id){
+              this.listaCompletaActivos.push(elementAsignArti)
+            }
+          });
+        });
+        this.listaCompletaActivos.sort()
+        this.listaCompletaActivos.forEach(elementAsigArticulo => {
+          if(elementAsigArticulo.idEstado.id != 79){
+            var obj = {
+              asignacionArticulo: {},
+              usuario: false
+            }
+            if(elementAsigArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+              obj.asignacionArticulo = elementAsigArticulo
+              obj.usuario = true
+            }else{
+              obj.asignacionArticulo = elementAsigArticulo
+              obj.usuario = false
+            }
+            this.listarAsignacionArticulos.push(obj)
           }
-          if(elementAsigArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
-            obj.asignacionArticulo = elementAsigArticulo
-            obj.usuario = true
-          }else{
-            obj.asignacionArticulo = elementAsigArticulo
-            obj.usuario = false
-          }
-          this.listarAsignacionArticulos.push(obj)
-        }
-      });
-      this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+        });
+        this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
     })
+
   }
 
   modificarAsignacionProceso(id: number): void {

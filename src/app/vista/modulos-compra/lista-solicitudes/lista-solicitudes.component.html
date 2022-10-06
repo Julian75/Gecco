@@ -1,7 +1,7 @@
 <div class="contenedor">
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <button class="btn excelReporte" (click)="exportToExcelSolicPendientes()"><mat-icon>pending_actions</mat-icon></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de solicitudes"><i class="fa-solid fa-file-excel"></i></button>
+    <button class="btn excelReporte" (click)="exportToExcelSolicPendientes()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de solicitudes pendientes "><mat-icon>pending_actions</mat-icon></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar solicitud">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -33,13 +33,13 @@
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button *ngIf="item.solicitud.idEstado.id != 54" class="btn btnedit mx-2 edi" (click)="verSolicitud(item.solicitud.id)">
+              <button *ngIf="item.solicitud.idEstado.id != 54" class="btn btnedit mx-2 edi" (click)="verSolicitud(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar solicitud">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button class="btn btnedit2 mx-2 edi" (click)="verPasos(item.solicitud.id, item.solicitud.idEstado.id)">
+              <button class="btn btnedit2 mx-2 edi" (click)="verPasos(item.solicitud.id, item.solicitud.idEstado.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver pasos">
                 <mat-icon>insights</mat-icon>
               </button>
-              <button *ngIf="item.solicitud.idEstado.id == 34" class="btn btnedit mx-2 descar" (click)="descargarPdf(item.solicitud.id)">
+              <button *ngIf="item.solicitud.idEstado.id == 34" class="btn btnedit mx-2 descar" (click)="descargarPdf(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Descargar solicitud">
                 <mat-icon>file_download</mat-icon>
               </button>
             </td>

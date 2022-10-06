@@ -1,9 +1,9 @@
 <div class="contenedor">
-  <button class="btn boton botonagregar text-white my-2" routerLink="/agregarTurno">
+  <button class="btn boton botonagregar text-white my-2" routerLink="/agregarTurno" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar turno">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de turnos"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar turno">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -49,10 +49,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" [routerLink]="['/modificarTurno', item.id]">
+            <button class="btn btnedit mx-2" [routerLink]="['/modificarTurno', item.id]" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar turno">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" (click)="eliminarTurnos(item.id)">
+            <button class="btn btnremove mx-2" (click)="eliminarTurnos(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar turno">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

@@ -65,9 +65,89 @@
       <div class="row">
         <!-- Boton de guardar datos -->
         <div class="guardar2">
-          <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"><mat-icon>assignment_returned</mat-icon></button>
+          <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar datos"><mat-icon>assignment_returned</mat-icon></button>
         </div>
       </div>
+
+      <div class="rowExcel" id="excelReporte" style="display: none">
+        <!-- Boton de guardar datos -->
+        <div class="guardarExcel">
+          <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte inventario"><i class="fa-solid fa-file-excel"></i></button>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <section id="reporteInventario" class="example-container mat-elevation-z8" tabindex="0" style="display: none;">
+        <table datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="articulo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Articulo</h3></th>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.Articulo}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="codigoUnico">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Codigo Unico</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.CodigoUnico}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="placa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Placa</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.Placa}}</td>
+          </ng-container>
+
+           <!-- Name Column -->
+           <ng-container matColumnDef="marca">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Marca</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.Marca}}</td>
+          </ng-container>
+
+           <!-- Name Column -->
+           <ng-container matColumnDef="serial">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Serial</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.Serial}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="tipoActivo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Tipo Activo</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.TipoActivo}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Categoria</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.Categoria}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="oficina">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Oficina</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.Oficina}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="puntoVenta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Sitio de Venta</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.SitioVenta}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="usuarioAsignado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Usuario Asignado - Estado Asignación</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.UsuarioLogueado}} | {{element.EstadoAsignacion}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </section>
+      <mat-paginator id="paginatorTabla" style="display: none;" [length]="100"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                  aria-label="Select page">
+      </mat-paginator>
+
     </form>
   </div>
   <div class="solpiner" id="snipper" style="text-align: center; display: none;">

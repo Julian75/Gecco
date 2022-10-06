@@ -1,5 +1,5 @@
 <div class="contenedor">
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de historial pqrs"><i class="fa-solid fa-file-excel"></i></button>
     <mat-form-field appearance="standard" class="buscador">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -45,7 +45,7 @@
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button  *ngIf="item.validar3 ==  true" class="btn btnedit mx-2" (click)="descargarPdf(item.elemento.id)">
+            <button  *ngIf="item.validar3 ==  true" class="btn btnedit mx-2" (click)="descargarPdf(item.elemento.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Descargar archivos">
               <mat-icon>file_download</mat-icon>
             </button>
           </td>

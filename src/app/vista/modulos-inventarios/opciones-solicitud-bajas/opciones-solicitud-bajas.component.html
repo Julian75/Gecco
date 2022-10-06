@@ -1,10 +1,10 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" (click)="abrilModal();">
+    <button class="btn boton botonagregar text-white my-2" (click)="abrilModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega solicitud de baja">
         <mat-icon>add_circle</mat-icon>
       </button>
-      <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+      <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de las solicitudes de bajas"><i class="fa-solid fa-file-excel"></i></button>
 
-      <mat-form-field class="buscador" appearance="standard">
+      <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca solicitud de baja">
         <mat-label>Buscar</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
       </mat-form-field>
@@ -24,10 +24,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" (click)="modificarOpcion(item.id)" >
+            <button class="btn btnedit mx-2" (click)="modificarOpcion(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar opción">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" (click)="eliminarOpcion(item.id)">
+            <button class="btn btnremove mx-2" (click)="eliminarOpcion(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar opción">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

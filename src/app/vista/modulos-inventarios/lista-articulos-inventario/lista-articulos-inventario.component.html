@@ -1,6 +1,6 @@
 <div class="contenedor">
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de artículos"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar artículos">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -21,7 +21,7 @@
 
         <ng-container matColumnDef="articulo">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Artículo</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idArticulo.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">{{element.idDetalleArticulo.idArticulo.descripcion}}</td>
         </ng-container>
 
         <ng-container matColumnDef="fecha">
@@ -37,7 +37,7 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="opcionSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btnver mx-2 edi" (click)="mostrarHistorial(element.idArticulo.id)">
+            <button class="btn btnver mx-2 edi" (click)="mostrarHistorial(element.idDetalleArticulo.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar historial">
               <mat-icon>manage_search</mat-icon>
             </button>
           </td>

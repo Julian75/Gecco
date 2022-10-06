@@ -1,9 +1,9 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega Sede">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar Lista de Sedes"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar Sede(s)">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -24,10 +24,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" (click)="modificarSede(item.id)">
+            <button class="btn btnedit mx-2" (click)="modificarSede(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar Sede">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" (click)="eliminarSede(item.id)">
+            <button class="btn btnremove mx-2" (click)="eliminarSede(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Sede">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

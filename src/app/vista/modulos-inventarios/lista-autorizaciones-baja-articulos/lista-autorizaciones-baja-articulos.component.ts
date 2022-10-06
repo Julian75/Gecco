@@ -12,6 +12,7 @@ import { SolicitudBajasArticulos2 } from 'src/app/modelos/modelos2/solicitudBaja
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { RechazoSolicitudBajaArticuloComponent } from './rechazo-solicitud-baja-articulo/rechazo-solicitud-baja-articulo.component';
+import { VisualizarActivosBajasSolicitudComponent } from '../visualizar-activos-bajas-solicitud/visualizar-activos-bajas-solicitud.component';
 @Component({
   selector: 'app-lista-autorizaciones-baja-articulos',
   templateUrl: './lista-autorizaciones-baja-articulos.component.html',
@@ -22,7 +23,7 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
   dtOptions: any = {};
   public listarSolicitudesBajas: any = [];
 
-  displayedColumns = ['id', 'fecha', 'observacion', 'usuario', 'idDetalleArticulo', 'estado', 'opciones'];
+  displayedColumns = ['id', 'fecha', 'usuario', 'estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -47,6 +48,7 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
           this.listarSolicitudesBajas.push(element)
         }
       });
+      console.log(this.listarSolicitudesBajas)
       this.dataSource = new MatTableDataSource(this.listarSolicitudesBajas);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -61,6 +63,7 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
           solicitudBaja.id = res.id;
           var fecha = new Date(res.fecha)
           fecha.setDate(fecha.getDate()+1)
+          solicitudBaja.id = res.id
           solicitudBaja.fecha = fecha
           solicitudBaja.id_usuario = res.idUsuario.id;
           solicitudBaja.id_estado = resEstado.id;
@@ -81,6 +84,14 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
       })
 
     })
+  }
+
+  visualizarActivosBajas(id:number){
+    const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
+      width: '800px',
+      height: '440px',
+      data: id
+    });
   }
 
   rechazarAutorizacion(id:number){

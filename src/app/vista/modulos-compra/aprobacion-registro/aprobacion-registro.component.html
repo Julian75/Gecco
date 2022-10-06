@@ -1,9 +1,9 @@
 <div class="contenedor">
-    <button class="btn bot botonvolver text-white my-2" (click)="volver()" >
+    <button class="btn bot botonvolver text-white my-2" (click)="volver()" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de aprobación registro"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar aprobación">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -36,16 +36,16 @@
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button class="btn btnedit mx-2 ver" (click)="verSolicitud(item.idCotizacion.idSolicitud.id)">
+              <button class="btn btnedit mx-2 ver" (click)="verSolicitud(item.idCotizacion.idSolicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver aprobación">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button class="btn btnedit mx-2 descar" (click)="descargarPdf(item.id)">
+              <button class="btn btnedit mx-2 descar" (click)="descargarPdf(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Descargar aprobación">
                 <mat-icon>file_download</mat-icon>
               </button>
-              <button class="btn boton mx-2 acep" (click)="aceptar(item.idCotizacion.idSolicitud.id, item.idCotizacion.id)">
+              <button class="btn boton mx-2 acep" (click)="aceptar(item.idCotizacion.idSolicitud.id, item.idCotizacion.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceptar aprobación">
                 <mat-icon>check_circle</mat-icon>
               </button>
-              <button class="btn btnremove mx-2 recha" (click)="rechazarSolicitud(item.idCotizacion.idSolicitud.id, item.idCotizacion.id)">
+              <button class="btn btnremove mx-2 recha" (click)="rechazarSolicitud(item.idCotizacion.idSolicitud.id, item.idCotizacion.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar aprobación">
                 <mat-icon>cancel</mat-icon>
               </button>
             </td>

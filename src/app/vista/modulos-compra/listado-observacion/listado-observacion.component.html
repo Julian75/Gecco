@@ -1,11 +1,11 @@
 <div class="contenedor">
-  <button class="btn bot botonvolver text-white my-2" (click)="volver()" >
-    <mat-icon>arrow_back</mat-icon> 
+  <button class="btn bot botonvolver text-white my-2" (click)="volver()" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver">
+    <mat-icon>arrow_back</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar listado de observación"><i class="fa-solid fa-file-excel"></i></button>
   <!-- <button *ngIf="estadoSolicitud == 31" class="btn pdfButton"><mat-icon>picture_as_pdf</mat-icon></button> -->
   <!-- (click)="exportPdf()" -->
-  <mat-form-field class="buscador" appearance="standard">
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar observación">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -47,7 +47,7 @@
       <ng-container matColumnDef="opciones">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="opc">Opciones</h3></th>
         <td mat-cell *matCellDef="let element">
-          <button *ngIf="element.idEstado.id==28" class="btn formulario mx-2" (click)="formularioObservacion(element)">
+          <button *ngIf="element.idEstado.id==28" class="btn formulario mx-2" (click)="formularioObservacion(element)" data-bs-toggle="tooltip" data-bs-placement="top" title="Abrir formulario de observacion">
             <mat-icon>contact_support</mat-icon>
           </button>
         </td>

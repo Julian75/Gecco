@@ -1,9 +1,9 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarClienteSC">
+    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarClienteSC" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar usuario de servicio cliente">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-placement="top" title="Exportar lista de usuarios servicio cliente"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar un usuario de servicio cliente">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -48,7 +48,7 @@
           <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="tamañoOpc">
-              <button class="btn btnedit mx-2" [routerLink]="['/modificarClienteSC', item.id]">
+              <button class="btn btnedit mx-2" [routerLink]="['/modificarClienteSC', item.id]" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar este usuario de servicio cliente">
                 <mat-icon>edit</mat-icon>
               </button>
             </td>

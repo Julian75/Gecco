@@ -1,9 +1,9 @@
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarTurnoVendedor">
+    <button class="btn boton botonagregar text-white my-2" routerLink="/agregarTurnoVendedor" data-bs-toggle="tooltip" data-bs-placement="top" title="agregar turno a un vendedor">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()"  data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de asignar turnos vendedor"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard"  data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar asignación de un vendedor">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>

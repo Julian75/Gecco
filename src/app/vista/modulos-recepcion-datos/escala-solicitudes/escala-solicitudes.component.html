@@ -1,10 +1,10 @@
 
 <div class="contenedor">
-    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+    <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar escala de solicitud">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de escala solicitudes"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar una escala de solicitud">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -25,10 +25,10 @@
            <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="opcSp2">
-              <button class="btn btnedit mx-2" (click)="modificarEscalaSolicitudes(item)">
+              <button class="btn btnedit mx-2" (click)="modificarEscalaSolicitudes(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar esta escala de solicitud">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button class="btn btnremove mx-2" (click)="eliminarEscalaSolicitudes(item.id)">
+              <button class="btn btnremove mx-2" (click)="eliminarEscalaSolicitudes(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar esta escala de solicitud">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

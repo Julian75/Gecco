@@ -1,9 +1,9 @@
 <div class="contenedor">
-  <button class="btn botonvolver text-white my-2" (click)="volver()" >
+  <button class="btn botonvolver text-white my-2" (click)="volver()" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver" >
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de aprobar comentarios"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar aprobación comentario(s)">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -36,13 +36,13 @@
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button class="btn btnedit mx-2 edi" (click)="verSolicitud(item.id)">
+            <button class="btn btnedit mx-2 edi" (click)="verSolicitud(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar solicitud">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button class="btn boton btne mx-2" (click)="aceptar(item.id)">
+            <button class="btn boton btne mx-2" (click)="aceptar(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceptar comentario">
               <mat-icon>speaker_notes_off</mat-icon>
             </button>
-            <button class="btn btnremove btne mx-2" (click)="rechazar(item.id)">
+            <button class="btn btnremove btne mx-2" (click)="rechazar(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar comentario">
               <mat-icon>maps_ugc</mat-icon>
             </button>
           </td>

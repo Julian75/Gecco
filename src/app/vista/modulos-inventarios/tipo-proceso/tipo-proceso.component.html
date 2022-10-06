@@ -1,9 +1,9 @@
 
 <div class="contenedor">
-  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();">
+  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar tipo proceso">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de tipo proceso"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field class="buscador" appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -25,10 +25,10 @@
       <ng-container matColumnDef="opciones">
         <th mat-header-cell *matHeaderCellDef><h3 id="opcSp">Opciones</h3></th>
         <td mat-cell *matCellDef="let item">
-          <button class="btn btnedit mx-2" (click)="modificarTipoProceso(item.id)">
+          <button class="btn btnedit mx-2" (click)="modificarTipoProceso(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar tipo proceso">
             <mat-icon>edit</mat-icon>
           </button>
-          <button class="btn btnremove mx-2" (click)="eliminarTipoProceso(item.id)">
+          <button class="btn btnremove mx-2" (click)="eliminarTipoProceso(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar tipo proceso">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

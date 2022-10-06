@@ -1,7 +1,7 @@
 <div class="contenedor">
     <h2>Lista de Solicitudes</h2>
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de aprobación"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar aprobación">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -36,7 +36,7 @@
         <ng-container matColumnDef="observacion">
           <th mat-header-cell *matHeaderCellDef ><h3 id="ObSpa">Observacion</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnver mx-2" (click)="visualizarObservacion(item.id)">
+            <button class="btn btnver mx-2" (click)="visualizarObservacion(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar observación">
               <mat-icon>visibility</mat-icon>
             </button>
           </td>
@@ -45,10 +45,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="OpcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opc2">
-            <button class="btn btnPriority mx-2" (click)="aceptado(item.id, item.idAsignarTurnoVendedor.id)">
+            <button class="btn btnPriority mx-2" (click)="aceptado(item.id, item.idAsignarTurnoVendedor.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceptar aprobación">
               <mat-icon>check_circle</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" (click)="rechazado(item.id, item.idAsignarTurnoVendedor.id)">
+            <button class="btn btnremove mx-2" (click)="rechazado(item.id, item.idAsignarTurnoVendedor.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar aprobación">
               <mat-icon>cancel</mat-icon>
             </button>
           </td>

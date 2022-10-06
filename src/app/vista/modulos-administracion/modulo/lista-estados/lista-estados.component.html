@@ -1,13 +1,13 @@
 <div class="contenedor">
   <h2>LISTA DE ESTADOS DEL MODULO {{modulo | uppercase }}</h2>
-  <button class="btn bot botonvolver text-white my-2" [routerLink]="['/modulo']" data-bs-toggle="tooltip" data-bs-placement="top" title="Vuelve al modulo anterior" routerLinkActive="router-link-active" >
+  <button class="btn bot botonvolver text-white my-2" [routerLink]="['/modulo']" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver" routerLinkActive="router-link-active" >
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button class="btn boton botonagregar text-white my-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un Estado al Modulo {{modulo | uppercase }}">
+  <button class="btn boton botonagregar text-white my-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un estado al modulo {{modulo | uppercase }}">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Genera Reporte de la Tabla"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un Estado">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de estados"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un estado">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -35,10 +35,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button class="btn btnedit mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica este Estado" (click)="modificarEstado(item.id)">
+            <button class="btn btnedit mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar estado" (click)="modificarEstado(item.id)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Elimina este Estado" (click)="eliminarEstado(item.id)">
+            <button class="btn btnremove mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar estado" (click)="eliminarEstado(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

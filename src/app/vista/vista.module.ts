@@ -187,6 +187,7 @@ import { AgregarOpcionesSolicitudBajasComponent } from './modulos-inventarios/op
 import { ModificarOpcionesSolicitudBajasComponent } from './modulos-inventarios/opciones-solicitud-bajas/modificar-opciones-solicitud-bajas/modificar-opciones-solicitud-bajas.component';
 import { ListaArticulosInventarioComponent } from './modulos-inventarios/lista-articulos-inventario/lista-articulos-inventario.component';
 import { InformacionDetalladaActivosComponent } from './modulos-inventarios/solicitud-articulos-baja/informacion-detallada-activos/informacion-detallada-activos.component';
+import { VisualizarActivosBajasSolicitudComponent } from './modulos-inventarios/visualizar-activos-bajas-solicitud/visualizar-activos-bajas-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -371,6 +372,7 @@ import { InformacionDetalladaActivosComponent } from './modulos-inventarios/soli
     ModificarOpcionesSolicitudBajasComponent,
     ListaArticulosInventarioComponent,
     InformacionDetalladaActivosComponent,
+    VisualizarActivosBajasSolicitudComponent,
   ],
   imports: [
     CommonModule,

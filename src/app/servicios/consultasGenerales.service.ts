@@ -1,3 +1,5 @@
+import { AsignacionArticulos2 } from './../modelos/modelos2/asignacionArticulos2';
+import { Inventario2 } from './../modelos/modelos2/inventario2';
 import { OrdenCompra2 } from './../modelos/ordenCompra2';
 import { UsuariosAdministracion2 } from './../modelos/modelos2/usuariosAdministracion2';
 import { Cotizacion2 } from './../modelos/cotizacion2';
@@ -75,6 +77,16 @@ export class ConsultasGeneralesService {
   //Listar Asignar turnos vendedores con fecha actual
   public listarAsignarTurnosVendedores(fechaActual: String){
     return this.http.get<AsignarTurnoVendedor2[]>(this.path+"/ObtenerAsignarTurnosVendedores?fechaActual="+fechaActual);
+  }
+
+  //Listar todos los inventarios que no tienen los mismos activos que ya se dieron de baja
+  public listarInventariosSinBaja(){
+    return this.http.get<Inventario2[]>(this.path+"/ObtenerInventarioBaja");
+  }
+
+  //Listar Asignaciones activas que no tienen los mismos activos que ya se dieron de baja
+  public listarAsignacionesActivosSinBaja(){
+    return this.http.get<AsignacionArticulos2[]>(this.path+"/ObtenerAsignacionArticulos");
   }
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);

@@ -70,7 +70,7 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button mat-raised-button class="guardar" (click)="guardar()" >Insertar</button>
+        <button mat-raised-button class="guardar" (click)="guardar()"  data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar asignación">Insertar</button>
       </div>
     </div>
   </form>
@@ -126,10 +126,10 @@
       <ng-container matColumnDef="opciones">
         <th mat-header-cell *matHeaderCellDef ><h1>Opciones</h1></th>
         <td mat-cell *matCellDef="let item" class="text-center">
-          <button class="btn btnremove" *ngIf="item.estado == 'Disponible'" (click)="eliminarAsignarTurnoVendedor(item.id)">
+          <button class="btn btnremove" *ngIf="item.estado == 'Disponible'" (click)="eliminarAsignarTurnoVendedor(item.id)"  data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar asignación">
             <mat-icon>delete</mat-icon>
           </button>
-          <button class="btn btn-warning btnedit mx-3" style="background-color: #FFCA2C; cursor: not-allowed;" *ngIf="item.estado == 'Pendiente'">
+          <button class="btn btn-warning btnedit mx-3" style="background-color: #FFCA2C; cursor: not-allowed;" *ngIf="item.estado == 'Pendiente'"  data-bs-toggle="tooltip" data-bs-placement="top" title="Esta eliminación está pendiente">
             <mat-icon>schedule_send</mat-icon>
           </button>
         </td>

@@ -1,7 +1,7 @@
 <div class="contenedor">
-    <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de asignación usuarios"><i class="fa-solid fa-file-excel"></i></button>
 
-    <mat-form-field class="buscador" appearance="standard">
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar asignación">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
@@ -35,10 +35,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button *ngIf="item.asignacionArticulo.idEstado.id == 76 && item.usuario == true" id="btnedit" class="btn btnedit mx-2" (click)="modificarAsignacionProceso(item.id)">
+            <button *ngIf="item.asignacionArticulo.idEstado.id == 76 && item.usuario == true" id="btnedit" class="btn btnedit mx-2" (click)="modificarAsignacionProceso(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar asignación proceso">
               <mat-icon>assignment_ind</mat-icon>
             </button>
-            <button *ngIf="item.asignacionArticulo.idEstado.id == 78 && item.usuario == false" id="btnedit" class="btn btnedit mx-2" (click)="modificarAsignacionProceso(item.id)">
+            <button *ngIf="item.asignacionArticulo.idEstado.id == 78 && item.usuario == false" id="btnedit" class="btn btnedit mx-2" (click)="modificarAsignacionProceso(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar asignación proceso">
               <mat-icon>assignment_ind</mat-icon>
             </button>
           </td>

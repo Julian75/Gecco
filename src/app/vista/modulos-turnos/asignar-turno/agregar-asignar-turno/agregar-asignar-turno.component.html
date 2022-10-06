@@ -49,7 +49,7 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <button mat-raised-button class="guardar" (click)="guardar()" >Insertar</button>
+        <button mat-raised-button class="guardar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar asignación">Insertar</button>
       </div>
     </div>
 
@@ -110,10 +110,10 @@
       <ng-container matColumnDef="Opciones">
         <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
         <td mat-cell *matCellDef="let item" id="opcSp2" class="text-center">
-          <button class="btn btnremove me-2" (click)="eliminarAsignarTurno(item.id)">
+          <button class="btn btnremove me-2" (click)="eliminarAsignarTurno(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar asignación">
             <mat-icon>delete</mat-icon>
           </button>
-          <button class="btn btnremove me-2" *ngIf="item.porcentaje == 0" (click)="agregarPorcentaje(item)">
+          <button class="btn btnremove me-2" *ngIf="item.porcentaje == 0" (click)="agregarPorcentaje(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Porcentaje a esta Asignación">
             <mat-icon>switch_access_shortcut_add</mat-icon>
           </button>
         </td>

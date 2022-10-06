@@ -1,9 +1,9 @@
 <div class="contenedor">
-  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un Modulo">
+  <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un modulo">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta Lista de Modulo"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un Modulo">
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de modulo"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un modulo">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
@@ -25,10 +25,10 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2"data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica este Modulo" (click)="modificarModulo(item.id)">
+            <button class="btn btnedit mx-2"data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica este modulo" (click)="modificarModulo(item.id)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button class="btn btnremove mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Elimina este Modulo"(click)="eliminarModulo(item.id)">
+            <button class="btn btnremove mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Elimina este modulo"(click)="eliminarModulo(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
             <button class="btn btnver mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualiza los estados de este modulo" [routerLink]="['/visualizarEstados', item.id]">

@@ -21,10 +21,9 @@ h2{
 .guardar{
   background-color: #00235C ;
   color: white;
-  width: 160px;
   height: 40px;
   font-size: large;
-  margin-left: 65%;
+  margin-left: 86%;
 }
 
 .row1{
@@ -38,12 +37,12 @@ h2{
   h2{ font-size: 1.4em; }
   mat-form-field{ margin-top: 5%; }
   .nombre, .estado{ width: 100%; margin-left: 0%; margin-top: 0%; }
-  .guardar{ margin-left: 49%; width: 90px; height: 40px; font-size: 15px;}
+  .guardar{ margin-left: 65%; height: 40px; font-size: 15px;}
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
   h2{ font-size: 1.4em; }
   mat-form-field{ margin-top: 5%; }
   .nombre, .estado{ width: 100%; margin-left: 0%; margin-top: 0%; }
-  .guardar{ margin-left: 66%; width: 83px; height: 40px; font-size: 15px;}
+  .guardar{ margin-left: 74%; height: 40px; font-size: 15px;}
 }

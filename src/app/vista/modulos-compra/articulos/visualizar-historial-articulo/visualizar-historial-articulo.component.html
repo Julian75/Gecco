@@ -1,9 +1,9 @@
 <div class="contenedor">
   <h2>HISTORIAL DEL ARTICULO {{articulo | uppercase }}</h2>
-  <button class="btn bot botonvolver text-white my-2" [routerLink]="['/articulos']" routerLinkActive="router-link-active" >
+  <button class="btn bot botonvolver text-white my-2" [routerLink]="['/articulos']" routerLinkActive="router-link-active" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver" >
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista del historial del artículo {{articulo | uppercase }}"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field class="buscador" appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>

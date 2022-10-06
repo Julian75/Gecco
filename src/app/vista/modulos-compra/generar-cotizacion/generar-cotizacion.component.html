@@ -1,8 +1,8 @@
 <div class="contenedor">
-  <button class="btn boton botonagregar text-white my-2" (click)="volver()" >
+  <button class="btn boton botonagregar text-white my-2" (click)="volver()" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button class="btn excelButton" (click)="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de cotización"><i class="fa-solid fa-file-excel"></i></button>
   <mat-form-field class="buscador" appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -36,10 +36,10 @@
          <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item" id="opcSp2">
-            <button class="btn btnedit mx-2 edi" (click)="verSolicitud(item.id)">
+            <button class="btn btnedit mx-2 edi" (click)="verSolicitud(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar solicitud">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button class="btn btnremove mx-2 remo" (click)="agregarCotizacion(item.id)">
+            <button class="btn btnremove mx-2 remo" (click)="agregarCotizacion(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar cotización">
               <mat-icon>add_circle</mat-icon>
             </button>
           </td>

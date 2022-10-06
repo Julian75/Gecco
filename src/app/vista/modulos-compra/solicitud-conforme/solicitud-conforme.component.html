@@ -1,8 +1,8 @@
 <h2>
   {{mensajito}}
 </h2>
-<button class="btn btnremove" (click)="volver();"><mat-icon>cancel</mat-icon></button>
-<button class="btn boton" (click)="aceptar();"><mat-icon>check_circle</mat-icon></button>
+<button class="btn btnremove" (click)="volver();" data-bs-toggle="tooltip" data-bs-placement="top" title="Devolver"><mat-icon>cancel</mat-icon></button>
+<button class="btn boton" (click)="aceptar();" data-bs-toggle="tooltip" data-bs-placement="top" title="Aceptar solicitud conforme"><mat-icon>check_circle</mat-icon></button>
 <div class="solpiner" id="snipper" style="text-align: center; display: none;">
   <div class="loader"></div>
 </div>
