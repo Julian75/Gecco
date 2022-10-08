@@ -8,6 +8,10 @@ table{
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
 }
+.btnedit2{ background-color: #00235C; color: white;}
+.btnver{ background-color: #959595; color: white; }
+
+.btnedit mat-icon{ left: -3px;  top: -2px;}
 .btnver2{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }

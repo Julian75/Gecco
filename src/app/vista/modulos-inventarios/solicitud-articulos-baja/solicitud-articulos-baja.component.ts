@@ -64,6 +64,7 @@ export class SolicitudArticulosBajaComponent implements OnInit {
     this.formSolicitud = this.fb.group({
       id: 0,
       dato: [null,Validators.required],
+      estado: [null,Validators.required],
       observacion: [null,Validators.required],
     });
   }
@@ -101,22 +102,34 @@ export class SolicitudArticulosBajaComponent implements OnInit {
     this.listaEstadoArticulo2 = []
     this.listaAsignacionArticulosBaja = []
     this.listaInventarioBaja = []
+    this.opcion = this.formSolicitud.controls['estado'].value
     this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventarioSinBaja=>{
       this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
         this.servicioInventario.listarTodos().subscribe(resInventario=>{
-          resInventarioSinBaja.forEach(elementInventarioSinBaja => {
-            resInventario.forEach(elementInventario => {
-              if(elementInventario.id == elementInventarioSinBaja.id){
-                this.listaInventarioBaja.push(elementInventario)
-              }
+          console.log(resInventarioSinBaja, resAsignacionesactivos, resInventario)
+          if(resInventarioSinBaja.length == 0){
+            this.listaInventarioBaja = resInventario
+          }else{
+            resInventarioSinBaja.forEach(elementInventarioSinBaja => {
+              resInventario.forEach(elementInventario => {
+                console.log(elementInventario, elementInventarioSinBaja)
+                if(elementInventario.id == elementInventarioSinBaja.id){
+                  this.listaInventarioBaja.push(elementInventario)
+                  console.log("hola2", elementInventario)
+                }
+              });
             });
-          });
+          }
+          console.log(this.listaInventarioBaja)
           var dato = this.formSolicitud.controls['dato'].value;
           if((dato != null || dato != undefined) && (this.opcion != null || this.opcion != undefined)){
             for (let i = 0; i < this.listaInventarioBaja.length; i++) {
               const element = this.listaInventarioBaja[i];
+              console.log(element)
               for (let j = 0; j < resAsignacionesactivos.length; j++) {
                 const element2 = resAsignacionesactivos[j];
+                console.log("hola")
+                console.log(element.idDetalleArticulo.id, element2.idDetalleArticulo.id)
                 if((element.idDetalleArticulo.placa.toLowerCase() == dato.toLowerCase() || element.idDetalleArticulo.serial.toLowerCase() == dato.toLowerCase()) && element.idDetalleArticulo.id == element2.idDetalleArticulo.id){
                   this.validar = true
                   if(element2.idEstado.id == 76){
@@ -142,68 +155,72 @@ export class SolicitudArticulosBajaComponent implements OnInit {
             if(existe == true){
               if(existeEstadoArticulo == true){
                 if(existeArticuloUsuario == true){
-                  if(this.listaTabla.length > 0){
-                    for (let i = 0; i < this.listaTabla.length; i++) {
-                      const element = this.listaTabla[i];
-                      if(element.articulo.idDetalleArticulo.codigoUnico != this.activo.idDetalleArticulo.codigoUnico || this.listaTabla.length == 0){
-                        const dialogRef = this.dialog.open(InformacionDetalladaActivosComponent, {
-                          width: '900px',
-                          height: '440px',
-                          data: this.activo
-                        });
-                        dialogRef.afterClosed().subscribe(() =>{
-                          var valido = localStorage.getItem("valido")
-                          if(valido != null){
-                            var obj = {
-                              opcion : this.opcion,
-                              articulo : this.activo,
-                              observacion : ""
+                  this.servicioOpcionesBajas.listarPorId(this.opcion).subscribe(resOpcionElegida=>{
+                    if(this.listaTabla.length > 0){
+                      for (let i = 0; i < this.listaTabla.length; i++) {
+                        const element = this.listaTabla[i];
+                        if(element.articulo.idDetalleArticulo.codigoUnico != this.activo.idDetalleArticulo.codigoUnico || this.listaTabla.length == 0){
+                          const dialogRef = this.dialog.open(InformacionDetalladaActivosComponent, {
+                            width: '900px',
+                            height: '440px',
+                            data: this.activo
+                          });
+                          dialogRef.afterClosed().subscribe(() =>{
+                            var valido = localStorage.getItem("valido")
+                            if(valido != null){
+                              var obj = {
+                                opcion : resOpcionElegida,
+                                articulo : this.activo,
+                                observacion : ""
+                              }
+                              this.listaTabla.push(obj)
+                              this.dataSource = new MatTableDataSource(this.listaTabla);
+                              this.dataSource.paginator = this.paginator;
+                              this.dataSource.sort = this.sort;
+                              localStorage.removeItem("valido")
+                            }else{
+                              console.log("hola2")
                             }
-                            this.listaTabla.push(obj)
-                            this.dataSource = new MatTableDataSource(this.listaTabla);
-                            this.dataSource.paginator = this.paginator;
-                            this.dataSource.sort = this.sort;
-                            localStorage.removeItem("valido")
-                          }else{
-                            console.log("hola2")
-                          }
-                          this.formSolicitud.controls['dato'].setValue(null);
-                        });
-                      }else{
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'warning',
-                          title: 'Ese articulo ya existe en la tabla!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                      }
-                    }
-                  }else{
-                    const dialogRef = this.dialog.open(InformacionDetalladaActivosComponent, {
-                      width: '900px',
-                      height: '440px',
-                      data: this.activo
-                    });
-                    dialogRef.afterClosed().subscribe(() =>{
-                      var valido = localStorage.getItem("valido")
-                      if(valido != null){
-                        var obj = {
-                          opcion : this.opcion,
-                          articulo : this.activo,
-                          observacion : ""
+                            this.formSolicitud.controls['estado'].setValue(null)
+                            this.formSolicitud.controls['dato'].setValue(null);
+                          });
+                        }else{
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: 'Ese articulo ya existe en la tabla!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
                         }
-                        this.listaTabla.push(obj)
-                        this.dataSource = new MatTableDataSource(this.listaTabla);
-                        this.dataSource.paginator = this.paginator;
-                        this.dataSource.sort = this.sort;
-                        localStorage.removeItem("valido")
-                      }else{
-                        console.log("hola2")
                       }
-                      this.formSolicitud.controls['dato'].setValue(null);
-                    });
-                  }
+                    }else{
+                      const dialogRef = this.dialog.open(InformacionDetalladaActivosComponent, {
+                        width: '900px',
+                        height: '440px',
+                        data: this.activo
+                      });
+                      dialogRef.afterClosed().subscribe(() =>{
+                        var valido = localStorage.getItem("valido")
+                        if(valido != null){
+                          var obj = {
+                            opcion : resOpcionElegida,
+                            articulo : this.activo,
+                            observacion : ""
+                          }
+                          this.listaTabla.push(obj)
+                          this.dataSource = new MatTableDataSource(this.listaTabla);
+                          this.dataSource.paginator = this.paginator;
+                          this.dataSource.sort = this.sort;
+                          localStorage.removeItem("valido")
+                        }else{
+                          console.log("hola2")
+                        }
+                        this.formSolicitud.controls['estado'].setValue(null)
+                        this.formSolicitud.controls['dato'].setValue(null);
+                      });
+                    }
+                  })
                 }else{
                   Swal.fire({
                     position: 'center',
@@ -226,7 +243,7 @@ export class SolicitudArticulosBajaComponent implements OnInit {
                   Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'No se encontro ningun activo con esa placa o serial!',
+                    title: 'No se encontro ningun activo con esa placa o serial opcion 2222222!',
                     showConfirmButton: false,
                     timer: 1500
                   })
@@ -408,12 +425,15 @@ export class SolicitudArticulosBajaComponent implements OnInit {
   public registrarArticulosBaja(datos: any){
     let articulosBaja : ArticulosBaja = new ArticulosBaja();
     for (let i = 0; i < this.listaTabla.length; i++) {
-      const element = this.listaTabla[i];
-      articulosBaja.observacion = element.observacion
-      articulosBaja.idSolicitudBaja = datos
-      articulosBaja.idOpcionBaja = element.opcion
-      articulosBaja.idDetalleArticulo = element.articulo.idDetalleArticulo
-      this.servicioArticulosBaja.registrar(articulosBaja).subscribe(res=>{
+      this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
+        const element = this.listaTabla[i];
+        articulosBaja.observacion = element.observacion
+        articulosBaja.idSolicitudBaja = datos
+        articulosBaja.idOpcionBaja = element.opcion
+        articulosBaja.idDetalleArticulo = element.articulo.idDetalleArticulo
+        articulosBaja.idEstado = resEstado
+        this.servicioArticulosBaja.registrar(articulosBaja).subscribe(res=>{
+        })
       })
     }
     localStorage.removeItem('valido')

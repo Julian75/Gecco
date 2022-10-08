@@ -200,11 +200,11 @@ h2{
 }
 /* Portatil 5 Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1600px){
-  .guardarModal{ margin-left: 895px; position: relative; top: -439px;}
+  .guardarModal{ margin-left: 883px; position: relative;}
   .nombre1{ margin-left: 15%;}
-  .nombre3{  margin-left: 57%; margin-top: -28.5%;}
-  .nombre2{  margin-top: 1%; position: relative; margin-left: 10%;}
-  .nombre4{ margin-left: 20%;}
+  .nombre3{ margin-left: 57%; margin-top: -28.5%;}
+  .nombre2{ margin-top: 1%; position: relative; margin-left: 10%;}
+  .nombre4{ margin-left: 57%; }
 }
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1601px) and (max-width: 1920px){

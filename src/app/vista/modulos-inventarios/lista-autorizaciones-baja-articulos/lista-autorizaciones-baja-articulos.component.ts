@@ -55,37 +55,6 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
     })
   }
 
-  aceptarAutorizacion( id:number){
-    let solicitudBaja = new SolicitudBajasArticulos2();
-    this.serviceSolicitudBajasArticulos.listarPorId(id).subscribe(res=>{
-      this.serviceUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        this.serviceEstado.listarPorId(81).subscribe(resEstado=>{
-          solicitudBaja.id = res.id;
-          var fecha = new Date(res.fecha)
-          fecha.setDate(fecha.getDate()+1)
-          solicitudBaja.id = res.id
-          solicitudBaja.fecha = fecha
-          solicitudBaja.id_usuario = res.idUsuario.id;
-          solicitudBaja.id_estado = resEstado.id;
-          solicitudBaja.usuario_autorizacion = resUsuario.id
-          solicitudBaja.usuario_confirmacion = 0
-          this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(res=>{
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Autorización aceptada',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            window.location.reload();
-
-          })
-        })
-      })
-
-    })
-  }
-
   visualizarActivosBajas(id:number){
     const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
       width: '800px',
@@ -94,13 +63,6 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
     });
   }
 
-  rechazarAutorizacion(id:number){
-    const dialogRef = this.dialog.open(RechazoSolicitudBajaArticuloComponent, {
-      width: '500px',
-      height: '300px',
-      data: id
-    });
-  }
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

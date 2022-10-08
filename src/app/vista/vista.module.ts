@@ -188,7 +188,6 @@ import { ModificarOpcionesSolicitudBajasComponent } from './modulos-inventarios/
 import { ListaArticulosInventarioComponent } from './modulos-inventarios/lista-articulos-inventario/lista-articulos-inventario.component';
 import { InformacionDetalladaActivosComponent } from './modulos-inventarios/solicitud-articulos-baja/informacion-detallada-activos/informacion-detallada-activos.component';
 import { VisualizarActivosBajasSolicitudComponent } from './modulos-inventarios/visualizar-activos-bajas-solicitud/visualizar-activos-bajas-solicitud.component';
-
 import { ListaSubprocesoComponent } from './modulos-matriz-necesidades/lista-subproceso/lista-subproceso.component';
 import { AgregarSubprocesoComponent } from './modulos-matriz-necesidades/lista-subproceso/agregar-subproceso/agregar-subproceso.component';
 import { ModificarSubprocesoComponent } from './modulos-matriz-necesidades/lista-subproceso/modificar-subproceso/modificar-subproceso.component';
@@ -196,6 +195,7 @@ import { TipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-nece
 import { AgregarTipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-necesidades/agregar-tipo-necesidades/agregar-tipo-necesidades.component';
 import { ModificarTipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-necesidades/modificar-tipo-necesidades/modificar-tipo-necesidades.component';
 import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
+import { MatrizNecesidadDetalleComponent } from './modulos-matriz-necesidades/matriz-necesidad-detalle/matriz-necesidad-detalle.component';
 
 @NgModule({
   declarations: [
@@ -387,7 +387,8 @@ import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-ne
     TipoNecesidadesComponent,
     AgregarTipoNecesidadesComponent,
     ModificarTipoNecesidadesComponent,
-    MatrizNecesidadComponent
+    MatrizNecesidadComponent,
+    MatrizNecesidadDetalleComponent
   ],
   imports: [
     CommonModule,

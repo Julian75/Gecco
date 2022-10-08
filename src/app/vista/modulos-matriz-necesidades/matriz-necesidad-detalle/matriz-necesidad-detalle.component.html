@@ -1,0 +1,63 @@
+<div class="contenedor">
+    <h2 class="dato">Matriz Necesidad Detalle</h2>
+    <div class="row1">
+      <form [formGroup]="formMatriz">
+        <div class="nombre2">
+            <h2 class="Turno">Asignar mes</h2>
+            <mat-form-field class="tur" appearance="fill">
+              <mat-label>Ingrese Mes</mat-label>
+              <input type="month" id="mes" formControlName="mes" name="mes" matInput>
+            </mat-form-field>
+        </div>
+        <div class="nombre3">
+            <h2>Cantidad de ejcuciones mensuales</h2>
+            <mat-form-field class="nombre" appearance="fill">
+            <mat-label>Ingrese cantidad de ejecuciones en el mes</mat-label>
+            <input type="number" id="cantidadMes" formControlName="cantidadMes" matInput >
+            </mat-form-field>
+        </div>
+        <div class="nombre2">
+            <h2>Cantidad de objetos estimados</h2>
+            <mat-form-field class="nombre" appearance="fill">
+            <mat-label>Ingrese cantidad de estimada de objetos</mat-label>
+            <input type="number" id="cantidadObjeto" formControlName="cantidadObjeto" matInput >
+            </mat-form-field>
+        </div>
+        <div class="botones">
+            <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar informacion del mes"><mat-icon>add</mat-icon></button>
+        </div>
+      <section class="example-container mat-elevation-z8" tabindex="0">
+        <table id="matrizNecesidad" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Name Column -->
+          <ng-container matColumnDef="mes">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descripSp">Mes</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.mes | date:'MMMM'}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="cantidadMes">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descripSp">Cantidad de ejecuciones al mes</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.cantidadMes}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="cantidadObjeto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantSp">Cantidad estimada de objetos</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.cantidadEstimada}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </section>
+      </form>
+      <mat-paginator [length]="100"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  aria-label="Select page">
+      </mat-paginator>
+    </div>
+  </div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+<div class="loader"></div>
+</div>

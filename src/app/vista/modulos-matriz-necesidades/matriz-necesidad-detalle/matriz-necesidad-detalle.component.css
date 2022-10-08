@@ -1,0 +1,366 @@
+.solpiner{
+    background-color: rgba(90, 90, 90, 0.247);
+    width: 100%;
+    height: 100%;
+    z-index: 50px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+  }
+  .loader {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    border: 3px solid;
+    border-color: #FFF #FFF transparent transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-top: 22%;
+    margin-left: 50%;
+  }
+  .loader::after,
+  .loader::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid;
+    border-color: transparent transparent #00235C #00235C;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotationBack 0.5s linear infinite;
+    transform-origin: center center;
+  }
+  .loader::before {
+    width: 92px;
+    height: 92px;
+    border-color: #FFF #FFF transparent transparent;
+    animation: rotation 1.5s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotationBack {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  table{
+      width: 100%;
+      border-bottom: 20%;
+      height: 100%;
+    }
+    .example-container {
+      max-width: 100%;
+      overflow: auto;
+      border-bottom: 20%;
+      box-shadow: 1px none #000;
+      margin-top: 5%;
+    }
+    .row1{
+      border-top: 3px solid #97B4E2;
+      padding-top: 3%;
+      padding-bottom: 4%;
+    }
+    .contenedor{
+      width: 90% !important; margin-left: 5%; margin-top: 3%;
+    }
+    .botones{ margin-left: 55%; margin-top: -8%; }
+    .btnver2{ background-color: #959595; color: white; width: 64px; height: 36px; position: relative; top: -69px; left: 226px; }
+    .nombre3{ margin-top: -16%; margin-left: 55%; }
+    .btnedit{ background-color: #97B4E2; color: white; width: 64px; height: 36px; margin-left: 2%; position: relative; }
+    .btnremove{ background-color: #DA161A; color: white; width: 64px; height: 36px; position: relative; }
+    .mat-paginator{ margin-top: 2%; }
+    .boton{ background-color: #00235C; color: white; }
+    #opcSp, #descripSp, #idSp, #cantSp, #oficiSp, #sitiVentSp{ position: relative; }
+    #idSp{ left: 0%; position: absolute; }
+    #descripSp{ left: 65%; }
+    #cantSp{ left: 75%; }
+    #oficiSp{ left: 170%; }
+    #sitiVentSp{ left: 190%; }
+    #opcSp{ left: 8px; }
+    .btnedit mat-icon{ left: -3px;  top: -2px;}
+    .btnremove mat-icon{ left: -3px;  top: -2px;}
+    #idSp2{ padding-left: 1%; }
+    td.mat-cell{ padding-left: 1%;}
+
+
+    /* Movil pequeño 1 - Galaxy Fold*/
+    @media screen and (min-width: 280px) and (max-width: 359px){
+      td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+      #idSp{left: 15%; }
+      #descripSp, #cantSp, #oficiSp, #sitiVentSp{left: 15%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 6%; }
+      .botonagregar mat-icon{ margin-left: -50%; }
+      td.mat-cell{ padding-left: 1%;}
+    }
+
+    /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+    @media screen and (min-width: 360px) and (max-width: 420px){
+      td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+      #idSp{left: 10%; }
+      #descripSp, #cantSp, #oficiSp, #sitiVentSp{left: 20%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 5%; }
+    }
+
+    /* Tablet 1 */
+    @media screen and (min-width: 600px) and (max-width: 639px){
+      td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
+      #idSp{left: -15%; }
+      #descripSp{ left: 10%; }
+      #cantSp{ left: 15%; }
+      #oficiSp, #sitiVentSp{left: 55%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 5%; }
+    }
+
+    /*Portatil 1*/
+    @media screen and (min-width: 640px) and (max-width: 700px){
+      td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
+      #idSp{left: -25%; }
+      #descripSp{left: 10%;}
+      #cantSp{ left: 15%; }
+      #oficiSp{ left: 60%; }
+      #sitiVentSp{left: 60%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 5%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /* Tablet 2 */
+    @media screen and (min-width: 701px) and (max-width: 768px){
+      td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
+      #idSp{left: -25%; }
+      #descripSp{left: 10%;}
+      #cantSp{ left: 20%; }
+      #oficiSp{ left: 70%; }
+      #sitiVentSp{left: 95%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 5%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+
+    /* Tablet 3,  Portatil 2*/
+    @media screen and (min-width: 769px) and (max-width: 960px){
+      td button mat-icon{ font-size: 17px; margin-left: -1px; margin-top: 1px; }
+      #idSp{left: -20%; }
+      #descripSp{left: 15%;}
+      #cantSp{ left: 20%; }
+      #oficiSp{ left: 80%; }
+      #sitiVentSp{left: 105%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
+    @media screen and (min-width: 961px) and (max-width: 1049px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -15%; }
+      #descripSp{left: 20%;}
+      #cantSp{ left: 30%; }
+      #oficiSp{ left: 90%; }
+      #sitiVentSp{left: 110%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /* Tablet 5 */
+    @media screen and (min-width: 1050px) and (max-width: 1080px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -15%; }
+      #descripSp{left: 20%;}
+      #cantSp{ left: 30%; }
+      #oficiSp{ left: 110%; }
+      #sitiVentSp{left: 110%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+    @media screen and (min-width: 1081px) and (max-width: 1280px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -15%; }
+      #descripSp{left: 30%;}
+      #cantSp{ left: 40%; }
+      #oficiSp{ left: 120%; }
+      #sitiVentSp{left: 155%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /* Compu. Mesa 5*/
+    @media screen and (min-width: 1281px) and (max-width: 1436px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -15%; }
+      #descripSp{left: 45%;}
+      #cantSp{ left: 55%; }
+      #oficiSp{ left: 140%; }
+      #sitiVentSp{left: 170%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /* Tablet 8, Compu. Mesa 5*/
+    @media screen and (min-width: 1437px) and (max-width: 1536px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -15%; }
+      #descripSp{left: 50%;}
+      #cantSp{ left: 70%; }
+      #oficiSp{ left: 170%; }
+      #sitiVentSp{left: 200%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+
+    /* Portatil 4, Compu. Mesa 6 y 7, Televisor 2
+    @media screen and (min-width: 1537px) and (max-width: 1920px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: 41% ; }
+      #descripSp{left:260%;}
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    } */
+
+    /*Compu. Mesa 6*/
+    @media screen and (min-width: 1537px) and (max-width: 1850px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: 0% ; }
+      #descripSp{left: 65%;}
+      #cantSp{ left: 75%; }
+      #oficiSp{ left: 170%; }
+      #sitiVentSp{ left: 190%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+
+
+    /*Portatil 4, Compu. Mesa 7, Televisor 2*/
+    @media screen and (min-width: 1851px) and (max-width: 1920px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -25% ; }
+      #descripSp{left: 60%;}
+      #cantSp{ left: 70%; }
+      #oficiSp{ left: 190%; }
+      #sitiVentSp{ left: 220%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+
+    /*Tablet 9*/
+    @media screen and (min-width: 1921px) and (max-width: 2048px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -25% ; }
+      #descripSp{left: 65%;}
+      #cantSp{ left: 80%; }
+      #oficiSp{ left: 205%; }
+      #sitiVentSp{ left: 240%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Tablet 10*/
+    @media screen and (min-width: 2049px) and (max-width: 2160px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -25% ; }
+      #descripSp{left: 65%;}
+      #cantSp{ left: 80%; }
+      #oficiSp{ left: 205%; }
+      #sitiVentSp{ left: 240%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Tablet 11 y 12, Portatil 5*/
+    @media screen and (min-width: 2161px) and (max-width: 2560px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -20% ; }
+      #descripSp{left: 90%;}
+      #cantSp{ left: 110%; }
+      #oficiSp{ left: 270%; }
+      #sitiVentSp{ left: 320%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Tablet 13*/
+    @media screen and (min-width: 2561px) and (max-width: 2736px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -20% ; }
+      #descripSp{left: 100%;}
+      #cantSp{ left: 125%; }
+      #oficiSp{ left: 290%; }
+      #sitiVentSp{ left: 340%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Tablet 14*/
+    @media screen and (min-width: 2737px) and (max-width: 3000px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: -20% ; }
+      #descripSp{left: 120%;}
+      #cantSp{ left: 140%; }
+      #oficiSp{ left: 320%; }
+      #sitiVentSp{ left: 380%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Portatil 6, Televisor 3*/
+    @media screen and (min-width: 3001px) and (max-width: 3840px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: 0% ; }
+      #descripSp{left: 170%;}
+      #cantSp{ left: 200%; }
+      #oficiSp{ left: 420%; }
+      #sitiVentSp{ left: 500%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Televisor 4*/
+    @media screen and (min-width: 3841px) and (max-width: 4096px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: 0% ; }
+      #descripSp{left: 170%;}
+      #cantSp{ left: 200%; }
+      #oficiSp{ left: 460%; }
+      #sitiVentSp{ left: 500%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }
+    /*Portatil 7, Televisor 5*/
+    @media screen and (min-width: 4097px) and (max-width: 7680px){
+      td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
+      #idSp{left: 0% ; }
+      #descripSp{left: 370%;}
+      #cantSp{ left: 450%; }
+      #oficiSp{ left: 880%; }
+      #sitiVentSp{ left: 1000%; }
+      #opcSp{ left: 8px; }
+      td button{ margin-top: 0%; }
+      .botonagregar mat-icon{ margin-left: -9%; }
+    }

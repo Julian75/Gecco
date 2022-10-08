@@ -82,10 +82,13 @@ table{
   .contenedor{
     width: 90% !important; margin-left: 5%; margin-top: 3%;
   }
+  .botones{ margin-left: 86%; margin-top: 2%; }
+  .btnver2{ background-color: #959595; color: white; width: 64px; height: 36px; position: relative; top: -69px; left: 226px; }
+  .nombre3{ margin-top: -53px; }
   .btnedit{ background-color: #97B4E2; color: white; width: 64px; height: 36px; margin-left: 2%; position: relative; }
-  .btnremove{ background-color: #DA161A; color: white; width: 64px; height: 36px; margin-left: 2%; position: relative; }
+  .btnremove{ background-color: #DA161A; color: white; width: 64px; height: 36px; position: relative; }
   .mat-paginator{ margin-top: 2%; }
-  .boton{ background-color: #00235C; }
+  .boton{ background-color: #00235C; color: white; }
   #opcSp, #descripSp, #idSp, #cantSp, #oficiSp, #sitiVentSp{ position: relative; }
   #idSp{ left: 0%; position: absolute; }
   #descripSp{ left: 65%; }

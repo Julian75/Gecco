@@ -51,6 +51,7 @@ import { SubProceso2 } from '../modelos/modelos2/subProceso2';
 import { TipoNecesidad2 } from '../modelos/modelos2/tipoNecesidad2';
 import { MatrizNecesidad2 } from '../modelos/modelos2/matrizNecesidad2';
 import { MatrizNecesidadDetalle2 } from '../modelos/modelos2/matrizNecesidadDetalle2';
+import { ArticulosBaja2 } from '../modelos/modelos2/articulosBaja2';
 
 @Injectable({
   providedIn: 'root'
@@ -226,6 +227,10 @@ export class ModificarService {
 
   public actualizarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta2){
     return this.http.put<void>(this.path+'/AsignacionPuntoVentaArticulo/'+ asignacionPuntoVenta.id, asignacionPuntoVenta);
+  }
+
+  public actualizarActivoBaja(bajaActivo: ArticulosBaja2){
+    return this.http.put<void>(this.path+'/ActivoBaja/'+ bajaActivo.id, bajaActivo);
   }
 
   public actualizarSolicitudBajaArticulo(solicitudBajasArticulos: SolicitudBajasArticulos2){

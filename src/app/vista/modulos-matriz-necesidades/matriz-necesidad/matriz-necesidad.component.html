@@ -7,7 +7,7 @@
         <h2>Subproceso</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
         <mat-label>Seleccion el tipo de subproceso</mat-label>
-        <mat-select matNativeControl [compareWith]="compareFunction" id="subproceso" name="subproceso" formControlName="subproceso">
+        <mat-select matNativeControl id="subproceso" name="subproceso" formControlName="subproceso">
           <mat-option *ngFor="let item of listaSubprocesos" value="{{item.id}}">{{item.descripcion}}</mat-option>
         </mat-select>
         </mat-form-field>
@@ -16,7 +16,7 @@
         <h2>Tipo Necesidad</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
         <mat-label>Seleccion el tipo necesidad</mat-label>
-        <mat-select matNativeControl [compareWith]="compareFunction" id="tipoNecesidad" name="tipoNecesidad" formControlName="tipoNecesidad">
+        <mat-select matNativeControl id="tipoNecesidad" name="tipoNecesidad" formControlName="tipoNecesidad">
           <mat-option *ngFor="let item of listaNecesidades" value="{{item.id}}">{{item.descripcion}}</mat-option>
         </mat-select>
         </mat-form-field>
@@ -53,7 +53,7 @@
     <div class="row">
       <!-- Boton de guardar datos -->
       <div class="guardar2">
-        <!-- <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar nuevo artículo"><mat-icon>add</mat-icon></button> -->
+        <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Registra la informacion de la matriz de necesidades"><mat-icon>add</mat-icon></button>
       </div>
     </div>
   </form>

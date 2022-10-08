@@ -10,21 +10,18 @@
         <input id="dato" formControlName="dato" matInput>
         </mat-form-field>
       </div>
-      <div class="nombre2">
-        <ul>
-          <li >
-            <h3>Estado</h3>
-          </li>
-          <mat-radio-group aria-label="Select an option">
-            <mat-radio-button style="margin-left: 3%;" *ngFor="let opcion of listaOpciones" [value]="opcion.id" value="{{opcion.id}}" (click)="capturarOpcion(opcion);">{{opcion.descripcion}}</mat-radio-button>
-          </mat-radio-group>
-        </ul>
+      <button class="btn btnver2 text-white my-2" (click)="abrirDetalle();" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar detalle">
+        <mat-icon>manage_search</mat-icon>
+      </button>
+      <div class="nombre3">
+        <h2>Estado</h2>
+        <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Seleccion el Estado del Tipo Activo</mat-label>
+        <mat-select matNativeControl id="estado" name="estado" formControlName="estado" (click)="capturarOpcion(opcion);">
+          <mat-option *ngFor="let opcion of listaOpciones" value="{{opcion.id}}" >{{opcion.descripcion}}</mat-option>
+        </mat-select>
+        </mat-form-field>
       </div>
-    <button class="btn boton botonagregar text-white my-2" (click)="abrirDetalle();" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar detalle">
-      <mat-icon>add_circle</mat-icon>
-    </button>
-    <button class="btn btnremove" (click)="eliminarArticulo()" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar artículo"><mat-icon>delete</mat-icon></button>
-    <button class="btn btnedit" (click)="crearSolicitud()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear solicitud"><mat-icon>add_circle</mat-icon></button>
     <!-- <mat-form-field class="buscador" appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
@@ -101,6 +98,10 @@
                 [pageSizeOptions]="[5, 10, 25, 100]"
                 aria-label="Select page">
     </mat-paginator>
+    <div class="botones">
+      <button class="btn btnremove mx-2" (click)="eliminarArticulo()" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar artículo"><mat-icon>delete</mat-icon></button>
+      <button class="btn boton botonagregar mx-2" (click)="crearSolicitud()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear solicitud"><mat-icon>verified</mat-icon></button>
+    </div>
   </div>
 </div>
 <div class="solpiner" id="snipper" style="text-align: center; display: none;">
