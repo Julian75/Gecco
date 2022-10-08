@@ -104,7 +104,7 @@ export class ListaActasBajasComponent implements OnInit {
                     margin: [0, 0, 0, 10]
                   },
                   {
-                    text: 'Codigo acta: ' ,
+                    text: 'Codigo Acta: ' ,
                     margin: [0, 0, 0, 10]
                   },
                   {
@@ -120,11 +120,11 @@ export class ListaActasBajasComponent implements OnInit {
                     bold: true,
                     fontSize: 20,
                     alignment: 'center',
-                    margin: [0, 0]
+                    margin: [0, 10, 0, 0]
                   },
                   {
                     table: {
-                      widths: ['*', '*', '*', '*', '*', 20],
+                      widths: ['*', '*', '*', '*', '*', 100],
                       body: [
                         [
                           'Activo',
@@ -136,14 +136,15 @@ export class ListaActasBajasComponent implements OnInit {
                         ],
                       ]
                     },
-                    margin: [0, 0],
+                    margin: [0, 20, 0, 0],
 
                   },
                   {
                     table: {
-                      widths: ['*', '*', '*', '*', '*', 20],
+                      widths: ['*', '*', '*', '*', '*', 100],
                       body: body
                     },
+                    fontSize:10,
                     margin: [0, 0]
                   },
                   {
@@ -157,18 +158,28 @@ export class ListaActasBajasComponent implements OnInit {
                         ],
                       ]
                     },
-                    margin: [0, -15, 0, 2],
+                    margin: [0, 100, 0, 0],
                   },
-                  // {
-                  //   text: 'Autorizo',
-                  //   margin: [100, 5, 0, 0],
-                  //   fontSize: 10
-                  // },
-                  // {
-                  //   text: 'Confirmo',
-                  //   margin: [370, -28, 0, 0],
-                  //   fontSize: 10
-                  // },
+                  {
+                    text: resUsuarioAutorizacion.nombre+' '+resUsuarioAutorizacion.apellido,
+                    margin: [20, 5, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: 'Autorizo',
+                    margin: [50, 10, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: resUsuarioAutorizacion.nombre+' '+resUsuarioAutorizacion.apellido,
+                    margin: [370, -20, 0, 0],
+                    fontSize: 10
+                  },
+                  {
+                    text: 'Confirmo',
+                    margin: [370, 10, 0, 0],
+                    fontSize: 10
+                  }
                 ]
               }
               const pdf = pdfMake.createPdf(pdfDefinition);

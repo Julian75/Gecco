@@ -47,6 +47,11 @@ import { SolicitudBajasArticulos2} from '../modelos/modelos2/solicitudBajasArtic
 import { Compras } from '../modelos/compras';
 import { Compras2 } from '../modelos/modelos2/compras2';
 import { OpcionArticuloBaja2 } from '../modelos/modelos2/opcionArticuloBaja2';
+import { SubProceso2 } from '../modelos/modelos2/subProceso2';
+import { TipoNecesidad2 } from '../modelos/modelos2/tipoNecesidad2';
+import { MatrizNecesidad2 } from '../modelos/modelos2/matrizNecesidad2';
+import { MatrizNecesidadDetalle2 } from '../modelos/modelos2/matrizNecesidadDetalle2';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -236,6 +241,22 @@ export class ModificarService {
   }
 
   public actualizarOpcionArticuloBaja(opcionArticuloBaja: OpcionArticuloBaja2){
-    return this.http.put<void>(this.path+'/OpcionArticuloBaja/'+ opcionArticuloBaja.id, opcionArticuloBaja);  
+    return this.http.put<void>(this.path+'/OpcionArticuloBaja/'+ opcionArticuloBaja.id, opcionArticuloBaja);
+  }
+
+  public actualizarSubProceso(subproceso: SubProceso2){
+    return this.http.put<void>(this.path+'/SubProceso/'+ subproceso.id, subproceso);
+  }
+
+  public actualizarTipoNecesidad(tipoNecesidad: TipoNecesidad2){
+    return this.http.put<void>(this.path+'/TipoNecesidad/'+ tipoNecesidad.id, tipoNecesidad);
+  }
+
+  public actualizarMatrizNecesidad(matrizNecesidad: MatrizNecesidad2){
+    return this.http.put<void>(this.path+'/MatrizNecesidad/'+ matrizNecesidad.id, matrizNecesidad);
+  }
+
+  public actualizarMatrizNecesidadDetalle(matrizNecesidadDetalle: MatrizNecesidadDetalle2){
+    return this.http.put<void>(this.path+'/MatrizNecesidadDetalle/'+ matrizNecesidadDetalle.id, matrizNecesidadDetalle);
   }
 }

@@ -1,0 +1,56 @@
+h2{
+    margin: 0;
+  }
+  .container{
+    width: 80%;
+    background-color: white;
+    margin-left: 10%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 15px;
+    margin-top: 10%;
+    box-shadow: 1px 2px 10px #959595;
+  }
+  .nombre, .jerarquia{
+    width: 250px;
+  }
+  .guardarModal{
+    margin-left: 82%;
+  }
+  .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
+  .estado2{ width: 300px; }
+  .guardar{
+    background-color: #00235C ;
+    color: white;
+    width: 160px;
+    height: 40px;
+    font-size: large;
+    margin-left: 65%;
+  }
+
+  .row1{
+    border-top: 3px solid #97B4E2;
+    padding-top: 3%;
+    padding-bottom: 4%;
+  }
+
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .guardarModal{ margin-left: 59%;}
+  .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
+
+}
+
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .guardarModal{ margin-left: 69%;}
+  .nombre{width: 95%;  margin-left: 0%; margin-top: 0%;}
+}
+
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .guardarModal{ margin-left: 80%;}
+  .nombre{width: 63%;  margin-left: 0%; margin-top: 0%;}
+}

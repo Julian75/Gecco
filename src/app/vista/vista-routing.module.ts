@@ -1,3 +1,4 @@
+import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
 import { AgregarArticulosComponent } from './modulos-compra/articulos/agregar-articulos/agregar-articulos.component';
 import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/agregar-detalle-articulo/agregar-detalle-articulo.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
@@ -97,7 +98,8 @@ import { AgregarArticulosInventarioComponent } from './modulos-inventarios/agreg
 import { SolicitudArticulosBajaComponent } from './modulos-inventarios/solicitud-articulos-baja/solicitud-articulos-baja.component';
 import { OpcionesSolicitudBajasComponent } from './modulos-inventarios/opciones-solicitud-bajas/opciones-solicitud-bajas.component';
 import { ListaArticulosInventarioComponent } from './modulos-inventarios/lista-articulos-inventario/lista-articulos-inventario.component';
-
+import { ListaSubprocesoComponent } from './modulos-matriz-necesidades/lista-subproceso/lista-subproceso.component';
+import { TipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-necesidades/tipo-necesidades.component';
 const routes: Routes = [
   {
     path: '',
@@ -606,6 +608,22 @@ const routes: Routes = [
       {
         path: 'listaArticuloInventario',
         component: ListaArticulosInventarioComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Matriz de Necesidades
+      {
+        path: 'subProceso',
+        component: ListaSubprocesoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'tipoNecesidad',
+        component: TipoNecesidadesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'matrizNecesidad',
+        component: MatrizNecesidadComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

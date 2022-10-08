@@ -19,6 +19,8 @@ import { Correo } from 'src/app/modelos/correo';
 import { ArticulosBajaService } from 'src/app/servicios/articulosBaja.service';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
 import { CorreoService } from 'src/app/servicios/Correo.service';
+import { ActasBaja } from 'src/app/modelos/actasBaja';
+import { ActasBajaService } from 'src/app/servicios/actasBaja.service';
 
 @Component({
   selector: 'app-lista-confirmaciones-baja-articulos',
@@ -42,6 +44,7 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     public servicioBajaArticulos: ArticulosBajaService,
     public servicioConfiguracion: ConfiguracionService,
     public servicioCorreo: CorreoService,
+    private servicioActasBajas: ActasBajaService,
     public dialog: MatDialog
 
   ) { }
@@ -141,19 +144,27 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
   }
 
   public enviarCorreo(correo: Correo, idSolicitudBajaActivo){
+    let actasBajas = new ActasBaja();
     this.servicioCorreo.enviar(correo).subscribe(res =>{
       this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaActivo).subscribe(resSolicitudBajas=>{
-
+          actasBajas.idSolicitudBajaArticulos = resSolicitudBajas
+          actasBajas.fecha = new Date()
+          var min = 1
+          var max = 100000000
+          var numero = Math.floor(Math.random()*(min+max)+min);
+          actasBajas.codigoUnico = String((numero*resSolicitudBajas.id)+""+resSolicitudBajas.id)
+          this.servicioActasBajas.registrar(actasBajas).subscribe(regisActasBajas =>{
+            document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se aprobo correctamente la solciitud!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload();
+          })
       })
-      document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se aprobo correctamente la solciitud!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload();
     }, error => {
       document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
       Swal.fire({

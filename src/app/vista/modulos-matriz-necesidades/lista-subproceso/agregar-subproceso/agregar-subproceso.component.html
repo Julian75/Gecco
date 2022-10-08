@@ -1,0 +1,29 @@
+<h2 class="dato">Ingresa Nuevo SubProceso</h2>
+<form [formGroup]="formSubProceso">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese descripción del tipo del proceso</mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Proceso</h2>
+      <mat-form-field class="nombre1" appearance="fill" >
+        <mat-label>Proceso</mat-label>
+        <mat-select [compareWith]="compareFunction" formControlName="idTipoProceso">
+          <mat-option *ngFor="let listaProceso of listaProceso" [value]="listaProceso"> {{ listaProceso.descripcion }} {{ listaProceso.descripcion }}</mat-option>
+        </mat-select>
+        </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar nueva asignación"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+</form>
+

@@ -1,0 +1,63 @@
+<div class="contenedor">
+  <h2 class="dato">Ingresar Nueva Matriz de Necesidad</h2>
+  <form [formGroup]="formMatrizNecesidad">
+    <div class="row1">
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Subproceso</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Seleccion el tipo de subproceso</mat-label>
+        <mat-select matNativeControl [compareWith]="compareFunction" id="subproceso" name="subproceso" formControlName="subproceso">
+          <mat-option *ngFor="let item of listaSubprocesos" value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Tipo Necesidad</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Seleccion el tipo necesidad</mat-label>
+        <mat-select matNativeControl [compareWith]="compareFunction" id="tipoNecesidad" name="tipoNecesidad" formControlName="tipoNecesidad">
+          <mat-option *ngFor="let item of listaNecesidades" value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2>Detalle</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese detalle</mat-label>
+        <textarea type="text" id="detalle" formControlName="detalle" matInput ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="nombre3">
+        <h2>Cantidad</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese Cantidad de este tipo de necesidad</mat-label> <!--Cantidad a comprar-->
+        <input type="number" id="cantidad" formControlName="cantidad" matInput >
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Cantidad de Ejecuciones</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese cantidad de ejecuciones</mat-label>
+        <input type="number" id="cantidadEjecucion" formControlName="cantidadEjecucion" matInput >
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Costo Unitario Estimado</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Ingrese costo unitario del tipo de necesidad</mat-label>
+        <input type="number" id="costoUnitario" formControlName="costoUnitario" matInput >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <!-- <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar nuevo artículo"><mat-icon>add</mat-icon></button> -->
+      </div>
+    </div>
+  </form>
+</div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

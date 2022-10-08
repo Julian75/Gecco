@@ -81,7 +81,7 @@ export class AsignarProcesoUsuarioComponent implements OnInit {
           this.listarTodos();
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'Se elimino el Tipo de novedad.',
+            'Se eliminó la asignación.',
             'success'
           )
         })

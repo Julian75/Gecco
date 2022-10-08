@@ -118,19 +118,32 @@
         Inventario
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="5252" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
-      <button mat-raised-button id="5353" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
-      <button mat-raised-button id="5454" routerLink="/detalleArticulo" style="display: none;">Detalle Articulo</button>
-      <button mat-raised-button id="5555" routerLink="/historialArticulo" style="display: none;">Historial Articulo</button>
-      <button mat-raised-button id="5656" routerLink="/asignacionProceso" style="display: none;">Asignaciones Procesos</button>
-      <button mat-raised-button id="5757" routerLink="/asignacionArticulo" style="display: none;">Asignaciones Articulos</button>
-      <button mat-raised-button id="5959" routerLink="/asignacionArticulo" style="display: none;">Mis Articulos</button>
-      <button mat-raised-button id="6060" routerLink="/listaAutorizaciones" style="display: none;">Solicitudes Bajas Artículos</button>
-      <button mat-raised-button id="6161" routerLink="/listaConfirmaciones" style="display: none;">Lista Bajas Lider Proceso</button>
-      <button mat-raised-button id="6262" routerLink="/listaArticuloInventario" style="display: none;">Lista Articulos Inventario</button>
-      <!-- <button mat-raised-button routerLink="/listaActasBajas">Lista Actas Bajas Articulos</button> -->
-    </div>
+      <div class="opciones">
+        <button mat-raised-button id="5252" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
+        <button mat-raised-button id="5353" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
+        <button mat-raised-button id="5454" routerLink="/detalleArticulo" style="display: none;">Detalle Articulo</button>
+        <button mat-raised-button id="5555" routerLink="/historialArticulo" style="display: none;">Historial Articulo</button>
+        <button mat-raised-button id="5656" routerLink="/asignacionProceso" style="display: none;">Asignaciones Procesos</button>
+        <button mat-raised-button id="5757" routerLink="/asignacionArticulo" style="display: none;">Asignaciones Articulos</button>
+        <button mat-raised-button id="5959" routerLink="/asignacionArticulo" style="display: none;">Mis Articulos</button>
+        <button mat-raised-button id="6060" routerLink="/listaAutorizaciones" style="display: none;">Solicitudes Bajas Artículos</button>
+        <button mat-raised-button id="6161" routerLink="/listaConfirmaciones" style="display: none;">Lista Bajas Lider Proceso</button>
+        <button mat-raised-button id="6262" routerLink="/listaArticuloInventario" style="display: none;">Lista Articulos Inventario</button>
+        <!-- <button mat-raised-button routerLink="/listaActasBajas">Lista Actas Bajas Articulos</button> -->
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="MatrizDeNecesidades2" (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Matriz de Necesidades
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="6363" routerLink="/subProceso" >Sub Procesos</button>
+        <button mat-raised-button id="6464" routerLink="/matrizNecesidad" >Matriz</button>
+        <button mat-raised-button id="6565" routerLink="/tipoNecesidad" >Tipo Necesidades</button>
+      </div>
   </mat-expansion-panel>
   </mat-drawer>
 </mat-drawer-container>

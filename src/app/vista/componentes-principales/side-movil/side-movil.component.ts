@@ -57,6 +57,8 @@ export class SideMovilComponent implements OnInit {
             document.getElementById('RegistroIngreso2')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 52 || this.listaAccessForm[i] == 53 || this.listaAccessForm[i] == 54 || this.listaAccessForm[i] == 55 || this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 57 || this.listaAccessForm[i]== 58 || this.listaAccessForm[i]== 59 || this.listaAccessForm[i] == 60 || this.listaAccessForm[i] == 61 || this.listaAccessForm[i] == 62) {
             document.getElementById('Inventario')?.setAttribute('style', 'display: block;')
+          }else if(this.listaAccessForm[i] == 63 || this.listaAccessForm[i] == 64 || this.listaAccessForm[i] == 65 ){
+            document.getElementById('MatrizDeNecesidades2')?.setAttribute('style', 'display: block;')
           }
           if (this.listaAccessForm[i] == 1) {
             document.getElementById('111')?.setAttribute('style', 'display: block;')
@@ -207,6 +209,15 @@ export class SideMovilComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 62) {
             document.getElementById('6262')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 63) {
+            document.getElementById('6363')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 64) {
+            document.getElementById('6464')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 65) {
+            document.getElementById('6565')?.setAttribute('style', 'display: block;')
           }
         }
       })
