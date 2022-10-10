@@ -196,6 +196,7 @@ import { AgregarTipoNecesidadesComponent } from './modulos-matriz-necesidades/ti
 import { ModificarTipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-necesidades/modificar-tipo-necesidades/modificar-tipo-necesidades.component';
 import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
 import { MatrizNecesidadDetalleComponent } from './modulos-matriz-necesidades/matriz-necesidad-detalle/matriz-necesidad-detalle.component';
+import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/lista-matrices-necesidades.component';
 
 @NgModule({
   declarations: [
@@ -388,7 +389,8 @@ import { MatrizNecesidadDetalleComponent } from './modulos-matriz-necesidades/ma
     AgregarTipoNecesidadesComponent,
     ModificarTipoNecesidadesComponent,
     MatrizNecesidadComponent,
-    MatrizNecesidadDetalleComponent
+    MatrizNecesidadDetalleComponent,
+    ListaMatricesNecesidadesComponent
   ],
   imports: [
     CommonModule,

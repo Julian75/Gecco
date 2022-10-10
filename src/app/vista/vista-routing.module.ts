@@ -100,6 +100,7 @@ import { OpcionesSolicitudBajasComponent } from './modulos-inventarios/opciones-
 import { ListaArticulosInventarioComponent } from './modulos-inventarios/lista-articulos-inventario/lista-articulos-inventario.component';
 import { ListaSubprocesoComponent } from './modulos-matriz-necesidades/lista-subproceso/lista-subproceso.component';
 import { TipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-necesidades/tipo-necesidades.component';
+import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/lista-matrices-necesidades.component';
 const routes: Routes = [
   {
     path: '',
@@ -626,6 +627,12 @@ const routes: Routes = [
         component: MatrizNecesidadComponent,
         canActivate: [AutorizacionGuard]
       },
+      {
+        path: 'listaMatricesNecesidades',
+        component: ListaMatricesNecesidadesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+
     ]
   },
 ];

@@ -42,6 +42,7 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
   }
 
   public listarTodos(){
+    localStorage.setItem('listaAutorizacionUbicacion', 'true')
     this.serviceSolicitudBajasArticulos.listarTodos().subscribe(resTodoSolicitudesBajas=>{
       resTodoSolicitudesBajas.forEach(element => {
         if(element.idEstado.id == 80){
@@ -59,7 +60,7 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
     const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
       width: '800px',
       height: '440px',
-      data: id
+      data: {idSolicitudBaja: id, idContable: 0}
     });
   }
 

@@ -87,6 +87,7 @@
     .nombre3{ margin-top: -16%; margin-left: 55%; }
     .btnedit{ background-color: #97B4E2; color: white; width: 64px; height: 36px; margin-left: 2%; position: relative; }
     .btnremove{ background-color: #DA161A; color: white; width: 64px; height: 36px; position: relative; }
+    .bot{ background-color: #DA161A; color: white; }
     .mat-paginator{ margin-top: 2%; }
     .boton{ background-color: #00235C; color: white; }
     #opcSp, #descripSp, #idSp, #cantSp, #oficiSp, #sitiVentSp{ position: relative; }

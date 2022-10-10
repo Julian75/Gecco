@@ -10,14 +10,14 @@
             </mat-form-field>
         </div>
         <div class="nombre3">
-            <h2>Cantidad de ejcuciones mensuales</h2>
+            <h2>Cantidad de ejecuciones mensuales</h2>
             <mat-form-field class="nombre" appearance="fill">
             <mat-label>Ingrese cantidad de ejecuciones en el mes</mat-label>
             <input type="number" id="cantidadMes" formControlName="cantidadMes" matInput >
             </mat-form-field>
         </div>
         <div class="nombre2">
-            <h2>Cantidad de objetos estimados</h2>
+            <h2>Cantidad de articulos estimados</h2>
             <mat-form-field class="nombre" appearance="fill">
             <mat-label>Ingrese cantidad de estimada de objetos</mat-label>
             <input type="number" id="cantidadObjeto" formControlName="cantidadObjeto" matInput >
@@ -26,8 +26,31 @@
         <div class="botones">
             <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar informacion del mes"><mat-icon>add</mat-icon></button>
         </div>
+        <div class="textoContado mt-3">
+          <p>Cantidad de ejecuciones mensuales: {{informacionMatriz.cantidadEjecuciones}}</p>
+          <p>Cantidad de articulos estimados: {{informacionMatriz.cantidad}}</p>
+        </div>
       <section class="example-container mat-elevation-z8" tabindex="0">
         <table id="matrizNecesidad" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef id="chet">
+              <mat-checkbox id="chetbox" (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td id="chet2" mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? toggle($event, row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
           <!-- Name Column -->
           <ng-container matColumnDef="mes">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descripSp">Mes</h3></th>
@@ -50,6 +73,10 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </section>
+      <div class="botones2">
+        <button class="btn bot mx-2" (click)="eliminarSeleccion()" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar artículo"><mat-icon>delete</mat-icon></button>
+        <button mat-raised-button class="guardarModal" (click)="crearMatriz()" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar informacion del mes"><mat-icon>data_saver_on</mat-icon></button>
+      </div>
       </form>
       <mat-paginator [length]="100"
                   [pageSize]="10"
