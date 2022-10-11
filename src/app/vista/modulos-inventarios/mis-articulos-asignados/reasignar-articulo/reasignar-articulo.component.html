@@ -6,9 +6,9 @@
       <h2>Asignaciones Procesos</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Seleccione el usuario a resignar</mat-label>
-      <select matNativeControl name="idAsignacionesProcesos" id="idAsignacionesProcesos" formControlName="idAsignacionesProcesos">
-        <option *ngFor="let item of listaAsignacionesProcesos"  value="{{item.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}} | {{item.idTiposProcesos.descripcion}}</option>
-      </select>
+      <mat-select matNativeControl name="idAsignacionesProceso" id="idAsignacionesProceso" formControlName="idAsignacionesProcesos">
+        <mat-option *ngFor="let item of listaAsignacionesProcesos"  value="{{item.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}} | {{item.idTiposProcesos.descripcion}}</mat-option>
+      </mat-select>
       </mat-form-field>
     </div>
     <div class="nombre2">

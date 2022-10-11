@@ -65,9 +65,7 @@ export class ReasignarArticuloComponent implements OnInit {
   listaAsigArti: any = []
   public listarTodos(){
     this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
-      this.listaAsigArti = data
-      console.log(this.listaAsigArti)
-      this.formAsignarArticulos.controls['idAsignacionesProcesos'].setValue(this.listaAsigArti.idAsignacionesProcesos.id);
+      this.formAsignarArticulos.get('idAsignacionesProcesos')?.setValue(data.idAsignacionesProcesos);
       this.nombreArticulo = data.idDetalleArticulo.idArticulo.descripcion
     })
   }
@@ -321,5 +319,9 @@ export class ReasignarArticuloComponent implements OnInit {
         timer: 1500
       })
     });
+  }
+
+  compareFunction(o1: any, o2: any) {
+    return o1.id === o2.id;
   }
 }

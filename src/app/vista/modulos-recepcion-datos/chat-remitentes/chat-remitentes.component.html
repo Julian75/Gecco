@@ -1,0 +1,40 @@
+<div class="contenedor">
+    <h2 class="dato">Generar Correo</h2>
+    <form [formGroup]="formChat">
+      <div class="row1">
+        <div class="nombre2">
+            <h2>Usuario</h2>
+            <mat-form-field class="nombre" appearance="fill">
+            <mat-label>Seleccion el usuario a enviar el correo</mat-label>
+            <mat-select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+              <mat-option *ngFor="let element of listaUsuario" value="{{element.idUsuario.id}}" >{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="nombre2">
+          <h2>Asunto</h2>
+          <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese el asunto del correo</mat-label>
+          <input id="asunto" formControlName="asunto" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre2">
+            <h2 class="obs">Mensaje</h2>
+            <mat-form-field class="nombre" appearance="fill">
+            <mat-label>Ingrese mensaje a enviar</mat-label>
+            <textarea id="mensaje" formControlName="mensaje" matInput></textarea>
+            </mat-form-field>
+          </div>
+      </div>
+      <div class="row">
+        <!-- Boton de guardar datos -->
+        <div class="guardar2">
+          <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar correo"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+    </form>
+  </div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+<div class="loader"></div>
+</div>
+

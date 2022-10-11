@@ -118,6 +118,10 @@
             <button *ngIf="item.solicitud.idEstado.id != 67" class="btn btnArchivo mx-2" (click)="agregarArchivo(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Subir archivos adicionales">
               <mat-icon>attach_file_add</mat-icon>
             </button>
+            <button *ngIf="item.solicitud.idEstado.id == 63" class="btn btnChat mx-2" (click)="abrirChat(item.solicitud.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Enviar correo a los usuarios que les hayan remitido esta pqrs.">
+              <mat-icon>chat</mat-icon>
+            </button>
+            <!-- #17A8BB -->
           </td>
         </ng-container>
 

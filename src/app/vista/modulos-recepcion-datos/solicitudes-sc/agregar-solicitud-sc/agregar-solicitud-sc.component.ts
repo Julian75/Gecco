@@ -105,6 +105,10 @@ export class AgregarSolicitudScComponent implements OnInit {
     })
   }
 
+  public tomarFecha(fecha:any ){
+    console.log(fecha.target.value)
+  }
+
   textoCliente:any
   displayFn(clientesc: ClienteSC): any {
     this.textoCliente = clientesc

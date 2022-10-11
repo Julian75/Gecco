@@ -172,13 +172,13 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
     if(this.listaTabla.length > 0){
       if(validacion == true){
         let matrizDetalle : MatrizNecesidadDetalle = new MatrizNecesidadDetalle();
-        matrizDetalle.fecha = this.fecha
         matrizDetalle.idMatrizNecesidad = this.informacionMatriz
         matrizDetalle.cantidadComprada = 0
         matrizDetalle.costoEjecucionComprada = 0
         matrizDetalle.porcentaje = 0
         for (let i = 0; i < this.listaTabla.length; i++) {
           const element = this.listaTabla[i];
+          matrizDetalle.fecha = new Date(element.mes)
           matrizDetalle.cantidadEjecuciones = element.cantidadMes
           matrizDetalle.cantidadEstimada = element.cantidadEstimada
           this.registrarMatriz(matrizDetalle);

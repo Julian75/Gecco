@@ -4,20 +4,21 @@
     <!-- Ingresar Nombre -->
     <div class="nombre2">
       <h2>Usuario</h2>
-      <mat-form-field class="nombre1" appearance="fill">
-      <mat-label>Ingrese el usuario</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="idUsuario">
-        <option *ngFor="let item of listaUsuarios"  value="{{item.id}}">{{item.nombre}} {{item.apellido}}</option>
-      </select>
-      </mat-form-field>
+      <mat-form-field class="nombre1" appearance="fill" >
+        <mat-label>Ingrese el usuario</mat-label>
+        <mat-select [compareWith]="compareFunction" formControlName="idUsuario">
+          <mat-option *ngFor="let listaUsuarios of listaUsuarios" [value]="listaUsuarios"> {{listaUsuarios.nombre}} {{listaUsuarios.apellido}}</mat-option>
+        </mat-select>
+        </mat-form-field>
     </div>
+
     <div class="nombre2">
       <h2>Tipo Proceso</h2>
       <mat-form-field class="nombre1" appearance="fill">
       <mat-label>Ingrese el Tipo Proceso</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="idTiposProcesos">
-        <option *ngFor="let item of listaProceso"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
+      <mat-select [compareWith]="compareFunction" formControlName="idTiposProcesos">
+        <mat-option *ngFor="let listaProceso of listaProceso"  [value]="listaProceso">{{listaProceso.descripcion}}</mat-option>
+      </mat-select>
       </mat-form-field>
     </div>
   </div>

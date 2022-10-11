@@ -197,6 +197,8 @@ import { ModificarTipoNecesidadesComponent } from './modulos-matriz-necesidades/
 import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
 import { MatrizNecesidadDetalleComponent } from './modulos-matriz-necesidades/matriz-necesidad-detalle/matriz-necesidad-detalle.component';
 import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/lista-matrices-necesidades.component';
+import { VisualizarDetalleMatrizNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/visualizar-detalle-matriz-necesidades/visualizar-detalle-matriz-necesidades.component';
+import { ChatRemitentesComponent } from './modulos-recepcion-datos/chat-remitentes/chat-remitentes.component';
 
 @NgModule({
   declarations: [
@@ -390,7 +392,9 @@ import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/
     ModificarTipoNecesidadesComponent,
     MatrizNecesidadComponent,
     MatrizNecesidadDetalleComponent,
-    ListaMatricesNecesidadesComponent
+    ListaMatricesNecesidadesComponent,
+    VisualizarDetalleMatrizNecesidadesComponent,
+    ChatRemitentesComponent
   ],
   imports: [
     CommonModule,

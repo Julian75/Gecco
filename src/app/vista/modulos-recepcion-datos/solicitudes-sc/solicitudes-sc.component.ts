@@ -31,6 +31,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import Swal from 'sweetalert2';
 import * as FileSaver from 'file-saver';
+import { ChatRemitentesComponent } from '../chat-remitentes/chat-remitentes.component';
 
 const today = new Date();
 const month = today.getMonth();
@@ -128,6 +129,14 @@ export class SolicitudesScComponent implements OnInit {
       width: '500px',
       height: '270px',
       data: solicitud
+    });
+  }
+
+  public abrirChat(idSolicitud: any){
+    const dialogRef = this.dialog.open(ChatRemitentesComponent, {
+      width: '500px',
+      height: '440px',
+      data: idSolicitud
     });
   }
 

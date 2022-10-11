@@ -31,29 +31,27 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.crearFormulario();
     this.listarUsuarios();
-    this.listarPorIdUsuarios();
-    this.listarPorIdTipoProcesos();
+    this.listarPorIdUsuariosYProceso();
     this.listarTipoProcesos();
   }
 
   private crearFormulario() {
     this.formAsignacionProcesoUsuario = this.fb.group({
+      id: [this.data],
       idUsuario: ['', Validators.required],
       idTiposProcesos: ['', Validators.required],
     });
   }
 
-  public listarPorIdUsuarios(){
+  listadoProcesoUsuario: any = [];
+  public listarPorIdUsuariosYProceso(){
     console.log(this.data);
     this.serviceAsignacionProcesoUsuario.listarPorId(Number(this.data)).subscribe( data => {
-      this.formAsignacionProcesoUsuario.get('idUsuario')?.setValue(data.idUsuario.id);
-    })
-  }
-
-  public listarPorIdTipoProcesos(){
-    this.serviceAsignacionProcesoUsuario.listarPorId(Number(this.data)).subscribe( data => {
       console.log(data);
-      this.formAsignacionProcesoUsuario.get('idTiposProcesos')?.setValue(data.idTiposProcesos.id);
+      this.formAsignacionProcesoUsuario.patchValue({
+        idUsuario: data.idUsuario,
+        idTiposProcesos: data.idTiposProcesos
+      });
     })
   }
   public listarUsuarios(){
@@ -69,8 +67,10 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
   }
   public guardar(){
     if(this.formAsignacionProcesoUsuario.valid){
+      this.formAsignacionProcesoUsuario.value.idUsuario = Number(this.formAsignacionProcesoUsuario.value.idUsuario.id);
       this.serviceUsuario.listarPorId(this.formAsignacionProcesoUsuario.value.idUsuario).subscribe( usuario => {
         this.formAsignacionProcesoUsuario.value.idUsuario = usuario.id;
+        this.formAsignacionProcesoUsuario.value.idTiposProcesos = Number(this.formAsignacionProcesoUsuario.value.idTiposProcesos.id);
         this.serviceTipoProceso.listarPorId(this.formAsignacionProcesoUsuario.value.idTiposProcesos).subscribe( TipoProceso => {
           this.formAsignacionProcesoUsuario.value.idTiposProcesos = TipoProceso.id;
           this.serviceAsignacionProcesoUsuario.listarPorId(Number(this.data)).subscribe( asignacion => {
@@ -83,15 +83,35 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
                 timer: 1500
               })
               window.location.reload();
+              console.log("No hubieron cambios");
             }else{
-              this.serviceModificar.actualizarAsignacionProceso(this.formAsignacionProcesoUsuario.value).subscribe( data => {
-                Swal.fire({
-                  icon: 'success',
-                  text: 'Se modificó correctamente',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-                window.location.reload();
+              this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
+                this.listadoProcesoUsuario = data;
+                let contador = 0;
+                for(let i = 0; i < this.listadoProcesoUsuario.length; i++){
+                  if(this.listadoProcesoUsuario[i].idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario ){
+                    contador++;
+                  }
+                }
+                if(contador == 0){
+                  console.log(this.formAsignacionProcesoUsuario.value);
+                  this.serviceModificar.actualizarAsignacionProceso(this.formAsignacionProcesoUsuario.value).subscribe( data => {
+                    Swal.fire({
+                      icon: 'success',
+                      text: 'Se modificó correctamente',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                    window.location.reload();
+                  })
+                    }else{
+                  Swal.fire({
+                    icon: 'error',
+                    text: 'Ya existe un proceso asignado a este usuario',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
               })
             }
           })
@@ -105,5 +125,9 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
         timer: 1500
       })
     }
+  }
+
+  compareFunction(o1: any, o2: any) {
+    return o1.id === o2.id;
   }
 }

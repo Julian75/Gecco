@@ -43,7 +43,6 @@
   td{ text-align: left;}
   td.mat-cell{ padding-left: 1%;}
 
-
   /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: 0px; }

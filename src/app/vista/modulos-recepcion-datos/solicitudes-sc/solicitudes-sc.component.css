@@ -53,6 +53,7 @@ table{
 #nombreSitioVSpa{ left: 32px; }
 #turnoSpa{ left: 15px; }
 #opcSpa{ left: 0px; }
+.btnChat{ background-color: #5C708F; color: white;}
 
 /* Movil pequeño 1, 2, 3 y 4 - MOVILES*/
 @media screen and (min-width: 280px) and (max-width: 639px){
