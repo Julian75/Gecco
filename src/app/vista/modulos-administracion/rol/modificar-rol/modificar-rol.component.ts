@@ -81,16 +81,16 @@ export class ModificarRolComponent implements OnInit {
       this.listarRol = res;
       this.formRol.controls['id'].setValue(this.listarRol.id);
       this.formRol.controls['descripcion'].setValue(this.listarRol.descripcion);
-      this.formRol.controls['idEstado'].setValue(this.listarRol.idEstado.id);
-      this.formRol.controls['idJerarquia'].setValue(this.listarRol.idJerarquia.id);
+      this.formRol.controls['idEstado'].setValue(this.listarRol.idEstado);
+      this.formRol.controls['idJerarquia'].setValue(this.listarRol.idJerarquia);
     })
   }
 
   public guardar() {
     this.encontrados = [];
     this.formRol.value.id = this.data;
-    const idEstado = this.formRol.controls['idEstado'].value;
-    const idJerarquia = this.formRol.controls['idJerarquia'].value;
+    const idEstado = this.formRol.value.idEstado.id;
+    const idJerarquia = this.formRol.value.idJerarquia.id;
     if(this.formRol.valid){
       const descripcion= this.formRol.value.descripcion;
       this.servicioEstado.listarPorId(idEstado).subscribe(res => {
@@ -172,5 +172,7 @@ export class ModificarRolComponent implements OnInit {
   }
 
 
-
+  compareFunction(o1: any, o2: any) {
+    return o1.id === o2.id;
+  }
 }

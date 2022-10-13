@@ -52,6 +52,7 @@ import { TipoNecesidad2 } from '../modelos/modelos2/tipoNecesidad2';
 import { MatrizNecesidad2 } from '../modelos/modelos2/matrizNecesidad2';
 import { MatrizNecesidadDetalle2 } from '../modelos/modelos2/matrizNecesidadDetalle2';
 import { ArticulosBaja2 } from '../modelos/modelos2/articulosBaja2';
+import { MediosRadiacion2 } from '../modelos/modelos2/mediosRadiacion2';
 
 @Injectable({
   providedIn: 'root'
@@ -263,5 +264,9 @@ export class ModificarService {
 
   public actualizarMatrizNecesidadDetalle(matrizNecesidadDetalle: MatrizNecesidadDetalle2){
     return this.http.put<void>(this.path+'/MatrizNecesidadDetalle/'+ matrizNecesidadDetalle.id, matrizNecesidadDetalle);
+  }
+
+  public actualizarMediosRadiacion(mediosRadiacion: MediosRadiacion2){
+    return this.http.put<void>(this.path+'/MediosRadiacion/'+ mediosRadiacion.id, mediosRadiacion);
   }
 }

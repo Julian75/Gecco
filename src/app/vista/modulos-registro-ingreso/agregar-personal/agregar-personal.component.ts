@@ -261,6 +261,10 @@ export class AgregarPersonalComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      this.formPersonal.reset();
+      this.imagenWebcam = null;
+      this.imagen = null;
+      window.location.reload();
     }, error => {
       Swal.fire({
         position: 'center',

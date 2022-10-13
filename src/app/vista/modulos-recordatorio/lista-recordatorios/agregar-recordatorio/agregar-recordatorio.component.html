@@ -1,0 +1,38 @@
+<h2 class="dato">Ingresar Nuevo Recordatorio</h2>
+<form [formGroup]="formRecordatorio">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese descripción del Recordatorio</mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Fecha</h2>
+      <!-- [for]="$any(picker)" -->
+      <!-- <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <DateTimePicker value={selectedDate} onChange={handleDateChange} />
+      </MuiPickersUtilsProvider> -->
+      <!-- <h2>Fecha</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Fecha</mat-label>
+        <input type="date" id="fecha" formControlName="fecha" matInput>
+      </mat-form-field> -->
+    </div>
+    <!-- <div class="nombre2">
+      <h2>Hora</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese Hora</mat-label>
+        <input type="time" id="hora" formControlName="hora" matInput>
+      </mat-form-field>
+    </div> -->
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear rol"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+</form>

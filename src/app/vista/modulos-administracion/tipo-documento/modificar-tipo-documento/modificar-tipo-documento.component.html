@@ -13,9 +13,9 @@
       <h2>Estado</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Modifica estado del tipo documento</mat-label>
-      <select matNativeControl id="estado" name="estado" formControlName="estado">
-        <option *ngFor="let item of listarEstado"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
+      <mat-select [compareWith]="compareFunction"  id="estado" name="estado" formControlName="estado">
+        <mat-option  *ngFor="let listarEstado of listarEstado"  [value]="listarEstado">{{listarEstado.descripcion}}</mat-option>
+      </mat-select>
       </mat-form-field>
     </div>
   </div>

@@ -101,6 +101,9 @@ import { ListaArticulosInventarioComponent } from './modulos-inventarios/lista-a
 import { ListaSubprocesoComponent } from './modulos-matriz-necesidades/lista-subproceso/lista-subproceso.component';
 import { TipoNecesidadesComponent } from './modulos-matriz-necesidades/tipo-necesidades/tipo-necesidades.component';
 import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/lista-matrices-necesidades.component';
+import { ReporteMatrizNecesidadComponent } from './modulos-matriz-necesidades/reporte-matriz-necesidad/reporte-matriz-necesidad.component';
+import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-recordatorios/lista-recordatorios.component';
+import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/lista-medios-radiacion.component';
 const routes: Routes = [
   {
     path: '',
@@ -632,7 +635,21 @@ const routes: Routes = [
         component: ListaMatricesNecesidadesComponent,
         canActivate: [AutorizacionGuard]
       },
-
+      {
+        path: 'reporteMatrizNecesidad',
+        component: ReporteMatrizNecesidadComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'mediosRadicacion',
+        component: ListaMediosRadiacionComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'recordatorio',
+        component: ListaRecordatoriosComponent,
+        canActivate: [AutorizacionGuard]
+      },
     ]
   },
 ];

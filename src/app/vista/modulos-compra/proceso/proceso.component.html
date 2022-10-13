@@ -13,9 +13,9 @@
       <h2>Usuarios</h2>
       <mat-form-field class="nombre" appearance="fill">
       <mat-label>Seleccione el usuario</mat-label>
-      <select matNativeControl id="usuario" name="usuario" formControlName="usuario">
-        <option *ngFor="let item of listarUsuarios"  value="{{item.idUsuario.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}}</option>
-      </select>
+      <mat-select matNativeControl id="usuario" name="usuario" formControlName="usuario">
+        <mat-option *ngFor="let item of listarUsuarios"  value="{{item.idUsuario.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}}</mat-option>
+      </mat-select>
       </mat-form-field>
     </div>
   </div>

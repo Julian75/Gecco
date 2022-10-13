@@ -72,8 +72,8 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
 
   id: any // Id de la oficina capturado - 18
 
-  idOficina(){
-    const listaOficina = this.id
+  idOficina(seleccion: any){
+    const listaOficina = seleccion.value
     this.listaIdOficinas.push(listaOficina.ideOficina)
 
     let ultimo = this.listaIdOficinas[this.listaIdOficinas.length - 1]

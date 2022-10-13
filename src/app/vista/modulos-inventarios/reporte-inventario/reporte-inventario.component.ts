@@ -89,9 +89,9 @@ export class ReporteInventarioComponent implements OnInit {
   }
 
   opcion: any
-  reporte(){
-    console.log(this.opcion)
-    if (this.opcion == "Sitio Venta") {
+  reporte(seleccion: any){
+    console.log(seleccion.value)
+    if (seleccion.value == "Sitio Venta") {
       this.lista = [];
       document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
       document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
@@ -103,7 +103,7 @@ export class ReporteInventarioComponent implements OnInit {
       document.getElementById("usuarioDiv").setAttribute("style","display: none;");
       this.crearFormulario();
     localStorage.removeItem("v");
-    }else if(this.opcion == "Serial"){
+    }else if(seleccion.value == "Serial"){
       this.lista = [];
       document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
       document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
@@ -115,7 +115,7 @@ export class ReporteInventarioComponent implements OnInit {
       document.getElementById("usuarioDiv").setAttribute("style","display: none;");
       this.crearFormulario();
     localStorage.removeItem("v");
-    }else if(this.opcion == "Placa"){
+    }else if(seleccion.value == "Placa"){
       this.lista = [];
       document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
       document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
@@ -127,7 +127,7 @@ export class ReporteInventarioComponent implements OnInit {
       document.getElementById("usuarioDiv").setAttribute("style","display: none;");
       this.crearFormulario();
     localStorage.removeItem("v");
-    }else if(this.opcion == "Usuario"){
+    }else if(seleccion.value == "Usuario"){
       this.lista = [];
       document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
       document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')

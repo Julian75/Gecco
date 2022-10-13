@@ -146,9 +146,9 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
   }
 
   id: any // Id de la oficina capturado - 18
-  idOficina(){
+  idOficina(event:any){
     this.listarSitioVenta = []
-    const listaOficina = this.id
+    const listaOficina = event.value
     this.listaIdOficinas.push(listaOficina.ideOficina)
     let ultimo = this.listaIdOficinas[this.listaIdOficinas.length - 1]
     let penultimo = this.listaIdOficinas[this.listaIdOficinas.length - 2]

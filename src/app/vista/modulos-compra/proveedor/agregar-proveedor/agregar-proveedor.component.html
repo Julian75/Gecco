@@ -29,9 +29,9 @@
         <h2>Tipo Documento</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
             <mat-label>Ingrese estado del tipo documento</mat-label>
-            <select matNativeControl id="estado" name="estado" formControlName="idTipoDocumento">
-              <option *ngFor="let item of listaDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
-            </select>
+            <mat-select matNativeControl id="estado" name="estado" formControlName="idTipoDocumento">
+              <mat-option *ngFor="let item of listaDocumentos"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+            </mat-select>
         </mat-form-field>
       </div>
       <div class="tele">
@@ -45,9 +45,9 @@
           <h2>Estado</h2>
           <mat-form-field class="nombre" [color]="color" appearance="fill">
               <mat-label>Ingrese estado</mat-label>
-              <select matNativeControl id="idEstado" name="idEstado" formControlName="idEstado">
-                <option *ngFor="let item of listaEstado"  value="{{item.id}}">{{item.descripcion}}</option>
-              </select>
+              <mat-select matNativeControl id="idEstado" name="idEstado" formControlName="idEstado">
+                <mat-option *ngFor="let item of listaEstado"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+              </mat-select>
           </mat-form-field>
       </div>
       <div class="obser">

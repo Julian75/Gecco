@@ -21,6 +21,7 @@ import {
   ApexLegend,
   ApexResponsive
 } from "ng-apexcharts";
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -54,7 +55,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
   public colorAmarillo = "#f6f700";
   public colorVerdeOscuro = "#15a604";
   public colorVerdeClaro = "#00f704";
-  public valor = 50;
+  public valor = 0;
   public colorFondo = "";
   public colorGradual = "";
 
@@ -63,79 +64,84 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     public dialogRef: MatDialogRef<VisualizarDetalleMatrizNecesidadesComponent>,
     private servicioMatrizNecesidades: MatrizNecesidadService,
     private servicioMatrizDetalle: MatrizNecesidadDetalleService,
+    private servicioModificar: ModificarService,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public id: MatDialog,
   ) { }
 
   ngOnInit(): void {
-    this.listarTodos();
-    if (this.valor >= 0 && this.valor <= 33) {
-      this.colorFondo = this.colorRojo;
-      this.colorGradual = this.colorRojo;
-    }
-    if (this.valor >= 34 && this.valor <= 66) {
-      this.colorFondo = this.colorAmarillo;
-      this.colorGradual = this.colorRojo;
-    }
-    if (this.valor >= 67 && this.valor <= 80) {
-      this.colorFondo = this.colorVerdeOscuro;
-      this.colorGradual = this.colorRojo;
-    }
-    if (this.valor >= 81 && this.valor <= 100) {
-      this.colorFondo = this.colorVerdeClaro;
-      this.colorGradual = this.colorRojo;
-    }
-    this.chartOptions = {
-      series: [this.valor],
-      chart: {
-        type: "radialBar",
-        offsetY: -20,
-        foreColor: "#97B4E2",
-        height: 350,
-      },
-      plotOptions: {
-        radialBar: {
-          startAngle: -90,
-          endAngle: 90,
-          track: {
-            background: "",
-            strokeWidth: "97%",
-            margin: 5, // margin is in pixels
-            dropShadow: {
-              enabled: true,
-              top: 2,
-              left: 0,
-              opacity: 0.31,
-              blur: 2
-            }
-          },
-          dataLabels: {
-            name: {
-              show: false
+    this.servicioMatrizNecesidades.listarPorId(Number(this.id)).subscribe(resMatriz=>{
+      this.valor = resMatriz.porcentajeTotal
+      if (this.valor >= 0 && this.valor <= 33) {
+        this.colorFondo = this.colorRojo;
+        this.colorGradual = this.colorRojo;
+      }
+      if (this.valor >= 34 && this.valor <= 66) {
+        this.colorFondo = this.colorAmarillo;
+        this.colorGradual = this.colorRojo;
+      }
+      if (this.valor >= 67 && this.valor <= 80) {
+        this.colorFondo = this.colorVerdeOscuro;
+        this.colorGradual = this.colorRojo;
+      }
+      if (this.valor >= 81 && this.valor <= 100) {
+        this.colorFondo = this.colorVerdeClaro;
+        this.colorGradual = this.colorRojo;
+      }
+      this.chartOptions = {
+        series: [this.valor],
+        chart: {
+          type: "radialBar",
+          offsetY: -20,
+          foreColor: "#97B4E2",
+          height: 350,
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -90,
+            endAngle: 90,
+            track: {
+              background: "",
+              strokeWidth: "97%",
+              margin: 5, // margin is in pixels
+              dropShadow: {
+                enabled: true,
+                top: 2,
+                left: 0,
+                opacity: 0.31,
+                blur: 2
+              }
             },
-            value: {
-              offsetY: -2,
-              fontSize: "22px"
+            dataLabels: {
+              name: {
+                show: false
+              },
+              value: {
+                offsetY: -2,
+                fontSize: "22px"
+              }
             }
           }
-        }
-      },
-      fill: {
-        type: "gradient",
-        colors: [this.colorFondo],
-        gradient: {
-          shade: "dark",
-          type: "horizontal",
-          shadeIntensity: 0.5,
-          gradientToColors: [this.colorGradual],
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [0, 100]
-        }
-      },
-      labels: ["Average Results"]
-    };
+        },
+        fill: {
+          type: "gradient",
+          colors: [this.colorFondo],
+          gradient: {
+            shade: "dark",
+            type: "horizontal",
+            shadeIntensity: 0.5,
+            gradientToColors: [this.colorGradual],
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100]
+          }
+        },
+        labels: ["Average Results"]
+      };
+    })
+    this.listarTodos();
   }
 
   public listarTodos() {
@@ -337,45 +343,53 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     if(validarValoresIngre == true){
       let matrizNecesidadDetalleActualizar : MatrizNecesidadDetalle2 = new MatrizNecesidadDetalle2();
       let matrizNecesidad : MatrizNecesidad2 = new MatrizNecesidad2();
-      matrizNecesidadDetalleActualizar.id = detalleMatrizNecesided.id
-      matrizNecesidadDetalleActualizar.idMatrizNecesidad = detalleMatrizNecesided.idMatrizNecesidad.id
-      var fecha = new Date(detalleMatrizNecesided.fecha)
-      fecha.setDate(fecha.getDate()+1)
-      matrizNecesidadDetalleActualizar.fecha = fecha
-      matrizNecesidadDetalleActualizar.cantidadEjecuciones = detalleMatrizNecesided.cantidadEjecuciones
-      matrizNecesidadDetalleActualizar.cantidadEstimada = detalleMatrizNecesided.cantidadEstimada
-      matrizNecesidadDetalleActualizar.cantidadComprada = this.elementObtenidoDetalleMatriz.objetosCompradosCo
-      matrizNecesidadDetalleActualizar.costoEjecucionComprada = this.elementObtenidoDetalleMatriz.costoEjecucionComprad
-      matrizNecesidadDetalleActualizar.cantidadEjecucionesCumplidas = this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum
-      var lengthMatrizNecesidadesDetalle = this.listarMatrizDetalle.length
-      var porcentajeIndividualEjecucionCompleta = 100/lengthMatrizNecesidadesDetalle
-      var porcentajeEjecucionACumplir = porcentajeIndividualEjecucionCompleta/detalleMatrizNecesided.cantidadEjecuciones
-      var porcentajeCumplidoFinalmente = porcentajeEjecucionACumplir*this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum
-      matrizNecesidadDetalleActualizar.porcentaje = porcentajeCumplidoFinalmente
-
-      matrizNecesidad.id = detalleMatrizNecesided.idMatrizNecesidad.id
-      matrizNecesidad.cantidad = detalleMatrizNecesided.idMatrizNecesidad.cantidad
-      matrizNecesidad.cantidadEjecuciones = detalleMatrizNecesided.idMatrizNecesidad.cantidadEjecuciones
-      matrizNecesidad.costoEstimado = detalleMatrizNecesided.idMatrizNecesidad.costoEstimado
-      if(detalleMatrizNecesided.idMatrizNecesidad.costoTotal == 0){
-        matrizNecesidad.costoTotal = this.elementObtenidoDetalleMatriz.costoEjecucionComprad
+      if(this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum > detalleMatrizNecesided.cantidadEjecuciones){
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'El número de ejecuciones cumplidas no debe ser mayor a la del objetivo!',
+          showConfirmButton: false,
+          timer: 3500
+        })
       }else{
-        matrizNecesidad.costoTotal = detalleMatrizNecesided.idMatrizNecesidad.costoTotal + this.elementObtenidoDetalleMatriz.costoEjecucionComprad
+        matrizNecesidadDetalleActualizar.id = detalleMatrizNecesided.id
+        matrizNecesidadDetalleActualizar.id_matriz_necesidad = detalleMatrizNecesided.idMatrizNecesidad.id
+        var fecha = new Date(detalleMatrizNecesided.fecha)
+        fecha.setDate(fecha.getDate()+1)
+        matrizNecesidadDetalleActualizar.fecha = fecha
+        matrizNecesidadDetalleActualizar.cantidad_ejecuciones = detalleMatrizNecesided.cantidadEjecuciones
+        matrizNecesidadDetalleActualizar.cantidad_estimada = detalleMatrizNecesided.cantidadEstimada
+        matrizNecesidadDetalleActualizar.cantidad_comprada = this.elementObtenidoDetalleMatriz.objetosCompradosCo
+        matrizNecesidadDetalleActualizar.costo_ejecucion_comprada = this.elementObtenidoDetalleMatriz.costoEjecucionComprad
+        matrizNecesidadDetalleActualizar.cantidad_ejecuciones_cumplidas = this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum
+        var lengthMatrizNecesidadesDetalle = this.listarMatrizDetalle.length
+        var porcentajeIndividualEjecucionCompleta = 100/lengthMatrizNecesidadesDetalle
+        var porcentajeEjecucionACumplir = porcentajeIndividualEjecucionCompleta/detalleMatrizNecesided.cantidadEjecuciones
+        var porcentajeCumplidoFinalmente = porcentajeEjecucionACumplir*this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum
+        matrizNecesidadDetalleActualizar.porcentaje = porcentajeCumplidoFinalmente
+        matrizNecesidad.id = detalleMatrizNecesided.idMatrizNecesidad.id
+        matrizNecesidad.cantidad = detalleMatrizNecesided.idMatrizNecesidad.cantidad
+        matrizNecesidad.cantidadEjecuciones = detalleMatrizNecesided.idMatrizNecesidad.cantidadEjecuciones
+        matrizNecesidad.costoEstimado = detalleMatrizNecesided.idMatrizNecesidad.costoEstimado
+        if(detalleMatrizNecesided.idMatrizNecesidad.costoTotal == 0){
+          matrizNecesidad.costoTotal = this.elementObtenidoDetalleMatriz.costoEjecucionComprad
+        }else{
+          matrizNecesidad.costoTotal = (Number(detalleMatrizNecesided.idMatrizNecesidad.costoTotal) + Number(this.elementObtenidoDetalleMatriz.costoEjecucionComprad))
+        }
+        matrizNecesidad.costoUnitario = detalleMatrizNecesided.idMatrizNecesidad.costoUnitario
+        matrizNecesidad.detalle = detalleMatrizNecesided.idMatrizNecesidad.detalle
+        var fechaMatrizNecesidad = new Date(detalleMatrizNecesided.idMatrizNecesidad.fecha)
+        fechaMatrizNecesidad.setDate(fechaMatrizNecesidad.getDate()+1)
+        matrizNecesidad.fecha = fechaMatrizNecesidad
+        matrizNecesidad.idSubProceso = detalleMatrizNecesided.idMatrizNecesidad.idSubProceso.id
+        matrizNecesidad.idTipoNecesidad = detalleMatrizNecesided.idMatrizNecesidad.idTipoNecesidad.id
+        if(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal == 0){
+          matrizNecesidad.porcentajeTotal = porcentajeCumplidoFinalmente
+        }else{
+          matrizNecesidad.porcentajeTotal = (Number(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal) + Number(porcentajeCumplidoFinalmente))
+        }
       }
-      matrizNecesidad.costoUnitario = detalleMatrizNecesided.idMatrizNecesidad.costoUnitario
-      matrizNecesidad.detalle = detalleMatrizNecesided.idMatrizNecesidad.detalle
-      var fechaMatrizNecesidad = new Date(detalleMatrizNecesided.idMatrizNecesidad.fecha)
-      fechaMatrizNecesidad.setDate(fechaMatrizNecesidad.getDate()+1)
-      matrizNecesidad.fecha = fechaMatrizNecesidad
-      matrizNecesidad.idSubProceso = detalleMatrizNecesided.idMatrizNecesidad.idSubProceso.id
-      matrizNecesidad.idTipoNecesidad = detalleMatrizNecesided.idMatrizNecesidad.idTipoNecesidad.id
-      if(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal == 0){
-        matrizNecesidad.porcentajeTotal = porcentajeCumplidoFinalmente
-      }else{
-        matrizNecesidad.costoTotal = detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal + porcentajeCumplidoFinalmente
-      }
-      console.log(matrizNecesidadDetalleActualizar, matrizNecesidad)
-      // matrizNecesidadDetalleActualizar
+      this.actualizarMatrizNecesidadDetalleyMatrizNecesidad(matrizNecesidadDetalleActualizar, matrizNecesidad)
     }else if(validarValoresIngre == false){
       Swal.fire({
         position: 'center',
@@ -385,11 +399,36 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
         timer: 3500
       })
     }
+  }
 
-    // }else{
-    //   console.log("Todo perfecto")
-    // }
-    // console.log(id, this.listarMatrizDetalle, this.ejecucionesCumplidasNum, this.detalleMatrizNecesidad)
+  actualizarMatrizNecesidadDetalleyMatrizNecesidad(matrizNecesidadDetalleActualizar: MatrizNecesidadDetalle2, matrizNecesidadActualizar: MatrizNecesidad2){
+    this.servicioModificar.actualizarMatrizNecesidadDetalle(matrizNecesidadDetalleActualizar).subscribe(resMatrizNecesidadDetalleActualizado=>{
+      this.servicioModificar.actualizarMatrizNecesidad(matrizNecesidadActualizar).subscribe(resMatrizNecesidadActualizado=>{
+        this.dialogRef.close();
+        const dialogRef = this.dialog.open(VisualizarDetalleMatrizNecesidadesComponent, {
+          width: '1000px',
+          data: matrizNecesidadActualizar.id
+        });
+      }, error => {
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Hubo un error al actualizar la matriz necesidad!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
+    }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al actualizar la matriz necesidad detalle!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
   }
 
 

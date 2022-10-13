@@ -58,7 +58,7 @@ export class ModificarUsuariosComponent implements OnInit {
 
   private crearFormulario() {
     this.formUsuario = this.fb.group({
-      id: [''],
+      id: [this.idUsuario],
       nombre: [null,Validators.required],
       apellido: [null,Validators.required],
       correo: [null,Validators.required],
@@ -107,18 +107,19 @@ export class ModificarUsuariosComponent implements OnInit {
   public listaporidUsuario() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idUsuario = params.get('id');
-      this.servicioUsuario.listarPorId(this.idUsuario).subscribe(res => {
-        this.listarUsuario = res;
-        this.formUsuario.controls['id'].setValue(this.listarUsuario.id);
-        this.formUsuario.controls['nombre'].setValue(this.listarUsuario.nombre);
-        this.formUsuario.controls['apellido'].setValue(this.listarUsuario.apellido);
-        this.formUsuario.controls['correo'].setValue(this.listarUsuario.correo);
-        this.formUsuario.controls['documento'].setValue(this.listarUsuario.documento);
-        this.formUsuario.controls['estado'].setValue(this.listarUsuario.idEstado.id);
-        this.formUsuario.controls['rol'].setValue(this.listarUsuario.idRol.id);
-        this.formUsuario.controls['tipoDocumento'].setValue(this.listarUsuario.idTipoDocumento.id);
-        this.formUsuario.controls['oficina'].setValue(this.listarUsuario.ideOficina);
-        const contrasena = this.listarUsuario.password.toString()
+      this.servicioUsuario.listarPorId(this.idUsuario).subscribe(resUsu => {
+        console.log(resUsu);
+        this.formUsuario.patchValue({
+          nombre: resUsu.nombre,
+          apellido: resUsu.apellido,
+          correo: resUsu.correo,
+          documento: resUsu.documento,
+          estado: resUsu.idEstado,
+          rol: resUsu.idRol,
+          tipoDocumento: resUsu.idTipoDocumento,
+          oficina: resUsu.ideOficina,
+        });
+        const contrasena = resUsu.password.toString()
         var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
         var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
         this.contrasenaDesencru = decryptedData.slice(1, -1)
@@ -188,19 +189,19 @@ export class ModificarUsuariosComponent implements OnInit {
                 var contrasena = this.formUsuario.controls['contrasena'].value;
                 var Encrypt = CryptoJS.AES.encrypt(contrasena, 'secret key 123');
                 usuario.password = String(Encrypt)
-                const idEstado = this.formUsuario.controls['estado'].value;
+                const idEstado = this.formUsuario.value.estado.id;
                 this.servicioEstado.listarPorId(idEstado).subscribe(res => {
                   this.listaEstados = res;
                   usuario.idEstado= res.id
-                  const idRol = this.formUsuario.controls['rol'].value;
+                  const idRol = this.formUsuario.value.rol.id;
                   this.servicioRoles.listarPorId(idRol).subscribe(res => {
                     this.listaRoles = res;
                     usuario.idRol= res.id
-                    const idTipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
+                    const idTipoDocumento = this.formUsuario.value.tipoDocumento.id;
                     this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(res => {
                       this.listaTipoDocumentos = res;
                       usuario.idTipoDocumento = res.id
-                      const ideOficina = this.formUsuario.controls['oficina'].value;
+                      const ideOficina = this.formUsuario.value.oficina;
                       this.servicioOficinas.listarPorId(ideOficina).subscribe(res => {
                         res.forEach(elementOficina => {
                           usuario.ideOficina = elementOficina.ideOficina
@@ -260,4 +261,7 @@ export class ModificarUsuariosComponent implements OnInit {
     });
  }
 
+ compareFunction(o1: any, o2: any) {
+  return o1.id === o2.id;
+  }
 }

@@ -53,7 +53,6 @@ export class ModificarEstadoComponent implements OnInit {
       this.formEstado.controls['id'].setValue(this.listarEstadosModulo.id);
       this.formEstado.controls['descripcion'].setValue(this.listarEstadosModulo.descripcion);
       this.formEstado.controls['observacion'].setValue(this.listarEstadosModulo.observacion);
-      this.formEstado.controls['modulo'].setValue(this.listarEstadosModulo.idModulo.id);
     });
   }
 

@@ -7,7 +7,7 @@
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Ingrese la asignación de proceso</mat-label>
       <mat-select matNativeControl formControlName="idAsignacionesProcesos">
-        <mat-option *ngFor="let item of listarProcesos"  value="{{item.id}}">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}} | {{item.idTiposProcesos.descripcion}}</mat-option>
+        <mat-option *ngFor="let item of listarProcesos" [value]="item.id">{{item.idUsuario.nombre}} {{item.idUsuario.apellido}} | {{item.idTiposProcesos.descripcion}}</mat-option>
       </mat-select>
       </mat-form-field>
     </div>

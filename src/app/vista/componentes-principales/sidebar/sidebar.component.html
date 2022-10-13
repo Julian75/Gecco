@@ -79,13 +79,14 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button id="42" routerLink="/tipoServicio" style="display: none;">Tipo de Servicio</button>
-      <button mat-raised-button id="43" routerLink="/escalaSolicitudes" style="display: none;">Escala Solicitudes</button>
-      <button mat-raised-button id="44" routerLink="/motivoSolicitud" style="display: none;">Motivos de Solicitud</button>
-      <button mat-raised-button id="45" routerLink="/clientesSC" style="display: none;">Clientes Servicio al Cliente</button>
-      <button mat-raised-button id="47" routerLink="/areaPQRS" style="display: none;">Area</button>
-      <button mat-raised-button id="46" routerLink="/asignacionUsuariosPqr" style="display: none;">Asignar usuario PQRS</button>
-      <button mat-raised-button id="38" routerLink="/solicitudesSC" style="display: none;">Solicitudes PQRS</button>
+      <button mat-raised-button id="42" routerLink="/tipoServicio">Tipo de Servicio</button>
+      <button mat-raised-button id="43" routerLink="/escalaSolicitudes">Escala Solicitudes</button>
+      <button mat-raised-button id="44" routerLink="/motivoSolicitud">Motivos de Solicitud</button>
+      <button mat-raised-button routerLink="/mediosRadicacion">Medios de Radicación</button>
+      <button mat-raised-button id="45" routerLink="/clientesSC">Clientes Servicio al Cliente</button>
+      <button mat-raised-button id="47" routerLink="/areaPQRS">Area</button>
+      <button mat-raised-button id="46" routerLink="/asignacionUsuariosPqr">Asignar usuario PQRS</button>
+      <button mat-raised-button id="38" routerLink="/solicitudesSC">Solicitudes PQRS</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel style="display: none;" id="Raspa" (opened)="panelOpenState = true"
@@ -121,15 +122,15 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button id="52" routerLink="/tipoActivo" >Tipo Activo</button><!-- id="52" -->
-      <button mat-raised-button id="62" routerLink="/tipoProceso" >Tipo Proceso</button><!-- id="62" -->
-      <button mat-raised-button id="62" routerLink="/listaArticuloInventario" >Lista Activos Inventario</button>      <!-- id="62" -->
-      <button mat-raised-button id="56" routerLink="/asignacionProceso" >Asignar Proceso a Usuario</button><!-- id="56" -->
-      <button mat-raised-button id="57" routerLink="/asignacionArticulo" >Asignar Activo a Usuario</button><!-- id="57" -->
-      <button mat-raised-button id="59" routerLink="/misArticulos" >Mis Activos</button><!-- id="59" -->
-      <button mat-raised-button id="57" routerLink="/reporteInventario" >Reporte Inventario</button>      <!-- id="57" -->
-      <button mat-raised-button id="60" routerLink="/listaAutorizaciones" >Solicitudes Bajas Activos</button> <!--id="60" -->
-      <button mat-raised-button id="61" routerLink="/listaConfirmaciones" >Admitir Bajas Activos</button> <!--id="61"-->
+      <button mat-raised-button routerLink="/tipoActivo" >Tipo Activo</button>
+      <button mat-raised-button routerLink="/tipoProceso" >Tipo Proceso</button>
+      <button mat-raised-button routerLink="/listaArticuloInventario" >Lista Activos Inventario</button>
+      <button mat-raised-button routerLink="/asignacionProceso" >Asignar Proceso a Usuario</button>
+      <button mat-raised-button routerLink="/asignacionArticulo" >Asignar Activo a Usuario</button>
+      <button mat-raised-button routerLink="/misArticulos" >Mis Activos</button>
+      <button mat-raised-button routerLink="/reporteInventario" >Reporte Inventario</button>
+      <button mat-raised-button routerLink="/listaAutorizaciones" >Solicitudes Bajas Activos</button>
+      <button mat-raised-button routerLink="/listaConfirmaciones" >Admitir Bajas Activos</button>
       <button mat-raised-button routerLink="/agregarArticulosInventario" >Agregar Articulo Inventario</button>
       <button mat-raised-button routerLink="/listaActasBajas" style="display: none;">Lista Actas Bajas Articulos</button>
       <button mat-raised-button routerLink="/solicitudBajaArticulos" >Generar Solicitud Baja Activo</button>
@@ -145,12 +146,25 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="opciones">
-      <button mat-raised-button routerLink="/subProceso" >Sub Procesos</button> <!--id="63" -->
-      <button mat-raised-button routerLink="/tipoNecesidad" >Tipo Necesidades</button> <!--id="65" -->
-      <button mat-raised-button routerLink="/matrizNecesidad">Generar Matriz</button> <!--id="64" -->
-      <button mat-raised-button routerLink="/listaMatricesNecesidades">Matrices de Necesidades</button> <!--id="64" -->
+      <button mat-raised-button routerLink="/subProceso" >Sub Procesos</button>
+      <button mat-raised-button routerLink="/tipoNecesidad" >Tipo Necesidades</button>
+      <button mat-raised-button routerLink="/matrizNecesidad">Generar Matriz</button>
+      <button mat-raised-button routerLink="/listaMatricesNecesidades">Matrices de Necesidades</button>
+      <button mat-raised-button routerLink="/reporteMatrizNecesidad">Reporte de Matriz Necesidad</button>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"> <!--id="ModuloRecordatorio"-->
+    <mat-expansion-panel-header class="boton">
+      <mat-panel-title >
+        Modulo de Recordatorio
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="opciones">
+      <button mat-raised-button routerLink="/recordatorio" >Lista de Eventos</button>
+    </div>
+  </mat-expansion-panel>
+
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

@@ -32,9 +32,9 @@
         <h2>Municipio</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese municipio</mat-label>
-        <select matNativeControl id="municipio" name="municipio" formControlName="municipio">
-          <option *ngFor="let item of listaMunicipios"  value="{{item[9]}}">{{item[9]}}</option>
-        </select>
+        <mat-select matNativeControl id="municipio" name="municipio" formControlName="municipio">
+          <mat-option *ngFor="let item of listaMunicipios"  value="{{item[9]}}">{{item[9]}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre5">
@@ -48,28 +48,27 @@
         <h2>Motivo de la Solicitud</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Seleccione el motivo</mat-label>
-        <select matNativeControl id="motivo" name="motivo" formControlName="motivo">
-          <option *ngFor="let item of listaMotivoSolicitud"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="motivo" name="motivo" formControlName="motivo">
+          <mat-option *ngFor="let item of listaMotivoSolicitud"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre7">
         <h2>Medios de Radicacion</h2>
         <mat-form-field class="nombre1" appearance="fill">
         <mat-label>Ingrese el medio de la radicacion </mat-label>
-        <select matNativeControl id="radicacion" formControlName="radicacion" matInput>
-          <option value="Fisico">Fisico</option>
-          <option value="Correo">Correo</option>
-        </select>
+        <mat-select matNativeControl id="radicacion" formControlName="radicacion" matInput>
+          <mat-option *ngFor="let item of listaMediosRadicacion"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre8">
         <h2>Tipo de Servicio</h2>
         <mat-form-field class="nombre1" appearance="fill">
         <mat-label>Seleccione el tipo de servicio</mat-label>
-        <select matNativeControl id="servicio" name="servicio" formControlName="servicio">
-          <option *ngFor="let item of listaTipoServicio"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="servicio" name="servicio" formControlName="servicio">
+          <mat-option *ngFor="let item of listaTipoServicio"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre9">

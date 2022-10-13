@@ -199,6 +199,12 @@ import { MatrizNecesidadDetalleComponent } from './modulos-matriz-necesidades/ma
 import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/lista-matrices-necesidades.component';
 import { VisualizarDetalleMatrizNecesidadesComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/visualizar-detalle-matriz-necesidades/visualizar-detalle-matriz-necesidades.component';
 import { ChatRemitentesComponent } from './modulos-recepcion-datos/chat-remitentes/chat-remitentes.component';
+import { ReporteMatrizNecesidadComponent } from './modulos-matriz-necesidades/reporte-matriz-necesidad/reporte-matriz-necesidad.component';
+import { AgregarMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/agregar-medios-radiacion/agregar-medios-radiacion.component';
+import { ModificarMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/modificar-medios-radiacion/modificar-medios-radiacion.component';
+import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/lista-medios-radiacion.component';
+import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-recordatorios/lista-recordatorios.component';
+import { AgregarRecordatorioComponent } from './modulos-recordatorio/lista-recordatorios/agregar-recordatorio/agregar-recordatorio.component';
 
 @NgModule({
   declarations: [
@@ -394,7 +400,14 @@ import { ChatRemitentesComponent } from './modulos-recepcion-datos/chat-remitent
     MatrizNecesidadDetalleComponent,
     ListaMatricesNecesidadesComponent,
     VisualizarDetalleMatrizNecesidadesComponent,
-    ChatRemitentesComponent
+    ChatRemitentesComponent,
+    ReporteMatrizNecesidadComponent,
+    AgregarMediosRadiacionComponent,
+    ModificarMediosRadiacionComponent,
+    ListaMediosRadiacionComponent,
+    ListaRecordatoriosComponent,
+    AgregarRecordatorioComponent,
+
   ],
   imports: [
     CommonModule,
@@ -407,7 +420,8 @@ import { ChatRemitentesComponent } from './modulos-recepcion-datos/chat-remitent
     HttpClientModule,
     BrowserAnimationsModule,
     NgApexchartsModule,
-    WebcamModule
+    WebcamModule,
+
   ],
   exports: [
     DataTablesModule,

@@ -6,18 +6,18 @@
       <h2>Area</h2>
       <mat-form-field class="nombre" appearance="fill">
       <mat-label>Modifica el Area del Usuario</mat-label>
-      <select matNativeControl id="idArea" name="idArea" formControlName="idArea">
-        <option *ngFor="let item of listaAreas"  value="{{item.id}}">{{item.descripcion}}</option>
-      </select>
+      <mat-select matNativeControl id="idArea" name="idArea" formControlName="idArea">
+        <mat-option *ngFor="let item of listaAreas"  [value]="item.id">{{item.descripcion}}</mat-option>
+      </mat-select>
       </mat-form-field>
     </div>
     <div class="nombre2">
       <h2>Usuario</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Modifica el Usuario</mat-label>
-      <select matNativeControl id="idUsuario" name="idUsuario" formControlName="idUsuario">
-        <option *ngFor="let item of listarUsuario"  value="{{item.id}}">{{item.nombre}}</option>
-      </select>
+      <mat-select matNativeControl id="idUsuario" name="idUsuario" formControlName="idUsuario">
+        <mat-option *ngFor="let item of listarUsuario"  [value]="item.id">{{item.nombre}}</mat-option>
+      </mat-select>
       </mat-form-field>
     </div>
   </div>

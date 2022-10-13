@@ -20,6 +20,7 @@ import { ClienteSC } from 'src/app/modelos/clienteSC';
 import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AgregarClienteScModalComponent } from '../../cliente-sc/agregar-cliente-sc-modal/agregar-cliente-sc-modal.component';
+import { MediosRadiacionService } from 'src/app/servicios/medioRadiacion.service';
 
 @Component({
   selector: 'app-agregar-solicitud-sc',
@@ -65,6 +66,7 @@ export class AgregarSolicitudScComponent implements OnInit {
     private servicioEstado : EstadoService,
     private servicioSolicitudSc : SolicitudSCService,
     private servicioArchivoSolicitud : ArchivoSolicitudService,
+    private servicioMediosRadicacion : MediosRadiacionService,
     private servicioCliente : ClienteSCService,
     private servicioUsuario : UsuarioService,
     private router: Router,
@@ -76,6 +78,7 @@ export class AgregarSolicitudScComponent implements OnInit {
     this.listarMotivoSolicitud();
     this.listarTipoServicio();
     this.listarClienteSC();
+    this.listarMediosRadicacion();
   }
 
   private crearFormulario() {
@@ -148,6 +151,13 @@ export class AgregarSolicitudScComponent implements OnInit {
       this.listaTipoServicio = res
       const jsonMunicipDep = require('../../../../../assets/departamentos-municipios/munidep.json');
       this.listaMunicipios = jsonMunicipDep.data
+    })
+  }
+
+  listaMediosRadicacion: any = [];
+  public listarMediosRadicacion(){
+    this.servicioMediosRadicacion.listarTodos().subscribe(res=>{
+      this.listaMediosRadicacion = res
     })
   }
 
@@ -233,25 +243,27 @@ export class AgregarSolicitudScComponent implements OnInit {
         solicitudSc.vence = new Date(fechaVencimiento2)
         solicitudSc.municipio = municipio
         this.servicioCliente.listarPorId(this.cliente.id).subscribe(resCliente=>{
-          solicitudSc.idClienteSC = resCliente
-          this.servicioMotivoSolicitud.listarPorId(idMotivo).subscribe(resMotivo=>{
-            solicitudSc.idMotivoSolicitud = resMotivo
-            solicitudSc.medioRadicacion = radicacion
-            solicitudSc.prorroga = "No"
-            this.servicioTipoServicio.listarPorId(idServicio).subscribe(resServicio=>{
-              solicitudSc.idTipoServicio = resServicio
-              solicitudSc.auxiliarRadicacion = auxiliar
-              this.servicioEscala.listarPorId(1).subscribe(resEscala=>{
-                solicitudSc.idEscala = resEscala
-                this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
-                  solicitudSc.idEstado = resEstado
-                  if(incidente == null){
-                    solicitudSc.incidente = ""
-                    this.registrarSolicitudSc(solicitudSc);
-                  }else{
-                    solicitudSc.incidente = incidente
-                    this.registrarSolicitudSc(solicitudSc);
-                  }
+          this.servicioMediosRadicacion.listarPorId(radicacion).subscribe(resMediosRadicacion=>{
+            solicitudSc.idClienteSC = resCliente
+            this.servicioMotivoSolicitud.listarPorId(idMotivo).subscribe(resMotivo=>{
+              solicitudSc.idMotivoSolicitud = resMotivo
+              solicitudSc.medioRadicacion = resMediosRadicacion.descripcion
+              solicitudSc.prorroga = "No"
+              this.servicioTipoServicio.listarPorId(idServicio).subscribe(resServicio=>{
+                solicitudSc.idTipoServicio = resServicio
+                solicitudSc.auxiliarRadicacion = auxiliar
+                this.servicioEscala.listarPorId(1).subscribe(resEscala=>{
+                  solicitudSc.idEscala = resEscala
+                  this.servicioEstado.listarPorId(62).subscribe(resEstado=>{
+                    solicitudSc.idEstado = resEstado
+                    if(incidente == null){
+                      solicitudSc.incidente = ""
+                      this.registrarSolicitudSc(solicitudSc);
+                    }else{
+                      solicitudSc.incidente = incidente
+                      this.registrarSolicitudSc(solicitudSc);
+                    }
+                  })
                 })
               })
             })

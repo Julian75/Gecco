@@ -6,9 +6,9 @@
         <h2 class="oficina2">Oficina</h2>
         <mat-form-field class="nombre"  appearance="fill">
         <mat-label>Ingrese oficina</mat-label>
-        <select matNativeControl id="oficina" name="oficina" formControlName="oficina" [(ngModel)]="id" (change)="idOficina()">
-          <option *ngFor="let item of listaOficinas"  value="{{item.id}}" [ngValue]="item">{{item.ideOficina}} | {{item.nom_oficina}}</option>
-        </select>
+        <mat-select matNativeControl id="oficina" name="oficina" formControlName="oficina" [(ngModel)]="id" (selectionChange)="idOficina($event)">
+          <mat-option *ngFor="let item of listaOficinas"  value="{{item.id}}" [value]="item">{{item.ideOficina}} | {{item.nom_oficina}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre3">
@@ -31,9 +31,9 @@
         <h2 class="Turno">Turno</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese Turno</mat-label>
-        <select matNativeControl id="turno" name="turno" formControlName="turno">
-          <option *ngFor="let item of listarTurnos"  value="{{item.idTurnos.id}}" >{{item.idTurnos.horaInicio}}-{{item.idTurnos.horaFinal}} || {{item.idTurnos.idTipoTurno.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="turno" name="turno" formControlName="turno">
+          <mat-option *ngFor="let item of listarTurnos"  value="{{item.idTurnos.id}}" >{{item.idTurnos.horaInicio}}-{{item.idTurnos.horaFinal}} || {{item.idTurnos.idTipoTurno.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre5">

@@ -3,7 +3,7 @@ import { VistaModule } from './vista/vista.module';
 import { MaterialModule } from './material/material.module';
 import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +18,6 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es');
-
 
 @NgModule({
   declarations: [
@@ -39,13 +38,19 @@ registerLocaleData(localeEs, 'es');
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   exports: [
     DataTablesModule,
     RouterModule,
     HttpClientModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [{provide: LOCALE_ID, useValue: 'es'}],

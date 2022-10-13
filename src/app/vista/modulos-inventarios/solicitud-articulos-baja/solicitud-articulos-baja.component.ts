@@ -151,7 +151,7 @@ export class SolicitudArticulosBajaComponent implements OnInit {
             var existe = this.listaExiste.includes(true)
             var existeArticuloUsuario = this.listaExisteArticuloUsuario.includes(true)
             var existeEstadoArticulo = this.listaEstadoArticulo.includes(true)
-            var existeEstadoArticulo2 = this.listaEstadoArticulo.includes(true)
+            var existeEstadoArticulo2 = this.listaEstadoArticulo2.includes(true)
             if(existe == true){
               if(existeEstadoArticulo == true){
                 if(existeArticuloUsuario == true){

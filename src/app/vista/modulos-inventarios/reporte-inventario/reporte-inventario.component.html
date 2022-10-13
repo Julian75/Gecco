@@ -6,10 +6,10 @@
           <h2 class="oficina2">Opciones Reporte</h2>
           <mat-form-field class="nombre"  appearance="fill">
             <mat-label>Seleccione la forma de reporte</mat-label>
-            <select matNativeControl id="reporte" name="reporte" formControlName="reporte" [(ngModel)]="opcion" (change)="reporte()">
-              <option></option>
-              <option *ngFor="let item of listaOpciones" value="{{item}}" [ngValue]="item">{{item}}</option>
-            </select>
+            <mat-select matNativeControl id="reporte" name="reporte" formControlName="reporte" [(ngModel)]="opcion" (selectionChange)="reporte($event)">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let item of listaOpciones" value="{{item}}" [value]="item">{{item}}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="nombre2" id="oficinaDiv" style="display: none;">

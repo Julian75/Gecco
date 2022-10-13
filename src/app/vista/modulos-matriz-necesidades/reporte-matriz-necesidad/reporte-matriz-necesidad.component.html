@@ -1,0 +1,46 @@
+<div class="contenedor">
+  <h2 class="dato">Reporte Matriz Necesidad</h2>
+  <form [formGroup]="formReporteMatrizNecesidad">
+    <div class="row1">
+      <div class="nombre2">
+        <h2 class="oficina2">Opciones Reporte</h2>
+        <mat-form-field class="nombre"  appearance="fill">
+          <mat-label>Seleccione la forma de reporte</mat-label>
+          <mat-select matNativeControl id="reporte" name="reporte" formControlName="reporte" (selectionChange)="reporteMatrizNecesidad($event)">
+            <mat-option value="" [value]=""></mat-option>
+            <mat-option *ngFor="let item of listaOpciones" value="{{item}}" [value]="item">{{item}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2" id="procesoDiv" style="display: none;">
+        <h2 class="oficina2">Proceso</h2>
+        <mat-form-field class="nombre"  appearance="fill">
+          <mat-label>Ingrese Proceso</mat-label>
+          <mat-select matNativeControl id="proceso" name="proceso" formControlName="proceso">
+            <mat-option *ngFor="let item of listaProcesos"  value="{{item.id}}" ngValue="item">{{item.descripcion}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2" id="subProcesoDiv" style="display: none;">
+        <h2 class="oficina2">SubProceso</h2>
+        <mat-form-field class="nombre"  appearance="fill">
+          <mat-label>Ingrese SubProceso</mat-label>
+          <mat-select matNativeControl id="subproceso" name="subproceso" formControlName="subproceso">
+            <mat-option *ngFor="let item of listaSubProcesos"  value="{{item.id}}" ngValue="item">{{item.descripcion}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar datos"><mat-icon>assignment_returned</mat-icon></button>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="solpiner" id="snipper1" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
+

@@ -20,18 +20,18 @@
         <h2>Tipo Documento</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese Tipo Documento</mat-label>
-        <select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
-          <option *ngFor="let item of listaTipoDocumentos"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
+          <mat-option *ngFor="let item of listaTipoDocumentos"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre2">
         <h2>Rol</h2>
         <mat-form-field class="nombre" appearance="fill">
         <mat-label>Ingrese Rol</mat-label>
-        <select matNativeControl id="rol" name="rol" formControlName="rol">
-          <option *ngFor="let item of listaRoles"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="rol" name="rol" formControlName="rol">
+          <mat-option *ngFor="let item of listaRoles"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre3">
@@ -45,9 +45,9 @@
         <h2>Estado Usuario</h2>
         <mat-form-field class="nombre1" appearance="fill">
         <mat-label>Ingrese Estado del usuario</mat-label>
-        <select matNativeControl id="estado" name="estado" formControlName="estado">
-          <option *ngFor="let item of listaEstados"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="estado" name="estado" formControlName="estado">
+          <mat-option *ngFor="let item of listaEstados"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
       <div class="nombre4">
@@ -61,9 +61,9 @@
         <h2 class="ofi">Oficina</h2>
         <mat-form-field class="nombre1" appearance="fill">
         <mat-label>Ingrese Oficina</mat-label>
-        <select matNativeControl id="oficina" name="oficina" formControlName="oficina">
-          <option *ngFor="let item of listaOficinas"  value="{{item.ideOficina}}">{{item.ideOficina}} | {{item.nom_oficina}}</option>
-        </select>
+        <mat-select matNativeControl id="oficina" name="oficina" formControlName="oficina">
+          <mat-option *ngFor="let item of listaOficinas"  value="{{item.ideOficina}}">{{item.ideOficina}} | {{item.nom_oficina}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
     </div>

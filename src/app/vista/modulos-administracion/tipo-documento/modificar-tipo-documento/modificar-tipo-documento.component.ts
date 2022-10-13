@@ -63,7 +63,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
       this.listaTiposDocumentos = res;
       this.formTipoDocumento.controls['id'].setValue(this.listaTiposDocumentos.id);
       this.formTipoDocumento.controls['descripcion'].setValue(this.listaTiposDocumentos.descripcion);
-      this.formTipoDocumento.controls['estado'].setValue(this.listaTiposDocumentos.idEstado.id);
+      this.formTipoDocumento.controls['estado'].setValue(this.listaTiposDocumentos.idEstado);
     })
   }
 
@@ -72,7 +72,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
     let tipoDocumento : TipoDocumento2 = new TipoDocumento2();
     tipoDocumento.id=Number(this.data);
     if(this.formTipoDocumento.valid){
-      const estado = this.formTipoDocumento.value.estado;
+      const estado = this.formTipoDocumento.value.estado.id;
       const descripcion = this.formTipoDocumento.value.descripcion;
       this.servicioTipoDocumento.listarPorId(tipoDocumento.id).subscribe(res=>{
         if(descripcion.toLowerCase() == res.descripcion.toLowerCase() && estado == res.idEstado.id){
@@ -152,5 +152,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   }
 
 
-
+  compareFunction(o1: any, o2: any) {
+    return o1.id === o2.id;
+  }
 }

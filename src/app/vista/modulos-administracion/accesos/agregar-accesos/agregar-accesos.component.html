@@ -6,9 +6,9 @@
         <h2>Accesos</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
         <mat-label>Ingrese Acceso del Rol</mat-label>
-        <select matNativeControl id="modulo" name="modulo" formControlName="modulo">
-          <option *ngFor="let item of listarModulo"  value="{{item.id}}">{{item.descripcion}}</option>
-        </select>
+        <mat-select matNativeControl id="modulo" name="modulo" formControlName="modulo">
+          <mat-option *ngFor="let item of listarModulo"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
   </div>
