@@ -6,28 +6,19 @@
       <h2>Descripción</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
       <mat-label>Ingrese descripción del Recordatorio</mat-label>
-      <input id="descripcion" formControlName="descripcion" matInput>
+      <textarea id="descripcion" formControlName="descripcion" matInput></textarea>
       </mat-form-field>
     </div>
     <div class="nombre2">
       <h2>Fecha</h2>
-      <!-- [for]="$any(picker)" -->
-      <!-- <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DateTimePicker value={selectedDate} onChange={handleDateChange} />
-      </MuiPickersUtilsProvider> -->
-      <!-- <h2>Fecha</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese Fecha</mat-label>
-        <input type="date" id="fecha" formControlName="fecha" matInput>
-      </mat-form-field> -->
+      <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl">
+        <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners"
+           [stepHour]="stepHour" [stepMinute]="stepMinute">
+        </ngx-mat-datetime-picker>
+     </mat-form-field>
     </div>
-    <!-- <div class="nombre2">
-      <h2>Hora</h2>
-      <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Ingrese Hora</mat-label>
-        <input type="time" id="hora" formControlName="hora" matInput>
-      </mat-form-field>
-    </div> -->
   </div>
   <div class="row">
     <!-- Boton de guardar datos -->

@@ -42,7 +42,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
   public listarMatrizDetalle: any = [];
   public formDetalleMatrizNecesidad!: FormGroup;
   listaMatrizDetalleNecesidades: any = []
-  displayedColumns = ['fecha','cantidadEjecuciones', 'cantidadObjetosEstimados', 'cantidadEjecucionesCompletas','costoEjecucionComprada','cantidadObjetosComprados','opciones'];
+  displayedColumns = ['descripcionMatrizDetalle','fecha','porcentajeMatrizDetalle','cantidadEjecuciones', 'cantidadObjetosEstimados', 'cantidadEjecucionesCompletas','costoEjecucionComprada','cantidadObjetosComprados','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -343,7 +343,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     if(validarValoresIngre == true){
       let matrizNecesidadDetalleActualizar : MatrizNecesidadDetalle2 = new MatrizNecesidadDetalle2();
       let matrizNecesidad : MatrizNecesidad2 = new MatrizNecesidad2();
-      if(this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum > detalleMatrizNecesided.cantidadEjecuciones){
+      if(Number(this.elementObtenidoDetalleMatriz.ejecucionesCumplidasNum) > Number(detalleMatrizNecesided.cantidadEjecuciones)){
         Swal.fire({
           position: 'center',
           icon: 'warning',
@@ -357,6 +357,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
         var fecha = new Date(detalleMatrizNecesided.fecha)
         fecha.setDate(fecha.getDate()+1)
         matrizNecesidadDetalleActualizar.fecha = fecha
+        matrizNecesidadDetalleActualizar.descripcion = detalleMatrizNecesided.descripcion
         matrizNecesidadDetalleActualizar.cantidad_ejecuciones = detalleMatrizNecesided.cantidadEjecuciones
         matrizNecesidadDetalleActualizar.cantidad_estimada = detalleMatrizNecesided.cantidadEstimada
         matrizNecesidadDetalleActualizar.cantidad_comprada = this.elementObtenidoDetalleMatriz.objetosCompradosCo
@@ -388,8 +389,8 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
         }else{
           matrizNecesidad.porcentajeTotal = (Number(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal) + Number(porcentajeCumplidoFinalmente))
         }
+        this.actualizarMatrizNecesidadDetalleyMatrizNecesidad(matrizNecesidadDetalleActualizar, matrizNecesidad)
       }
-      this.actualizarMatrizNecesidadDetalleyMatrizNecesidad(matrizNecesidadDetalleActualizar, matrizNecesidad)
     }else if(validarValoresIngre == false){
       Swal.fire({
         position: 'center',
@@ -407,6 +408,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
         this.dialogRef.close();
         const dialogRef = this.dialog.open(VisualizarDetalleMatrizNecesidadesComponent, {
           width: '1000px',
+          height: '440px',
           data: matrizNecesidadActualizar.id
         });
       }, error => {

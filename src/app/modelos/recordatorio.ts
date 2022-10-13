@@ -3,4 +3,5 @@ export class Recordatorio{
     public descripcion: string = "";
     public fecha: Date = new Date();
     public hora: String = "";
+    public envio: string = "";
 }

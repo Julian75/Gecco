@@ -11,11 +11,15 @@
   position: relative;
 }
 
+#chart{
+  margin-top: 1%;
+  margin-left: 79.5%;
+}
 
 .example-container {
     max-width: 100%;
     overflow: auto;
-    margin-top: 3%;
+    margin-top: -3%;
     border-bottom: 20%;
     box-shadow: 1px none #000;
     margin-bottom: 3%;

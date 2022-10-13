@@ -108,7 +108,9 @@ export class AgregarSolicitudScComponent implements OnInit {
     })
   }
 
+  fechaVencimiento: any;
   public tomarFecha(fecha:any ){
+    this.fechaVencimiento = fecha.target.value;
     console.log(fecha.target.value)
   }
 
@@ -207,7 +209,7 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public guardar(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    var vencimiento = this.formSolicitud.controls['vence'].value;
+    var vencimiento = this.fechaVencimiento;
     var municipio = this.formSolicitud.controls['municipio'].value;
     var incidente = this.formSolicitud.controls['incidente'].value;
     var idMotivo = this.formSolicitud.controls['motivo'].value;

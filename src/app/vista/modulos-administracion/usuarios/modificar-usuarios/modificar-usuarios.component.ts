@@ -108,7 +108,6 @@ export class ModificarUsuariosComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.idUsuario = params.get('id');
       this.servicioUsuario.listarPorId(this.idUsuario).subscribe(resUsu => {
-        console.log(resUsu);
         this.formUsuario.patchValue({
           nombre: resUsu.nombre,
           apellido: resUsu.apellido,
@@ -154,13 +153,13 @@ export class ModificarUsuariosComponent implements OnInit {
           const correo = this.formUsuario.controls['correo'].value;
           const nombre = this.formUsuario.controls['nombre'].value;
           const apellido = this.formUsuario.controls['apellido'].value;
-          const estado = this.formUsuario.controls['estado'].value;
-          const rol = this.formUsuario.controls['rol'].value;
-          const tipoDocumento = this.formUsuario.controls['tipoDocumento'].value;
-          const oficina = this.formUsuario.controls['oficina'].value;
+          const estado = this.formUsuario.value.estado.id;
+          const rol = this.formUsuario.value.rol.id;
+          const tipoDocumento = this.formUsuario.value.tipoDocumento.id;
+          const oficina = this.formUsuario.value.oficina;
           const contrasenita = this.formUsuario.controls['contrasena'].value;
           if(this.formUsuario.valid){
-            if(usuario.nombre == nombre && usuario.documento == documento && usuario.correo == correo && usuario.apellido == apellido && usuario.idEstado == estado && usuario.idRol == rol && usuario.idTipoDocumento == tipoDocumento && usuario.ideOficina == oficina && usuario.password == contrasenita){
+            if(usuario.nombre == nombre && usuario.documento == documento && usuario.correo == correo && usuario.apellido == apellido && usuario.idEstado == this.formUsuario.value.estado.id && usuario.idRol == rol && usuario.idTipoDocumento == this.formUsuario.value.tipoDocumento.id && usuario.ideOficina == oficina && usuario.password == contrasenita){
               Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -240,6 +239,7 @@ export class ModificarUsuariosComponent implements OnInit {
   }
 
   public actualizarUsuario(usuario: Usuario2) {
+    console.log(usuario)
     this.servicioModificar.actualizarUsuario(usuario).subscribe(res => {
       Swal.fire({
         position: 'center',
@@ -257,7 +257,7 @@ export class ModificarUsuariosComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.router.navigate(['/usuarios']);
+      // this.router.navigate(['/usuarios']);
     });
  }
 

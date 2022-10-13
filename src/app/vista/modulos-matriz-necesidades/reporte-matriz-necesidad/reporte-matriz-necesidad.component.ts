@@ -132,6 +132,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
+            Descripcion: element.descripcion,
             "Mes Ejecutar": element.fecha,
             "Cantidad Ejecuciones Objetivo": element.cantidadEjecuciones,
             "Cantidad Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
@@ -199,6 +200,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
+            Descripcion: element.descripcion,
             "Mes Ejecutar": element.fecha,
             "Cantidad Ejecuciones Objetivo": element.cantidadEjecuciones,
             "Cantidad Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
@@ -253,6 +255,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
+            Descripcion: element.descripcion,
             "Mes Ejecutar": element.fecha,
             "Cantidad Ejecuciones Objetivo": element.cantidadEjecuciones,
             "Cantidad Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,

@@ -24,7 +24,7 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
   dtOptions: any = {};
   public listarAsignacionArticulos: any = [];
 
-  displayedColumns = ['id', 'idasignacionesprocesos','iddetalleArticulo','idEstado','opciones'];
+  displayedColumns = ['id','iddetalleArticulo','idasignacionesprocesos','codigoUnico','serial','placa','idEstado','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -54,6 +54,7 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
           });
         });
         this.listaCompletaActivos.sort()
+        console.log(this.listaCompletaActivos)
         this.listaCompletaActivos.forEach(elementAsigArticulo => {
           if(elementAsigArticulo.idEstado.id != 79){
             var obj = {

@@ -205,6 +205,7 @@ import { ModificarMediosRadiacionComponent } from './modulos-recepcion-datos/lis
 import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/lista-medios-radiacion.component';
 import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-recordatorios/lista-recordatorios.component';
 import { AgregarRecordatorioComponent } from './modulos-recordatorio/lista-recordatorios/agregar-recordatorio/agregar-recordatorio.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -421,7 +422,9 @@ import { AgregarRecordatorioComponent } from './modulos-recordatorio/lista-recor
     BrowserAnimationsModule,
     NgApexchartsModule,
     WebcamModule,
-
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   exports: [
     DataTablesModule,

@@ -57,18 +57,20 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
       id: [this.data],
       idAsignacionesProcesos: ['', Validators.required],
       idDetalleArticulo: ['', Validators.required],
-      idEstado: ['', Validators.required],
     });
   }
 
   nombreArticulo: any;
+  listaAsignacionActivo:any = []
   public listarTodos(){
     this.serviceEstado.listarTodos().subscribe(data => {
+      console.log(this.data)
       this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
-        this.formAsignarArticulos.get('idEstado')?.setValue(data.idEstado.id);
-        this.formAsignarArticulos.get('idAsignacionesProcesos')?.setValue(data.idAsignacionesProcesos.id);
-        this.formAsignarArticulos.get('idDetalleArticulo')?.setValue(data.idDetalleArticulo.idArticulo.id);
-        this.nombreArticulo = data.idDetalleArticulo.idArticulo.descripcion
+        this.listaAsignacionActivo = data
+        console.log(this.data)
+        this.formAsignarArticulos.controls['idAsignacionesProcesos'].setValue(this.listaAsignacionActivo.idAsignacionesProcesos.id);
+        this.formAsignarArticulos.controls['idDetalleArticulo'].setValue(this.listaAsignacionActivo.idDetalleArticulo.id);
+        this.nombreArticulo = this.listaAsignacionActivo.idDetalleArticulo.idArticulo.descripcion
       })
     })
   }
@@ -125,6 +127,7 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                     this.serviceAsignacionArticulo.listarPorId(element2).subscribe(resAsigArticulo=>{
                       historial.fecha = new Date();
                       asignacionArticulosModificar.id = resAsigArticulo.id
+                      asignacionArticulosModificar.idDetalleArticulo = resAsigArticulo.idDetalleArticulo.id
                       asignacionArticulosModificar.idAsignacionesProcesos = resAsigArticulo.idAsignacionesProcesos.id
                       asignacionArticulosModificar.idEstado = resEstadoMod.id
                       this.serviceAsignacionProceso.listarPorId(idAsignProceso).subscribe(resAsigProcesoReg=>{
@@ -157,12 +160,15 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                           this.serviceEstado.listarPorId(79).subscribe(resEstadoSegunda=>{
                             historialPrimera.fecha = new Date()
                             asignacionArticulosModificarPrimera.id = resAsigArticuloPrimera.id
+                            asignacionArticulosModificarPrimera.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo.id
                             asignacionArticulosModificarPrimera.idAsignacionesProcesos = resAsigArticuloPrimera.idAsignacionesProcesos.id
                             asignacionArticulosModificarPrimera.idEstado = resEstadoReg.id
                             asignacionArticulosModificarSegunda.id = resAsigArticuloSegunda.id
+                            asignacionArticulosModificarSegunda.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo.id
                             asignacionArticulosModificarSegunda.idAsignacionesProcesos = resAsigArticuloSegunda.idAsignacionesProcesos.id
                             asignacionArticulosModificarSegunda.idEstado = resEstadoSegunda.id
                             historialPrimera.observacion = "Se reasignó el artículo"+ " " +resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion+ " de"+ " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " " + " del área" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion + " al usuario" + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.apellido + " del área" + " " +  resAsigArticuloPrimera.idAsignacionesProcesos.idTiposProcesos.descripcion
+                            historialPrimera.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                             historialPrimera.idUsuario = usuariolog
                             this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda , historialPrimera)
                           })
@@ -172,13 +178,16 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                         this.serviceEstado.listarPorId(79).subscribe(resEstadoRegCompras=>{
                           this.serviceEstado.listarPorId(78).subscribe(resEstadoRegMod=>{
                             asignacionArticulosModificarPrimera.id = resAsigArticuloPrimera.id
+                            asignacionArticulosModificarPrimera.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo.id
                             asignacionArticulosModificarPrimera.idAsignacionesProcesos = resAsigArticuloPrimera.idAsignacionesProcesos.id
                             asignacionArticulosModificarPrimera.idEstado = resEstadoRegCompras.id
                             asignacionArticulosModificarSegunda.id = resAsigArticuloSegunda.id
+                            asignacionArticulosModificarSegunda.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo.id
                             asignacionArticulosModificarSegunda.idAsignacionesProcesos = resAsigArticuloSegunda.idAsignacionesProcesos.id
                             historialSegunda.fecha = this.fechaActual
                             historialSegunda.observacion = "Se reasignó el artículo"+ " " +resAsigArticuloPrimera.idDetalleArticulo.idArticulo.descripcion+ " de"+ " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.apellido + " " + " del área" + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idTiposProcesos.descripcion + " al usuario" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " del área" + " " +  resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion
                             historialSegunda.idUsuario = usuariolog
+                            historialSegunda.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo
                             console.log(historialSegunda)
                             asignacionArticulosModificarSegunda.idEstado = resEstadoRegMod.id
                             console.log(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda)
@@ -191,12 +200,15 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                             this.serviceEstado.listarPorId(79).subscribe(resEstadoPrimera=>{
                               historial.fecha = new Date()
                               asignacionArticulosModificarPrimera.id = resAsigArticuloPrimera.id
+                              asignacionArticulosModificarPrimera.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo.id
                               asignacionArticulosModificarPrimera.idAsignacionesProcesos = resAsigArticuloPrimera.idAsignacionesProcesos.id
                               asignacionArticulosModificarPrimera.idEstado = resEstadoPrimera.id
                               asignacionArticulosModificar.id = resAsigArticuloSegunda.id
+                              asignacionArticulosModificar.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo.id
                               asignacionArticulosModificar.idAsignacionesProcesos = resNuevaAsigProceso.id
                               historial.observacion = "Se reasignó el artículo" + " " + resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion + " del usuario" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " +  resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " del área" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion + " al usuario" + " "+ resNuevaAsigProceso.idUsuario.nombre + " "  +resNuevaAsigProceso.idUsuario.apellido + " del área" + " " + resNuevaAsigProceso.idTiposProcesos.descripcion
                               historial.idUsuario = usuariolog
+                              historial.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                               asignacionArticulosModificar.idEstado = resEstadoReg.id
                               this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificar, historial)
                             })

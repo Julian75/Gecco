@@ -16,7 +16,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class MatrizNecesidadDetalleComponent implements OnInit {
 
-  displayedColumns = ['select', 'mes', 'cantidadMes', 'cantidadObjeto'];
+  displayedColumns = ['select','descripcionMatrizDetalle','mes', 'cantidadMes', 'cantidadObjeto'];
   // dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,6 +42,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
   private crearFormulario() {
     this.formMatriz = this.fb.group({
       id: 0,
+      descripcion: [null,Validators.required],
       mes: [null,Validators.required],
       cantidadMes: [null,Validators.required],
       cantidadObjeto: [null,Validators.required],
@@ -53,6 +54,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
     if(this.formMatriz.valid){
       this.informacionMatriz = this.data
       var cantidadMes = this.formMatriz.controls['cantidadMes'].value;
+      var descripcion = this.formMatriz.controls['descripcion'].value;
       var cantidadObjeto = this.formMatriz.controls['cantidadObjeto'].value;
       var fecha = this.formMatriz.controls['mes'].value.split('-');
       var mes = new Date(fecha[0], (fecha[1]-1), 11)
@@ -65,7 +67,6 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
       var validarFecha = false
       var listaValidacionFecha = []
       var codigo = 1
-      console.log(this.listaTabla)
       if(this.listaTabla.length > 0){
         for (let i = 0; i < this.listaTabla.length; i++) {
           const element = this.listaTabla[i];
@@ -129,6 +130,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
             }else{
               var obj = {
                 id: codigo,
+                descripcion: descripcion,
                 mes: mes,
                 cantidadMes: cantidadMes,
                 cantidadEstimada: cantidadObjeto
@@ -137,6 +139,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
               this.dataSource = new MatTableDataSource(this.listaTabla);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              this.crearFormulario();
             }
           }
         }
@@ -158,7 +161,6 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
     var sumaObjeto = 0;
     var validar = false
     var listaValidacion = []
-    console.log(this.informacionMatriz)
     for (let i = 0; i < this.listaTabla.length; i++) {
       const element = this.listaTabla[i];
       sumaMes = sumaMes + element.cantidadMes
@@ -179,8 +181,10 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
         for (let i = 0; i < this.listaTabla.length; i++) {
           const element = this.listaTabla[i];
           matrizDetalle.fecha = new Date(element.mes)
+          matrizDetalle.descripcion = element.descripcion
           matrizDetalle.cantidadEjecuciones = element.cantidadMes
           matrizDetalle.cantidadEstimada = element.cantidadEstimada
+
           this.registrarMatriz(matrizDetalle);
         }
         Swal.fire({

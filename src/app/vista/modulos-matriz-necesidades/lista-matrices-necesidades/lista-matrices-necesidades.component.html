@@ -4,8 +4,17 @@
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [plotOptions]="chartOptions.plotOptions"
+        [labels]="chartOptions.labels"
+        [fill]="chartOptions.fill"
+      ></apx-chart>
+    </div>
     <section class="example-container mat-elevation-z8" tabindex="0">
-      <table id="tipoNovedades" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+      <table id="tipoNovedades" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
@@ -14,34 +23,39 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">fecha</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
           <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="cantidad">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantidadSp">cantidad</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantidadSp">Cantidad</h3></th>
           <td mat-cell *matCellDef="let element">{{element.cantidad}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="cantidadEjecuciones">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="ejecuSp">cantidadEjecuciones</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="ejecuSp">Cantidad Ejecuciones</h3></th>
           <td mat-cell *matCellDef="let element">{{element.cantidadEjecuciones}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="costoEstimado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="costoSp">costoEstimado</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.costoEstimado}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="costoSp">Costo Estimado</h3></th>
+          <td mat-cell *matCellDef="let element">${{element.costoEstimado | currency:'COP':'symbol':'1.0-0'}}</td>
         </ng-container>
 
          <!-- Name Column -->
          <ng-container matColumnDef="costoTotal">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">costoTotal</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.costoTotal}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Costo Total</h3></th>
+          <td mat-cell *matCellDef="let element">${{element.costoTotal | currency:'COP':'symbol':'1.0-0'}}</td>
         </ng-container>
 
+        <!-- Name Column -->
+        <ng-container matColumnDef="porcentajeTotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porcentaje Total</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.porcentajeTotal}} %</td>
+        </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="subProceso">
