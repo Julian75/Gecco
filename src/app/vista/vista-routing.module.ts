@@ -83,7 +83,6 @@ import { ReporteIngresoComponent } from './modulos-registro-ingreso/reporte-ingr
 import { TipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/tipo-activo.component';
 import { TipoProcesoComponent } from './modulos-inventarios/tipo-proceso/tipo-proceso.component';
 import { DetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/detalle-articulo.component';
-import { HistorialArticuloComponent } from './modulos-inventarios/historial-articulo/historial-articulo.component';
 import { AsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/asignar-proceso-usuario.component';
 import { AsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/asignar-articulos-usuario.component';
 import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
@@ -547,11 +546,6 @@ const routes: Routes = [
       {
         path: 'modificarArticulo/:id',
         component: ModificarArticulosComponent,
-        canActivate: [AutorizacionGuard]
-      },
-      {
-        path: 'historialArticulo',
-        component: HistorialArticuloComponent,
         canActivate: [AutorizacionGuard]
       },
       {

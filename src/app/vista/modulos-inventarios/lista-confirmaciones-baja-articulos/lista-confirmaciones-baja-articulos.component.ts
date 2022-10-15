@@ -22,6 +22,7 @@ import { CorreoService } from 'src/app/servicios/Correo.service';
 import { ActasBaja } from 'src/app/modelos/actasBaja';
 import { ActasBajaService } from 'src/app/servicios/actasBaja.service';
 import { SolicitudBajasArticulos } from 'src/app/modelos/solicitudBajasArticulos';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-lista-confirmaciones-baja-articulos',
@@ -225,16 +226,45 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     return search;
   }
 
-
-  name = 'listaAutorizaciones.xlsx';
+  listSolicitudesBajaAutorizar: any = []; // Es una lista para poder pasarle directamente al formato excel
+  usuarioAutorizacion: any = [];
   exportToExcel(): void {
-    let element = document.getElementById('autorizaciones');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.servicioUsuario.listarTodos().subscribe(resUsuarios=>{
+      this.listSolicitudesBajaAutorizar = []
+      this.usuarioAutorizacion
+      console.log(this.listarSolicitudesBajas)
+      for (let index = 0; index < this.listarSolicitudesBajas.length; index++) {
+        const element = this.listarSolicitudesBajas[index];
+        resUsuarios.forEach(elementUsuario => {
+          if(elementUsuario.id == element.usuarioAutorizacion){
+            this.usuarioAutorizacion = elementUsuario
+          }
+        });
+        var obj = {
+          "Id": element.id,
+          "Fecha": element.fecha,
+          "Usuario Solicito": element.idUsuario.nombre+" "+element.idUsuario.apellido,
+          "Usuario Autorizo": this.usuarioAutorizacion.nombre+" "+this.usuarioAutorizacion.apellido,
+          "Estado Solicitud": element.idEstado.descripcion
+        }
+        this.listSolicitudesBajaAutorizar.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listSolicitudesBajaAutorizar);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaSolicitudesBajasActivos");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

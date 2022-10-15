@@ -21,6 +21,7 @@ import { AsignacionPuntoVentaService } from 'src/app/servicios/asignacionPuntoVe
 import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AsignacionArticulos } from 'src/app/modelos/asignacionArticulos';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-mis-articulos-asignados',
@@ -261,14 +262,39 @@ export class MisArticulosAsignadosComponent implements OnInit {
     return search;
   }
 
-  name = 'listaTipoNovedades.xlsx';
+  listMisActivos: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoNovedades');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listMisActivos = []
+    console.log(this.listarAsignacionArticulos)
+    for (let index = 0; index < this.listarAsignacionArticulos.length; index++) {
+      const element = this.listarAsignacionArticulos[index];
+      var obj = {
+        "Id": element.asignArticulo.id,
+        "Activo": element.asignArticulo.idDetalleArticulo.idArticulo.descripcion,
+        "Codigo Unico": element.asignArticulo.idDetalleArticulo.codigoUnico,
+        "Codigo Contable": element.asignArticulo.idDetalleArticulo.codigoContable,
+        "Marca": element.asignArticulo.idDetalleArticulo.marca,
+        "Placa": element.asignArticulo.idDetalleArticulo.placa,
+        "Serial": element.asignArticulo.idDetalleArticulo.serial,
+        "Usuario Asignacion": element.asignArticulo.idAsignacionesProcesos.idUsuario.nombre+" "+element.asignArticulo.idAsignacionesProcesos.idUsuario.apellido,
+        "Estado Asignacion": element.asignArticulo.idEstado.descripcion
+      }
+      this.listMisActivos.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listMisActivos);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaMisActivos");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

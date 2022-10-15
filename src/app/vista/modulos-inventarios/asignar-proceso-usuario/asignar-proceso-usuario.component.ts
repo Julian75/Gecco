@@ -11,6 +11,7 @@ import { AgregarAsignarProcesoUsuarioComponent } from './agregar-asignar-proceso
 import { TipoProcesoService } from 'src/app/servicios/tipoProceso.service';
 import { ModificarAsignarProcesoUsuarioComponent } from './modificar-asignar-proceso-usuario/modificar-asignar-proceso-usuario.component';
 import { AsignacionProceso} from 'src/app/modelos/asignacionProceso';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-asignar-proceso-usuario',
@@ -130,14 +131,37 @@ export class AsignarProcesoUsuarioComponent implements OnInit {
     return search;
   }
 
-  name = 'listaTipoNovedades.xlsx';
+  listaAsignacionesProcesoUsuario: any = []; // Es para traer todos los datos del servicio asignacion proceso usuario
+  listAsignacionesProcesoUsuario: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoNovedades');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listAsignacionesProcesoUsuario = []
+    this.servicioAsignacionProceso.listarTodos().subscribe(resAsignacionesProcesoUsuario=>{
+      this.listaAsignacionesProcesoUsuario = resAsignacionesProcesoUsuario
+      console.log(this.listaAsignacionesProcesoUsuario)
+      for (let index = 0; index < this.listaAsignacionesProcesoUsuario.length; index++) {
+        const element = this.listaAsignacionesProcesoUsuario[index];
+        var obj = {
+          "Id": element.id,
+          "Proceso Asignado": element.idTiposProcesos.descripcion,
+          "Usuario Asignado": element.idUsuario.nombre+" "+element.idUsuario.apellido
+        }
+        this.listAsignacionesProcesoUsuario.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listAsignacionesProcesoUsuario);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaAsignacionesProcesoUsuario");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

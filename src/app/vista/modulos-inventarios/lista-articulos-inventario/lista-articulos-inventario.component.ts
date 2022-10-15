@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ArticulosBajaService } from 'src/app/servicios/articulosBaja.service';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { Inventario } from 'src/app/modelos/inventario';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-lista-articulos-inventario',
@@ -94,14 +95,41 @@ export class ListaArticulosInventarioComponent implements OnInit {
     return search;
   }
 
-  name = 'listaRoles.xlsx';
+  listActivosInventario: any = [];
   exportToExcel(): void {
-    let element = document.getElementById('rol');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listActivosInventario = []
+    console.log(this.listaCompletaInventario)
+    for (let index = 0; index < this.listaCompletaInventario.length; index++) {
+      const element = this.listaCompletaInventario[index];
+      var obj = {
+        "Id": element.id,
+        "Activo": element.idDetalleArticulo.idArticulo.descripcion,
+        "Fecha Registro Activo": element.fecha,
+        "Cantidad": element.cantidad,
+        "Codigo Unico": element.idDetalleArticulo.codigoUnico,
+        "Codigo Contable": element.idDetalleArticulo.codigoContable,
+        "Marca": element.idDetalleArticulo.marca,
+        "Placa": element.idDetalleArticulo.placa,
+        "Serial": element.idDetalleArticulo.serial,
+        "Usuario Registro Activo": element.idUsuario.nombre+" "+element.idUsuario.apellido,
+        "Estado Activo": element.idDetalleArticulo.idEstado.descripcion
+      }
+      this.listActivosInventario.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listActivosInventario);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaActivosInventario");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name)
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

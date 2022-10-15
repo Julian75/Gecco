@@ -8,28 +8,33 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
     </mat-form-field>
     <section class="example-container mat-elevation-z8" tabindex="0">
-  
+
       <table id="recordatorio" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
           <!-- Position Column -->
-          <ng-container matColumnDef="id" >  
+          <ng-container matColumnDef="id" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
             <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
           </ng-container>
-  
+
           <!-- Name Column -->
           <ng-container matColumnDef="descripcion">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Descripcion</h3></th>
             <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
           </ng-container>
-  
+
           <ng-container matColumnDef="fecha">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
             <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
           </ng-container>
-  
+
           <ng-container matColumnDef="Hora">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaSp">Hora</h3></th>
             <td mat-cell *matCellDef="let element">{{element.hora}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipoEnvio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="tipoEnvioSp">Tipo Envio</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.tipoEnvio}}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -42,5 +47,4 @@
                 aria-label="Select page">
     </mat-paginator>
   </div>
-  
-  
+

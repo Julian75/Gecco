@@ -9,6 +9,7 @@ import { AgregarSedesComponent } from './agregar-sedes/agregar-sedes.component';
 import { ModificarSedesComponent } from './modificar-sedes/modificar-sedes.component';
 import { SedeService } from 'src/app/servicios/sedes.service';
 import { Sedes } from 'src/app/modelos/sedes';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-sedes',
@@ -126,14 +127,35 @@ export class SedesComponent implements OnInit {
     return search;
   }
 
-  name = 'Sedes.xlsx';
+  listaSedes: any = []; // Es para traer todos los datos del servicio sedes
+  listSedes: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('sedes');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listSedes = []
+    this.servicioSedes.listarTodos().subscribe(resSedes=>{
+      this.listaSedes = resSedes
+      for (let index = 0; index < this.listaSedes.length; index++) {
+        const element = this.listaSedes[index];
+        var obj = {
+          "Id": element.id,
+          "Sedes": element.descripcion
+        }
+        this.listSedes.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listSedes);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaSedes");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

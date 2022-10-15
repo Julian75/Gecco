@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { ClienteSC } from 'src/app/modelos/clienteSC';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-cliente-sc',
@@ -71,14 +72,38 @@ export class ClienteScComponent implements OnInit {
     return search;
   }
 
-  name = 'listaClientes.xlsx';
+  listasClientesSC: any = []; // Es para traer todos los datos del servicio cliente servicio al cliente
+  listClientesSC: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('usuario');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listClientesSC = []
+    this.servicioClienteSC.listarTodos().subscribe(resClientesSC=>{
+      this.listasClientesSC = resClientesSC
+      for (let index = 0; index < this.listasClientesSC.length; index++) {
+        const element = this.listasClientesSC[index];
+        var obj = {
+          "Id": element.id,
+          "Nombre": element.nombre+" "+element.apellido,
+          "Tipo Documento": element.idTipoDocumento.descripcion,
+          "Documento": element.documento,
+          "Correo": element.correo
+        }
+        this.listClientesSC.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listClientesSC);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaClientesServicioAlCliente");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

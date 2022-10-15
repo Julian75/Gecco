@@ -9,6 +9,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 import { TipoActivo } from 'src/app/modelos/tipoActivo';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-tipo-activo',
@@ -126,15 +127,36 @@ export class TipoActivoComponent implements OnInit {
     return search;
   }
 
-  name = 'listaTipoActivo.xlsx';
+  listaTiposActivos: any = []; // Es para traer todos los datos del servicio tipo activos
+  listTiposActivos: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoActivo');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listTiposActivos = []
+    this.servicioTipoActivo.listarTodos().subscribe(resTipoActivos=>{
+      this.listaTiposActivos = resTipoActivos
+      for (let index = 0; index < this.listaTiposActivos.length; index++) {
+        const element = this.listaTiposActivos[index];
+        var obj = {
+          "Id": element.id,
+          "Tipo Activo": element.descripcion
+        }
+        this.listTiposActivos.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listTiposActivos);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaTiposActivos");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

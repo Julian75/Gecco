@@ -167,7 +167,7 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                             asignacionArticulosModificarSegunda.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo.id
                             asignacionArticulosModificarSegunda.idAsignacionesProcesos = resAsigArticuloSegunda.idAsignacionesProcesos.id
                             asignacionArticulosModificarSegunda.idEstado = resEstadoSegunda.id
-                            historialPrimera.observacion = "Se reasignó el artículo"+ " " +resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion+ " de"+ " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " " + " del área" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion + " al usuario" + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.apellido + " del área" + " " +  resAsigArticuloPrimera.idAsignacionesProcesos.idTiposProcesos.descripcion
+                            historialPrimera.observacion = "Se reasignó el artículo "+resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion+ " al usuario " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.apellido + " del área "+ resAsigArticuloPrimera.idAsignacionesProcesos.idTiposProcesos.descripcion
                             historialPrimera.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                             historialPrimera.idUsuario = usuariolog
                             this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda , historialPrimera)
@@ -185,7 +185,7 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                             asignacionArticulosModificarSegunda.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo.id
                             asignacionArticulosModificarSegunda.idAsignacionesProcesos = resAsigArticuloSegunda.idAsignacionesProcesos.id
                             historialSegunda.fecha = this.fechaActual
-                            historialSegunda.observacion = "Se reasignó el artículo"+ " " +resAsigArticuloPrimera.idDetalleArticulo.idArticulo.descripcion+ " de"+ " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.apellido + " " + " del área" + " " + resAsigArticuloPrimera.idAsignacionesProcesos.idTiposProcesos.descripcion + " al usuario" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " del área" + " " +  resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion
+                            historialSegunda.observacion = "Se reasignó el artículo "+resAsigArticuloPrimera.idDetalleArticulo.idArticulo.descripcion+ " al usuario " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " del área " + resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion
                             historialSegunda.idUsuario = usuariolog
                             historialSegunda.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo
                             console.log(historialSegunda)
@@ -206,7 +206,7 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                               asignacionArticulosModificar.id = resAsigArticuloSegunda.id
                               asignacionArticulosModificar.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo.id
                               asignacionArticulosModificar.idAsignacionesProcesos = resNuevaAsigProceso.id
-                              historial.observacion = "Se reasignó el artículo" + " " + resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion + " del usuario" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " +  resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " del área" + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion + " al usuario" + " "+ resNuevaAsigProceso.idUsuario.nombre + " "  +resNuevaAsigProceso.idUsuario.apellido + " del área" + " " + resNuevaAsigProceso.idTiposProcesos.descripcion
+                              historial.observacion = "Se reasignó el artículo "+resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion +" al usuario " +resNuevaAsigProceso.idUsuario.nombre + " "  +resNuevaAsigProceso.idUsuario.apellido + " del área " +resNuevaAsigProceso.idTiposProcesos.descripcion
                               historial.idUsuario = usuariolog
                               historial.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                               asignacionArticulosModificar.idEstado = resEstadoReg.id

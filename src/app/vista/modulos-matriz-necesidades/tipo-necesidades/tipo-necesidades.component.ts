@@ -9,6 +9,7 @@ import { AgregarTipoNecesidadesComponent } from './agregar-tipo-necesidades/agre
 import { ModificarTipoNecesidadesComponent } from './modificar-tipo-necesidades/modificar-tipo-necesidades.component';
 import { TipoNecesidadService } from 'src/app/servicios/tipoNecesidad.service';
 import { TipoNecesidad } from 'src/app/modelos/tipoNecesidad';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-tipo-necesidades',
@@ -127,14 +128,35 @@ export class TipoNecesidadesComponent implements OnInit {
     return search;
   }
 
-  name = 'jerarquia.xlsx';
+  listadoTiposNecesidades: any = []; //listar todos los datos del servicio tipo necesidad
+  listaTiposNecesidades: any = [] //lista que nos sirve para guardar los objetos que se van a mostrar en el excel
   exportToExcel(): void {
-    let element = document.getElementById('jerarquia');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listadoTiposNecesidades = []
+    this.servicioTipoNecesidad.listarTodos().subscribe(resTipoNecesidades=>{
+      this.listaTiposNecesidades = resTipoNecesidades
+      for (let index = 0; index < this.listaTiposNecesidades.length; index++) {
+        const element = this.listaTiposNecesidades[index];
+        var obj = {
+          "Id": element.id,
+          "Tipo Necesidad": element.descripcion,
+        }
+        this.listadoTiposNecesidades.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listadoTiposNecesidades);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaTiposNecesidades");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

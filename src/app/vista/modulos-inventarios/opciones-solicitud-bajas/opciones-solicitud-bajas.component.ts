@@ -10,6 +10,7 @@ import { AgregarOpcionesSolicitudBajasComponent } from './agregar-opciones-solic
 import { ModificarOpcionesSolicitudBajasComponent } from './modificar-opciones-solicitud-bajas/modificar-opciones-solicitud-bajas.component';
 import { OpcionArticuloBajaService } from 'src/app/servicios/opcionArticuloBaja.service';
 import { OpcionArticuloBaja } from 'src/app/modelos/opcionArticuloBaja';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-opciones-solicitud-bajas',
@@ -135,14 +136,35 @@ export class OpcionesSolicitudBajasComponent implements OnInit {
     return search;
   }
 
-  name = 'listaOpcionesVisitas.xlsx';
+  listadoEstadoActivoBajaSolicitud: any = []; //listar todos los datos del servicio estado baja activo
+  listaEstadoActivoBajaSolicitud: any = [] //lista que nos sirve para guardar los objetos que se van a mostrar en el excel
   exportToExcel(): void {
-    let element = document.getElementById('opciones');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listadoEstadoActivoBajaSolicitud = []
+    this.servicioOpcionesBajas.listarTodos().subscribe(resEstadoActivoBaja=>{
+      this.listaEstadoActivoBajaSolicitud = resEstadoActivoBaja
+      for (let index = 0; index < this.listaEstadoActivoBajaSolicitud.length; index++) {
+        const element = this.listaEstadoActivoBajaSolicitud[index];
+        var obj = {
+          "Id": element.id,
+          "Estado Activo": element.descripcion,
+        }
+        this.listadoEstadoActivoBajaSolicitud.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listadoEstadoActivoBajaSolicitud);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaEstadosActivo");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

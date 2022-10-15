@@ -153,7 +153,6 @@ import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-a
 import { ModificarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/modificar-detalle-articulo/modificar-detalle-articulo.component';
 import { AgregarTipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/agregar-tipo-activo/agregar-tipo-activo.component';
 import { ModificarTipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/modificar-tipo-activo/modificar-tipo-activo.component';
-import { HistorialArticuloComponent } from './modulos-inventarios/historial-articulo/historial-articulo.component';
 import { TipoProcesoComponent } from './modulos-inventarios/tipo-proceso/tipo-proceso.component';
 import { AgregarTipoProcesoComponent } from './modulos-inventarios/tipo-proceso/agregar-tipo-proceso/agregar-tipo-proceso.component';
 import { ModificarTipoProcesoComponent } from './modulos-inventarios/tipo-proceso/modificar-tipo-proceso/modificar-tipo-proceso.component';
@@ -356,7 +355,6 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     ModificarDetalleArticuloComponent,
     AgregarTipoActivoComponent,
     ModificarTipoActivoComponent,
-    HistorialArticuloComponent,
     TipoProcesoComponent,
     AgregarTipoProcesoComponent,
     ModificarTipoProcesoComponent,

@@ -10,6 +10,15 @@
       </mat-form-field>
     </div>
     <div class="nombre2">
+      <h2>Tipo de Envio</h2>
+      <mat-form-field class="nombre" appearance="fill">
+      <mat-label>Seleccione el Tipo de Envio</mat-label>
+      <mat-select matNativeControl id="tipoEnvio" name="tipoEnvio" formControlName="tipoEnvio">
+        <mat-option *ngFor="let opcion of listaOpciones" value="{{opcion}}" >{{opcion}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
       <h2>Fecha</h2>
       <mat-form-field>
         <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl">

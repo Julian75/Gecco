@@ -12,6 +12,7 @@ import { Recordatorio } from 'src/app/modelos/recordatorio';
   styleUrls: ['./agregar-recordatorio.component.css']
 })
 export class AgregarRecordatorioComponent implements OnInit {
+
   public dateControl = new FormControl();
   @ViewChild('picker') picker: any;
   public showSpinners = true;
@@ -21,6 +22,8 @@ export class AgregarRecordatorioComponent implements OnInit {
   public touchUi = false;
   public formRecordatorio!: FormGroup;
   public color: ThemePalette = 'primary';
+  public listaOpciones = ["Mensual", "Diario", "Ninguna"]
+
   constructor(
     private servicioRecordatorio: RecordatorioService,
     private formBuilder: FormBuilder,
@@ -34,6 +37,7 @@ export class AgregarRecordatorioComponent implements OnInit {
     this.formRecordatorio = this.formBuilder.group({
       id: [''],
       descripcion: ['', Validators.required],
+      tipoEnvio: ['', Validators.required],
     });
   }
 
@@ -42,6 +46,7 @@ export class AgregarRecordatorioComponent implements OnInit {
   guardar(){
     console.log(this.dateControl.value)
     var descripcion = this.formRecordatorio.controls['descripcion'].value;
+    var tipoEnvio = this.formRecordatorio.controls['tipoEnvio'].value;
     this.fechaRecodatorio = new Date(this.dateControl.value)
     this.horaRecordatorio = this.fechaRecodatorio.getHours()+":"+this.fechaRecodatorio.getMinutes()
     console.log(this.fechaRecodatorio)
@@ -59,6 +64,7 @@ export class AgregarRecordatorioComponent implements OnInit {
         recordatorio.fecha = new Date(this.fechaRecodatorio)
         recordatorio.hora = this.horaRecordatorio
         recordatorio.envio = 'no'
+        recordatorio.tipoEnvio = tipoEnvio
         console.log(recordatorio)
         this.registrarRecordatorio(recordatorio)
       }

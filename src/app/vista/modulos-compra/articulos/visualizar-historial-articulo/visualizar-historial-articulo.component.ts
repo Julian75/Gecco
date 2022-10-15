@@ -8,6 +8,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.service';
 import * as XLSX from 'xlsx';
 import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-visualizar-historial-articulo',
@@ -86,14 +87,40 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
     return search;
   }
 
-  name = 'historialArticulo.xlsx';
+  listActivosInventario: any = [];
   exportToExcel(): void {
-    let element = document.getElementById('historialArticulo');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listActivosInventario = []
+    console.log(this.listarHistorialArticulo)
+    for (let index = 0; index < this.listarHistorialArticulo.length; index++) {
+      const element = this.listarHistorialArticulo[index];
+      var obj = {
+        "Id": element.id,
+        "Activo": element.idDetalleArticulo.idArticulo.descripcion,
+        "Fecha Historial": element.fecha,
+        "Codigo Unico": element.idDetalleArticulo.codigoUnico,
+        "Codigo Contable": element.idDetalleArticulo.codigoContable,
+        "Marca": element.idDetalleArticulo.marca,
+        "Placa": element.idDetalleArticulo.placa,
+        "Serial": element.idDetalleArticulo.serial,
+        "Usuario Ejecuto Accion": element.idUsuario.nombre+" "+element.idUsuario.apellido,
+        "Accion": element.observacion
+      }
+      this.listActivosInventario.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listActivosInventario);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaHistorialActivo");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

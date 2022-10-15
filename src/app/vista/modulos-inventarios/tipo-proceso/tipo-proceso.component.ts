@@ -9,6 +9,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 import { TipoProceso } from 'src/app/modelos/tipoProceso';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-tipo-proceso',
@@ -126,15 +127,36 @@ export class TipoProcesoComponent implements OnInit {
     return search;
   }
 
-  name = 'listaTipoProceso.xlsx';
+  listaTiposProcesos: any = []; // Es para traer todos los datos del servicio tipo proceso
+  listTiposProcesos: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoProceso');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listTiposProcesos = []
+    this.servicioTipoProceso.listarTodos().subscribe(resTipoProceso=>{
+      this.listaTiposProcesos = resTipoProceso
+      for (let index = 0; index < this.listaTiposProcesos.length; index++) {
+        const element = this.listaTiposProcesos[index];
+        var obj = {
+          "Id": element.id,
+          "Tipo Proceso": element.descripcion
+        }
+        this.listTiposProcesos.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listTiposProcesos);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaTiposProcesos");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

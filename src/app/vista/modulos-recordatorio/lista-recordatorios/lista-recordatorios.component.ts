@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import { AgregarRecordatorioComponent } from './agregar-recordatorio/agregar-recordatorio.component';
 import { RecordatorioService } from 'src/app/servicios/recordatorio.service';
 import { Recordatorio } from 'src/app/modelos/recordatorio';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-lista-recordatorios',
@@ -18,7 +19,7 @@ export class ListaRecordatoriosComponent implements OnInit {
   dtOptions: any = {};
   public listarRecordatorio: any = [];
 
-  displayedColumns = ['id', 'descripcion','fecha', 'Hora'];
+  displayedColumns = ['id', 'descripcion', 'fecha', 'Hora', 'tipoEnvio'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -77,14 +78,36 @@ export class ListaRecordatoriosComponent implements OnInit {
     return search;
   }
 
-  name = 'listaRoles.xlsx';
+  listadoRecordatorios: any = []; //listar todos los datos del servicio recordatorio
+  listaRecordatorios: any = [] //lista que nos sirve para guardar los objetos que se van a mostrar en el excel
   exportToExcel(): void {
-    let element = document.getElementById('recordatorio');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listadoRecordatorios = []
+    this.recordatorioService.listarTodos().subscribe(resSubProcesos=>{
+      this.listaRecordatorios = resSubProcesos
+      for (let index = 0; index < this.listaRecordatorios.length; index++) {
+        const element = this.listaRecordatorios[index];
+        var obj = {
+          "Id": element.id,
+          "Fecha": element.fecha,
+          "Evento": element.descripcion,
+        }
+        this.listadoRecordatorios.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listadoRecordatorios);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaEventosRecordatorio");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

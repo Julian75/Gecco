@@ -14,6 +14,7 @@ import { ModificarService } from 'src/app/servicios/modificar.service';
 import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticulos2';
 import { EstadoService } from 'src/app/servicios/estado.service';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-asignar-articulos-usuario',
@@ -162,14 +163,39 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
     return search;
   }
 
-  name = 'listaTipoNovedades.xlsx';
+  listAsignacionesActivoUsuario: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoNovedades');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listAsignacionesActivoUsuario = []
+    console.log(this.listarAsignacionArticulos)
+    for (let index = 0; index < this.listarAsignacionArticulos.length; index++) {
+      const element = this.listarAsignacionArticulos[index];
+      var obj = {
+        "Id": element.asignacionArticulo.id,
+        "Activo": element.asignacionArticulo.idDetalleArticulo.idArticulo.descripcion,
+        "Codigo Unico": element.asignacionArticulo.idDetalleArticulo.codigoUnico,
+        "Codigo Contable": element.asignacionArticulo.idDetalleArticulo.codigoContable,
+        "Marca": element.asignacionArticulo.idDetalleArticulo.marca,
+        "Placa": element.asignacionArticulo.idDetalleArticulo.placa,
+        "Serial": element.asignacionArticulo.idDetalleArticulo.serial,
+        "Usuario Asignacion": element.asignacionArticulo.idAsignacionesProcesos.idUsuario.nombre+" "+element.asignacionArticulo.idAsignacionesProcesos.idUsuario.apellido,
+        "Estado Asignacion": element.asignacionArticulo.idEstado.descripcion
+      }
+      this.listAsignacionesActivoUsuario.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listAsignacionesActivoUsuario);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaAsignacionesActivoUsuario");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }
