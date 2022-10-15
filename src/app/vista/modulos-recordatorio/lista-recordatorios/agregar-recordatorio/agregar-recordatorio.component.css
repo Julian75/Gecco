@@ -35,7 +35,16 @@ h2{
     padding-top: 3%;
     padding-bottom: 4%;
   }
+  .mat-calendar table thead tr th {
+    background-color: #48065c !important;
+    color: #fff !important;
+  }
 
+  .mat-calendar-table-header th {
+    text-align: center;
+    padding: 0 0 8px;
+    background-color: #33005c;
+  }
 
   /* Movil pequeño 1 - Galaxy Fold*/
   @media screen and (min-width: 280px) and (max-width: 359px){

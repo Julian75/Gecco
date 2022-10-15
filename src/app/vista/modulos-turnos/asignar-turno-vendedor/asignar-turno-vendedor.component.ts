@@ -10,6 +10,8 @@ import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import * as FileSaver from 'file-saver';
+
 @Component({
   selector: 'app-asignar-turno-vendedor',
   templateUrl: './asignar-turno-vendedor.component.html',
@@ -52,21 +54,71 @@ export class AsignarTurnoVendedorComponent implements OnInit {
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaAsigVen);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: AsignarTurnoVendedor, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
-  name = 'listaAsignarTurnoVendedor.xlsx';
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
+  listadoAsigVendedor: any = [];
+  listaAsigVendedorCompletos: any = []
   exportToExcel(): void {
-    let element = document.getElementById('asignarTurnoVendedor');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listaAsigVendedorCompletos = []
+    this.servicioAsignarTurnoVendedor.listarTodos().subscribe(resAsignacionTurnoVendedor=>{
+      this.listadoAsigVendedor = resAsignacionTurnoVendedor
+      for (let index = 0; index < this.listadoAsigVendedor.length; index++) {
+        const element = this.listadoAsigVendedor[index];
+        if(element.estado != 'Eliminado'){
+          var obj = {
+            "Id": element.id,
+            "Nombre Vendedor": element.nombreVendedor,
+            "Nombre Oficina": element.nombreOficina,
+            "Nombre Sitio Venta": element.nombreSitioVenta,
+            "Fechas": element.fechaInicio+" - "+element.fechaFinal,
+            "Turno": element.idTurno.horaInicio+" - "+element.idTurno.horaFinal+" | "+element.idTurno.idTipoTurno.descripcion,
+            Estado: element.estado
+          }
+          this.listaAsigVendedorCompletos.push(obj)
+        }
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listaAsigVendedorCompletos);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaAsignacionTurnoVendedor");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

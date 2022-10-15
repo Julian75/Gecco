@@ -8,6 +8,8 @@ import * as XLSX from 'xlsx';
 import { AsignarUsuariosPqrService } from 'src/app/servicios/asignacionUsuariosPqrs.service';
 import { AgregarAsignacionUsuarioPqrComponent } from './agregar-asignacion-usuario-pqr/agregar-asignacion-usuario-pqr.component';
 import { ModificarAsignacionUsuarioPqrComponent } from './modificar-asignacion-usuario-pqr/modificar-asignacion-usuario-pqr.component';
+import { AsignacionUsuariosPqrs } from 'src/app/modelos/asignacionUsuariosPqrs';
+
 @Component({
   selector: 'app-asignacion-usuario-pqr',
   templateUrl: './asignacion-usuario-pqr.component.html',
@@ -19,6 +21,8 @@ export class AsignacionUsuarioPqrComponent implements OnInit {
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  public listaAsignacionUsuarios: any = [];
+
   constructor(
     public dialog: MatDialog,
     private servicioUsuarioPqr: AsignarUsuariosPqrService,
@@ -30,7 +34,8 @@ export class AsignacionUsuarioPqrComponent implements OnInit {
   }
   public listarTodos(){
     this.servicioUsuarioPqr.listarTodos().subscribe(res=>{
-      this.dataSource = new MatTableDataSource(res);
+      this.listaAsignacionUsuarios = res
+      this.dataSource = new MatTableDataSource(this.listaAsignacionUsuarios);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
@@ -91,12 +96,34 @@ export class AsignacionUsuarioPqrComponent implements OnInit {
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaAsignacionUsuarios);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: AsignacionUsuariosPqrs, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
   name = 'asignacionesUsuarioPQRS.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('tipoDocumento');

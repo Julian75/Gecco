@@ -20,6 +20,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, Observable, startWith } from 'rxjs';
 import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-mallas-cierre',
@@ -362,15 +363,39 @@ export class MallasCierreComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.listaMallasFiltrado);
     }
   }
-  name = 'listaMallasCierre.xlsx';
+
+  listaMallasCierreCompletos: any = []
   exportToExcel(): void {
-    let element = document.getElementById('mallas');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listaMallasCierreCompletos = []
+    for (let index = 0; index < this.listaMallas.length; index++) {
+      const element = this.listaMallas[index];
+      var obj = {
+        "Ide Vendedor | Nombre Vendedor": element.listaAsignarTurnoVendedor.idVendedor+" - "+element.listaAsignarTurnoVendedor.nombreVendedor,
+        "Oficina": element.listaAsignarTurnoVendedor.nombreOficina,
+        "Sitio Venta Asignado": element.listaAsignarTurnoVendedor.nombreSitioVenta,
+        "Sitio Venta Ingresa": element.listaSigaApi.nom_sitioventa,
+        "Hora Asignada": element.turnoFinal,
+        "Hora Ingreso": element.listaSigaApi.hora,
+        "Fechas Asignadas": element.listaAsignarTurnoVendedor.fechaInicio+" - "+element.listaAsignarTurnoVendedor.fechaFinal,
+        Estado: element.estado.descripcion
+      }
+      this.listaMallasCierreCompletos.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listaMallasCierreCompletos);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaMallasCierre");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
   // Metodos para malla de turnos

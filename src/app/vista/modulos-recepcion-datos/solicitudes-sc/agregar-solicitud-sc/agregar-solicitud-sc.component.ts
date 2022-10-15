@@ -209,6 +209,7 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public guardar(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    console.log(this.fechaVencimiento)
     var vencimiento = this.fechaVencimiento;
     var municipio = this.formSolicitud.controls['municipio'].value;
     var incidente = this.formSolicitud.controls['incidente'].value;
@@ -218,9 +219,8 @@ export class AgregarSolicitudScComponent implements OnInit {
     var auxiliar = this.formSolicitud.controls['auxiliar'].value;
     var fechaVencimiento = new Date(vencimiento)
     this.fechaActual = this.fecha.getFullYear() + "-"+ (this.fecha.getMonth()+1)+ "-" +this.fecha.getDate();
-    var fechaVencimiento2 = fechaVencimiento.getFullYear() + "-"+ (fechaVencimiento.getMonth()+1)+ "-" +(fechaVencimiento.getDate()+1);
     console.log(this.cliente, idMotivo, vencimiento, radicacion, municipio, idServicio, auxiliar)
-    if(this.cliente == undefined || vencimiento == null || municipio == null || idMotivo == null || radicacion == null || idServicio == null || auxiliar == null){
+    if(this.cliente == undefined || this.fechaVencimiento == null || municipio == null || idMotivo == null || radicacion == null || idServicio == null || auxiliar == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
@@ -230,7 +230,7 @@ export class AgregarSolicitudScComponent implements OnInit {
         timer: 2500
       })
     }else{
-      if (new Date(fechaVencimiento2) < new Date(this.fechaActual)) {
+      if (new Date(fechaVencimiento) < new Date(this.fechaActual)) {
         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
           position: 'center',
@@ -241,8 +241,12 @@ export class AgregarSolicitudScComponent implements OnInit {
         })
       }else{
         let solicitudSc : SolicitudSC = new SolicitudSC();
-        solicitudSc.fecha = new Date(this.fechaActual)
-        solicitudSc.vence = new Date(fechaVencimiento2)
+        var fecha = new Date(this.fechaActual)
+        fecha.setDate(fecha.getDate()+1)
+        var vence = new Date(fechaVencimiento)
+        vence.setDate(vence.getDate()+1)
+        solicitudSc.fecha = fecha
+        solicitudSc.vence = vence
         solicitudSc.municipio = municipio
         this.servicioCliente.listarPorId(this.cliente.id).subscribe(resCliente=>{
           this.servicioMediosRadicacion.listarPorId(radicacion).subscribe(resMediosRadicacion=>{

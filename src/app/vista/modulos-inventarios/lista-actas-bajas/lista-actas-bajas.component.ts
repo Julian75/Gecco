@@ -12,6 +12,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ArticulosBajaService } from 'src/app/servicios/articulosBaja.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { SolicitudBajasArticulos } from 'src/app/modelos/solicitudBajasArticulos';
 
 @Component({
   selector: 'app-lista-actas-bajas',
@@ -214,11 +215,32 @@ export class ListaActasBajasComponent implements OnInit {
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarSolicitudesBajas);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: SolicitudBajasArticulos, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
+  }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 
 

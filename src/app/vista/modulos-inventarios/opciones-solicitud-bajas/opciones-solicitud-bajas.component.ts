@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx';
 import { AgregarOpcionesSolicitudBajasComponent } from './agregar-opciones-solicitud-bajas/agregar-opciones-solicitud-bajas.component';
 import { ModificarOpcionesSolicitudBajasComponent } from './modificar-opciones-solicitud-bajas/modificar-opciones-solicitud-bajas.component';
 import { OpcionArticuloBajaService } from 'src/app/servicios/opcionArticuloBaja.service';
+import { OpcionArticuloBaja } from 'src/app/modelos/opcionArticuloBaja';
 
 @Component({
   selector: 'app-opciones-solicitud-bajas',
@@ -18,6 +19,7 @@ import { OpcionArticuloBajaService } from 'src/app/servicios/opcionArticuloBaja.
 export class OpcionesSolicitudBajasComponent implements OnInit {
 
   dtOptions: any = {};
+  public listaOpciones: any = [];
 
   displayedColumns = ['idOpcionVisita', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -37,7 +39,8 @@ export class OpcionesSolicitudBajasComponent implements OnInit {
 
   public listarTodo(){
     this.servicioOpcionesBajas.listarTodos().subscribe(res=>{
-      this.dataSource = new MatTableDataSource(res);
+      this.listaOpciones = res
+      this.dataSource = new MatTableDataSource(this.listaOpciones);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
@@ -100,15 +103,38 @@ export class OpcionesSolicitudBajasComponent implements OnInit {
       }
     })
   }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaOpciones);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: OpcionArticuloBaja, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
   name = 'listaOpcionesVisitas.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('opciones');

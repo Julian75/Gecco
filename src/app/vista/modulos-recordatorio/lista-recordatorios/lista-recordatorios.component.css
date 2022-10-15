@@ -11,7 +11,7 @@
     height: 100%;
     border: 1px solid #000;
   }
-  
+
   .btnVisualizar{
     background-color: #97B4E2;
     width: 10%;
@@ -39,7 +39,7 @@
     #horaSp{margin-left: 72%;}
     .botonagregar mat-icon{ margin-left: -50%; }
   }
-  
+
   /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
   @media screen and (min-width: 360px) and (max-width: 420px){
     #idSp{margin-left: 84%;}
@@ -47,31 +47,31 @@
     #fechaSp{ margin-left: 48%;}
     #horaSp{margin-left: 100%;}
   }
-  
+
   /* PORTATILES */
   @media screen and (min-width: 600px) and (max-width: 639px){
     #idSp{margin-left: 182%; }
     #desSp{margin-left: 89%;}
     #fechaSp{ margin-left: 121%;}
-    #horaSp{margin-left: 205%;} 
+    #horaSp{margin-left: 205%;}
     #opcSp{ left: 8px; }
     td button{ margin-top: 5%; }
     .botonagregar mat-icon{ margin-left: -50%; }
   }
-  
+
   /* Tablet 2,  Portatil 1*/
   @media screen and (min-width: 640px) and (max-width: 768px){
     #idSp{margin-left: 221%; }
     #desSp{margin-left: 123%;}
     #fechaSp{ margin-left: 158%;}
-    #horaSp{margin-left: 278%;} 
+    #horaSp{margin-left: 278%;}
   }
   /* Tablet 3,  Portatil 2*/
   @media screen and (min-width: 769px) and (max-width: 960px){
     #idSp{margin-left: 272%; }
     #desSp{margin-left: 133%;}
     #fechaSp{ margin-left: 155%;}
-    #horaSp{margin-left: 277%;} 
+    #horaSp{margin-left: 277%;}
   }
   /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
   @media screen and (min-width: 961px) and (max-width: 1080px){
@@ -88,17 +88,17 @@
     #idSp{margin-left: 370% ; }
     #desSp{margin-left: 190%;}
     #fechaSp{ margin-left: 234%;}
-    #horaSp{margin-left: 400%;} 
+    #horaSp{margin-left: 400%;}
   }
   /* Tablet 8, Compu. Mesa 5*/
   @media screen and (min-width: 1281px) and (max-width: 1536px){
     #idSp{margin-left: 410% ; }
     #desSp{margin-left: 205%;}
     #fechaSp{ margin-left: 255%;}
-    #horaSp{margin-left: 400%;} 
+    #horaSp{margin-left: 400%;}
     .botonagregar mat-icon{ margin-left: 0%; }
   }
-  
+
   /*Compu. Mesa 6*/
   @media screen and (min-width: 1537px) and (max-width: 1850px){
     #idSp{margin-left: 470%; }
@@ -109,8 +109,8 @@
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
-  
-  
+
+
   /*Portatil 4, Compu. Mesa 7, Televisor 2*/
   @media screen and (min-width: 1851px) and (max-width: 1920px){
     #idSp{margin-left: 428%; }
@@ -121,20 +121,20 @@
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: 0%; }
   }
-  
+
   /*Tablet 9*/
   @media screen and (min-width: 1921px) and (max-width: 2048px){
     #idSp{margin-left: 422% ; }
     #desSp{margin-left: 254%;}
     #fechaSp{ margin-left: 357%;}
-    #horaSp{margin-left: 519%;} 
+    #horaSp{margin-left: 519%;}
   }
   /*Tablet 10*/
   @media screen and (min-width: 2049px) and (max-width: 2160px){
     #idSp{margin-left: 467%; }
     #desSp{margin-left: 310%;}
     #fechaSp{ margin-left: 400%;}
-    #horaSp{margin-left: 519%;} 
+    #horaSp{margin-left: 519%;}
   }
   /*Tablet 11 y 12, Portatil 5*/
   @media screen and (min-width: 2161px) and (max-width: 2560px){
@@ -178,4 +178,3 @@
     #fechaSp{ margin-left: 1500%;}
     #horaSp{margin-left: 2000%;}
   }
-  

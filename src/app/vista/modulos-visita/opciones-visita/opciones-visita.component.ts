@@ -9,6 +9,9 @@ import { ModificarOpcionesVisitaComponent } from './modificar-opciones-visita/mo
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
+import { OpcionesVisita } from 'src/app/modelos/opcionesVisita';
+import * as FileSaver from 'file-saver';
+
 @Component({
   selector: 'app-opciones-visita',
   templateUrl: './opciones-visita.component.html',
@@ -16,6 +19,7 @@ import * as XLSX from 'xlsx';
 })
 export class OpcionesVisitaComponent implements OnInit {
   dtOptions: any = {};
+  public listaOpciones: any = [];
 
   displayedColumns = ['idOpcionVisita', 'descripcion', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -35,7 +39,8 @@ export class OpcionesVisitaComponent implements OnInit {
 
   public listarTodo(){
     this.servicioOpcionesVisita.listarTodos().subscribe(res=>{
-      this.dataSource = new MatTableDataSource(res);
+      this.listaOpciones = res
+      this.dataSource = new MatTableDataSource(this.listaOpciones);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
@@ -98,23 +103,67 @@ export class OpcionesVisitaComponent implements OnInit {
       }
     })
   }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaOpciones);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: OpcionesVisita, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
-  name = 'listaOpcionesVisitas.xlsx';
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
+  listadoOpcionesVisita: any = [];
+  listaOpcionesVisitaCompletos: any = []
   exportToExcel(): void {
-    let element = document.getElementById('opciones');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listaOpcionesVisitaCompletos = []
+    this.servicioOpcionesVisita.listarTodos().subscribe(resOpcionesVisita=>{
+      this.listadoOpcionesVisita = resOpcionesVisita
+      for (let index = 0; index < this.listadoOpcionesVisita.length; index++) {
+        const element = this.listadoOpcionesVisita[index];
+        var obj = {
+          "Id": element.id,
+          "Opcion Visita": element.descripcion,
+        }
+        this.listaOpcionesVisitaCompletos.push(obj)
+      }
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.listaOpcionesVisitaCompletos);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaOpcionesVisita");
+      });
+    })
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

@@ -14,6 +14,7 @@ import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { DetalleSolicitud2 } from 'src/app/modelos/detalleSolicitud2';
+import * as FileSaver from 'file-saver';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 
 @Component({
@@ -57,7 +58,7 @@ export class AprobarComentarioComponent implements OnInit {
   }
 
 
-  //Abrir Modal de detalle Solicitud p mano XD
+  //Abrir Modal de detalle Solicitud
   public verSolicitud(id: number){
     const dialogRef = this.dialog.open(ListadoComentariosComponent, {
       width: '1000px',
@@ -176,21 +177,62 @@ export class AprobarComentarioComponent implements OnInit {
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaSolicitud);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: Solicitud, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
-  name = 'Comentario.xlsx';
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
+  listaSolicitudesAprobarRechazar: any = []
   exportToExcel(): void {
-    let element = document.getElementById('rol');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listaSolicitudesAprobarRechazar = []
+    for (let index = 0; index < this.listaSolicitud.length; index++) {
+      const element = this.listaSolicitud[index];
+      var obj = {
+        "Id Solicitud": element.id,
+        "Fecha": element.fecha,
+        "Usuario Solicitud": element.idUsuario.nombre+" "+element.idUsuario.apellido,
+        Estado: element.idEstado.descripcion,
+      }
+      this.listaSolicitudesAprobarRechazar.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listaSolicitudesAprobarRechazar);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaSolicitud");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
   public volver(){

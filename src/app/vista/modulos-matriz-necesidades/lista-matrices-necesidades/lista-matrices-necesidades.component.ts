@@ -7,6 +7,7 @@ import { MatrizNecesidadService } from 'src/app/servicios/matrizNecesidad.servic
 import { VisualizarDetalleMatrizNecesidadesComponent } from './visualizar-detalle-matriz-necesidades/visualizar-detalle-matriz-necesidades.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AsignacionProcesoService } from 'src/app/servicios/asignacionProceso.service';
+import { MatrizNecesidad } from 'src/app/modelos/matrizNecesidad';
 //Grafica
 import {
   ApexNonAxisChartSeries,
@@ -173,14 +174,36 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
       this.listarMatrices()
     })
   }
+
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarMatrice);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: MatrizNecesidad, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
+  }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 
   name = 'listaTipoNovedades.xlsx';

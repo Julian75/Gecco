@@ -13,6 +13,7 @@ import { SoporteSCService } from 'src/app/servicios/soporteSC.service';
 import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
 import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
 import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
+import { HistorialSolicitudes } from 'src/app/modelos/historialSolicitudes';
 
 @Component({
   selector: 'app-historial-solicitudes',
@@ -53,8 +54,6 @@ export class HistorialSolicitudesComponent implements OnInit {
   Escala:any
   Incidente:any
   public listarTodo(){
-    console.log("holis")
-    console.log(this.data)
     this.listaArchivosExist = []
     this.servicioSolicitudPQRS.listarPorId(Number(this.data)).subscribe(res=>{
       this.Cliente = res.idClienteSC.nombre+" "+res.idClienteSC.apellido
@@ -74,8 +73,6 @@ export class HistorialSolicitudesComponent implements OnInit {
             resSopor.forEach(elementSoporte=>{
               console.log(elementSoporte)
               if(elementSoporte.idHistorial.id == element.id ){
-                console.log(elementSoporte.idHistorial.id)
-                console.log("yes entro1")
                 this.servicioPdf.listarTodosSegunda().subscribe(resPdf=>{
                   this.listaPdf.push(resPdf)
                   for (const i in resPdf) {
@@ -87,8 +84,6 @@ export class HistorialSolicitudesComponent implements OnInit {
               }
             })
             this.listarComentarios.push(obj);
-            console.log(this.listarComentarios)
-            console.log(this.listarComentarios)
             this.dataSource = new MatTableDataSource(this.listarComentarios);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -126,12 +121,33 @@ export class HistorialSolicitudesComponent implements OnInit {
 
   // Filtrado
   applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  if (this.dataSource.paginator) {
-    this.dataSource.paginator.firstPage();
+    const filterValue = (event.target as HTMLInputElement).value;
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarComentarios);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: HistorialSolicitudes, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
+    }
   }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
   name = 'HistorialSolicitud.xlsx';
   exportToExcel(): void {

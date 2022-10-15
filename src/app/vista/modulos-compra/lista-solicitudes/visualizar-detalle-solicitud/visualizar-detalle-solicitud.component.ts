@@ -8,6 +8,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetalleSolicitudService } from 'src/app/servicios/detalleSolicitud.service';
 import { SolicitudService } from 'src/app/servicios/solicitud.service';
+import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-visualizar-detalle-solicitud',
@@ -111,21 +113,66 @@ export class VisualizarDetalleSolicitudComponent implements OnInit {
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarDetalle);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: DetalleSolicitud, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
-  name = 'listaDetalleSolicitud.xlsx';
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
+  listaDetalleSolicitudesCompletos: any = []
   exportToExcel(): void {
-    let element = document.getElementById('rol');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listaDetalleSolicitudesCompletos = []
+    for (let index = 0; index < this.listarDetalle.length; index++) {
+      const element = this.listarDetalle[index];
+      var obj = {
+        "Id Solicitud": element.idSolicitud.id,
+        "Fecha": element.idSolicitud.fecha,
+        "Articulo": element.idArticulos.descripcion,
+        "Cantidad": element.cantidad,
+        "Valor Unitario": element.valorUnitario,
+        "Valor Total": element.valorTotal,
+        "Observación": element.observacion,
+        Estado: element.idEstado.descripcion
+      }
+      this.listaDetalleSolicitudesCompletos.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listaDetalleSolicitudesCompletos);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaDetalleSolicitud");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
   public volver(){

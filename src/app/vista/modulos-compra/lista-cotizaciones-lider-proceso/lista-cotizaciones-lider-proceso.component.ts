@@ -23,6 +23,7 @@ import * as XLSX from 'xlsx';
 import { CotizacionPdf2 } from 'src/app/modelos/cotizacionPdf2';
 import { Solicitud2 } from 'src/app/modelos/solicitud2';
 import { Cotizacion2 } from 'src/app/modelos/cotizacion2';
+import { CotizacionPdf } from 'src/app/modelos/cotizacionPdf';
 
 @Component({
   selector: 'app-lista-cotizaciones-lider-proceso',
@@ -258,12 +259,34 @@ export class ListaCotizacionesLiderProcesoComponent implements OnInit {
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaCotizacionesPdf);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: CotizacionPdf, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
   name = 'listaSolicitudes.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');

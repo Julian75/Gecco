@@ -9,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
 import { MatDialog } from '@angular/material/dialog';
+import { Area } from 'src/app/modelos/area';
 
 @Component({
   selector: 'app-area',
@@ -21,6 +22,7 @@ export class AreaComponent implements OnInit {
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  public listaArea: any = [];
 
   constructor(
     public dialog: MatDialog,
@@ -32,7 +34,8 @@ export class AreaComponent implements OnInit {
   }
   public listarTodos(){
     this.servicioArea.listarTodos().subscribe(res=>{
-      this.dataSource = new MatTableDataSource(res);
+      this.listaArea = res
+      this.dataSource = new MatTableDataSource(this.listaArea);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }),
@@ -92,15 +95,37 @@ export class AreaComponent implements OnInit {
     })
   }
 
-   // Filtrado
-   applyFilter(event: Event) {
+  // Filtrado
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaArea);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: Area, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
   }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
+
   name = 'area.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('rol');

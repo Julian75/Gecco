@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AgregarTipoNecesidadesComponent } from './agregar-tipo-necesidades/agregar-tipo-necesidades.component';
 import { ModificarTipoNecesidadesComponent } from './modificar-tipo-necesidades/modificar-tipo-necesidades.component';
 import { TipoNecesidadService } from 'src/app/servicios/tipoNecesidad.service';
+import { TipoNecesidad } from 'src/app/modelos/tipoNecesidad';
 
 @Component({
   selector: 'app-tipo-necesidades',
@@ -20,6 +21,7 @@ export class TipoNecesidadesComponent implements OnInit {
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  public listaTipoNecesidad: any = [];
 
   constructor(
     public dialog: MatDialog,
@@ -39,7 +41,8 @@ export class TipoNecesidadesComponent implements OnInit {
   public listarTodos(){
     this.servicioTipoNecesidad.listarTodos().subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(data);
+        this.listaTipoNecesidad = data
+        this.dataSource = new MatTableDataSource(this.listaTipoNecesidad);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -92,14 +95,36 @@ export class TipoNecesidadesComponent implements OnInit {
       }
     })
   }
-   // Filtrado
-   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  // Filtrado
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listaTipoNecesidad);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: TipoNecesidad, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      }
     }
+  }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 
   name = 'jerarquia.xlsx';
