@@ -8,6 +8,7 @@ import { VisualizarDetalleMatrizNecesidadesComponent } from './visualizar-detall
 import { MatDialog } from '@angular/material/dialog';
 import { AsignacionProcesoService } from 'src/app/servicios/asignacionProceso.service';
 import { MatrizNecesidad } from 'src/app/modelos/matrizNecesidad';
+import * as FileSaver from 'file-saver';
 //Grafica
 import {
   ApexNonAxisChartSeries,
@@ -62,6 +63,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarMatrices();
+    this.mostrarInformacionTabla();
   }
 
   public listarMatrices(){
@@ -79,9 +81,6 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             this.listarMatrice.push(elementMatriz)
           }
         });
-        this.dataSource = new MatTableDataSource(this.listarMatrice);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
         for (let i = 0; i < this.listarMatrice.length; i++) {
           const element = this.listarMatrice[i];
           var lengthMatrizNecesidades = this.listarMatrice.length
@@ -157,11 +156,30 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
           },
           labels: ["Average Results"]
         };
-      })
-      },
-      (err) => console.log(err)
-    );
+      });
+    })
+  }
 
+  listarMatricesCompletas: any = []
+  mostrarInformacionTabla(){
+    this.listarMatricesCompletas = []
+    this.servicioListaMatrices.listarTodos().subscribe(res => {
+      this.servicioAsignacionProceso.listarTodos().subscribe(resAsignacion=>{
+        resAsignacion.forEach(element => {
+          if(element.idUsuario.id == Number(sessionStorage.getItem("id"))){
+            this.matrizUsuario = element
+          }
+        });
+        res.forEach(elementMatriz => {
+          if(elementMatriz.idSubProceso.idTipoProceso.id == this.matrizUsuario.idTiposProcesos.id){
+            this.listarMatricesCompletas.push(elementMatriz)
+          }
+        });
+        this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    })
   }
 
   visualizarMatrizNecesidad(id:Number){
@@ -206,15 +224,46 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
     return search;
   }
 
-  name = 'listaTipoNovedades.xlsx';
+  listadoMatrices: any = [] //lista que nos sirve para guardar los objetos que se van a mostrar en el excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoNovedades');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listadoMatrices = []
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
+    for (let index = 0; index < this.listarMatrice.length; index++) {
+      const element = this.listarMatrice[index];
+      var obj = {
+        "Id Matriz Necesidad": element.id,
+        "Fecha": element.fecha,
+        "Tipo Necesidad": element.idTipoNecesidad.descripcion,
+        "Proceso - SubProceso": element.idSubProceso.idTipoProceso.descripcion+" - "+element.idSubProceso.descripcion,
+        "Cantidad Total de Objetos Estimado": element.cantidad,
+        "Costo Unitario Estimado": formatterPeso.format(element.costoUnitario),
+        "Costo Total Estimado": formatterPeso.format(element.costoEstimado),
+        "Costo Total": formatterPeso.format(element.costoTotal),
+        "Cantidad Total de Ejecuciones Estimada": element.cantidadEjecuciones,
+        "Porcentaje Total Cumplido": element.porcentajeTotal+"%",
+        "Detalle Matriz": element.detalle
+      }
+      this.listadoMatrices.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listadoMatrices);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaMatrices");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

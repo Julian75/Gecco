@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AccesoService } from 'src/app/servicios/Acceso.service';
 import { AgregarAccesosComponent } from './agregar-accesos/agregar-accesos.component';
 import Swal from 'sweetalert2';
-import { ModificarAccesosComponent } from './modificar-accesos/modificar-accesos.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
@@ -65,12 +64,6 @@ export class AccesosComponent implements OnInit {
         data: id
       });
     })
-  }
-  modificarAcceso(id: number): void {
-    const dialogRef = this.dialog.open(ModificarAccesosComponent, {
-      width: '500px',
-      data: id
-    });
   }
 
   eliminarAcceso(id:number){

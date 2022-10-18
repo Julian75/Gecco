@@ -32,14 +32,11 @@ import { AgregarUsuariosComponent } from './modulos-administracion/usuarios/agre
 import { ModificarUsuariosComponent } from './modulos-administracion/usuarios/modificar-usuarios/modificar-usuarios.component';
 import { AccesosComponent } from './modulos-administracion/accesos/accesos.component';
 import { AgregarAccesosComponent } from './modulos-administracion/accesos/agregar-accesos/agregar-accesos.component';
-import { ModificarAccesosComponent } from './modulos-administracion/accesos/modificar-accesos/modificar-accesos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/asignar-turno-vendedor.component';
 import { AgregarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/agregar-asignar-turno-vendedor/agregar-asignar-turno-vendedor.component';
-import { ModificarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/modificar-asignar-turno-vendedor/modificar-asignar-turno-vendedor.component';
 import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-turno.component';
 import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
-import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
 import { NovedadesComponent } from './modulos-turnos/novedades/novedades.component';
 import { JerarquiaComponent } from './modulos-turnos/jerarquia/jerarquia.component';
 import { TipoNovedadesComponent } from './modulos-turnos/novedades/tipo-novedades/tipo-novedades.component';
@@ -120,7 +117,6 @@ import { AgregarEscalaSolicitudesComponent } from './modulos-recepcion-datos/esc
 import { ModificarEscalaSolicitudesComponent } from './modulos-recepcion-datos/escala-solicitudes/modificar-escala-solicitudes/modificar-escala-solicitudes.component';
 import { PresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/presupuesto-venta-mensual.component';
 import { AgregarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/agregar-presupuesto-venta-mensual/agregar-presupuesto-venta-mensual.component';
-import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
 import { HistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/historial-solicitudes.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
 import { AgregarHistorialSolicitudesComponent } from './modulos-recepcion-datos/historial-solicitudes/agregar-historial-solicitudes/agregar-historial-solicitudes.component';
@@ -149,8 +145,6 @@ import { WebcamModule } from 'ngx-webcam';
 import { ReporteIngresoComponent } from './modulos-registro-ingreso/reporte-ingreso/reporte-ingreso.component';
 import { DetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/detalle-articulo.component';
 import { TipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/tipo-activo.component';
-import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/agregar-detalle-articulo/agregar-detalle-articulo.component';
-import { ModificarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/modificar-detalle-articulo/modificar-detalle-articulo.component';
 import { AgregarTipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/agregar-tipo-activo/agregar-tipo-activo.component';
 import { ModificarTipoActivoComponent } from './modulos-inventarios/detalle-articulo/tipo-activo/modificar-tipo-activo/modificar-tipo-activo.component';
 import { TipoProcesoComponent } from './modulos-inventarios/tipo-proceso/tipo-proceso.component';
@@ -160,11 +154,9 @@ import { AsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-pr
 import { AgregarAsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/agregar-asignar-proceso-usuario/agregar-asignar-proceso-usuario.component';
 import { ModificarAsignarProcesoUsuarioComponent } from './modulos-inventarios/asignar-proceso-usuario/modificar-asignar-proceso-usuario/modificar-asignar-proceso-usuario.component';
 import { AsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/asignar-articulos-usuario.component';
-import { AgregarAsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/agregar-asignar-articulos-usuario/agregar-asignar-articulos-usuario.component';
 import { ModificarAsignarArticulosUsuarioComponent } from './modulos-inventarios/asignar-articulos-usuario/modificar-asignar-articulos-usuario/modificar-asignar-articulos-usuario.component';
 import { AsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/asignar-punto-venta-articulo.component';
 import { AgregarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo.component';
-import { ModificarAsignarPuntoVentaArticuloComponent } from './modulos-inventarios/asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo.component';
 import { SubirArchivoSolicitudComponent } from './modulos-recepcion-datos/subir-archivo-solicitud/subir-archivo-solicitud.component';
 import { MisArticulosAsignadosComponent } from './modulos-inventarios/mis-articulos-asignados/mis-articulos-asignados.component';
 import { FirmasComponent } from './modulos-compra/firmas/firmas.component';
@@ -175,7 +167,6 @@ import { ReporteInventarioComponent } from './modulos-inventarios/reporte-invent
 import { ReasignarArticuloComponent } from './modulos-inventarios/mis-articulos-asignados/reasignar-articulo/reasignar-articulo.component';
 import { ListaAutorizacionesBajaArticulosComponent } from './modulos-inventarios/lista-autorizaciones-baja-articulos/lista-autorizaciones-baja-articulos.component';
 import { ListaConfirmacionesBajaArticulosComponent } from './modulos-inventarios/lista-confirmaciones-baja-articulos/lista-confirmaciones-baja-articulos.component';
-import { AgregarSolicitudBajaArticuloComponent } from './modulos-inventarios/mis-articulos-asignados/agregar-solicitud-baja-articulo/agregar-solicitud-baja-articulo.component';
 import { RechazoSolicitudBajaArticuloComponent } from './modulos-inventarios/lista-autorizaciones-baja-articulos/rechazo-solicitud-baja-articulo/rechazo-solicitud-baja-articulo.component';
 import { RechazoSolicitudBajaArticuloLiderProcesoComponent } from './modulos-inventarios/lista-confirmaciones-baja-articulos/rechazo-solicitud-baja-articulo-lider-proceso/rechazo-solicitud-baja-articulo-lider-proceso.component';
 import { ListaActasBajasComponent } from './modulos-inventarios/lista-actas-bajas/lista-actas-bajas.component';
@@ -235,15 +226,11 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     ModificarUsuariosComponent,
     AccesosComponent,
     AgregarAccesosComponent,
-    ModificarAccesosComponent,
     AsignarTurnoVendedorComponent,
     AgregarAsignarTurnoVendedorComponent,
-    ModificarAsignarTurnoVendedorComponent,
     AsignarTurnoComponent,
     AgregarAsignarTurnoComponent,
-    ModificarAsignarTurnoComponent,
     AccesosComponent,
-    ModificarAccesosComponent,
     AgregarAccesosComponent,
     NovedadesComponent,
     JerarquiaComponent,
@@ -324,7 +311,6 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     ModificarEscalaSolicitudesComponent,
     PresupuestoVentaMensualComponent,
     AgregarPresupuestoVentaMensualComponent,
-    ModificarPresupuestoVentaMensualComponent,
     HistorialSolicitudesComponent,
     ReporteAsesorComponent,
     AgregarHistorialSolicitudesComponent,
@@ -351,8 +337,6 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     ReporteIngresoComponent,
     DetalleArticuloComponent,
     TipoActivoComponent,
-    AgregarDetalleArticuloComponent,
-    ModificarDetalleArticuloComponent,
     AgregarTipoActivoComponent,
     ModificarTipoActivoComponent,
     TipoProcesoComponent,
@@ -362,11 +346,9 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     AgregarAsignarProcesoUsuarioComponent,
     ModificarAsignarProcesoUsuarioComponent,
     AsignarArticulosUsuarioComponent,
-    AgregarAsignarArticulosUsuarioComponent,
     ModificarAsignarArticulosUsuarioComponent,
     AsignarPuntoVentaArticuloComponent,
     AgregarAsignarPuntoVentaArticuloComponent,
-    ModificarAsignarPuntoVentaArticuloComponent,
     SubirArchivoSolicitudComponent,
     MisArticulosAsignadosComponent,
     FirmasComponent,
@@ -377,7 +359,6 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     ReasignarArticuloComponent,
     ListaAutorizacionesBajaArticulosComponent,
     ListaConfirmacionesBajaArticulosComponent,
-    AgregarSolicitudBajaArticuloComponent,
     RechazoSolicitudBajaArticuloComponent,
     RechazoSolicitudBajaArticuloLiderProcesoComponent,
     ListaActasBajasComponent,

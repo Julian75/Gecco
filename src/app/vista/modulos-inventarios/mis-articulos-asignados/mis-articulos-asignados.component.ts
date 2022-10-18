@@ -1,7 +1,6 @@
 import { ConsultasGeneralesService } from './../../../servicios/consultasGenerales.service';
 import { HistorialArticuloService } from './../../../servicios/historialArticulo.service';
 import { HistorialArticulos } from './../../../modelos/historialArticulos';
-import { AgregarSolicitudBajaArticuloComponent } from './agregar-solicitud-baja-articulo/agregar-solicitud-baja-articulo.component';
 import { ReasignarArticuloComponent } from './reasignar-articulo/reasignar-articulo.component';
 import { VisualizarHistorialArticuloComponent } from './../../modulos-compra/articulos/visualizar-historial-articulo/visualizar-historial-articulo.component';
 import { Component, OnInit,ViewChild } from '@angular/core';

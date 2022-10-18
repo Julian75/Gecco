@@ -1,8 +1,6 @@
 import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
 import { AgregarArticulosComponent } from './modulos-compra/articulos/agregar-articulos/agregar-articulos.component';
-import { AgregarDetalleArticuloComponent } from './modulos-inventarios/detalle-articulo/agregar-detalle-articulo/agregar-detalle-articulo.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
-import { ModificarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/modificar-presupuesto-venta-mensual/modificar-presupuesto-venta-mensual.component';
 import { AgregarPresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/agregar-presupuesto-venta-mensual/agregar-presupuesto-venta-mensual.component';
 import { PresupuestoVentaMensualComponent } from './modulos-turnos/presupuesto-venta-mensual/presupuesto-venta-mensual.component';
 import { SolicitudesScComponent } from './modulos-recepcion-datos/solicitudes-sc/solicitudes-sc.component';
@@ -32,7 +30,6 @@ import { AsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-ve
 import { AsignarTurnoComponent } from './modulos-turnos/asignar-turno/asignar-turno.component';
 import { AgregarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/agregar-asignar-turno/agregar-asignar-turno.component';
 import { AccesosComponent } from './modulos-administracion/accesos/accesos.component';
-import { ModificarAsignarTurnoComponent } from './modulos-turnos/asignar-turno/modificar-asignar-turno/modificar-asignar-turno.component';
 import { AgregarAsignarTurnoVendedorComponent } from './modulos-turnos/asignar-turno-vendedor/agregar-asignar-turno-vendedor/agregar-asignar-turno-vendedor.component';
 import { ModificarDatosComponent } from '../formularios/formulariosPrincipales/modificar-datos/modificar-datos.component';
 import { NovedadesComponent } from './modulos-turnos/novedades/novedades.component';
@@ -194,11 +191,6 @@ const routes: Routes = [
       {
         path: 'agregarAsignarTurno',
         component: AgregarAsignarTurnoComponent,
-        canActivate: [AutorizacionGuard]
-      },
-      {
-        path: 'modificarAsignarTurno/:id',
-        component: ModificarAsignarTurnoComponent,
         canActivate: [AutorizacionGuard]
       },
       // Apartado de asignar turno Vendedor
@@ -467,11 +459,6 @@ const routes: Routes = [
         component: AgregarPresupuestoVentaMensualComponent,
         canActivate: [AutorizacionGuard]
       },
-      {
-        path: 'modificarPresupuestoVentaMensual/:id',
-        component: ModificarPresupuestoVentaMensualComponent,
-        canActivate: [AutorizacionGuard]
-      },
       //HIstorial de solicitudes
       {
         path: 'historialSolicitudes',
@@ -536,11 +523,6 @@ const routes: Routes = [
       {
         path: 'detalleArticulo',
         component: DetalleArticuloComponent,
-        canActivate: [AutorizacionGuard]
-      },
-      {
-        path: 'agregarDetalleArticulo',
-        component: AgregarDetalleArticuloComponent,
         canActivate: [AutorizacionGuard]
       },
       {

@@ -7,7 +7,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as XLSX from 'xlsx';
 import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
-import { AgregarAsignarArticulosUsuarioComponent } from './agregar-asignar-articulos-usuario/agregar-asignar-articulos-usuario.component';
 import { ModificarAsignarArticulosUsuarioComponent } from './modificar-asignar-articulos-usuario/modificar-asignar-articulos-usuario.component';
 import { AsignacionArticulos } from 'src/app/modelos/asignacionArticulos';
 import { ModificarService } from 'src/app/servicios/modificar.service';

@@ -1,4 +1,4 @@
-import { ModificarDetalleArticuloComponent } from './modificar-detalle-articulo/modificar-detalle-articulo.component';
+
 import { DetalleArticuloService } from './../../../servicios/detalleArticulo.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -39,13 +39,6 @@ export class DetalleArticuloComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
-  }
-
-  modificarDetalleArticulo(id: number): void {
-    const dialogRef = this.dialog.open(ModificarDetalleArticuloComponent, {
-      width: '500px',
-      data: id
-    });
   }
 
   eliminarDetalleArticulo(id:number){

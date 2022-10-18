@@ -13,28 +13,38 @@
           <!-- Position Column -->
           <ng-container matColumnDef="id" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
-            <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.recordatorio.id}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="descripcion">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Descripcion</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+            <td mat-cell *matCellDef="let element">{{element.recordatorio.descripcion}}</td>
           </ng-container>
 
           <ng-container matColumnDef="fecha">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+            <td mat-cell *matCellDef="let element">{{element.recordatorio.fecha}}</td>
           </ng-container>
 
           <ng-container matColumnDef="Hora">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="horaSp">Hora</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.hora}}</td>
+            <td mat-cell *matCellDef="let element">{{element.recordatorio.hora}}</td>
           </ng-container>
 
           <ng-container matColumnDef="tipoEnvio">
             <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="tipoEnvioSp">Tipo Envio</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.tipoEnvio}}</td>
+            <td mat-cell *matCellDef="let element">{{element.recordatorio.tipoEnvio}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="opciones">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="opciones">Opciones</h3></th>
+            <td mat-cell *matCellDef="let element">
+              <!-- (click)="cumplido();"  -->
+              <button *ngIf="element.cumplimiento == true" class="btn boton botonagregar text-white my-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cumplimiento del recordatorio">
+                <mat-icon>check_circle</mat-icon>
+              </button>
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -47,4 +57,23 @@
                 aria-label="Select page">
     </mat-paginator>
   </div>
+<div *ngFor="let item of listaCorreosPqrs">
+  <div class="div1 my-5 mx-5" *ngIf="item.emisor == true">
+    <mat-card class="cardDerecha">
+      <h3><strong>{{item.chatCorreos.idUsuarioEnvia.nombre}} {{item.chatCorreos.idUsuarioEnvia.apellido}}</strong></h3>
+      <h5 style="font-size: 13px;"><strong>{{item.chatCorreos.asunto}}</strong></h5>
+      <p style="font-size: 12px;">{{item.chatCorreos.mensaje}}</p>
+    </mat-card>
+    <div class="romboDerecha"></div>
+  </div>
+  <div class="div1 my-5 mx-5" *ngIf="item.emisor == false">
+    <mat-card class="cardDerecha">
+      <h3><strong>{{item.chatCorreos.idUsuarioEnvia.nombre}} {{item.chatCorreos.idUsuarioEnvia.apellido}}</strong></h3>
+      <h5 style="font-size: 13px;"><strong>{{item.chatCorreos.asunto}}</strong></h5>
+      <p style="font-size: 12px;">{{item.chatCorreos.mensaje}}</p>
+    </mat-card>
+    <div class="romboIzquierda"></div>
+  </div>
+</div>
+
 

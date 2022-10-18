@@ -6,7 +6,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
 import { AgregarAsignarPuntoVentaArticuloComponent } from './agregar-asignar-punto-venta-articulo/agregar-asignar-punto-venta-articulo.component';
-import { ModificarAsignarPuntoVentaArticuloComponent } from './modificar-asignar-punto-venta-articulo/modificar-asignar-punto-venta-articulo.component';
 import { AsignacionPuntoVentaService } from 'src/app/servicios/asignacionPuntoVenta.service';
 
 @Component({
@@ -44,13 +43,6 @@ export class AsignarPuntoVentaArticuloComponent implements OnInit {
   abrirModal(): void {
     const dialogRef = this.dialog.open(AgregarAsignarPuntoVentaArticuloComponent, {
       width: '500px',
-    });
-  }
-
-  modificarAsignacionPuntoVenta(id: number): void {
-    const dialogRef = this.dialog.open(ModificarAsignarPuntoVentaArticuloComponent, {
-      width: '500px',
-      data: id
     });
   }
 

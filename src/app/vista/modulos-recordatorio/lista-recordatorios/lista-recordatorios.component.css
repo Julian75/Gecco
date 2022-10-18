@@ -1,3 +1,35 @@
+/* Todo lo de chat */
+.romboDerecha {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  filter: drop-shadow(0.2em 0 0.1em #D8D8D8);
+  margin-left: 212px;
+  margin-top: -12.8px;
+  border-left: 20px solid #FFFFFF;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  transform: rotate(90deg);
+}
+.cardDerecha{
+  box-shadow: 0em 0 0.4em #b3b8bb;
+  width: 20%;
+  border-radius: 13px;
+}
+.romboIzquierda{
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  filter: drop-shadow(0.2em 0 0.1em #D8D8D8);
+  margin-left: 16px;
+  margin-top: -12.8px;
+  border-left: 20px solid #FFFFFF;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  transform: rotate(90deg);
+}
+
+/*  */
 .example-container {
     max-width: 100%;
     overflow: auto;

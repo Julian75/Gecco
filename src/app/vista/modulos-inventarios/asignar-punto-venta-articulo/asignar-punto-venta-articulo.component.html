@@ -43,9 +43,6 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef><h3 id="opcSp">Opciones</h3></th>
           <td mat-cell *matCellDef="let item">
-            <button class="btn btnedit mx-2" (click)="modificarAsignacionPuntoVenta(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar asignación de punto de venta ">
-              <mat-icon>edit</mat-icon>
-            </button>
             <button class="btn btnremove mx-2" (click)="eliminarAsignacionPuntoVenta(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar asignación de punto de venta">
               <mat-icon>delete</mat-icon>
             </button>

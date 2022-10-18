@@ -12,6 +12,7 @@ import { MatrizNecesidadService } from 'src/app/servicios/matrizNecesidad.servic
 import { MatrizNecesidadDetalleService } from 'src/app/servicios/matrizNecesidadDetalle.service';
 import Swal from 'sweetalert2';
 import { MatrizNecesidadDetalle } from 'src/app/modelos/MatrizNecesidadDetalle';
+import * as FileSaver from 'file-saver';
 //Grafica
 import {
   ApexNonAxisChartSeries,
@@ -455,16 +456,52 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     })
   }
 
-
-  name = 'listaTipoNovedades.xlsx';
+  //this.listarMatrizDetalle
+  listadoMatrices: any = [] //lista que nos sirve para guardar los objetos que se van a mostrar en el excel
   exportToExcel(): void {
-    let element = document.getElementById('tipoNovedades');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    this.listadoMatrices = []
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
+    for (let index = 0; index < this.listarMatrizDetalle.length; index++) {
+      const element = this.listarMatrizDetalle[index];
+      var obj = {
+        "Id Matriz Necesidad": element.idMatrizNecesidad.id,
+        "Fecha Registro Matriz": element.idMatrizNecesidad.fecha,
+        "Fecha Ejecucion Matriz Detalle": element.fecha,
+        "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
+        "Proceso - SubProceso": element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion+" - "+element.idMatrizNecesidad.idSubProceso.descripcion,
+        "Descripcion Matriz Necesidad Detalle": element.descripcion,
+        "Cantidad Objetos Estimada Detalle": element.cantidadEstimada,
+        "Cantidad Objetos Comprada Detalle": element.cantidadComprada,
+        "Cantidad Ejecucion Estimada Detalle": element.cantidadEjecuciones,
+        "Cantidad Cumplidas Ejecuciones Detalle": element.cantidadEjecucionesCumplidas,
+        "Costo Unitario Estimado": formatterPeso.format(element.idMatrizNecesidad.costoUnitario),
+        "Costo Ejecucion Comprada": formatterPeso.format(element.costoEjecucionComprada),
+        "Costo Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
+        "Costo Total Comprado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
+        "Porcentaje Cumplido Detalle": element.porcentaje+"%",
+        "Porcentaje Total Cumplido": element.idMatrizNecesidad.porcentajeTotal+"%"
+      }
+      this.listadoMatrices.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listadoMatrices);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaMatrizDetalle");
+    });
+  }
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

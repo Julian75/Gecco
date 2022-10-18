@@ -20,6 +20,7 @@ export class ChatRemitentesComponent implements OnInit {
 
   public formChat!: FormGroup;
   public listaUsuario: any = [];
+  public fechaActual: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -73,6 +74,7 @@ export class ChatRemitentesComponent implements OnInit {
             chatRemitente.idSolicitudSC = resSolicitud
             chatRemitente.asunto = asunto
             chatRemitente.mensaje = mensaje
+            chatRemitente.fecha = this.fechaActual
             this.guardarChat(chatRemitente);
           })
         })

@@ -63,6 +63,7 @@ export class AgregarRecordatorioComponent implements OnInit {
         recordatorio.descripcion = descripcion
         recordatorio.fecha = new Date(this.fechaRecodatorio)
         recordatorio.hora = this.horaRecordatorio
+        recordatorio.cumplimiento = 'No'
         recordatorio.envio = 'no'
         recordatorio.tipoEnvio = tipoEnvio
         console.log(recordatorio)

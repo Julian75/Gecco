@@ -9,6 +9,9 @@ import { AgregarRecordatorioComponent } from './agregar-recordatorio/agregar-rec
 import { RecordatorioService } from 'src/app/servicios/recordatorio.service';
 import { Recordatorio } from 'src/app/modelos/recordatorio';
 import * as FileSaver from 'file-saver';
+import { ChatRemitenteService } from 'src/app/servicios/chatRemitente.service';
+import * as moment from 'moment';
+import { AccesoService } from 'src/app/servicios/Acceso.service';
 
 @Component({
   selector: 'app-lista-recordatorios',
@@ -18,27 +21,82 @@ import * as FileSaver from 'file-saver';
 export class ListaRecordatoriosComponent implements OnInit {
   dtOptions: any = {};
   public listarRecordatorio: any = [];
+  public fechaActual: Date = new Date();
 
-  displayedColumns = ['id', 'descripcion', 'fecha', 'Hora', 'tipoEnvio'];
+  displayedColumns = ['id', 'descripcion', 'fecha', 'Hora', 'tipoEnvio', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     public dialog: MatDialog,
     private recordatorioService: RecordatorioService,
+    private chatServicio: ChatRemitenteService,
+    private AccesosServicio: AccesoService,
   ) { }
 
   ngOnInit(): void {
     this.listarTodo();
+    this.listaCorreos();
   }
 
   listarTodo() {
     this.recordatorioService.listarTodos().subscribe( data => {
-      this.listarRecordatorio = data;
+      data.forEach(elementRecordatorio => {
+        var fechaAlmacenada = new Date(elementRecordatorio.fecha)
+        fechaAlmacenada.setDate(fechaAlmacenada.getDate()+1)
+        console.log(fechaAlmacenada, this.fechaActual)
+        var obj = {
+          cumplimiento: false,
+          recordatorio: elementRecordatorio,
+        }
+        if((elementRecordatorio.tipoEnvio=='Mensual' && fechaAlmacenada.getDate() == this.fechaActual.getDate() && elementRecordatorio.cumplimiento == 'No') || (elementRecordatorio.tipoEnvio=='Diario' && elementRecordatorio.cumplimiento == 'No') ||(elementRecordatorio.tipoEnvio=='Ninguna' && fechaAlmacenada.getFullYear() == this.fechaActual.getFullYear() && fechaAlmacenada.getMonth() == this.fechaActual.getMonth() && fechaAlmacenada.getDate() == this.fechaActual.getDate() && elementRecordatorio.cumplimiento == 'No')){
+          obj.cumplimiento = true
+        }else{
+          obj.cumplimiento = false
+        }
+        this.listarRecordatorio.push(obj)
+      });
       this.dataSource = new MatTableDataSource(this.listarRecordatorio);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  cumplido(){
+
+  }
+
+  listaCorreosPqrs: any = []
+  listaCorreosPqrsCompletos: any = []
+  listaAccesos: any = []
+  listaCorreos(){
+    this.listaCorreosPqrs = []
+    this.listaCorreosPqrsCompletos = []
+    this.chatServicio.listarTodos().subscribe(resCorreosSOlicitudPQRS=>{
+      this.AccesosServicio.listarTodos().subscribe(resAccesos=>{
+        resCorreosSOlicitudPQRS.forEach(elementCorreoSolicitudPQRS => {
+          var obj = {
+            chatCorreos: elementCorreoSolicitudPQRS,
+            emisor: false //Para saber si este usuario es quien tiene el modulo 38
+          }
+          this.listaAccesos = []
+          resAccesos.forEach(elementAcesos => {
+           if(elementAcesos.idRol.id == elementCorreoSolicitudPQRS.idUsuarioEnvia.idRol.id){
+            this.listaAccesos.push(elementAcesos.idModulo.id)
+           }
+          });
+          console.log(this.listaAccesos)
+          this.listaAccesos.forEach(elementAcceso => {
+            if(elementAcceso == 38){
+              obj.emisor = true
+            }
+          });
+          this.listaCorreosPqrs.push(obj)
+          this.listaCorreosPqrsCompletos = this.listaCorreosPqrs.sort((a, b) => Number(new Date(a.chatCorreos.fecha)) - Number(new Date(b.chatCorreos.fecha)))
+          console.log(this.listaCorreosPqrsCompletos)
+        });
+      })
+    })
   }
 
   abrirModal(): void {
