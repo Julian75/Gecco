@@ -10,4 +10,5 @@ export class MatrizNecesidad2 {
   public costoTotal: number=0;
   public idSubProceso : number=0;
   public idTipoNecesidad : number=0;
+  public idTipoActivo : number=0;
 }

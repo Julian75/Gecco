@@ -74,7 +74,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioMatrizNecesidades.listarPorId(Number(this.id)).subscribe(resMatriz=>{
-      this.valor = resMatriz.porcentajeTotal
+      this.valor = Math.round(resMatriz.porcentajeTotal)
       if (this.valor >= 0 && this.valor <= 33) {
         this.colorFondo = this.colorRojo;
         this.colorGradual = this.colorRojo;
@@ -147,11 +147,18 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
   }
 
   public listarTodos() {
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
     this.listarMatrizDetalle = [];
     this.servicioMatrizNecesidades.listarPorId(Number(this.id)).subscribe((resMatrizNecesidades: any) => {
       this.servicioMatrizDetalle.listarTodos().subscribe((resMatrizDetalle: any) => {
         resMatrizDetalle.forEach((element: any) => {
           if (element.idMatrizNecesidad.id == resMatrizNecesidades.id) {
+            element.porcentaje = Math.round(element.porcentaje)
+            element.costoEjecucionComprada = formatterPeso.format(element.costoEjecucionComprada)
             this.listarMatrizDetalle.push(element);
           }
         });
@@ -406,6 +413,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
         fechaMatrizNecesidad.setDate(fechaMatrizNecesidad.getDate()+1)
         matrizNecesidad.fecha = fechaMatrizNecesidad
         matrizNecesidad.idSubProceso = detalleMatrizNecesided.idMatrizNecesidad.idSubProceso.id
+        matrizNecesidad.idTipoActivo = detalleMatrizNecesided.idMatrizNecesidad.idTipoActivo.id
         matrizNecesidad.idTipoNecesidad = detalleMatrizNecesided.idMatrizNecesidad.idTipoNecesidad.id
         if(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal == 0){
           matrizNecesidad.porcentajeTotal = porcentajeCumplidoFinalmente
@@ -474,16 +482,16 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
         "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
         "Proceso - SubProceso": element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion+" - "+element.idMatrizNecesidad.idSubProceso.descripcion,
         "Descripcion Matriz Necesidad Detalle": element.descripcion,
-        "Cantidad Objetos Estimada Detalle": element.cantidadEstimada,
-        "Cantidad Objetos Comprada Detalle": element.cantidadComprada,
-        "Cantidad Ejecucion Estimada Detalle": element.cantidadEjecuciones,
-        "Cantidad Cumplidas Ejecuciones Detalle": element.cantidadEjecucionesCumplidas,
+        "Cantidad Estimada": element.cantidadEstimada,
+        "Cantidad Ejecutada": element.cantidadComprada,
+        "Ejecucion Estimada": element.cantidadEjecuciones,
+        "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
         "Costo Unitario Estimado": formatterPeso.format(element.idMatrizNecesidad.costoUnitario),
         "Costo Ejecucion Comprada": formatterPeso.format(element.costoEjecucionComprada),
-        "Costo Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
-        "Costo Total Comprado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
-        "Porcentaje Cumplido Detalle": element.porcentaje+"%",
-        "Porcentaje Total Cumplido": element.idMatrizNecesidad.porcentajeTotal+"%"
+        "Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
+        "Total Comprado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
+        "Porcentaje Cumplido Detalle": Math.round(element.porcentaje)+"%",
+        "Porcentaje Total Cumplido": Math.round(element.idMatrizNecesidad.porcentajeTotal)+"%"
       }
       this.listadoMatrices.push(obj)
     }

@@ -2,14 +2,29 @@
   <h2 class="dato">Ingresar Nueva Matriz de Necesidad</h2>
   <form [formGroup]="formMatrizNecesidad">
     <div class="row1">
-      <!-- Ingresar Nombre -->
       <div class="nombre2">
-        <h2>Subproceso</h2>
+        <h2>Proceso</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
-        <mat-label>Seleccion el tipo de subproceso</mat-label>
-        <mat-select matNativeControl id="subproceso" name="subproceso" formControlName="subproceso">
-          <mat-option *ngFor="let item of listaSubprocesos" value="{{item.id}}">{{item.descripcion}}</mat-option>
+        <mat-label>Seleccione el tipo de proceso</mat-label>
+        <mat-select matNativeControl id="proceso" name="proceso" formControlName="proceso" [(ngModel)]="idProceso" (selectionChange)="idProcesos($event)">
+          <mat-option *ngFor="let item of listaProcesos" value="{{item.id}}" [value]="item">{{item.descripcion}}</mat-option>
         </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2">
+        <h2 class="sitio">Subproceso</h2>
+        <mat-form-field class="nombre" appearance="fill">
+          <mat-label>Ingrese Subproceso</mat-label>
+          <input type="text"
+          aria-label="text"
+          matInput
+          [formControl]="control"
+          [matAutocomplete]="auto2" >
+          <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displaySf" id="subproceso" name="subproceso" formControlName="subproceso">
+            <mat-option *ngFor="let item of opcionesFiltradas | async"  [value]="item" ngValue="item.id" >
+              {{item.descripcion}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
       <div class="nombre2">
@@ -46,7 +61,16 @@
         <h2>Costo Unitario Estimado</h2>
         <mat-form-field class="nombre" [color]="color" appearance="fill">
         <mat-label>Ingrese costo unitario del tipo de necesidad</mat-label>
-        <input type="number" id="costoUnitario" formControlName="costoUnitario" matInput >
+        <input id="costoUnitario" formControlName="costoUnitario" (keyup)="format()" (change)="format()" matInput >
+        </mat-form-field>
+      </div>
+      <div class="nombre4">
+        <h2>Tipo</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Seleccion el tipo de activo</mat-label>
+        <mat-select matNativeControl id="tipoActivo" name="tipoActivo" formControlName="tipoActivo">
+          <mat-option *ngFor="let item of listaTipoActivos" value="{{item.id}}">{{item.descripcion}}</mat-option>
+        </mat-select>
         </mat-form-field>
       </div>
     </div>

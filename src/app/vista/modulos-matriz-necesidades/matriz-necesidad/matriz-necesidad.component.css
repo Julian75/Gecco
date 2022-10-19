@@ -22,6 +22,7 @@ h2{
   margin-left: 66%;
 }
 
+
 .row1{
   border-top: 3px solid #97B4E2;
   padding-top: 3%;
@@ -202,7 +203,7 @@ h2{
 @media screen and (min-width: 1537px) and (max-width: 1600px){
   .guardarModal{ margin-left: 883px; position: relative;}
   .nombre1{ margin-left: 15%;}
-  .nombre3{ margin-left: 57%; margin-top: -28.5%;}
+  .nombre3{ margin-left: 57%; margin-top: -37.5%;}
   .nombre2{ margin-top: 1%; position: relative; margin-left: 10%;}
   .nombre4{ margin-left: 57%; }
 }

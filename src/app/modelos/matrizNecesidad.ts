@@ -1,3 +1,4 @@
+import { TipoActivo } from './tipoActivo';
 import { SubProceso } from "./subProceso";
 import { TipoNecesidad } from "./tipoNecesidad";
 
@@ -13,4 +14,5 @@ export class MatrizNecesidad {
   public costoTotal: number=0;
   idSubProceso !: SubProceso;
   idTipoNecesidad !: TipoNecesidad;
+  idTipoActivo !: TipoActivo;
 }

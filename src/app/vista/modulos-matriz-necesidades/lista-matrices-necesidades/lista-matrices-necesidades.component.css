@@ -15,7 +15,18 @@
   margin-top: 1%;
   margin-left: 79.5%;
 }
-
+#incumplio{
+  background-color: #ffc7ce;
+  color: #9B0006;
+}
+#cumplio{
+  background-color: #C6EFCE;
+  color: #006100;
+}
+#pasado{
+  background-color: #ffc7ce;
+  color: #9B0006;
+}
 .example-container {
     max-width: 100%;
     overflow: auto;

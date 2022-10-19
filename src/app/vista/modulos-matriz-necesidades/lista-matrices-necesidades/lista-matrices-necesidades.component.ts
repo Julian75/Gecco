@@ -51,7 +51,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   public colorGradual = "";
   public sumaPorcentajes = 0;
 
-  displayedColumns = ['id','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'porcentajeTotal', 'subProceso','tipoNecesidad','opciones'];
+  displayedColumns = ['id','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'porcentajeTotal', 'subProceso','tipoNecesidad','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -88,7 +88,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
           var porcentajeTotalIndividual = (element.porcentajeTotal/100)*porcentajeIndividualEjecucionCompleta
           this.sumaPorcentajes = this.sumaPorcentajes + porcentajeTotalIndividual
         }
-        this.valor = this.sumaPorcentajes
+        this.valor = Math.round(this.sumaPorcentajes)
         if (this.valor >= 0 && this.valor <= 33) {
           this.colorFondo = this.colorRojo;
           this.colorGradual = this.colorRojo;
@@ -172,7 +172,30 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
         });
         res.forEach(elementMatriz => {
           if(elementMatriz.idSubProceso.idTipoProceso.id == this.matrizUsuario.idTiposProcesos.id){
-            this.listarMatricesCompletas.push(elementMatriz)
+            // elementMatriz.costoTotal/(elementMatriz.costoEstimado * elementMatriz.porcentajeTotal)*100
+            var valorDividido = elementMatriz.costoEstimado*(elementMatriz.porcentajeTotal/100)
+            var totalesDivididos = elementMatriz.costoTotal/valorDividido
+            var presupuestoMatriz = Math.round(totalesDivididos*100)
+            elementMatriz.porcentajeTotal = Math.round(elementMatriz.porcentajeTotal)
+            var obj = {
+              color: '',
+              matriz: elementMatriz,
+              ejecucionPresupuesto: presupuestoMatriz,
+            }
+            if(elementMatriz.porcentajeTotal == 0){
+              obj.ejecucionPresupuesto = 0
+            }
+            if(presupuestoMatriz < 0){
+              obj.color = 'incumplio'
+            }
+            if(presupuestoMatriz > 1){
+              obj.color = 'cumplio'
+            }
+            if(presupuestoMatriz > 100){
+              obj.color = 'pasado'
+            }
+            console.log(obj)
+            this.listarMatricesCompletas.push(obj)
           }
         });
         this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
@@ -239,11 +262,11 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
         "Fecha": element.fecha,
         "Tipo Necesidad": element.idTipoNecesidad.descripcion,
         "Proceso - SubProceso": element.idSubProceso.idTipoProceso.descripcion+" - "+element.idSubProceso.descripcion,
-        "Cantidad Total de Objetos Estimado": element.cantidad,
+        "Cantidad Estimada": element.cantidad,
         "Costo Unitario Estimado": formatterPeso.format(element.costoUnitario),
-        "Costo Total Estimado": formatterPeso.format(element.costoEstimado),
-        "Costo Total": formatterPeso.format(element.costoTotal),
-        "Cantidad Total de Ejecuciones Estimada": element.cantidadEjecuciones,
+        "Costo Estimado": formatterPeso.format(element.costoEstimado),
+        "Costo Ejecutado": formatterPeso.format(element.costoTotal),
+        "Ejecuciones Estimada": element.cantidadEjecuciones,
         "Porcentaje Total Cumplido": element.porcentajeTotal+"%",
         "Detalle Matriz": element.detalle
       }
