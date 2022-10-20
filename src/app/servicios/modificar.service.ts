@@ -1,3 +1,4 @@
+import { PeriodoEjecucion2 } from './../modelos/modelos2/periodoEjecucion2';
 import { MovimientoComprasInventario2 } from './../modelos/modelos2/movimientosComprasInventario2';
 import { Area2 } from './../modelos/modelos2/area2';
 import { SolicitudSC2 } from './../modelos/modelos2/solicitudSC2';
@@ -268,5 +269,9 @@ export class ModificarService {
 
   public actualizarMediosRadiacion(mediosRadiacion: MediosRadiacion2){
     return this.http.put<void>(this.path+'/MediosRadiacion/'+ mediosRadiacion.id, mediosRadiacion);
+  }
+
+  public actualizarPeriodoEjecucion(periodoEjecucion: PeriodoEjecucion2){
+    return this.http.put<void>(this.path+'/PeriodoEjecucion/'+ periodoEjecucion.id, periodoEjecucion);
   }
 }

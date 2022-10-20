@@ -9,6 +9,9 @@
     <h1>Incidente: {{Incidente}}</h1>
     <h1>Auxiliar: {{Auxiliar}}</h1>
     <h1>Escala: {{Escala}}</h1>
+    <button type="button" id="chat-openPopup" class="chat-button" style="margin-left: 778px; position: static; margin-top: -32px;" (click)="Chat()">
+      <div class="float" > <mat-icon class="my-float">comment</mat-icon></div>
+    </button>
     <section class="example-container mat-elevation-z8" tabindex="0">
       <table id="asignarTurnoVendedor2" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
           <!-- Position Column -->

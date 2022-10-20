@@ -1,0 +1,18 @@
+<div *ngFor="let item of listaCorreosPqrs">
+  <div class="div1 my-5 mx-5" *ngIf="item.emisor == true">
+    <mat-card class="cardIzquierda">
+      <h3><strong>{{item.chatCorreos.idUsuarioEnvia.nombre}} {{item.chatCorreos.idUsuarioEnvia.apellido}}</strong></h3>
+      <h5 style="font-size: 13px;"><strong>{{item.chatCorreos.asunto}}</strong></h5>
+      <p style="font-size: 12px;">{{item.chatCorreos.mensaje}}</p>
+    </mat-card>
+    <div class="romboDerecha"></div>
+  </div>
+  <div class="div1 my-5 mx-5" *ngIf="item.emisor == false">
+    <mat-card class="cardDerecha">
+      <h3><strong>{{item.chatCorreos.idUsuarioEnvia.nombre}} {{item.chatCorreos.idUsuarioEnvia.apellido}}</strong></h3>
+      <h5 style="font-size: 13px;"><strong>{{item.chatCorreos.asunto}}</strong></h5>
+      <p style="font-size: 12px;">{{item.chatCorreos.mensaje}}</p>
+    </mat-card>
+    <div class="romboIzquierda"></div>
+  </div>
+</div>

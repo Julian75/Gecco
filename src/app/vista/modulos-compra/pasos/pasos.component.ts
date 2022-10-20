@@ -30,8 +30,8 @@ import { AprobacionRegistroComponent } from '../aprobacion-registro/aprobacion-r
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { SolicitudConformeComponent } from '../solicitud-conforme/solicitud-conforme.component';
-import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
 
 @Component({
   selector: 'app-pasos',

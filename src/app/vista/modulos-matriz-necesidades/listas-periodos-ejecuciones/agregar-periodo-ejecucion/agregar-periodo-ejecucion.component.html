@@ -1,0 +1,27 @@
+<h2 class="dato">Ingresa Nuevo Periodo Ejecución</h2>
+<form [formGroup]="formPeriodoEjecucion">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese descripción del periodo ejecucion</mat-label>
+      <input id="descripcion" formControlName="descripcion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="nombre2">
+      <h2>Cantidad en Meses</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese cantidad del periodo ejecucion</mat-label>
+      <input id="cantidad" formControlName="cantidad" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar nuevo periodo ejecución"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+</form>
+

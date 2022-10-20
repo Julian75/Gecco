@@ -14,6 +14,7 @@ import { SubirPdfService } from 'src/app/servicios/subirPdf.service';
 import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-multiples.component';
 import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
 import { HistorialSolicitudes } from 'src/app/modelos/historialSolicitudes';
+import { ChatSolicitudesScComponent } from './chat-solicitudes-sc/chat-solicitudes-sc.component';
 
 @Component({
   selector: 'app-historial-solicitudes',
@@ -149,6 +150,15 @@ export class HistorialSolicitudesComponent implements OnInit {
     }
     return search;
   }
+
+  Chat(){
+    const dialogRef = this.dialog.open(ChatSolicitudesScComponent, {
+      width: '600px',
+      height: '430px',
+      data: this.data
+    });
+  }
+
   name = 'HistorialSolicitud.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('asignarTurnoVendedor2');

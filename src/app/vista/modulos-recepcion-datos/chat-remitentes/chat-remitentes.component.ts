@@ -10,6 +10,8 @@ import { ChatRemitenteService } from 'src/app/servicios/chatRemitente.service';
 import { Correo } from 'src/app/modelos/correo';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
 import { CorreoService } from 'src/app/servicios/Correo.service';
+import { HistorialSolicitudes } from 'src/app/modelos/historialSolicitudes';
+import { EstadoService } from 'src/app/servicios/estado.service';
 
 @Component({
   selector: 'app-chat-remitentes',
@@ -30,6 +32,7 @@ export class ChatRemitentesComponent implements OnInit {
     private servicioChat: ChatRemitenteService,
     private servicioConfiguracion: ConfiguracionService,
     private servicioCorreo: CorreoService,
+    private servicioEstado: EstadoService,
     public dialogRef: MatDialogRef<ChatRemitentesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
@@ -79,7 +82,6 @@ export class ChatRemitentesComponent implements OnInit {
           })
         })
       })
-      // document.getElementById("snipper").setAttribute("style", "display: none;");
     }else{
       Swal.fire({
         position: 'center',
@@ -97,6 +99,32 @@ export class ChatRemitentesComponent implements OnInit {
   listaChat: any
   public guardarChat(chatRemitente: ChatRemitente){
     this.servicioChat.registrar(chatRemitente).subscribe(res=>{
+      let historial : HistorialSolicitudes = new HistorialSolicitudes();
+      historial.observacion = 'Se ha enviado un correo por parte del usuario '+chatRemitente.idUsuarioEnvia.nombre+" "+chatRemitente.idUsuarioEnvia.apellido+" para el usuario "+chatRemitente.idUsuarioRecibe.nombre+" "+chatRemitente.idUsuarioRecibe.apellido+", con el siguiente asunto y mensaje: *Asunto: "+chatRemitente.asunto+". *Mensaje: "+chatRemitente.mensaje+"."
+      this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+        historial.idSolicitudSC = resSolicitud
+        this.servicioEstado.listarPorId(66).subscribe(resEstado=>{
+          historial.idEstado = resEstado
+          this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+            historial.idUsuario = resUsuario
+            this.registrarHistorial(historial, res)
+          })
+        })
+      })
+    }, error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al agregar el chat!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      document.getElementById("snipper").setAttribute("style", "display: none;");
+    })
+  }
+
+  registrarHistorial(historial: HistorialSolicitudes,res){
+    this.servicioHistorial.registrar(historial).subscribe(resHistorial=>{
       this.listaChat = res
       let correo : Correo = new Correo();
       this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
@@ -128,14 +156,14 @@ export class ChatRemitentesComponent implements OnInit {
         this.enviarCorreo(correo);
       })
     }, error => {
+      document.getElementById("snipper").setAttribute("style", "display: none;");
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Hubo un error al agregar el chat!',
+        title: 'Hubo un error al agregar el historial de correo!',
         showConfirmButton: false,
         timer: 1500
       })
-      document.getElementById("snipper").setAttribute("style", "display: none;");
     })
   }
 

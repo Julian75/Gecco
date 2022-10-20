@@ -1,0 +1,34 @@
+<div class="contenedor">
+  <h2 class="dato">Periodo Ejecucion</h2>
+  <form [formGroup]="formPeriodoEjecucion">
+    <div class="row1">
+      <div class="nombre2" id="procesoDiv">
+        <h2 class="Turno">Periodo Ejecucion</h2>
+        <mat-form-field class="nombre"  appearance="fill">
+          <mat-label>Ingrese Periodo Ejecucion</mat-label>
+          <mat-select matNativeControl id="proceso" name="proceso" formControlName="proceso" (selectionChange)="seleccionPeriodoEjecucion($event)">
+            <mat-option *ngFor="let item of listaPeriodoEjecuciones"  value="{{item}}" ngValue="item">{{item}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="nombre2" id="mesInicial" style="display: none;">
+        <h2 class="Turno">Asignar Mes Inicial</h2>
+        <mat-form-field class="tur" appearance="fill">
+          <mat-label>Ingrese Mes</mat-label>
+          <input type="month" id="mes" formControlName="mes" name="mes" matInput>
+        </mat-form-field>
+    </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar datos"><mat-icon>assignment_returned</mat-icon></button>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="solpiner" id="snipper1" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
+

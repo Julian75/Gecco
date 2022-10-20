@@ -49,10 +49,10 @@
         <ng-container matColumnDef="cantidadEjecucionesCompletas">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantidaEjecucionSp">Cantidad Ejecuciones Cumplidas</h3></th>
           <td mat-cell *matCellDef="let element">
-            <p *ngIf="element.porcentaje != 0">
+            <p *ngIf="element.idEstado.id == 86">
               {{element.cantidadEjecucionesCumplidas}}
             </p>
-            <input *ngIf="element.porcentaje == 0" type="number" name="cantidaEjecucionSp" id="cantidaEjecucionSp" class="ejecucionesCumplidas" value="0" min="1" max="{{element.cantidadEjecuciones}}" (change)="ejecucionesCumplidas($event, element)">
+            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="number" name="cantidaEjecucionSp" id="cantidaEjecucionSp" class="ejecucionesCumplidas" value="0" min="1" max="{{element.cantidadEjecuciones}}" (change)="ejecucionesCumplidas($event, element)">
           </td>
         </ng-container>
 
@@ -60,10 +60,10 @@
         <ng-container matColumnDef="costoEjecucionComprada">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="costoEjecucionComprado">Costo por Ejecucion Comprado</h3></th>
           <td mat-cell *matCellDef="let element">
-            <p *ngIf="element.porcentaje != 0">
+            <p *ngIf="element.idEstado.id == 86">
               {{element.costoEjecucionComprada}}
             </p>
-            <input *ngIf="element.porcentaje == 0" type="number"  name="costoEjecucionComprad" id="costoEjecucionComprad" value="0" min="1" (change)="costoEjecucionComprado($event, element)">
+            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="number"  name="costoEjecucionComprad" id="costoEjecucionComprad" value="0" min="1" (change)="costoEjecucionComprado($event, element)">
           </td>
         </ng-container>
 
@@ -71,22 +71,56 @@
         <ng-container matColumnDef="cantidadObjetosComprados">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantidadObjetosCom">Cantidad Objetos Comprados</h3></th>
           <td mat-cell *matCellDef="let element">
-            <p *ngIf="element.porcentaje != 0">
+            <p *ngIf="element.idEstado.id == 86">
               {{element.cantidadComprada}}
             </p>
-            <input *ngIf="element.porcentaje == 0" type="number"  name="cantidadObjetosCo" id="cantidadObjetosCo" value="0" min="1" (change)="objetosComprados($event, element)">
+            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="number"  name="cantidadObjetosCo" id="cantidadObjetosCo" value="0" min="1" (change)="objetosComprados($event, element)">
           </td>
         </ng-container>
 
+        <!-- Name Column -->
+        <ng-container matColumnDef="codigoCompra">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="codigoCompra">Codigo Compra</h3></th>
+          <td mat-cell *matCellDef="let element" >
+            <p *ngIf="element.idEstado.id == 86">
+              {{element.idOrdenCompra}}
+            </p>
+            <mat-form-field class="nombre" appearance="fill" *ngIf="element.idEstado.id == 85 && modificar == true">
+              <mat-label>Ingrese Codigo Orden Compra</mat-label>
+              <input type="text"
+              aria-label="text"
+              matInput
+              [formControl]="control"
+              [matAutocomplete]="auto2" >
+              <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displaySf" id="codigoOrdenCompra" name="codigoOrdenCompra" formControlName="codigoOrdenCompra" (optionSelected)="capturarCodigoOrdenCompra($event, element)">
+                <mat-option *ngFor="let item of opcionesFiltradas | async"  [value]="item" ngValue="item.id" >
+                  {{item.id}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="ejecuSp">Estado</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.idEstado.descripcion}}</td>
+        </ng-container>
 
         <!--Opciones-->
         <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSpa">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="tamañoOpc">
-               <button class="btn boton mx-2" *ngIf="item.porcentaje == 0" (click)="aceptarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
+              <button class="btn btnedit mx-2 edi" *ngIf="item.idEstado.id == 86" (click)="mostrarPdfOrdenCompra(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
+                <mat-icon>plagiarism</mat-icon>
+              </button>
+               <button class="btn boton mx-2" *ngIf="item.idEstado.id == 85 && modificar == true" (click)="aceptarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
                 <mat-icon>check_circle</mat-icon>
               </button>
-
+              <button class="btn btnremove mx-2" *ngIf="item.idEstado.id == 85 && modificar == true" (click)="rechazarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar Matriz Detalle">
+                <mat-icon>block</mat-icon>
+              </button>
+              <!--  -->
             </td>
           </ng-container>
 

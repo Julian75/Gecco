@@ -196,6 +196,12 @@ import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-m
 import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-recordatorios/lista-recordatorios.component';
 import { AgregarRecordatorioComponent } from './modulos-recordatorio/lista-recordatorios/agregar-recordatorio/agregar-recordatorio.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { RechazoMatrizDetalleComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/visualizar-detalle-matriz-necesidades/rechazo-matriz-detalle/rechazo-matriz-detalle.component';
+import { ChatSolicitudesScComponent } from './modulos-recepcion-datos/historial-solicitudes/chat-solicitudes-sc/chat-solicitudes-sc.component';
+import { PeriodoEjecucionMatrizDetalleComponent } from './modulos-matriz-necesidades/matriz-necesidad-detalle/periodo-ejecucion-matriz-detalle/periodo-ejecucion-matriz-detalle.component';
+import { ListasPeriodosEjecucionesComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/listas-periodos-ejecuciones.component';
+import { AgregarPeriodoEjecucionComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/agregar-periodo-ejecucion/agregar-periodo-ejecucion.component';
+import { ModificarPeriodoEjecucionComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/modificar-periodo-ejecucion/modificar-periodo-ejecucion.component';
 
 @NgModule({
   declarations: [
@@ -387,7 +393,12 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     ListaMediosRadiacionComponent,
     ListaRecordatoriosComponent,
     AgregarRecordatorioComponent,
-
+    RechazoMatrizDetalleComponent,
+    ChatSolicitudesScComponent,
+    PeriodoEjecucionMatrizDetalleComponent,
+    ListasPeriodosEjecucionesComponent,
+    AgregarPeriodoEjecucionComponent,
+    ModificarPeriodoEjecucionComponent
   ],
   imports: [
     CommonModule,

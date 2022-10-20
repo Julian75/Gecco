@@ -12,6 +12,7 @@ import { MatrizNecesidadService } from 'src/app/servicios/matrizNecesidad.servic
 import {MatDialog} from '@angular/material/dialog';
 import { MatrizNecesidadDetalleComponent } from '../matriz-necesidad-detalle/matriz-necesidad-detalle.component';
 import { TipoProcesoService } from 'src/app/servicios/tipoProceso.service';
+import { PeriodoEjecucionMatrizDetalleComponent } from '../matriz-necesidad-detalle/periodo-ejecucion-matriz-detalle/periodo-ejecucion-matriz-detalle.component';
 
 @Component({
   selector: 'app-matriz-necesidad',
@@ -161,9 +162,8 @@ export class MatrizNecesidadComponent implements OnInit {
 
   public registrarMatrizNecesidad(matrizNecesidad: MatrizNecesidad){
     this.servicioMatrizNecesidad.registrar(matrizNecesidad).subscribe(resMatrizNecesidad=>{
-      const dialogRef = this.dialog.open(MatrizNecesidadDetalleComponent, {
-        width: '900px',
-        height: '550px',
+      const dialogRef = this.dialog.open(PeriodoEjecucionMatrizDetalleComponent, {
+        width: '350px',
         data: resMatrizNecesidad,
         backdropClass: 'static',
         disableClose: true,

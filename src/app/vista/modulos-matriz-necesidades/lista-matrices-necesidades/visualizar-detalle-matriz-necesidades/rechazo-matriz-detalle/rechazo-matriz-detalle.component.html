@@ -1,0 +1,22 @@
+<h2 class="dato">Rechazo de Matriz Detalle</h2>
+<form [formGroup]="formMatrizDetalle">
+  <div class="row1">
+    <!-- Ingresar Observacion -->
+    <div class="nombre2">
+      <h2>Observación</h2>
+      <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Escribe la razón del rechazo</mat-label>
+        <input id="observacion" formControlName="observacion" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar matriz detalle">Rechazar</button>
+    </div>
+  </div>
+</form>
+<div class="solpiner" id="snipper8" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

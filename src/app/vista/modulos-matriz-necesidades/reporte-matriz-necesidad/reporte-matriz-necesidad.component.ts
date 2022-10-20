@@ -103,12 +103,13 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
   public reporteProceso(){
     this.listaMatricesNecesidad = []
     this.listaExcel = []
+    this.mes = ""
     var proceso = this.formReporteMatrizNecesidad.controls["proceso"].value
     console.log(proceso)
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
-        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.idTipoProceso.id == proceso){
+        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.idTipoProceso.id == proceso && elementMatrizNecesidadDetalle.idEstado.id != 87){
           this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
         }
       });
@@ -129,11 +130,18 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
         })
         for (let index = 0; index < this.listaMatricesNecesidad.length; index++) {
           const element = this.listaMatricesNecesidad[index];
+          var fechaLista = new Date(element.fecha)
+          for (let j = 0; j < this.meses.length; j++) {
+            const elementMes = this.meses[j];
+            if(fechaLista.getMonth() == j){
+              this.mes = elementMes+"-"+fechaLista.getFullYear()
+            }
+          }
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
             Detalle: element.idMatrizNecesidad.detalle,
-            "Mes Ejecutar": element.fecha,
+            "Mes Ejecutar": this.mes,
             "Ejecuciones Estimadas": element.cantidadEjecuciones,
             "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
             "Cantidad Estimada": element.cantidadEstimada,
@@ -170,12 +178,13 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
   public reporteSubProceso(){
     this.listaMatricesNecesidad = []
     this.listaExcel = []
+    this.mes = ""
     var subproceso = this.formReporteMatrizNecesidad.controls["subproceso"].value
     console.log(subproceso)
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
-        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.id == subproceso){
+        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.id == subproceso && elementMatrizNecesidadDetalle.idEstado.id != 87){
           this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
         }
       });
@@ -196,11 +205,18 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
         })
         for (let index = 0; index < this.listaMatricesNecesidad.length; index++) {
           const element = this.listaMatricesNecesidad[index];
+          var fechaLista = new Date(element.fecha)
+          for (let j = 0; j < this.meses.length; j++) {
+            const elementMes = this.meses[j];
+            if(fechaLista.getMonth() == j){
+              this.mes = elementMes+"-"+fechaLista.getFullYear()
+            }
+          }
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
             Detalle: element.idMatrizNecesidad.detalle,
-            "Mes Ejecutar": element.fecha,
+            "Mes Ejecutar": this.mes,
             "Ejecuciones Estimadas": element.cantidadEjecuciones,
             "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
             "Cantidad Estimada": element.cantidadEstimada,
@@ -233,7 +249,9 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
-        this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
+        if(elementMatrizNecesidadDetalle.idEstado.id != 87){
+          this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
+        }
       });
       if(this.listaMatricesNecesidad.length < 1){
         document.getElementById('snipper1')?.setAttribute('style', 'display: none;')
@@ -256,7 +274,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           for (let j = 0; j < this.meses.length; j++) {
             const elementMes = this.meses[j];
             if(fechaLista.getMonth() == j){
-              this.mes = elementMes
+              this.mes = elementMes+"-"+fechaLista.getFullYear()
             }
           }
           var obj = {

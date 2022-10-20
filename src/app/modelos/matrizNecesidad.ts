@@ -8,6 +8,7 @@ export class MatrizNecesidad {
   public detalle: string="";
   public cantidad: number=0;
   public cantidadEjecuciones: number=0;
+  public cumPlaneacion: number=0;
   public porcentajeTotal: number=0;
   public costoUnitario: number=0;
   public costoEstimado: number=0;

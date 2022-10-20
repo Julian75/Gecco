@@ -1,3 +1,4 @@
+import { PeriodoEjecucion } from './../modelos/periodoEjecucion';
 import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
 import { AgregarArticulosComponent } from './modulos-compra/articulos/agregar-articulos/agregar-articulos.component';
 import { ReporteAsesorComponent } from './modulos-turnos/reporte-asesor/reporte-asesor.component';
@@ -100,6 +101,7 @@ import { ListaMatricesNecesidadesComponent } from './modulos-matriz-necesidades/
 import { ReporteMatrizNecesidadComponent } from './modulos-matriz-necesidades/reporte-matriz-necesidad/reporte-matriz-necesidad.component';
 import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-recordatorios/lista-recordatorios.component';
 import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/lista-medios-radiacion.component';
+import { ListasPeriodosEjecucionesComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/listas-periodos-ejecuciones.component';
 const routes: Routes = [
   {
     path: '',
@@ -624,6 +626,11 @@ const routes: Routes = [
       {
         path: 'recordatorio',
         component: ListaRecordatoriosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'periodoEjecucion',
+        component: ListasPeriodosEjecucionesComponent,
         canActivate: [AutorizacionGuard]
       },
     ]
