@@ -161,14 +161,14 @@ export class MatrizNecesidadComponent implements OnInit {
   }
 
   public registrarMatrizNecesidad(matrizNecesidad: MatrizNecesidad){
-    this.servicioMatrizNecesidad.registrar(matrizNecesidad).subscribe(resMatrizNecesidad=>{
+    // this.servicioMatrizNecesidad.registrar(matrizNecesidad).subscribe(resMatrizNecesidad=>{
       const dialogRef = this.dialog.open(PeriodoEjecucionMatrizDetalleComponent, {
         width: '350px',
-        data: resMatrizNecesidad,
+        data: matrizNecesidad,
         backdropClass: 'static',
         disableClose: true,
       });
-    })
+    // })
   }
 
   public format() {

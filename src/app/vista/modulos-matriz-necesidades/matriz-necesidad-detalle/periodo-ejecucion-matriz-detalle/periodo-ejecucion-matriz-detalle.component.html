@@ -7,7 +7,7 @@
         <mat-form-field class="nombre"  appearance="fill">
           <mat-label>Ingrese Periodo Ejecucion</mat-label>
           <mat-select matNativeControl id="proceso" name="proceso" formControlName="proceso" (selectionChange)="seleccionPeriodoEjecucion($event)">
-            <mat-option *ngFor="let item of listaPeriodoEjecuciones"  value="{{item}}" ngValue="item">{{item}}</mat-option>
+            <mat-option *ngFor="let item of listaPeriodoEjecuciones"  value="{{item.id}}" ngValue="item">{{item.descripcion}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

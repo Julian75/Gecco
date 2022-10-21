@@ -54,6 +54,9 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
         this.dataSource.sort = this.sort;
       })
     })
+    document.getElementById('botonVolver').addEventListener('click', () => {
+      this.dialogRef.close();
+    });
   }
 
   // Filtrado

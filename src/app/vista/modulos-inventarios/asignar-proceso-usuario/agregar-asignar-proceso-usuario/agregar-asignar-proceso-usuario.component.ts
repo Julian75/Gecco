@@ -93,8 +93,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Campo vacio!',
+        title: 'Campos vacios!',
         showConfirmButton: false,
         timer: 1500
       })

@@ -2,7 +2,7 @@
     <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de matrices necesidades"><i class="fa-solid fa-file-excel"></i></button>
     <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar matrices">
       <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+      <input matInput (keyup)="applyFilter($event) " placeholder="Buscar.." #input>
     </mat-form-field>
     <div id="chart">
       <apx-chart
@@ -60,7 +60,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="porcentajeTotal">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porcentaje Total</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.porcentajeTotal}} %</td>
+          <td mat-cell *matCellDef="let element" id="{{element.porcentajeEjecucion}}">{{element.matriz.porcentajeTotal}} %</td>
         </ng-container>
 
         <!-- Name Column -->

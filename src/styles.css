@@ -11,9 +11,10 @@ th{
   position: relative;
   margin-left: 15px;
 }
+
 td { border: 1px solid #000 !important; font-size: 11px !important; padding-left: 1% !important; }
+
 th h3{
-  text-align: center !important;
   margin-top: 10px !important;
   margin-bottom: 10px !important;
   font-size: 14px !important;
@@ -39,11 +40,14 @@ table{
   height: 36px;
   font-size: large;
 }
+
+
 .excelButton{ position: relative; left: 25px; margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
+
   h2{
     font-size: 13px;
   }

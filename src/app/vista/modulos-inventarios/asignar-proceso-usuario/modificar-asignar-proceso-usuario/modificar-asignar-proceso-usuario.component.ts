@@ -85,14 +85,14 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
               window.location.reload();
               console.log("No hubieron cambios");
             }else{
-              this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
-                this.listadoProcesoUsuario = data;
-                let contador = 0;
-                for(let i = 0; i < this.listadoProcesoUsuario.length; i++){
-                  if(this.listadoProcesoUsuario[i].idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario ){
-                    contador++;
+                this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
+                  this.listadoProcesoUsuario = data;
+                  let contador = 0;
+                  for(let i = 0; i < this.listadoProcesoUsuario.length; i++){
+                    if(this.listadoProcesoUsuario[i].idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario ){
+                      contador++;
+                    }
                   }
-                }
                 if(contador == 0){
                   console.log(this.formAsignacionProcesoUsuario.value);
                   this.serviceModificar.actualizarAsignacionProceso(this.formAsignacionProcesoUsuario.value).subscribe( data => {
@@ -104,7 +104,7 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
                     })
                     window.location.reload();
                   })
-                    }else{
+                }else{
                   Swal.fire({
                     icon: 'error',
                     text: 'Ya existe un proceso asignado a este usuario',

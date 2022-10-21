@@ -2,7 +2,7 @@ export class MatrizNecesidadDetalle2 {
   public id: number=0;
   public descripcion: string="";
   public fecha: Date = new Date();
-  public fechaEjecutada: Date = new Date();
+  public fecha_ejecutada: string = "";
   public porcentaje: number=0;
   public cantidad_ejecuciones: number=0;
   public cantidad_estimada: number=0;

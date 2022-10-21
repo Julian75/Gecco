@@ -1,3 +1,4 @@
+import { MatrizNecesidadService } from './../../../servicios/matrizNecesidad.service';
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -32,6 +33,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private servicioMatrizDetalle: MatrizNecesidadDetalleService,
+    private servicioMatrizNecesidades: MatrizNecesidadService,
     private servicioEstado: EstadoService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     public dialogRef: MatDialogRef<MatrizNecesidadDetalleComponent>,
@@ -154,68 +156,72 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
     }
   }
 
+  listaMatrizCreada: any;
   public crearMatriz(){
-    this.servicioEstado.listarPorId(85).subscribe(resEstado =>{
-      this.informacionMatriz = this.data
-      var sumaMes = 0;
-      var sumaObjeto = 0;
-      var validar = false
-      var listaValidacion = []
-      for (let i = 0; i < this.listaTabla.length; i++) {
-        const element = this.listaTabla[i];
-        sumaMes = sumaMes + element.cantidadMes
-        sumaObjeto = sumaObjeto + element.cantidadEstimada
-        if(sumaMes == this.informacionMatriz.cantidadEjecuciones && sumaObjeto == this.informacionMatriz.cantidad){
-          validar = true
-        }
-        listaValidacion.push(validar)
-      }
-      var validacion = listaValidacion.includes(true)
-      if(this.listaTabla.length > 0){
-        if(validacion == true){
-          let matrizDetalle : MatrizNecesidadDetalle = new MatrizNecesidadDetalle();
-          matrizDetalle.idMatrizNecesidad = this.informacionMatriz
-          matrizDetalle.descripcion = this.informacionMatriz.detalle
-          matrizDetalle.cantidadComprada = 0
-          matrizDetalle.costoEjecucionComprada = 0
-          matrizDetalle.porcentaje = 0
-          matrizDetalle.cantidadEjecucionesCumplidas = 0
-          matrizDetalle.idOrdenCompra = 0
-          matrizDetalle.idEstado = resEstado
-          for (let i = 0; i < this.listaTabla.length; i++) {
-            const element = this.listaTabla[i];
-            matrizDetalle.fecha = new Date(element.mes)
-            matrizDetalle.cantidadEjecuciones = element.cantidadMes
-            matrizDetalle.cantidadEstimada = element.cantidadEstimada
-            this.registrarMatriz(matrizDetalle);
+    this.informacionMatriz = this.data
+    this.servicioMatrizNecesidades.registrar(this.informacionMatriz).subscribe(resMatriz=>{
+      this.listaMatrizCreada = resMatriz
+      this.servicioEstado.listarPorId(85).subscribe(resEstado =>{
+        var sumaMes = 0;
+        var sumaObjeto = 0;
+        var validar = false
+        var listaValidacion = []
+        for (let i = 0; i < this.listaTabla.length; i++) {
+          const element = this.listaTabla[i];
+          sumaMes = sumaMes + element.cantidadMes
+          sumaObjeto = sumaObjeto + element.cantidadEstimada
+          if(sumaMes == this.informacionMatriz.cantidadEjecuciones && sumaObjeto == this.informacionMatriz.cantidad){
+            validar = true
           }
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Matriz Registrado!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.dialogRef.close();
-          window.location.reload();
+          listaValidacion.push(validar)
+        }
+        var validacion = listaValidacion.includes(true)
+        if(this.listaTabla.length > 0){
+          if(validacion == true){
+            let matrizDetalle : MatrizNecesidadDetalle = new MatrizNecesidadDetalle();
+            matrizDetalle.idMatrizNecesidad = this.listaMatrizCreada
+            matrizDetalle.descripcion = this.informacionMatriz.detalle
+            matrizDetalle.cantidadComprada = 0
+            matrizDetalle.costoEjecucionComprada = 0
+            matrizDetalle.porcentaje = 0
+            matrizDetalle.cantidadEjecucionesCumplidas = 0
+            matrizDetalle.idOrdenCompra = 0
+            matrizDetalle.idEstado = resEstado
+            for (let i = 0; i < this.listaTabla.length; i++) {
+              const element = this.listaTabla[i];
+              matrizDetalle.fecha = new Date(element.mes)
+              matrizDetalle.cantidadEjecuciones = element.cantidadMes
+              matrizDetalle.cantidadEstimada = element.cantidadEstimada
+              this.registrarMatriz(matrizDetalle);
+            }
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Matriz Registrado!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.dialogRef.close();
+            window.location.reload();
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'La cantidad de mes o la cantidad de objetos es menor a la registrada!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
         }else{
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'La cantidad de mes o la cantidad de objetos es menor a la registrada!',
+            title: 'La solicitud no se puede generar si la tabla esta vacia!',
             showConfirmButton: false,
             timer: 1500
           })
         }
-      }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'La solicitud no se puede generar si la tabla esta vacia!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
+      })
     })
   }
 

@@ -178,6 +178,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
   }
 
   modificar:boolean = false
+  listaMatrizDetalleFechas: any
   public listarTodos() {
     const formatterPeso = new Intl.NumberFormat('es-CO', {
       style: 'currency',
@@ -194,7 +195,8 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
             this.listarMatrizDetalle.push(element);
           }
         });
-        this.dataSource = new MatTableDataSource(this.listarMatrizDetalle);
+        this.listaMatrizDetalleFechas = this.listarMatrizDetalle.sort((a, b) => Number(new Date(a.fecha)) - Number(new Date(b.fecha)))
+        this.dataSource = new MatTableDataSource(this.listaMatrizDetalleFechas);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       })
@@ -819,6 +821,7 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
   validarValoresIngresados: boolean = false;
   listaValidarValoresIngresadors: any = [];
   elementObtenidoDetalleMatriz: any = {};
+  fechaActual: Date = new Date();
   aceptarDetalleMatriz(detalleMatrizNecesided: any) {
     if(this.listaMatrizDetalleNecesidades.length == 0){
       Swal.fire({
@@ -865,7 +868,8 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
             var fecha = new Date(detalleMatrizNecesided.fecha)
             fecha.setDate(fecha.getDate()+1)
             matrizNecesidadDetalleActualizar.fecha = fecha
-            matrizNecesidadDetalleActualizar.fechaEjecutada = new Date()
+
+            matrizNecesidadDetalleActualizar.fecha_ejecutada = this.fechaActual.getFullYear()+"-"+(this.fechaActual.getMonth()+1)+"-"+this.fechaActual.getDate()
             matrizNecesidadDetalleActualizar.descripcion = detalleMatrizNecesided.descripcion
             matrizNecesidadDetalleActualizar.cantidad_ejecuciones = detalleMatrizNecesided.cantidadEjecuciones
             matrizNecesidadDetalleActualizar.cantidad_estimada = detalleMatrizNecesided.cantidadEstimada
@@ -902,13 +906,11 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
               matrizNecesidad.porcentajeTotal = (Number(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal) + Number(porcentajeCumplidoFinalmente))
             }
             let contador = 0
-            if(matrizNecesidadDetalleActualizar.fecha.getFullYear() == matrizNecesidadDetalleActualizar.fechaEjecutada.getFullYear() && matrizNecesidadDetalleActualizar.fecha.getMonth() == matrizNecesidadDetalleActualizar.fechaEjecutada.getMonth()){
+            if(matrizNecesidadDetalleActualizar.fecha.getFullYear() == this.fechaActual.getFullYear() && matrizNecesidadDetalleActualizar.fecha.getMonth() == this.fechaActual.getMonth()){
               contador = contador + 1
             }else{
               contador = 0
             }
-
-
             matrizNecesidad.cumPlaneacion = contador
             this.actualizarMatrizNecesidadDetalleyMatrizNecesidad(matrizNecesidadDetalleActualizar, matrizNecesidad)
           }

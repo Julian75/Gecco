@@ -179,6 +179,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             elementMatriz.porcentajeTotal = Math.round(elementMatriz.porcentajeTotal)
             var obj = {
               color: '',
+              porcentajeEjecucion: '',
               matriz: elementMatriz,
               ejecucionPresupuesto: presupuestoMatriz,
             }
@@ -193,6 +194,12 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             }
             if(presupuestoMatriz > 100){
               obj.color = 'pasado'
+            }
+            if(elementMatriz.porcentajeTotal < 50){
+              obj.porcentajeEjecucion = 'incumplio'
+            }
+            if(elementMatriz.porcentajeTotal >= 50){
+              obj.porcentajeEjecucion = 'cumplio'
             }
             console.log(obj)
             this.listarMatricesCompletas.push(obj)
@@ -220,7 +227,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     if(filterValue == ""){
-      this.dataSource = new MatTableDataSource(this.listarMatrice);
+      this.mostrarInformacionTabla()
     }else{
       this.dataSource.filter = filterValue.trim().toLowerCase();
       this.dataSource.filterPredicate = (data: MatrizNecesidad, filter: string) => {
