@@ -99,7 +99,13 @@ h2{
   position: relative;
   top: -10px;
 }
-
+.excelButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 71%;
+  margin-top: -46px;
+}
 .row1{
   border-top: 3px solid #97B4E2;
   padding-top: 3%;

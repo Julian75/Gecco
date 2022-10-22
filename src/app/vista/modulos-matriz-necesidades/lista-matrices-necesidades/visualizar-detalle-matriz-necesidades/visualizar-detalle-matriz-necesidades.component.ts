@@ -177,6 +177,20 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     this.listarCodigosOrdenesCompras();
   }
 
+  public formMatrizNecesidad!: FormGroup;
+  public crearFormulario(){
+    this.formMatrizNecesidad = this.fb.group({
+      id: 0,
+      proceso: [null,Validators.required],
+      tipoNecesidad: [null,Validators.required],
+      detalle: [null,Validators.required],
+      cantidad: [null,Validators.required],
+      cantidadEjecucion: [null,Validators.required],
+      costoUnitario: [null,Validators.required],
+      tipoActivo: [null,Validators.required],
+    });
+  }
+
   modificar:boolean = false
   listaMatrizDetalleFechas: any
   public listarTodos() {
@@ -905,11 +919,13 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
             }else{
               matrizNecesidad.porcentajeTotal = (Number(detalleMatrizNecesided.idMatrizNecesidad.porcentajeTotal) + Number(porcentajeCumplidoFinalmente))
             }
-            let contador = 0
-            if(matrizNecesidadDetalleActualizar.fecha.getFullYear() == this.fechaActual.getFullYear() && matrizNecesidadDetalleActualizar.fecha.getMonth() == this.fechaActual.getMonth()){
-              contador = contador + 1
+            var contador = 0
+            if(matrizNecesidadDetalleActualizar.fecha.getFullYear() == this.fechaActual.getFullYear() && matrizNecesidadDetalleActualizar.fecha.getMonth() == this.fechaActual.getMonth() && detalleMatrizNecesided.idMatrizNecesidad.cumPlaneacion != 0){
+              contador = detalleMatrizNecesided.idMatrizNecesidad.cumPlaneacion + 1
+            }else if(matrizNecesidadDetalleActualizar.fecha.getFullYear() == this.fechaActual.getFullYear() && matrizNecesidadDetalleActualizar.fecha.getMonth() == this.fechaActual.getMonth() && detalleMatrizNecesided.idMatrizNecesidad.cumPlaneacion == 0){
+              contador = 1
             }else{
-              contador = 0
+              contador = detalleMatrizNecesided.idMatrizNecesidad.cumPlaneacion
             }
             matrizNecesidad.cumPlaneacion = contador
             this.actualizarMatrizNecesidadDetalleyMatrizNecesidad(matrizNecesidadDetalleActualizar, matrizNecesidad)

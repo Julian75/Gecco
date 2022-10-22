@@ -6,6 +6,7 @@ export class SolicitudBajasArticulos{
     public fecha: Date = new Date;
     public usuarioAutorizacion: number = 0
     public usuarioConfirmacion: number = 0
+    public estadoContabilidad: String = ""
     idUsuario !: Usuario
     idEstado !: Estado
 }

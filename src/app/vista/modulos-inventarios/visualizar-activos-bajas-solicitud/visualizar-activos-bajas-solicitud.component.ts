@@ -135,6 +135,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                     solicitudBajaActivoMod.id_usuario = resActivoBaja.idSolicitudBaja.idUsuario.id
                     solicitudBajaActivoMod.usuario_autorizacion = resUsuarioLogueado.id
                     solicitudBajaActivoMod.usuario_confirmacion = 0
+                    solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                     this.actualizarSolicitudBajaArticulo(solicitudBajaActivoMod)
                   }else{
                     solicitudBajaActivoMod.id = resActivoBaja.idSolicitudBaja.id
@@ -143,6 +144,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                     solicitudBajaActivoMod.id_usuario = resActivoBaja.idSolicitudBaja.idUsuario.id
                     solicitudBajaActivoMod.usuario_autorizacion = 0
                     solicitudBajaActivoMod.usuario_confirmacion = 0
+                    solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                     this.actualizarSolicitudBajaArticulo(solicitudBajaActivoMod)
                   }
                 })
@@ -214,6 +216,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = resUsuarioLogueado.id
                       solicitudBajaActivoMod.usuario_confirmacion = 0
+                      solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       this.actualizarSolicitudBajaArticulo(solicitudBajaActivoMod)
                     })
                   }else if(existeAprobado == false){
@@ -224,6 +227,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = 0
                       solicitudBajaActivoMod.usuario_confirmacion = 0
+                      solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       console.log(solicitudBajaActivoMod)
                       this.actualizarSolicitudBajaArticulo(solicitudBajaActivoMod)
                     })
@@ -444,6 +448,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = resSolicitudActivoBaja.usuarioAutorizacion
                       solicitudBajaActivoMod.usuario_confirmacion = resUsuarioLogueado.id
+                      solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       this.actualizarSolicitudBajaArticuloAutorizada(solicitudBajaActivoMod)
                     })
                   }else{
@@ -454,6 +459,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = resSolicitudActivoBaja.usuarioAutorizacion
                       solicitudBajaActivoMod.usuario_confirmacion = 0
+                      solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       this.actualizarSolicitudBajaArticuloAutorizada(solicitudBajaActivoMod)
                     })
                   }
@@ -660,6 +666,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = resUsuarioLogueado.id
                       solicitudBajaActivoMod.usuario_confirmacion = resUsuarioLogueado.id
+                      solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       this.actualizarSolicitudBajaArticuloAutorizada(solicitudBajaActivoMod)
                     })
                   }else if(existeAprobado == false){
@@ -670,6 +677,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = resSolicitudActivoBaja.usuarioAutorizacion
                       solicitudBajaActivoMod.usuario_confirmacion = 0
+                      solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       console.log(solicitudBajaActivoMod)
                       this.actualizarSolicitudBajaArticuloAutorizada(solicitudBajaActivoMod)
                     })

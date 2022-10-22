@@ -13,4 +13,5 @@ export class DetalleArticulo{
     public codigoContable : string="";
     idTipoActivo !: TipoActivo;
     public codigoUnico : string="";
+    public valor : number=0;
 }

@@ -385,6 +385,7 @@ export class SolicitudArticulosBajaComponent implements OnInit {
             solicitudBajasArticulos.idUsuario = resUsuario
             solicitudBajasArticulos.usuarioAutorizacion = 0
             solicitudBajasArticulos.usuarioConfirmacion = 0
+            solicitudBajasArticulos.estadoContabilidad = "Pendiente"
             this.registrarSolicitudBajasArticulos(solicitudBajasArticulos)
           }
         })

@@ -10,6 +10,20 @@
         <textarea id="comentario" formControlName="comentario" matInput></textarea>
         </mat-form-field>
       </div>
+      <div class="nombre2" *ngIf="historialPosicionDos == true">
+        <h2>Indicar quien se ve involucrada</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Indicar persona involucrada</mat-label>
+          <input id="personaInvolucrada" formControlName="personaInvolucrada" matInput>
+        </mat-form-field>
+      </div>
+      <div class="nombre2" *ngIf="historialPosicionDos == true">
+        <h2>Indicar quien se ve afectada</h2>
+        <mat-form-field class="nombre1" appearance="fill">
+          <mat-label>Indicar persona afectada</mat-label>
+          <input id="personaAfectada" formControlName="personaAfectada" matInput>
+        </mat-form-field>
+      </div>
       <div class="nombre2" *ngIf="usuarioMatrix2 == true">
         <h2>Desea escalar esta solicitud a Mesa de servicio Matrix?</h2>
         <mat-radio-group formControlName="opcion2" aria-label="Seleccione una opción">

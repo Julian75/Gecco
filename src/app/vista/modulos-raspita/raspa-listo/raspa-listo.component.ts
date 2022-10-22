@@ -26,6 +26,7 @@ export class RaspaListoComponent implements OnInit {
   public lista: any = [];
   public lista2: any = [];
   public lista3: any = [];
+  public listaReporteGecco: any = [];
 
   public fecha: Date = new Date();
   color = ('primary');
@@ -267,6 +268,49 @@ export class RaspaListoComponent implements OnInit {
       }
     }
   }
+
+  //Generar Reporte de los raspas que están en gecco
+  public reporteGecco(){
+    this.servicioRaspaGecco.listarTodos().subscribe(resRaspaGecco=>{
+      resRaspaGecco.forEach(element => {
+        var obj = {
+          id: element.id,
+          raspa: element.raspa,
+          emisionRaspa: element.emision_raspa,
+          nombre: element.nombres + " " + element.apellido1,
+          fechaVenta: element.fecVenta,
+          fechaPago: element.fecPago,
+          ideOficina: element.ideOficina,
+          estado: element.estado
+        }
+        this.listaReporteGecco.push(obj)
+        this.generarReporteGecco(this.listaReporteGecco)
+      })
+    })
+  }
+
+
+
+
+  nameGecco = 'gecco.xlsx';
+  public generarReporteGecco(lista:any){
+    if(lista.length > 0){
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(lista);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, this.nameGecco);
+      });
+    }else{
+      Swal.fire({
+        title: 'No hay datos por reportar!',
+        icon: 'warning',
+        confirmButtonText: 'Ok'
+      })
+    }
+  }
+
+
 
   name = 'raspas.xlsx';
   public exportToExcel(lista:any): void {

@@ -73,14 +73,22 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     this.formComentario = this.fb.group({
       id: 0,
       comentario: [null,Validators.required],
-      opcion: [null,Validators.required]
+      opcion: [null,Validators.required],
+      personaInvolucrada: [null,Validators.required],
+      personaAfectada: [null,Validators.required],
     });
   }
 
   usuarioMatrix: boolean = false
   usuarioMatrix2: boolean = false
   listaUsuarioMatrix: any = []
+  HistorialDos: boolean = false
+  listaHistorialDos: any = []
+  listaHistorialesSolicitud: any = []
+  historialPosicionDos: boolean = false;
   public listarAsignacionUsuario(){
+    this.listaHistorialDos = []
+    this.listaHistorialesSolicitud = []
     this.servicioAsignacionPqrs.listarTodos().subscribe(res=>{
       this.listarUsuarios = res
     })
@@ -94,10 +102,31 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               }else{ this.usuarioMatrix = false }
               this.listaUsuarioMatrix.push(this.usuarioMatrix)
             });
+            resAsigUsuPQRS.forEach(elementUsuarioPqrs => {
+              if((elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.idArea.id == 1) || (elementUsuarioPqrs.idUsuario.id == elementHistorial.idUsuario.id && elementUsuarioPqrs.idArea.id == 2)){
+                this.usuarioMatrix = true
+              }else{ this.usuarioMatrix = false }
+              this.listaUsuarioMatrix.push(this.usuarioMatrix)
+            });
             this.usuarioMatrix2 = this.listaUsuarioMatrix.includes( true )
           })
         }
+        if(elementHistorial.idSolicitudSC.id == Number(this.data)){
+          this.listaHistorialesSolicitud.push(elementHistorial)
+        }
       });
+      console.log(this.listaHistorialesSolicitud)
+      for (let index = 0; index < this.listaHistorialesSolicitud.length; index++) {
+        const elementHistorial = this.listaHistorialesSolicitud[index];
+        if(this.listaHistorialesSolicitud[1].idUsuario.id == Number(sessionStorage.getItem('id')) && this.listaHistorialesSolicitud[1].idEstado.id == 65){
+          this.HistorialDos = true
+        }else{
+          this.HistorialDos = false
+        }
+        this.listaHistorialDos.push(this.HistorialDos)
+      }
+      console.log(this.listaHistorialDos)
+      this.historialPosicionDos = this.listaHistorialDos.includes( true )
     })
   }
 
@@ -131,8 +160,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
     this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
@@ -161,7 +188,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         timer: 2500
       })
     }else{
-      if(opcion == 1){
+      if((opcion == 1 && this.historialPosicionDos == false) || (opcion == 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value && this.formComentario.controls['personaAfectada'].value)){
         if(this.usuarios.value.length >= 1){
           let historial : Historial2 = new Historial2();
           historial.observacion = comentario
@@ -200,7 +227,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             timer: 2500
           })
         }
-      }else{
+      }else if((opcion != 1 &&  this.historialPosicionDos == false) || (opcion != 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value && this.formComentario.controls['personaAfectada'].value)){
         let historial : Historial2 = new Historial2();
           historial.observacion = comentario
           this.servicioHistorial.listarTodos().subscribe(resSolicitud=>{
@@ -257,6 +284,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             solicitudSc.prorroga = resSolicitud.prorroga
             solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
             solicitudSc.municipio = resSolicitud.municipio
+            if(this.historialPosicionDos == true){
+              solicitudSc.personaAfectada = this.formComentario.controls['personaAfectada'].value
+              solicitudSc.personaInvolucrada = this.formComentario.controls['personaInvolucrada'].value
+            }else{
+              solicitudSc.personaAfectada = resSolicitud.personaAfectada
+              solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
+            }
             var fechavence = new Date(resSolicitud.vence)
             fechavence.setDate(fechavence.getDate()+1)
             solicitudSc.vence = fechavence
@@ -282,6 +316,32 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             })
           })
         }else{
+          if(this.historialPosicionDos == true){
+            let solicitudSc : SolicitudSC2 = new SolicitudSC2();
+            this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+              solicitudSc.id = resSolicitud.id
+              solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+              var fechaActual = new Date(resSolicitud.fecha)
+              fechaActual.setDate(fechaActual.getDate()+1)
+              solicitudSc.fecha = fechaActual
+              solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+              solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+              solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+              solicitudSc.incidente = resSolicitud.incidente
+              solicitudSc.prorroga = resSolicitud.prorroga
+              solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+              solicitudSc.municipio = resSolicitud.municipio
+              solicitudSc.personaAfectada = this.formComentario.controls['personaAfectada'].value
+              solicitudSc.personaInvolucrada = this.formComentario.controls['personaInvolucrada'].value
+              var fechavence = new Date(resSolicitud.vence)
+              fechavence.setDate(fechavence.getDate()+1)
+              solicitudSc.vence = fechavence
+              solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+              solicitudSc.idEstado = resSolicitud.idEstado.id
+              this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
+              })
+            })
+          }
           let historial : HistorialSolicitudes = new HistorialSolicitudes();
           for (let i = 0; i < this.usuarios.value.length; i++) {
             const element:any = this.usuarios.value[i];
@@ -414,6 +474,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               }
               solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
               solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+              if(this.historialPosicionDos == true){
+                solicitudSc.personaAfectada = this.formComentario.controls['personaAfectada'].value
+                solicitudSc.personaInvolucrada = this.formComentario.controls['personaInvolucrada'].value
+              }else{
+                solicitudSc.personaAfectada = resSolicitud.personaAfectada
+                solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
+              }
               solicitudSc.incidente = resSolicitud.incidente
               solicitudSc.prorroga = resSolicitud.prorroga
               solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
@@ -428,37 +495,65 @@ export class ModificarHistorialRemisionComponent implements OnInit {
               })
             })
           }else{
-            if(this.listaArchivos2.length >= 1){
-              let soporte : SoporteSC = new SoporteSC();
-              this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-                soporte.idSolicitudSC = resSolicitud
-                this.servicioHistorial.listarPorId(historial.id).subscribe(resHistorial=>{
-                  soporte.idHistorial = resHistorial
-                  this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
-                    soporte.idUsuario = resUsuario
-                    this.listaArchivos.forEach(element => {
-                      for (let index = 0; index < element.length; index++) {
-                        const element1 = element[index];
-                        soporte.descripcion = element1.name
-                        contador4++
-                        this.registrarSoporte2(soporte, contador4);
-                      }
-                    });
+            this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+              solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
+              var fechaActual = new Date(resSolicitud.fecha)
+              fechaActual.setDate(fechaActual.getDate()+1)
+              solicitudSc.fecha = fechaActual
+              solicitudSc.id = resSolicitud.id
+              solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+              solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
+              solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
+              if(this.historialPosicionDos == true){
+                solicitudSc.personaAfectada = this.formComentario.controls['personaAfectada'].value
+                solicitudSc.personaInvolucrada = this.formComentario.controls['personaInvolucrada'].value
+              }else{
+                solicitudSc.personaAfectada = resSolicitud.personaAfectada
+                solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
+              }
+              solicitudSc.incidente = resSolicitud.incidente
+              solicitudSc.prorroga = resSolicitud.prorroga
+              solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+              solicitudSc.municipio = resSolicitud.municipio
+              var fechavence = new Date(resSolicitud.vence)
+              fechavence.setDate(fechavence.getDate()+1)
+              solicitudSc.vence = fechavence
+              solicitudSc.idClienteSC = resSolicitud.idClienteSC.id
+              solicitudSc.idEstado = resSolicitud.idEstado.id
+              this.servicioModificar.actualizarSolicitudSC(solicitudSc).subscribe(res=>{
+                if(this.listaArchivos2.length >= 1){
+                  let soporte : SoporteSC = new SoporteSC();
+                  this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
+                    soporte.idSolicitudSC = resSolicitud
+                    this.servicioHistorial.listarPorId(historial.id).subscribe(resHistorial=>{
+                      soporte.idHistorial = resHistorial
+                      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
+                        soporte.idUsuario = resUsuario
+                        this.listaArchivos.forEach(element => {
+                          for (let index = 0; index < element.length; index++) {
+                            const element1 = element[index];
+                            soporte.descripcion = element1.name
+                            contador4++
+                            this.registrarSoporte2(soporte, contador4);
+                          }
+                        });
+                      })
+                    })
                   })
-                })
+                }else{
+                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Comentario Agregado!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  window.location.reload();
+                  // this.router.navigate(['/solicitudesSC']);
+                }
               })
-            }else{
-              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Comentario Agregado!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              window.location.reload();
-              // this.router.navigate(['/solicitudesSC']);
-            }
+            })
           }
         })
       }, error => {

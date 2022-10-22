@@ -63,7 +63,7 @@
             <p *ngIf="element.idEstado.id == 86">
               {{element.costoEjecucionComprada}}
             </p>
-            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="text"  name="costoEjecucionComprad" id="costoEjecucionComprad" value="0" min="1" (change)="costoEjecucionComprado($event, element)">
+            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="text" #Costo name="costoEjecucionComprad" id="costoEjecucionComprad"  min="1" (change)="costoEjecucionComprado($event, element)">
           </td>
         </ng-container>
 

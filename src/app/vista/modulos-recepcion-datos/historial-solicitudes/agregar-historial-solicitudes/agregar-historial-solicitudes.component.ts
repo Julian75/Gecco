@@ -147,7 +147,7 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     var comentario = this.formComentario.controls['comentario'].value;
     var opcion = this.formComentario.controls['opcion'].value; // Escalar a matrix
-    var opcion2 = this.formComentario.controls['opcion2'].value; // remitir  1 y 2
+    var opcion2 = this.formComentario.controls['opcion2'].value; // remitir  1(SI) y 2(NO)
     console.log(comentario, opcion, opcion2)
     if(comentario == "" || comentario == null || opcion == null || opcion2 == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -202,31 +202,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
 
   public registrarHistorial(historial: HistorialSolicitudes, usuarios: any, resSolic){
     this.servicioHistorial.registrar(historial).subscribe(res=>{
-      if (this.opcion2 == 3) {
-        let historial2 : HistorialSolicitudes = new HistorialSolicitudes();
-        historial2.observacion = ""
-        this.servicioEstado.listarPorId(65).subscribe(resEstado=>{
-          historial2.idEstado = resEstado
-          this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-            historial2.idSolicitudSC = resSolicitud
-            this.servicioUsuario.listarPorId(Number(sessionStorage.getItem("id"))).subscribe(resUsuario=>{
-              historial2.idUsuario = resUsuario
-              this.servicioHistorial.registrar(historial2).subscribe(resHist=>{
-
-              }, error => {
-                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Hubo un error al generar el comentario para el Historial de Matrix!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-              })
-            })
-          })
-        })
-      }
       this.registrarHistorialUsuarios(usuarios, resSolic, res)
     }, error => {
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -283,6 +258,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
         solicitudSc.incidente = resSolicitud.incidente
         solicitudSc.prorroga = resSolicitud.prorroga
         solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
+        solicitudSc.personaAfectada = resSolicitud.personaAfectada
+        solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
         solicitudSc.municipio = resSolicitud.municipio
         var fechavence = new Date(resSolicitud.vence)
         fechavence.setDate(fechavence.getDate()+1)
@@ -452,6 +429,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
             solicitudSc.prorroga = resSolicitud.prorroga
             solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
             solicitudSc.municipio = resSolicitud.municipio
+            solicitudSc.personaAfectada = resSolicitud.personaAfectada
+            solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
             var fechavence = new Date(resSolicitud.vence)
             fechavence.setDate(fechavence.getDate()+1)
             solicitudSc.vence = fechavence
@@ -476,6 +455,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
           solicitudSc.prorroga = resSolicitud.prorroga
           solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
           solicitudSc.municipio = resSolicitud.municipio
+          solicitudSc.personaAfectada = resSolicitud.personaAfectada
+          solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
           var fechavence = new Date(resSolicitud.vence)
           fechavence.setDate(fechavence.getDate()+1)
           solicitudSc.vence = fechavence

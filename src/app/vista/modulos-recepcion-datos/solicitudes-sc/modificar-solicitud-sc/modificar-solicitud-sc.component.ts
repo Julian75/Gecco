@@ -66,6 +66,8 @@ export class ModificarSolicitudScComponent implements OnInit {
         solicitudSc.idMotivoSolicitud = resSolicitud.idMotivoSolicitud.id
         solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
         solicitudSc.prorroga = resSolicitud.prorroga
+        solicitudSc.personaAfectada = resSolicitud.personaAfectada
+        solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
         solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
         solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
         solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id

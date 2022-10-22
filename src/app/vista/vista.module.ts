@@ -202,6 +202,7 @@ import { PeriodoEjecucionMatrizDetalleComponent } from './modulos-matriz-necesid
 import { ListasPeriodosEjecucionesComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/listas-periodos-ejecuciones.component';
 import { AgregarPeriodoEjecucionComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/agregar-periodo-ejecucion/agregar-periodo-ejecucion.component';
 import { ModificarPeriodoEjecucionComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/modificar-periodo-ejecucion/modificar-periodo-ejecucion.component';
+import { ListaActivosBajasContabilidadComponent } from './modulos-inventarios/lista-activos-bajas-contabilidad/lista-activos-bajas-contabilidad.component';
 
 @NgModule({
   declarations: [
@@ -398,7 +399,8 @@ import { ModificarPeriodoEjecucionComponent } from './modulos-matriz-necesidades
     PeriodoEjecucionMatrizDetalleComponent,
     ListasPeriodosEjecucionesComponent,
     AgregarPeriodoEjecucionComponent,
-    ModificarPeriodoEjecucionComponent
+    ModificarPeriodoEjecucionComponent,
+    ListaActivosBajasContabilidadComponent
   ],
   imports: [
     CommonModule,

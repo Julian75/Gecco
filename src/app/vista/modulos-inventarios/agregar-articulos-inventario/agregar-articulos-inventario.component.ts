@@ -82,6 +82,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
       tipoActivo: [null,Validators.required],
       cantidad: [0,Validators.required],
       codigoContable: [null,Validators.required],
+      valor: [null,Validators.required]
     });
   }
 
@@ -166,6 +167,14 @@ export class AgregarArticulosInventarioComponent implements OnInit {
 
   }
 
+  public format() {
+    var costo = this.formArticulo.controls['valor'].value
+    const formatterPeso = new Intl.NumberFormat('es-CO')
+    var num = costo.replace(/\./g, '');
+    var num2 = formatterPeso.format(num)
+    this.formArticulo.controls['valor'].setValue(num2)
+  }
+
   idArticulo: any;
   public registrarArticulo(articulo: Articulo) {
     const codigoContable = this.formArticulo.value.codigoContable;
@@ -173,6 +182,8 @@ export class AgregarArticulosInventarioComponent implements OnInit {
     const marca = this.formArticulo.controls['marca'].value;
     const serial = this.formArticulo.controls['serial'].value;
     const placa = this.formArticulo.controls['placa'].value;
+    const valor = this.formArticulo.controls['valor'].value;
+    var valorSinPuntos = Number(valor.replace(/\./g, ''));
       this.servicioArticulos.listarTodos().subscribe(resArticulo=>{
         resArticulo.forEach(elementArticulo => {
           if(elementArticulo.descripcion.toLowerCase() == articulo.descripcion.toLowerCase() && elementArticulo.idCategoria.id == articulo.idCategoria.id && elementArticulo.idEstado.id == articulo.idEstado.id){
@@ -193,6 +204,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                 detalleArticulo.codigoContable = codigoContable
                 detalleArticulo.placa = placa
                 detalleArticulo.serial = serial
+                detalleArticulo.valor = valorSinPuntos
                 var min = 1
                 var max = 100000000
                 var numero = Math.floor(Math.random()*(min+max)+min);

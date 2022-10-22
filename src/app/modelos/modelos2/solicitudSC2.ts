@@ -8,6 +8,8 @@ export class SolicitudSC2 {
     public medioRadicacion : string = "";
     public idTipoServicio : number = 0;
     public auxiliarRadicacion : string = "";
+    public personaInvolucrada : string = "";
+    public personaAfectada : string = "";
     public idEscalaSolicitudes : number = 0;
     public idEstado : number = 0;
     public idClienteSC : number = 0;

@@ -102,6 +102,7 @@ import { ReporteMatrizNecesidadComponent } from './modulos-matriz-necesidades/re
 import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-recordatorios/lista-recordatorios.component';
 import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/lista-medios-radiacion.component';
 import { ListasPeriodosEjecucionesComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/listas-periodos-ejecuciones.component';
+import { ListaActivosBajasContabilidadComponent } from './modulos-inventarios/lista-activos-bajas-contabilidad/lista-activos-bajas-contabilidad.component';
 const routes: Routes = [
   {
     path: '',
@@ -570,6 +571,11 @@ const routes: Routes = [
       {
         path: 'listaActasBajas',
         component: ListaActasBajasComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'listaActivosContabilidad',
+        component: ListaActivosBajasContabilidadComponent,
         canActivate: [AutorizacionGuard]
       },
       {

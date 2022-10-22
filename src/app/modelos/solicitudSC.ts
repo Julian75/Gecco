@@ -14,6 +14,8 @@ export class SolicitudSC {
     public medioRadicacion : string = "";
     idTipoServicio !: TipoServicio
     public auxiliarRadicacion : string = "";
+    public personaInvolucrada : string = "";
+    public personaAfectada : string = "";
     idEscala !: EscalaSolicitudes
     idEstado !: Estado
     public idClienteSC !: ClienteSC;

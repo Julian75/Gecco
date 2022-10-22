@@ -58,9 +58,15 @@
         </ng-container>
 
         <!-- Name Column -->
+        <ng-container matColumnDef="cumpPlaneacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Cumplimiento Planeacion</h3></th>
+          <td mat-cell *matCellDef="let element" id="{{element.colorPorcentajeEjecucion}}">{{element.porcentajeEjecucion}} %</td>
+        </ng-container>
+
+        <!-- Name Column -->
         <ng-container matColumnDef="porcentajeTotal">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porcentaje Total</h3></th>
-          <td mat-cell *matCellDef="let element" id="{{element.porcentajeEjecucion}}">{{element.matriz.porcentajeTotal}} %</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porcentaje Ejecutado</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.matriz.porcentajeTotal}} %</td>
         </ng-container>
 
         <!-- Name Column -->

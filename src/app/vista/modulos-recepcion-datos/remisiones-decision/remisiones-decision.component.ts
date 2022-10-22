@@ -42,6 +42,8 @@ export class RemisionesDecisionComponent implements OnInit {
       solicitudSc.incidente = resSolicitud.incidente
       solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
       solicitudSc.municipio = resSolicitud.municipio
+      solicitudSc.personaAfectada = resSolicitud.personaAfectada
+      solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
       var fechavence = new Date(resSolicitud.vence)
       fechavence.setDate(fechavence.getDate()+1)
       solicitudSc.vence = fechavence
@@ -69,6 +71,8 @@ export class RemisionesDecisionComponent implements OnInit {
       solicitudSc.incidente = resSolicitud.incidente
       solicitudSc.medioRadicacion = resSolicitud.medioRadicacion
       solicitudSc.municipio = resSolicitud.municipio
+      solicitudSc.personaAfectada = resSolicitud.personaAfectada
+      solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
       var fechavence = new Date(resSolicitud.vence)
       fechavence.setDate(fechavence.getDate()+1)
       solicitudSc.vence = fechavence

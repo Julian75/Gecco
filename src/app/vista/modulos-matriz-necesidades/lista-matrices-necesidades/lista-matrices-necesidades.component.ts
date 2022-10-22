@@ -51,7 +51,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   public colorGradual = "";
   public sumaPorcentajes = 0;
 
-  displayedColumns = ['id','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'porcentajeTotal', 'subProceso','tipoNecesidad','opciones'];
+  displayedColumns = ['id','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'subProceso','tipoNecesidad','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -179,7 +179,8 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             elementMatriz.porcentajeTotal = Math.round(elementMatriz.porcentajeTotal)
             var obj = {
               color: '',
-              porcentajeEjecucion: '',
+              porcentajeEjecucion: 0,
+              colorPorcentajeEjecucion: '',
               matriz: elementMatriz,
               ejecucionPresupuesto: presupuestoMatriz,
             }
@@ -195,16 +196,21 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             if(presupuestoMatriz > 100){
               obj.color = 'pasado'
             }
-            if(elementMatriz.porcentajeTotal < 50){
-              obj.porcentajeEjecucion = 'incumplio'
+            console.log(elementMatriz)
+            var porcentajeCumEjeFech = Math.round((elementMatriz.cumPlaneacion/elementMatriz.cantidadEjecuciones)*100)
+            obj.porcentajeEjecucion = porcentajeCumEjeFech
+            console.log(porcentajeCumEjeFech)
+            if(porcentajeCumEjeFech < 50){
+              obj.colorPorcentajeEjecucion = 'incumplio'
             }
-            if(elementMatriz.porcentajeTotal >= 50){
-              obj.porcentajeEjecucion = 'cumplio'
+            if(porcentajeCumEjeFech >= 50){
+              obj.colorPorcentajeEjecucion = 'cumplio'
             }
             console.log(obj)
             this.listarMatricesCompletas.push(obj)
           }
         });
+        console.log(this.listarMatricesCompletas)
         this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

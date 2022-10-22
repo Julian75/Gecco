@@ -63,6 +63,13 @@
           <input type="number" id="cantidad" formControlName="cantidad" matInput>
           </mat-form-field>
         </div>
+        <div class="nombre4">
+          <h2>Valor</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Ingrese el valor del articulo</mat-label>
+          <input type="text" id="valor" formControlName="valor" (keyup)="format()" (change)="format()" matInput>
+          </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <!-- Boton de guardar datos -->

@@ -85,6 +85,8 @@ export class ProrrogaComponent implements OnInit {
           solicitudSc.idTipoServicio = resSolicitud.idTipoServicio.id
           solicitudSc.auxiliarRadicacion = resSolicitud.auxiliarRadicacion
           solicitudSc.idEscalaSolicitudes = resSolicitud.idEscala.id
+          solicitudSc.personaAfectada = resSolicitud.personaAfectada
+          solicitudSc.personaInvolucrada = resSolicitud.personaInvolucrada
           solicitudSc.incidente = resSolicitud.incidente
           solicitudSc.idEstado = resSolicitud.idEstado.id
           this.modificarSolicitudSc(solicitudSc);
