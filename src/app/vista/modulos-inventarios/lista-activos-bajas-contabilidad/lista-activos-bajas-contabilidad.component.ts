@@ -46,16 +46,12 @@ export class ListaActivosBajasContabilidadComponent implements OnInit {
     this.listarTodos()
   }
 
-  botonAprobado: boolean = false;
   public listarTodos(){
     this.listarSolicitudesBajas = []
     this.serviceSolicitudBajasArticulos.listarTodos().subscribe(resTodoSolicitudesBajas=>{
       resTodoSolicitudesBajas.forEach(element => {
         if(element.idEstado.id == 82){
           this.listarSolicitudesBajas.push(element)
-        }
-        if(element.estadoContabilidad == "Aprobado"){
-          this.botonAprobado = true;
         }
       });
       this.dataSource = new MatTableDataSource(this.listarSolicitudesBajas);
@@ -78,10 +74,11 @@ export class ListaActivosBajasContabilidadComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Solicitud aprobada',
+          title: 'Activos de Baja en Contabilidad!',
           showConfirmButton: false,
           timer: 1500
         })
+        window.location.reload();
       })
     })
   }

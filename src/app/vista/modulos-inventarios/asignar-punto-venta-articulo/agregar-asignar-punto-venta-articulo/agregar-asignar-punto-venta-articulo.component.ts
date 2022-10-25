@@ -127,13 +127,13 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
   }
 
   public guardar() {
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.encontrados = [];
     let asignacionPuntoVenta : AsignacionPuntoVenta = new AsignacionPuntoVenta();
     // var articulo = this.formAsigancionPuntoVenta.controls['articulo'].value;
     var oficina = this.formAsigancionPuntoVenta.controls['oficina'].value;
     var sitioVent = Number(localStorage.getItem("v"));
     if(oficina != undefined && sitioVent != 0){
+      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
       this.servicioAsignarPuntoVenta.listarTodos().subscribe(resAsigancionTurnoVendedor => {
         this.servicioAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignacionArticulo=>{
           this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{

@@ -14,7 +14,7 @@
     <div class="nombre2">
       <h2>Tipo Proceso</h2>
       <mat-form-field class="nombre" [color]="color" appearance="fill">
-      <mat-label>Seleccion el tipo necesidad</mat-label>
+      <mat-label>Seleccion el tipo proceso</mat-label>
       <mat-select matNativeControl id="idTiposProcesos" name="idTiposProcesos" formControlName="idTiposProcesos">
         <mat-option *ngFor="let item of listaProceso" value="{{item.id}}">{{item.descripcion}}</mat-option>
       </mat-select>

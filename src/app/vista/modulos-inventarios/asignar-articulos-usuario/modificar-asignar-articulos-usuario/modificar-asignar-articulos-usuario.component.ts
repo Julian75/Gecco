@@ -133,10 +133,11 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                       this.serviceAsignacionProceso.listarPorId(idAsignProceso).subscribe(resAsigProcesoReg=>{
                         this.serviceEstado.listarPorId(78).subscribe(resEstadoReg=>{
                           asignacionArticulos.idAsignacionesProcesos = resAsigProcesoReg
+                          asignacionArticulos.idDetalleArticulo = resAsigArticulo.idDetalleArticulo
+                          asignacionArticulos.idEstado = resEstadoReg
                           historial.observacion = "Se reasignó el artículo" + " " + resAsigArticulo.idDetalleArticulo.idArticulo.descripcion+ " al usuario"+ " " + resAsigProcesoReg.idUsuario.nombre+ " " +resAsigProcesoReg.idUsuario.apellido+ " del área"+ " " + resAsigProcesoReg.idTiposProcesos.descripcion
                           historial.idDetalleArticulo = resAsigArticulo.idDetalleArticulo
                           historial.idUsuario = usuarioLog
-                          asignacionArticulos.idEstado = resEstadoReg
                           this.servicioRegistrarModficarAsigAr(asignacionArticulosModificar, asignacionArticulos, historial)
                         })
                       })

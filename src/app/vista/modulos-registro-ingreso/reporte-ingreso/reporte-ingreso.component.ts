@@ -34,21 +34,16 @@ export class ReporteIngresoComponent implements OnInit {
       this.range.value.start = null
       this.range.value.end = null
     }else{
-      if(this.range.value.start.getMonth() <= 10 && this.range.value.start.getDate() <= 10 && this.range.value.end.getMonth() <= 10 && this.range.value.end.getDate() <= 10){
-        this.star = this.range.value.start.getFullYear()+"-0"+(this.range.value.start.getMonth()+1)+"-0"+this.range.value.start.getDate()
-        this.end = this.range.value.end.getFullYear()+"-0"+(this.range.value.end.getMonth()+1)+"-0"+this.range.value.end.getDate()
-      }else if(this.range.value.start.getMonth() <= 10 && this.range.value.end.getMonth() <= 10){
-        this.star = this.range.value.start.getFullYear()+"-0"+(this.range.value.start.getMonth()+1)+"-"+this.range.value.start.getDate()
-        this.end = this.range.value.end.getFullYear()+"-0"+(this.range.value.end.getMonth()+1)+"-"+this.range.value.end.getDate()
-      }else{
-        this.star = this.range.value.start.getFullYear()+"-"+(this.range.value.start.getMonth()+1)+"-"+this.range.value.start.getDate()
-        this.end = this.range.value.end.getFullYear()+"-"+(this.range.value.end.getMonth()+1)+"-"+this.range.value.end.getDate()
-      }
+      this.star = this.range.value.start.toISOString().slice(0,10)
+      this.end = this.range.value.end.toISOString().slice(0,10)
     }
     if(this.range.value.end != null){
       this.servicioRegistro.listarTodos().subscribe(res=>{
+        console.log(this.star)
+        console.log(this.end)
         res.forEach(element => {
           if(element.fecha >= this.star && element.fecha <= this.end){
+            console.log(element.fecha)
             var obj = {
               nombre: element.nombre + " " + element.apellido,
               sede: element.idSedes.descripcion,

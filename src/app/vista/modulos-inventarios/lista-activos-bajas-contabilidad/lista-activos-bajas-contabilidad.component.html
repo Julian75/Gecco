@@ -36,7 +36,7 @@
                 <button class="btn btnedit mx-2" (click)="abrirPdf(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Abrir pdf">
                     <mat-icon>file_open</mat-icon>
                 </button>
-                <button class="btn boton mx-2" *ngIf="botonAprobado == false" (click)="aprobarActivo(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Aprobar">
+                <button class="btn boton mx-2" *ngIf="item.estadoContabilidad != 'Aprobado'" (click)="aprobarActivo(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Aprobar">
                     <mat-icon>
                         verified
                     </mat-icon>

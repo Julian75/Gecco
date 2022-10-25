@@ -458,7 +458,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.id_estado = resEstadoRechazado.id
                       solicitudBajaActivoMod.id_usuario = resSolicitudActivoBaja.idUsuario.id
                       solicitudBajaActivoMod.usuario_autorizacion = resSolicitudActivoBaja.usuarioAutorizacion
-                      solicitudBajaActivoMod.usuario_confirmacion = 0
+                      solicitudBajaActivoMod.usuario_confirmacion = resUsuarioLogueado.id
                       solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
                       this.actualizarSolicitudBajaArticuloAutorizada(solicitudBajaActivoMod)
                     })
@@ -515,7 +515,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                 +"<meta charset='utf-8'>"
                 +"</head>"
                 +"<body>"
-                +"<h3 style='color: black;'>Su solicitud para dar de baja algunos activos, ha sido rechazada por compras o control interno.</h3>"
+                +"<h3 style='color: black;'>Su solicitud para dar de baja algunos activos, ha sido rechazada por control interno.</h3>"
                 +"<br>"
                 +"<table style='border: 1px solid #000; text-align: center;'>"
                 +"<tr>"

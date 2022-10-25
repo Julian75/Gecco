@@ -89,13 +89,6 @@ table{
   .bot{ background-color: #DA161A; color: white; }
   .mat-paginator{ margin-top: 2%; }
   .boton{ background-color: #00235C; color: white; }
-  #opcSp, #descripSp, #idSp, #cantSp, #oficiSp, #sitiVentSp{ position: relative; }
-  #idSp{ left: 0%; position: absolute; }
-  #descripSp{ left: 65%; }
-  #cantSp{ left: 75%; }
-  #oficiSp{ left: 170%; }
-  #sitiVentSp{ left: 190%; }
-  #opcSp{ left: 8px; }
   .btnedit mat-icon{ left: -3px;  top: -2px;}
   .btnremove mat-icon{ left: -3px;  top: -2px;}
   #idSp2{ padding-left: 1%; }
@@ -109,12 +102,6 @@ table{
     .bot{ position: relative; left: -30%;}
     .boton{ position: relative; left: -30%;}
     td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
-    #activoSp{margin-left: 23%;}
-    #placaSp{margin-left: 23%;}
-    #serialSp{margin-left: 23%;}
-    #categoriaSp{margin-left: 15%;}
-    #estadoSp{margin-left: 22%;}
-    #obsSp{ margin-left: 80%;}
     td button{ margin-top: 6%; }
     .botonagregar mat-icon{ margin-left: -50%; }
     td.mat-cell{ padding-left: 1%;}
@@ -128,12 +115,6 @@ table{
     .bot{ position: relative; left: -30%;}
     .boton{ position: relative; left: -30%;}
     td button mat-icon{ font-size: 17px !important; margin-left: -7px; margin-top: 1px; }
-    #activoSp{margin-left: 23%;}
-    #placaSp{margin-left: 23%;}
-    #serialSp{margin-left: 23%;}
-    #categoriaSp{margin-left: 15%;}
-    #estadoSp{margin-left: 22%;}
-    #obsSp{ margin-left: 115%;}
     td button{ margin-top: 6%; }
     .botonagregar mat-icon{ margin-left: -50%; }
     td.mat-cell{ padding-left: 1%;}
@@ -146,12 +127,6 @@ table{
     .btnver2{ left: 282px;}
     .btnver2 mat-icon{ position: absolute; left: 17%; top: 2%;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 9%;}
-    #placaSp{ position: static; margin-left: 28%;}
-    #serialSp{ margin-left: 27%;}
-    #categoriaSp{ margin-left: 14%; position: static;}
-    #estadoSp{margin-left: 25%; position: static;}
-    #obsSp{ left: 35%; position: absolute;}
     td button{ margin-top: 0%; }
   }
 
@@ -161,12 +136,6 @@ table{
     .nombre3{  margin-left: 5%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 17%;}
-    #placaSp{ position: static; margin-left: 40%;}
-    #serialSp{ margin-left: 38%;}
-    #categoriaSp{ margin-left: 19%; position: static;}
-    #estadoSp{margin-left: 30%; position: static;}
-    #obsSp{ left: 35%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -177,12 +146,6 @@ table{
     .btnver2{ left: 282px;}
     .btnver2 mat-icon{ position: absolute;  left: 30%; top: 15%;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 14%;}
-    #placaSp{ position: static; margin-left: 48%;}
-    #serialSp{ margin-left: 37%;}
-    #categoriaSp{ margin-left: 28%; position: static;}
-    #estadoSp{margin-left: 33%; position: static;}
-    #obsSp{ left: 35%; position: absolute;}
     td button{ margin-top: 0%; }
   }
 
@@ -192,12 +155,6 @@ table{
     .nombre3{  margin-left: 5%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 17%;}
-    #placaSp{ position: static; margin-left: 49%;}
-    #serialSp{ margin-left: 50%;}
-    #categoriaSp{ margin-left: 32%; position: static;}
-    #estadoSp{margin-left: 30%; position: static;}
-    #obsSp{ left: 35%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -207,12 +164,6 @@ table{
     .nombre3{  margin-left: 5%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 22%;}
-    #placaSp{ position: static; margin-left: 57%;}
-    #serialSp{ margin-left: 55%;}
-    #categoriaSp{ margin-left: 7%; position: absolute;}
-    #estadoSp{margin-left: 50%; position: static;}
-    #obsSp{ left: 37%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -222,12 +173,6 @@ table{
     .nombre3{  margin-left: 5%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 22%;}
-    #placaSp{ position: static; margin-left: 57%;}
-    #serialSp{ margin-left: 55%;}
-    #categoriaSp{ margin-left: 7%; position: absolute;}
-    #estadoSp{margin-left: 50%; position: static;}
-    #obsSp{ left: 37%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -237,12 +182,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 26%;}
-    #placaSp{ position: static; margin-left: 94%;}
-    #serialSp{ margin-left: 93%;}
-    #categoriaSp{ margin-left: 15%; position: absolute;}
-    #estadoSp{margin-left: 82%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -252,12 +191,6 @@ table{
     .nombre3{  margin-left: 5%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 29%;}
-    #placaSp{ position: static; margin-left: 105%;}
-    #serialSp{ margin-left: 106%;}
-    #categoriaSp{ margin-left: 16%; position: absolute;}
-    #estadoSp{margin-left: 91%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }
   /* Tablet 8*/
@@ -266,12 +199,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 30%;}
-    #placaSp{ position: static; margin-left: 130%;}
-    #serialSp{ margin-left: 120%;}
-    #categoriaSp{ margin-left: 19%; position: absolute;}
-    #estadoSp{margin-left: 105%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }
 
@@ -281,12 +208,6 @@ table{
     .nombre3{  margin-left: 5%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 34%;}
-    #placaSp{ position: static; margin-left: 135%;}
-    #serialSp{ margin-left: 134%;}
-    #categoriaSp{ margin-left: 23%; position: absolute;}
-    #estadoSp{margin-left: 114%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -298,12 +219,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 309px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 34%;}
-    #placaSp{ position: static; margin-left: 135%;}
-    #serialSp{ margin-left: 134%;}
-    #categoriaSp{ margin-left: 23%; position: absolute;}
-    #estadoSp{margin-left: 114%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -314,12 +229,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 282px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 36%;}
-    #placaSp{ position: static; margin-left: 151%;}
-    #serialSp{ margin-left: 141%;}
-    #categoriaSp{ margin-left: 26%; position: absolute;}
-    #estadoSp{margin-left: 122%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }
   /*Tablet 10*/
@@ -328,12 +237,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 309px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 37%;}
-    #placaSp{ position: static; margin-left: 152%;}
-    #serialSp{ margin-left: 155%;}
-    #categoriaSp{ margin-left: 27%; position: absolute;}
-    #estadoSp{margin-left: 126%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -343,12 +246,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 309px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 39%;}
-    #placaSp{ position: static; margin-left: 194%;}
-    #serialSp{ margin-left: 188%;}
-    #categoriaSp{ margin-left: 30%; position: absolute;}
-    #estadoSp{margin-left: 177%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -358,12 +255,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 309px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 39%;}
-    #placaSp{ position: static; margin-left: 194%;}
-    #serialSp{ margin-left: 188%;}
-    #categoriaSp{ margin-left: 30%; position: absolute;}
-    #estadoSp{margin-left: 177%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
     .botonagregar mat-icon{ margin-left: -9%; }
   }
@@ -373,12 +264,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 309px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 39%;}
-    #placaSp{ position: static; margin-left: 233%;}
-    #serialSp{ margin-left: 227%;}
-    #categoriaSp{ margin-left: 34%; position: absolute;}
-    #estadoSp{margin-left: 194%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }
   /*Portatil 6, Televisor 3*/
@@ -387,12 +272,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 305px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 44%;}
-    #placaSp{ position: static; margin-left: 330%;}
-    #serialSp{ margin-left: 325%;}
-    #categoriaSp{ margin-left: 40%; position: absolute;}
-    #estadoSp{margin-left: 293%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }
   /*Televisor 4*/
@@ -401,12 +280,6 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 305px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 44%;}
-    #placaSp{ position: static; margin-left: 330%;}
-    #serialSp{ margin-left: 325%;}
-    #categoriaSp{ margin-left: 40%; position: absolute;}
-    #estadoSp{margin-left: 293%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }
   /*Portatil 7, Televisor 5*/
@@ -415,11 +288,5 @@ table{
     .nombre3{  margin-left: 2%; }
     .btnver2{ left: 379px;}
     td button mat-icon{ font-size: 17px; margin-left: 0px; margin-top: 1px; }
-    #activoSp{ position: absolute; left: 48%;}
-    #placaSp{ position: static; margin-left: 731%;}
-    #serialSp{ margin-left: 728%;}
-    #categoriaSp{ margin-left: 40%; position: absolute;}
-    #estadoSp{margin-left: 625%; position: static;}
-    #obsSp{ left: 40%; position: absolute;}
     td button{ margin-top: 0%; }
   }

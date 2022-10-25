@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
             document.getElementById('Raspa')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]== 32 || this.listaAccessForm[i]== 33 || this.listaAccessForm[i] == 58 ){
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 47 || this.listaAccessForm[i] == 66){
+          }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 47 || this.listaAccessForm[i] == 66 || this.listaAccessForm[i] == 39){
             document.getElementById('RecepcionDatos')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 50 || this.listaAccessForm[i] == 68 ){
             document.getElementById('RegistroIngreso')?.setAttribute('style', 'display: block;')

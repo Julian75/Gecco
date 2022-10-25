@@ -18,9 +18,9 @@ table{
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-#idSpa, #descSpa, #opcSpa{ position: relative; }
+/* #idSpa, #descSpa, #opcSpa{ position: relative; }
 #idSpa{ margin-left: 404% ! important;}
-#descSpa{ margin-left: 173% ! important;}
+#descSpa{ margin-left: 173% ! important;} */
 #idSp2{ padding-left: 0%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
@@ -39,115 +39,115 @@ table{
   #opcSpa{ left: 8px; }
 }
 /* Tablet 1 */
-@media screen and (min-width: 600px) and (max-width: 639px){
+/* @media screen and (min-width: 600px) and (max-width: 639px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
   #idSpa{ margin-left: 169% !important; }
   #descSpa{ margin-left: 105% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* @media screen and (min-width: 640px) and (max-width: 768px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 215% !important; }
   #descSpa{ margin-left: 105% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /* Tablet 3,  Portatil 2*/
-@media screen and (min-width: 769px) and (max-width: 960px){
+/* @media screen and (min-width: 769px) and (max-width: 960px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 205% !important; }
   #descSpa{ margin-left: 93% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
-@media screen and (min-width: 961px) and (max-width: 1080px){
+/* @media screen and (min-width: 961px) and (max-width: 1080px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 285% !important; }
   #descSpa{ margin-left: 153% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
-@media screen and (min-width: 1081px) and (max-width: 1280px){
+/* @media screen and (min-width: 1081px) and (max-width: 1280px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 322% !important; }
   #descSpa{ margin-left: 185% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /* Tablet 8, Compu. Mesa 5*/
-@media screen and (min-width: 1281px) and (max-width: 1536px){
+/* @media screen and (min-width: 1281px) and (max-width: 1536px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 443% !important; }
   #descSpa{ margin-left: 253% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Compu. Mesa 6*/
-@media screen and (min-width: 1537px) and (max-width: 1850px){
+/* @media screen and (min-width: 1537px) and (max-width: 1850px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 456% !important; }
   #descSpa{ margin-left: 271% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
-@media screen and (min-width: 1851px) and (max-width: 1920px){
+/* @media screen and (min-width: 1851px) and (max-width: 1920px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 462% !important; }
   #descSpa{ margin-left: 333% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Tablet 9*/
-@media screen and (min-width: 1921px) and (max-width: 2048px){
+/* @media screen and (min-width: 1921px) and (max-width: 2048px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 479% !important; }
   #descSpa{ margin-left: 351% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Tablet 10*/
-@media screen and (min-width: 2049px) and (max-width: 2160px){
+/* @media screen and (min-width: 2049px) and (max-width: 2160px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 521% !important; }
   #descSpa{ margin-left: 372% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Tablet 11 y 12, Portatil 5*/
-@media screen and (min-width: 2161px) and (max-width: 2560px){
+/* @media screen and (min-width: 2161px) and (max-width: 2560px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 600% !important; }
   #descSpa{ margin-left: 441% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Tablet 13*/
-@media screen and (min-width: 2561px) and (max-width: 2736px){
+/* @media screen and (min-width: 2561px) and (max-width: 2736px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 643% !important; }
   #descSpa{ margin-left: 443% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Tablet 14*/
-@media screen and (min-width: 2737px) and (max-width: 3000px){
-  td button mat-icon{ margin-left: -3px; margin-top: -2px; }
+/* @media screen and (min-width: 2737px) and (max-width: 3000px){ */
+  /* td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 706% !important; }
   #descSpa{ margin-left: 495% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Portatil 6, Televisor 3*/
-@media screen and (min-width: 3001px) and (max-width: 3840px){
+/* @media screen and (min-width: 3001px) and (max-width: 3840px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 909% !important; }
   #descSpa{ margin-left: 686% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Televisor 4*/
-@media screen and (min-width: 3841px) and (max-width: 4096px){
+/* @media screen and (min-width: 3841px) and (max-width: 4096px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 989% !important; }
   #descSpa{ margin-left:708% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 /*Portatil 7, Televisor 5*/
-@media screen and (min-width: 4097px) and (max-width: 7680px){
+/* @media screen and (min-width: 4097px) and (max-width: 7680px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }
   #idSpa{ margin-left: 1928% !important; }
   #descSpa{ margin-left: 1497% !important; }
   #opcSpa{ left: 8px; }
-}
+} */
 

@@ -41,13 +41,17 @@ export class ListaArticulosInventarioComponent implements OnInit {
     this.listaCompletaInventario = []
     this.servicioInventario.listarTodos().subscribe(resInventariosCompletos=>{
       this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventariosSinBaja=>{
-        resInventariosSinBaja.forEach(elementInventarioSinBaja => {
-          resInventariosCompletos.forEach(elementInventario => {
-            if(elementInventario.id == elementInventarioSinBaja.id){
-              this.listaCompletaInventario.push(elementInventario)
-            }
+        if(resInventariosSinBaja.length == 0){
+          this.listaCompletaInventario = resInventariosCompletos
+        }else{
+          resInventariosSinBaja.forEach(elementInventarioSinBaja => {
+            resInventariosCompletos.forEach(elementInventario => {
+              if(elementInventario.id == elementInventarioSinBaja.id){
+                this.listaCompletaInventario.push(elementInventario)
+              }
+            });
           });
-        });
+        }
         this.listaCompletaInventario.sort()
         this.dataSource = new MatTableDataSource( this.listaCompletaInventario);
         this.dataSource.paginator = this.paginator;

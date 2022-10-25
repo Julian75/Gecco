@@ -24,20 +24,9 @@ h2{
 .btnPriority{ background-color: #00235C; color: white; }
 .btnver{ background-color: #959595; color: white; }
 .btnremove{ background-color: #DA161A; color: white; margin-left: 3%;}
-#idSpa,#soliciSpa,#vendedorSpa,#turnvenSpa,#ObSpa,#OpcSpa{ position: relative; }
-#idSpa{ left: 13%; position: absolute; }
-#soliciSpa{ left: 41%; position: absolute; }
-#turnvenSpa{ left: 5%; position: absolute; }
-#vendedorSpa{ left: 34%; position: absolute;}
-.btnver{ position: absolute; left: 63.8%; top: 47.2%;}
 button mat-icon{ position: relative; top: -9%; left: -18%;}
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  #idSpa{ left: 6%; }
-  #soliciSpa{ margin-left: 13%; position: static; }
-  #turnvenSpa{ margin-left: 14%; position: static;}
-  #vendedorSpa{ margin-left: 16%; position: static;}
-  #OpcSpa{ left: 22%;}
   .btnremove{ margin-top: 10%; margin-bottom: 13%;}
   .btnver{ left: 52%; top: 51%; position: static;}
   .btnver mat-icon{ top: -21%; left: -180%;}
@@ -47,11 +36,6 @@ button mat-icon{ position: relative; top: -9%; left: -18%;}
 }
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  #idSpa{ left: 6%; }
-  #soliciSpa{ margin-left: 13%; position: static; }
-  #turnvenSpa{ margin-left: 14%; position: static;}
-  #vendedorSpa{ margin-left: 16%; position: static;}
-  #OpcSpa{ left: 22%;}
   .btnremove{ margin-top: 10%; margin-bottom: 13%;}
   .btnver{ left: 52%; top: 51%; position: static;}
   .btnver mat-icon{ top: -21%; left: -180%;}
@@ -61,11 +45,6 @@ button mat-icon{ position: relative; top: -9%; left: -18%;}
 }
 /* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  #idSpa{ left: -2%; }
-  #soliciSpa{ margin-left: 55%; position: static; }
-  #turnvenSpa{ margin-left: 21%; position: static;}
-  #vendedorSpa{ margin-left: 19%; position: static;}
-  #OpcSpa{ left: 22%;}
   .btnremove{ margin-top: 10%; margin-bottom: 13%;}
   .btnver{ left: 52%; top: 51%; position: static;}
   .boton{margin-top: 11%;}
@@ -76,155 +55,80 @@ button mat-icon{ position: relative; top: -9%; left: -18%;}
 }
 /* Tablet 2,  Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 768px){
-  #idSpa{ left: -2%; }
-  #soliciSpa{ margin-left: 88%; position: static; }
-  #turnvenSpa{ margin-left: 21%; position: static;}
-  #vendedorSpa{ margin-left: 26%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 13%; margin-bottom: 13%;}
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /* Tablet 3,  Portatil 2*/
 @media screen and (min-width: 769px) and (max-width: 960px){
-  #idSpa{ left: -2%; }
-  #soliciSpa{ margin-left: 57%; position: static; }
-  #turnvenSpa{ margin-left: 10%; position: static;}
-  #vendedorSpa{ margin-left: 20%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 13%; margin-bottom: 13%;}
   .btnver{ left: 52%; top: 51%; position: static;}
   .boton{ margin-top: 13%;}
 }
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
-  #idSpa{ left: 7%; }
-  #soliciSpa{ margin-left: 109%; position: static; }
-  #turnvenSpa{ margin-left: 40%; position: static;}
-  #vendedorSpa{ margin-left: 45%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
-  #idSpa{ left: 7%; }
-  #soliciSpa{ margin-left: 140%; position: static; }
-  #turnvenSpa{ margin-left: 58%; position: static;}
-  #vendedorSpa{ margin-left: 61%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /* Tablet 8, Compu. Mesa 5*/
 @media screen and (min-width: 1281px) and (max-width: 1536px){
-  #idSpa{ left: 7%; }
-  #soliciSpa{ margin-left: 186%; position: static; }
-  #turnvenSpa{ margin-left: 77%; position: static;}
-  #vendedorSpa{ margin-left: 85%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 
 /*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 186%; position: static; }
-  #turnvenSpa{ margin-left: 83%; position: static;}
-  #vendedorSpa{ margin-left: 94%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1851px) and (max-width: 1920px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 222%; position: static; }
-  #turnvenSpa{ margin-left: 83%; position: static;}
-  #vendedorSpa{ margin-left: 101%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 222%; position: static; }
-  #turnvenSpa{ margin-left: 83%; position: static;}
-  #vendedorSpa{ margin-left: 101%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 235%; position: static; }
-  #turnvenSpa{ margin-left: 95%; position: static;}
-  #vendedorSpa{ margin-left: 111%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 283%; position: static; }
-  #turnvenSpa{ margin-left: 115%; position: static;}
-  #vendedorSpa{ margin-left: 149%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 329%; position: static; }
-  #turnvenSpa{ margin-left: 125%; position: static;}
-  #vendedorSpa{ margin-left: 165%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 361%; position: static; }
-  #turnvenSpa{ margin-left: 138%; position: static;}
-  #vendedorSpa{ margin-left: 185%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 473%; position: static; }
-  #turnvenSpa{ margin-left: 187%; position: static;}
-  #vendedorSpa{ margin-left: 260%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
-  #idSpa{ left: 25%; }
-  #soliciSpa{ margin-left: 510%; position: static; }
-  #turnvenSpa{ margin-left: 203%; position: static;}
-  #vendedorSpa{ margin-left: 290%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
-  #idSpa{ left: 42%; }
-  #soliciSpa{ margin-left: 900%; position: static; }
-  #turnvenSpa{ margin-left: 381%; position: static;}
-  #vendedorSpa{ margin-left: 554%; position: static;}
-  #OpcSpa{ left: 4%;}
   .btnremove{ margin-top: 0%; }
   .btnver{ left: 52%; top: 51%; position: static;}
 }

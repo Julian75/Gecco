@@ -46,13 +46,17 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
     this.listarAsignacionArticulos = []
     this.serviceAsignacionArticulos.listarTodos().subscribe(resAsignacionesArticulos=>{
       this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resActivosSinBaja=>{
-        resActivosSinBaja.forEach(elementActivosSinBaja => {
-          resAsignacionesArticulos.forEach(elementAsignArti => {
-            if(elementAsignArti.id == elementActivosSinBaja.id){
-              this.listaCompletaActivos.push(elementAsignArti)
-            }
+        if(resActivosSinBaja.length == 0){
+          this.listaCompletaActivos = resAsignacionesArticulos
+        }else{
+          resActivosSinBaja.forEach(elementActivosSinBaja => {
+            resAsignacionesArticulos.forEach(elementAsignArti => {
+              if(elementAsignArti.id == elementActivosSinBaja.id){
+                this.listaCompletaActivos.push(elementAsignArti)
+              }
+            });
           });
-        });
+        }
         this.listaCompletaActivos.sort()
         this.listaCompletaActivos.forEach(elementAsigArticulo => {
           if(elementAsigArticulo.idEstado.id != 79){

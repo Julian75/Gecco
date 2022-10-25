@@ -74,13 +74,17 @@ export class MisArticulosAsignadosComponent implements OnInit {
     this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigActivos=>{
       this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
         this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAsignacionesActivosSinBaja=>{
-          resAsignacionesActivosSinBaja.forEach(elementAsignSinBaja => {
-            resAsigActivos.forEach(elementAsignActivos => {
-              if(elementAsignActivos.id == elementAsignSinBaja.id){
-                this.listaAsignActivosCompletos.push(elementAsignActivos)
-              }
+          if(resAsignacionesActivosSinBaja.length == 0){
+            this.listaAsignActivosCompletos = resAsigActivos
+          }else{
+            resAsignacionesActivosSinBaja.forEach(elementAsignSinBaja => {
+              resAsigActivos.forEach(elementAsignActivos => {
+                if(elementAsignActivos.id == elementAsignSinBaja.id){
+                  this.listaAsignActivosCompletos.push(elementAsignActivos)
+                }
+              });
             });
-          });
+          }
           this.listaAsignActivosCompletos.forEach(elementAsignArticulo => {
             if(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
               if(elementAsignArticulo.idEstado.id == 76 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){

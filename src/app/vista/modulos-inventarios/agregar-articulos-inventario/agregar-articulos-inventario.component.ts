@@ -270,7 +270,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                             Swal.fire({
                               position: 'center',
                               icon: 'error',
-                              title: 'Hubo un error al modificar el movimientoCompra!',
+                              title: 'Hubo un error al modificar el movimiento compra!',
                               showConfirmButton: false,
                               timer: 1500
                             })
@@ -326,7 +326,7 @@ public registrarHistorialArticulo(historialArticulo: HistorialArticulos){
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Articulo Registrado!',
+        title: 'Activo Registrado!',
         showConfirmButton: false,
         timer: 1500
       })

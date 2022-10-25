@@ -366,45 +366,55 @@ export class SolicitudArticulosBajaComponent implements OnInit {
 
   textoValidado = false;
   public crearSolicitud(){
-    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.textoValidado = false;
-    for (let i = 0; i < this.listaTabla.length; i++) {
-      const element = this.listaTabla[i];
-      if(element.observacion == ""){
-        this.textoValidado = true
-      }
-    }
-    if(this.textoValidado == false){
-      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-        this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
-          var observacion = this.formSolicitud.controls['observacion'].value;
-          if(observacion != null){
-            let solicitudBajasArticulos : SolicitudBajasArticulos = new SolicitudBajasArticulos();
-            solicitudBajasArticulos.fecha = this.fechaActual
-            solicitudBajasArticulos.idEstado = resEstado
-            solicitudBajasArticulos.idUsuario = resUsuario
-            solicitudBajasArticulos.usuarioAutorizacion = 0
-            solicitudBajasArticulos.usuarioConfirmacion = 0
-            solicitudBajasArticulos.estadoContabilidad = "Pendiente"
-            this.registrarSolicitudBajasArticulos(solicitudBajasArticulos)
-          }
-        })
-      })
-    }else{
+    if(this.listaTabla.length == 0){
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'No puede haber ningun campo de observacion vacio!',
+        title: 'Al menos debe seleccionar un activo para generar la solicitud de baja!',
         showConfirmButton: false,
         timer: 1500
       })
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    }else{
+      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+      for (let i = 0; i < this.listaTabla.length; i++) {
+        const element = this.listaTabla[i];
+        if(element.observacion == ""){
+          this.textoValidado = true
+        }
+      }
+      if(this.textoValidado == false){
+        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+          this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
+            var observacion = this.formSolicitud.controls['observacion'].value;
+            if(observacion != null){
+              let solicitudBajasArticulos : SolicitudBajasArticulos = new SolicitudBajasArticulos();
+              solicitudBajasArticulos.fecha = this.fechaActual
+              solicitudBajasArticulos.idEstado = resEstado
+              solicitudBajasArticulos.idUsuario = resUsuario
+              solicitudBajasArticulos.usuarioAutorizacion = 0
+              solicitudBajasArticulos.usuarioConfirmacion = 0
+              solicitudBajasArticulos.estadoContabilidad = "Pendiente"
+              this.registrarSolicitudBajasArticulos(solicitudBajasArticulos)
+            }
+          })
+        })
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No puede haber ningun campo de observacion vacio!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      }
     }
   }
 
   public registrarSolicitudBajasArticulos(solicitudBajasArticulos: SolicitudBajasArticulos){
     this.servicioSolicitudBaja.registrar(solicitudBajasArticulos).subscribe(res=>{
-      this.registrarArticulosBaja(res);
+      this.registrarArticulosBaja(solicitudBajasArticulos);
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -434,11 +444,12 @@ export class SolicitudArticulosBajaComponent implements OnInit {
         articulosBaja.idDetalleArticulo = element.articulo.idDetalleArticulo
         articulosBaja.idEstado = resEstado
         this.servicioArticulosBaja.registrar(articulosBaja).subscribe(res=>{
+          localStorage.removeItem('valido')
+          window.location.reload();
         })
       })
     }
-    localStorage.removeItem('valido')
-    window.location.reload();
+
   }
 
   // Filtrado
