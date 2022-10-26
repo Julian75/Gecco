@@ -51,7 +51,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   public colorGradual = "";
   public sumaPorcentajes = 0;
 
-  displayedColumns = ['id','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'subProceso','tipoNecesidad','opciones'];
+  displayedColumns = ['id','subProceso','tipoNecesidad','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

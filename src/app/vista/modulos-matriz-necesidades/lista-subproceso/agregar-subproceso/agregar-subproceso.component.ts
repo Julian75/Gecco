@@ -41,10 +41,12 @@ export class AgregarSubprocesoComponent implements OnInit {
 
   public guardar(){
     if(this.formSubProceso.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       this.serviceSubProceso.listarTodos().subscribe( data => {
         this.validar = data;
         let validare= this.validar.find((x:any) => x.descripcion.toLowerCase() === this.formSubProceso.value.descripcion.toLowerCase() && x.idTipoProceso.id === this.formSubProceso.value.idTipoProceso.id);
         if(validare){
+          document.getElementById("snipper").setAttribute("style", "display: none;")
           Swal.fire({
             icon: 'error',
             title: 'El subproceso ya existe',
@@ -52,17 +54,17 @@ export class AgregarSubprocesoComponent implements OnInit {
             timer: 2500
           })
         }else{
-            this.serviceSubProceso.registrar(this.formSubProceso.value).subscribe( data => {
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Subproceso agregado',
-                showConfirmButton: false,
-                timer: 2500
-              })
-              window.location.reload();
+          this.serviceSubProceso.registrar(this.formSubProceso.value).subscribe( data => {
+            document.getElementById("snipper").setAttribute("style", "display: none;")
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Subproceso agregado',
+              showConfirmButton: false,
+              timer: 2500
             })
-
+            window.location.reload();
+          })
         }
       })
     }else{

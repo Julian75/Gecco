@@ -22,9 +22,21 @@
         </ng-container>
 
         <!-- Name Column -->
+        <ng-container matColumnDef="subProceso">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="subSp">Proceso - SubProceso</h3></th>
+          <td mat-cell *matCellDef="let element"> {{element.matriz.idSubProceso.idTipoProceso.descripcion}} - {{element.matriz.idSubProceso.descripcion}}</td>
+        </ng-container>
+
+       <!-- Name Column -->
+       <ng-container matColumnDef="tipoNecesidad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">Tipo Necesidad</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.matriz.idTipoNecesidad.descripcion}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.fecha}}</td>
+          <td mat-cell *matCellDef="let element">{{element.matriz.fecha | date:'MMMM y' | uppercase}}</td>
         </ng-container>
 
         <!-- Name Column -->
@@ -68,19 +80,6 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porcentaje Ejecutado</h3></th>
           <td mat-cell *matCellDef="let element">{{element.matriz.porcentajeTotal}} %</td>
         </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="subProceso">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="subSp">Sub-Proceso</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.matriz.idSubProceso.descripcion}}</td>
-          </ng-container>
-
-         <!-- Name Column -->
-         <ng-container matColumnDef="tipoNecesidad">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">TipoNecesidad</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.matriz.idTipoNecesidad.descripcion}}</td>
-          </ng-container>
-
 
           <!--Opciones-->
         <ng-container matColumnDef="opciones">

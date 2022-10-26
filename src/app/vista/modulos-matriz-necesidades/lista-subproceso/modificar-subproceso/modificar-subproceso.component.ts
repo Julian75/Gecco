@@ -62,6 +62,7 @@ export class ModificarSubprocesoComponent implements OnInit {
     this.validarTodo = []
     this.validar2 = []
     if(this.formSubProceso.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       this.serviceSubProceso.listarPorId(Number(this.data)).subscribe( SubProceso => {
         this.validar = SubProceso;
         this.serviceSubProceso.listarTodos().subscribe( SubProceso => {
@@ -69,6 +70,7 @@ export class ModificarSubprocesoComponent implements OnInit {
           this.validar2 = this.validarTodo.filter((item:any) => item.descripcion === this.formSubProceso.value.descripcion && item.idTipoProceso.id === this.formSubProceso.value.idTipoProceso.id);
           console.log(this.validar2);
           if(this.validar.descripcion === this.formSubProceso.value.descripcion && this.validar.idTipoProceso.id === this.formSubProceso.value.idTipoProceso.id){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'success',
               title: 'No hubieron cambios!',
@@ -77,6 +79,7 @@ export class ModificarSubprocesoComponent implements OnInit {
             })
             window.location.reload();
           }else if(this.validar2.length > 0){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'error',
               title: 'El subproceso ya existe!',
@@ -87,6 +90,7 @@ export class ModificarSubprocesoComponent implements OnInit {
             const idTipoProceso = this.formSubProceso.value.idTipoProceso.id;
             this.formSubProceso.value.idTipoProceso = idTipoProceso;
             this.serviceModificar.actualizarSubProceso(this.formSubProceso.value).subscribe( data => {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 icon: 'success',
                 title: 'SubProceso modificado!',
@@ -97,13 +101,15 @@ export class ModificarSubprocesoComponent implements OnInit {
             })
           }
         })
-
-
-
-
+      })
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos Vacios',
+        showConfirmButton: false,
+        timer: 1500
       })
     }
-
   }
 
   compareFunction(o1: any, o2: any) {

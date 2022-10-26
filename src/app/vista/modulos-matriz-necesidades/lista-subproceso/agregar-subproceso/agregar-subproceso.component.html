@@ -14,7 +14,7 @@
       <mat-form-field class="nombre1" appearance="fill" >
         <mat-label>Proceso</mat-label>
         <mat-select [compareWith]="compareFunction" formControlName="idTipoProceso">
-          <mat-option *ngFor="let listaProceso of listaProceso" [value]="listaProceso"> {{ listaProceso.descripcion }} {{ listaProceso.descripcion }}</mat-option>
+          <mat-option *ngFor="let listaProceso of listaProceso" [value]="listaProceso"> {{ listaProceso.descripcion }}</mat-option>
         </mat-select>
         </mat-form-field>
     </div>
@@ -26,4 +26,7 @@
     </div>
   </div>
 </form>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
 

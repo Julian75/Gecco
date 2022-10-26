@@ -75,6 +75,7 @@ export class ModificarTipoNecesidadesComponent implements OnInit {
           this.dialogRef.close();
           window.location.reload();
         }else{
+          document.getElementById("snipper").setAttribute("style", "display: block;")
           resTipoNecesidad.forEach(element => {
             if(element.descripcion.toLowerCase() == tipoNecesidad.descripcion.toLowerCase()){
               this.existe = true
@@ -85,6 +86,7 @@ export class ModificarTipoNecesidadesComponent implements OnInit {
           });
           const existe = this.listaExis.includes( true );
           if(existe == true){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'error',
               title: 'Ese tipo de necesidad ya existe!',
@@ -93,6 +95,7 @@ export class ModificarTipoNecesidadesComponent implements OnInit {
             });
           }else{
             this.servicioModificar.actualizarTipoNecesidad(tipoNecesidad).subscribe(res => {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 icon: 'success',
                 title: 'Tipo De Necesidad Modificada',

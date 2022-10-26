@@ -53,6 +53,7 @@ export class ModificarPeriodoEjecucionComponent implements OnInit {
     this.validarTodo = []
     this.validar2 = []
     if(this.formPeriodoEjecucion.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       this.servicePeriodoEjecucion.listarPorId(Number(this.data)).subscribe( periodoEjecucion => {
         this.validar = periodoEjecucion;
         this.servicePeriodoEjecucion.listarTodos().subscribe( periodoEjecu => {
@@ -60,6 +61,7 @@ export class ModificarPeriodoEjecucionComponent implements OnInit {
           this.validar2 = this.validarTodo.filter((item:any) => item.descripcion === this.formPeriodoEjecucion.value.descripcion && item.cantidad === this.formPeriodoEjecucion.value.cantidad);
           console.log(this.validar2);
           if(this.validar.descripcion === this.formPeriodoEjecucion.value.descripcion && this.validar.cantidad === this.formPeriodoEjecucion.value.cantidad){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'success',
               title: 'No hubieron cambios!',
@@ -68,6 +70,7 @@ export class ModificarPeriodoEjecucionComponent implements OnInit {
             })
             window.location.reload();
           }else if(this.validar2.length > 0){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'error',
               title: 'El periodo ejecion ya existe!',
@@ -78,6 +81,7 @@ export class ModificarPeriodoEjecucionComponent implements OnInit {
             const idTipoProceso = this.formPeriodoEjecucion.value.id;
             this.formPeriodoEjecucion.value.idTipoProceso = idTipoProceso;
             this.serviceModificar.actualizarPeriodoEjecucion(this.formPeriodoEjecucion.value).subscribe( data => {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 icon: 'success',
                 title: 'Periodo Ejecucion modificado!',
@@ -88,6 +92,13 @@ export class ModificarPeriodoEjecucionComponent implements OnInit {
             })
           }
         })
+      })
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos Vacios!',
+        showConfirmButton: false,
+        timer: 1500
       })
     }
   }

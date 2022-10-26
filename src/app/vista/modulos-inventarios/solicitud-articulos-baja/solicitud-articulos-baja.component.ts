@@ -400,6 +400,7 @@ export class SolicitudArticulosBajaComponent implements OnInit {
           })
         })
       }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -407,7 +408,6 @@ export class SolicitudArticulosBajaComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       }
     }
   }
@@ -415,14 +415,8 @@ export class SolicitudArticulosBajaComponent implements OnInit {
   public registrarSolicitudBajasArticulos(solicitudBajasArticulos: SolicitudBajasArticulos){
     this.servicioSolicitudBaja.registrar(solicitudBajasArticulos).subscribe(res=>{
       this.registrarArticulosBaja(solicitudBajasArticulos);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se genero la solicitud correctamente!',
-        showConfirmButton: false,
-        timer: 1500
-      })
     }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -433,22 +427,51 @@ export class SolicitudArticulosBajaComponent implements OnInit {
     })
   }
 
+  listaSolicitudBajas: any = []
   public registrarArticulosBaja(datos: any){
     let articulosBaja : ArticulosBaja = new ArticulosBaja();
-    for (let i = 0; i < this.listaTabla.length; i++) {
-      this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
-        const element = this.listaTabla[i];
-        articulosBaja.observacion = element.observacion
-        articulosBaja.idSolicitudBaja = datos
-        articulosBaja.idOpcionBaja = element.opcion
-        articulosBaja.idDetalleArticulo = element.articulo.idDetalleArticulo
-        articulosBaja.idEstado = resEstado
-        this.servicioArticulosBaja.registrar(articulosBaja).subscribe(res=>{
-          localStorage.removeItem('valido')
-          window.location.reload();
-        })
+    this.listaSolicitudBajas = []
+    this.servicioSolicitudBaja.listarTodos().subscribe(resSolicitudBaja=>{
+      resSolicitudBaja.forEach(elementSolicitudBaja => {
+        var fechaAlmacenada = new Date(elementSolicitudBaja.fecha)
+        fechaAlmacenada.setDate(fechaAlmacenada.getDate()+1)
+        var fechaAlmacenadaString = fechaAlmacenada.getFullYear()+"-"+fechaAlmacenada.getMonth()+"-"+fechaAlmacenada.getDate()
+        var fechaActual = this.fechaActual.getFullYear()+"-"+this.fechaActual.getMonth()+"-"+this.fechaActual.getDate()
+        console.log(fechaActual, elementSolicitudBaja.fecha, fechaAlmacenadaString)
+        if(fechaAlmacenadaString == fechaActual && elementSolicitudBaja.estadoContabilidad == datos.estadoContabilidad && elementSolicitudBaja.idEstado.id == datos.idEstado.id && elementSolicitudBaja.idUsuario.id == datos.idUsuario.id && elementSolicitudBaja.usuarioAutorizacion == datos.usuarioAutorizacion && elementSolicitudBaja.usuarioConfirmacion == datos.usuarioConfirmacion){
+          console.log("si")
+          this.listaSolicitudBajas.push(elementSolicitudBaja.id)
+        }
+      });
+      console.log(this.listaSolicitudBajas)
+      this.servicioSolicitudBaja.listarPorId(this.listaSolicitudBajas).subscribe(resSolicitudBajas=>{
+        for (let i = 0; i < this.listaTabla.length; i++) {
+          this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
+            const element = this.listaTabla[i];
+            articulosBaja.observacion = element.observacion
+            articulosBaja.idSolicitudBaja = resSolicitudBajas
+            articulosBaja.idOpcionBaja = element.opcion
+            articulosBaja.idDetalleArticulo = element.articulo.idDetalleArticulo
+            articulosBaja.idEstado = resEstado
+            this.servicioArticulosBaja.registrar(articulosBaja).subscribe(res=>{
+              if(i+1 == this.listaTabla.length){
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Se genero la solicitud correctamente!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                localStorage.removeItem('valido')
+                window.location.reload();
+              }
+            })
+          })
+        }
       })
-    }
+
+    })
 
   }
 

@@ -40,6 +40,7 @@ export class AgregarTipoProcesoComponent implements OnInit {
     this.encontrados = [];
     let tipoProceso : TipoProceso = new TipoProceso();
     if(this.formTipoProceso.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       tipoProceso.descripcion=this.formTipoProceso.controls['descripcion'].value;
       this.servicioTipoProceso.listarTodos().subscribe(resTipoProceso => {
         resTipoProceso.forEach(element => {
@@ -52,6 +53,7 @@ export class AgregarTipoProcesoComponent implements OnInit {
         })
         const existe = this.encontrados.includes(true);
         if(existe == true){
+          document.getElementById("snipper").setAttribute("style", "display: none;")
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -76,6 +78,7 @@ export class AgregarTipoProcesoComponent implements OnInit {
 
   public registrarTipoProceso(tipoProceso: TipoProceso) {
     this.servicioTipoProceso.registrar(tipoProceso).subscribe(res=>{
+      document.getElementById("snipper").setAttribute("style", "display: none;")
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -86,6 +89,7 @@ export class AgregarTipoProcesoComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload();
     }, error => {
+      document.getElementById("snipper").setAttribute("style", "display: none;")
       Swal.fire({
         position: 'center',
         icon: 'error',

@@ -50,6 +50,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
   }
   iguales =false
   public guardar(){
+    document.getElementById("snipper").setAttribute("style", "display: block;")
     this.validar = [];
     if(this.formAsignacionProcesoUsuario.valid){
       this.serviceUsuario.listarPorId(this.formAsignacionProcesoUsuario.value.idUsuario).subscribe( data => {
@@ -75,6 +76,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
+              document.getElementById("snipper").setAttribute("style", "display: none;")
             }else{
               this.serviceAsignacionProcesoUsuario.registrar(this.formAsignacionProcesoUsuario.value).subscribe( data => {
                 Swal.fire({
@@ -84,6 +86,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 })
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 window.location.reload();
               })
             }
@@ -97,6 +100,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById("snipper").setAttribute("style", "display: none;")
     }
 
   }

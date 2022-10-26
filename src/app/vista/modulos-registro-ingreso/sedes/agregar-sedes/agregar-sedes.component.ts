@@ -42,6 +42,7 @@ export class AgregarSedesComponent implements OnInit {
     this.encontrados = [];
     let sede : Sedes = new Sedes();
     if(this.formSede.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       sede.descripcion=this.formSede.controls['descripcion'].value;
         this.servicioSede.listarTodos().subscribe(resSede => {
           resSede.forEach(element => {
@@ -55,6 +56,7 @@ export class AgregarSedesComponent implements OnInit {
           const existe = this.encontrados.includes(true);
           console.log(existe);
           if(existe == true){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               position: 'center',
               icon: 'error',
@@ -79,6 +81,7 @@ export class AgregarSedesComponent implements OnInit {
 
   public registrarSede(sede: Sedes) {
     this.servicioSede.registrar(sede).subscribe(res=>{
+      document.getElementById("snipper").setAttribute("style", "display: none;")
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -89,6 +92,7 @@ export class AgregarSedesComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload();
     }, error => {
+      document.getElementById("snipper").setAttribute("style", "display: none;")
       Swal.fire({
         position: 'center',
         icon: 'error',

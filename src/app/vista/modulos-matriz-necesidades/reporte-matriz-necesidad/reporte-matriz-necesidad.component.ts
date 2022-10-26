@@ -109,7 +109,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
-        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.idTipoProceso.id == proceso && elementMatrizNecesidadDetalle.idEstado.id != 87){
+        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.idTipoProceso.id == proceso){
           this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
         }
       });
@@ -184,7 +184,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
-        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.id == subproceso && elementMatrizNecesidadDetalle.idEstado.id != 87){
+        if(elementMatrizNecesidadDetalle.idMatrizNecesidad.idSubProceso.id == subproceso){
           this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
         }
       });
@@ -248,11 +248,7 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
     this.mes = ""
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
-      resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
-        if(elementMatrizNecesidadDetalle.idEstado.id != 87){
-          this.listaMatricesNecesidad.push(elementMatrizNecesidadDetalle)
-        }
-      });
+      this.listaMatricesNecesidad = resMatricesNecesidadesDetalle
       if(this.listaMatricesNecesidad.length < 1){
         document.getElementById('snipper1')?.setAttribute('style', 'display: none;')
         Swal.fire({

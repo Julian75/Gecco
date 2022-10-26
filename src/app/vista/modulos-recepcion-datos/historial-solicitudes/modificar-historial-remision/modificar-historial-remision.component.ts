@@ -188,7 +188,16 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         timer: 2500
       })
     }else{
-      if((opcion == 1 && this.historialPosicionDos == false) || (opcion == 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value && this.formComentario.controls['personaAfectada'].value)){
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+      if((opcion == 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value == null && this.formComentario.controls['personaAfectada'].value == null) || (opcion != 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value == null && this.formComentario.controls['personaAfectada'].value == null)){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Debe indicar quien se ve afectada y involucrada!',
+          showConfirmButton: false,
+          timer: 2500
+        })
+      }else if((opcion == 1 && this.historialPosicionDos == false) || (opcion == 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value != null && this.formComentario.controls['personaAfectada'].value != null)){
         if(this.usuarios.value.length >= 1){
           let historial : Historial2 = new Historial2();
           historial.observacion = comentario
@@ -227,7 +236,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
             timer: 2500
           })
         }
-      }else if((opcion != 1 &&  this.historialPosicionDos == false) || (opcion != 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value && this.formComentario.controls['personaAfectada'].value)){
+      }else if((opcion != 1 &&  this.historialPosicionDos == false) || (opcion != 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value != null && this.formComentario.controls['personaAfectada'].value != null)){
         let historial : Historial2 = new Historial2();
           historial.observacion = comentario
           this.servicioHistorial.listarTodos().subscribe(resSolicitud=>{

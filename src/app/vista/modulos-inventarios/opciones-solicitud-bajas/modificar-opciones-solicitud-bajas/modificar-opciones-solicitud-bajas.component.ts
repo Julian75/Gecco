@@ -75,6 +75,7 @@ export class ModificarOpcionesSolicitudBajasComponent implements OnInit {
         this.dialogRef.close();
         window.location.reload();
       }else{
+        document.getElementById("snipper").setAttribute("style", "display: block;")
         opcionArticuloBaja.descripcion = descripcion
         this.servicioOpcionBajas.listarTodos().subscribe(resModulo=>{
           resModulo.forEach(element => {
@@ -87,6 +88,7 @@ export class ModificarOpcionesSolicitudBajasComponent implements OnInit {
           });
           const existe = this.listaExis.includes( true );
           if(existe == true){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'error',
               title: 'Esa Opcion ya existe!',
@@ -95,6 +97,7 @@ export class ModificarOpcionesSolicitudBajasComponent implements OnInit {
             });
           }else{
             this.servicioModificar.actualizarOpcionArticuloBaja(opcionArticuloBaja).subscribe(res => {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 icon: 'success',
                 title: 'Opcion Modificada',

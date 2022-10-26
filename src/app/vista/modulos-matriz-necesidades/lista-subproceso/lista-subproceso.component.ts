@@ -59,24 +59,41 @@ export class ListaSubprocesoComponent implements OnInit {
 
 
   eliminarSubProceso(id:number){
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "¡No podrás revertir esto!",
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger mx-5'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: "No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, bórralo!'
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'No, Cancelar!',
+      reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
         this.serviceSubProceo.eliminar(id).subscribe(res=>{
-          Swal.fire(
-            '¡Eliminado!',
-            'El registro ha sido eliminado.',
+          this.listarTodos();
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'Se elimino el subproceso.',
             'success'
           )
-          window.location.reload()
         })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado!',
+          '',
+          'error'
+        )
       }
     })
   }

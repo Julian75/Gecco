@@ -53,21 +53,21 @@ export class ModificarTipoProcesoComponent implements OnInit {
     let tipoProceso : TipoProceso2 = new TipoProceso2();
     tipoProceso.id=Number(this.data);
     if(this.formTipoProceso.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       const descripcion = this.formTipoProceso.value.descripcion;
       this.servicioTipoProceso.listarPorId(tipoProceso.id).subscribe(res=>{
         if(descripcion.toLowerCase() == res.descripcion.toLowerCase()){
           tipoProceso.descripcion=descripcion
-          this.servicioModificar.actualizarTipoProceso(tipoProceso).subscribe(res=>{
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'No hubieron cambios!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.dialogRef.close();
-            window.location.reload();
+          document.getElementById("snipper").setAttribute("style", "display: none;")
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No hubieron cambios!',
+            showConfirmButton: false,
+            timer: 1500
           })
+          this.dialogRef.close();
+          window.location.reload();
         }else{
           this.servicioTipoProceso.listarTodos().subscribe(resTi => {
             resTi.forEach(element => {
@@ -80,6 +80,7 @@ export class ModificarTipoProcesoComponent implements OnInit {
             })
             const existe = this.encontrados.includes(true);
             if(existe == true){
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -90,6 +91,7 @@ export class ModificarTipoProcesoComponent implements OnInit {
             }else{
               tipoProceso.descripcion=descripcion
               this.servicioModificar.actualizarTipoProceso(tipoProceso).subscribe(res=>{
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
@@ -100,6 +102,7 @@ export class ModificarTipoProcesoComponent implements OnInit {
                 this.dialogRef.close();
                 window.location.reload();
               }, error => {
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 Swal.fire({
                   position: 'center',
                   icon: 'error',

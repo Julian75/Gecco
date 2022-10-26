@@ -12,6 +12,7 @@ import { Soporte2 } from '../modelos/soporte2';
 import { ArchivoSolicitud2 } from '../modelos/modelos2/archivoSolicitud2';
 import { DetalleSolicitud2 } from '../modelos/detalleSolicitud2';
 import { AsignarTurnoVendedor2 } from '../modelos/asignarTurnoVendedor2';
+import { HistorialSolicitudes2 } from '../modelos/modelos2/historialSolicitudes2';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +88,11 @@ export class ConsultasGeneralesService {
   //Listar Asignaciones activas que no tienen los mismos activos que ya se dieron de baja
   public listarAsignacionesActivosSinBaja(){
     return this.http.get<AsignacionArticulos2[]>(this.path+"/ObtenerAsignacionArticulos");
+  }
+
+  //Lista todos los historiales que tengan el mismo id de solicitud del parametro
+  public listarHistorialesSolicitudes(idSolicitudSC){
+    return this.http.get<HistorialSolicitudes2[]>(this.path+"/ObtenerHistorialesSolicitudes?idSolicitudSC="+idSolicitudSC);
   }
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);

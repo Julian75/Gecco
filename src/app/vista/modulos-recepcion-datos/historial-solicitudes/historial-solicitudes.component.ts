@@ -63,11 +63,11 @@ export class HistorialSolicitudesComponent implements OnInit {
       this.Escala = res.idEscala.descripcion
       this.Incidente = res.incidente
     })
-    this.servicioHistorial.listarTodos().subscribe( res => {
-      res.forEach((element: any) => {
-        if(element.idSolicitudSC.id == this.data){
+    this.servicioConsultasGenerales.listarHistorialesSolicitudes(this.data).subscribe(resHistoriales=>{
+      resHistoriales.forEach(element => {
+        this.servicioHistorial.listarPorId(element.id).subscribe(resHistorial=>{
           var obj = {
-            elemento: element,
+            elemento: resHistorial,
             validar3: false
           }
           this.servicioSoporte.listarTodos().subscribe(resSopor=>{
@@ -85,14 +85,22 @@ export class HistorialSolicitudesComponent implements OnInit {
               }
             })
             this.listarComentarios.push(obj);
+            console.log(resHistorial)
             this.dataSource = new MatTableDataSource(this.listarComentarios);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           })
-        }
+        })
       });
-
     })
+    // this.servicioHistorial.listarTodos().subscribe( res => {
+    //   res.forEach((element: any) => {
+    //     if(element.idSolicitudSC.id == this.data){
+
+    //     }
+    //   });
+
+    // })
   }
 
 

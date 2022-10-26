@@ -63,7 +63,7 @@
             <p *ngIf="element.idEstado.id == 86">
               {{element.costoEjecucionComprada}}
             </p>
-            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="text" #Costo name="costoEjecucionComprad" id="costoEjecucionComprad"  min="1" (change)="costoEjecucionComprado($event, element)">
+            <input *ngIf="element.idEstado.id == 85 && modificar == true" type="number" #Costo name="costoEjecucionComprad" id="costoEjecucionComprad" value="0" min="1" (change)="costoEjecucionComprado($event, element)">
           </td>
         </ng-container>
 
@@ -111,13 +111,13 @@
         <ng-container matColumnDef="opciones">
             <th mat-header-cell *matHeaderCellDef id="tamañoOpc"><h3 id="opcSpa">Opciones</h3></th>
             <td mat-cell *matCellDef="let item" id="tamañoOpc">
-              <button class="btn btnedit mx-2 edi" *ngIf="item.idEstado.id == 86" (click)="mostrarPdfOrdenCompra(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
+              <button class="btn btnedit mx-2 my-1 edi" *ngIf="item.idEstado.id == 86" (click)="mostrarPdfOrdenCompra(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
                 <mat-icon>plagiarism</mat-icon>
               </button>
-               <button class="btn boton mx-2" *ngIf="item.idEstado.id == 85 && modificar == true" (click)="aceptarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
+               <button class="btn boton mx-2 my-1" *ngIf="item.idEstado.id == 85 && modificar == true" (click)="aceptarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Corroborar">
                 <mat-icon>check_circle</mat-icon>
               </button>
-              <button class="btn btnremove mx-2" *ngIf="item.idEstado.id == 85 && modificar == true" (click)="rechazarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar Matriz Detalle">
+              <button class="btn btnremove mx-2 my-1" *ngIf="item.idEstado.id == 85 && modificar == true" (click)="rechazarDetalleMatriz(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar Matriz Detalle">
                 <mat-icon>block</mat-icon>
               </button>
               <!--  -->

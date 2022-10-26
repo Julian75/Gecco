@@ -53,21 +53,21 @@ export class ModificarTipoActivoComponent implements OnInit {
     let tipoActivo : TipoActivo2 = new TipoActivo2();
     tipoActivo.id=Number(this.data);
     if(this.formTipoActivo.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       const descripcion = this.formTipoActivo.value.descripcion;
       this.servicioTipoActivo.listarPorId(tipoActivo.id).subscribe(res=>{
         if(descripcion.toLowerCase() == res.descripcion.toLowerCase()){
-          tipoActivo.descripcion=descripcion
-          this.servicioModificar.actualizarTipoActivo(tipoActivo).subscribe(res=>{
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'No hubieron cambios!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.dialogRef.close();
-            window.location.reload();
+          document.getElementById("snipper").setAttribute("style", "display: none;")
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No hubieron cambios!',
+            showConfirmButton: false,
+            timer: 1500
           })
+          this.dialogRef.close();
+          window.location.reload();
+
         }else{
           this.servicioTipoActivo.listarTodos().subscribe(resTi => {
             resTi.forEach(element => {
@@ -80,6 +80,7 @@ export class ModificarTipoActivoComponent implements OnInit {
             })
             const existe = this.encontrados.includes(true);
             if(existe == true){
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -90,6 +91,7 @@ export class ModificarTipoActivoComponent implements OnInit {
             }else{
               tipoActivo.descripcion=descripcion
               this.servicioModificar.actualizarTipoActivo(tipoActivo).subscribe(res=>{
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
@@ -100,6 +102,7 @@ export class ModificarTipoActivoComponent implements OnInit {
                 this.dialogRef.close();
                 window.location.reload();
               }, error => {
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 Swal.fire({
                   position: 'center',
                   icon: 'error',

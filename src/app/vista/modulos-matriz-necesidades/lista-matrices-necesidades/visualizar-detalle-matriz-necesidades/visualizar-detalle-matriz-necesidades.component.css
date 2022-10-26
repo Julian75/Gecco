@@ -15,6 +15,9 @@ table{
   background-color: #97B4E2;
   width: 10%;
 }
+td{
+  text-align: left; overflow-wrap: break-word;
+}
 
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;
@@ -35,7 +38,12 @@ table{
 #cantidadObjetosCom{ left: 53px; }
 #opcSpa{ left: 5px; } */
 #idSp2{ padding-left: 0%; }
-
+table td input, table td mat-form-field{
+  width: 80%;
+}
+table td mat-form-field{
+  margin-top: 5%;
+}
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }

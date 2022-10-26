@@ -32,6 +32,7 @@ export class AgregarPeriodoEjecucionComponent implements OnInit {
   listaValidar: any = [];
   public guardar(){
     if(this.formPeriodoEjecucion.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       if(this.formPeriodoEjecucion.controls['cantidad'].value > 0){
         this.servicioPeriodoEjecucion.listarTodos().subscribe( resPeriodoEjecucion => {
           this.listaValidar = []
@@ -45,6 +46,7 @@ export class AgregarPeriodoEjecucionComponent implements OnInit {
           });
           var valide = this.listaValidar.includes(true)
           if(valide == true){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'error',
               title: 'El periodo ejecución ya existe',
@@ -52,20 +54,21 @@ export class AgregarPeriodoEjecucionComponent implements OnInit {
               timer: 2500
             })
           }else{
-              this.servicioPeriodoEjecucion.registrar(this.formPeriodoEjecucion.value).subscribe( data => {
-                Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Periodo ejecución agregado',
-                  showConfirmButton: false,
-                  timer: 2500
-                })
-                window.location.reload();
+            this.servicioPeriodoEjecucion.registrar(this.formPeriodoEjecucion.value).subscribe( data => {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Periodo ejecución agregado',
+                showConfirmButton: false,
+                timer: 2500
               })
-
+              window.location.reload();
+            })
           }
         })
       }else{
+        document.getElementById("snipper").setAttribute("style", "display: none;")
         Swal.fire({
           icon: 'error',
           title: 'La cantidad en meses debe ser mayor a 0',

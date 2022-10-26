@@ -40,6 +40,7 @@ export class AgregarTipoActivoComponent implements OnInit {
     this.encontrados = [];
     let tipoActivo : TipoActivo = new TipoActivo();
     if(this.formTipoActivo.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       tipoActivo.descripcion=this.formTipoActivo.controls['descripcion'].value;
       this.servicioTipoActivo.listarTodos().subscribe(resTipoProceso => {
         resTipoProceso.forEach(element => {
@@ -52,6 +53,7 @@ export class AgregarTipoActivoComponent implements OnInit {
         })
         const existe = this.encontrados.includes(true);
         if(existe == true){
+          document.getElementById("snipper").setAttribute("style", "display: none;")
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -76,6 +78,7 @@ export class AgregarTipoActivoComponent implements OnInit {
 
   public registrarTipoActivo(tipoActivo: TipoActivo) {
     this.servicioTipoActivo.registrar(tipoActivo).subscribe(res=>{
+      document.getElementById("snipper").setAttribute("style", "display: none;")
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -86,6 +89,7 @@ export class AgregarTipoActivoComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload();
     }, error => {
+      document.getElementById("snipper").setAttribute("style", "display: none;")
       Swal.fire({
         position: 'center',
         icon: 'error',

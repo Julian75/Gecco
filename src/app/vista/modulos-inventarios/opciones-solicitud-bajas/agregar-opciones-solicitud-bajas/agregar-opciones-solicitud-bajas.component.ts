@@ -48,6 +48,7 @@ export class AgregarOpcionesSolicitudBajasComponent implements OnInit {
         timer: 1500
       })
     }else{
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       this.servicioOpcionBajas.listarTodos().subscribe(resOpcion=>{
         resOpcion.forEach(element => {
           if(element.descripcion.toLowerCase() == opcionBajas.descripcion.toLowerCase()){
@@ -59,6 +60,7 @@ export class AgregarOpcionesSolicitudBajasComponent implements OnInit {
         });
         const existe = this.listaExis.includes( true );
         if(existe == true){
+          document.getElementById("snipper").setAttribute("style", "display: none;")
           Swal.fire({
             icon: 'error',
             title: 'Esa Opcion ya existe!',
@@ -67,6 +69,7 @@ export class AgregarOpcionesSolicitudBajasComponent implements OnInit {
           });
         }else{
           this.servicioOpcionBajas.registrar(opcionBajas).subscribe( res => {
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'success',
               title: 'Registro exitoso',

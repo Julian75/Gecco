@@ -51,8 +51,10 @@ export class AgregarTipoNecesidadesComponent implements OnInit {
           timer: 1500
         })
       }else{
+        document.getElementById("snipper").setAttribute("style", "display: block;")
         for (let i = 0; i < this.listarTipoNecesidad.length; i++) {
           if (this.listarTipoNecesidad[i].descripcion.toLowerCase() == campo.toLowerCase()) {
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               icon: 'error',
               title: 'Tipo de Necesidad Existente',
@@ -63,6 +65,7 @@ export class AgregarTipoNecesidadesComponent implements OnInit {
           }
         }
         this.servicioTipoNecesidad.registrar(tipoNecesidad).subscribe(res => {
+          document.getElementById("snipper").setAttribute("style", "display: none;")
           Swal.fire({
             icon: 'success',
             title: 'Tipo de Necesidad Registrada',

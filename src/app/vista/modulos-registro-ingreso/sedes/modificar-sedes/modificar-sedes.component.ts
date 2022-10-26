@@ -53,11 +53,13 @@ export class ModificarSedesComponent implements OnInit {
     let sede : Sedes2 = new Sedes2();
     sede.id=Number(this.data);
     if(this.formSede.valid){
+      document.getElementById("snipper").setAttribute("style", "display: block;")
       const descripcion = this.formSede.value.descripcion;
       this.servicioSede.listarPorId(sede.id).subscribe(res=>{
         if(descripcion.toLowerCase() == res.descripcion.toLowerCase()){
           sede.descripcion=descripcion
           this.servicioModificar.actualizarSede(sede).subscribe(res=>{
+            document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -80,6 +82,7 @@ export class ModificarSedesComponent implements OnInit {
             })
             const existe = this.encontrados.includes(true);
             if(existe == true){
+              document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -90,6 +93,7 @@ export class ModificarSedesComponent implements OnInit {
             }else{
               sede.descripcion=descripcion
               this.servicioModificar.actualizarSede(sede).subscribe(res=>{
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
@@ -100,6 +104,7 @@ export class ModificarSedesComponent implements OnInit {
                 this.dialogRef.close();
                 window.location.reload();
               }, error => {
+                document.getElementById("snipper").setAttribute("style", "display: none;")
                 Swal.fire({
                   position: 'center',
                   icon: 'error',

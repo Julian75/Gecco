@@ -143,33 +143,18 @@ table{
   /*Portatil 6, Televisor 3*/
   @media screen and (min-width: 3001px) and (max-width: 3840px){
     td button mat-icon{ margin-left: -3px; margin-top: -1px;}
-    
     td.mat-cell:first-of-type { padding-left: 5px;}
     .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
   }
   /*Televisor 4*/
   @media screen and (min-width: 3841px) and (max-width: 4096px){
     td button mat-icon{ margin-left: -3px; margin-top: -2px;}
-    .id{ left: 30px; }
-    #fecha { margin-left: 340%; }
-    #observacion{ margin-left: 410%; }
-    #usuario{ margin-left: 240%; }
-    #idDetalleArticulo{ margin-left: 240%; }
-    #estado{ margin-left: 610%; }
-    #opcSp{ left: 15px; }
     td.mat-cell:first-of-type { padding-left: 5px;}
     .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
   }
   /*Portatil 7, Televisor 5*/
   @media screen and (min-width: 4097px) and (max-width: 7680px){
     td button mat-icon{ margin-left: -3px; margin-top: -2px;}
-    .id{ left: 60px; }
-    #fecha { margin-left: 640%; }
-    #observacion{ margin-left: 750%; }
-    #usuario{ margin-left: 480%; }
-    #idDetalleArticulo{ margin-left: 480%; }
-    #estado{ margin-left: 1200%; }
-    #opcSp{ left: 15px; }
     td.mat-cell:first-of-type { padding-left: 5px;}
     .botonagregar mat-icon{ margin-left: -2%; margin-top: -3%; }
   }

@@ -53,12 +53,15 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
     this.informacionMatriz = this.data
   }
 
+  fechaActual: Date = new Date();
   public guardar(){
+    document.getElementById("snipper5").setAttribute("style", "display: block;")
     if(this.formMatriz.valid){
       this.informacionMatriz = this.data
       var cantidadMes = this.formMatriz.controls['cantidadMes'].value;
       var cantidadObjeto = this.formMatriz.controls['cantidadObjeto'].value;
       var fecha = this.formMatriz.controls['mes'].value.split('-');
+      var año = fecha[0]
       var mes = new Date(fecha[0], (fecha[1]-1), 11)
       var sumaMes = 0;
       var totalMes = 0;
@@ -68,7 +71,14 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
       var listaValidacion = []
       var validarFecha = false
       var listaValidacionFecha = []
+      var validarAño = false
+      var listaValidacionAño = []
       var codigo = 1
+      console.log(año)
+      console.log(this.fechaActual.getFullYear()+1)
+      if(año == (this.fechaActual.getFullYear()+1)){
+        validarAño = true
+      }
       if(this.listaTabla.length > 0){
         for (let i = 0; i < this.listaTabla.length; i++) {
           const element = this.listaTabla[i];
@@ -86,14 +96,17 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
           }
           listaValidacion.push(validar)
           listaValidacionFecha.push(validarFecha)
+          listaValidacionAño.push(validarAño)
         }
         codigo = codigo + 1
       }else{
         listaValidacion.push(validar)
         listaValidacionFecha.push(validarFecha)
+        listaValidacionAño.push(validarAño)
       }
       var validacion = listaValidacion.includes(true)
       var validacionFecha = listaValidacionFecha.includes(true)
+      var validacionAño = listaValidacionAño.includes(true)
       if(validacion == true){
         Swal.fire({
           position: 'center',
@@ -102,6 +115,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        document.getElementById("snipper5").setAttribute("style", "display: none;")
       }else{
         if(validacionFecha == true){
           Swal.fire({
@@ -111,37 +125,52 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          document.getElementById("snipper5").setAttribute("style", "display: none;")
         }else{
-          if(cantidadMes > this.informacionMatriz.cantidadEjecuciones){
-            Swal.fire({
-              position: 'center',
-              icon: 'warning',
-              title: 'La cantidad de ejecuciones por mes no puede ser mayor a la registrada anteriormente!',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }else{
-            if(cantidadObjeto > this.informacionMatriz.cantidad){
+          if(validacionAño == true){
+            if(cantidadMes > this.informacionMatriz.cantidadEjecuciones){
               Swal.fire({
                 position: 'center',
                 icon: 'warning',
-                title: 'La cantidad estimada de objetos no puede ser mayor a la registrada anteriormente!',
+                title: 'La cantidad de ejecuciones por mes no puede ser mayor a la registrada anteriormente!',
                 showConfirmButton: false,
                 timer: 1500
               })
+              document.getElementById("snipper5").setAttribute("style", "display: none;")
             }else{
-              var obj = {
-                id: codigo,
-                mes: mes,
-                cantidadMes: cantidadMes,
-                cantidadEstimada: cantidadObjeto
+              if(cantidadObjeto > this.informacionMatriz.cantidad){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'La cantidad estimada de objetos no puede ser mayor a la registrada anteriormente!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                document.getElementById("snipper5").setAttribute("style", "display: none;")
+              }else{
+                var obj = {
+                  id: codigo,
+                  mes: mes,
+                  cantidadMes: cantidadMes,
+                  cantidadEstimada: cantidadObjeto
+                }
+                this.listaTabla.push(obj)
+                this.dataSource = new MatTableDataSource(this.listaTabla);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.crearFormulario();
+                document.getElementById("snipper5").setAttribute("style", "display: none;")
               }
-              this.listaTabla.push(obj)
-              this.dataSource = new MatTableDataSource(this.listaTabla);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              this.crearFormulario();
             }
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'El año en el que selecciono el mes no es correcto!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            document.getElementById("snipper5").setAttribute("style", "display: none;")
           }
         }
       }
@@ -153,6 +182,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById("snipper5").setAttribute("style", "display: none;")
     }
   }
 
@@ -201,6 +231,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             })
+            document.getElementById("snipper5").setAttribute("style", "display: none;")
             this.dialogRef.close();
             window.location.reload();
           }else{
@@ -211,6 +242,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             })
+            document.getElementById("snipper5").setAttribute("style", "display: none;")
           }
         }else{
           Swal.fire({
@@ -220,6 +252,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          document.getElementById("snipper5").setAttribute("style", "display: none;")
         }
       })
     })
@@ -227,7 +260,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
 
   public registrarMatriz(matrizDetalle: MatrizNecesidadDetalle){
     this.servicioMatrizDetalle.registrar(matrizDetalle).subscribe(res =>{
-
+      document.getElementById("snipper5").setAttribute("style", "display: none;")
     }, error => {
       Swal.fire({
         position: 'center',
@@ -236,6 +269,7 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById("snipper5").setAttribute("style", "display: none;")
     })
   }
 
