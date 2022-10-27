@@ -27,6 +27,10 @@ h2{
 button mat-icon{ position: relative; top: -9%; left: -18%;}
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
+  #soliciSpa{margin-left: 15%;}
+  #vendedorSpa{margin-left: 16%;}
+  #turnvenSpa{    margin-left: 19%;}
+  #OpcSpa{margin-left: 23%;}
   .btnremove{ margin-top: 10%; margin-bottom: 13%;}
   .btnver{ left: 52%; top: 51%; position: static;}
   .btnver mat-icon{ top: -21%; left: -180%;}

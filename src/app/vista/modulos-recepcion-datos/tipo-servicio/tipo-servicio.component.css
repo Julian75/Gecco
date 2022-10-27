@@ -18,8 +18,8 @@ table{
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-/* #idSpa, #descSpa, #opcSpa{ position: relative; }
-#idSpa{ margin-left: 404% ! important;}
+#idSpa, #descSpa, #opcSpa{ position: relative; }
+/* #idSpa{ margin-left: 404% ! important;}
 #descSpa{ margin-left: 173% ! important;} */
 #idSp2{ padding-left: 0%; }
 
@@ -27,7 +27,7 @@ table{
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
   #idSpa{ margin-left: 66% !important; }
-  #descSpa{ margin-left: 26% !important; }
+  #descSpa{ margin-left: 10% !important; }
   #opcSpa{ left: 8px; }
   td button{ margin-top: 5%; }
 }
@@ -35,7 +35,7 @@ table{
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
   #idSpa{ margin-left: 87% !important; }
-  #descSpa{ margin-left: 46% !important; }
+  #descSpa{ margin-left: 12% !important; }
   #opcSpa{ left: 8px; }
 }
 /* Tablet 1 */

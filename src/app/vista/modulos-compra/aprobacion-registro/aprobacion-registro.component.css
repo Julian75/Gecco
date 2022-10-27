@@ -90,11 +90,6 @@ table{
 .btnedit2{ background-color: #97B4E2; color: white; }
 
 .botonagregar2, .btnver, .btnedit2, .botonvolver{ width: 64px; height: 36px; }
-.btnedit mat-icon, .btnremove mat-icon, .boton mat-icon{ left: -3px; top: -1px;}
-#idSp, #idSp2, #desSp, #estSp, #opcSp, #jerSp{ position: relative;}
-#jerSp{ left: 70px; }
-#opcSp{ padding-right: 0%; }
-#idSp2{ padding-left: 0%; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
@@ -102,7 +97,6 @@ table{
   .boton{ width: 31px !important; height: 29px !important; }
   .botonvolver mat-icon{ font-size: 17px !important; margin-left: -55%; }
   td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
-  #idSp{ margin-left: 70%; }
   #desSp{ margin-left: 20%; }
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 20%;}
@@ -115,7 +109,6 @@ table{
   .boton{ width: 31px !important; height: 29px !important; }
   .botonvolver mat-icon{ font-size: 17px !important; margin-left: -55%; }
   td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
-  #idSp{ margin-left: 70%; }
   #desSp{ margin-left: 20%; }
   #estSp{ margin-left: 20%; }
   #estaSp{ margin-left: 20%;}
@@ -128,119 +121,119 @@ table{
   .boton{ width: 31px !important; height: 29px !important; }
   .botonvolver mat-icon{ font-size: 17px !important; margin-left: -55%; }
   td button mat-icon{ font-size: 17px !important; margin-left: -6px; margin-top: 0px; }
-  #idSp{ margin-left: 70%; }
+  /* #idSp{ margin-left: 70%; }
   #desSp{ margin-left: 20%; }
   #estSp{ margin-left: 20%; }
-  #estaSp{ margin-left: 25%;}
+  #estaSp{ margin-left: 25%;} */
   td button{ margin-top: 4%; }
 }
 /* Tablet 2,  Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 768px){
   td button mat-icon{ margin-left: -0px; }
-  #idSp{ margin-left: 80%; }
+  /* #idSp{ margin-left: 80%; }
   #desSp{ margin-left: 25%; }
   #estSp{ margin-left: 30%; }
-  #estaSp{ margin-left: 25%;}
+  #estaSp{ margin-left: 25%;} */
   td button{ margin-top: 4%; }
 }
 /* Tablet 3,  Portatil 2*/
 @media screen and (min-width: 769px) and (max-width: 960px){
-  #idSp{ margin-left: 100%; }
+  /* #idSp{ margin-left: 100%; }
   #desSp{ margin-left: 30%; }
-  #estSp{ margin-left: 25%; }
-  #estaSp{ margin-left: 30%;}
+  #estSp{ margin-left: 25%; } */
+  /* #estaSp{ margin-left: 30%;} */
 }
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 55%; }
-  #estSp{ margin-left: 50%; }
-  #estaSp{ margin-left: 50%;}
+  #estSp{ margin-left: 50%; } */
+  /* #estaSp{ margin-left: 50%;} */
 }
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
-  #idSp{ margin-left: 160%; }
+  /* #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
-  #estSp{ margin-left: 70%; }
-  #estaSp{ margin-left: 70%;}
+  #estSp{ margin-left: 70%; } */
+  /* #estaSp{ margin-left: 70%;} */
 }
 /* Tablet 8, Compu. Mesa 5*/
 @media screen and (min-width: 1281px) and (max-width: 1536px){
   td button mat-icon{ margin-top: -2px; }
-  #idSp{ margin-left: 160%; }
+  /* #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
-  #estSp{ margin-left: 75%; }
-  #estaSp{ margin-left: 80%;}
+  #estSp{ margin-left: 75%; } */
+  /* #estaSp{ margin-left: 80%;} */
 }
 /*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
-  #idSp{ margin-left: 160%; }
+  /* #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
-  #estSp{ margin-left: 75%; }
-  #estaSp{ margin-left: 80%;}
+  #estSp{ margin-left: 75%; } */
+  /* #estaSp{ margin-left: 80%;} */
 }
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1851px) and (max-width: 1920px){
-  #idSp{ margin-left: 160%; }
+  /* #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 70%;}
+  #estaSp{ margin-left: 70%;} */
 }
 
 /*Tablet 9*/
 @media screen and (min-width: 1921px) and (max-width: 2048px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 85%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 70%;}
+  #estaSp{ margin-left: 70%;} */
 }
 /*Tablet 10*/
 @media screen and (min-width: 2049px) and (max-width: 2160px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 75%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }
 /*Tablet 11 y 12, Portatil 5*/
 @media screen and (min-width: 2161px) and (max-width: 2560px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 75%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }
 /*Tablet 13*/
 @media screen and (min-width: 2561px) and (max-width: 2736px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 80%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 80%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 80%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 80%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
-  #idSp{ margin-left: 120%; }
+  /* #idSp{ margin-left: 120%; }
   #desSp{ margin-left: 80%; }
   #estSp{ margin-left: 65%; }
-  #estaSp{ margin-left: 60%;}
+  #estaSp{ margin-left: 60%;} */
 }

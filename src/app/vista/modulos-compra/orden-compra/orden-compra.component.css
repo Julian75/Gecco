@@ -8,22 +8,6 @@ td.mat-cell:first-of-type{
   padding-right: 0%;
   padding-left: 0%;
 }
-.ar{
-  position: relative;
-  left: -3px;
-}
-.o{
-  position: relative;
-  left: -3px;
-}
-.v{
-  position: relative;
-  left: -3px;
-}
-.cant{
-  position: relative;
-  left: -3px;
-}
 .sub{
   position: relative;
   top: -52px;

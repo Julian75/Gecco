@@ -64,32 +64,38 @@ export class HistorialSolicitudesComponent implements OnInit {
       this.Incidente = res.incidente
     })
     this.servicioConsultasGenerales.listarHistorialesSolicitudes(this.data).subscribe(resHistoriales=>{
+      this.servicioSoporte.listarTodos().subscribe(resSopor=>{
+      var i = 0
       resHistoriales.forEach(element => {
+        i++
         this.servicioHistorial.listarPorId(element.id).subscribe(resHistorial=>{
           var obj = {
             elemento: resHistorial,
             validar3: false
           }
-          this.servicioSoporte.listarTodos().subscribe(resSopor=>{
-            resSopor.forEach(elementSoporte=>{
-              console.log(elementSoporte)
-              if(elementSoporte.idHistorial.id == element.id ){
-                this.servicioPdf.listarTodosSegunda().subscribe(resPdf=>{
-                  this.listaPdf.push(resPdf)
-                  for (const i in resPdf) {
-                    if (elementSoporte.descripcion == resPdf[i].name) {
-                      obj.validar3 = true
-                    }
+          resSopor.forEach(elementSoporte=>{
+            console.log(elementSoporte)
+            if(elementSoporte.idHistorial.id == element.id ){
+              this.servicioPdf.listarTodosSegunda().subscribe(resPdf=>{
+                this.listaPdf.push(resPdf)
+                for (const i in resPdf) {
+                  if (elementSoporte.descripcion == resPdf[i].name) {
+                    obj.validar3 = true
                   }
-                })
-              }
-            })
-            this.listarComentarios.push(obj);
-            console.log(resHistorial)
+                }
+              })
+            }
+          })
+          this.listarComentarios.push(obj);
+          console.log(this.listarComentarios, i, resHistoriales.length)
+          if(i == resHistoriales.length){
+            this.listarComentarios.sort(((a, b) => a.elemento.id - b.elemento.id));
+            console.log(this.listarComentarios)
             this.dataSource = new MatTableDataSource(this.listarComentarios);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-          })
+          }
+        })
         })
       });
     })

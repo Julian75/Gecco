@@ -162,6 +162,8 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   uploadFiles(files: File[]){
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
+    // http://localhost:9000/api/Pdf/upload
+    // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
     this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -169,6 +171,13 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         } else if (event instanceof HttpResponse) {
           this.uploadSuccess = true;
           document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Comentario Generado!',
+            showConfirmButton: false,
+            timer: 1500
+          })
           window.location.reload();
         }
     });
@@ -188,8 +197,8 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         timer: 2500
       })
     }else{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       if((opcion == 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value == null && this.formComentario.controls['personaAfectada'].value == null) || (opcion != 1 && this.historialPosicionDos == true && this.formComentario.controls['personaInvolucrada'].value == null && this.formComentario.controls['personaAfectada'].value == null)){
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -379,10 +388,8 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   }
 
   public registrarHistorial2(historial: HistorialSolicitudes, historial2, i, usuarios){
-    console.log("hola3")
     this.servicioHistorial.registrar(historial).subscribe(res=>{
       if((i+1) == usuarios){
-        console.log("hola5")
         this.generarSoporte(historial2);
       }
     }, error => {
@@ -436,7 +443,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
 
   public registrarSoporte(soporte: SoporteSC, cont){
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       if(this.listaArchivos2.length == cont){
         this.uploadFiles(this.w);
       }
@@ -580,13 +586,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
 
   public registrarSoporte2(soporte: SoporteSC, cont){
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Comentario Generado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
       if(this.listaArchivos2.length == cont){
         this.uploadFiles(this.w);
       }

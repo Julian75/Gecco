@@ -55,124 +55,124 @@ table{
   #turnoSpa{ margin-left: 85%; }
 }
 /* Tablet 2,  Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 768px){
+/* @media screen and (min-width: 640px) and (max-width: 768px){
   #idSpa { margin-left: 60%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 20%; }
   #nombreOficSpa{ margin-left: 28%; }
   #fechaISpa, #fechaFSpa { margin-left: 20%; }
   #turnoSpa{ margin-left: 140%; }
-}
+} */
 /* Tablet 3,  Portatil 2*/
-@media screen and (min-width: 769px) and (max-width: 960px){
+/* @media screen and (min-width: 769px) and (max-width: 960px){
   #idSpa { margin-left: 60%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 20%; }
   #nombreOficSpa{ margin-left: 28%; }
   #fechaISpa, #fechaFSpa { margin-left: 20%; }
   #turnoSpa{ margin-left: 90%; }
-}
+} */
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
-@media screen and (min-width: 961px) and (max-width: 1080px){
+/* @media screen and (min-width: 961px) and (max-width: 1080px){
   #idSpa { margin-left: 80%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 20%; }
   #nombreOficSpa{ margin-left: 40%; }
   #fechaISpa, #fechaFSpa { margin-left: 20%; }
   #turnoSpa{ margin-left: 160%; }
-}
+} */
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
-@media screen and (min-width: 1081px) and (max-width: 1280px){
+/* @media screen and (min-width: 1081px) and (max-width: 1280px){
   #idSpa { margin-left: 80%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 36%; }
   #nombreOficSpa{ margin-left: 60%; }
   #fechaISpa, #fechaFSpa { margin-left: 20%; }
   #turnoSpa{ margin-left: 200%; }
-}
+} */
 /* Tablet 8, Compu. Mesa 5*/
-@media screen and (min-width: 1281px) and (max-width: 1536px){
+/* @media screen and (min-width: 1281px) and (max-width: 1536px){
   #idSpa { margin-left: 80%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 65%; }
   #nombreOficSpa{ margin-left: 80%; }
   #fechaISpa, #fechaFSpa { margin-left: 60%; }
   #turnoSpa{ margin-left: 270%; }
-}
+} */
 /*Compu. Mesa 6*/
-@media screen and (min-width: 1537px) and (max-width: 1850px){
+/* @media screen and (min-width: 1537px) and (max-width: 1850px){
   #idSpa { margin-left: 120%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 65%; }
   #nombreOficSpa{ margin-left: 80%; }
   #fechaISpa, #fechaFSpa { margin-left: 60%; }
   #turnoSpa{ margin-left: 270%; }
-}
+} */
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
-@media screen and (min-width: 1851px) and (max-width: 1920px){
+/* @media screen and (min-width: 1851px) and (max-width: 1920px){
   #idSpa { margin-left: 120%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 70%; }
   #nombreOficSpa{ margin-left: 90%; }
   #fechaISpa, #fechaFSpa { margin-left: 60%; }
   #turnoSpa{ margin-left: 280%; }
-}
+} */
 
 /*Tablet 9*/
-@media screen and (min-width: 1921px) and (max-width: 2048px){
+/* @media screen and (min-width: 1921px) and (max-width: 2048px){
   #idSpa { margin-left: 120%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 75%; }
   #nombreOficSpa{ margin-left: 90%; }
   #fechaISpa, #fechaFSpa { margin-left: 60%; }
   #turnoSpa{ margin-left: 300%; }
-}
+} */
 /*Tablet 10*/
-@media screen and (min-width: 2049px) and (max-width: 2160px){
+/* @media screen and (min-width: 2049px) and (max-width: 2160px){
   #idSpa { margin-left: 120%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 80%; }
   #nombreOficSpa{ margin-left: 105%; }
   #fechaISpa, #fechaFSpa { margin-left: 70%; }
   #turnoSpa{ margin-left: 330%; }
-}
+} */
 /*Tablet 11 y 12, Portatil 5*/
-@media screen and (min-width: 2161px) and (max-width: 2560px){
+/* @media screen and (min-width: 2161px) and (max-width: 2560px){
   #idSpa { margin-left: 150%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 100%; }
   #nombreOficSpa{ margin-left: 135%; }
   #fechaISpa, #fechaFSpa { margin-left: 85%; }
   #turnoSpa{ margin-left: 400%; }
-}
+} */
 /*Tablet 13*/
-@media screen and (min-width: 2561px) and (max-width: 2736px){
+/* @media screen and (min-width: 2561px) and (max-width: 2736px){
   #idSpa { margin-left: 150%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 110%; }
   #nombreOficSpa{ margin-left: 140%; }
   #fechaISpa, #fechaFSpa { margin-left: 95%; }
   #turnoSpa{ margin-left: 440%; }
-}
+} */
 /*Tablet 14*/
-@media screen and (min-width: 2737px) and (max-width: 3000px){
+/* @media screen and (min-width: 2737px) and (max-width: 3000px){
   #idSpa { margin-left: 170%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 130%; }
   #nombreOficSpa{ margin-left: 155%; }
   #fechaISpa, #fechaFSpa { margin-left: 110%; }
   #turnoSpa{ margin-left: 480%; }
-}
+} */
 /*Portatil 6, Televisor 3*/
-@media screen and (min-width: 3001px) and (max-width: 3840px){
+/* @media screen and (min-width: 3001px) and (max-width: 3840px){
   #idSpa { margin-left: 220%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 170%; }
   #nombreOficSpa{ margin-left: 210%; }
   #fechaISpa, #fechaFSpa { margin-left: 150%; }
   #turnoSpa{ margin-left: 620%; }
-}
+} */
 /*Televisor 4*/
-@media screen and (min-width: 3841px) and (max-width: 4096px){
+/* @media screen and (min-width: 3841px) and (max-width: 4096px){
   #idSpa { margin-left: 280%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 180%; }
   #nombreOficSpa{ margin-left: 230%; }
   #fechaISpa, #fechaFSpa { margin-left: 150%; }
   #turnoSpa{ margin-left: 670%; }
-}
+} */
 /*Portatil 7, Televisor 5*/
-@media screen and (min-width: 4097px) and (max-width: 7680px){
+/* @media screen and (min-width: 4097px) and (max-width: 7680px){
   #idSpa { margin-left: 550%; }
   #nombreSitioVSpa, #nombreSpa{ margin-left: 350%; }
   #nombreOficSpa{ margin-left: 450%; }
   #fechaISpa, #fechaFSpa { margin-left: 330%; }
   #turnoSpa{ margin-left: 1370%; }
-}
+} */

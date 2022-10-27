@@ -12,10 +12,10 @@ table{
 .btnremove{ background-color: #DA161A; color: white; }
 
 .boton{ background-color: #00235C; }
-#descripSp{ left: 229%; }
+/* #descripSp{ left: 229%; }
 #opcSp{ left: 8px; }
 #opcSp, #descripSp, #idSp{ position: relative; }
-#idSp{ left: 34% ; position: absolute; }
+#idSp{ left: 34% ; position: absolute; } */
 .btnedit mat-icon{ left: -3px;  top: -2px;}
 .btnremove mat-icon{ left: -3px;  top: -2px;}
 #idSp2{ padding-left: 1%; }

@@ -56,9 +56,9 @@ mat-form-field{
 .btnremove, .btnedit{ width: 44px; height: 31px; }
 .botonagregar mat-icon{ font-size: 24px; }
 #idSp, #idSp2, #desSp, #opcSp{ position: relative;}
-#idSp{ left: 47px; margin: -8px; }
+/* #idSp{ left: 47px; margin: -8px; }
 #desSp{ left: 176px; }
-#opcSp{ padding-right: 0%; }
+#opcSp{ padding-right: 0%; } */
 .excelButton{ margin-left: -1%; font-size: 20px; }
 .excelButton i{ position: relative; top: -3px; }
 #idSp2{ padding-left: 0%; }

@@ -148,24 +148,25 @@ export class ReporteAsesorComponent implements OnInit {
                 })
               }else{
                 var primerDia = new Date(this.fechaActual.getFullYear(), this.fechaActual.getMonth(), 1);
-                var ultimoDia = new Date(this.fechaActual.getFullYear(), (this.fechaActual.getMonth()+1), 0);
-                var fechaInicial = primerDia.getFullYear()+""+(primerDia.getMonth()+1)+""+primerDia.getDate()
+                var ultimoDia = new Date(this.fechaActual.getFullYear(), this.fechaActual.getMonth(), 0);
+                var fechaInicial = primerDia.getFullYear()+""+primerDia.getMonth()+""+primerDia.getDate()
+                var ultimoDay = new Date(this.fechaActual.getFullYear(), (this.fechaActual.getMonth()+1), 0).getDate()
+                primerDia.setMonth(primerDia.getMonth()+1)
+                ultimoDia.setMonth(ultimoDia.getMonth()+2)
                 if(primerDia.getDate()<=9 && primerDia.getMonth()<=9){
-                  fechaInicial = primerDia.getFullYear()+"0"+(primerDia.getMonth()+1)+"0"+primerDia.getDate()
+                  fechaInicial = primerDia.getFullYear()+"0"+primerDia.getMonth()+"0"+primerDia.getDate()
                 }else if(primerDia.getDate()<=9){
-                  fechaInicial = primerDia.getFullYear()+""+(primerDia.getMonth()+1)+"0"+primerDia.getDate()
+                  fechaInicial = primerDia.getFullYear()+""+primerDia.getMonth()+"0"+primerDia.getDate()
                 }else if(primerDia.getMonth()<=9){
-                  fechaInicial = primerDia.getFullYear()+"0"+(primerDia.getMonth()+1)+""+primerDia.getDate()
+                  fechaInicial = primerDia.getFullYear()+"0"+primerDia.getMonth()+""+primerDia.getDate()
                 }
-
-                var fechaFinal = ultimoDia.getFullYear()+""+(ultimoDia.getMonth()+1)+""+ultimoDia.getDate();
-
-                if(ultimoDia.getDate()<=9 && ultimoDia.getMonth()<=9){
-                  fechaFinal = ultimoDia.getFullYear()+"0"+(ultimoDia.getMonth()+1)+"0"+ultimoDia.getDate();
-                }else if(ultimoDia.getDate()<=9){
-                  fechaFinal = ultimoDia.getFullYear()+""+(ultimoDia.getMonth()+1)+"0"+ultimoDia.getDate();
+                var fechaFinal = ultimoDia.getFullYear()+""+ultimoDia.getMonth()+""+ultimoDay
+                if(ultimoDay<=9 && ultimoDia.getMonth()<=9){
+                  fechaFinal = ultimoDia.getFullYear()+"0"+ultimoDia.getMonth()+"0"+ultimoDay
+                }else if(ultimoDay<=9){
+                  fechaFinal = ultimoDia.getFullYear()+""+ultimoDia.getMonth()+"0"+ultimoDay
                 }else if(ultimoDia.getMonth()<=9){
-                  fechaFinal = ultimoDia.getFullYear()+"0"+(ultimoDia.getMonth()+1)+""+ultimoDia.getDate();
+                  fechaFinal = ultimoDia.getFullYear()+"0"+ultimoDia.getMonth()+""+ultimoDay
                 }
 
                 this.cumpleAsignVende.forEach(elementAsignVende => {

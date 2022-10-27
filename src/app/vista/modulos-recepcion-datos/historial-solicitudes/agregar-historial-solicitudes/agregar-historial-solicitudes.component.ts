@@ -128,11 +128,19 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
-
+    // http://localhost:9000/api/Pdf/guardar
+    // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
     this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          window.location.reload();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Solicitud Registrado!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        window.location.reload();
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
@@ -320,17 +328,8 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   }
 
   public registrarSoporte(soporte: SoporteSC, cont){
-    console.log(cont)
     this.servicioSoporte.registrar(soporte).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Solicitud Registrado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      console.log(cont)
-      if(this.listaArchivos.length == cont){
+      if(this.listaArchivos2.length == cont){
         this.uploadFiles(this.w);
       }
     }, error => {

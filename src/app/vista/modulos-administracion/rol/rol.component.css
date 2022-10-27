@@ -29,6 +29,11 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   td button{ margin-top: 5%; }
+  #idSp{margin-left: -26%;}
+  #desSp{margin-left: 10%}
+  #estSp{margin-left: 21%;}
+  #jerSp{ margin-left: 13%;}
+  #opcSp{ margin-left: 19%;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
 
@@ -36,6 +41,11 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   td button{ margin-top: 5%; }
+  #idSp{margin-left: -26%;}
+  #desSp{margin-left: 10%}
+  #estSp{margin-left: 21%;}
+  #jerSp{ margin-left: 13%;}
+  #opcSp{ margin-left: 19%;}
   .botonagregar mat-icon{ margin-left: -50%; }
 }
 

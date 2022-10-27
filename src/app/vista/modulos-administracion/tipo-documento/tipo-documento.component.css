@@ -22,6 +22,8 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ margin-left: -6px; margin-top: -1px; }
   td button{ margin-top: 5%; }
+  #idSp{margin-left: 64%;}
+  #descripSp{ margin-left: 12%;}
   .botonagregar mat-icon{ margin-left: -50%; }
   td.mat-cell{ padding-left: 1%;}
 }
@@ -29,6 +31,8 @@ td.mat-cell{ padding-left: 1%;}
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{  margin-left: -7px; margin-top: -1px; }
+  td button{ margin-top: 5%; }
+  #idSp{margin-left: 64%;}
   td button{ margin-top: 0%; }
 }
 

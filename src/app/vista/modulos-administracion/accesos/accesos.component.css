@@ -30,6 +30,9 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ font-size: 17px ; margin-left: -9px;margin-top: -0px; }
   td button{ margin-top: 5%; }
+  #idSpa{margin-left: 46%;}
+  #moduloSpa{margin-left: 18%;}
+  #rolSpa{margin-left: 15px;}
   .botonagregar{ margin-left: 4%; }
   .excelButton{ left: 9% ;}
   .botonagregar2 mat-icon{ left: 0px; position: relative;}
@@ -40,6 +43,9 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px ; margin-left: -9px;margin-top: -0px; }
   td button{ margin-top: 5%; }
+  #idSpa{margin-left: 46%;}
+  #moduloSpa{margin-left: 18%;}
+  #rolSpa{margin-left: 15px;}
   .botonagregar{ margin-left: 4%; }
   .excelButton{ left: 9% ;}
   .botonagregar2 mat-icon{ left: 0px; position: relative;}

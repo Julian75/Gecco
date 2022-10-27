@@ -34,12 +34,18 @@ td button mat-icon{ left: -18%; top: -11%; }
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
+.botonagregar{margin-left: 1%;}
 h2{ font-weight: 700; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
   td button mat-icon{ font-size: 17px !important; margin-left: -8px;margin-top: -0px; }
   td button{ margin-top: 5%; }
+  .botonagregar{margin-left: 5%;}
+  #idSp{margin-left: -27%;}
+  #desSp{margin-left: 14%;}
+  #obsSp{margin-left: 9%;}
+  #opcSp{margin-left: 18%;}
   .boton{ margin-left: -14% !important; }
 }
 
@@ -47,7 +53,11 @@ h2{ font-weight: 700; }
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px !important; margin-left: -8px;margin-top: -0px; }
   td button{ margin-top: 5%; }
-  .boton{ margin-left: -11% !important; }
+  #idSp{margin-left: -27%;}
+  #desSp{margin-left: 14%;}
+  #obsSp{margin-left: 9%;}
+  #opcSp{margin-left: 18%;}
+  .botonagregar{ margin-left: 3% !important; }
 }
 
 /* PORTATILES */
@@ -80,12 +90,12 @@ h2{ font-weight: 700; }
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
   td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
-  .boton{ margin-left: -8% !important; }
+  .botonagregar{margin-left: 2%;}
 }
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
 @media screen and (min-width: 1081px) and (max-width: 1280px){
   td button mat-icon{ font-size: 17px !important; margin-top: 1px; }
-  .boton{ margin-left: -7% !important; }
+  .botonagregar{margin-left: 2%;}
 }
 /* Tablet 8, Compu. Mesa 5*/
 @media screen and (min-width: 1281px) and (max-width: 1536px){
