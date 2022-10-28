@@ -5,6 +5,7 @@ import { TipoProcesoService } from './../../../../servicios/tipoProceso.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { EstadoService } from 'src/app/servicios/estado.service';
 
 @Component({
   selector: 'app-modificar-tipo-proceso',
@@ -22,6 +23,7 @@ export class ModificarTipoProcesoComponent implements OnInit {
   constructor(
     private servicioTipoProceso: TipoProcesoService,
     private servicioModificar: ModificarService,
+    private servicioEstado: EstadoService,
     public dialogRef: MatDialogRef<ModificarTipoProcesoComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
@@ -58,16 +60,19 @@ export class ModificarTipoProcesoComponent implements OnInit {
       this.servicioTipoProceso.listarPorId(tipoProceso.id).subscribe(res=>{
         if(descripcion.toLowerCase() == res.descripcion.toLowerCase()){
           tipoProceso.descripcion=descripcion
-          document.getElementById("snipper").setAttribute("style", "display: none;")
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'No hubieron cambios!',
-            showConfirmButton: false,
-            timer: 1500
+          this.servicioEstado.listarPorId(88).subscribe(resEstado=>{
+            tipoProceso.idEstado=resEstado.id
+            document.getElementById("snipper").setAttribute("style", "display: none;")
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'No hubieron cambios!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.dialogRef.close();
+            window.location.reload();
           })
-          this.dialogRef.close();
-          window.location.reload();
         }else{
           this.servicioTipoProceso.listarTodos().subscribe(resTi => {
             resTi.forEach(element => {
@@ -90,25 +95,28 @@ export class ModificarTipoProcesoComponent implements OnInit {
               })
             }else{
               tipoProceso.descripcion=descripcion
-              this.servicioModificar.actualizarTipoProceso(tipoProceso).subscribe(res=>{
-                document.getElementById("snipper").setAttribute("style", "display: none;")
-                Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Se modificó correctamente!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-                this.dialogRef.close();
-                window.location.reload();
-              }, error => {
-                document.getElementById("snipper").setAttribute("style", "display: none;")
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Ocurrió un error al modificar!',
-                  showConfirmButton: false,
-                  timer: 1500
+              this.servicioEstado.listarPorId(88).subscribe(resEstado=>{
+                tipoProceso.idEstado=resEstado.id
+                this.servicioModificar.actualizarTipoProceso(tipoProceso).subscribe(res=>{
+                  document.getElementById("snipper").setAttribute("style", "display: none;")
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Se modificó correctamente!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  this.dialogRef.close();
+                  window.location.reload();
+                }, error => {
+                  document.getElementById("snipper").setAttribute("style", "display: none;")
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Ocurrió un error al modificar!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
                 })
               })
             }

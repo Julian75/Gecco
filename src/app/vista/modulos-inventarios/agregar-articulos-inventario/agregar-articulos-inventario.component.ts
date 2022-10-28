@@ -98,8 +98,12 @@ export class AgregarArticulosInventarioComponent implements OnInit {
   }
 
   public listarTipoActivos() {
+    this.listaTipoActivos=[]
     this.servicioTipoActivos.listarTodos().subscribe(resTipoActivos => {
-      this.listaTipoActivos = resTipoActivos
+      resTipoActivos.forEach(elementTipoAcitvo => {
+        if(elementTipoAcitvo.idEstado.id == 94)
+        this.listaTipoActivos.push(elementTipoAcitvo)
+      });
     });
   }
 

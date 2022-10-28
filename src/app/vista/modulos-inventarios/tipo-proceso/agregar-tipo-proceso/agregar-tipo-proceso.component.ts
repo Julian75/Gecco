@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { EstadoService } from 'src/app/servicios/estado.service';
 
 @Component({
   selector: 'app-agregar-tipo-proceso',
@@ -21,6 +22,7 @@ export class AgregarTipoProcesoComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AgregarTipoProcesoComponent>,
     private servicioTipoProceso: TipoProcesoService,
+    private servicioEstado: EstadoService,
     private router: Router
   ) { }
 
@@ -42,29 +44,32 @@ export class AgregarTipoProcesoComponent implements OnInit {
     if(this.formTipoProceso.valid){
       document.getElementById("snipper").setAttribute("style", "display: block;")
       tipoProceso.descripcion=this.formTipoProceso.controls['descripcion'].value;
-      this.servicioTipoProceso.listarTodos().subscribe(resTipoProceso => {
-        resTipoProceso.forEach(element => {
-          if(element.descripcion.toLowerCase() == this.formTipoProceso.value.descripcion.toLowerCase()){
-            this.encontrado = true;
-          }else{
-            this.encontrado = false;
-          }
-          this.encontrados.push(this.encontrado);
-        })
-        const existe = this.encontrados.includes(true);
-        if(existe == true){
-          document.getElementById("snipper").setAttribute("style", "display: none;")
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'El tipo de proceso ya existe!',
-            showConfirmButton: false,
-            timer: 1500
+      this.servicioEstado.listarPorId(88).subscribe(resTipoProceso=>{
+        tipoProceso.idEstado = resTipoProceso
+        this.servicioTipoProceso.listarTodos().subscribe(resTipoProceso => {
+          resTipoProceso.forEach(element => {
+            if(element.descripcion.toLowerCase() == this.formTipoProceso.value.descripcion.toLowerCase()){
+              this.encontrado = true;
+            }else{
+              this.encontrado = false;
+            }
+            this.encontrados.push(this.encontrado);
           })
-        }else{
-          this.registrarTipoProceso(tipoProceso);
-        }
-      });
+          const existe = this.encontrados.includes(true);
+          if(existe == true){
+            document.getElementById("snipper").setAttribute("style", "display: none;")
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'El tipo de proceso ya existe!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            this.registrarTipoProceso(tipoProceso);
+          }
+        });
+      })
     }else{
       Swal.fire({
         position: 'center',

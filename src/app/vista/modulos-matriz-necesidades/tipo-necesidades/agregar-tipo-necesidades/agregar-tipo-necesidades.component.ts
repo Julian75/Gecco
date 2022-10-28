@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { TipoNecesidadService } from 'src/app/servicios/tipoNecesidad.service';
 import { TipoNecesidad } from 'src/app/modelos/tipoNecesidad';
 import Swal from 'sweetalert2';
+import { EstadoService } from 'src/app/servicios/estado.service';
 
 @Component({
   selector: 'app-agregar-tipo-necesidades',
@@ -20,6 +21,7 @@ export class AgregarTipoNecesidadesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private servicioTipoNecesidad: TipoNecesidadService,
+    private servicioEstado: EstadoService,
     public dialogRef: MatDialogRef<AgregarTipoNecesidadesComponent>,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public idModulo: MatDialog,
@@ -40,42 +42,46 @@ export class AgregarTipoNecesidadesComponent implements OnInit {
     let tipoNecesidad : TipoNecesidad = new TipoNecesidad();
     const campo = this.formTipoNecesidad.controls['descripcion'].value
     tipoNecesidad.descripcion = campo;
-    this.servicioTipoNecesidad.listarTodos().subscribe(res => {
-      this.listarTipoNecesidad = res;
-      if(campo == null){
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'El campo no puede estar vacio!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        document.getElementById("snipper").setAttribute("style", "display: block;")
-        for (let i = 0; i < this.listarTipoNecesidad.length; i++) {
-          if (this.listarTipoNecesidad[i].descripcion.toLowerCase() == campo.toLowerCase()) {
+    this.servicioEstado.listarPorId(92).subscribe(resEstado=>{
+      tipoNecesidad.idEstado=resEstado
+      this.servicioTipoNecesidad.listarTodos().subscribe(res => {
+        this.listarTipoNecesidad = res;
+        if(campo == null){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'El campo no puede estar vacio!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else{
+          document.getElementById("snipper").setAttribute("style", "display: block;")
+          for (let i = 0; i < this.listarTipoNecesidad.length; i++) {
+            if (this.listarTipoNecesidad[i].descripcion.toLowerCase() == campo.toLowerCase()) {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
+              Swal.fire({
+                icon: 'error',
+                title: 'Tipo de Necesidad Existente',
+                showConfirmButton: false,
+                timer: 1500
+              });
+              window.location.reload();
+            }
+          }
+          console.log(tipoNecesidad)
+          this.servicioTipoNecesidad.registrar(tipoNecesidad).subscribe(res => {
             document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({
-              icon: 'error',
-              title: 'Tipo de Necesidad Existente',
+              icon: 'success',
+              title: 'Tipo de Necesidad Registrada',
               showConfirmButton: false,
               timer: 1500
             });
+            this.dialogRef.close();
             window.location.reload();
-          }
-        }
-        this.servicioTipoNecesidad.registrar(tipoNecesidad).subscribe(res => {
-          document.getElementById("snipper").setAttribute("style", "display: none;")
-          Swal.fire({
-            icon: 'success',
-            title: 'Tipo de Necesidad Registrada',
-            showConfirmButton: false,
-            timer: 1500
           });
-          this.dialogRef.close();
-          window.location.reload();
-        });
-      }
-    });
+        }
+      });
+    })
   }
 }

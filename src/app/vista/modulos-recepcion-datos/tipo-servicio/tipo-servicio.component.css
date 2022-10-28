@@ -39,12 +39,12 @@ table{
   #opcSpa{ left: 8px; }
 }
 /* Tablet 1 */
-/* @media screen and (min-width: 600px) and (max-width: 639px){
+@media screen and (min-width: 600px) and (max-width: 639px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
-  #idSpa{ margin-left: 169% !important; }
+  /* #idSpa{ margin-left: 169% !important; }
   #descSpa{ margin-left: 105% !important; }
-  #opcSpa{ left: 8px; }
-} */
+  #opcSpa{ left: 8px; } */
+}
 /* Tablet 2,  Portatil 1*/
 /* @media screen and (min-width: 640px) and (max-width: 768px){
   td button mat-icon{ margin-left: -3px; margin-top: -2px; }

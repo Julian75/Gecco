@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SubProceso } from 'src/app/modelos/subProceso';
+import { EstadoService } from 'src/app/servicios/estado.service';
 import { ProcesoService } from 'src/app/servicios/proceso.service';
 import { SubProcesoService } from 'src/app/servicios/subProceso.Service';
 import { TipoProcesoService } from 'src/app/servicios/tipoProceso.service';
@@ -18,6 +20,7 @@ export class AgregarSubprocesoComponent implements OnInit {
   constructor(
     private serviceTipoProceso: TipoProcesoService,
     private serviceSubProceso: SubProcesoService,
+    private servicioEstado: EstadoService,
     private formBuilder: FormBuilder,
   ) { }
 
@@ -40,6 +43,7 @@ export class AgregarSubprocesoComponent implements OnInit {
   }
 
   public guardar(){
+    let subProceso: SubProceso = new SubProceso()
     if(this.formSubProceso.valid){
       document.getElementById("snipper").setAttribute("style", "display: block;")
       this.serviceSubProceso.listarTodos().subscribe( data => {
@@ -54,16 +58,21 @@ export class AgregarSubprocesoComponent implements OnInit {
             timer: 2500
           })
         }else{
-          this.serviceSubProceso.registrar(this.formSubProceso.value).subscribe( data => {
-            document.getElementById("snipper").setAttribute("style", "display: none;")
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Subproceso agregado',
-              showConfirmButton: false,
-              timer: 2500
+          this.servicioEstado.listarPorId(90).subscribe(resEstado=>{
+            subProceso.descripcion = this.formSubProceso.value.descripcion
+            subProceso.idTipoProceso = this.formSubProceso.value.idTipoProceso
+            subProceso.idEstado = resEstado
+            this.serviceSubProceso.registrar(subProceso).subscribe( data => {
+              document.getElementById("snipper").setAttribute("style", "display: none;")
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Subproceso agregado',
+                showConfirmButton: false,
+                timer: 2500
+              })
+              window.location.reload();
             })
-            window.location.reload();
           })
         }
       })

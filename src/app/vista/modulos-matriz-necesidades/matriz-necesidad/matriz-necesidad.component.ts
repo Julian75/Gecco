@@ -49,8 +49,14 @@ export class MatrizNecesidadComponent implements OnInit {
   }
 
   public listarProcesos() {
+    this.listaProcesos=[]
     this.servicioProceso.listarTodos().subscribe(resProcesos => {
-      this.listaProcesos = resProcesos
+      resProcesos.forEach(elementProcesos => {
+        if(elementProcesos.idEstado.id == 88){
+          this.listaProcesos.push(elementProcesos)
+        }
+        console.log( this.listaProcesos)
+      });
     });
   }
 
@@ -66,8 +72,9 @@ export class MatrizNecesidadComponent implements OnInit {
     if(ultimo != penultimo || penultimo == undefined){
       this.servicioSubProceso.listarTodos().subscribe(resSubProcesos=>{
         resSubProcesos.forEach(elementSubProceso => {
-          if(elementSubProceso.idTipoProceso.id == ultimo){
+          if(elementSubProceso.idTipoProceso.id == ultimo && elementSubProceso.idEstado.id == 90){
             this.listaSubProcesos.push(elementSubProceso)
+            console.log(this.listaSubProcesos)
           }
         });
         this.opcionesFiltradas = this.control.valueChanges.pipe(
@@ -101,13 +108,22 @@ export class MatrizNecesidadComponent implements OnInit {
 
   public listarTipoActivos() {
     this.servicioTipoActivos.listarTodos().subscribe(resTiposActivos => {
-      this.listaTipoActivos = resTiposActivos
+      resTiposActivos.forEach(elementTipoActivo => {
+        if(elementTipoActivo.idEstado.id == 94){
+          this.listaTipoActivos.push(resTiposActivos)
+        }
+      });
     });
   }
 
   public listarTipoNecesidades() {
+    this.listaNecesidades = []
     this.servicioTipoNecesidades.listarTodos().subscribe(resTipoNecesidades => {
-      this.listaNecesidades = resTipoNecesidades
+      resTipoNecesidades.forEach(elementTipoNecesidad => {
+        if(elementTipoNecesidad.idEstado.id == 92){
+          this.listaNecesidades.push(elementTipoNecesidad)
+        }
+      });
     });
   }
 

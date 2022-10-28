@@ -98,9 +98,9 @@ mat-form-field{
   i{ font-size: 18px ;margin-left: -50%; position: relative; top: -2px; left: 3px; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
   td button mat-icon{ font-size: 17px !important; margin-left: -10px; margin-top: -1px; }
-  #idSp{ left: 14px; }
+  #idSp{ left: 9px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 26px; }
+  #desSp{ left: 8px; }
   #estSp{ left: 8px; }
   #jerSp{ left: 8px; }
   #opcSp2{ padding-right: 0%; }
@@ -139,9 +139,9 @@ mat-form-field{
   .botonagregar mat-icon{ font-size: 18px;margin-left: -50%; margin-top: -1px; }
   button i{ position: relative; top: -15%; }
   mat-form-field{ width: 60%; margin-left: 40%; margin-top: -6%; }
-  #idSp{ left: 20px; }
+  #idSp{ left: 9px; }
   #idSp2{ padding-left: 0%; }
-  #desSp{ left: 42px; }
+  #desSp{ left: 6px; }
   #estSp{ left: 8px; }
   #catSp{ left: 8px; position: relative;}
   #jerSp{ left: 8px; }
@@ -150,7 +150,7 @@ mat-form-field{
 }
 
 /* Movil grande - Surface Duo*/
-@media screen and (min-width: 494px) and (max-width: 720px){
+/* @media screen and (min-width: 494px) and (max-width: 720px){
   h3{
     margin-left: 3%;
     font-size: 20px;
@@ -169,7 +169,7 @@ mat-form-field{
   #opcSp2{ padding-right: 0%; }
   .excelButton{ font-size: 17px; }
   .excelButton i{ position: relative; top: 1px; font-size: 20px; }
-}
+} */
 
 /* Tablet pequeña - iPad Mini*/
 /* @media screen and (min-width: 721px) and (max-width: 768px){

@@ -7,6 +7,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { TipoNecesidadService } from 'src/app/servicios/tipoNecesidad.service';
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { TipoNecesidad } from 'src/app/modelos/tipoNecesidad';
+import { EstadoService } from 'src/app/servicios/estado.service';
+import { TipoNecesidad2 } from 'src/app/modelos/modelos2/tipoNecesidad2';
 
 @Component({
   selector: 'app-modificar-tipo-necesidades',
@@ -26,6 +28,7 @@ export class ModificarTipoNecesidadesComponent implements OnInit {
     private router: Router,
     private servicioTipoNecesidad: TipoNecesidadService,
     private servicioModificar: ModificarService,
+    private servicioEstado: EstadoService,
     public dialogRef: MatDialogRef<ModificarTipoNecesidadesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
@@ -53,60 +56,63 @@ export class ModificarTipoNecesidadesComponent implements OnInit {
   listaExis: any = []
   public guardar() {
     this.listaExis = []
-    let tipoNecesidad: TipoNecesidad = new TipoNecesidad();
+    let tipoNecesidad: TipoNecesidad2 = new TipoNecesidad2();
     tipoNecesidad.id = this.formTipoNecesidad.value.id;
     tipoNecesidad.descripcion = this.formTipoNecesidad.value.descripcion;
-    this.servicioTipoNecesidad.listarPorId(this.formTipoNecesidad.value.id).subscribe(resJera=>{
-      this.servicioTipoNecesidad.listarTodos().subscribe(resTipoNecesidad=>{
-        if (tipoNecesidad.descripcion == null || tipoNecesidad.descripcion == undefined || tipoNecesidad.descripcion == "") {
-          Swal.fire({
-            icon: 'error',
-            title: 'Campo Vacio!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }else if(resJera.descripcion.toLowerCase() == tipoNecesidad.descripcion.toLowerCase()){
-          Swal.fire({
-            icon: 'success',
-            title: 'No hubieron cambios!',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          this.dialogRef.close();
-          window.location.reload();
-        }else{
-          document.getElementById("snipper").setAttribute("style", "display: block;")
-          resTipoNecesidad.forEach(element => {
-            if(element.descripcion.toLowerCase() == tipoNecesidad.descripcion.toLowerCase()){
-              this.existe = true
-            }else{
-              this.existe = false
-            }
-            this.listaExis.push(this.existe)
-          });
-          const existe = this.listaExis.includes( true );
-          if(existe == true){
-            document.getElementById("snipper").setAttribute("style", "display: none;")
+    this.servicioEstado.listarPorId(92).subscribe(resTipoNecesidad=>{
+      tipoNecesidad.idEstado=resTipoNecesidad.id
+      this.servicioTipoNecesidad.listarPorId(this.formTipoNecesidad.value.id).subscribe(resJera=>{
+        this.servicioTipoNecesidad.listarTodos().subscribe(resTipoNecesidad=>{
+          if (tipoNecesidad.descripcion == null || tipoNecesidad.descripcion == undefined || tipoNecesidad.descripcion == "") {
             Swal.fire({
               icon: 'error',
-              title: 'Ese tipo de necesidad ya existe!',
+              title: 'Campo Vacio!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else if(resJera.descripcion.toLowerCase() == tipoNecesidad.descripcion.toLowerCase()){
+            Swal.fire({
+              icon: 'success',
+              title: 'No hubieron cambios!',
               showConfirmButton: false,
               timer: 1500
             });
+            this.dialogRef.close();
+            window.location.reload();
           }else{
-            this.servicioModificar.actualizarTipoNecesidad(tipoNecesidad).subscribe(res => {
+            document.getElementById("snipper").setAttribute("style", "display: block;")
+            resTipoNecesidad.forEach(element => {
+              if(element.descripcion.toLowerCase() == tipoNecesidad.descripcion.toLowerCase()){
+                this.existe = true
+              }else{
+                this.existe = false
+              }
+              this.listaExis.push(this.existe)
+            });
+            const existe = this.listaExis.includes( true );
+            if(existe == true){
               document.getElementById("snipper").setAttribute("style", "display: none;")
               Swal.fire({
-                icon: 'success',
-                title: 'Tipo De Necesidad Modificada',
+                icon: 'error',
+                title: 'Ese tipo de necesidad ya existe!',
                 showConfirmButton: false,
                 timer: 1500
-              })
-              this.dialogRef.close();
-              window.location.reload();
-            });
+              });
+            }else{
+              this.servicioModificar.actualizarTipoNecesidad(tipoNecesidad).subscribe(res => {
+                document.getElementById("snipper").setAttribute("style", "display: none;")
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Tipo De Necesidad Modificada',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                this.dialogRef.close();
+                window.location.reload();
+              });
+            }
           }
-        }
+        })
       })
     })
   }

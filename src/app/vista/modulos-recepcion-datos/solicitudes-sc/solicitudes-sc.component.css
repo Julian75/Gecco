@@ -42,7 +42,7 @@ table{
 .btnremove{ background-color: #DA161A; color: white; }
 .btnPriority{ background-color: #00235C; color: white; }
 #idSpa, #nombreSpa, #fechaISpa, #nombreOficSpa, #nombreSitioVSpa, #inci, #motivo, #radicacion, #tiposervicio,#auxiliar,#escala, #opcSpa, .btnedit2{ position: relative; }
-#idSpa{ left: 7px; }
+/* #idSpa{ left: 7px; }
 #fechaISpa{ left: 19px; }
 #nombreSpa { left: 17px; }
 #nombreOficSpa, #inci, #radicacion{ left: 21px; }
@@ -52,11 +52,13 @@ table{
 #escala{ left: 8px; }
 #nombreSitioVSpa{ left: 32px; }
 #turnoSpa{ left: 15px; }
-#opcSpa{ left: 0px; }
+#opcSpa{ left: 0px; } */
 .btnChat{ background-color: #5C708F; color: white;}
 
 /* Movil pequeño 1, 2, 3 y 4 - MOVILES*/
 @media screen and (min-width: 280px) and (max-width: 639px){
+  .example-container{ margin-top: 30% !important; }
+  .btnArchivo, .btnChat{ width: 31px !important; height: 29px !important; }
   td button mat-icon{ font-size: 17px !important; margin-left: -9px; margin-top: -1px; }
   td button{ margin-top: 5%; }
   #idSpa{ left: -2px; }
@@ -64,15 +66,15 @@ table{
   #nombreSitioVSpa{ left: 9px; }
 }
 /* Tablet 2, Tablet 3, Portatil 1, Portatil 2*/
-@media screen and (min-width: 640px) and (max-width: 960px){
+/* @media screen and (min-width: 640px) and (max-width: 960px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   td button{ margin-top: 5%; }
   #idSpa{ left: -2px; }
   #fechaISpa, #fechaFSpa, #nombreOficSpa, #inci, #motivo, #radicacion, #tiposervicio, #auxiliar, #escala, #nombreSpa, #opcSpa{ left: 8px; }
   #nombreSitioVSpa{ left: 9px; }
-}
+} */
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
-@media screen and (min-width: 961px) and (max-width: 1080px){
+/* @media screen and (min-width: 961px) and (max-width: 1080px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   td button{ margin-top: 5%; }
   #idSpa{ left: -2px; }
@@ -80,9 +82,9 @@ table{
   #fechaFSpa, #nombreOficSpa, #inci, #radicacion, #tiposervicio, #auxiliar, #escala, #nombreSpa, #opcSpa{ left: 8px; }
   #motivo { left: 15px; }
   #nombreSitioVSpa{ left: 15px; }
-}
+} */
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
-@media screen and (min-width: 1081px) and (max-width: 1280px){
+/* @media screen and (min-width: 1081px) and (max-width: 1280px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: -2px; }
   #fechaISpa{ left: 12px; }
@@ -90,9 +92,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 24px; }
   #nombreSitioVSpa{ left: 24px; }
-}
+} */
 /* Tablet 8, Compu. Mesa 5*/
-@media screen and (min-width: 1281px) and (max-width: 1536px){
+/* @media screen and (min-width: 1281px) and (max-width: 1536px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 6px; }
   #fechaISpa{ left: 19px; }
@@ -100,9 +102,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 35px; }
   #nombreSitioVSpa{ left: 31px; }
-}
+} */
 /*Compu. Mesa 6*/
-@media screen and (min-width: 1537px) and (max-width: 1850px){
+/* @media screen and (min-width: 1537px) and (max-width: 1850px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 6px; }
   #fechaISpa{ left: 21px; }
@@ -110,9 +112,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 37px; }
   #nombreSitioVSpa{ left: 35px; }
-}
+} */
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
-@media screen and (min-width: 1851px) and (max-width: 1920px){
+/* @media screen and (min-width: 1851px) and (max-width: 1920px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 10px; }
   #fechaISpa{ left: 28px; }
@@ -120,9 +122,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 53px; }
   #nombreSitioVSpa{ left: 50px; }
-}
+} */
 /*Tablet 9*/
-@media screen and (min-width: 1921px) and (max-width: 2048px){
+/* @media screen and (min-width: 1921px) and (max-width: 2048px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 11px; }
   #fechaISpa{ left: 35px; }
@@ -130,9 +132,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 60px; }
   #nombreSitioVSpa{ left: 53px; }
-}
+} */
 /*Tablet 10*/
-@media screen and (min-width: 2049px) and (max-width: 2160px){
+/* @media screen and (min-width: 2049px) and (max-width: 2160px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 14px; }
   #fechaISpa{ left: 35px; }
@@ -140,9 +142,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 60px; }
   #nombreSitioVSpa{ left: 55px; }
-}
+} */
 /*Tablet 11 y 12, Portatil 5*/
-@media screen and (min-width: 2161px) and (max-width: 2560px){
+/* @media screen and (min-width: 2161px) and (max-width: 2560px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 23px; }
   #fechaISpa{ left: 44px; }
@@ -150,9 +152,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 78px; }
   #nombreSitioVSpa{ left: 70px; }
-}
+} */
 /*Tablet 13*/
-@media screen and (min-width: 2561px) and (max-width: 2736px){
+/* @media screen and (min-width: 2561px) and (max-width: 2736px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 30px; }
   #fechaISpa{ left: 48px; }
@@ -160,9 +162,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 84px; }
   #nombreSitioVSpa{ left: 85px; }
-}
+} */
 /*Tablet 14*/
-@media screen and (min-width: 2737px) and (max-width: 3000px){
+/* @media screen and (min-width: 2737px) and (max-width: 3000px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 32px; }
   #fechaISpa{ left: 55px; }
@@ -170,9 +172,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 84px; }
   #nombreSitioVSpa{ left: 93px; }
-}
+} */
 /*Portatil 6, Televisor 3*/
-@media screen and (min-width: 3001px) and (max-width: 3840px){
+/* @media screen and (min-width: 3001px) and (max-width: 3840px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 51px; }
   #fechaISpa{ left: 84px; }
@@ -180,9 +182,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 131px; }
   #nombreSitioVSpa{ left: 121px; }
-}
+} */
 /*Televisor 4*/
-@media screen and (min-width: 3841px) and (max-width: 4096px){
+/* @media screen and (min-width: 3841px) and (max-width: 4096px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 56px; }
   #fechaISpa{ left: 90px; }
@@ -190,9 +192,9 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 136px; }
   #nombreSitioVSpa{ left: 128px; }
-}
+} */
 /*Portatil 7, Televisor 5*/
-@media screen and (min-width: 4097px) and (max-width: 7680px){
+/* @media screen and (min-width: 4097px) and (max-width: 7680px){
   td button mat-icon{ margin-left: -4px; margin-top: -1px; }
   #idSpa{ left: 140px; }
   #fechaISpa{ left: 190px; }
@@ -200,4 +202,4 @@ table{
   #opcSpa{ left: -1px; }
   #motivo { left: 272px; }
   #nombreSitioVSpa{ left: 289px; }
-}
+} */

@@ -7,6 +7,8 @@ import { SubProcesoService } from 'src/app/servicios/subProceso.Service';
 import { TipoProcesoService } from 'src/app/servicios/tipoProceso.service';
 import Swal from 'sweetalert2';
 import { ModificarService } from 'src/app/servicios/modificar.service';
+import { SubProceso2 } from 'src/app/modelos/modelos2/subProceso2';
+import { EstadoService } from 'src/app/servicios/estado.service';
 @Component({
   selector: 'app-modificar-subproceso',
   templateUrl: './modificar-subproceso.component.html',
@@ -22,6 +24,7 @@ export class ModificarSubprocesoComponent implements OnInit {
     private serviceTipoProceso: TipoProcesoService,
     private serviceSubProceso: SubProcesoService,
     private serviceModificar: ModificarService,
+    private servicioEstado: EstadoService,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
   ) { }
@@ -62,6 +65,7 @@ export class ModificarSubprocesoComponent implements OnInit {
     this.validarTodo = []
     this.validar2 = []
     if(this.formSubProceso.valid){
+      let subProceso2: SubProceso2 = new SubProceso2()
       document.getElementById("snipper").setAttribute("style", "display: block;")
       this.serviceSubProceso.listarPorId(Number(this.data)).subscribe( SubProceso => {
         this.validar = SubProceso;
@@ -87,17 +91,21 @@ export class ModificarSubprocesoComponent implements OnInit {
               timer: 2000
             })
           }else{
-            const idTipoProceso = this.formSubProceso.value.idTipoProceso.id;
-            this.formSubProceso.value.idTipoProceso = idTipoProceso;
-            this.serviceModificar.actualizarSubProceso(this.formSubProceso.value).subscribe( data => {
-              document.getElementById("snipper").setAttribute("style", "display: none;")
-              Swal.fire({
-                icon: 'success',
-                title: 'SubProceso modificado!',
-                showConfirmButton: false,
-                timer: 1500
+            subProceso2.id = Number(this.data)
+            subProceso2.descripcion = this.formSubProceso.value.descripcion
+            this.servicioEstado.listarPorId(90).subscribe(resEstado=>{
+              subProceso2.idEstado = resEstado.id
+              subProceso2.idTipoProceso = this.formSubProceso.value.idTipoProceso.id
+              this.serviceModificar.actualizarSubProceso(subProceso2).subscribe( data => {
+                document.getElementById("snipper").setAttribute("style", "display: none;")
+                Swal.fire({
+                  icon: 'success',
+                  title: 'SubProceso modificado!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                window.location.reload();
               })
-              window.location.reload();
             })
           }
         })

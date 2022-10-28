@@ -162,9 +162,9 @@ export class ModificarHistorialRemisionComponent implements OnInit {
   uploadFiles(files: File[]){
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
-    // http://localhost:9000/api/Pdf/upload
+    // http://localhost:9000/api/Pdf/guardar
     // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
-    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('http://localhost:9000/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);

@@ -81,7 +81,6 @@ export class SolicitudesScComponent implements OnInit {
   }
 
   capturar() {
-    console.log(this.range.value);
     if (this.range.value.start == null || this.range.value.end == null) {
       this.dataSource = new MatTableDataSource(this.listarSolicitud);
     }else{
@@ -93,7 +92,6 @@ export class SolicitudesScComponent implements OnInit {
         const fechaFin = new Date(fin.getFullYear(), fin.getMonth(), fin.getDate());
         const fechaSolicitud = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate()+1);
         if (fechaSolicitud >= fechaInicio && fechaSolicitud <= fechaFin) {
-          console.log("entro");
           return item;
         }
       }));
@@ -206,15 +204,12 @@ export class SolicitudesScComponent implements OnInit {
               var diasHabiles = 0
 
               if(diferencia > 0){
-                // fechaLoca.setDate(this.fecha3.getDate()+14)
-                // console.log(fechaLoca)
                 for (let i = 0; i < diferencia; i++) {
                   var fechaLoca = new Date();
                   fechaLoca.setDate(fechaLoca.getDate()+i)
                   var fechaTrancurriendo = fechaLoca.getFullYear() + "-"+ (fechaLoca.getMonth()+1)+ "-" +fechaLoca.getDate();
                   var fechaTrancurriendo2 = new Date(fechaTrancurriendo);
                   if ((fechaTrancurriendo2.getDay() == 0) || (fechaTrancurriendo2.getDay() == 6)) {
-                    console.log("dias de finde")
                   }else if((fechaTrancurriendo2.getDay() == 1) || (fechaTrancurriendo2.getDay() == 2) || (fechaTrancurriendo2.getDay() == 3) || (fechaTrancurriendo2.getDay() == 4) || (fechaTrancurriendo2.getDay() == 5)){
                     diasHabiles = diasHabiles + 1
                   }
@@ -305,7 +300,6 @@ export class SolicitudesScComponent implements OnInit {
                     this.listaUsuarioMatrix.push(this.usuarioMatrix)
                   });
                   this.usuarioMatrix2 = this.listaUsuarioMatrix.includes( true )
-                  console.log(this.usuarioMatrix2)
                 })
                 this.servicioConsultasGenerales.listarArchivosSC(elementHistorial.idSolicitudSC.id).subscribe(resArchivos=>{
                   resArchivos.forEach(elementArchivos => {
@@ -316,9 +310,7 @@ export class SolicitudesScComponent implements OnInit {
                     }
                     this.listaRchivo.push(this.rchivo)
                   });
-                  console.log(this.listaRchivo)
                   const rchi = this.listaRchivo.includes(true)
-                  console.log(rchi)
                   if (rchi == true) {
                     obj.archivo = true
                   }
@@ -355,7 +347,6 @@ export class SolicitudesScComponent implements OnInit {
             data: listaPdf
           });
         }else if(listaPdf.length == 1){
-          console.log(listaPdf[0].url)
           window.location.href = listaPdf[0].url;
         }
       });
@@ -431,13 +422,11 @@ export class SolicitudesScComponent implements OnInit {
             +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
             +"</body>"
             +"</html>";
-            console.log(correo)
             this.enviarCorreo2(correo);
           })
         })
       }
     })
-    console.log(this.listaCorreos)
   }
 
   public enviarCorreo2(correo: Correo){
@@ -454,7 +443,6 @@ export class SolicitudesScComponent implements OnInit {
 
   public registrarRegistroCorreo(registroCorreo: RegistroCorreo){
     this.servicioRegistroCorreo.registrar(registroCorreo).subscribe(res =>{
-      console.log(res)
     })
   }
 
