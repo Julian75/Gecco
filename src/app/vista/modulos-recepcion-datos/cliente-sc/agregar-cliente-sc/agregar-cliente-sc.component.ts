@@ -58,7 +58,6 @@ export class AgregarClienteScComponent implements OnInit {
     clienteSC.correo = this.formClienteSC.controls['correo'].value;
     clienteSC.telefono = this.formClienteSC.controls['telefono'].value;
     var idTipoDocumento = this.formClienteSC.controls['tipoDocumento'].value;
-    console.log(clienteSC.correo)
     if (clienteSC.nombre == "" || clienteSC.apellido == "" || clienteSC.documento == null || clienteSC.correo == null || clienteSC.telefono == null || idTipoDocumento == null) {
       Swal.fire({
         position: 'center',
@@ -89,7 +88,6 @@ export class AgregarClienteScComponent implements OnInit {
         }else if(existe == false){
           this.servicioTipoDocumento.listarPorId(idTipoDocumento).subscribe(resTipoDocumentos=>{
             clienteSC.idTipoDocumento = resTipoDocumentos
-            console.log(clienteSC)
             this.registrarClienteSC(clienteSC)
           })
         }

@@ -88,8 +88,6 @@ export class AgregarFirmasComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
     // http://localhost:9000/api/Pdf/guardarFirma
@@ -112,7 +110,6 @@ export class AgregarFirmasComponent implements OnInit {
     this.encontrados = [];
     let firmas : Firmas = new Firmas();
     const usuario = this.formFirmas.controls['usuario'].value;
-    console.log(this.w)
     if(usuario != null || usuario != undefined && this.w != null || this.w != undefined){
       this.servicioFirma.listarTodos().subscribe(resFirma => {
         resFirma.forEach(element => {
@@ -140,7 +137,6 @@ export class AgregarFirmasComponent implements OnInit {
             for (let i = 0; i < this.listaArchivos2.length; i++) {
               const element = this.listaArchivos2[i];
               firmas.firma = element
-              console.log(element)
               this.registrarFirma(firmas);
             }
           })

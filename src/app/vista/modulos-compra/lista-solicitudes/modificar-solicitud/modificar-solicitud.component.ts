@@ -298,7 +298,6 @@ export class ModificarSolicitudComponent implements OnInit {
   }
 
   public generarSolicitud(){
-    console.log(this.listadoArtSel)
     if(this.listadoArtSel.length < 1){
       Swal.fire({
         position: 'center',

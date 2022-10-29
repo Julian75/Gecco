@@ -68,7 +68,6 @@ export class AgregarTipoNecesidadesComponent implements OnInit {
               window.location.reload();
             }
           }
-          console.log(tipoNecesidad)
           this.servicioTipoNecesidad.registrar(tipoNecesidad).subscribe(res => {
             document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({

@@ -18,7 +18,7 @@ export class DetalleArticuloComponent implements OnInit {
   dtOptions: any = {};
   public listarDetalleArticulo: any = [];
 
-  displayedColumns = ['id', 'articulo', 'placa', 'codigoUnico', 'tipoActivo', 'usuario', 'opciones'];
+  displayedColumns = ['id', 'articulo', 'placa','tipoActivo', 'usuario', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

@@ -88,7 +88,6 @@ export class ListadoComentariosComponent implements OnInit {
   listadoComentariosCompletos: any = []
   exportToExcel(): void {
     this.listadoComentariosCompletos = []
-    console.log(this.listarDetalle)
     for (let index = 0; index < this.listarDetalle.length; index++) {
       const element = this.listarDetalle[index];
       var obj = {

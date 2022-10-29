@@ -54,7 +54,6 @@ export class VisualizarRegistroComponent implements OnInit {
             }
           })
           this.dataSource = new MatTableDataSource( this.listarDetalle);
-          console.log(this.listarDetalle)
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         })

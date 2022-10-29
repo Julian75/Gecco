@@ -125,7 +125,6 @@ export class ListaCotizacionesLiderProcesoComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload()
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -162,15 +161,12 @@ export class ListaCotizacionesLiderProcesoComponent implements OnInit {
             this.listaCotizacionesPdf.push(element)
           }
         });
-        console.log(this.listaCotizacionesPdf)
         var contador = 0
         for (let i = 0; i < this.listaCotizacionesPdf.length; i++) {
           const element = this.listaCotizacionesPdf[i];
           if(element.idEstado.id == 40){
             contador += 1
-            console.log(contador)
             if(contador == this.listaCotizacionesPdf.length){
-              console.log("hola")
               let solicitud : Solicitud2 = new Solicitud2();
               this.servicioSolicitud.listarPorId(cotizaPdf.idCotizacion.idSolicitud.id).subscribe(resSolicitud=>{
                 solicitud.id = resSolicitud.id
@@ -227,7 +223,6 @@ export class ListaCotizacionesLiderProcesoComponent implements OnInit {
       this.dialogRef.close();
       this.dialogRef2.close();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -241,14 +236,10 @@ export class ListaCotizacionesLiderProcesoComponent implements OnInit {
   //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
     this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
-      console.log(res.nombrePdf)
       this.servicioPdf.listarTodos().subscribe(resPdf => {
         this.listaPdf.push(resPdf)
-        console.log(resPdf)
         for(const i in resPdf){
-          console.log(this.listaPdf)
           if (res.nombrePdf == this.listaPdf[0][i].name) {
-            console.log(this.listaPdf[0][i])
             window.location.href = this.listaPdf[0][i].url
           }
         }

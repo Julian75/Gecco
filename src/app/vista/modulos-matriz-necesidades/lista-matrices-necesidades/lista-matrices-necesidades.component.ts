@@ -196,21 +196,17 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             if(presupuestoMatriz > 100){
               obj.color = 'pasado'
             }
-            console.log(elementMatriz)
             var porcentajeCumEjeFech = Math.round((elementMatriz.cumPlaneacion/elementMatriz.cantidadEjecuciones)*100)
             obj.porcentajeEjecucion = porcentajeCumEjeFech
-            console.log(porcentajeCumEjeFech)
             if(porcentajeCumEjeFech < 50){
               obj.colorPorcentajeEjecucion = 'incumplio'
             }
             if(porcentajeCumEjeFech >= 50){
               obj.colorPorcentajeEjecucion = 'cumplio'
             }
-            console.log(obj)
             this.listarMatricesCompletas.push(obj)
           }
         });
-        console.log(this.listarMatricesCompletas)
         this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

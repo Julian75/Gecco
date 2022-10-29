@@ -44,7 +44,6 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
   public listarAreas() {
     this.servicioArea.listarTodos().subscribe(resAreas=>{
       this.listaAreas = resAreas
-      console.log(this.listaAreas)
     })
   }
 
@@ -54,7 +53,6 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
         this.listarUsuario = res;
       },
       (err: any) => {
-        console.log(err);
       }
     );
   }
@@ -63,8 +61,6 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
   listaUsuaExis: any = []
   public guardar(){
     this.listaUsuaExis = []
-    console.log(this.formUsuarioPqr.value.idUsuario)
-    console.log(this.formUsuarioPqr.value.idArea)
     if (this.formUsuarioPqr.valid) {
       this.servicioUsuario.listarPorId(Number(this.formUsuarioPqr.value.idUsuario)).subscribe(res=>{
         this.formUsuarioPqr.value.idUsuario = res
@@ -100,7 +96,6 @@ export class AgregarAsignacionUsuarioPqrComponent implements OnInit {
                   window.location.reload()
                 },
                 (err: any) => {
-                  console.log(err);
                 }
               );
             }

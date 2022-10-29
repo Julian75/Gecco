@@ -124,7 +124,6 @@ export class AprobarComentarioComponent implements OnInit {
   public actualizarSolicitud2(solicitud: Solicitud2){
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
       this.servicioConsultasGenerales.listarDetalleSolicitudEstados(solicitud.id).subscribe(resDetalleSolicitud=>{
-        console.log(resDetalleSolicitud)
         for (let index = 0; index < resDetalleSolicitud.length; index++) {
           const element = resDetalleSolicitud[index];
           let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();

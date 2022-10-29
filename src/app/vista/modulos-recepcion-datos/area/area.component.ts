@@ -41,7 +41,6 @@ export class AreaComponent implements OnInit {
       this.dataSource.sort = this.sort;
     }),
     error=>{
-      console.log(error);
     }
   }
   abrirModal(){

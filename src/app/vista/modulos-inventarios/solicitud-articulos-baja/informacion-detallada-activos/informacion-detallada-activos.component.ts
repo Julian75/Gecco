@@ -27,7 +27,6 @@ export class InformacionDetalladaActivosComponent implements OnInit {
     this.formInfo = this.fb.group({
       id: 0,
       activo: [null,Validators.required],
-      codigo: [null,Validators.required],
       marca: [null,Validators.required],
       placa: [null,Validators.required],
       serial: [null,Validators.required],
@@ -38,7 +37,6 @@ export class InformacionDetalladaActivosComponent implements OnInit {
   public llenarDatos(){
     this.datos = this.data
     this.formInfo.controls['activo'].setValue(this.datos.idDetalleArticulo.idArticulo.descripcion);
-    this.formInfo.controls['codigo'].setValue(this.datos.idDetalleArticulo.codigoUnico);
     this.formInfo.controls['marca'].setValue(this.datos.idDetalleArticulo.marca);
     this.formInfo.controls['placa'].setValue(this.datos.idDetalleArticulo.placa);
     this.formInfo.controls['serial'].setValue(this.datos.idDetalleArticulo.serial);

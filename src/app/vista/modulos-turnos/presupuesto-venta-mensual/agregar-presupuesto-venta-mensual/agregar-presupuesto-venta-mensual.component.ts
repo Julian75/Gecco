@@ -107,7 +107,6 @@ export class AgregarPresupuestoVentaMensualComponent implements OnInit {
           presupuestoVentaMensual.idSitioVenta = this.idSitioVenta.ideSitioventa
           presupuestoVentaMensual.nombreSitioVenta = this.idSitioVenta.nom_sitioventa
           presupuestoVentaMensual.valorPresupuesto = this.formPresupuestoVentaMensual.controls['valorPresupuesto'].value
-          console.log(presupuestoVentaMensual)
           this.registrarPresupuestoVentaMensual(presupuestoVentaMensual)
         }
       })

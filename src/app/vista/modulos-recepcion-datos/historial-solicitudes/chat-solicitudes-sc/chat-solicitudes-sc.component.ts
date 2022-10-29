@@ -41,7 +41,6 @@ export class ChatSolicitudesScComponent implements OnInit {
               this.listaAccesos.push(elementAcesos.idModulo.id)
              }
             });
-            console.log(this.listaAccesos)
             this.listaAccesos.forEach(elementAcceso => {
               if(elementAcceso == 38){
                 obj.emisor = true
@@ -49,7 +48,6 @@ export class ChatSolicitudesScComponent implements OnInit {
             });
             this.listaCorreosPqrs.push(obj)
             this.listaCorreosPqrsCompletos = this.listaCorreosPqrs.sort((a, b) => Number(new Date(a.chatCorreos.fecha)) - Number(new Date(b.chatCorreos.fecha)))
-            console.log(this.listaCorreosPqrsCompletos)
           }
         });
       })

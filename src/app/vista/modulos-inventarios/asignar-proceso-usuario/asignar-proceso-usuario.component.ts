@@ -137,7 +137,6 @@ export class AsignarProcesoUsuarioComponent implements OnInit {
     this.listAsignacionesProcesoUsuario = []
     this.servicioAsignacionProceso.listarTodos().subscribe(resAsignacionesProcesoUsuario=>{
       this.listaAsignacionesProcesoUsuario = resAsignacionesProcesoUsuario
-      console.log(this.listaAsignacionesProcesoUsuario)
       for (let index = 0; index < this.listaAsignacionesProcesoUsuario.length; index++) {
         const element = this.listaAsignacionesProcesoUsuario[index];
         var obj = {

@@ -70,7 +70,6 @@ export class AgregarRolComponent implements OnInit {
     let rol : Rol = new Rol();
     const idEstado = this.formRol.value.estado.id;
     const idJerarquia = this.formRol.value.jerarquia.id;
-    console.log(this.formRol.value.estado);
     if(this.formRol.valid){
       rol.descripcion=this.formRol.controls['descripcion'].value;
       this.servicioEstado.listarPorId(idEstado).subscribe(res => {

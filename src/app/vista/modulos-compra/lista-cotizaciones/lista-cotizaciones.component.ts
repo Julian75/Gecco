@@ -106,7 +106,6 @@ export class ListaCotizacionesComponent implements OnInit {
       this.servicioEstado.listarPorId(39).subscribe(resEsta=>{
         cotizacionPdf.idEstado = resEsta.id
         this.actualizaCotizacionPdf(cotizacionPdf, idCotizacion);
-        console.log(cotizacionPdf)
         let solicitud : Solicitud2 = new Solicitud2();
         this.servicioSolicitud.listarPorId(idSolicitud).subscribe(resSolicitud => {
           this.servicioEstado.listarPorId(34).subscribe(resEstado => {
@@ -135,7 +134,6 @@ export class ListaCotizacionesComponent implements OnInit {
             cotizacionPdf.idCotizacion = element.idCotizacion.id
             this.servicioEstado.listarPorId(40).subscribe(resEstado=>{
               cotizacionPdf.idEstado = resEstado.id
-              console.log(cotizacionPdf)
               this.actualizaCotizacionPdf2(cotizacionPdf);
             })
           }
@@ -152,7 +150,6 @@ export class ListaCotizacionesComponent implements OnInit {
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(res =>{
       this.actualCotizacion(idCotizacion, solicitud.idUsuario, solicitud.id )
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -190,7 +187,6 @@ export class ListaCotizacionesComponent implements OnInit {
       this.dialogRef.close();
       this.dialogRef2.close();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -214,7 +210,6 @@ export class ListaCotizacionesComponent implements OnInit {
   //             this.contrasena = elementConfi.valor
   //           }
   //         });
-  //         console.log(this.correo)
   //         correo.correo = this.correo
   //         correo.contrasena = this.contrasena
 
@@ -260,7 +255,6 @@ export class ListaCotizacionesComponent implements OnInit {
   //   this.servicioCorreo.enviar(correo).subscribe(res =>{
   //     this.crearCorreo2(idUsuarioSolicitud, idSolicitud)
   //   }, error => {
-  //     console.log(error)
   //     Swal.fire({
   //       position: 'center',
   //       icon: 'error',
@@ -284,7 +278,6 @@ export class ListaCotizacionesComponent implements OnInit {
   //             this.contrasena = elementConfi.valor
   //           }
   //         });
-  //         console.log(this.correo)
   //         correo.correo = this.correo
   //         correo.contrasena = this.contrasena
 
@@ -340,7 +333,6 @@ export class ListaCotizacionesComponent implements OnInit {
   //     this.dialogRef.close();
   //     this.dialogRef2.close();
   //   }, error => {
-  //     console.log(error)
   //     Swal.fire({
   //       position: 'center',
   //       icon: 'error',
@@ -377,15 +369,12 @@ export class ListaCotizacionesComponent implements OnInit {
             this.listaCotizacionesPdf.push(element)
           }
         });
-        console.log(this.listaCotizacionesPdf)
         var contador = 0
         for (let i = 0; i < this.listaCotizacionesPdf.length; i++) {
           const element = this.listaCotizacionesPdf[i];
           if(element.idEstado.id == 40){
             contador += 1
-            console.log(contador)
             if(contador == this.listaCotizacionesPdf.length){
-              console.log("hola")
               let solicitud : Solicitud2 = new Solicitud2();
               this.servicioSolicitud.listarPorId(cotizaPdf.idCotizacion.idSolicitud.id).subscribe(resSolicitud=>{
                 solicitud.id = resSolicitud.id
@@ -442,7 +431,6 @@ export class ListaCotizacionesComponent implements OnInit {
       this.dialogRef.close();
       this.dialogRef2.close();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -456,14 +444,10 @@ export class ListaCotizacionesComponent implements OnInit {
   //Descargar Cotizacion Individualmente
   public descargarPdf(id: number){
     this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
-      console.log(res.nombrePdf)
       this.servicioPdf.listarTodos().subscribe(resPdf => {
         this.listaPdf.push(resPdf)
-        console.log(resPdf)
         for(const i in resPdf){
-          console.log(this.listaPdf[0][i].name)
           if (res.nombrePdf == this.listaPdf[0][i].name) {
-            console.log(this.listaPdf[0][i])
             window.location.href = this.listaPdf[0][i].url
           }
         }
@@ -504,7 +488,6 @@ export class ListaCotizacionesComponent implements OnInit {
 
   listaSolicitudesExcel: any = [];
   exportToExcel(): void {
-    console.log(this.listaCotizacionesPdf)
     for (let index = 0; index < this.listaCotizacionesPdf.length; index++) {
       const element = this.listaCotizacionesPdf[index];
       var obj = {

@@ -75,6 +75,7 @@ export class SolicitudesRealizadasComponent implements OnInit {
   verSolicitud(id: number){
     const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
       width: '1000px',
+      height: '440px',
       data: {id: id}
     });
   }

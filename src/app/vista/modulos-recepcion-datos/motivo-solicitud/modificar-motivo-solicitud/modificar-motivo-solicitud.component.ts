@@ -54,7 +54,6 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
     this.idMotivo = this.data;
     this.servicioMotivoSolicitud.listarPorId(this.idMotivo).subscribe(res => {
       this.listaMotivo = res;
-      console.log(this.listaMotivo)
       this.formMotivoSolicitud.controls['id'].setValue(this.listaMotivo.id);
       this.formMotivoSolicitud.controls['descripcion'].setValue(this.listaMotivo.descripcion);
       this.formMotivoSolicitud.controls['area'].setValue(this.listaMotivo.idArea.id);
@@ -99,7 +98,6 @@ export class ModificarMotivoSolicitudComponent implements OnInit {
               motivoSolicitudActualizar.id = resMot.id
               motivoSolicitudActualizar.descripcion = this.formMotivoSolicitud.controls['descripcion'].value;
               motivoSolicitudActualizar.idArea = Number(this.formMotivoSolicitud.controls['area'].value);
-              console.log(motivoSolicitudActualizar)
               this.servicioModificar.actualizarMotivoSolicitud(motivoSolicitudActualizar).subscribe(data => {
                 Swal.fire({
                   icon: 'success',

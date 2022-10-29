@@ -59,7 +59,6 @@ export class ModificarPeriodoEjecucionComponent implements OnInit {
         this.servicePeriodoEjecucion.listarTodos().subscribe( periodoEjecu => {
           this.validarTodo = periodoEjecu;
           this.validar2 = this.validarTodo.filter((item:any) => item.descripcion === this.formPeriodoEjecucion.value.descripcion && item.cantidad === this.formPeriodoEjecucion.value.cantidad);
-          console.log(this.validar2);
           if(this.validar.descripcion === this.formPeriodoEjecucion.value.descripcion && this.validar.cantidad === this.formPeriodoEjecucion.value.cantidad){
             document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({

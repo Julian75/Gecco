@@ -29,7 +29,7 @@ export class ReporteInventarioComponent implements OnInit {
   filteredOptions!: Observable<SitioVenta[]>;
   mensaje: any;
 
-  displayedColumns = ['articulo', 'codigoUnico', 'placa', 'marca', 'serial', 'tipoActivo', 'categoria', 'oficina', 'puntoVenta', 'usuarioAsignado'];
+  displayedColumns = ['articulo', 'placa', 'marca', 'serial', 'tipoActivo', 'categoria', 'oficina', 'puntoVenta', 'usuarioAsignado'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -90,7 +90,6 @@ export class ReporteInventarioComponent implements OnInit {
 
   opcion: any
   reporte(seleccion: any){
-    console.log(seleccion.value)
     if (seleccion.value == "Sitio Venta") {
       this.lista = [];
       document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
@@ -202,7 +201,6 @@ export class ReporteInventarioComponent implements OnInit {
   }
 
   public idSitiosVentas(idSitioventa:any){
-    console.log(idSitioventa)
     const listaSitioVenta = idSitioventa
     this.listaIdSitioVenta.push(listaSitioVenta.ideSitioventa)
     let ultimo = this.listaIdSitioVenta[this.listaIdSitioVenta.length - 1]
@@ -267,7 +265,6 @@ export class ReporteInventarioComponent implements OnInit {
                     EstadoAsignacion: element.idAsignacionesArticulos.idEstado.descripcion,
                     Observacion: "",
                   }
-                  obj.CodigoUnico = elementInventario.idDetalleArticulo.codigoUnico
                   obj.Placa = elementInventario.idDetalleArticulo.placa
                   obj.Marca = elementInventario.idDetalleArticulo.marca
                   obj.Serial = elementInventario.idDetalleArticulo.serial
@@ -329,7 +326,6 @@ export class ReporteInventarioComponent implements OnInit {
                   this.idPuntoVentaAsign = 0
                   var obj = {
                     Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
-                    CodigoUnico: elementInventario.idDetalleArticulo.codigoUnico,
                     Placa: elementInventario.idDetalleArticulo.placa,
                     Marca: elementInventario.idDetalleArticulo.marca,
                     Serial: elementInventario.idDetalleArticulo.serial,
@@ -408,7 +404,6 @@ export class ReporteInventarioComponent implements OnInit {
                 this.idPuntoVentaAsign = 0
                 var obj = {
                   Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
-                  CodigoUnico: elementInventario.idDetalleArticulo.codigoUnico,
                   Placa: elementInventario.idDetalleArticulo.placa,
                   Marca: elementInventario.idDetalleArticulo.marca,
                   Serial: elementInventario.idDetalleArticulo.serial,
@@ -512,7 +507,6 @@ export class ReporteInventarioComponent implements OnInit {
                         obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
                       })
                     }
-                    obj.CodigoUnico = elementInventario.idDetalleArticulo.codigoUnico
                     obj.Placa = elementInventario.idDetalleArticulo.placa
                     obj.Marca = elementInventario.idDetalleArticulo.marca
                     obj.Serial = elementInventario.idDetalleArticulo.serial

@@ -55,7 +55,6 @@ export class MatrizNecesidadComponent implements OnInit {
         if(elementProcesos.idEstado.id == 88){
           this.listaProcesos.push(elementProcesos)
         }
-        console.log( this.listaProcesos)
       });
     });
   }
@@ -74,7 +73,6 @@ export class MatrizNecesidadComponent implements OnInit {
         resSubProcesos.forEach(elementSubProceso => {
           if(elementSubProceso.idTipoProceso.id == ultimo && elementSubProceso.idEstado.id == 90){
             this.listaSubProcesos.push(elementSubProceso)
-            console.log(this.listaSubProcesos)
           }
         });
         this.opcionesFiltradas = this.control.valueChanges.pipe(

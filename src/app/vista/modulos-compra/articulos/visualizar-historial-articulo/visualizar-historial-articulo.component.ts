@@ -93,7 +93,6 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
   listActivosInventario: any = [];
   exportToExcel(): void {
     this.listActivosInventario = []
-    console.log(this.listarHistorialArticulo)
     for (let index = 0; index < this.listarHistorialArticulo.length; index++) {
       const element = this.listarHistorialArticulo[index];
       var obj = {

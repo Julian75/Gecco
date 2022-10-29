@@ -56,7 +56,6 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
 
   empresa: boolean = false;
   reporteMatrizNecesidad(seleccion: any){
-    console.log(seleccion)
     if(seleccion.value == "Proceso"){
       document.getElementById('procesoDiv')?.setAttribute('style', 'display: block;')
       document.getElementById('subProcesoDiv')?.setAttribute('style', 'display: none;')
@@ -105,7 +104,6 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
     this.listaExcel = []
     this.mes = ""
     var proceso = this.formReporteMatrizNecesidad.controls["proceso"].value
-    console.log(proceso)
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {
@@ -180,7 +178,6 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
     this.listaExcel = []
     this.mes = ""
     var subproceso = this.formReporteMatrizNecesidad.controls["subproceso"].value
-    console.log(subproceso)
     document.getElementById('snipper1')?.setAttribute('style', 'display: block;')
     this.servicioMatrizNecesidadDetalle.listarTodos().subscribe(resMatricesNecesidadesDetalle=>{
       resMatricesNecesidadesDetalle.forEach(elementMatrizNecesidadDetalle => {

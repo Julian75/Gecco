@@ -55,7 +55,6 @@ export class ModificarOpcionesVisitaComponent implements OnInit {
     const descripcion = this.formOpcionVisita.value.descripcion;
     this.servicioOpcionVisita.listarPorId(opcionVisita.id).subscribe(res=>{
       opcionVisita.descripcion = res.descripcion
-      console.log(opcionVisita.descripcion)
       if(descripcion==''){
         Swal.fire({
           position: 'center',

@@ -15,10 +15,8 @@ export class AuthenticationGuardGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       if (sessionStorage.getItem('id')!=null || sessionStorage.getItem('id')!=undefined) {
-        console.log("Ya inicio sesion")
         return this.router.navigate(['/vista']);
       }
-      console.log("Aun no ha iniciado sesion")
       return true;
   }
 

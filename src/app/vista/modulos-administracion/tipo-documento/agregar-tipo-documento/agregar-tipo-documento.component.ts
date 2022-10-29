@@ -59,7 +59,6 @@ export class AgregarTipoDocumentoComponent implements OnInit {
     this.encontrados = [];
     let tipoDocumento : TipoDocumento = new TipoDocumento();
     const idEstado = this.formTipoDocumento.controls['estado'].value;
-    console.log(this.formTipoDocumento.value.descripcion);
     if(this.formTipoDocumento.valid){
       tipoDocumento.descripcion=this.formTipoDocumento.controls['descripcion'].value;
       this.servicioEstado.listarPorId(idEstado).subscribe(res => {
@@ -75,7 +74,6 @@ export class AgregarTipoDocumentoComponent implements OnInit {
             this.encontrados.push(this.encontrado);
           })
           const existe = this.encontrados.includes(true);
-          console.log(existe);
           if(existe == true){
             Swal.fire({
               position: 'center',

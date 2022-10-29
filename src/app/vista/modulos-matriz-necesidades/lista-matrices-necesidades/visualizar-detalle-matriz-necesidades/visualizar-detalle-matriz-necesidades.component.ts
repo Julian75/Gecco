@@ -429,7 +429,6 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     this.listaNoseEncuentra = []
     this.noseEncuentra = false
     this.codigoOrdenComp = codgoOrdenComp.option.value.id
-    console.log(this.codigoOrdenComp)
     this.detalleMatrizNecesidadCodOrdenComp = detalleMatrizNecesidad
     if(this.listaMatrizDetalleNecesidades.length == 0){
       var obj = {
@@ -573,7 +572,6 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
                               this.firmaLiderProceso = element.url
                             }
                           }
-                          console.log(this.firmaProfesionalLogistico, this.firmaLiderProceso, this.firmaDireccionAdministrativa)
 
                           this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
                             const formatterPeso = new Intl.NumberFormat('es-CO', {
@@ -849,11 +847,9 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
       this.servicioEstado.listarPorId(86).subscribe(resEstado=>{
         this.listaValidarValoresIngresadors = []
         this.elementObtenidoDetalleMatriz = {}
-        console.log(this.listaMatrizDetalleNecesidades)
         for (let index = 0; index < this.listaMatrizDetalleNecesidades.length; index++) {
           const element = this.listaMatrizDetalleNecesidades[index];
           if(element.matrizNecesidadDetalle.id == detalleMatrizNecesided.id){
-            console.log(element.codigoOrdenCompra)
             if(element.ejecucionesCumplidasNum != 0 && element.costoEjecucionComprad != 0 && element.objetosCompradosCo != 0 && element.codigoOrdenCompra != 0){
               this.validarValoresIngresados = true
               this.elementObtenidoDetalleMatriz = element
@@ -876,7 +872,6 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
               timer: 3500
             })
           }else{
-            console.log(this.listaMatrizDetalleNecesidades)
             matrizNecesidadDetalleActualizar.id = detalleMatrizNecesided.id
             matrizNecesidadDetalleActualizar.id_matriz_necesidad = detalleMatrizNecesided.idMatrizNecesidad.id
             var fecha = new Date(detalleMatrizNecesided.fecha)

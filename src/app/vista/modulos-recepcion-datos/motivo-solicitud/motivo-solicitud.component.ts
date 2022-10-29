@@ -36,12 +36,10 @@ export class MotivoSolicitudComponent implements OnInit {
       res.forEach(element => {
         this.motivoSolicitud.push(element);
       });
-      console.log(this.motivoSolicitud);
       this.dataSource = new MatTableDataSource(this.motivoSolicitud);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }),error=>{
-      console.log(error);
     }
   }
   abrirModal(){

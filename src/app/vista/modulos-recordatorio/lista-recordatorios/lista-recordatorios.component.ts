@@ -44,7 +44,6 @@ export class ListaRecordatoriosComponent implements OnInit {
       data.forEach(elementRecordatorio => {
         var fechaAlmacenada = new Date(elementRecordatorio.fecha)
         fechaAlmacenada.setDate(fechaAlmacenada.getDate()+1)
-        console.log(fechaAlmacenada, this.fechaActual)
         var obj = {
           cumplimiento: false,
           recordatorio: elementRecordatorio,
@@ -85,7 +84,6 @@ export class ListaRecordatoriosComponent implements OnInit {
             this.listaAccesos.push(elementAcesos.idModulo.id)
            }
           });
-          console.log(this.listaAccesos)
           this.listaAccesos.forEach(elementAcceso => {
             if(elementAcceso == 38){
               obj.emisor = true
@@ -93,7 +91,6 @@ export class ListaRecordatoriosComponent implements OnInit {
           });
           this.listaCorreosPqrs.push(obj)
           this.listaCorreosPqrsCompletos = this.listaCorreosPqrs.sort((a, b) => Number(new Date(a.chatCorreos.fecha)) - Number(new Date(b.chatCorreos.fecha)))
-          console.log(this.listaCorreosPqrsCompletos)
         });
       })
     })

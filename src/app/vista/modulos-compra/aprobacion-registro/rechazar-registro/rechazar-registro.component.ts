@@ -100,7 +100,6 @@ export class RechazarRegistroComponent implements OnInit {
     this.servicioOrdenCompra.listarTodos().subscribe(resOrdenCompra=>{
       resOrdenCompra.forEach(elementOrdenCompra => {
         if (elementOrdenCompra.idSolicitud.id == idSolicitud) {
-          console.log(elementOrdenCompra.id)
           this.servicioOrdenCompra.listarPorId(elementOrdenCompra.id).subscribe(resOrdenCompra=>{
             ordenCompra.id = resOrdenCompra.id
             ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
@@ -133,7 +132,6 @@ export class RechazarRegistroComponent implements OnInit {
       window.location.reload()
       this.dialogRef.close();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -145,7 +143,7 @@ export class RechazarRegistroComponent implements OnInit {
   }
 
   // public crearCorreo(idUsuario:number, idSolicitud:number){
-  //   let correo : Correo = new Correo();
+  // let correo : Correo = new Correo();
   //   const observacion = this.formSolicitud.controls['observacion'].value;
   //   this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
   //     this.servicioUsuario.listarPorId(idUsuario).subscribe(resUsuario => {
@@ -158,7 +156,6 @@ export class RechazarRegistroComponent implements OnInit {
   //             this.contrasena = elementConfi.valor
   //           }
   //         });
-  //         console.log(this.correo)
   //         correo.correo = this.correo
   //         correo.contrasena = this.contrasena
   //         correo.to = resUsuario.correo
@@ -201,11 +198,11 @@ export class RechazarRegistroComponent implements OnInit {
   // }
 
   // public enviarCorreo(correo: Correo, idSolicitud:number, observacion:string){
-  //   for (const [key, value] of Object.entries(this.data)) {
+    // for (const [key, value] of Object.entries(this.data)) {
   //     this.lista.push(value)
   //   }
   //   this.servicioCotizacion.listarPorId(this.lista[1]).subscribe(resCotizacion=>{
-  //     this.servicioCorreo.enviar(correo).subscribe(res =>{
+      // this.servicioCorreo.enviar(correo).subscribe(res =>{
   //       let correo : Correo = new Correo();
   //       this.servicioSolicitudDetalle.listarTodos().subscribe(resSolicitud => {
   //         this.servicioUsuario.listarPorId(resCotizacion.idUsuario.id).subscribe(resUsuario => {
@@ -218,7 +215,6 @@ export class RechazarRegistroComponent implements OnInit {
   //                 this.contrasena = elementConfi.valor
   //               }
   //             });
-  //             console.log(this.correo)
   //             correo.correo = this.correo
   //             correo.contrasena = this.contrasena
 

@@ -64,10 +64,8 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
   listaAsignacionActivo:any = []
   public listarTodos(){
     this.serviceEstado.listarTodos().subscribe(data => {
-      console.log(this.data)
       this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
         this.listaAsignacionActivo = data
-        console.log(this.data)
         this.formAsignarArticulos.controls['idAsignacionesProcesos'].setValue(this.listaAsignacionActivo.idAsignacionesProcesos.id);
         this.formAsignarArticulos.controls['idDetalleArticulo'].setValue(this.listaAsignacionActivo.idDetalleArticulo.id);
         this.nombreArticulo = this.listaAsignacionActivo.idDetalleArticulo.idArticulo.descripcion
@@ -189,9 +187,7 @@ export class ModificarAsignarArticulosUsuarioComponent implements OnInit {
                             historialSegunda.observacion = "Se reasignó el artículo "+resAsigArticuloPrimera.idDetalleArticulo.idArticulo.descripcion+ " al usuario " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre + " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido + " del área " + resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion
                             historialSegunda.idUsuario = usuariolog
                             historialSegunda.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo
-                            console.log(historialSegunda)
                             asignacionArticulosModificarSegunda.idEstado = resEstadoRegMod.id
-                            console.log(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda)
                             this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda, historialSegunda)
                           })
                         })

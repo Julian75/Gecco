@@ -108,7 +108,6 @@ export class SolicitudesComponent implements OnInit {
       window.location.reload()
       // this.crearCorreo(solicitud.idUsuario, solicitud.id)
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -131,7 +130,6 @@ export class SolicitudesComponent implements OnInit {
 //             this.contrasena = elementConfi.valor
 //           }
 //         });
-//         console.log(this.correo)
 //         correo.correo = this.correo
 //         correo.contrasena = this.contrasena
 
@@ -185,7 +183,6 @@ export class SolicitudesComponent implements OnInit {
 //     })
 //     window.location.reload()
 //   }, error => {
-//     console.log(error)
 //     Swal.fire({
 //       position: 'center',
 //       icon: 'error',
@@ -238,7 +235,6 @@ export class SolicitudesComponent implements OnInit {
   exportToExcel(): void {
     for (let index = 0; index < this.listaSolicitudes.length; index++) {
       const element = this.listaSolicitudes[index];
-      console.log(element)
       var obj = {
         "Id": element.id,
         "Fecha": element.fecha,

@@ -54,7 +54,6 @@ export class ModificarSolicitudScComponent implements OnInit {
       let solicitudSc : SolicitudSC2 = new SolicitudSC2();
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
         solicitudSc.id = resSolicitud.id
-        console.log(resSolicitud)
         var fechaActual = new Date(resSolicitud.fecha)
         fechaActual.setDate(fechaActual.getDate()+1)
         solicitudSc.fecha = fechaActual

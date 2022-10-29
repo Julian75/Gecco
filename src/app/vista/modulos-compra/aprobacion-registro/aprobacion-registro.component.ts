@@ -155,7 +155,6 @@ export class AprobacionRegistroComponent implements OnInit {
       this.actualOrdenCompra(solicitud.idUsuario, solicitud.id, idCotizacion)
       // this.crearCorreo(solicitud.idUsuario.id, solicitud.id)
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -168,7 +167,6 @@ export class AprobacionRegistroComponent implements OnInit {
 
  public actualOrdenCompra(idUsuario: number, idSolicitud: number, idCotizacion:number){
   let ordenCompra : OrdenCompra2 = new OrdenCompra2();
-  console.log(this.listaOrdenCompra[0].id)
     this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenCompra=>{
       ordenCompra.id = resOrdenCompra.id
       ordenCompra.anticipoPorcentaje = resOrdenCompra.anticipoPorcentaje
@@ -244,17 +242,14 @@ export class AprobacionRegistroComponent implements OnInit {
                 });
                 for (let index = 0; index < this.listaComprasRegistrar.length; index++) {
                   const element = this.listaComprasRegistrar[index];
-                  console.log(element)
                   var indice = this.listaComprasModificar.indexOf(element); // obtenemos el indice
                   this.listaComprasModificar.splice(indice, 1);
                 }
                 for (let index = 0; index < this.listaInventariosRegistrar.length; index++) {
                   const element = this.listaInventariosRegistrar[index];
-                  console.log(element)
                   var indice = this.listaInventariosModificar.indexOf(element); // obtenemos el indice
                   this.listaInventariosModificar.splice(indice, 1);
                 }
-                console.log(this.listaComprasModificar, this.listaComprasRegistrar)
                 if(this.listaComprasModificar.length >= 1){
                   for (let index = 0; index < this.listaComprasModificar.length; index++) {
                     const element = this.listaComprasModificar[index];
@@ -364,7 +359,6 @@ export class AprobacionRegistroComponent implements OnInit {
     // this.dialogRef.close();
     // window.location.reload();
   }, error => {
-    console.log(error)
     Swal.fire({
       position: 'center',
       icon: 'error',
@@ -579,14 +573,10 @@ registrarMovimientoCI(movCIRegistrar: MovimientoComprasInventario){
   public descargarPdf(id: number){
     this.listaPdf = []
     this.servicioCotizacionPdf.listarPorId(id).subscribe(res=>{
-      console.log(res.nombrePdf)
       this.servicioPdf.listarTodos().subscribe(resPdf => {
         this.listaPdf.push(resPdf)
-        console.log(resPdf)
         for(const i in resPdf){
-          console.log(this.listaPdf[0][i].name)
           if (res.nombrePdf == this.listaPdf[0][i].name) {
-            console.log(this.listaPdf[0][i])
             window.location.href = this.listaPdf[0][i].url
           }
         }
@@ -629,7 +619,6 @@ registrarMovimientoCI(movCIRegistrar: MovimientoComprasInventario){
   exportToExcel(): void {
     for (let index = 0; index < this.listaSolicitudes.length; index++) {
       const element = this.listaSolicitudes[index];
-      console.log(element)
       var obj = {
         "Id": element.id,
         "Fecha": element.idCotizacion.idSolicitud.fecha,

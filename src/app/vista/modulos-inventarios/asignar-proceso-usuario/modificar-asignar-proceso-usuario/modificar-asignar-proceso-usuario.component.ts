@@ -45,9 +45,7 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
 
   listadoProcesoUsuario: any = [];
   public listarPorIdUsuariosYProceso(){
-    console.log(this.data);
     this.serviceAsignacionProcesoUsuario.listarPorId(Number(this.data)).subscribe( data => {
-      console.log(data);
       this.formAsignacionProcesoUsuario.patchValue({
         idUsuario: data.idUsuario,
         idTiposProcesos: data.idTiposProcesos
@@ -76,7 +74,6 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
           this.formAsignacionProcesoUsuario.value.idTiposProcesos = TipoProceso.id;
           this.serviceAsignacionProcesoUsuario.listarPorId(Number(this.data)).subscribe( asignacion => {
             if( this.formAsignacionProcesoUsuario.value.idUsuario == asignacion.idUsuario.id && this.formAsignacionProcesoUsuario.value.idTiposProcesos == asignacion.idTiposProcesos.id){
-              console.log(this.formAsignacionProcesoUsuario.value);
               Swal.fire({
                 icon: 'success',
                 text: 'No hubieron cambios',
@@ -85,7 +82,6 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
               })
               document.getElementById("snipper").setAttribute("style", "display: none;")
               window.location.reload();
-              console.log("No hubieron cambios");
             }else{
                 this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
                   this.listadoProcesoUsuario = data;
@@ -96,7 +92,6 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
                     }
                   }
                 if(contador == 0){
-                  console.log(this.formAsignacionProcesoUsuario.value);
                   this.serviceModificar.actualizarAsignacionProceso(this.formAsignacionProcesoUsuario.value).subscribe( data => {
                     Swal.fire({
                       icon: 'success',

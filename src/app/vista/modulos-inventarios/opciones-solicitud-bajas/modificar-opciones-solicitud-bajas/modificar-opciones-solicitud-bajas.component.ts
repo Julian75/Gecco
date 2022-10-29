@@ -55,7 +55,6 @@ export class ModificarOpcionesSolicitudBajasComponent implements OnInit {
     const descripcion = this.formOpcion.value.descripcion;
     this.servicioOpcionBajas.listarPorId(opcionArticuloBaja.id).subscribe(res=>{
       opcionArticuloBaja.descripcion = res.descripcion
-      console.log(opcionArticuloBaja.descripcion)
       if(descripcion==''){
         Swal.fire({
           position: 'center',

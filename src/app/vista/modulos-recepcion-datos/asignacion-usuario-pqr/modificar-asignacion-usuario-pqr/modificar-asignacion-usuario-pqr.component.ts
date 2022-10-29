@@ -97,7 +97,6 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
                         window.location.reload()
                       },
                       (err: any) => {
-                        console.log(err);
                       }
                     );
                   }
@@ -136,7 +135,6 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
         this.listarUsuario = res;
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -151,7 +149,6 @@ export class ModificarAsignacionUsuarioPqrComponent implements OnInit {
         });
       },
       (err) => {
-        console.log(err);
       }
     );
   }

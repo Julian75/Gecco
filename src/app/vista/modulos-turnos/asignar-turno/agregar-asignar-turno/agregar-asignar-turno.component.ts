@@ -118,12 +118,10 @@ export class AgregarAsignarTurnoComponent implements OnInit {
           this.servicioAsignarTurno.listarTodos().subscribe(resTurnos=>{
             resTurnos.forEach(elementTurnos => {
               if(elementTurnos.idSitioVenta == res.idSitioVenta){
-                console.log(elementTurnos)
                 this.contador += elementTurnos.porcentaje
               }
             });
             var restante = 100 - this.contador
-            console.log(restante, this.contador)
             if(Number(porcentaje.value) <= restante){
               asignarTurnoPuntoVenta.porcentaje = Number(porcentaje.value)
               this.servicioModificar.actualizarAsignarTurnoPuntoVenta(asignarTurnoPuntoVenta).subscribe(resPuntoVentaActual=>{
@@ -288,7 +286,6 @@ export class AgregarAsignarTurnoComponent implements OnInit {
                           }
                           if(existe == true){
                             document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                            console.log(this.contador)
                             Swal.fire({
                               position: 'center',
                               icon: 'error',

@@ -28,7 +28,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
   public listaActivosBaja: any = [];
   public idContable: number = 0;
 
-  displayedColumns = ['id', 'activo', 'codigoUnico', 'marca', 'placa', 'serial', 'observacion', 'estado', 'opciones'];
+  displayedColumns = ['id', 'activo', 'marca', 'placa', 'serial', 'observacion', 'estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -98,7 +98,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
     }else{
       this.idContable += this.informacionModal[1]+1
     }
-    console.log(this.idContable)
     var lengthActivos = this.listaActivosBaja.length
     this.servicioArticulosBaja.listarPorId(id).subscribe(resActivoBaja=>{
       this.servicioEstado.listarPorId(81).subscribe(resEstado=>{
@@ -107,7 +106,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
             let activoBaja : ArticulosBaja2 = new ArticulosBaja2();
             let solicitudBajaActivoMod : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
             activoBaja.id = resActivoBaja.id
-            console.log(this.idContable)
             if(this.idContable == lengthActivos){
               document.getElementById('snipper07')?.setAttribute('style', 'display: block;')
               activoBaja.id_detalle_articulo = resActivoBaja.idDetalleArticulo.id
@@ -155,7 +153,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
               activoBaja.id_opcion_baja = resActivoBaja.idOpcionBaja.id
               activoBaja.id_solicitud_baja = resActivoBaja.idSolicitudBaja.id
               activoBaja.observacion =resActivoBaja.observacion
-              console.log(activoBaja)
               this.servicioModificar.actualizarActivoBaja(activoBaja).subscribe(resActivoBajaMod=>{
                 this.dialogRef.close();
                 const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
@@ -177,7 +174,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
     }else{
       this.idContable += this.informacionModal[1]+1
     }
-    console.log(this.idContable)
     var lengthActivos = this.listaActivosBaja.length
     this.servicioArticulosBaja.listarPorId(id).subscribe(resActivoBaja=>{
       this.servicioEstado.listarPorId(83).subscribe(resEstado=>{
@@ -186,7 +182,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
             let activoBaja : ArticulosBaja2 = new ArticulosBaja2();
             let solicitudBajaActivoMod : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
             activoBaja.id = resActivoBaja.id
-            console.log(this.idContable, lengthActivos)
             if(this.idContable == lengthActivos){
               document.getElementById('snipper07')?.setAttribute('style', 'display: block;')
               activoBaja.id_detalle_articulo = resActivoBaja.idDetalleArticulo.id
@@ -207,7 +202,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                     }
                   });
                   const existeAprobado = this.listaAceptado.includes(true)
-                  console.log(existeAprobado)
                   if(existeAprobado == true){
                     this.servicioSolicitudBajaActivo.listarPorId(this.informacionModal[0]).subscribe(resSolicitudActivoBaja=>{
                       solicitudBajaActivoMod.id = resSolicitudActivoBaja.id
@@ -228,7 +222,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.usuario_autorizacion = 0
                       solicitudBajaActivoMod.usuario_confirmacion = 0
                       solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
-                      console.log(solicitudBajaActivoMod)
                       this.actualizarSolicitudBajaArticulo(solicitudBajaActivoMod)
                     })
                   }
@@ -240,7 +233,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
               activoBaja.id_opcion_baja = resActivoBaja.idOpcionBaja.id
               activoBaja.id_solicitud_baja = resActivoBaja.idSolicitudBaja.id
               activoBaja.observacion =resActivoBaja.observacion
-              console.log(activoBaja)
               this.servicioModificar.actualizarActivoBaja(activoBaja).subscribe(resActivoBajaMod=>{
                 this.dialogRef.close();
                 const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
@@ -254,13 +246,11 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
         })
       })
     })
-    console.log(this.idContable)
   }
 
   correo: any;
   contrasena: any;
   public actualizarSolicitudBajaArticulo(solicitudBajaActivo: SolicitudBajasArticulos2){
-    console.log(solicitudBajaActivo)
     this.servicioModificar.actualizarSolicitudBajaArticulo(solicitudBajaActivo).subscribe(resSolicitudBajaActivo=>{
       if(solicitudBajaActivo.id_estado == 83){
         let correo : Correo = new Correo();
@@ -407,7 +397,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
     }else{
       this.idContable += this.informacionModal[1]+1
     }
-    console.log(this.idContable)
     var lengthActivos = this.listaActivosBaja.length
     this.servicioArticulosBaja.listarPorId(idSolicitudBajaActivo).subscribe(resActivoBaja=>{
       this.servicioEstado.listarPorId(82).subscribe(resEstado=>{
@@ -416,10 +405,7 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
             let activoBaja : ArticulosBaja2 = new ArticulosBaja2();
             let solicitudBajaActivoMod : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
             activoBaja.id = resActivoBaja.id
-            console.log(this.idContable)
-            console.log(this.listaActivosBaja)
             if(this.idContable == lengthActivos){
-              console.log("wenas")
               document.getElementById('snipper07')?.setAttribute('style', 'display: block;')
               activoBaja.id_detalle_articulo = resActivoBaja.idDetalleArticulo.id
               activoBaja.id_estado = resEstado.id
@@ -430,7 +416,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                 this.servicioArticulosBaja.listarTodos().subscribe(resActivosBajaCompletos=>{
                   resActivosBajaCompletos.forEach(activoBaja => {
                     if(activoBaja.idSolicitudBaja.id == this.informacionModal[0]){
-                      console.log(activoBaja)
                       if(activoBaja.idEstado.id == 82){
                         this.aceptado2 = true
                       }else{
@@ -471,7 +456,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
               activoBaja.id_opcion_baja = resActivoBaja.idOpcionBaja.id
               activoBaja.id_solicitud_baja = resActivoBaja.idSolicitudBaja.id
               activoBaja.observacion =resActivoBaja.observacion
-              console.log(activoBaja)
               this.servicioModificar.actualizarActivoBaja(activoBaja).subscribe(resActivoBajaMod=>{
                 this.dialogRef.close();
                 const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
@@ -627,7 +611,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
     }else{
       this.idContable += this.informacionModal[1]+1
     }
-    console.log(this.idContable)
     var lengthActivos = this.listaActivosBaja.length
     this.servicioArticulosBaja.listarPorId(idSolicitudBajaActivo).subscribe(resActivoBaja=>{
       this.servicioEstado.listarPorId(84).subscribe(resEstado=>{
@@ -636,7 +619,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
             let activoBaja : ArticulosBaja2 = new ArticulosBaja2();
             let solicitudBajaActivoMod : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
             activoBaja.id = resActivoBaja.id
-            console.log(this.idContable)
             if(this.idContable == lengthActivos){
               document.getElementById('snipper07')?.setAttribute('style', 'display: block;')
               activoBaja.id_detalle_articulo = resActivoBaja.idDetalleArticulo.id
@@ -657,7 +639,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                     }
                   });
                   const existeAprobado = this.listaAceptado.includes(true)
-                  console.log(existeAprobado)
                   if(existeAprobado == true){
                     this.servicioSolicitudBajaActivo.listarPorId(this.informacionModal[0]).subscribe(resSolicitudActivoBaja=>{
                       solicitudBajaActivoMod.id = resSolicitudActivoBaja.id
@@ -678,7 +659,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
                       solicitudBajaActivoMod.usuario_autorizacion = resSolicitudActivoBaja.usuarioAutorizacion
                       solicitudBajaActivoMod.usuario_confirmacion = 0
                       solicitudBajaActivoMod.estado_contabilidad = resActivoBaja.idSolicitudBaja.estadoContabilidad
-                      console.log(solicitudBajaActivoMod)
                       this.actualizarSolicitudBajaArticuloAutorizada(solicitudBajaActivoMod)
                     })
                   }
@@ -690,7 +670,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
               activoBaja.id_opcion_baja = resActivoBaja.idOpcionBaja.id
               activoBaja.id_solicitud_baja = resActivoBaja.idSolicitudBaja.id
               activoBaja.observacion =resActivoBaja.observacion
-              console.log(activoBaja)
               this.servicioModificar.actualizarActivoBaja(activoBaja).subscribe(resActivoBajaMod=>{
                 this.dialogRef.close();
                 const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
@@ -740,7 +719,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
   listDetalleSolicitudActivoBaja: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
     this.listDetalleSolicitudActivoBaja = []
-    console.log(this.listaActivosBaja)
     for (let index = 0; index < this.listaActivosBaja.length; index++) {
       const element = this.listaActivosBaja[index];
       var obj = {
@@ -748,7 +726,6 @@ export class VisualizarActivosBajasSolicitudComponent implements OnInit {
         "Fecha Solicitud": element.idSolicitudBaja.fecha,
         "Activo": element.idDetalleArticulo.idArticulo.descripcion,
         "Tipo Activo": element.idDetalleArticulo.idTipoActivo.descripcion,
-        "Codigo Unico": element.idDetalleArticulo.codigoUnico,
         "Codigo Contable": element.idDetalleArticulo.codigoContable,
         "Marca": element.idDetalleArticulo.marca,
         "Placa": element.idDetalleArticulo.placa,

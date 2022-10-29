@@ -75,13 +75,11 @@ export class ReasignarArticuloComponent implements OnInit {
     this.listaAsignacionesProcesos = []
     this.serviceAsignacionProceso.listarTodos().subscribe(resAsignacionProceso => {
       this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignacionArticulo => {
-        console.log(resAsignacionArticulo)
         resAsignacionProceso.forEach(elementAsignacionProceso => {
           if(resAsignacionArticulo.idAsignacionesProcesos.idTiposProcesos.id == elementAsignacionProceso.idTiposProcesos.id){
             this.listaAsignacionesProcesos.push(elementAsignacionProceso)
           }
         });
-        console.log(this.listaAsignacionesProcesos)
         this.dataSource = new MatTableDataSource(this.listaAsignacionesProcesos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -160,7 +158,6 @@ export class ReasignarArticuloComponent implements OnInit {
                   this.serviceAsignacionArticulo.listarPorId(this.segundoIdAsignArt).subscribe(resAsigArticuloSegunda=>{
                     this.serviceAsignacionProceso.listarPorId(idAsignProceso).subscribe(resNuevaAsigProceso=>{
                       if(resNuevaAsigProceso.idUsuario.id == resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.id){
-                        console.log(resAsigArticuloPrimera, resAsigArticuloSegunda)
                         this.serviceEstado.listarPorId(76).subscribe(resEstadoReg=>{
                           this.serviceEstado.listarPorId(79).subscribe(resEstadoSegunda=>{
                             historialPrimera.fecha = new Date()
@@ -182,7 +179,6 @@ export class ReasignarArticuloComponent implements OnInit {
                       }else if(resNuevaAsigProceso.idUsuario.id == resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.id){
                         this.serviceEstado.listarPorId(79).subscribe(resEstadoRegCompras=>{
                           this.serviceEstado.listarPorId(78).subscribe(resEstadoRegMod=>{
-                            console.log(resAsigArticuloPrimera, resAsigArticuloSegunda)
                             asignacionArticulosModificarPrimera.id = resAsigArticuloPrimera.id
                             asignacionArticulosModificarPrimera.idAsignacionesProcesos = resAsigArticuloPrimera.idAsignacionesProcesos.id
                             asignacionArticulosModificarPrimera.idEstado = resEstadoRegCompras.id
@@ -194,9 +190,7 @@ export class ReasignarArticuloComponent implements OnInit {
                             historialSegunda.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                             historialSegunda.observacion = "Se reasignó el artículo "+ resAsigArticuloPrimera.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+ " al usuario " +resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre.toLowerCase()+ " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido.toLowerCase() + " del área " +resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion.toLowerCase()
                             historialSegunda.idUsuario = usuariolog
-                            console.log(historialSegunda)
                             asignacionArticulosModificarSegunda.idEstado = resEstadoRegMod.id
-                            console.log(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda)
                             this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda, historialSegunda)
                           })
                         })
@@ -204,7 +198,6 @@ export class ReasignarArticuloComponent implements OnInit {
                         this.serviceAsignacionProceso.listarPorId(idAsignProceso).subscribe(resNuevaAsigProceso=>{
                           this.serviceEstado.listarPorId(78).subscribe(resEstadoReg=>{
                             this.serviceEstado.listarPorId(79).subscribe(resEstadoPrimera=>{
-                              console.log(resAsigArticuloPrimera, resAsigArticuloSegunda)
                               historial.fecha = new Date()
                               asignacionArticulosModificarPrimera.id = resAsigArticuloPrimera.id
                               asignacionArticulosModificarPrimera.idAsignacionesProcesos = resAsigArticuloPrimera.idAsignacionesProcesos.id

@@ -126,7 +126,6 @@ export class FirmasComponent implements OnInit {
       this.listaFirmasRes = resFirmas
       for (let index = 0; index < this.listaFirmasRes.length; index++) {
         const element = this.listaFirmasRes[index];
-        console.log(element)
         var obj = {
           "Id": element.id,
           "Nombre Archivo Firma": element.firma,

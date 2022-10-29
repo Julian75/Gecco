@@ -71,7 +71,6 @@ export class ModificarClienteScComponent implements OnInit {
       this.idCliente = params.get('id');
       this.servicioCliente.listarPorId(this.idCliente).subscribe(res => {
         this.listarCliente = res;
-        console.log(this.listarCliente);
         this.formClienteSC.setValue({
           id: this.listarCliente.id,
           nombre: this.listarCliente.nombre,
@@ -136,7 +135,6 @@ export class ModificarClienteScComponent implements OnInit {
                   }
                   this.listaExis.push(this.existe)
                 });
-                console.log(this.listaExis)
                 const existe = this.listaExis.includes( true );
                 if(existe == true){
                   Swal.fire({

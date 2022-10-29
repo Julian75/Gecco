@@ -31,7 +31,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
   dtOptions: any = {};
   public listarAsignacionArticulos: any = [];
 
-  displayedColumns = ['id','iddetalleArticulo','idasignacionesprocesos','codigoUnico','serial','placa','idEstado','opciones'];
+  displayedColumns = ['id','iddetalleArticulo','idasignacionesprocesos','serial','placa','idEstado','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -93,7 +93,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
                   existeAsigPuntoVenta: false
                 }
                 resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
                     obj.existeAsigPuntoVenta = true
                   }
                 })
@@ -104,7 +104,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
                   existeAsigPuntoVenta: false
                 }
                 resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.codigoUnico == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.codigoUnico && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
                     obj.existeAsigPuntoVenta = true
                   }
                 })
@@ -171,7 +171,6 @@ export class MisArticulosAsignadosComponent implements OnInit {
             }
           });
           const idAsigMen = Math.min(...this.listaAsignArticulos);
-          console.log(idAsigMen)
           this.serviceAsignacionArticulos.listarPorId(idAsigMen).subscribe(resAsignCompras=>{
             asignacionArticuloCompras.id = resAsignCompras.id;
             asignacionArticuloCompras.idAsignacionesProcesos = resAsignCompras.idAsignacionesProcesos.id;
@@ -268,13 +267,11 @@ export class MisArticulosAsignadosComponent implements OnInit {
   listMisActivos: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
     this.listMisActivos = []
-    console.log(this.listarAsignacionArticulos)
     for (let index = 0; index < this.listarAsignacionArticulos.length; index++) {
       const element = this.listarAsignacionArticulos[index];
       var obj = {
         "Id": element.asignArticulo.id,
         "Activo": element.asignArticulo.idDetalleArticulo.idArticulo.descripcion,
-        "Codigo Unico": element.asignArticulo.idDetalleArticulo.codigoUnico,
         "Codigo Contable": element.asignArticulo.idDetalleArticulo.codigoContable,
         "Marca": element.asignArticulo.idDetalleArticulo.marca,
         "Placa": element.asignArticulo.idDetalleArticulo.placa,

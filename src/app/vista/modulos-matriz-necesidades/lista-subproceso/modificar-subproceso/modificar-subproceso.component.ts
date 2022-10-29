@@ -72,7 +72,6 @@ export class ModificarSubprocesoComponent implements OnInit {
         this.serviceSubProceso.listarTodos().subscribe( SubProceso => {
           this.validarTodo = SubProceso;
           this.validar2 = this.validarTodo.filter((item:any) => item.descripcion === this.formSubProceso.value.descripcion && item.idTipoProceso.id === this.formSubProceso.value.idTipoProceso.id);
-          console.log(this.validar2);
           if(this.validar.descripcion === this.formSubProceso.value.descripcion && this.validar.idTipoProceso.id === this.formSubProceso.value.idTipoProceso.id){
             document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({

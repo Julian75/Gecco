@@ -32,7 +32,6 @@ export class DescargasMultiplesComponent implements OnInit {
     for (let i = 0; i < this.archivos.length; i++) {
       const element = this.archivos[i];
     }
-    console.log(this.archivos)
     this.dataSource = new MatTableDataSource(this.archivos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

@@ -52,7 +52,6 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
           this.listarSolicitudesBajas.push(element)
         }
       });
-      console.log(this.listarSolicitudesBajas)
       this.dataSource = new MatTableDataSource(this.listarSolicitudesBajas);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -101,7 +100,6 @@ export class ListaAutorizacionesBajaArticulosComponent implements OnInit {
   listSolicitudesBajaAutorizar: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
     this.listSolicitudesBajaAutorizar = []
-    console.log(this.listarSolicitudesBajas)
     for (let index = 0; index < this.listarSolicitudesBajas.length; index++) {
       const element = this.listarSolicitudesBajas[index];
       var obj = {

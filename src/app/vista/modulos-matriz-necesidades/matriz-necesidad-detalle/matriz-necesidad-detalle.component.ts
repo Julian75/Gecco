@@ -74,8 +74,6 @@ export class MatrizNecesidadDetalleComponent implements OnInit {
       var validarAño = false
       var listaValidacionAño = []
       var codigo = 1
-      console.log(año)
-      console.log(this.fechaActual.getFullYear()+1)
       if(año == (this.fechaActual.getFullYear()+1)){
         validarAño = true
       }

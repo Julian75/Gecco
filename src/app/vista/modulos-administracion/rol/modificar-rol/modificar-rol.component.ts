@@ -113,7 +113,6 @@ export class ModificarRolComponent implements OnInit {
                 window.location.reload();
               })
             }else{
-              console.log("hoa")
               this.servicioRol.listarTodos().subscribe(resRo => {
                 resRo.forEach(elementRol => {
                   if(elementRol.descripcion.toLowerCase() == this.formRol.value.descripcion.toLowerCase() && elementRol.idJerarquia.id == idJerarquia && elementRol.idEstado.id == idEstado){
@@ -124,7 +123,6 @@ export class ModificarRolComponent implements OnInit {
                   this.encontrados.push(this.encontrado);
                 });
                 const encontrados = this.encontrados.find(encontrado => encontrado == true);
-                console.log(encontrados);
                 if(encontrados == true){
                   Swal.fire({
                     position: 'center',

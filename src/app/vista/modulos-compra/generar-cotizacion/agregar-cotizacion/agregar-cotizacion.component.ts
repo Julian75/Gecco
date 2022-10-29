@@ -95,8 +95,6 @@ export class AgregarCotizacionComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
     // http://localhost:9000/api/Pdf/upload

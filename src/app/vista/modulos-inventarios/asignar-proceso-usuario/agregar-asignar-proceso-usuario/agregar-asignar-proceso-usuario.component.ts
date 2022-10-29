@@ -57,7 +57,6 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
         this.formAsignacionProcesoUsuario.value.idUsuario = data;
         this.serviceTipoProceso.listarPorId(this.formAsignacionProcesoUsuario.value.idTiposProcesos).subscribe( data => {
           this.formAsignacionProcesoUsuario.value.idTiposProcesos = data;
-          console.log(this.formAsignacionProcesoUsuario.value);
           this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
             data.forEach((element: any) => {
               if(element.idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario.id ){
@@ -68,7 +67,6 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
               this.validar.push(this.iguales);
             })
             const validar = this.validar.find((element: any) => element == true);
-            console.log(validar);
             if(validar == true){
               Swal.fire({
                 icon: 'error',

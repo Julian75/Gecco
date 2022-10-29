@@ -194,7 +194,6 @@ export class AgregarArticulosInventarioComponent implements OnInit {
             this.idArticulo = elementArticulo.id
           }
         });
-        console.log(this.idArticulo)
         this.servicioArticulos.listarPorId(Number(this.idArticulo)).subscribe(resArticulito=>{
           this.servicioTipoActivos.listarPorId(tipoActivo).subscribe(resTipoActivo=>{
             this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
@@ -209,12 +208,6 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                 detalleArticulo.placa = placa
                 detalleArticulo.serial = serial
                 detalleArticulo.valor = valorSinPuntos
-                var min = 1
-                var max = 100000000
-                var numero = Math.floor(Math.random()*(min+max)+min);
-                console.log(numero)
-                detalleArticulo.codigoUnico = String((numero*resArticulito.id)+""+resArticulito.id)
-                console.log(detalleArticulo)
                 this.registrarDetalleArticulo(detalleArticulo , articulo)
               })
             })
@@ -249,7 +242,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                       }
                     });
                     resDetallesArticulos.forEach(elementDetalleArticulo => {
-                      if(elementDetalleArticulo.codigoUnico == detalleArticulo.codigoUnico && elementDetalleArticulo.idArticulo.id == detalleArticulo.idArticulo.id && elementDetalleArticulo.placa == detalleArticulo.placa && elementDetalleArticulo.serial == detalleArticulo.serial){
+                      if(elementDetalleArticulo.id == detalleArticulo.id && elementDetalleArticulo.idArticulo.id == detalleArticulo.idArticulo.id && elementDetalleArticulo.placa == detalleArticulo.placa && elementDetalleArticulo.serial == detalleArticulo.serial){
                         this.idDetalleArticulin = elementDetalleArticulo.id
                       }
                     });

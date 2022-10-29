@@ -147,7 +147,6 @@ export class MallasComponent implements OnInit {
                   }
                   this.listaMallas.push(malla1)
                 })
-                console.log(this.listaMallas)
                 this.dataSource = new MatTableDataSource(this.listaMallas);
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;

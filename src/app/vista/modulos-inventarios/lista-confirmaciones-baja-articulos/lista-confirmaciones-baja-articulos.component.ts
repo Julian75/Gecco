@@ -232,7 +232,6 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     this.servicioUsuario.listarTodos().subscribe(resUsuarios=>{
       this.listSolicitudesBajaAutorizar = []
       this.usuarioAutorizacion
-      console.log(this.listarSolicitudesBajas)
       for (let index = 0; index < this.listarSolicitudesBajas.length; index++) {
         const element = this.listarSolicitudesBajas[index];
         resUsuarios.forEach(elementUsuario => {

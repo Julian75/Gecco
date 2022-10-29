@@ -43,7 +43,6 @@ export class ListaMediosRadiacionComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       (err) => {
-        console.log(err);
       }
     );
   }

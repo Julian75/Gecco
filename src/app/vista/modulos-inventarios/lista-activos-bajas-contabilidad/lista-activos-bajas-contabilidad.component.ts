@@ -104,7 +104,6 @@ export class ListaActivosBajasContabilidadComponent implements OnInit {
                   body.push(now)
                 }
               });
-              console.log(body)
               resConfiguracion.forEach(element => {
                 if(element.nombre == 'nombre_entidad'){
                   this.nombreEmpresa = element.valor

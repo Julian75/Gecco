@@ -64,10 +64,10 @@ export class SubirArchivoSolicitudComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
+    // http://localhost:9000/api/Pdf/guardar
+    // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
     this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -98,7 +98,6 @@ export class SubirArchivoSolicitudComponent implements OnInit {
       const idHistorialMen = Math.min.apply(null, this.listHistorialId)
       this.servicioSolicitudSc.listarPorId(this.idSolicitud).subscribe(resSolicitud=>{
         this.servicioHistorial.listarPorId(idHistorialMen).subscribe(resHistorial=>{
-          console.log(idHistorialMen)
           let soporte : SoporteSC = new SoporteSC();
           soporte.idSolicitudSC = resSolicitud
           soporte.idHistorial = resHistorial
@@ -120,11 +119,10 @@ export class SubirArchivoSolicitudComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Solicitud Registrado!',
+        title: 'Archivo Registrado!',
         showConfirmButton: false,
         timer: 1500
       })
-      console.log(cont)
       if(this.listaArchivos.length == cont){
         this.uploadFiles(this.w);
       }

@@ -46,7 +46,6 @@ export class ModificarMediosRadiacionComponent implements OnInit {
   }
   guardar(){
     if(this.formMedioRadiacion.valid){
-      console.log(this.formMedioRadiacion.value);
       this.servicioModificar.actualizarMediosRadiacion(this.formMedioRadiacion.value).subscribe(
         (data) => {
           Swal.fire({

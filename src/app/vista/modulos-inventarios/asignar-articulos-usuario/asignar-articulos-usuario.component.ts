@@ -24,7 +24,7 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
   dtOptions: any = {};
   public listarAsignacionArticulos: any = [];
 
-  displayedColumns = ['id','iddetalleArticulo','idasignacionesprocesos','codigoUnico','serial','placa','idEstado','opciones'];
+  displayedColumns = ['id','iddetalleArticulo','idasignacionesprocesos','serial','placa','idEstado','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -92,7 +92,6 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
   aceptar(id:number){
     let asignacionArticulo: AsignacionArticulos2 = new AsignacionArticulos2();
     this.serviceAsignacionArticulos.listarPorId(id).subscribe(res=>{
-      console.log(res);
       asignacionArticulo.id = res.id;
       asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
       this.servicioEstado.listarPorId(76).subscribe(res=>{
@@ -169,13 +168,11 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
   listAsignacionesActivoUsuario: any = []; // Es una lista para poder pasarle directamente al formato excel
   exportToExcel(): void {
     this.listAsignacionesActivoUsuario = []
-    console.log(this.listarAsignacionArticulos)
     for (let index = 0; index < this.listarAsignacionArticulos.length; index++) {
       const element = this.listarAsignacionArticulos[index];
       var obj = {
         "Id": element.asignacionArticulo.id,
         "Activo": element.asignacionArticulo.idDetalleArticulo.idArticulo.descripcion,
-        "Codigo Unico": element.asignacionArticulo.idDetalleArticulo.codigoUnico,
         "Codigo Contable": element.asignacionArticulo.idDetalleArticulo.codigoContable,
         "Marca": element.asignacionArticulo.idDetalleArticulo.marca,
         "Placa": element.asignacionArticulo.idDetalleArticulo.placa,

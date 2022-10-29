@@ -286,7 +286,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
     var vendedor = Number(localStorage.getItem("v"))
     var fechaI = this.formAsignarTurno.controls['fechaInicio'].value
     var fechaF = this.formAsignarTurno.controls['fechaFinal'].value
-    console.log(idOficina, idSitioV, idTurn, vendedor, fechaI, fechaF)
     if(idOficina != undefined && idSitioV != 0 && idTurn != null && vendedor != null && fechaI != null && fechaF != null){
       this.servicioOficina.listarTodos().subscribe(res => {
         res.forEach(element => {
@@ -602,7 +601,6 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
             this.listaAcceso.push(element.idModulo.id)
           }
         });
-        console.log(this.listaAcceso)
         for (let index = 0; index < this.listaAcceso.length; index++) {
           const element = this.listaAcceso[index];
           if(element == 21){
@@ -612,9 +610,7 @@ export class AgregarAsignarTurnoVendedorComponent implements OnInit {
           }
           this.listaExiste.push(this.existe)
         }
-        console.log(this.listaExiste)
         const existira = this.listaExiste.includes(true)
-        console.log(existira)
         if(existira == true){
           let asignarTurno : AsignarTurnoVendedor2 = new AsignarTurnoVendedor2();
           const swalWithBootstrapButtons = Swal.mixin({

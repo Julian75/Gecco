@@ -124,13 +124,11 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
     // http://localhost:9000/api/Pdf/guardar
     // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
-    this.http.post('http://localhost:9000/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
@@ -156,7 +154,6 @@ export class AgregarHistorialSolicitudesComponent implements OnInit {
     var comentario = this.formComentario.controls['comentario'].value;
     var opcion = this.formComentario.controls['opcion'].value; // Escalar a matrix
     var opcion2 = this.formComentario.controls['opcion2'].value; // remitir  1(SI) y 2(NO)
-    console.log(comentario, opcion, opcion2)
     if(comentario == "" || comentario == null || opcion == null || opcion2 == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({

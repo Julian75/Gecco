@@ -111,7 +111,6 @@ export class AgregarSolicitudScComponent implements OnInit {
   fechaVencimiento: any;
   public tomarFecha(fecha:any ){
     this.fechaVencimiento = fecha.target.value;
-    console.log(fecha.target.value)
   }
 
   textoCliente:any
@@ -189,19 +188,24 @@ export class AgregarSolicitudScComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
     // http://localhost:9000/api/Pdf/upload
     // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
-    this.http.post('http://localhost:9000/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           this.uploadSuccess = true;
           document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Solicitud Registrado!',
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.router.navigate(['/solicitudesSC']);
           window.location.reload();
         }
@@ -210,7 +214,6 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public guardar(){
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-    console.log(this.fechaVencimiento)
     var vencimiento = this.fechaVencimiento;
     var municipio = this.formSolicitud.controls['municipio'].value;
     var incidente = this.formSolicitud.controls['incidente'].value;
@@ -220,7 +223,6 @@ export class AgregarSolicitudScComponent implements OnInit {
     var auxiliar = this.formSolicitud.controls['auxiliar'].value;
     var fechaVencimiento = new Date(vencimiento)
     this.fechaActual = this.fecha.getFullYear() + "-"+ (this.fecha.getMonth()+1)+ "-" +this.fecha.getDate();
-    console.log(this.cliente, idMotivo, vencimiento, radicacion, municipio, idServicio, auxiliar)
     if(this.cliente == undefined || this.fechaVencimiento == null || municipio == null || idMotivo == null || radicacion == null || idServicio == null || auxiliar == null){
       document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
@@ -297,18 +299,15 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public registrarSoportes(solicitud: any){
     var contador = 0
-    if(this.listaArchivos.length >= 1){
+    if(this.listaArchivos2.length >= 1){
       let archivo : ArchivoSolicitud = new ArchivoSolicitud();
       this.servicioSolicitudSc.listarPorId(solicitud.id).subscribe(resSolicitud=>{
         archivo.idSolicitudSC = resSolicitud
           this.listaArchivos.forEach(element => {
             for (let index = 0; index < element.length; index++) {
               const element1 = element[index];
-              console.log(element1)
               contador++
-              console.log(element1)
               archivo.nombreArchivo = element1.name
-              console.log("biens hasta ahi2", contador)
               this.registrarSoportes2(archivo, contador);
             }
           });
@@ -328,15 +327,7 @@ export class AgregarSolicitudScComponent implements OnInit {
 
   public registrarSoportes2(archivo: ArchivoSolicitud, cont){
     this.servicioArchivoSolicitud.registrar(archivo).subscribe(res=>{
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Solicitud Registrado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      console.log("biens hasta ahi", cont)
-      if (this.listaArchivos.length == cont) {
+      if (this.listaArchivos2.length == cont) {
         this.uploadFiles(this.w);
       }
     }, error => {

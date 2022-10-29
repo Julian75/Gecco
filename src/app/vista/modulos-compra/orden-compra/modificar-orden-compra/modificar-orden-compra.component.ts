@@ -115,7 +115,6 @@ export class ModificarOrdenCompraComponent implements OnInit {
   descuento:any
   total:any
   valorUnitario(valor:any, solicitudDetalle:any){
-    console.log(valor.target.value)
     if(valor.target.value == '' || valor.target.value == 0){
 
     }else{

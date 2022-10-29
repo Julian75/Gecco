@@ -54,7 +54,6 @@ export class AgregarSedesComponent implements OnInit {
             this.encontrados.push(this.encontrado);
           })
           const existe = this.encontrados.includes(true);
-          console.log(existe);
           if(existe == true){
             document.getElementById("snipper").setAttribute("style", "display: none;")
             Swal.fire({

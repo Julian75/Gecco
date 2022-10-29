@@ -108,7 +108,6 @@ export class RechazoSolicitudComponent implements OnInit {
   //             this.contrasena = elementConfi.valor
   //           }
   //         });
-  //         console.log(this.correo)
   //         correo.correo = this.correo
   //         correo.contrasena = this.contrasena
   //         correo.to = resUsuario.correo

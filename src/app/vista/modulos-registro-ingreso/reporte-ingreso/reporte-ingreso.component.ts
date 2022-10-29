@@ -39,11 +39,8 @@ export class ReporteIngresoComponent implements OnInit {
     }
     if(this.range.value.end != null){
       this.servicioRegistro.listarTodos().subscribe(res=>{
-        console.log(this.star)
-        console.log(this.end)
         res.forEach(element => {
           if(element.fecha >= this.star && element.fecha <= this.end){
-            console.log(element.fecha)
             var obj = {
               nombre: element.nombre + " " + element.apellido,
               sede: element.idSedes.descripcion,

@@ -68,7 +68,6 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
     }else{
       document.getElementById('snipper')?.setAttribute('style', 'display: block;')
       this.idSolicitudArticuloBaja = this.data
-      console.log(this.idSolicitudArticuloBaja)
       this.servicioSolicitudBajasArticulos.listarPorId(this.idSolicitudArticuloBaja).subscribe(resSolicitudBajaArticulo=>{
         this.servicioEstado.listarPorId(83).subscribe(resEstado=>{
           let solicitudBajasArticulos : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
@@ -80,7 +79,6 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
           solicitudBajasArticulos.id_usuario = resSolicitudBajaArticulo.idUsuario.id
           solicitudBajasArticulos.usuario_autorizacion = 0
           solicitudBajasArticulos.usuario_confirmacion = 0
-          console.log(solicitudBajasArticulos)
           this.actualizarSolicitudBajaArticulo(solicitudBajasArticulos, observacion, resSolicitudBajaArticulo)
         })
       })
@@ -175,7 +173,6 @@ export class RechazoSolicitudBajaArticuloComponent implements OnInit {
       this.dialogRef.close();
       window.location.reload();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',

@@ -115,7 +115,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
           this.listaHistorialesSolicitud.push(elementHistorial)
         }
       });
-      console.log(this.listaHistorialesSolicitud)
       for (let index = 0; index < this.listaHistorialesSolicitud.length; index++) {
         const elementHistorial = this.listaHistorialesSolicitud[index];
         if(this.listaHistorialesSolicitud[1].idUsuario.id == Number(sessionStorage.getItem('id')) && this.listaHistorialesSolicitud[1].idEstado.id == 65){
@@ -125,7 +124,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
         }
         this.listaHistorialDos.push(this.HistorialDos)
       }
-      console.log(this.listaHistorialDos)
       this.historialPosicionDos = this.listaHistorialDos.includes( true )
     })
   }
@@ -164,7 +162,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     Array.from(files).forEach(f => formData.append('files',f))
     // http://localhost:9000/api/Pdf/guardar
     // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar
-    this.http.post('http://localhost:9000/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/guardar', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.percentDone = Math.round(100 * event.loaded / event.total);
@@ -283,7 +281,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
     this.servicioEscala.listarPorId(3).subscribe(resEscala=>{
       this.servicioModificar.actualizarHistorialSC(historial2).subscribe(res=>{
         if(this.aprobar2 == true){
-          console.log("hola")
           let solicitudSc : SolicitudSC2 = new SolicitudSC2();
           this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
             solicitudSc.id = resSolicitud.id
@@ -325,7 +322,6 @@ export class ModificarHistorialRemisionComponent implements OnInit {
                     historial.idEstado = resEstado
                     this.servicioUsuario.listarPorId(element.idUsuario.id).subscribe(resUsuarios=>{
                       historial.idUsuario = resUsuarios
-                      console.log("hola2")
                       this.registrarHistorial2(historial, historial2, i, this.usuarios.value.length);
                     })
                   })
@@ -406,10 +402,7 @@ export class ModificarHistorialRemisionComponent implements OnInit {
 
   public generarSoporte(idHistorial:any){
     var contador = 0
-    console.log("hola6")
-    console.log(idHistorial)
     if(this.listaArchivos2.length >= 1){
-      console.log("hola7")
       let soporte : SoporteSC = new SoporteSC();
       this.servicioSolicitudSc.listarPorId(Number(this.data)).subscribe(resSolicitudSc=>{
         soporte.idSolicitudSC = resSolicitudSc

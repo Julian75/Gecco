@@ -102,7 +102,6 @@ export class ListaArticulosInventarioComponent implements OnInit {
   listActivosInventario: any = [];
   exportToExcel(): void {
     this.listActivosInventario = []
-    console.log(this.listaCompletaInventario)
     for (let index = 0; index < this.listaCompletaInventario.length; index++) {
       const element = this.listaCompletaInventario[index];
       var obj = {
@@ -110,7 +109,6 @@ export class ListaArticulosInventarioComponent implements OnInit {
         "Activo": element.idDetalleArticulo.idArticulo.descripcion,
         "Fecha Registro Activo": element.fecha,
         "Cantidad": element.cantidad,
-        "Codigo Unico": element.idDetalleArticulo.codigoUnico,
         "Codigo Contable": element.idDetalleArticulo.codigoContable,
         "Marca": element.idDetalleArticulo.marca,
         "Placa": element.idDetalleArticulo.placa,

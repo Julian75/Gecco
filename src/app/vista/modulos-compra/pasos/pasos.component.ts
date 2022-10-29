@@ -745,7 +745,6 @@ export class PasosComponent implements OnInit {
                             this.firmaLiderProceso = element.url
                           }
                         }
-                        console.log(this.firmaProfesionalLogistico, this.firmaLiderProceso, this.firmaDireccionAdministrativa)
 
                         this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
                           const formatterPeso = new Intl.NumberFormat('es-CO', {

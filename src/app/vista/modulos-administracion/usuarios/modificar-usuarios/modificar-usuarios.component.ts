@@ -239,7 +239,6 @@ export class ModificarUsuariosComponent implements OnInit {
   }
 
   public actualizarUsuario(usuario: Usuario2) {
-    console.log(usuario)
     this.servicioModificar.actualizarUsuario(usuario).subscribe(res => {
       Swal.fire({
         position: 'center',

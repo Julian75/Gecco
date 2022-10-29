@@ -89,7 +89,6 @@ export class ModificarTipoTurnoComponent implements OnInit {
       const idEstado = this.formTipoTurno.controls['estado'].value;
       this.servicioEstado.listarPorId(idEstado).subscribe(res => {
         tipoTurno.idEstado = res.id
-        console.log(this.listaTipoTurn)
         if(res.id == this.listaTipoTurn.idEstado.id && tipoTurno.descripcion.toLowerCase() == this.listaTipoTurn.descripcion.toLowerCase()){
           Swal.fire({
             position: 'center',

@@ -172,15 +172,11 @@ export class ReporteAsesorComponent implements OnInit {
                 this.cumpleAsignVende.forEach(elementAsignVende => {
                   this.idVendedor = elementAsignVende.idVendedor
                 });
-
-                console.log(fechaInicial, fechaFinal)
                 this.servicioVentasAsesor.listarPorId(fechaInicial, fechaFinal, this.idVendedor).subscribe(resVentasAsesor=>{
                   this.servicioAsignTurn.listarTodos().subscribe(resAsigTurno=>{
                     this.servicioPresupuesto.listarTodos().subscribe(resPresupuesto=>{
                       resVentasAsesor.forEach(element => {
                         this.i += 1
-                        console.log(this.i)
-                        console.log(resVentasAsesor.length)
                         var turnos = {
                           ideSitioVenta: 0,
                           nombreSitioVenta: "",
@@ -194,7 +190,6 @@ export class ReporteAsesorComponent implements OnInit {
                         }
                         this.cumpleAsignVende.forEach(elementAsignVende => {
                           if(element.ideSitioventa == elementAsignVende.idSitioVenta){
-                            console.log(elementAsignVende)
                             turnos.ideSitioVenta = elementAsignVende.idSitioVenta
                             turnos.nombreSitioVenta = elementAsignVende.nombreSitioVenta
                             var Turno = elementAsignVende.idTurno.horaInicio+" a "+elementAsignVende.idTurno.horaFinal
@@ -204,9 +199,7 @@ export class ReporteAsesorComponent implements OnInit {
                                 this.sumPorcen += elementAsigTurno.porcentaje
                               }
                             });
-                            console.log(this.sumPorcen, this.cumpleAsignVende)
                             turnos.porcentajito = this.sumPorcen / this.cumpleAsignVende.length
-                            console.log(turnos.porcentajito)
                             resPresupuesto.forEach(elementPresupuesto => {
                               var mesPresupusupuesto = new Date(elementPresupuesto.mes)
                               mesPresupusupuesto.setDate(mesPresupusupuesto.getDate()+1)
@@ -219,11 +212,9 @@ export class ReporteAsesorComponent implements OnInit {
                               }
                             })
                             turnos.presupuesto = this.presupuestin * (turnos.porcentajito/100)
-                            console.log(this.presupuestin, turnos.porcentajito)
                             turnos.ventas = element.suma
                             turnos.faltaVenta = turnos.presupuesto-turnos.ventas
                             turnos.porcentaje = (turnos.ventas / turnos.presupuesto)*100
-                            console.log(turnos)
                             let result = turnos.turnos.filter(function(turnos) {
                               return !this.has(turnos) && turnos!=undefined && this.add(turnos);
                             }, new Set)
@@ -232,7 +223,6 @@ export class ReporteAsesorComponent implements OnInit {
                               const element = result[index];
                               var comple = ""
                               comple += " - "+element
-                              console.log(comple)
                               if(turnos.turnos.length == 1){
                                 turnos.turnitos = turnos.turnos[0]
                               }else if(turnos.turnos.length > 1){
@@ -241,13 +231,11 @@ export class ReporteAsesorComponent implements OnInit {
                             }
                           }
                         });
-                        console.log(turnos)
                         this.listaF.push(turnos)
                         let result = this.listaF.filter(function({ideSitioVenta}) {
                           return !this.has(ideSitioVenta) && ideSitioVenta!=0 && this.add(ideSitioVenta);
                         }, new Set)
                         this.listaFinal = result
-                        console.log(result)
                         for (let index = 0; index < result.length; index++) {
                           const elementFinal = result[index];
                           this.valorTotalVentas += elementFinal.ventas
@@ -256,14 +244,11 @@ export class ReporteAsesorComponent implements OnInit {
                           this.valorTotalVentasCumplidas += elementFinal.faltaVenta
                         }
                         if(resVentasAsesor.length == this.i){
-                          console.log(this.valorTotalVentas, this.valorTotalPresupuesto, this.valorTotalPorcentaje, this.valorTotalVentasCumplidas)
                           if(result.length == 1){
-                            console.log("hola")
                             this.valorTotalVentas = this.valorTotalVentas
                             this.valorTotalPresupuesto = this.valorTotalPresupuesto
                             this.valorTotalVentasCumplidas = this.valorTotalVentasCumplidas
                           }else{
-                            console.log("hola2")
                             for (let index = 0; index < result.length; index++) {
                               this.totVentas = this.valorTotalVentas - result[0].ventas
                               this.totPresupuesto = this.valorTotalPresupuesto - result[0].presupuesto
@@ -273,7 +258,6 @@ export class ReporteAsesorComponent implements OnInit {
                             this.valorTotalPresupuesto = this.totPresupuesto
                             this.valorTotalVentasCumplidas = this.totVentasCumplidas
                           }
-                          console.log(this.listaFinal)
                           this.dataSource = new MatTableDataSource( this.listaFinal);
                           this.dataSource.paginator = this.paginator;
                           this.dataSource.sort = this.sort;

@@ -74,7 +74,6 @@ export class ModificarTipoNovedadesComponent implements OnInit {
       }else{
         tipoNovedad.observacion = this.formTipoNovedad.controls['observacion'].value
       }
-      console.log(tipoNovedad.observacion)
       if(tipoNovedad.descripcion.toLowerCase() == this.listaTipoNov.descripcion.toLowerCase() && tipoNovedad.observacion.toLowerCase() == this.listaTipoNov.observacion.toLowerCase()){
         Swal.fire({
           position: 'center',

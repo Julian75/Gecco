@@ -100,7 +100,6 @@ export class OrdenCompraComponent implements OnInit {
           this.listaDetalle.push(obj)
         }
       });
-      console.log(this.listaDetalle)
       this.dataSource = new MatTableDataSource(this.listaDetalle);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -117,7 +116,6 @@ export class OrdenCompraComponent implements OnInit {
   valorUnitario(valor:any, solicitudDetalle:any){
     this.ultimaPosicion = 0
     var validaro = false
-    console.log(solicitudDetalle.idArticulos, valor.target.value)
     var obj = {
       solicitudDetalle: {},
       cantidad: 0,
@@ -132,11 +130,9 @@ export class OrdenCompraComponent implements OnInit {
       if(obj.valorUnitario != 0){
         this.lista.push(obj)
       }
-      console.log(this.lista)
     }else{
       for (let index = 0; index < this.lista.length; index++) {
         const element = this.lista[index];
-        console.log(element)
         if(element.solicitudDetalle.id == solicitudDetalle.id){
           element.cantidad = valor.target.value
           element.valorUnitario = element.solicitudDetalle.cantidad * Number(valor.target.value)
@@ -147,7 +143,6 @@ export class OrdenCompraComponent implements OnInit {
         }
       }
       const existe = this.listarExiste.includes( true )
-      console.log(existe)
       if(existe == false){
         obj.solicitudDetalle = solicitudDetalle
         obj.cantidad = valor.target.value
@@ -156,7 +151,6 @@ export class OrdenCompraComponent implements OnInit {
         if(obj.valorUnitario != 0){
           this.lista.push(obj)
         }
-        console.log(this.lista)
       }
     }
     this.ultimaPosicion = this.lista.length-1
@@ -189,13 +183,11 @@ export class OrdenCompraComponent implements OnInit {
     var idSolicitud  = 0
     var opcion = this.formProveedor.controls['opcion'].value;
     var valor = this.formProveedor.controls['antici'].value;
-    console.log(opcion, valor)
     if(opcion == 'Si' && this.proveedor != null && this.proveedor != undefined && opcion != null && valor != null && opcion != "" && valor != 0){
       this.contOrdenCompra(idSolicitud)
     }else if(opcion == 'No' && this.proveedor != null && this.proveedor != undefined && opcion != null && opcion != ""){
       this.contOrdenCompra(idSolicitud)
     }else{
-      console.log(this.lista, this.listaDetalle)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -218,7 +210,6 @@ export class OrdenCompraComponent implements OnInit {
           this.listaDetalle.push(obj)
         }
       });
-      console.log(this.lista, this.listaDetalle)
       if(this.lista.length == this.listaDetalle.length){
         this.lista.forEach((element:any) => {
           idSolicitud = element.solicitudDetalle.idSolicitud.id
@@ -252,7 +243,6 @@ export class OrdenCompraComponent implements OnInit {
     this.servicioModificar.actualizarSolicitud(solicitud).subscribe(resSolicitud=>{
       this.realizarRegistro(idSolicitud)
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -282,7 +272,6 @@ export class OrdenCompraComponent implements OnInit {
             ordenCompra.subtotal = this.subtotal
             ordenCompra.descuento = this.descuento
             ordenCompra.idUsuario = resUsuario
-            console.log(this.subtotal, this.descuento)
             this.registrarOrdenCompra(ordenCompra)
           })
         })
@@ -294,7 +283,6 @@ export class OrdenCompraComponent implements OnInit {
     this.servicioOrdenCompra.registrar(ordenCompra).subscribe(resOrdenCompra=>{
       this.actualSolicDetalle()
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -307,7 +295,6 @@ export class OrdenCompraComponent implements OnInit {
 
   public actualSolicDetalle(){
     const cantidad = this.formProveedor.controls['antici'].value
-    console.log(cantidad, this.lista)
     this.lista.forEach((element:any) => {
       let solicitudDetalle : DetalleSolicitud2 = new DetalleSolicitud2();
       solicitudDetalle.id = element.solicitudDetalle.id
@@ -335,7 +322,6 @@ export class OrdenCompraComponent implements OnInit {
         timer: 1500
       })
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -381,7 +367,6 @@ export class OrdenCompraComponent implements OnInit {
       this.textoProveedor = " "
     }else{
       this.textoProveedor = proveedor.nombre
-      console.log(this.textoProveedor)
       return this.textoProveedor;
     }
   }

@@ -67,7 +67,6 @@ export class RechazoSolicitudBajaArticuloLiderProcesoComponent implements OnInit
     }else{
       document.getElementById('snipper')?.setAttribute('style', 'display: block;')
       this.idSolicitudArticuloBaja = this.data
-      console.log(this.idSolicitudArticuloBaja)
       this.servicioSolicitudBajasArticulos.listarPorId(this.idSolicitudArticuloBaja).subscribe(resSolicitudBajaArticulo=>{
         this.servicioEstado.listarPorId(84).subscribe(resEstado=>{
           let solicitudBajasArticulos : SolicitudBajasArticulos2 = new SolicitudBajasArticulos2();
@@ -173,7 +172,6 @@ export class RechazoSolicitudBajaArticuloLiderProcesoComponent implements OnInit
       this.dialogRef.close();
       window.location.reload();
     }, error => {
-      console.log(error)
       Swal.fire({
         position: 'center',
         icon: 'error',

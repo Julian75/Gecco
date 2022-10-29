@@ -54,7 +54,6 @@ export class ReportesVisitaDetalleComponent implements OnInit {
     fechaF.setDate(fechaF.getDate() + 1)
     var fechaIn = this.formVisitaDetalle.controls['fechaInicio'].value
     var fechaFn = this.formVisitaDetalle.controls['fechaFinal'].value
-    console.log(fechaIn, fechaFn)
     if(fechaIn == null || fechaFn == null){
       Swal.fire({
         icon: 'error',

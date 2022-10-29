@@ -44,12 +44,10 @@ export class AgregarRecordatorioComponent implements OnInit {
   fechaRecodatorio: Date;
   horaRecordatorio: any;
   guardar(){
-    console.log(this.dateControl.value)
     var descripcion = this.formRecordatorio.controls['descripcion'].value;
     var tipoEnvio = this.formRecordatorio.controls['tipoEnvio'].value;
     this.fechaRecodatorio = new Date(this.dateControl.value)
     this.horaRecordatorio = this.fechaRecodatorio.getHours()+":"+this.fechaRecodatorio.getMinutes()
-    console.log(this.fechaRecodatorio)
     if (this.formRecordatorio.valid && this.dateControl.value != null) {
       if(new Date(this.fechaRecodatorio) < new Date()){
         Swal.fire({
@@ -66,7 +64,6 @@ export class AgregarRecordatorioComponent implements OnInit {
         recordatorio.cumplimiento = 'No'
         recordatorio.envio = 'no'
         recordatorio.tipoEnvio = tipoEnvio
-        console.log(recordatorio)
         this.registrarRecordatorio(recordatorio)
       }
     } else {

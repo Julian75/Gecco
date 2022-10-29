@@ -93,8 +93,6 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   uploadFiles(files: File[]){
-    console.log(this.w)
-    console.log(files)
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('files',f))
     // http://10.192.110.105:8080/geccoapi-2.7.0/api/Pdf/upload
@@ -126,7 +124,6 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     this.listarExiste2 = []
     this.existeImport = []
     this.dialogRef.close();
-    console.log(this.data)
     document.getElementById('snipper2')?.setAttribute('style', 'display: block;')
     if(this.listaArchivos.length<1){
       Swal.fire({
@@ -139,13 +136,9 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
     }else{
       let cotizacion : Cotizacion = new Cotizacion();
       this.servicioEstado.listarPorId(31).subscribe(resEstado=>{
-        console.log("home")
         this.servicioSolicitud.listarPorId(Number(this.data)).subscribe(resSolicitud=>{
-          console.log("home2")
           this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-            console.log("home3")
             this.servicioCotizacionPdf.listarTodos().subscribe(resCotizacionPdf=>{
-              console.log("home4")
               resCotizacionPdf.forEach(elementCotizacion => {
                 this.listaArchivos2.forEach((elementArchivo:any) => {
                   if(elementCotizacion.nombrePdf == elementArchivo){
@@ -159,11 +152,8 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
                 this.existe = this.listarExiste.includes(true)
                 this.existeImport.push(this.existe)
               });
-              console.log(this.existeImport)
               const existe2 = this.listarExiste.includes( true )
-              console.log(existe2)
               if(existe2 == true){
-                console.log("home6")
                 document.getElementById('snipper2')?.setAttribute('style', 'display: none;')
                 Swal.fire({
                   position: 'center',
@@ -173,13 +163,9 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
                   timer: 4000
                 })
               }else if(existe2 == false){
-                console.log("home7")
                 cotizacion.idEstado = resEstado
                 cotizacion.idSolicitud = resSolicitud
                 cotizacion.idUsuario = resUsuario
-                console.log(cotizacion, cotizacion.idSolicitud.id, resSolicitud)
-                console.log(resEstado)
-                console.log(resUsuario)
                 this.registrarCotizacion(cotizacion, cotizacion.idSolicitud.id)
               }
             })
@@ -190,9 +176,7 @@ export class AgregarCotizacionLiderProcesoComponent implements OnInit {
   }
 
   public registrarCotizacion(cotizacion: Cotizacion, idSolicitud:any){
-    console.log(cotizacion)
     this.servicioCotizacion.registrar(cotizacion).subscribe(res=>{
-      console.log("home8")
       this.registroCotiPdf(idSolicitud)
     }, error => {
       Swal.fire({

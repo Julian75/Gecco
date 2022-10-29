@@ -106,30 +106,23 @@ export class SolicitudArticulosBajaComponent implements OnInit {
     this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventarioSinBaja=>{
       this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
         this.servicioInventario.listarTodos().subscribe(resInventario=>{
-          console.log(resInventarioSinBaja, resAsignacionesactivos, resInventario)
           if(resInventarioSinBaja.length == 0){
             this.listaInventarioBaja = resInventario
           }else{
             resInventarioSinBaja.forEach(elementInventarioSinBaja => {
               resInventario.forEach(elementInventario => {
-                console.log(elementInventario, elementInventarioSinBaja)
                 if(elementInventario.id == elementInventarioSinBaja.id){
                   this.listaInventarioBaja.push(elementInventario)
-                  console.log("hola2", elementInventario)
                 }
               });
             });
           }
-          console.log(this.listaInventarioBaja)
           var dato = this.formSolicitud.controls['dato'].value;
           if((dato != null || dato != undefined) && (this.opcion != null || this.opcion != undefined)){
             for (let i = 0; i < this.listaInventarioBaja.length; i++) {
               const element = this.listaInventarioBaja[i];
-              console.log(element)
               for (let j = 0; j < resAsignacionesactivos.length; j++) {
                 const element2 = resAsignacionesactivos[j];
-                console.log("hola")
-                console.log(element.idDetalleArticulo.id, element2.idDetalleArticulo.id)
                 if((element.idDetalleArticulo.placa.toLowerCase() == dato.toLowerCase() || element.idDetalleArticulo.serial.toLowerCase() == dato.toLowerCase()) && element.idDetalleArticulo.id == element2.idDetalleArticulo.id){
                   this.validar = true
                   if(element2.idEstado.id == 76){
@@ -159,7 +152,7 @@ export class SolicitudArticulosBajaComponent implements OnInit {
                     if(this.listaTabla.length > 0){
                       for (let i = 0; i < this.listaTabla.length; i++) {
                         const element = this.listaTabla[i];
-                        if(element.articulo.idDetalleArticulo.codigoUnico != this.activo.idDetalleArticulo.codigoUnico || this.listaTabla.length == 0){
+                        if(element.articulo.idDetalleArticulo.id != this.activo.idDetalleArticulo.id || this.listaTabla.length == 0){
                           const dialogRef = this.dialog.open(InformacionDetalladaActivosComponent, {
                             width: '900px',
                             height: '440px',
@@ -179,7 +172,6 @@ export class SolicitudArticulosBajaComponent implements OnInit {
                               this.dataSource.sort = this.sort;
                               localStorage.removeItem("valido")
                             }else{
-                              console.log("hola2")
                             }
                             this.formSolicitud.controls['estado'].setValue(null)
                             this.formSolicitud.controls['dato'].setValue(null);
@@ -214,7 +206,6 @@ export class SolicitudArticulosBajaComponent implements OnInit {
                           this.dataSource.sort = this.sort;
                           localStorage.removeItem("valido")
                         }else{
-                          console.log("hola2")
                         }
                         this.formSolicitud.controls['estado'].setValue(null)
                         this.formSolicitud.controls['dato'].setValue(null);
@@ -302,11 +293,9 @@ export class SolicitudArticulosBajaComponent implements OnInit {
     }
     var encontrado = false
     const listaEncontrado: any = []
-    console.log(this.listaRow)
     if(this.listaRow.length>=1 ){
       for (let index = 0; index < this.listaRow.length; index++) {
         const element = this.listaRow[index];
-        console.log(element)
         if(element.articulo.articulo.id == this.list.articulo.id){
           if(element.seleccionado == true && event.checked == false){
             var posicion = this.listaRow.indexOf(element)
@@ -437,13 +426,10 @@ export class SolicitudArticulosBajaComponent implements OnInit {
         fechaAlmacenada.setDate(fechaAlmacenada.getDate()+1)
         var fechaAlmacenadaString = fechaAlmacenada.getFullYear()+"-"+fechaAlmacenada.getMonth()+"-"+fechaAlmacenada.getDate()
         var fechaActual = this.fechaActual.getFullYear()+"-"+this.fechaActual.getMonth()+"-"+this.fechaActual.getDate()
-        console.log(fechaActual, elementSolicitudBaja.fecha, fechaAlmacenadaString)
         if(fechaAlmacenadaString == fechaActual && elementSolicitudBaja.estadoContabilidad == datos.estadoContabilidad && elementSolicitudBaja.idEstado.id == datos.idEstado.id && elementSolicitudBaja.idUsuario.id == datos.idUsuario.id && elementSolicitudBaja.usuarioAutorizacion == datos.usuarioAutorizacion && elementSolicitudBaja.usuarioConfirmacion == datos.usuarioConfirmacion){
-          console.log("si")
           this.listaSolicitudBajas.push(elementSolicitudBaja.id)
         }
       });
-      console.log(this.listaSolicitudBajas)
       this.servicioSolicitudBaja.listarPorId(this.listaSolicitudBajas).subscribe(resSolicitudBajas=>{
         for (let i = 0; i < this.listaTabla.length; i++) {
           this.servicioEstado.listarPorId(80).subscribe(resEstado=>{
