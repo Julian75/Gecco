@@ -1,0 +1,23 @@
+<h2 class="dato">Ingresar Nueva Jerarquía Cuenta</h2>
+<form [formGroup]="formJerarquiaCuentas">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Descripción</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Ingrese descripción de la Jerarquía</mat-label>
+      <input id="descripcion" formControlName="descripcion" name="descripcion" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear jerarquía"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+</form>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
+

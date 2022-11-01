@@ -1,0 +1,29 @@
+<div class="contenedor">
+  <h2 class="dato">Cargar Archivo</h2>
+  <form [formGroup]="formLibroMayor">
+    <div class="row1">
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Mes y Año</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Seleccione mes y año</mat-label>
+        <input type="month" id="fecha" formControlName="fecha" matInput>
+        </mat-form-field>
+      </div>
+      <br><br>
+      <div class="nombre3">
+        <h2>Archivo</h2>
+          <input class="my-1 form-control" type="file" (change)="readExcel($event)" mat-input>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Boton de guardar datos -->
+      <div class="guardar2">
+        <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear libro mayor"><mat-icon>add</mat-icon></button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

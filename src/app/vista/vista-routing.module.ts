@@ -1,3 +1,5 @@
+import { LibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/libro-mayor.component';
+import { LibroMayor } from './../modelos/libroMayor';
 import { PeriodoEjecucion } from './../modelos/periodoEjecucion';
 import { MatrizNecesidadComponent } from './modulos-matriz-necesidades/matriz-necesidad/matriz-necesidad.component';
 import { AgregarArticulosComponent } from './modulos-compra/articulos/agregar-articulos/agregar-articulos.component';
@@ -103,6 +105,9 @@ import { ListaRecordatoriosComponent } from './modulos-recordatorio/lista-record
 import { ListaMediosRadiacionComponent } from './modulos-recepcion-datos/lista-medios-radiacion/lista-medios-radiacion.component';
 import { ListasPeriodosEjecucionesComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/listas-periodos-ejecuciones.component';
 import { ListaActivosBajasContabilidadComponent } from './modulos-inventarios/lista-activos-bajas-contabilidad/lista-activos-bajas-contabilidad.component';
+import { JerarquiaCuentasComponent } from './modulos-presupuesto-contabilidad/jerarquia-cuentas/jerarquia-cuentas.component';
+import { CuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/cuentas.component';
+import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/agregar-libro-mayor/agregar-libro-mayor.component';
 const routes: Routes = [
   {
     path: '',
@@ -637,6 +642,27 @@ const routes: Routes = [
       {
         path: 'periodoEjecucion',
         component: ListasPeriodosEjecucionesComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Modulo Presupuesto Contabilida
+      {
+        path: 'jerarquiaCuentas',
+        component: JerarquiaCuentasComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'cuentas',
+        component: CuentasComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'libroMayor',
+        component: LibroMayorComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'cargarArchivo',
+        component: AgregarLibroMayorComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

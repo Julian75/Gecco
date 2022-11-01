@@ -203,6 +203,14 @@ import { ListasPeriodosEjecucionesComponent } from './modulos-matriz-necesidades
 import { AgregarPeriodoEjecucionComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/agregar-periodo-ejecucion/agregar-periodo-ejecucion.component';
 import { ModificarPeriodoEjecucionComponent } from './modulos-matriz-necesidades/listas-periodos-ejecuciones/modificar-periodo-ejecucion/modificar-periodo-ejecucion.component';
 import { ListaActivosBajasContabilidadComponent } from './modulos-inventarios/lista-activos-bajas-contabilidad/lista-activos-bajas-contabilidad.component';
+import { JerarquiaCuentasComponent } from './modulos-presupuesto-contabilidad/jerarquia-cuentas/jerarquia-cuentas.component';
+import { AgregarJerarquiaCuentasComponent } from './modulos-presupuesto-contabilidad/jerarquia-cuentas/agregar-jerarquia-cuentas/agregar-jerarquia-cuentas.component';
+import { ModificarJerarquiaCuentasComponent } from './modulos-presupuesto-contabilidad/jerarquia-cuentas/modificar-jerarquia-cuentas/modificar-jerarquia-cuentas.component';
+import { CuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/cuentas.component';
+import { AgrearCuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/agrear-cuentas/agrear-cuentas.component';
+import { ModificarCuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/modificar-cuentas/modificar-cuentas.component';
+import { LibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/libro-mayor.component';
+import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/agregar-libro-mayor/agregar-libro-mayor.component';
 
 @NgModule({
   declarations: [
@@ -400,7 +408,15 @@ import { ListaActivosBajasContabilidadComponent } from './modulos-inventarios/li
     ListasPeriodosEjecucionesComponent,
     AgregarPeriodoEjecucionComponent,
     ModificarPeriodoEjecucionComponent,
-    ListaActivosBajasContabilidadComponent
+    ListaActivosBajasContabilidadComponent,
+    JerarquiaCuentasComponent,
+    AgregarJerarquiaCuentasComponent,
+    ModificarJerarquiaCuentasComponent,
+    CuentasComponent,
+    AgrearCuentasComponent,
+    ModificarCuentasComponent,
+    LibroMayorComponent,
+    AgregarLibroMayorComponent
   ],
   imports: [
     CommonModule,

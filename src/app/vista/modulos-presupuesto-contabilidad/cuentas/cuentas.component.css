@@ -1,0 +1,152 @@
+.example-container {
+  max-width: 100%;
+  overflow: auto;
+  margin-top: 3%;
+  border-bottom: 20%;
+  box-shadow: 1px none #000;
+  margin-bottom: 3%;
+}
+table{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+}
+
+.btnVisualizar{
+  background-color: #97B4E2;
+  width: 10%;
+}
+.contenedor{
+  width: 90%; margin-left: 5%; margin-top: 3%;
+}
+.boton{ background-color: #00235C; }
+.btnver{ background-color: #959595; color: white; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove{ background-color: #DA161A; color: white; }
+td{ text-align: left;}
+td.mat-cell{ padding-left: 1%;}
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
+  td button{ margin-top: 5%; }
+  #idSp{margin-left: -26%;}
+  #desSp{margin-left: 10%}
+  #estSp{margin-left: 21%;}
+  #jerSp{ margin-left: 13%;}
+  #opcSp{ margin-left: 19%;}
+  .botonagregar mat-icon{ margin-left: -50%; }
+}
+
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
+  td button{ margin-top: 5%; }
+  #idSp{margin-left: -26%;}
+  #desSp{margin-left: 10%}
+  #estSp{margin-left: 21%;}
+  #jerSp{ margin-left: 13%;}
+  #opcSp{ margin-left: 19%;}
+  .botonagregar mat-icon{ margin-left: -50%; }
+}
+
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
+  td button{ margin-top: 5%; }
+  .botonagregar mat-icon{ margin-left: -50%; }
+}
+
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/* Tablet 3,  Portatil 2*/
+@media screen and (min-width: 769px) and (max-width: 960px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1080px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1081px) and (max-width: 1280px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/* Tablet 8, Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1536px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+
+/*Compu. Mesa 6*/
+@media screen and (min-width: 1537px) and (max-width: 1850px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
+  td button{ margin-top: 0%; }
+  .botonagregar mat-icon{ margin-left: 0%; }
+}

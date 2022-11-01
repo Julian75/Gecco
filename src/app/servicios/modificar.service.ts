@@ -54,6 +54,9 @@ import { MatrizNecesidad2 } from '../modelos/modelos2/matrizNecesidad2';
 import { MatrizNecesidadDetalle2 } from '../modelos/modelos2/matrizNecesidadDetalle2';
 import { ArticulosBaja2 } from '../modelos/modelos2/articulosBaja2';
 import { MediosRadiacion2 } from '../modelos/modelos2/mediosRadiacion2';
+import { JerarquiaCuentas2 } from '../modelos/modelos2/jerarquiaCuentas2';
+import { Cuentas2 } from '../modelos/modelos2/cuentas2';
+import { LibroMayor2 } from '../modelos/modelos2/libroMayor2';
 
 @Injectable({
   providedIn: 'root'
@@ -273,5 +276,18 @@ export class ModificarService {
 
   public actualizarPeriodoEjecucion(periodoEjecucion: PeriodoEjecucion2){
     return this.http.put<void>(this.path+'/PeriodoEjecucion/'+ periodoEjecucion.id, periodoEjecucion);
+  }
+
+  //Modulo Presupuesto Contabilidad
+  public actualizarJerarquiaCuentas(jerarquiaCuentas: JerarquiaCuentas2){
+    return this.http.put<void>(this.path+'/JerarquiaCuentas/'+ jerarquiaCuentas.id, jerarquiaCuentas);
+  }
+
+  public actualizarCuentas(cuentas: Cuentas2){
+    return this.http.put<void>(this.path+'/Cuenta/'+ cuentas.id, cuentas);
+  }
+
+  public actualizarLibroMayor(libroMayor: LibroMayor2){
+    return this.http.put<void>(this.path+'/LibroMayor/'+ libroMayor.id, libroMayor);
   }
 }
