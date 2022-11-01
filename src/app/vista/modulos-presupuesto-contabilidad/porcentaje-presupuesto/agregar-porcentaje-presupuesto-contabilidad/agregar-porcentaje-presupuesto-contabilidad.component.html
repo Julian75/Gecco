@@ -1,0 +1,66 @@
+<div class="contenedor">
+    <form [formGroup]="formPorcentaje">
+        <div class="nombre3">
+            <h2 class="Turno">Fecha</h2>
+            <mat-form-field class="nombre" appearance="fill">
+            <mat-label>Seleccione la fecha</mat-label>
+            <input type="month" id="fecha" formControlName="fecha" name="fecha" matInput>
+            </mat-form-field>
+        </div>
+    </form>
+    <!-- <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un porcentaje presupuesto">
+      <mat-icon>add_circle</mat-icon>
+    </button> -->
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de porcentajes presupuesto"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un porcentaje presupuesto">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+      <table id="porcentajePresupuesto" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="id" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;" id="idSp2"><h3 id="idSpa">Id</h3></th>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.cuenta.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Codigo</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.cuenta.codigo}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Descripcion</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.cuenta.descripcion}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="porcentaje">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Porcentaje</h3></th>
+            <td mat-cell *matCellDef="let element">
+                <input *ngIf="element.porcentaje == false" type="number" name="porcentaje" id="porcentaje" value="0" min="1" max="100" (change)="porcentaje($event, element.cuenta)">
+                <h4 *ngIf="element.porcentaje == true">{{element.valorPorcentaje}}%</h4>
+            </td>
+          </ng-container>
+
+          <!--Opciones-->
+         <ng-container matColumnDef="opciones">
+            <th mat-header-cell *matHeaderCellDef id="opcSp2"><h3 id="opcSp">Opciones</h3></th>
+            <td mat-cell *matCellDef="let item" id="opcSp2">
+              <button *ngIf="item.porcentaje == false" class="btn btnedit mx-2"data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar porcentaje" (click)="guardarPorcentaje(item.cuenta)">
+                <mat-icon>percent</mat-icon>
+              </button>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+    </mat-paginator>
+</div>

@@ -1,3 +1,4 @@
+import { PresupuestoContable2 } from 'src/app/modelos/modelos2/presupuestoContable2';
 import { PeriodoEjecucion2 } from './../modelos/modelos2/periodoEjecucion2';
 import { MovimientoComprasInventario2 } from './../modelos/modelos2/movimientosComprasInventario2';
 import { Area2 } from './../modelos/modelos2/area2';
@@ -289,5 +290,9 @@ export class ModificarService {
 
   public actualizarLibroMayor(libroMayor: LibroMayor2){
     return this.http.put<void>(this.path+'/LibroMayor/'+ libroMayor.id, libroMayor);
+  }
+
+  public actualizarPresupuestoContable(presupuestoContable: PresupuestoContable2){
+    return this.http.put<void>(this.path+'/PresupuestoContable/'+ presupuestoContable.id, presupuestoContable);
   }
 }

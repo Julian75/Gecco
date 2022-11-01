@@ -1,3 +1,5 @@
+import { PresupuestoContable2 } from './../modelos/modelos2/presupuestoContable2';
+import { LibroMayor2 } from './../modelos/modelos2/libroMayor2';
 import { AsignacionArticulos2 } from './../modelos/modelos2/asignacionArticulos2';
 import { Inventario2 } from './../modelos/modelos2/inventario2';
 import { OrdenCompra2 } from './../modelos/ordenCompra2';
@@ -14,6 +16,7 @@ import { DetalleSolicitud2 } from '../modelos/detalleSolicitud2';
 import { AsignarTurnoVendedor2 } from '../modelos/asignarTurnoVendedor2';
 import { HistorialSolicitudes2 } from '../modelos/modelos2/historialSolicitudes2';
 import { Cuentas2 } from '../modelos/modelos2/cuentas2';
+import { PorcentajePresupuesto2 } from '../modelos/modelos2/porcentajePresupuesto2';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +103,22 @@ export class ConsultasGeneralesService {
   public listarHistorialesSolicitudes(idSolicitudSC){
     return this.http.get<HistorialSolicitudes2[]>(this.path+"/ObtenerHistorialesSolicitudes?idSolicitudSC="+idSolicitudSC);
   }
+
+  //Lista todos los libros mayores de acuerdo a una fecha y cuenta
+  public listarLibrosMayor(idCuenta, fecha){
+    return this.http.get<LibroMayor2[]>(this.path+"/ObtenerLibroMayor?idCuenta="+idCuenta+"&fecha="+fecha);
+  }
+
+  //Lista todos los porcentaje presupuesto de acuerdo a una fecha y cuenta
+  public listarPorcentajePresupuesto(idCuenta, fecha){
+    return this.http.get<PorcentajePresupuesto2[]>(this.path+"/ObtenerPorcentajePresupuesto?idCuenta="+idCuenta+"&fecha="+fecha);
+  }
+
+  //Lista todos los presupuestos contables de acuerdo a una fecha y cuenta
+  public listarPresupuestoContable(fecha){
+    return this.http.get<PresupuestoContable2[]>(this.path+"/ObtenerPresupuestoContable?fecha="+fecha);
+  }
+
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);
   // }

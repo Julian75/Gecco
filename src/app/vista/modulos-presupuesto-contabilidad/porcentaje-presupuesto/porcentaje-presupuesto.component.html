@@ -1,0 +1,45 @@
+<div class="contenedor">
+    <!-- <button class="btn boton botonagregar text-white my-2" (click)="abrirModal();" data-bs-toggle="tooltip" data-bs-placement="top" title="Agrega un porcentaje presupuesto">
+      <mat-icon>add_circle</mat-icon>
+    </button> -->
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de porcentajes presupuesto"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un porcentaje presupuesto">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+      <table id="porcentajePresupuesto" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="id" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;" id="idSp2"><h3 id="idSpa">Id</h3></th>
+            <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Fecha</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="cuenta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Cuenta</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="porcentaje">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="descSpa">Porcentaje</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+    </mat-paginator>
+  </div>

@@ -108,7 +108,7 @@ export class MatrizNecesidadComponent implements OnInit {
     this.servicioTipoActivos.listarTodos().subscribe(resTiposActivos => {
       resTiposActivos.forEach(elementTipoActivo => {
         if(elementTipoActivo.idEstado.id == 94){
-          this.listaTipoActivos.push(resTiposActivos)
+          this.listaTipoActivos.push(elementTipoActivo)
         }
       });
     });

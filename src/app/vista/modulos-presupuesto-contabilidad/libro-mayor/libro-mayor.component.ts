@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { LibroMayorService } from 'src/app/servicios/libroMayor.service';
@@ -21,12 +22,15 @@ import { CuentasService } from 'src/app/servicios/cuentas.service';
 export class LibroMayorComponent implements OnInit {
   dtOptions: any = {};
   public listarLibrosMayor: any = [];
-
-  displayedColumns = ['id', 'fecha','cuenta', 'valor','opciones'];
+  public exportarE: any = [];
+  public formLibroMayor!: FormGroup;
+  color = ('primary');
+  displayedColumns = ['id', 'codigo','nombre', 'valor','mes', 'año'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
+    private fb: FormBuilder,
     private servicioLibroMayor: LibroMayorService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioCuentas: CuentasService,
@@ -35,122 +39,94 @@ export class LibroMayorComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.listarTodos();
+    this.crearFormulario();
   }
 
-  public listarTodos () {
-    this.servicioLibroMayor.listarTodos().subscribe( resLibrosMayor =>{
-      this.listarLibrosMayor = resLibrosMayor;
-      this.dataSource = new MatTableDataSource( this.listarLibrosMayor);
-      this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    })
-  }
-
-  abrirModal(): void {
-    const dialogRef = this.dialog.open(AgregarLibroMayorComponent, {
-      width: '500px',
+  private crearFormulario() {
+    this.formLibroMayor = this.fb.group({
+      id: 0,
+      fecha: [null,Validators.required],
     });
   }
 
-  eliminarLibroMayor(id:number){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger mx-5'
-      },
-      buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-      title: '¿Estas seguro?',
-      text: "No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, Eliminar!',
-      cancelButtonText: 'No, Cancelar!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.servicioLibroMayor.eliminar(id).subscribe(res=>{
-          this.listarTodos();
-          swalWithBootstrapButtons.fire(
-            'Eliminado!',
-            'Se elimino el libro mayor.',
-            'success'
-          )
-        })
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelado!',
-          '',
-          'error'
-        )
-      }
-    })
-  }
-
-  // Filtrado
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    if(filterValue == ""){
-      this.dataSource = new MatTableDataSource(this.listarLibrosMayor);
-    }else{
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-      this.dataSource.filterPredicate = (data: LibroMayor, filter: string) => {
-        const accumulator = (currentTerm, key) => {
-          return this.nestedFilterCheck(currentTerm, data, key);
-        };
-        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-        const transformedFilter = filter.trim().toLowerCase();
-        return dataStr.indexOf(transformedFilter) !== -1;
-      }
-    }
-  }
-
-  nestedFilterCheck(search, data, key) {
-    if (typeof data[key] === 'object') {
-      for (const k in data[key]) {
-        if (data[key][k] !== null) {
-          search = this.nestedFilterCheck(search, data[key], k);
+  section:boolean = false;
+  exportar:boolean = false;
+  public guardar() {
+    if (this.formLibroMayor.valid) {
+      const spinner = document.getElementById('snipper');
+    this.section = false;
+    this.exportar = false;
+    this.listarLibrosMayor = [];
+    let fecha = this.formLibroMayor.value.fecha;
+    let mes = fecha.toString().substring(5,7);
+    let año = fecha.toString().substring(0,4);
+    this.servicioLibroMayor.listarTodos().subscribe( resTodoLibroMayor => {
+      spinner?.setAttribute('style', 'display: block;');
+      const libroMayor = resTodoLibroMayor as LibroMayor[];
+      this.listarLibrosMayor = libroMayor.filter(libroMayor => libroMayor.fecha.toString().substring(5,7) == mes && libroMayor.fecha.toString().substring(0,4) == año);
+      const paginator = document.getElementById('paginator');
+      if(this.listarLibrosMayor.length > 0){
+        paginator?.setAttribute('style', 'display: block;');
+        this.section = true;
+        this.exportar = true;
+        async function sleep(ms: number) {
+          try {
+            await new Promise(resolve => setTimeout(resolve, ms));
+          }
+          catch (e) {
+            spinner?.setAttribute('style', 'display: none;');
+            stop();
+          }
         }
+        sleep(1000).then(() => {
+          spinner?.setAttribute('style', 'display: none;');
+          this.dataSource = new MatTableDataSource(this.listarLibrosMayor);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }).catch(() => {
+          spinner?.setAttribute('style', 'display: none;');
+          stop();
+        });
+      }else{
+        spinner?.setAttribute('style', 'display: none;');
+        paginator?.setAttribute('style', 'display: none;');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No hay registros para este mes y año',
+          showConfirmButton: false,
+          timer: 2500
+        });
       }
+
+    });
     } else {
-      search += data[key];
-    }
-    return search;
-  }
-
-  listadoLibroMayor: any = [];
-  listaLibroMayorCompletos: any = []
-  exportToExcel(): void {
-    this.listaLibroMayorCompletos = []
-    this.servicioLibroMayor.listarTodos().subscribe(resLibrosMayor=>{
-      this.listadoLibroMayor = resLibrosMayor
-      for (let index = 0; index < this.listadoLibroMayor.length; index++) {
-        const element = this.listadoLibroMayor[index];
-        var obj = {
-          Id: element.id,
-          Mes: element.fecha,
-          Año: element.fecha,
-          Cuenta: element.idCuentas.descripcion,
-          Valor: element.valor
-        }
-        this.listaLibroMayorCompletos.push(obj)
-      }
-      import("xlsx").then(xlsx => {
-        const worksheet = xlsx.utils.json_to_sheet(this.listaLibroMayorCompletos);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, "listaCuentas");
+      Swal.fire({
+        icon: 'error',
+        text: 'Debe seleccionar una fecha!',
       });
-    })
+    }
   }
 
-  saveAsExcelFile(buffer: any, fileName: string): void {
+  public exportToExcel() {
+    this.exportarE = [];
+    for (let i = 0; i < this.listarLibrosMayor.length; i++) {
+      var obj = {
+        'Código': this.listarLibrosMayor[i].idCuenta.codigo,
+        'Nombre': this.listarLibrosMayor[i].idCuenta.descripcion,
+        'Valor': Math.abs(this.listarLibrosMayor[i].valor),
+        'Mes': new Date(this.listarLibrosMayor[i].fecha.toString().substring(0,4),this.listarLibrosMayor[i].fecha.toString().substring(5,7),0).toLocaleString('default', { month: 'long' }).toUpperCase(),
+        'Año': this.listarLibrosMayor[i].fecha.toString().substring(0,4)
+      }
+      this.exportarE.push(obj);
+    }
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.exportarE);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'LibroMayor');
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
     let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     let EXCEL_EXTENSION = '.xlsx';
     const data: Blob = new Blob([buffer], {

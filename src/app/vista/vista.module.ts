@@ -211,6 +211,10 @@ import { AgrearCuentasComponent } from './modulos-presupuesto-contabilidad/cuent
 import { ModificarCuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/modificar-cuentas/modificar-cuentas.component';
 import { LibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/libro-mayor.component';
 import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/agregar-libro-mayor/agregar-libro-mayor.component';
+import { PorcentajePresupuestoComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/porcentaje-presupuesto.component';
+import { PorcentajeContableComponent } from './modulos-presupuesto-contabilidad/porcentaje-contable/porcentaje-contable.component';
+import { AgregarPorcentajePresupuestoContabilidadComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/agregar-porcentaje-presupuesto-contabilidad/agregar-porcentaje-presupuesto-contabilidad.component';
+import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
 
 @NgModule({
   declarations: [
@@ -416,7 +420,11 @@ import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/l
     AgrearCuentasComponent,
     ModificarCuentasComponent,
     LibroMayorComponent,
-    AgregarLibroMayorComponent
+    AgregarLibroMayorComponent,
+    PorcentajePresupuestoComponent,
+    PorcentajeContableComponent,
+    AgregarPorcentajePresupuestoContabilidadComponent,
+    AnalisisDetalladoContableComponent
   ],
   imports: [
     CommonModule,
