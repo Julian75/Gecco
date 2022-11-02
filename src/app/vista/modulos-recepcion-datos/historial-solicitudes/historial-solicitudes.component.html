@@ -9,7 +9,7 @@
     <h1>Incidente: {{Incidente}}</h1>
     <h1>Auxiliar: {{Auxiliar}}</h1>
     <h1>Escala: {{Escala}}</h1>
-    <button type="button" id="chat-openPopup" class="chat-button" style="margin-left: 778px; position: static; margin-top: -32px;" (click)="Chat()">
+    <button id="chat-openPopup" class="chat-button" style="margin-left: 778px; position: static; margin-top: -32px;" (click)="Chat()" mat-raised-button type="button" [matBadge]="items[0].cantidad">
       <div class="float" > <mat-icon class="my-float">comment</mat-icon></div>
     </button>
     <section class="example-container mat-elevation-z8" tabindex="0">

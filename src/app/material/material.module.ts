@@ -19,7 +19,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import {MatBadgeModule} from '@angular/material/badge';
 @NgModule({
   declarations: [],
   imports: [
@@ -41,7 +41,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatCheckboxModule,
     MatCardModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatBadgeModule,
   ],
   exports:[
     MatSidenavModule,
@@ -62,7 +63,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatCardModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatBadgeModule,
   ]
 })
 export class MaterialModule { }

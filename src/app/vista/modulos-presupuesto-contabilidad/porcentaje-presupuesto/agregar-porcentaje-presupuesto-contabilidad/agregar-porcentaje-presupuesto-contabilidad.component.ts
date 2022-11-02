@@ -17,19 +17,52 @@ import * as FileSaver from 'file-saver';
 import { CuentasService } from 'src/app/servicios/cuentas.service';
 import { PresupuestoContableService } from 'src/app/servicios/presupuestoContable.service';
 import { PresupuestoContable2 } from 'src/app/modelos/modelos2/presupuestoContable2';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatDatepicker} from '@angular/material/datepicker';
+import * as _moment from 'moment';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY',
+  },
+  display: {
+    dateInput: 'YYYY',
+    monthYearLabel: 'YYYY',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-agregar-porcentaje-presupuesto-contabilidad',
   templateUrl: './agregar-porcentaje-presupuesto-contabilidad.component.html',
   styleUrls: ['./agregar-porcentaje-presupuesto-contabilidad.component.css'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {
+     provide: MAT_DATE_FORMATS, useValue: MY_FORMATS
+    },
+   ]
 })
 export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit {
+
+  //solo año
+  selectYear:any
+  date = new FormControl();
+  @ViewChild('picker', { static: false })
+  private picker!: MatDatepicker<Date>;
+  //
 
   dtOptions: any = {};
   public listaCuentas: any = [];
   color = ('primary');
   public formPorcentaje!: FormGroup;
   public fechaActual: Date = new Date();
+  chosenYearDate: Date;
 
   displayedColumns = ['id', 'codigo', 'descripcion', 'porcentaje', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -48,6 +81,12 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
   ngOnInit(): void {
     this.listarTodos();
     this.crearFormulario();
+  }
+
+  chosenYearHandler(ev, input){
+    let { _d } = ev;
+    this.selectYear = _d;
+    this.picker.close()
   }
 
   public listarTodos () {
@@ -91,17 +130,13 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
 
 
   public guardarPorcentaje(idCuenta: any){
-    var fecha2 = this.formPorcentaje.controls['fecha'].value;
-    if(fecha2 != null && this.porcentajeTabla != null){
-      var fecha = this.formPorcentaje.controls['fecha'].value.split('-');
-      var año = fecha[0]
-      var mes = new Date(fecha[0], 0, 1)
-
+    if(this.selectYear != undefined && this.porcentajeTabla != null){
+      var mes = new Date(this.selectYear.getFullYear(), 0, 1)
       let porcentajePresupuesto : PorcentajePresupuesto = new PorcentajePresupuesto();
       porcentajePresupuesto.fecha = mes
       porcentajePresupuesto.idCuenta = idCuenta
       porcentajePresupuesto.porcentaje = this.porcentajeTabla
-      this.registrarPorcentajePresupuesto(porcentajePresupuesto)
+      this.registrarPorcentajePresupuesto(porcentajePresupuesto, this.selectYear.getFullYear())
     }else{
       Swal.fire({
         position: 'center',
@@ -113,51 +148,61 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
     }
   }
 
-  public registrarPorcentajePresupuesto(porcentajePresupuesto: PorcentajePresupuesto) {
+  public registrarPorcentajePresupuesto(porcentajePresupuesto: PorcentajePresupuesto, año) {
     this.servicioPorcentajePresupuesto.registrar(porcentajePresupuesto).subscribe(res=>{
       let presupuestoContable : PresupuestoContable = new PresupuestoContable();
-      let presupuestoContableActualizar : PresupuestoContable2 = new PresupuestoContable2();
       var fechaActual = this.fechaActual.getFullYear()+"-01-01";
+      console.log(porcentajePresupuesto.idCuenta.id, fechaActual)
       this.servicioConsultasGenerales.listarPorcentajePresupuesto(porcentajePresupuesto.idCuenta.id, fechaActual).subscribe(resPorcentajePresupesto=>{
+        console.log(resPorcentajePresupesto)
         resPorcentajePresupesto.forEach(elementPorcentajePresupuesto => {
           this.servicioPorcentajePresupuesto.listarPorId(elementPorcentajePresupuesto.id).subscribe(resPorcentajePre=>{
-            this.servicioConsultasGenerales.listarLibrosMayor(porcentajePresupuesto.idCuenta.id, elementPorcentajePresupuesto.fecha).subscribe(resLibroMayor=>{
+            this.servicioConsultasGenerales.listarLibrosMayorFechas(porcentajePresupuesto.idCuenta.id, año).subscribe(resLibroMayor=>{
+              var i = 0
               resLibroMayor.forEach(elementLibroMayor => {
-                this.servicioConsultasGenerales.listarPresupuestoContable(elementPorcentajePresupuesto.fecha).subscribe(resPresupuestoContable=>{
-                  if(resPresupuestoContable.length>0){
-                    resPresupuestoContable.forEach(elementPresupuestoContable => {
-                      var presupuestoPorcentaje = elementLibroMayor.valor*(elementPorcentajePresupuesto.porcentaje/100)
-                      var presupuestoTotal = elementLibroMayor.valor + presupuestoPorcentaje
-                      presupuestoContableActualizar.id = elementPresupuestoContable.id
-                      presupuestoContableActualizar.fecha = elementPresupuestoContable.fecha
-                      presupuestoContableActualizar.presupuesto = elementPresupuestoContable.presupuesto+presupuestoTotal
-                      this.servicioModificar.actualizarPresupuestoContable(presupuestoContableActualizar).subscribe(resPresupuestoContableAcutalizado=>{
-
+                this.servicioCuentas.listarPorId(elementLibroMayor.idCuenta).subscribe(resCuentaLibroMayor=>{
+                  var presupuestoPorcentaje = Math.round(elementLibroMayor.valor*(elementPorcentajePresupuesto.porcentaje/100))
+                  var valorLibroMayor = Math.round(elementLibroMayor.valor)
+                  presupuestoContable.presupuesto = valorLibroMayor + presupuestoPorcentaje
+                  presupuestoContable.idCuenta = resCuentaLibroMayor
+                  var fecha =  new Date(elementLibroMayor.fecha)
+                  fecha.setFullYear(fecha.getFullYear()+1)
+                  presupuestoContable.fecha = fecha
+                  this.servicioPresupuestoContable.registrar(presupuestoContable).subscribe(resNuevoPresupuesto=>{
+                    i++
+                    if(i == resLibroMayor.length){
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Porcentaje Presupuesto Registrado!',
+                        showConfirmButton: false,
+                        timer: 1500
                       })
-                    });
-                  }else{
-                    var presupuestoPorcentaje = elementLibroMayor.valor*(elementPorcentajePresupuesto.porcentaje/100)
-                    presupuestoContable.presupuesto = elementLibroMayor.valor + presupuestoPorcentaje
-                    presupuestoContable.fecha = elementPorcentajePresupuesto.fecha
-                    this.servicioPresupuestoContable.registrar(presupuestoContable).subscribe(resNuevoPresupuesto=>{
-
-                    })
-                  }
+                      window.location.reload();
+                    }
+                  })
                 })
+                // if(resPresupuestoContable.length>0){
+                //   resPresupuestoContable.forEach(elementPresupuestoContable => {
+                //     var presupuestoPorcentaje = Math.round(elementLibroMayor.valor*(elementPorcentajePresupuesto.porcentaje/100))
+                //     var presupuestoTotal = Math.round(elementLibroMayor.valor) + presupuestoPorcentaje
+                //     presupuestoContableActualizar.id = elementPresupuestoContable.id
+                //     var fecha = new Date(elementLibroMayor.fecha)
+                //     presupuestoContableActualizar.fecha = fecha
+                //     presupuestoContableActualizar.idCuenta = elementPresupuestoContable.idCuenta
+                //     presupuestoContableActualizar.presupuesto = Number(elementPresupuestoContable.presupuesto)+Number(presupuestoTotal)
+                //     console.log(presupuestoContableActualizar, elementPresupuestoContable.presupuesto)
+                //     this.servicioModificar.actualizarPresupuestoContable(presupuestoContableActualizar).subscribe(resPresupuestoContableAcutalizado=>{
 
+                //     })
+                //   });
+                // }else{
+                // }
               });
             })
           })
         });
       })
-      // Swal.fire({
-      //   position: 'center',
-      //   icon: 'success',
-      //   title: 'Porcentaje Presupuesto Registrado!',
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // })
-      // window.location.reload();
     }, error => {
       Swal.fire({
         position: 'center',

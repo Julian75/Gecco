@@ -212,7 +212,6 @@ import { ModificarCuentasComponent } from './modulos-presupuesto-contabilidad/cu
 import { LibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/libro-mayor.component';
 import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/agregar-libro-mayor/agregar-libro-mayor.component';
 import { PorcentajePresupuestoComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/porcentaje-presupuesto.component';
-import { PorcentajeContableComponent } from './modulos-presupuesto-contabilidad/porcentaje-contable/porcentaje-contable.component';
 import { AgregarPorcentajePresupuestoContabilidadComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/agregar-porcentaje-presupuesto-contabilidad/agregar-porcentaje-presupuesto-contabilidad.component';
 import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
 
@@ -422,7 +421,6 @@ import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contab
     LibroMayorComponent,
     AgregarLibroMayorComponent,
     PorcentajePresupuestoComponent,
-    PorcentajeContableComponent,
     AgregarPorcentajePresupuestoContabilidadComponent,
     AnalisisDetalladoContableComponent
   ],
@@ -440,7 +438,7 @@ import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contab
     WebcamModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
   ],
   exports: [
     DataTablesModule,

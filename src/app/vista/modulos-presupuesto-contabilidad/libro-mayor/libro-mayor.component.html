@@ -20,6 +20,10 @@
         <br><br>
       </div>
     </form>
+    <mat-form-field class="buscador" appearance="standard" *ngIf="buscador==true">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field>
     <section *ngIf="section==true" class="example-container mat-elevation-z8" tabindex="0" >
       <table  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
            <!-- Position Column  -->

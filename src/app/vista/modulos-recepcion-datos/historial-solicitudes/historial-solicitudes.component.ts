@@ -15,6 +15,8 @@ import { DescargasMultiplesComponent } from '../descargas-multiples/descargas-mu
 import { SolicitudSCService } from 'src/app/servicios/solicitudSC.service';
 import { HistorialSolicitudes } from 'src/app/modelos/historialSolicitudes';
 import { ChatSolicitudesScComponent } from './chat-solicitudes-sc/chat-solicitudes-sc.component';
+import { ChatRemitenteService } from 'src/app/servicios/chatRemitente.service';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-historial-solicitudes',
@@ -25,7 +27,9 @@ export class HistorialSolicitudesComponent implements OnInit {
 
   public listarComentarios: any = [];
   public listaPdf: any = []
+  public listaChat: any = []
   public validar: boolean = false
+  items = [];
   dtOptions: any = {};
   displayedColumns = ['id', 'observacion','solicitud','usuario','estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -40,11 +44,15 @@ export class HistorialSolicitudesComponent implements OnInit {
     private servicioPdf: SubirPdfService,
     private servicioHistorial: HistorialSolicitudesService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
-    private servicioSolicitudPQRS: SolicitudSCService
+    private servicioSolicitudPQRS: SolicitudSCService,
+    private servicioChat: ChatRemitenteService
   ) { }
 
   ngOnInit(): void {
     this.listarTodo();
+    this.items = [
+      { Active: true, cantidad: 0},
+    ];
   }
 
   listaArchivosExist: any = []
@@ -57,6 +65,7 @@ export class HistorialSolicitudesComponent implements OnInit {
   public listarTodo(){
     this.listaPdf = []
     this.listaArchivosExist = []
+    this.listaChat = []
     this.servicioSolicitudPQRS.listarPorId(Number(this.data)).subscribe(res=>{
       this.Cliente = res.idClienteSC.nombre+" "+res.idClienteSC.apellido
       this.TelefonoCliente = res.idClienteSC.telefono
@@ -97,6 +106,9 @@ export class HistorialSolicitudesComponent implements OnInit {
             }
           })
         })
+      })
+      this.servicioChat.listarTodos().subscribe(resChat=>{
+        this.items[0].cantidad = this.listaChat.length
       })
     })
   }
@@ -158,11 +170,21 @@ export class HistorialSolicitudesComponent implements OnInit {
   }
 
   Chat(){
-    const dialogRef = this.dialog.open(ChatSolicitudesScComponent, {
-      width: '600px',
-      height: '430px',
-      data: this.data
-    });
+    if(this.items[0].cantidad == 0){
+      Swal.fire({
+        icon: 'error',
+        text: 'No hay mesajes para mostrar',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      const dialogRef = this.dialog.open(ChatSolicitudesScComponent, {
+        width: '600px',
+        height: '430px',
+        data: this.data
+      });
+    }
+
   }
 
   name = 'HistorialSolicitud.xlsx';

@@ -94,6 +94,7 @@ table{
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
+.buscador{ width: 20%; margin-left: 79.5%; margin-top: -15%;}
 td{ text-align: left;}
 td.mat-cell{ padding-left: 1%;}
 

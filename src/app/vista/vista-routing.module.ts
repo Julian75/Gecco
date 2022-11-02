@@ -110,7 +110,6 @@ import { JerarquiaCuentasComponent } from './modulos-presupuesto-contabilidad/je
 import { CuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/cuentas.component';
 import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/agregar-libro-mayor/agregar-libro-mayor.component';
 import { PorcentajePresupuestoComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/porcentaje-presupuesto.component';
-import { PorcentajeContableComponent } from './modulos-presupuesto-contabilidad/porcentaje-contable/porcentaje-contable.component';
 import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
 
 const routes: Routes = [
@@ -678,11 +677,6 @@ const routes: Routes = [
       {
         path: 'agregarPorcentajePresupuesto',
         component: AgregarPorcentajePresupuestoContabilidadComponent,
-        canActivate: [AutorizacionGuard]
-      },
-      {
-        path: 'porcentajeContable',
-        component: PorcentajeContableComponent,
         canActivate: [AutorizacionGuard]
       },
       {

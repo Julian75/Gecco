@@ -8,7 +8,7 @@ table{
 .example-container {
   max-width: 100%;
   overflow: auto;
-  margin-top: 3% !important;
+  margin-top: -5% !important;
   border-bottom: 20%;
   box-shadow: 1px none #000;
   margin-bottom: 3% !important;
@@ -51,6 +51,8 @@ table{
 }
 #mes{text-transform: capitalize;}
 .btnedit{ background-color: #97B4E2; color: white; }
+.excelButton{ margin-left: 91%; }
+.seleccionfecha{ top: -80px; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

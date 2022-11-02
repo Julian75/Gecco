@@ -51,11 +51,13 @@ export class LibroMayorComponent implements OnInit {
 
   section:boolean = false;
   exportar:boolean = false;
+  buscador:boolean = false;
   public guardar() {
     if (this.formLibroMayor.valid) {
       const spinner = document.getElementById('snipper');
     this.section = false;
     this.exportar = false;
+    this.buscador = false;
     this.listarLibrosMayor = [];
     let fecha = this.formLibroMayor.value.fecha;
     let mes = fecha.toString().substring(5,7);
@@ -69,6 +71,7 @@ export class LibroMayorComponent implements OnInit {
         paginator?.setAttribute('style', 'display: block;');
         this.section = true;
         this.exportar = true;
+        this.buscador = true;
         async function sleep(ms: number) {
           try {
             await new Promise(resolve => setTimeout(resolve, ms));
@@ -133,5 +136,36 @@ export class LibroMayorComponent implements OnInit {
       type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+  }
+
+  // Filtrado
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if(filterValue == ""){
+      this.dataSource = new MatTableDataSource(this.listarLibrosMayor);
+    }else{
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filterPredicate = (data: LibroMayor, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return this.nestedFilterCheck(currentTerm, data, key);
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1 ;
+      }
+    }
+  }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 }

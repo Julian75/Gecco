@@ -119,6 +119,21 @@ export class ConsultasGeneralesService {
     return this.http.get<PresupuestoContable2[]>(this.path+"/ObtenerPresupuestoContable?fecha="+fecha);
   }
 
+  //Lista todos los libros mayores de acuerdo a una fecha y cuenta
+  public listarLibrosMayorFechas(idCuenta, fecha){
+    return this.http.get<LibroMayor2[]>(this.path+"/ObtenerLibroMayorFechas?idCuenta="+idCuenta+"&fecha="+fecha);
+  }
+
+   //Lista todos los libros mayores de acuerdo a una fecha y cuenta
+   public listarLibrosMayorAñoyMes(fecha){
+    return this.http.get<LibroMayor2[]>(this.path+"/ObtenerLibroMayorAñoyMes?fecha="+fecha);
+  }
+
+  //Lista todos los libros mayores de acuerdo a una fecha y cuenta
+  public listarPresupuestoContableFecha(idCuenta, fecha){
+    return this.http.get<PresupuestoContable2[]>(this.path+"/ObtenerPresupuestoContableCuentaFecha?idCuenta="+idCuenta+"&fecha="+fecha);
+  }
+
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);
   // }

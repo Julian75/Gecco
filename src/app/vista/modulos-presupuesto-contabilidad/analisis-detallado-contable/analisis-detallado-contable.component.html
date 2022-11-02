@@ -1,42 +1,71 @@
 <div class="contenedor">
-  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta Lista de Analisis Detallado Contable"><i class="fa-solid fa-file-excel"></i></button>
-  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un analisis detallado">
+  <h2 class="dato">Analisis Detallado Contable</h2>
+  <form [formGroup]="formAnalisisDetalladoContable">
+    <div class="row1">
+      <div class="guardar2">
+        <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear libro mayor"><mat-icon>add</mat-icon></button>
+      </div>
+      <!-- Ingresar Nombre -->
+      <div class="nombre2">
+        <h2>Mes y Año</h2>
+        <mat-form-field class="nombre" [color]="color" appearance="fill">
+        <mat-label>Seleccione mes y año</mat-label>
+        <input type="month" id="fecha" formControlName="fecha" matInput>
+        </mat-form-field>
+      </div>
+      <br><br>
+    </div>
+  </form>
+  <mat-form-field class="buscador1" *ngIf="section==true" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un porcentaje presupuesto">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
-  <section class="example-container mat-elevation-z8" tabindex="0">
+  <button class="btn excelButton" *ngIf="section==true" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de porcentajes presupuesto"><i class="fa-solid fa-file-excel"></i></button>
+  <section *ngIf="section==true" class="example-container mat-elevation-z8" tabindex="0" >
+    <table  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
 
-    <table id="rol" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-        <!-- Position Column -->
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>
-          <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
+        <!-- Name Column  -->
+        <ng-container matColumnDef="cuenta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Cuenta</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.libroMayorAnterior.idCuenta.codigo}} - {{element.libroMayorAnterior.idCuenta.descripcion}}</td>
         </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="añoAnterior">
+         <!-- Name Column  -->
+         <ng-container matColumnDef="añoAnterior">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Año Anterior</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          <td mat-cell *matCellDef="let element">${{element.libroMayorAnterior.valor | currency:'COP':'symbol':'1.0-0'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="presupuesto">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Presupuesto</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.codigo}}</td>
+          <td mat-cell *matCellDef="let element">${{element.presupuestoContable.presupuesto | currency:'COP':'symbol':'1.0-0'}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="ejecutado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Ejecucion</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idJerarquiaCuentas.descripcion}}</td>
+        <ng-container matColumnDef="añoActual">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Año Actual</h3></th>
+          <td mat-cell *matCellDef="let element">${{element.libroMayorActual.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="varAñoAnt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Variacion Año Anterior</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.variacionAnoAnterior}}%</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cumPresupuesto">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Cumplimiento Presupuesto</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.cumPresupuesto}}%</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </section>
-  <mat-paginator [length]="100"
+  <mat-paginator *ngIf="section==true" [length]="100"
               [pageSize]="10"
               [pageSizeOptions]="[2, 5, 10, 25, 100]"
               aria-label="Select page">
   </mat-paginator>
 </div>
-
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+<div class="loader"></div>
+</div>

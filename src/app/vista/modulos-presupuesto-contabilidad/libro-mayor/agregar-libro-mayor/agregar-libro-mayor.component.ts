@@ -89,7 +89,6 @@ export class AgregarLibroMayorComponent implements OnInit {
         document.getElementById('snipper')?.setAttribute('style', 'display: block;')
         this.i = 0
         this.excelData.forEach(elementData => {
-          this.i += 1
           let libroMayor : LibroMayor = new LibroMayor();
           let libroMayorActualizar : LibroMayor2 = new LibroMayor2();
           var fecha = this.formLibroMayor.value.fecha.split('-');
@@ -122,10 +121,9 @@ export class AgregarLibroMayorComponent implements OnInit {
                         })
                       });
                     });
+                    this.i += 1
                   }else{
                     this.servicioLibroMayor.registrar(libroMayor).subscribe(resLibroMayor=>{
-
-
                       }, error => {
                         document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                         Swal.fire({
@@ -136,23 +134,24 @@ export class AgregarLibroMayorComponent implements OnInit {
                           timer: 1500
                         })
                     });
+                    this.i += 1
+                  }
+                  console.log(this.i)
+                  if(this.i== this.excelData.length){
+                    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Libro Mayor Registrado o Actualizado!',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
                   }
                 })
               })
             });
           })
         });
-        console.log(this.i, this.excelData.length)
-        if(this.i== this.excelData.length){
-          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Libro Mayor Registrado o Actualizado!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel

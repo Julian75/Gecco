@@ -41,7 +41,7 @@ registerLocaleData(localeEs, 'es');
     NgApexchartsModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
   ],
   exports: [
     DataTablesModule,
@@ -50,8 +50,9 @@ registerLocaleData(localeEs, 'es');
     NgApexchartsModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
   ],
+
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [{provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
