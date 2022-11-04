@@ -1,0 +1,40 @@
+<div class="contenedor">
+  <h2 class="dato">Cuentas Faltantes por Porcentaje</h2>
+  <!-- <mat-form-field class="buscador1" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Busca un porcentaje presupuesto">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+  </mat-form-field> -->
+  <!-- <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de porcentajes presupuesto"><i class="fa-solid fa-file-excel"></i></button> -->
+  <section class="example-container mat-elevation-z8" tabindex="0" >
+    <table  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource1" matSort>
+
+        <!-- Name Column  -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Id</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+         <!-- Name Column  -->
+         <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Codigo</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.codigo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Descripcion</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[2, 5, 10, 25, 100]"
+              aria-label="Select page">
+  </mat-paginator>
+</div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+<div class="loader"></div>
+</div>

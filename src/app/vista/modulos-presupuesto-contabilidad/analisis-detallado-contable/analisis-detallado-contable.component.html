@@ -21,6 +21,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
   </mat-form-field>
   <button class="btn excelButton" *ngIf="section==true" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de porcentajes presupuesto"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn cuentasPorcButton" *ngIf="listaCuentasFaltaPorcentaje.length>0" (click)="cuentasFaltantesPorce()" data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra todas las cuentas que faltan por colocar el porcentaje"><mat-icon>account_balance_wallet</mat-icon></button>
   <section *ngIf="section==true" class="example-container mat-elevation-z8" tabindex="0" >
     <table  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
 
@@ -42,18 +43,28 @@
         </ng-container>
 
         <ng-container matColumnDef="añoActual">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Año Actual</h3></th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Ejecucion</h3></th>
           <td mat-cell *matCellDef="let element">${{element.libroMayorActual.valor | currency:'COP':'symbol':'1.0-0'}}</td>
         </ng-container>
 
+        <ng-container matColumnDef="diferenciaAñoAnt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Dif. Año Anterior</h3></th>
+          <td mat-cell *matCellDef="let element">${{element.libroMayorActual.valor - element.libroMayorAnterior.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="varAñoAnt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Variacion Año Anterior</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.variacionAnoAnterior}}%</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Var. Año Anterior</h3></th>
+          <td mat-cell *matCellDef="let element" class="{{element.colorVarAnoAnt}}">{{element.variacionAnoAnterior}}%</td>
+        </ng-container>
+
+        <ng-container matColumnDef="diferenciaPresupuesto">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Dif. Presupuesto</h3></th>
+          <td mat-cell *matCellDef="let element">${{element.presupuestoContable.presupuesto - element.libroMayorActual.valor | currency:'COP':'symbol':'1.0-0'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="cumPresupuesto">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Cumplimiento Presupuesto</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.cumPresupuesto}}%</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Cum. Presupuesto</h3></th>
+          <td mat-cell *matCellDef="let element" class="{{element.colorCumPresu}}">{{element.cumPresupuesto}}%</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

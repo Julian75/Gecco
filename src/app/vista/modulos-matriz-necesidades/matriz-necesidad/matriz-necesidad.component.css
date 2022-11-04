@@ -133,7 +133,7 @@ h2{
   .guardarModal{ margin-left: 496px;position: relative; top: -411px; }
   .nombre1{left: 5%; position: relative;}
   .nombre3{ margin-left: 27px; margin-top: 6px;}
-  .nombre4{ margin-left: 310px; position: relative; top: -435px;}
+  .nombre4{ margin-left: 310px; position: relative; top: -449px;}
 }
 /* Tablet 2, Tablet 3 */
 @media screen and (min-width: 700px) and (max-width: 899px){
@@ -148,14 +148,13 @@ h2{
   .nombre1{left: 10.5%; position: relative;}
   .nombre2{margin-left: 10.5%;}
   .nombre3{ margin-left: 76px; margin-top: 6px;}
-  .nombre4{ margin-left: 430px; position: relative; top: -440px;}
+  .nombre4{ margin-left: 430px; position: relative; top: -455px;}
 }
 /* Tablet 4 y 5,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1080px){
   .guardarModal{ margin-left: 600px; position: relative; top: -414px;}
   .nombre1{position: relative; left: 5%;}
   .nombre2{ margin-top: 1%;}
-  .nombre3{margin-left: 39px; margin-top: 10px; }
   .nombre4{ margin-left: 414px; position: relative; top: -446px; }
 }
 /* Tablet 6 y 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
@@ -172,7 +171,7 @@ h2{
   .nombre1{position: relative; left: 12%;}
   .nombre2{ margin-top: 1%; margin-left: 12%;}
   .nombre3{margin-left: 128px; margin-top: 10px; }
-  .nombre4{ margin-left: 580px; position: relative; top: 104px;}
+  .nombre4{ margin-left: 580px; position: relative; top: -467px;}
 }
 /* Tablet 8 */
 @media screen and (min-width: 1411px) and (max-width: 1536px){
@@ -201,11 +200,11 @@ h2{
 }
 /* Portatil 5 Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1600px){
-  .guardarModal{ margin-left: 883px; position: relative;}
+  .guardarModal{ margin-left: 883px; position: relative; top: -492px; }
   .nombre1{ margin-left: 15%;}
   .nombre3{ margin-left: 57%; margin-top: -37.5%;}
   .nombre2{ margin-top: 1%; position: relative; margin-left: 10%;}
-  .nombre4{ margin-left: 57%; }
+  .nombre4{ margin-left: 57%; position: relative; top: -473px; }
 }
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
 @media screen and (min-width: 1601px) and (max-width: 1920px){

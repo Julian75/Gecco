@@ -12,6 +12,7 @@ import { Cuentas } from 'src/app/modelos/cuentas';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { LibroMayor2 } from 'src/app/modelos/modelos2/libroMayor2';
+import { JerarquiaCuentasService } from 'src/app/servicios/jerarquiaCuentas.service';
 
 @Component({
   selector: 'app-agregar-libro-mayor',
@@ -34,6 +35,7 @@ export class AgregarLibroMayorComponent implements OnInit {
     private servicioCuentas: CuentasService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioModificar: ModificarService,
+    private servicioJerarquiaCuenta: JerarquiaCuentasService,
   ) { }
 
 
@@ -67,6 +69,7 @@ export class AgregarLibroMayorComponent implements OnInit {
 
   cuentaList: any = []
   i: any;
+  cuentasFaltantes: any = []
   public guardar() {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -96,60 +99,41 @@ export class AgregarLibroMayorComponent implements OnInit {
           var fechaLibroMayor = libroMayor.fecha.toISOString().slice(0,10)
           libroMayor.valor = elementData.valor
           this.servicioConsultasGenerales.listarCuenta(Number(elementData.codigo)).subscribe(resCuenta=>{
-            resCuenta.forEach(elementCuenta => {
-              this.servicioCuentas.listarPorId(elementCuenta.id).subscribe(resCuenta=>{
-                libroMayor.idCuenta = resCuenta
-                this.servicioConsultasGenerales.listarLibrosMayor(resCuenta.id, fechaLibroMayor).subscribe(resLibroMayor=>{
-                  if(resLibroMayor.length >= 1){
-                    resLibroMayor.forEach(elementLibroMayor => {
-                      libroMayorActualizar.id = elementLibroMayor.id
-                      var fechaLibroActualizada = new Date(elementLibroMayor.fecha)
-                      libroMayorActualizar.fecha = fechaLibroActualizada
-                      libroMayorActualizar.idCuenta = elementLibroMayor.idCuenta
-                      libroMayorActualizar.valor = elementData.valor
-                      console.log(libroMayorActualizar)
-                      this.servicioModificar.actualizarLibroMayor(libroMayorActualizar).subscribe(resActualizado=>{
-                        console.log(resActualizado)
-                      }, error => {
-                        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'error',
-                          title: 'Hubo un error al modificar!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                      });
-                    });
-                    this.i += 1
-                  }else{
-                    this.servicioLibroMayor.registrar(libroMayor).subscribe(resLibroMayor=>{
-                      }, error => {
-                        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'error',
-                          title: 'Hubo un error al agregar!',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-                    });
-                    this.i += 1
-                  }
-                  console.log(this.i)
-                  if(this.i== this.excelData.length){
-                    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'success',
-                      title: 'Libro Mayor Registrado o Actualizado!',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-                  }
-                })
+            if(resCuenta.length > 0){
+              this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
+            }else{
+              let cuenta : Cuentas = new Cuentas();
+              cuenta.codigo = elementData.codigo
+              cuenta.descripcion = elementData.descripcion.toUpperCase()
+              var separarCodigo = String(elementData.codigo).split('')
+              var idJerarquiaCuenta = 0
+              if(separarCodigo.length == 1){
+                idJerarquiaCuenta = 1
+              }else if(separarCodigo.length == 2){
+                idJerarquiaCuenta = 2
+              }else if(separarCodigo.length == 4){
+                idJerarquiaCuenta = 3
+              }else{
+                idJerarquiaCuenta = 4
+              }
+              this.servicioJerarquiaCuenta.listarPorId(idJerarquiaCuenta).subscribe(resJerarquiaCuentas=>{
+                cuenta.idJerarquiaCuentas = resJerarquiaCuentas
+                this.servicioCuentas.registrar(cuenta).subscribe(resCuentasRegistrado=>{
+                  this.servicioConsultasGenerales.listarCuenta(Number(cuenta.codigo)).subscribe(resCuenta=>{
+                    this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
+                  })
+                }, error => {
+                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Hubo un error al agregar la cuenta '+elementData.codigo+'.',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                });
               })
-            });
+            }
           })
         });
       } else if (
@@ -185,6 +169,64 @@ export class AgregarLibroMayorComponent implements OnInit {
         title: 'Hubo un error al agregar!',
         showConfirmButton: false,
         timer: 1500
+      })
+    });
+  }
+
+  public registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData){
+    resCuenta.forEach(elementCuenta => {
+      this.servicioCuentas.listarPorId(elementCuenta.id).subscribe(resCuenta=>{
+        libroMayor.idCuenta = resCuenta
+        this.servicioConsultasGenerales.listarLibrosMayor(resCuenta.id, fechaLibroMayor).subscribe(resLibroMayor=>{
+          if(resLibroMayor.length >= 1){
+            resLibroMayor.forEach(elementLibroMayor => {
+              libroMayorActualizar.id = elementLibroMayor.id
+              var fechaLibroActualizada = new Date(elementLibroMayor.fecha)
+              libroMayorActualizar.fecha = fechaLibroActualizada
+              libroMayorActualizar.idCuenta = elementLibroMayor.idCuenta
+              libroMayorActualizar.valor = elementData.valor
+              console.log(libroMayorActualizar)
+              this.servicioModificar.actualizarLibroMayor(libroMayorActualizar).subscribe(resActualizado=>{
+                console.log(resActualizado)
+              }, error => {
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Hubo un error al modificar!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              });
+            });
+            this.i += 1
+          }else{
+            this.servicioLibroMayor.registrar(libroMayor).subscribe(resLibroMayor=>{
+              }, error => {
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Hubo un error al agregar!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+            });
+            this.i += 1
+          }
+          console.log(this.i)
+          if(this.i== this.excelData.length){
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Libro Mayor Registrado o Actualizado!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload();
+          }
+        })
       })
     });
   }

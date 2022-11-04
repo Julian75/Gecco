@@ -134,6 +134,15 @@ export class ConsultasGeneralesService {
     return this.http.get<PresupuestoContable2[]>(this.path+"/ObtenerPresupuestoContableCuentaFecha?idCuenta="+idCuenta+"&fecha="+fecha);
   }
 
+  //Lista todos los libros mayores de acuerdo a una fecha y cuenta
+  public listarLibrosMayorAño(fecha){
+    return this.http.get<LibroMayor2[]>(this.path+"/ObtenerLibroMayorAño?fecha="+fecha);
+  }
+
+  //Lista todos los libros mayores de acuerdo a una fecha y cuenta
+  public listarCuentasPorJerarquia(idJerarquiaCuenta){
+    return this.http.get<Cuentas2[]>(this.path+"/ObtenerCuentaJerarquia?idJerarquiaCuenta="+idJerarquiaCuenta);
+  }
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);
   // }

@@ -1,0 +1,10 @@
+<div class="contenedor">
+  <mat-form-field appearance="outline" class="seleccionfecha">
+    <mat-label>Año</mat-label>
+    <input [(ngModel)]="selectYear" [formControl]="date" matInput [matDatepicker]="picker" />
+    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)">
+    </mat-datepicker>
+  </mat-form-field>
+  <button class="btn boton" (click)="consolidadoGuardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de consolidado"><i class="fa-solid fa-file-excel"></i></button>
+</div>

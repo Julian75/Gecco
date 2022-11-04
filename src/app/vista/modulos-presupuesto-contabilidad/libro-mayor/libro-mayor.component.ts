@@ -123,20 +123,41 @@ export class LibroMayorComponent implements OnInit {
       }
       this.exportarE.push(obj);
     }
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.exportarE);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    this.saveAsExcelFile(excelBuffer, 'LibroMayor');
+    let html = '';
+    let encabezado = '<div style="text-align: center; font-size: 20px; font-weight: bold; color: #000000; background-color: #FF0080; margin-bottom: 10px;">LIBRO MAYOR</div>'+ '<div style="text-align: center; font-size: 15px; font-weight: bold; color: #000000; background-color: #FF0080; margin-bottom: 10px;">'+'MES: '+new Date(this.listarLibrosMayor[0].fecha.toString().substring(0,4),this.listarLibrosMayor[0].fecha.toString().substring(5,7),0).toLocaleString('default', { month: 'long' }).toUpperCase()+' AÑO: '+this.listarLibrosMayor[0].fecha.toString().substring(0,4)+'</div>';
+    html += encabezado;
+    html += '<table border="1" style="width: 100%; border-collapse: collapse; font-size: 12px; font-weight: bold; color: #000000;">';
+    html += '<thead>';
+    html += '<tr>';
+    html += '<th style="text-align: center; background-color: #D3D3D3;">Código</th>';
+    html += '<th style="text-align: center; background-color: #D3D3D3;">Nombre</th>';
+    html += '<th style="text-align: center; background-color: #D3D3D3;">Valor</th>';
+    html += '<th style="text-align: center; background-color: #D3D3D3;">Mes</th>';
+    html += '<th style="text-align: center; background-color: #D3D3D3;">Año</th>';
+    html += '</tr>';
+    html += '</thead>';
+    html += '<tbody>';
+    this.exportarE.forEach((item: any) => {
+      html += '<tr>';
+      html += '<td style="text-align: center;">' + item.Código + '</td>';
+      html += '<td style="text-align: center;">' + item.Nombre + '</td>';
+      html += '<td style="text-align: center;">' + item.Valor + '</td>';
+      html += '<td style="text-align: center;">' + item.Mes + '</td>';
+      html += '<td style="text-align: center;">' + item.Año + '</td>';
+      html += '</tr>';
+    });
+    html += '</tbody>';
+    html += '</table>';
+    const linkSource = 'data:application/vnd.ms-excel;base64,' + btoa(html);
+    const downloadLink = document.createElement("a");
+    const fileName = 'LibroMayor.xls';
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+      
+
   }
 
-  private saveAsExcelFile(buffer: any, fileName: string): void {
-    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    let EXCEL_EXTENSION = '.xlsx';
-    const data: Blob = new Blob([buffer], {
-      type: EXCEL_TYPE
-    });
-    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
-  }
 
   // Filtrado
   applyFilter(event: Event) {

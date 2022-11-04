@@ -1,23 +1,35 @@
-<div class="principal">
-  <div class="formulario">
-    <form [formGroup]="formLogin">
-    <div class="datos">
-      <img src="assets/logo/LOGO SUCHANCE (2).png" alt="" class="logo">
-      <img src="assets/logo/Su-red-azul.png" alt="" class="logo">
-      <mat-form-field class="numIdentificacion" appearance="fill">
-        <mat-label>Username:</mat-label>
-        <input id="username" formControlName="username" matInput>
-      </mat-form-field>
-      <mat-form-field class="password" appearance="fill">
-        <mat-label>Password:</mat-label>
-        <input type="password" id="password" formControlName="password" matInput>
-      </mat-form-field>
-      <button mat-raised-button (click)="ingresar()">INGRESAR</button>
-      <a href="" class="olvido" routerLink="/olvidoContrasena">OLVIDO CONTRASEÑA</a>
-      <a href="" class="olvido2" style="display:none;"  routerLink="/olvidoContrasena">OLVIDO CONTRASEÑA</a>
-    </div>
-    <hr>
-    <img src="assets/formularios/form.png" alt="" class="imgLogin">
+<div id="formWrapper">
+  <form [formGroup]="formLogin">
+    <div id="form">
+      <div class="logo">
+        <div class="d-flex justify-content-between">
+          <div>
+            <img src="assets/logo/LOGO SUCHANCE (2).png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+          </div>
+          <div>
+            <img src="assets/logo/Su-red-azul.png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+          </div>
+        </div>
+      </div>
+          <div class="form-item">
+            <mat-form-field class="form-style w-100" appearance="fill">
+              <mat-label>Username:</mat-label>
+              <input  name="username" id="username"  formControlName="username" matInput>
+            </mat-form-field>
+          </div>
+          <div class="form-item">
+            <mat-form-field class="form-style w-100"  appearance="fill">
+              <mat-label>Password:</mat-label>
+              <input type="password" name="password" id="password" formControlName="password" matInput>
+            </mat-form-field>
+            <!-- <div class="pw-view"><i class="fa fa-eye"></i></div> -->
+            <p><a routerLink="/olvidoContrasena"><small style="color: #00235C !important;">OLVIDO CONTRASEÑA?</small></a></p>
+          </div>
+          <div class="form-item">
+          <button mat-raised-button class="login pull-right" style="background-color: #00235C !important; color: white !important; font-size: 20px !important;" (click)="ingresar()">INGRESAR</button>
+          <div class="clear-fix"></div>
+          </div>
+      </div>
   </form>
+
   </div>
-</div>

@@ -1,379 +1,90 @@
-.principal{
-  background-color: #00235C ;
-  width: 100% ;
-  height: 100%;
+body{
+  background-color: #00235C;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ font-family:'HelveticaNeue','Arial', sans-serif;
+
 }
-.formulario{
-  background-color: #ECECEC !important;
-  border-radius: 35px !important;
-  width: 60% !important;
-  height: 80% !important;
-  margin: 0% auto !important;
-  position: relative !important;
-  top: 13% !important;
-  border: 5px solid #A9B0B8 !important;
-}
-hr{
-  border-left: thick solid #96B7CE !important;
-  height: 99.5% !important;
-  left: 50% !important;
-  position: absolute !important;
-  margin-top: -19.3% !important;
-  border-width: 2px !important;
-}
-.formulario, .numIdentificacion, .password, button, .olvido, .imgLogin{ position: relative; }
-.logo{
-  width: 16.5% !important;
-  margin-top: 6% !important;
-  margin-left: 5% !important;
-}
-.numIdentificacion{ top: 160px !important; left: -35% !important; }
-.password{ top: 192px !important; left: 8% !important;}
-mat-form-field{ width: 300px !important; }
-button{
-  width: 15% !important;
-  height: 43px !important;
-  background-color: #00235C !important;
-  color: white !important;
-  font-size: 20px !important;
-  top: 313px !important;
-  left: -15% !important;
-}
-.olvido{
-  text-decoration: none !important;
-  color: #00235C !important;
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  top: 419px !important;
-  left: -33% !important;
-}
-.imgLogin{
-  width: 450px !important;
-  top: -50px !important;
-  left: 52% !important;
+a{color:#58bff6;text-decoration: none;}
+a:hover{color:#aaa; }
+.pull-right{float: right;}
+.pull-left{float: left;}
+.clear-fix{clear:both;}
+div.logo{text-align: center; margin: 20px 20px 30px 20px; fill: #566375;}
+.logo-active{fill: #44aacc !important;}
+#formWrapper{
+  background-color: rgb(0, 0, 215);
+  background-image: linear-gradient(650px circle at 50% 50%, rgba(0, 0, 215, 0.5), rgba(0, 0, 215, 0.5)), linear-gradient(rgba(0, 0, 215, 0.5), rgba(0, 0, 215, 0.5));
+  /* background-image: radial-gradient(650px circle at 0% 0%, hsl(218deg 85% 26%) 15%, hsl(218deg 84% 32%) 35%, hsl(218deg 90% 24%) 75%, hsl(218deg 84% 33%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(218deg 83% 29%) 15%, hsl(218deg 95% 25%) 35%, hsl(218deg 89% 30%) 75%, hsl(218deg 81% 33%) 80%, transparent 100%); */
+ width:100%;
+ height:100%;
+ position: absolute;
+ top:0;
+ left:0;
+ transition:all .3s ease;}
+.darken-bg{background: rgba(0,0,0,.5) !important; transition:all .3s ease;}
+
+div#form{
+ position: absolute;
+ width:391px;
+ height:320px;
+ height:auto;
+ background-color: #fff;
+ margin:auto;
+ border-radius: 5px;
+ padding:20px;
+ left:50%;
+ top:50%;
+ margin-left:-180px;
+ margin-top:-200px;
 }
 
-.olvido2{ display: none ;}
-
-/* Movil pequeño - Galaxy Fold*/
-@media screen and (min-width: 280px) and (max-width: 359px){
-  .formulario{
-    width: 75% !important;
-    margin-left: 13% !important;
-    top: 10% !important;
-  }
-  .logo{
-    width: 32% !important;
-    margin-left: 12% !important;
-    margin-top: 25% !important;
-  }
-  mat-form-field{ width: 70% !important; }
-  hr{ display: none !important; }
-  .numIdentificacion{ top: 50px!important; left: 15% !important; }
-  .password{ top: 70px !important; left: 15% !important;}
-  .imgLogin{
-    display: none !important;
-  }
-  button{
-    width: 60% !important;
-    left: 21% !important;
-    top: 120px !important;
-  }
-  .olvido{font-size: 15px !important; font-weight: 700 !important; top: 170px !important; left: 14% !important; display: block;}
+div.form-item{position: relative; display: block; margin-bottom: 40px;}
+input{transition: all .2s ease;}
+input.form-style{
+ color:#8a8a8a;
+ display: block;
+ width: 90%;
+ height: 44px;
+ padding: 5px 5%;
+ border:1px solid #ccc;
+ -moz-border-radius: 27px;
+ -webkit-border-radius: 27px;
+ border-radius: 27px;
+ -moz-background-clip: padding;
+ -webkit-background-clip: padding-box;
+ background-clip: padding-box;
+ background-color: #fff;
+ font-family:'HelveticaNeue','Arial', sans-serif;
+ font-size: 105%;
+ letter-spacing: .8px;
 }
-
-/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
-@media screen and (min-width: 360px) and (max-width: 420px){
-  .formulario{width: 75% !important; margin-left: 12% !important; top: 10% !important;}
-  .logo{width: 31% !important; margin-left: 12% !important; margin-top: 15% !important;}
-  mat-form-field{ width: 74% !important; }
-  hr{ display: none !important; }
-  .numIdentificacion{ top: 170px !important; left: 15% !important; }
-  .password{ top: 181px !important; left: 15% !important;}
-  .imgLogin{width: 75% !important; left: 16% !important; top: -169px !important;}
-  button{width: 39% !important; left: 33% !important; top: 194px !important;}
-  .olvido{font-size:xx-small !important; font-weight: 700 !important; top: 237px !important; left: -4% !important;}
-  button{font-size:small !important;}
+div.form-item .form-style:focus{outline: none; border:1px solid #58bff6; color:#58bff6; }
+div.form-item p.formLabel {
+ position: absolute;
+ left:26px;
+ top:10px;
+ transition:all .4s ease;
+ color:#bbb;}
+.formTop{top:-22px !important; left:26px; background-color: #fff; padding:0 5px; font-size: 14px; color:#58bff6 !important;}
+.formStatus{color:#8a8a8a !important;}
+input[type="submit"].login{
+ float:right;
+ width: 112px;
+ height: 37px;
+ -moz-border-radius: 19px;
+ -webkit-border-radius: 19px;
+ border-radius: 19px;
+ -moz-background-clip: padding;
+ -webkit-background-clip: padding-box;
+ background-clip: padding-box;
+ background-color: #55b1df;
+ border:1px solid #55b1df;
+ border:none;
+ color: #fff;
+ font-weight: bold;
 }
-
-/* Tablet 1 */
-@media screen and (min-width: 600px) and (max-width: 639px){
-  .formulario{width: 75% !important; margin-left: 13% !important; top: 10% !important;}
-  .logo{width: 32% !important; margin-left: 12% !important; margin-top: 10% !important; }
-  mat-form-field{ width: 180px !important; }
-  hr{ display: none !important; }
-  .numIdentificacion{ top: 194px !important; left: 15% !important;  width: 70% !important; }
-  .password{ top: 218px !important; left: 15% !important; width: 70% !important;}
-  button{ width: 60% !important; left: 21% !important; top: 250px !important;}
-  .olvido{font-size: 16px !important; font-weight: 700 !important; top: 320px !important; left: -27% !important;}
-  .imgLogin{width: 58% !important; left: 22% !important; top: -182px !important;}
-}
-
-/* Portatil 1*/
-@media screen and (min-width: 640px) and (max-width: 700px){
-  .formulario{width: 75% !important; margin-left: 13%; top: 10% !important; }
-  .logo{ width: 21% !important;margin-left: 20% !important; margin-top: 7% !important;}
-  mat-form-field{ width: 180px !important; }
-  hr{ display: none !important; }
-  .numIdentificacion{ top: 49px !important; left: 23% !important; width: 57% !important; }
-  .password{ top: 68px !important; left: 23% !important; width: 57% !important;}
-  button{width: 22% !important; left: -17% !important; top: 128px !important; font-size: small !important;}
-  .olvido{display: none !important;}
-  .olvido2{display: block !important; font-weight: 700 !important; top: 127px !important;  position: relative !important; margin-left: 36% !important; text-decoration: none !important; color: #00235C;}
-  .imgLogin{display: none;}
-}
-
-/* Tablet 2*/
-@media screen and (min-width: 701px) and (max-width: 768px){
-  .formulario{width: 75% !important; margin-left: 13% !important; top: 10% !important; }
-  .logo{width: 32% !important; margin-left: 12% !important; margin-top: 10% !important;}
-  mat-form-field{ width: 180px  !important; }
-  hr{ display: none !important; }
-  .numIdentificacion{ top: 280px!important;
-    left: 15%!important;
-    width: 70%!important; }
-  .password{ top: 300px!important; left: 15%!important; width: 70%!important;}
-  button{width: 60%!important; left: 21%!important; top: 361px!important;}
-  .olvido{ font-size: 17px!important; font-weight: 700!important; top: 445px!important; left: -24%!important;}
-  .olvido2{display: none!important;}
-  .imgLogin{width: 65% !important; left: 20%!important; top: -190px!important;}
-}
-
-/* Tablet 3*/
-@media screen and (min-width: 769px) and (max-width: 800px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 32%!important; margin-left: 12%!important; margin-top: 12%!important;}
-  hr{ display: none!important; }
-  .numIdentificacion{ top: 417px!important; left: 23%!important; }
-  .password{ top: 474px!important; left: 23%!important;}
-  .imgLogin{width: 88%!important; left: 10%!important; top: -118px!important;}
-  button{top: 606px!important; left: -23%!important; width: 39%!important;}
-  .olvido{top: 671px!important; left: 33%!important; display: block!important;}
-  .olvido2{display: none!important;}
-}
-/* Portatil 2 */
-@media screen and (min-width: 801px) and (max-width: 960px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 17%!important; margin-left: 23%!important; margin-top: 4%!important;}
-  hr{ display: none!important; }
-  .numIdentificacion{ top: 54px!important; left: 29%!important; }
-  .password{ top: 148px!important; left: -16%!important;}
-  .imgLogin{display: none;}
-  button{ top: 171px!important; left: 40%!important; width: 24%!important;}
-  .olvido{top: 228px!important; left: 13%!important; }
-  .olvido2{display: none!important;}
-}
-
-/* Tablet 4 */
-@media screen and (min-width: 961px) and (max-width: 999px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 14%!important; margin-left: 8%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -23%!important; }
-  .numIdentificacion{ top: 552px!important; left: 23%!important; width: 56%!important; }
-  .password{ top: 157px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -58px!important; }
-  button{top: 246px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 314px!important; left: -52%!important;}
-  .olvido2{display: none!important;}
-}
-
-/* Compu. Mesa 1, compu.Mesa 2, */
-@media screen and (min-width: 1000px) and (max-width: 1024px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 14%!important; margin-left: 8%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -22%!important; }
-  .numIdentificacion{ top: 132px!important; left: -34%!important; width: 35%!important; }
-  .password{ top: 157px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%; top: -56px!important; }
-  button{top: 246px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 314px!important; left: -52%!important;}
-  .olvido2{display: none!important;}
-}
-
-/* Tablet 5 */
-@media screen and (min-width: 1025px) and (max-width: 1080px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 34%!important; margin-left: 11%!important; margin-top: 15%!important;}
-  hr{ display: none!important;  margin-top: -23%!important; }
-  .numIdentificacion{ top: 560px!important; left: 23%!important; width: 56%!important; }
-  .password{ top: 642px!important; left: 23%!important; width: 56%!important;}
-  .imgLogin{width: 75%!important; left: 16%!important; top: -63px!important; }
-  button{top: 803px!important; left: -18.8%!important; width: 30%!important;}
-  .olvido{display: none!important;}
-  .olvido2{display: block!important; position: relative!important; top: 888px!important; left: 43%!important; text-decoration: none!important; color: #00235C;}
-}
-
-
-/* Tablet 6 */
-@media screen and (min-width: 1081px) and (max-width: 1200px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 34%!important; margin-left: 11%!important; margin-top: 15%!important;}
-  hr{ display: none!important;  margin-top: -23%!important; }
-  .numIdentificacion{ top: 560px!important; left: 23%!important; width: 56%!important; }
-  .password{ top: 642px!important; left: 23%!important; width: 56%!important;}
-  .imgLogin{width: 75%!important; left: 16%!important; top: -63px!important; }
-  button{top: 803px!important; left: -18.8%!important; width: 30%!important;}
-  .olvido{display: none!important;}
-  .olvido2{display: block!important; position: relative!important; top: 888px!important; left: 43%!important; text-decoration: none!important; color: #00235C;}
-}
-
-/* Tablet 7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
-@media screen and (min-width: 1201px) and (max-width: 1280px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 16%!important; margin-left: 6.5%!important; margin-top: 7%!important;}
-  hr{ margin-top: -20%!important; }
-  .numIdentificacion{ top: 165px!important; left: -35%!important; width: 35%!important; }
-  .password{ top: 193px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -56px!important; }
-  button{top: 305px!important;}
-  .olvido{top: 397px!important;}
-  .olvido2{display: none!important;}
-}
-
-/* Compu. Mesa 5 */
-@media screen and (min-width: 1281px) and (max-width: 1400px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 17%!important; margin-left: 5%!important; margin-top: 7%!important;}
-  hr{ margin-top: -20%!important; }
-  .numIdentificacion{ top: 206px!important; left: -34%!important; width: 35%!important; }
-  .password{ top: 242px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -21px!important; }
-  button{top: 367px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 471px!important; left: -48%!important;}
-  .olvido2{display: none!important;}
-}
-
-/* Tablet 8*/
-@media screen and (min-width: 1401px) and (max-width: 1536px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 30%!important; margin-left: 14%!important; margin-top: 15%!important;}
-  hr{ display: none!important;  margin-top: -23%!important; }
-  .numIdentificacion{ top:700px!important; left: 23%!important; width: 56%!important; font-size: 23px !important;}
-  .password{ top: 777px!important; left: 23%!important; width: 56%!important; font-size: 23px !important;}
-  .imgLogin{width: 75%!important; left: 16%!important; top: -180px!important; }
-  button{top: 927px!important; left: -18.8%!important; width: 30%!important;}
-  .olvido{display: none!important;}
-  .olvido2{display: block!important; position: relative!important; top: 1017px!important; left: 42%!important; text-decoration: none!important; color: #00235C; font-size: 23px !important;}
-}
-
-/*Portatil 4, Compu. Mesa 7, Televisor 2*/
-@media screen and (min-width: 1851px) and (max-width: 1920px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 16%!important; margin-left: 6.5%!important; margin-top: 7%!important;}
-  hr{ margin-top: -18%!important; }
-  .numIdentificacion{ top: 205px!important; left: -35%!important; width: 35%!important; }
-  .password{ top: 238px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -56px!important; }
-  button{top: 398px!important; left: -17.8%!important; width: 21%!important;}
-  .olvido{top: 536px!important; left: -35%!important;}
-  .olvido2{display: none!important;}
-}
-
-/*Tablet 9*/
-@media screen and (min-width: 1921px) and (max-width: 2048px){
-  .formulario{width: 70%!important; margin-left: 15%; top: 10%!important;}
-  .logo{width: 18%!important; margin-left: 4.5%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 277px!important; left: -35%!important; width: 35%!important; font-size: 20px !important;  }
-  .password{ top: 340px!important; left: 10%!important; width: 35%!important; font-size: 20px !important; }
-  .imgLogin{width: 50%!important; left: 50%!important; top: 37px!important; }
-  button{top: 530px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 726px!important; left: -45%!important; }
-  .olvido2{display: none!important;}
-}
-
-/*Tablet 10*/
-@media screen and (min-width: 2049px) and (max-width: 2160px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 17%!important; margin-left: 5.5%!important; margin-top: 7%!important;}
-  hr{ display: block;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 277px!important; left: -35%!important; width: 35%!important; }
-  .password{ top: 340px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: 30px!important; }
-  button{top: 530px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 726px !important; left: -45%!important; }
-  .olvido2{display: none!important;}
-}
-
-/*Tablet 11 y 12, Portatil 5*/
-@media screen and (min-width: 2161px) and (max-width: 2560px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 17%!important; margin-left: 5.5%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 277px!important; left: -35%!important; width: 35%!important; }
-  .password{ top: 340px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: 4px!important; }
-  button{top: 530px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 726px!important; left: -43%!important; }
-  .olvido2{display: none!important;}
-}
-
-/*Tablet 13*/
-@media screen and (min-width: 2561px) and (max-width: 2736px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 18%!important; margin-left: 4.5%!important; margin-top: 7%!important;}
-  hr{ display: block;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 316px!important; left: -35%!important; width: 35%!important; }
-  .password{ top: 400px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: 12px!important; }
-  button{top: 620px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 858px!important; left: -43%!important; }
-  .olvido2{display: none!important;}
-}
-
-/*Tablet 14*/
-@media screen and (min-width: 2737px) and (max-width: 3000px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 16%!important; margin-left: 6.5%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -16%!important; }
-  .numIdentificacion{ top: 368px!important; left: -35%!important; width: 35%!important; }
-  .password{ top: 452px!important; left: 10%!important; width: 35%!important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: 22px!important; }
-  button{top: 697px!important; left: -22.8%!important; width: 30%!important;}
-  .olvido{top: 944px!important; left: -43%!important; }
-  .olvido2{display: none!important;}
-}
-
-/*Portatil 6, Televisor 3*/
-@media screen and (min-width: 3001px) and (max-width: 3840px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 16%!important; margin-left: 6.5%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 392px!important; left: -35%!important; width: 35%!important; font-size: 31px !important; }
-  .password{ top: 437px!important; left: 10%!important; width: 35%!important; font-size: 31px !important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -143px!important; }
-  button{top: 695px!important; left: -22.8%!important; width: 30%!important; font-size: 31px !important;}
-  .olvido{top: 977px!important; left: -43%!important; font-size: 31px !important; }
-  .olvido2{display: none!important;}
-}
-
-/*Televisor 4*/
-@media screen and (min-width: 3841px) and (max-width: 4096px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 16%!important; margin-left: 6.5%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 392px!important; left: -35%!important; width: 35%!important; font-size: 31px !important; }
-  .password{ top: 437px!important; left: 10%!important; width: 35%!important; font-size: 31px !important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -197px!important; }
-  button{top: 695px!important; left: -22.8%!important; width: 30%!important; font-size: 31px !important;}
-  .olvido{top: 977px!important; left: -43%!important; font-size: 31px !important; }
-  .olvido2{display: none!important;}
-}
-
-/*Portatil 7, Televisor 5*/
-@media screen and (min-width: 4097px) and (max-width: 7680px){
-  .formulario{width: 70%!important; margin-left: 15%!important; top: 10%!important;}
-  .logo{width: 16%!important; margin-left: 6.5%!important; margin-top: 7%!important;}
-  hr{ display: block!important;  margin-top: -17%!important; }
-  .numIdentificacion{ top: 709px!important; left: -35%!important; width: 35%!important; font-size: 62px !important; }
-  .password{ top: 919px!important; left: 10%!important; width: 35%!important; font-size: 62px !important;}
-  .imgLogin{width: 50%!important; left: 50%!important; top: -327px!important; }
-  button{top: 1590px!important; left: -18%!important; width: 22%!important; font-size: 49px !important;}
-  .olvido{top: 2185px!important; left: -35%!important; font-size: 65px !important; }
-  .olvido2{display: none!important;}
-}
-
-
-
-
-
+input[type="submit"].login:hover{background-color: #fff; border:1px solid #55b1df; color:#55b1df; cursor:pointer;}
+input[type="submit"].login:focus{outline: none;}

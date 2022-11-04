@@ -1,26 +1,43 @@
-<div class="principal">
-  <img src="assets/img-navbar/" alt="" srcset="">
-  <div class="formulario">
-    <form [formGroup]="formUsuario">
-      <div class="datos">
-        <img src="assets/formularios/logo suchance.png" alt="" class="logo">
-        <mat-form-field class="numIdentificacion" appearance="fill">
-          <mat-label>Numero Identificacion:</mat-label>
-          <input matInput formControlName="documento">
-        </mat-form-field>
-        <mat-form-field class="contrasenaNueva" appearance="fill">
-          <mat-label>Contraseña Nueva:</mat-label>
-          <input type="password" matInput formControlName="contrasenaNueva">
-        </mat-form-field>
-        <mat-form-field class="password" appearance="fill">
-          <mat-label>Confirmar Contraseña:</mat-label>
-          <input type="password" matInput formControlName="confirmarContrasena">
-        </mat-form-field>
-        <button mat-raised-button class="buttonEnviar" (click)="enviar()">CAMBIAR CONTRASEÑA</button>
-        <button mat-raised-button class="buttonIniciar" routerLink="/">INICIAR SESION</button>
+<div id="formWrapper">
+  <form [formGroup]="formUsuario">
+    <div id="form">
+      <div class="logo">
+        <div class="d-flex justify-content-between">
+          <div>
+            <img src="assets/logo/LOGO SUCHANCE (2).png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+          </div>
+          <div>
+            <img src="assets/logo/Su-red-azul.png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+          </div>
+        </div>
       </div>
-      <hr>
-      <img src="assets/formularios/form.png" alt="" class="imgLogin">
-    </form>
+          <div class="form-item">
+            <mat-form-field class="form-style w-100" appearance="fill">
+              <mat-label>Numero Identificacion:</mat-label>
+              <input matInput formControlName="documento">
+            </mat-form-field>
+          </div>
+          <div class="form-item">
+            <mat-form-field class="form-style w-100"  appearance="fill">
+              <mat-label>Contraseña Nueva:</mat-label>
+              <input type="password" matInput formControlName="contrasenaNueva">
+            </mat-form-field>
+            <!-- <div class="pw-view"><i class="fa fa-eye"></i></div> -->
+          </div>
+
+          <div class="form-item">
+            <mat-form-field class="form-style w-100"  appearance="fill">
+              <mat-label>Confirmar Contraseña:</mat-label>
+              <input type="password" matInput formControlName="confirmarContrasena">
+            </mat-form-field>
+            <!-- <div class="pw-view"><i class="fa fa-eye"></i></div> -->
+            <p><a routerLink="/"><small style="color: #00235C !important;">Iniciar Sesión</small></a></p>
+          </div>
+          <div class="form-item">
+          <button mat-raised-button class="login pull-right" style="background-color: #00235C !important; color: white !important; font-size: 20px !important;" (click)="enviar()">Cambiar Contraseña</button>
+          <div class="clear-fix"></div>
+          </div>
+      </div>
+  </form>
+
   </div>
-</div>

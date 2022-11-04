@@ -111,6 +111,7 @@ import { CuentasComponent } from './modulos-presupuesto-contabilidad/cuentas/cue
 import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/libro-mayor/agregar-libro-mayor/agregar-libro-mayor.component';
 import { PorcentajePresupuestoComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/porcentaje-presupuesto.component';
 import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
+import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/consolidado-grafica/consolidado-grafica.component';
 
 const routes: Routes = [
   {
@@ -682,6 +683,11 @@ const routes: Routes = [
       {
         path: 'analisisDetalladoContable',
         component: AnalisisDetalladoContableComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'consolidadoContabilidad',
+        component: ConsolidadoGraficaComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

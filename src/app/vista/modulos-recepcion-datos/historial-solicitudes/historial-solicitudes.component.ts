@@ -17,6 +17,7 @@ import { HistorialSolicitudes } from 'src/app/modelos/historialSolicitudes';
 import { ChatSolicitudesScComponent } from './chat-solicitudes-sc/chat-solicitudes-sc.component';
 import { ChatRemitenteService } from 'src/app/servicios/chatRemitente.service';
 import {MatBadgeModule} from '@angular/material/badge';
+import {ChatRemitente} from 'src/app/modelos/chatRemitente';
 
 @Component({
   selector: 'app-historial-solicitudes',
@@ -29,7 +30,7 @@ export class HistorialSolicitudesComponent implements OnInit {
   public listaPdf: any = []
   public listaChat: any = []
   public validar: boolean = false
-  items = [];
+  public items: any = [];
   dtOptions: any = {};
   displayedColumns = ['id', 'observacion','solicitud','usuario','estado', 'opciones'];
   dataSource!:MatTableDataSource<any>;
@@ -50,9 +51,6 @@ export class HistorialSolicitudesComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarTodo();
-    this.items = [
-      { Active: true, cantidad: 0},
-    ];
   }
 
   listaArchivosExist: any = []
@@ -66,6 +64,7 @@ export class HistorialSolicitudesComponent implements OnInit {
     this.listaPdf = []
     this.listaArchivosExist = []
     this.listaChat = []
+    this.items = []
     this.servicioSolicitudPQRS.listarPorId(Number(this.data)).subscribe(res=>{
       this.Cliente = res.idClienteSC.nombre+" "+res.idClienteSC.apellido
       this.TelefonoCliente = res.idClienteSC.telefono
@@ -108,7 +107,16 @@ export class HistorialSolicitudesComponent implements OnInit {
         })
       })
       this.servicioChat.listarTodos().subscribe(resChat=>{
-        this.items[0].cantidad = this.listaChat.length
+        const chat = resChat as ChatRemitente[]
+        async function getChat(id: number){
+          var chat2 = chat.filter(x => x.idSolicitudSC.id == Number(id))
+          console.log(chat2)
+          return chat2
+        }
+        getChat(Number(this.data)).then(res=>{
+          this.items = res
+          console.log(this.items)
+        })
       })
     })
   }
@@ -170,7 +178,7 @@ export class HistorialSolicitudesComponent implements OnInit {
   }
 
   Chat(){
-    if(this.items[0].cantidad == 0){
+    if(this.items.length == 0){
       Swal.fire({
         icon: 'error',
         text: 'No hay mesajes para mostrar',

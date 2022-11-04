@@ -214,6 +214,8 @@ import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/l
 import { PorcentajePresupuestoComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/porcentaje-presupuesto.component';
 import { AgregarPorcentajePresupuestoContabilidadComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/agregar-porcentaje-presupuesto-contabilidad/agregar-porcentaje-presupuesto-contabilidad.component';
 import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
+import { CuentasFaltantesPorcentajeComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/cuentas-faltantes-porcentaje/cuentas-faltantes-porcentaje.component';
+import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/consolidado-grafica/consolidado-grafica.component';
 
 @NgModule({
   declarations: [
@@ -422,7 +424,9 @@ import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contab
     AgregarLibroMayorComponent,
     PorcentajePresupuestoComponent,
     AgregarPorcentajePresupuestoContabilidadComponent,
-    AnalisisDetalladoContableComponent
+    AnalisisDetalladoContableComponent,
+    CuentasFaltantesPorcentajeComponent,
+    ConsolidadoGraficaComponent
   ],
   imports: [
     CommonModule,

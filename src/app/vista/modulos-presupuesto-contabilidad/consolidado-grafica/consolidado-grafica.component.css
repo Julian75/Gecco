@@ -116,7 +116,7 @@ table{
 #mes{text-transform: capitalize;}
 .btnedit{ background-color: #97B4E2; color: white; }
 .excelButton{ margin-left: 91%; }
-.seleccionfecha{ top: -80px; }
+.seleccionfecha{ top: 0px; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

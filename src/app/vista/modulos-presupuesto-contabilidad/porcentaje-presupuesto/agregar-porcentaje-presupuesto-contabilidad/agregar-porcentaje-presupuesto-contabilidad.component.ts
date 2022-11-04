@@ -131,6 +131,7 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
 
   public guardarPorcentaje(idCuenta: any){
     if(this.selectYear != undefined && this.porcentajeTabla != null){
+      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
       var mes = new Date(this.selectYear.getFullYear(), 0, 1)
       let porcentajePresupuesto : PorcentajePresupuesto = new PorcentajePresupuesto();
       porcentajePresupuesto.fecha = mes
@@ -166,11 +167,11 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
                   presupuestoContable.presupuesto = valorLibroMayor + presupuestoPorcentaje
                   presupuestoContable.idCuenta = resCuentaLibroMayor
                   var fecha =  new Date(elementLibroMayor.fecha)
-                  fecha.setFullYear(fecha.getFullYear()+1)
                   presupuestoContable.fecha = fecha
                   this.servicioPresupuestoContable.registrar(presupuestoContable).subscribe(resNuevoPresupuesto=>{
                     i++
                     if(i == resLibroMayor.length){
+                      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                       Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -204,6 +205,7 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
         });
       })
     }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',

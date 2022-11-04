@@ -1,21 +1,35 @@
-<div class="principal">
-  <div class="formulario">
-    <form [formGroup]="formCorreo">
-      <div class="datos">
-        <img src="assets/formularios/logo suchance.png" alt="" class="logo">
-        <mat-form-field class="numIdentificacion" appearance="fill">
-          <mat-label>Número Documento:</mat-label>
-          <input matInput formControlName="documento">
-        </mat-form-field>
-        <mat-form-field class="password" appearance="fill">
-          <mat-label>Correo:</mat-label>
-          <input matInput formControlName="correo">
-        </mat-form-field>
-        <button mat-raised-button class="buttonEnviar" (click)="enviarCorreo()">ENVIAR</button>
-        <button mat-raised-button class="buttonIniciar" routerLink="/">INICIAR SESION</button>
+<div id="formWrapper">
+  <form [formGroup]="formCorreo">
+    <div id="form">
+      <div class="logo">
+        <div class="d-flex justify-content-between">
+          <div>
+            <img src="assets/logo/LOGO SUCHANCE (2).png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+          </div>
+          <div>
+            <img src="assets/logo/Su-red-azul.png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+          </div>
+        </div>
       </div>
-      <hr>
-      <img src="assets/formularios/form.png" alt="" class="imgLogin">
-    </form>
+          <div class="form-item">
+            <mat-form-field class="form-style w-100" appearance="fill">
+              <mat-label>Número Documento:</mat-label>
+              <input matInput formControlName="documento">
+            </mat-form-field>
+          </div>
+          <div class="form-item">
+            <mat-form-field class="form-style w-100"  appearance="fill">
+              <mat-label>Correo:</mat-label>
+              <input matInput formControlName="correo">
+            </mat-form-field>
+            <!-- <div class="pw-view"><i class="fa fa-eye"></i></div> -->
+            <p><a routerLink="/"><small style="color: #00235C !important;">Iniciar Sesion</small></a></p>
+          </div>
+          <div class="form-item">
+          <button mat-raised-button class="login pull-right" style="background-color: #00235C !important; color: white !important; font-size: 20px !important;" (click)="enviarCorreo()">Enviar</button>
+          <div class="clear-fix"></div>
+          </div>
+      </div>
+  </form>
+
   </div>
-</div>
