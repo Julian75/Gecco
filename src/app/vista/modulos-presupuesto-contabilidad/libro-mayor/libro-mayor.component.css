@@ -112,20 +112,22 @@ td.mat-cell{ padding-left: 1%;}
   #mesSp{margin-left: 31%;}
   #añoSp{margin-left: 89%;}
   .botonagregar mat-icon{ margin-left: -50%; }
+  .buscador{ width: 50%; margin-left: 48.5%; margin-top: -5%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   td button{ margin-top: 5%; }
-  .guardarModal{ left: 46%; top: 42%;}
-  .excelButton{ left: 13%;}
+  .guardarModal{ left: 73%; top: 31%; }
+  .excelButton{ left: 13%; top: 43%; }
   #desSp{margin-left: 22%;}
   #estSp{margin-left: 16%;}
   #valSp{margin-left: 30%;}
   #mesSp{margin-left: 31%;}
   #añoSp{margin-left: 89%;}
   .botonagregar mat-icon{ margin-left: -50%; }
+  .buscador{ width: 50%; margin-left: 49.5%; top: -30px; }
 }
 
 /* PORTATILES */

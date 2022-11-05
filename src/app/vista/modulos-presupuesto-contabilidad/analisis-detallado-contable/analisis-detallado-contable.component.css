@@ -104,7 +104,8 @@ table{
 .nombre2{ margin-left: 3%; margin-top: 1%; width: 250px; }
 .boton{ background-color: #00235C; }
 .btnver{ background-color: #959595; color: white; }
-.btnedit{ background-color: #97B4E2; color: white; }
+.cuentasPorcButton{ background-color: #97B4E2; color: white; }
+.cuentasPorcButton{ margin-top: -13%; margin-left: 86%; width: 64px; height: 36px; }
 .btnremove{ background-color: #DA161A; color: white; }
 td{ text-align: left;}
 td.mat-cell{ padding-left: 1%;}
@@ -116,27 +117,33 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   td button{ margin-top: 5%; }
   .guardarModal{left: 56%; top: 40%;}
-  .excelButton{ left: 13%;}
+  .excelButton{ left: 0%; margin-left: 84%; margin-top: -22px; }
   #desSp{margin-left: 22%;}
   #estSp{margin-left: 16%;}
   #valSp{margin-left: 30%;}
   #mesSp{margin-left: 31%;}
   #añoSp{margin-left: 89%;}
   .botonagregar mat-icon{ margin-left: -50%; }
+  .buscador1{ width: 30%; margin-left: 69%; top: -12px; }
+  .cuentasPorcButton{ margin-top: -25%; margin-left: 63%; width: 38px; height: 30px; }
+  .cuentasPorcButton mat-icon{ top: -4px; left: -5px; position: relative; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   td button{ margin-top: 5%; }
-  .guardarModal{ left: 46%; top: 42%;}
-  .excelButton{ left: 13%;}
+  .guardarModal{ left: 74%; top: 32%; }
+  .excelButton{ left: 0%; margin-left: 84%; margin-top: -40px; }
   #desSp{margin-left: 22%;}
   #estSp{margin-left: 16%;}
   #valSp{margin-left: 30%;}
   #mesSp{margin-left: 31%;}
   #añoSp{margin-left: 89%;}
   .botonagregar mat-icon{ margin-left: -50%; }
+  .buscador1{ width: 30%; margin-left: 69%; top: -40px; }
+  .cuentasPorcButton{ margin-top: -25%; margin-left: 63%; width: 38px; height: 30px; }
+  .cuentasPorcButton mat-icon{ top: -4px; left: -5px; position: relative; }
 }
 
 /* PORTATILES */
@@ -144,8 +151,11 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -9px;margin-top: -2px; }
   td button{ margin-top: 5%; }
   .guardarModal{ left: 47%; top: 30%;}
-  .excelButton{top: 38%;}
+  .excelButton{ left: 0%; margin-left: 93%; margin-top: -55px; }
   .botonagregar mat-icon{ margin-left: -50%; }
+  .buscador1{ width: 30%; margin-left: 69%; top: -50px; }
+  .cuentasPorcButton{ margin-top: -18%; margin-left: 83%; width: 38px; height: 30px; }
+  .cuentasPorcButton mat-icon{ top: -4px; left: -5px; position: relative; }
 }
 
 /* Portatil 1*/
@@ -153,7 +163,8 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{left: 44%; top: 41%;}
-  .excelButton{top: 56%;}
+  .excelButton{top: 34%; margin-left: 87%;}
+  .cuentasPorcButton { margin-top: -27%; margin-left: 78%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 /* Tablet 2 */
@@ -161,7 +172,8 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ left: 40%; top: 27%;}
-  .excelButton{top: 34%;}
+  .excelButton{top: 34%; margin-left: 87%;}
+  .cuentasPorcButton { margin-top: -23%; margin-left: 78%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 /* Tablet 3*/
@@ -169,7 +181,8 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ left: 40%; top: 24%;}
-  .excelButton{top: 29%;}
+  .excelButton{top: 34%; margin-left: 87%;}
+  .cuentasPorcButton { margin-top: -23%; margin-left: 78%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 /* Portatil 2 */
@@ -177,14 +190,16 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ left: 37%; top: 39%;}
-  .excelButton{top: 52%;}
+  .excelButton{top: 34%; margin-left: 87%;}
+  .cuentasPorcButton { margin-top: -21%; margin-left: 78%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 /* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
 @media screen and (min-width: 961px) and (max-width: 1024px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   .guardarModal{ margin-left: 35%; margin-top: 8%;position: static;}
-  .excelButton{  top: 47%; left: 9%;}
+  .excelButton{  top: 47%; left: 1%;}
+  .cuentasPorcButton { margin-top: -20%; margin-left: 81%; }
   .nombre2{margin-top: -12%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -193,7 +208,8 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 1025px) and (max-width: 1080px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   .guardarModal{ margin-left: 35%; margin-top: 8%;position: static;}
-  .excelButton{  top: 16%; left: 9%;}
+  .excelButton{  top: 16%; left: 1%;}
+  .cuentasPorcButton { margin-top: -19%; margin-left: 82%; }
   .nombre2{margin-top: -12%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -202,7 +218,8 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 1081px) and (max-width: 1200px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   .guardarModal{ margin-left: 27%; margin-top: 7%;position: static;}
-  .excelButton{ top: 17%; left: 9%;}
+  .excelButton{ top: 17%; left: 2%;}
+  .cuentasPorcButton { margin-top: -17%; margin-left: 83%; }
   .nombre2{margin-top: -11%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -211,7 +228,8 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 1201px) and (max-width: 1280px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   .guardarModal{ margin-left: 27%; margin-top: 6%;position: static;}
-  .excelButton{ top: 41%;}
+  .excelButton{ top: 41%; margin-left: 91%; }
+  .cuentasPorcButton { margin-top: -16%; margin-left: 84%; }
   .nombre2{margin-top: -9%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -221,6 +239,7 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   .guardarModal{ margin-left: 25%; margin-top: 6%;position: static;}
   .excelButton{ top: 38%;}
+  .cuentasPorcButton { margin-top: -15%; margin-left: 85%; }
   .nombre2{margin-top: -9%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -229,7 +248,8 @@ td.mat-cell{ padding-left: 1%;}
 @media screen and (min-width: 1401px) and (max-width: 1536px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   .guardarModal{ margin-left: 25%; margin-top: 6%;position: static;}
-  .excelButton{ top: 18%; left: 9%;}
+  .excelButton{ top: 18%; left: 3%;}
+  .cuentasPorcButton { margin-top: -13%; margin-left: 86%; }
   .nombre2{margin-top: -9%;}
   td button{ margin-top: 0%; }
   .botonagregar mat-icon{ margin-left: 0%; }
@@ -240,7 +260,8 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{top: 25%; left: 23%;}
-  .excelButton{top: 33%}
+  .excelButton{top: 33%; margin-left: 94%; }
+  .cuentasPorcButton { margin-top: -11%; margin-left: 89%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 
@@ -249,7 +270,8 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ margin-left: 19%; margin-top: 4%; position: static;}
-  .excelButton{ top: 25%; left: 7.5%;}
+  .excelButton{ top: 25%; left: 1.5%; margin-left: 94%;}
+  .cuentasPorcButton { margin-top: -10%; margin-left: 90%; }
   .nombre2{margin-top: -6%;}
   .botonagregar mat-icon{ margin-left: 0%; }
 }
@@ -258,7 +280,8 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ left: 21%; top: 21.5%;}
-  .excelButton{ top: 28%;}
+  .excelButton{ top: 28%; margin-left: 94%;}
+  .cuentasPorcButton { margin-top: -9.5%; margin-left: 90%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 /*Tablet 11 y 12, Portatil 5*/
@@ -267,7 +290,8 @@ td.mat-cell{ padding-left: 1%;}
   td button{ margin-top: 0%; }
   .guardarModal{ margin-top: 3%; margin-left: 16%; position: static;}
   .nombre2{margin-top: -5%;}
-  .excelButton{top: 24%}
+  .excelButton{top: 24%; margin-left: 94%;}
+  .cuentasPorcButton { margin-top: -8%; margin-left: 91%; }
   .botonagregar mat-icon{ margin-left: 0%; }
 }
 /*Tablet 13*/
@@ -275,32 +299,40 @@ td.mat-cell{ padding-left: 1%;}
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{top: 20%; left: 19%;}
-  .excelButton{top: 26%}
+  .excelButton{top: 26%; margin-left: 95%;}
+  .cuentasPorcButton { margin-top: -7.5%; margin-left: 92%; }
   .botonagregar mat-icon{ margin-left: 0%; }
+  .example-container{ margin-top: -2%; }
 }
 /*Tablet 14*/
 @media screen and (min-width: 2737px) and (max-width: 3000px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{top: 19.5%; left: 19%;}
-  .excelButton{top: 25%}
+  .excelButton{top: 25%; margin-left: 96%; }
   .botonagregar mat-icon{ margin-left: 0%; }
+  .cuentasPorcButton { margin-top: -7%; margin-left: 93%; }
+  .example-container{ margin-top: -2%; }
 }
 /*Portatil 6, Televisor 3*/
 @media screen and (min-width: 3001px) and (max-width: 3840px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ top: 20%; left: 16%;}
-  .excelButton{top: 25%}
+  .excelButton{top: 25%; margin-left: 96%; }
   .botonagregar mat-icon{ margin-left: 0%; }
+  .cuentasPorcButton { margin-top: -5.5%; margin-left: 94%; }
+  .example-container{ margin-top: -1%; }
 }
 /*Televisor 4*/
 @media screen and (min-width: 3841px) and (max-width: 4096px){
   td button mat-icon{ font-size: 17px !important; margin-left: -3px;margin-top: -1px; }
   td button{ margin-top: 0%; }
   .guardarModal{ top: 22%; left: 16%;}
-  .excelButton{top: 26%}
+  .excelButton{top: 26%; margin-left: 96%; }
   .botonagregar mat-icon{ margin-left: 0%; }
+  .cuentasPorcButton { margin-top: -5%; margin-left: 94%; }
+  .example-container{ margin-top: -1%; }
 }
 /*Portatil 7, Televisor 5*/
 @media screen and (min-width: 4097px) and (max-width: 7680px){
@@ -308,6 +340,8 @@ td.mat-cell{ padding-left: 1%;}
   td button{ margin-top: 0%; }
   .nombre2{margin-top: 0.5%;}
   .guardarModal{ top: 15%; left: 12%;}
-  .excelButton{top: 19%}
+  .excelButton{top: 19%; margin-left: 98%;}
   .botonagregar mat-icon{ margin-left: 0%; }
+  .cuentasPorcButton { margin-top: -2.5%; margin-left: 97%; }
+  .example-container{ margin-top: 0%; }
 }

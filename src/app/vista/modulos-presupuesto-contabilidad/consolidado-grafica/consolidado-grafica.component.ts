@@ -63,62 +63,150 @@ export class ConsolidadoGraficaComponent implements OnInit {
     this.picker.close()
   }
 
-  listaClases: any = []
+  listaClases: any = [] // Lista de todos los libros mayores de las cuentas
+  existe: boolean = false;
+  listaExiste: any = [];
+  idPosicionCuenta: any
   consolidadoGuardar(){
     this.listaClases = []
     var listaPosiciones = []
-    this.servicioConsultasGenerales.listarLibrosMayorAño((this.selectYear.getFullYear()-2)).subscribe(resLibrosMayorAñoAnteriorDos=>{
-      this.servicioConsultasGenerales.listarLibrosMayorAño((this.selectYear.getFullYear()-1)).subscribe(resLibrosMayorAñoAnteriorUno=>{
-        this.servicioConsultasGenerales.listarLibrosMayorAño(this.selectYear.getFullYear()).subscribe(resLibrosMayorAño=>{
-          this.servicioConsultasGenerales.listarCuentasPorJerarquia(1).subscribe(resCuentasJerarquia=>{
-            var i = 0
-            var obj = {
-              libroMayor: {},
-              libroMayorAnteriorDos: {},
-              libroMayorAnteriorUno: {},
-              clase: 0,
-            }
-            resLibrosMayorAño.forEach(elementLibroMayorAño => {
-            //   this.servicioLibroMayor.listarPorId(elementLibroMayorAño.id).subscribe(resLibroMayorId=>{
-            //     for (let index = 0; index < resCuentasJerarquia.length; index++) {
-            //       const element = resCuentasJerarquia[index];
-            //       var codigoSplit = String(resLibroMayorId.idCuenta.codigo).split('')
-            //       if(element.codigo == Number(codigoSplit[0])){
-            //         var obj = {
-            //           libroMayor: resLibroMayorId,
-            //           clase: element.codigo
-            //         }
-            //         this.listaClases.push(obj)
-            //         i++
-            //         }
-            //         console.log(this.listaClases)
-            //       }
-            //       this.listaClases.sort((a, b) => Number(a.clase) - Number(b.clase))
-            //       if(i == resLibrosMayorAño.length){
-            //         var obj2 = {
-            //           libroMayor: '',
-            //           clase: ''
-            //         }
-            //         console.log(this.listaClases)
-            //         for (let index = 0; index < this.listaClases.length; index++) {
-            //           if(index >= 1){
-            //             if(this.listaClases[index].clase != this.listaClases[index-1].clase){
-            //               listaPosiciones.push(index)
-            //             }
-            //           }
-            //         }
-            //         console.log(listaPosiciones)
-            //         listaPosiciones.forEach(element => {
-            //           this.listaClases.splice(element, 0, obj2)
-            //         });
-            //         this.descargarExcel(this.listaClases, resCuentasJerarquia)
-            //       }
-            //     })
+    this.servicioConsultasGenerales.listarLibrosMayorAño(this.selectYear.getFullYear()).subscribe(resLibrosMayorAño=>{ // Libro Mayor Actual
+      this.servicioConsultasGenerales.listarCuentasPorJerarquia(1).subscribe(resCuentasJerarquia=>{
+        var i = 0
+        resLibrosMayorAño.forEach(elementLibroMayorAño => {
+          var obj = {
+            cuenta: {},
+            libroMayor: {},
+            libroMayorAnteriorDos: {},
+            libroMayorAnteriorUno: {},
+            clase: 0,
+          }
+          var mesActual = new Date(elementLibroMayorAño.fecha).toISOString().slice(0,10)
+          var fechaSplit = mesActual.split('-')
+          var fechaAnteriorDos = (this.selectYear.getFullYear()-2)+'-'+(fechaSplit[1])+'-01'
+          var fechaAnteriorUno = (this.selectYear.getFullYear()-1)+'-'+(fechaSplit[1])+'-01'
+          this.servicioLibroMayor.listarPorId(elementLibroMayorAño.id).subscribe(resLibroMayorId=>{
+            this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorDos).subscribe(resLibroMayorAnteriorDos=>{
+              this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorUno).subscribe(resLibroMayorAnteriorUno=>{
+                if(this.listaClases.length>0){
+                  this.listaExiste = []
+                  for (let index = 0; index < this.listaClases.length; index++) {
+                    const element = this.listaClases[index];
+                    if(element.cuenta.id == resLibroMayorId.idCuenta.id){
+                      this.existe = true
+                      this.idPosicionCuenta = index
+                    }else{ this.existe = false }
+                    this.listaExiste.push(this.existe)
+                  }
+                  const existe = this.listaExiste.includes(true)
+                  if(existe == true){
+                    // this.listaClases[this.idPosicionCuenta].libroMayor.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayor.valor)+Number(resLibroMayorId.valor)
+                    // if(resLibroMayorAnteriorDos.length > 0){
+                    //   resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
+                    //     this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorDos.id).subscribe(resLibroMayorAnteriorDosId=>{
+                    //       var objetoVacio = Object.keys(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos).length
+                    //       if(Number(objetoVacio) === 0){
+                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos = resLibroMayorAnteriorDosId
+                    //       }else{
+                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos.valor)+Number(resLibroMayorAnteriorDosId.valor)
+                    //       }
+                    //     })
+                    //   });
+                    // }
+                    // if(resLibroMayorAnteriorUno.length > 0){
+                    //   resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
+                    //     this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorUno.id).subscribe(resLibroMayorAnteriorUnoId=>{
+                    //       var objetoVacio = Object.keys(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno).length
+                    //       if(Number(objetoVacio) === 0){
+                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno = resLibroMayorAnteriorUnoId
+                    //       }else{
+                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno.valor)+Number(resLibroMayorAnteriorUnoId.valor)
+                    //       }
+                    //     })
+                    //   });
+                    // }
+                    // i++
+                  }else{
+                    this.agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
+                    i++
+                  }
+                }else{
+                  this.agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
+                  i++
+                }
+                console.log(this.listaClases)
+                if(i == resLibrosMayorAño.length){
+                }
+              })
             })
           })
+
+        //   this.servicioLibroMayor.listarPorId(elementLibroMayorAño.id).subscribe(resLibroMayorId=>{
+        //     for (let index = 0; index < resCuentasJerarquia.length; index++) {
+        //       const element = resCuentasJerarquia[index];
+        //       var codigoSplit = String(resLibroMayorId.idCuenta.codigo).split('')
+        //       if(element.codigo == Number(codigoSplit[0])){
+        //         var obj = {
+        //           libroMayor: resLibroMayorId,
+        //           clase: element.codigo
+        //         }
+        //         this.listaClases.push(obj)
+        //         i++
+        //         }
+        //         console.log(this.listaClases)
+        //       }
+        //       this.listaClases.sort((a, b) => Number(a.clase) - Number(b.clase))
+        //       if(i == resLibrosMayorAño.length){
+        //         var obj2 = {
+        //           libroMayor: '',
+        //           clase: ''
+        //         }
+        //         console.log(this.listaClases)
+        //         for (let index = 0; index < this.listaClases.length; index++) {
+        //           if(index >= 1){
+        //             if(this.listaClases[index].clase != this.listaClases[index-1].clase){
+        //               listaPosiciones.push(index)
+        //             }
+        //           }
+        //         }
+        //         console.log(listaPosiciones)
+        //         listaPosiciones.forEach(element => {
+        //           this.listaClases.splice(element, 0, obj2)
+        //         });
+        //         this.descargarExcel(this.listaClases, resCuentasJerarquia)
+        //       }
+        //     })
         })
       })
-    });
+    })
+  }
+
+  agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno){
+    for (let index = 0; index < resCuentasJerarquia.length; index++){
+      const element = resCuentasJerarquia[index];
+      var codigoSplit = String(resLibroMayorId.idCuenta.codigo).split('')
+      if(element.codigo == Number(codigoSplit[0])){
+        obj.cuenta = resLibroMayorId.idCuenta
+        obj.libroMayor = resLibroMayorId
+
+        if(resLibroMayorAnteriorDos.length > 0){
+          resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
+            this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorDos.id).subscribe(resLibroMayorMayorAnteriorDosId=>{
+              obj.libroMayorAnteriorDos = resLibroMayorMayorAnteriorDosId
+            })
+          });
+        }
+        if(resLibroMayorAnteriorUno.length > 0){
+          resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
+            this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorUno.id).subscribe(resLibroMayorMayorAnteriorUnoId=>{
+              obj.libroMayorAnteriorUno = resLibroMayorMayorAnteriorUnoId
+            })
+          });
+        }else{ obj.libroMayorAnteriorUno = {} }
+        obj.clase = element.codigo
+        this.listaClases.push(obj)
+      }
+    }
   }
 
   private descargarExcel(listaClases: any, cantidadClases: any){
@@ -190,7 +278,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
         rigth: { style: 'thin'},
       }
     }))
-  
+
     //Insertamos el libro mayor
     const libroMayor = hoja.getRows(9, listaClases.length)
     for (let index = 0; index < libroMayor.length; index++) {
@@ -248,7 +336,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
         },
         alignment: { horizontal: 'center', vertical: 'middle' },
       }
-    }); 
+    });
   }
 
   private headerTabla(
@@ -269,6 +357,6 @@ export class ConsolidadoGraficaComponent implements OnInit {
         alignment: { horizontal: 'center', vertical: 'middle' },
       }
     });
-    
+
   }
 }

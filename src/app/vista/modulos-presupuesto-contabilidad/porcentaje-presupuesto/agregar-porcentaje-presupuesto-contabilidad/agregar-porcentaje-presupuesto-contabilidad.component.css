@@ -120,19 +120,115 @@ table{
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  .guardarModal{ margin-left: 63%;}
-  .nombre, .estado{width: 100%;  margin-left: 0%; margin-top: 0%;}
-
+  .buscador{ margin-top: 25% }
+  .seleccionfecha{ top: -150px; }
+  .excelButton { margin-left: 72%; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  .guardarModal{ margin-left: 72%;}
-  .nombre, .estado{width: 100%;  margin-left: 0%; margin-top: 0%;}
+  .buscador{ margin-top: 25% }
+  .seleccionfecha{ top: -150px; }
+  .excelButton { margin-left: 77%; }
 }
 
 /* PORTATILES */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  .guardarModal{ margin-left: 82%;}
-  .nombre, .estado{width: 60%;  margin-left: 0%; margin-top: 0%;}
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+
+/* Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 700px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Tablet 2 */
+@media screen and (min-width: 701px) and (max-width: 768px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Tablet 3*/
+@media screen and (min-width: 769px) and (max-width: 800px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Portatil 2 */
+@media screen and (min-width: 801px) and (max-width: 960px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1024px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Tablet 5 */
+@media screen and (min-width: 1025px) and (max-width: 1080px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Tablet 6 */
+@media screen and (min-width: 1081px) and (max-width: 1200px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Tablet  7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1201px) and (max-width: 1280px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 87%; }
+}
+/* Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1400px){
+  .buscador{ margin-left: 60%; width: 40%;}
+  .excelButton { margin-left: 90%; }
+}
+/* Tablet 8 */
+@media screen and (min-width: 1401px) and (max-width: 1536px){
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .excelButton { margin-left: 93%; }
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 93%; }
+}
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 93%; }
+}
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 93%; }
+}
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 94%; }
+}
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 95%; }
+}
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 95%; }
+}
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .example-container{ margin-top: -2% !important; }
+  .excelButton { margin-left: 95%; }
+}
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .example-container{ margin-top: 0% !important; }
+  .excelButton { margin-left: 95%; }
 }

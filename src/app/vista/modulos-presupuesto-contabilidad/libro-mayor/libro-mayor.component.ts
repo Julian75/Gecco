@@ -13,7 +13,9 @@ import { LibroMayor } from 'src/app/modelos/libroMayor';
 import { JerarquiaCuentasService } from 'src/app/servicios/jerarquiaCuentas.service';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { CuentasService } from 'src/app/servicios/cuentas.service';
-
+import { Workbook, Worksheet } from 'exceljs'
+import * as fs from 'file-saver'
+import {Row, Cell, Column} from 'exceljs'
 @Component({
   selector: 'app-libro-mayor',
   templateUrl: './libro-mayor.component.html',
@@ -24,6 +26,7 @@ export class LibroMayorComponent implements OnInit {
   public listarLibrosMayor: any = [];
   public exportarE: any = [];
   public formLibroMayor!: FormGroup;
+  private _workbook!: Workbook
   color = ('primary');
   displayedColumns = ['id', 'codigo','nombre', 'valor','mes', 'año'];
   dataSource!:MatTableDataSource<any>;
@@ -123,40 +126,157 @@ export class LibroMayorComponent implements OnInit {
       }
       this.exportarE.push(obj);
     }
-    let html = '';
-    let encabezado = '<div style="text-align: center; font-size: 20px; font-weight: bold; color: #000000; background-color: #FF0080; margin-bottom: 10px;">LIBRO MAYOR</div>'+ '<div style="text-align: center; font-size: 15px; font-weight: bold; color: #000000; background-color: #FF0080; margin-bottom: 10px;">'+'MES: '+new Date(this.listarLibrosMayor[0].fecha.toString().substring(0,4),this.listarLibrosMayor[0].fecha.toString().substring(5,7),0).toLocaleString('default', { month: 'long' }).toUpperCase()+' AÑO: '+this.listarLibrosMayor[0].fecha.toString().substring(0,4)+'</div>';
-    html += encabezado;
-    html += '<table border="1" style="width: 100%; border-collapse: collapse; font-size: 12px; font-weight: bold; color: #000000;">';
-    html += '<thead>';
-    html += '<tr>';
-    html += '<th style="text-align: center; background-color: #D3D3D3;">Código</th>';
-    html += '<th style="text-align: center; background-color: #D3D3D3;">Nombre</th>';
-    html += '<th style="text-align: center; background-color: #D3D3D3;">Valor</th>';
-    html += '<th style="text-align: center; background-color: #D3D3D3;">Mes</th>';
-    html += '<th style="text-align: center; background-color: #D3D3D3;">Año</th>';
-    html += '</tr>';
-    html += '</thead>';
-    html += '<tbody>';
-    this.exportarE.forEach((item: any) => {
-      html += '<tr>';
-      html += '<td style="text-align: center;">' + item.Código + '</td>';
-      html += '<td style="text-align: center;">' + item.Nombre + '</td>';
-      html += '<td style="text-align: center;">' + item.Valor + '</td>';
-      html += '<td style="text-align: center;">' + item.Mes + '</td>';
-      html += '<td style="text-align: center;">' + item.Año + '</td>';
-      html += '</tr>';
-    });
-    html += '</tbody>';
-    html += '</table>';
-    const linkSource = 'data:application/vnd.ms-excel;base64,' + btoa(html);
-    const downloadLink = document.createElement("a");
-    const fileName = 'LibroMayor.xls';
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
-      
+    this._workbook = new Workbook();
+    const worksheet: Worksheet = this._workbook.addWorksheet('Libro Mayor');
+    worksheet.getCell('A1').value = 'Consulta de Libro Mayor';
+    worksheet.getCell('A2').value = 'Código';
+    worksheet.getCell('B2').value = 'Nombre';
+    worksheet.getCell('C2').value = 'Valor';
+    worksheet.getCell('D2').value = 'Mes';
+    worksheet.getCell('E2').value = 'Año';
+    worksheet.mergeCells('A1:E1');
+    worksheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    worksheet.getCell('A1').font = { size: 16, bold: true, color: { argb: 'FFFFFF' } };
+    worksheet.getCell('A2').font = { bold: true };
+    worksheet.getCell('B2').font = { bold: true };
+    worksheet.getCell('C2').font = { bold: true };
+    worksheet.getCell('D2').font = { bold: true };
+    worksheet.getCell('E2').font = { bold: true };
+    worksheet.getCell('A1').fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: '16365C' },
+    };
+    worksheet.getCell('A1').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('B1').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('C1').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('D1').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('E1').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('A2').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('B2').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('C2').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('D2').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    worksheet.getCell('E2').border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+    for (let i = 3; i < this.exportarE.length + 3; i++) {
+      worksheet.getCell('A' + i).border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+      worksheet.getCell('B' + i).border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+      worksheet.getCell('C' + i).border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+      worksheet.getCell('D' + i).border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+      worksheet.getCell('E' + i).border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+    }
+    //centrar header de la tabla
+    worksheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    worksheet.getCell('A2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    worksheet.getCell('B2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    worksheet.getCell('C2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    worksheet.getCell('D2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    worksheet.getCell('E2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
 
-  }
+    //poner los datos en cada celda
+    this.exportarE.forEach((element, index) => {
+      worksheet.getCell('A' + (index + 3)).value = element.Código;
+      worksheet.getCell('B' + (index + 3)).value = element.Nombre;
+      worksheet.getCell('C' + (index + 3)).value = element.Valor;
+      worksheet.getCell('D' + (index + 3)).value = element.Mes;
+      worksheet.getCell('E' + (index + 3)).value = element.Año;
+    });
+    //centrar los datos de la celdas
+    for (let i = 3; i < this.exportarE.length + 3; i++) {
+      worksheet.getCell('A' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      worksheet.getCell('B' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      worksheet.getCell('C' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      worksheet.getCell('D' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      worksheet.getCell('E' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+    }
+
+    //estilo de la tabla
+    worksheet.getColumn(1).width = 30;
+    worksheet.getColumn(2).width = 30;
+    worksheet.getColumn(3).width = 15;
+    worksheet.getColumn(4).width = 15;
+    worksheet.getColumn(5).width = 15;
+
+    //guardar el archivo
+    this._workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'Libro Mayor.xlsx');
+    });
+}
 
 
   // Filtrado

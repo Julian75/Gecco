@@ -141,7 +141,7 @@ export class CuentasComponent implements OnInit {
           Id: element.id,
           Descripcion: element.descripcion,
           Codigo: element.codigo,
-          Jerarquia: element.idJerarquia.descripcion
+          Jerarquia: element.idJerarquiaCuentas.descripcion
         }
         this.listaCuentasCompletos.push(obj)
       }
