@@ -67,6 +67,8 @@ export class ConsolidadoGraficaComponent implements OnInit {
   existe: boolean = false;
   listaExiste: any = [];
   idPosicionCuenta: any
+  objetoModificar: any = []
+  obj2: any = []
   consolidadoGuardar(){
     this.listaClases = []
     var listaPosiciones = []
@@ -88,6 +90,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
           this.servicioLibroMayor.listarPorId(elementLibroMayorAño.id).subscribe(resLibroMayorId=>{
             this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorDos).subscribe(resLibroMayorAnteriorDos=>{
               this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorUno).subscribe(resLibroMayorAnteriorUno=>{
+                this.objetoModificar = []
                 if(this.listaClases.length>0){
                   this.listaExiste = []
                   for (let index = 0; index < this.listaClases.length; index++) {
@@ -95,37 +98,85 @@ export class ConsolidadoGraficaComponent implements OnInit {
                     if(element.cuenta.id == resLibroMayorId.idCuenta.id){
                       this.existe = true
                       this.idPosicionCuenta = index
+                      this.objetoModificar.push(element)
                     }else{ this.existe = false }
                     this.listaExiste.push(this.existe)
                   }
                   const existe = this.listaExiste.includes(true)
                   if(existe == true){
-                    // this.listaClases[this.idPosicionCuenta].libroMayor.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayor.valor)+Number(resLibroMayorId.valor)
-                    // if(resLibroMayorAnteriorDos.length > 0){
-                    //   resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
-                    //     this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorDos.id).subscribe(resLibroMayorAnteriorDosId=>{
-                    //       var objetoVacio = Object.keys(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos).length
-                    //       if(Number(objetoVacio) === 0){
-                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos = resLibroMayorAnteriorDosId
-                    //       }else{
-                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorDos.valor)+Number(resLibroMayorAnteriorDosId.valor)
-                    //       }
-                    //     })
-                    //   });
-                    // }
-                    // if(resLibroMayorAnteriorUno.length > 0){
-                    //   resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
-                    //     this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorUno.id).subscribe(resLibroMayorAnteriorUnoId=>{
-                    //       var objetoVacio = Object.keys(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno).length
-                    //       if(Number(objetoVacio) === 0){
-                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno = resLibroMayorAnteriorUnoId
-                    //       }else{
-                    //         this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayorAnteriorUno.valor)+Number(resLibroMayorAnteriorUnoId.valor)
-                    //       }
-                    //     })
-                    //   });
-                    // }
-                    // i++
+                    this.listaClases[this.idPosicionCuenta].libroMayor.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayor.valor)+Number(resLibroMayorId.valor)
+                    if(resLibroMayorAnteriorDos.length > 0){
+                      resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
+                        var objetoModificar2 = {
+                          cuenta: {},
+                          libroMayor: {},
+                          libroMayorAnteriorDos: {},
+                          libroMayorAnteriorUno: {},
+                          clase: 0,
+                        }
+                        this.objetoModificar.forEach(elementModificar => {
+                          var objetoVacio = Object.entries(elementModificar.libroMayorAnteriorDos).length === 0
+                          console.log(objetoVacio)
+                          if(objetoVacio == true){
+                            if(elementModificar.cuenta.id == elementLibroMayorAnteriorDos.idCuenta){
+                              objetoModificar2.cuenta = elementModificar.cuenta
+                              objetoModificar2.libroMayor = elementModificar.libroMayor
+                              objetoModificar2.libroMayorAnteriorDos = elementLibroMayorAnteriorDos
+                              objetoModificar2.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
+                              objetoModificar2.clase = elementModificar.clase
+                              this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar2)
+                            }
+                          }else{
+                            if(elementModificar.cuenta.id == elementLibroMayorAnteriorDos.idCuenta){
+                              var sumaValores = Number(elementModificar.libroMayorAnteriorDos.valor) + Number(elementLibroMayorAnteriorDos.valor)
+                              elementModificar.libroMayorAnteriorDos.valor = sumaValores
+                              objetoModificar2.cuenta = elementModificar.cuenta
+                              objetoModificar2.libroMayor = elementModificar.libroMayor
+                              objetoModificar2.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
+                              objetoModificar2.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
+                              objetoModificar2.clase = elementModificar.clase
+                              this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar2)
+                            }
+                          }
+                        })
+                      });
+                    }
+                    if(resLibroMayorAnteriorUno.length > 0){
+                      resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
+                        var objetoModificar3 = {
+                          cuenta: {},
+                          libroMayor: {},
+                          libroMayorAnteriorDos: {},
+                          libroMayorAnteriorUno: {},
+                          clase: 0,
+                        }
+                        this.objetoModificar.forEach(elementModificar => {
+                          var objetoVacio2 = Object.entries(elementModificar.libroMayorAnteriorUno).length === 0
+                          if(objetoVacio2 == true){
+                            if(elementModificar.cuenta.id == elementLibroMayorAnteriorUno.idCuenta){
+                              objetoModificar3.cuenta = elementModificar.cuenta
+                              objetoModificar3.libroMayor = elementModificar.libroMayor
+                              objetoModificar3.libroMayorAnteriorUno = elementLibroMayorAnteriorUno
+                              objetoModificar3.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
+                              objetoModificar3.clase = elementModificar.clase
+                              this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar3)
+                            }
+                          }else{
+                            if(elementModificar.cuenta.id == elementLibroMayorAnteriorUno.idCuenta){
+                              var sumaValores = Number(elementModificar.libroMayorAnteriorUno.valor) + Number(elementLibroMayorAnteriorUno.valor)
+                              elementModificar.libroMayorAnteriorUno.valor = sumaValores
+                              objetoModificar3.cuenta = elementModificar.cuenta
+                              objetoModificar3.libroMayor = elementModificar.libroMayor
+                              objetoModificar3.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
+                              objetoModificar3.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
+                              objetoModificar3.clase = elementModificar.clase
+                              this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar3)
+                            }
+                          }
+                        })
+                      });
+                    }
+                    i++
                   }else{
                     this.agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
                     i++
@@ -134,48 +185,31 @@ export class ConsolidadoGraficaComponent implements OnInit {
                   this.agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
                   i++
                 }
-                console.log(this.listaClases)
+                this.listaClases.sort((a, b) => Number(a.clase) - Number(b.clase))
                 if(i == resLibrosMayorAño.length){
+                  console.log(this.listaClases)
+                  var obj2 = {
+                    cuenta: '',
+                    libroMayorAnteriorDos: '',
+                    libroMayorAnteriorUno: '',
+                    libroMayor: '',
+                    clase: ''
+                  }
+                  for (let index = 0; index < this.listaClases.length; index++) {
+                    if(index >= 1){
+                      if(this.listaClases[index].clase != this.listaClases[index-1].clase){
+                        listaPosiciones.push(index)
+                      }
+                    }
+                  }
+                  listaPosiciones.forEach(element => {
+                    this.listaClases.splice(element, 0, obj2)
+                  });
+                  this.descargarExcel(this.listaClases, resCuentasJerarquia)
                 }
               })
             })
           })
-
-        //   this.servicioLibroMayor.listarPorId(elementLibroMayorAño.id).subscribe(resLibroMayorId=>{
-        //     for (let index = 0; index < resCuentasJerarquia.length; index++) {
-        //       const element = resCuentasJerarquia[index];
-        //       var codigoSplit = String(resLibroMayorId.idCuenta.codigo).split('')
-        //       if(element.codigo == Number(codigoSplit[0])){
-        //         var obj = {
-        //           libroMayor: resLibroMayorId,
-        //           clase: element.codigo
-        //         }
-        //         this.listaClases.push(obj)
-        //         i++
-        //         }
-        //         console.log(this.listaClases)
-        //       }
-        //       this.listaClases.sort((a, b) => Number(a.clase) - Number(b.clase))
-        //       if(i == resLibrosMayorAño.length){
-        //         var obj2 = {
-        //           libroMayor: '',
-        //           clase: ''
-        //         }
-        //         console.log(this.listaClases)
-        //         for (let index = 0; index < this.listaClases.length; index++) {
-        //           if(index >= 1){
-        //             if(this.listaClases[index].clase != this.listaClases[index-1].clase){
-        //               listaPosiciones.push(index)
-        //             }
-        //           }
-        //         }
-        //         console.log(listaPosiciones)
-        //         listaPosiciones.forEach(element => {
-        //           this.listaClases.splice(element, 0, obj2)
-        //         });
-        //         this.descargarExcel(this.listaClases, resCuentasJerarquia)
-        //       }
-        //     })
         })
       })
     })
@@ -188,22 +222,18 @@ export class ConsolidadoGraficaComponent implements OnInit {
       if(element.codigo == Number(codigoSplit[0])){
         obj.cuenta = resLibroMayorId.idCuenta
         obj.libroMayor = resLibroMayorId
-
         if(resLibroMayorAnteriorDos.length > 0){
           resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
-            this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorDos.id).subscribe(resLibroMayorMayorAnteriorDosId=>{
-              obj.libroMayorAnteriorDos = resLibroMayorMayorAnteriorDosId
-            })
+            obj.libroMayorAnteriorDos = elementLibroMayorAnteriorDos
           });
         }
         if(resLibroMayorAnteriorUno.length > 0){
           resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
-            this.servicioLibroMayor.listarPorId(elementLibroMayorAnteriorUno.id).subscribe(resLibroMayorMayorAnteriorUnoId=>{
-              obj.libroMayorAnteriorUno = resLibroMayorMayorAnteriorUnoId
-            })
+            obj.libroMayorAnteriorUno = elementLibroMayorAnteriorUno
           });
-        }else{ obj.libroMayorAnteriorUno = {} }
+        }
         obj.clase = element.codigo
+        console.log(obj)
         this.listaClases.push(obj)
       }
     }
@@ -234,6 +264,9 @@ export class ConsolidadoGraficaComponent implements OnInit {
     hoja.columns.forEach((column)=>{
       if(column.number == 2){
         column.alignment = { horizontal: 'left', wrapText: true}
+      }
+      if(column.number == 3 || column.number == 4 || column.number == 5){
+        column.alignment = { horizontal: 'right', wrapText: true}
       }
     })
 
@@ -284,7 +317,6 @@ export class ConsolidadoGraficaComponent implements OnInit {
     for (let index = 0; index < libroMayor.length; index++) {
       const element = libroMayor[index];
       const listaFilas = listaClases[index]
-      console.log(element, listaFilas)
       if(index == 0){
         this.agregarDatos(element, listaFilas)
       }else{
@@ -292,7 +324,53 @@ export class ConsolidadoGraficaComponent implements OnInit {
           this.agregarDatos(element, listaFilas)
         }
       }
-     }
+    }
+    var listaCeldas = ['C', 'D', 'E', 'F', 'G']
+
+    for (let index = 0; index < listaClases.length; index++) {
+      const hojaActual = hoja.getCell("B"+(index+9))
+      const element = listaClases[index];
+      listaCeldas.forEach(elementCelda => {
+        const hojaC = hoja.getCell(elementCelda+(index+9))
+        if(element.libroMayor != ''){
+          hojaC.style = {
+            font: { size: 13, bold: true,  color: { argb: '242A30' } },
+            fill: {
+              type: 'pattern' , //patron o bloque
+              pattern: 'solid',
+              fgColor: { argb: 'D9ECF0' },
+            },
+            alignment: { horizontal: 'center', vertical: 'middle' },
+          }
+        }
+      });
+      //configurar estilos
+      if(element.libroMayor != ''){
+        hojaActual.style = {
+          font: { size: 13, bold: true,  color: { argb: '242A30' } },
+          fill: {
+            type: 'pattern' , //patron o bloque
+            pattern: 'solid',
+            fgColor: { argb: 'B8CCE4' },
+          },
+          alignment: { horizontal: 'center', vertical: 'middle' },
+
+        }
+        hoja.getRow(index+9).eachCell(cell => {
+          console.log(cell.col)
+          if(cell.value != ''){
+            Object.assign(cell,{
+            border: {
+              bottom: { style: 'thin'},
+              top: { style: 'thin'},
+              left: { style: 'thin'},
+              rigth: { style: 'thin'},
+            }
+          })
+          }
+      })
+      }
+    }
   }
 
   private agregarDatos(element, listaFilas){
@@ -300,11 +378,11 @@ export class ConsolidadoGraficaComponent implements OnInit {
       element.values = [
         '',
         listaFilas.libroMayor.idCuenta.descripcion,
+        listaFilas.libroMayorAnteriorDos.valor,
+        listaFilas.libroMayorAnteriorUno.valor,
         listaFilas.libroMayor.valor,
-        '',
-        '',
-        '',
-        '',
+        listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
+        (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
       ]
     }else{
       element.values = [
@@ -317,8 +395,8 @@ export class ConsolidadoGraficaComponent implements OnInit {
         '',
       ]
     }
-  }
 
+  }
   private titulosPrincipales(
     hoja: Worksheet,
     cells: { value: string; cell: string }[]

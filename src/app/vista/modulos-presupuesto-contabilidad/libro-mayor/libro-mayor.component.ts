@@ -127,174 +127,97 @@ export class LibroMayorComponent implements OnInit {
       this.exportarE.push(obj);
     }
     this._workbook = new Workbook();
-    const worksheet: Worksheet = this._workbook.addWorksheet('Libro Mayor');
-    worksheet.getCell('A1').value = 'Consulta de Libro Mayor';
-    worksheet.getCell('A2').value = 'Código';
-    worksheet.getCell('B2').value = 'Nombre';
-    worksheet.getCell('C2').value = 'Valor';
-    worksheet.getCell('D2').value = 'Mes';
-    worksheet.getCell('E2').value = 'Año';
-    worksheet.mergeCells('A1:E1');
-    worksheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    worksheet.getCell('A1').font = { size: 16, bold: true, color: { argb: 'FFFFFF' } };
-    worksheet.getCell('A2').font = { bold: true };
-    worksheet.getCell('B2').font = { bold: true };
-    worksheet.getCell('C2').font = { bold: true };
-    worksheet.getCell('D2').font = { bold: true };
-    worksheet.getCell('E2').font = { bold: true };
-    worksheet.getCell('A1').fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: '16365C' },
-    };
-    worksheet.getCell('A1').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('B1').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('C1').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('D1').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('E1').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('A2').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('B2').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('C2').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('D2').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    worksheet.getCell('E2').border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-    for (let i = 3; i < this.exportarE.length + 3; i++) {
-      worksheet.getCell('A' + i).border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      worksheet.getCell('B' + i).border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      worksheet.getCell('C' + i).border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      worksheet.getCell('D' + i).border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-      worksheet.getCell('E' + i).border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
-    }
-    //centrar header de la tabla
-    worksheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    worksheet.getCell('A2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    worksheet.getCell('B2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    worksheet.getCell('C2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    worksheet.getCell('D2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    worksheet.getCell('E2').alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-
-    //poner los datos en cada celda
-    this.exportarE.forEach((element, index) => {
-      worksheet.getCell('A' + (index + 3)).value = element.Código;
-      worksheet.getCell('B' + (index + 3)).value = element.Nombre;
-      worksheet.getCell('C' + (index + 3)).value = element.Valor;
-      worksheet.getCell('D' + (index + 3)).value = element.Mes;
-      worksheet.getCell('E' + (index + 3)).value = element.Año;
+    const worksheet = this._workbook.addWorksheet('Libro Mayor');
+    const logo = document.getElementById('logo').getAttribute('src');
+    const imageId = this.convertBase64ToImage(logo);
+    const titleRow = worksheet.addRow(['LIBRO MAYOR']);
+    titleRow.font = { name: 'Arial', family: 4, size: 16, bold: true ,color: { argb: 'FFFFFF' } };
+    titleRow.alignment = { vertical: 'middle', horizontal: 'center' }
+    titleRow.height = 30;
+    titleRow.getCell(1).fill = {type: 'pattern', pattern: 'solid', fgColor: { argb: '16365C' },bgColor: { argb: 'FFFFFF' }}
+    worksheet.mergeCells(`A1:E1`);
+    worksheet.addImage(imageId, {
+      tl: { col: 0.2, row: 0.3},
+      ext: { width: 80, height: 30 }
     });
-    //centrar los datos de la celdas
-    for (let i = 3; i < this.exportarE.length + 3; i++) {
-      worksheet.getCell('A' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      worksheet.getCell('B' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      worksheet.getCell('C' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      worksheet.getCell('D' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      worksheet.getCell('E' + i).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    }
-
-    //estilo de la tabla
-    worksheet.getColumn(1).width = 30;
-    worksheet.getColumn(2).width = 30;
+    worksheet.addRow([]);
+    const subTitleRow = worksheet.addRow(['Fecha: ' + new Date(this.formLibroMayor.value.fecha.toString().substring(0,4), this.formLibroMayor.value.fecha.toString().substring(5,7), 0).toLocaleString('default', { month: 'long' }).toUpperCase() + ' ' + this.formLibroMayor.value.fecha.toString().substring(0,4)]);
+    subTitleRow.font = { name: 'Arial', size: 12, bold: true }
+    subTitleRow.alignment = { vertical: 'middle', horizontal: 'center' }
+    worksheet.mergeCells(`A3:E3`);
+    worksheet.addRow([]);
+    const headerRow = worksheet.addRow(Object.keys(this.exportarE[0]));
+    headerRow.font = { name: 'Arial', size: 12, bold: true, color: { argb: 'FFFFFF' } };
+    headerRow.alignment = { vertical: 'middle', horizontal: 'center' }
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {type: 'pattern',pattern: 'solid',fgColor: { argb: '16365C' }, bgColor: { argb: 'FFA500' }}
+      cell.border = {top: { style: 'thin' },left: { style: 'thin' }, bottom: { style: 'thin' },right: { style: 'thin' } }
+    })
+    this.exportarE.forEach(dato => {
+      const row = worksheet.addRow(Object.values(dato));
+      row.alignment = { vertical: 'middle', horizontal: 'center' }
+      row.eachCell((cell, number) => {
+        cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' }}
+      })
+    })
+    worksheet.getColumn(1).width = 15;
+    worksheet.getColumn(2).width = 50;
     worksheet.getColumn(3).width = 15;
     worksheet.getColumn(4).width = 15;
     worksheet.getColumn(5).width = 15;
-
-    //guardar el archivo
+    worksheet.addRow([]);
+    const footerRow = worksheet.addRow(['Este reporte fue generado el ' + new Date().toLocaleString()]);
+    footerRow.font = { name: 'Arial', size: 12, bold: true }
+    worksheet.mergeCells(`A${footerRow.number}:E${footerRow.number}`);
+    footerRow.alignment = { vertical: 'middle', horizontal: 'center' }
     this._workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      fs.saveAs(blob, 'Libro Mayor.xlsx');
+      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      FileSaver.saveAs(blob, 'Libro Mayor' + '.xlsx');
+    })
+
+  }
+
+  convertBase64ToImage(base64: any) {
+    const image = new Image();
+    image.src = base64;
+    console.log(image);
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    console.log(canvas);
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(image, 0, 0);
+    console.log(ctx);
+    const ext = image.src.substring(image.src.lastIndexOf('.') + 1).toLowerCase();
+    console.log(ext);
+    const dataURL = canvas.toDataURL('image/' + ext);
+    console.log(dataURL);
+    return this._workbook.addImage({
+      base64: dataURL,
+      extension: 'png',
     });
-}
+  }
+
+
+
 
 
   // Filtrado
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    if(filterValue == ""){
-      this.dataSource = new MatTableDataSource(this.listarLibrosMayor);
-    }else{
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-      this.dataSource.filterPredicate = (data: LibroMayor, filter: string) => {
-        const accumulator = (currentTerm, key) => {
-          return this.nestedFilterCheck(currentTerm, data, key);
-        };
-        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-        const transformedFilter = filter.trim().toLowerCase();
-        return dataStr.indexOf(transformedFilter) !== -1 ;
-      }
+  public applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  if(filterValue == ""){
+    this.dataSource = new MatTableDataSource(this.listarLibrosMayor);
+  }else{
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data: LibroMayor, filter: string) => {
+      const accumulator = (currentTerm, key) => {
+        return this.nestedFilterCheck(currentTerm, data, key);
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1 ;
     }
+  }
   }
 
   nestedFilterCheck(search, data, key) {
