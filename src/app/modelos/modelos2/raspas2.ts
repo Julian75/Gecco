@@ -1,4 +1,4 @@
-export class Raspas {
+export class Raspas2 {
   public id: number=0;
   public fecVenta: Date = new Date();
   public estado: number=0;

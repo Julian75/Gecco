@@ -1,0 +1,293 @@
+.solpiner{
+  background-color: rgba(90, 90, 90, 0.247);
+  width: 100%;
+  height: 100%;
+  z-index: 50px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+.loader {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #FFF transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-top: 22%;
+  margin-left: 50%;
+}
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #00235C #00235C;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 92px;
+  height: 92px;
+  border-color: #FFF #FFF transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.example-container {
+  max-width: 100%;
+  overflow: auto;
+  margin-top: 3%;
+  border-bottom: 20%;
+  box-shadow: 1px none #000;
+  margin-bottom: 3%;
+}
+table{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+}
+
+.btnVisualizar{
+  background-color: #97B4E2;
+  width: 10%;
+}
+.contenedor{
+  width: 90%; margin-left: 5%; margin-top: 3%;
+}
+
+.row1{
+  border-top: 3px solid #97B4E2;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+.nombre{
+  width: 250px;
+}
+.nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
+.nombre4{
+  margin-left: 37%;
+  margin-top: -9.8%;
+}
+.guardar{
+  background-color: #00235C;
+  color: white;
+  width: 60px;
+  height: 40px;
+  font-size: large;
+  margin-left: 61%;
+  position: relative;
+  top: -61px;
+}
+.excelButton{
+  position: absolute;
+  top: 42%;
+  left: 7%;
+}
+
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  .nombre{width: 237px; top: -16px;}
+  .nombre4{margin-left: 6%; margin-top: -10%;}
+  .guardar{top: -12px; margin-left: 74%;}
+  .excelButton{top: 63%; left: 14%;}
+  #valSp{margin-left: 29%;}
+  #estSp{margin-left: 28%;}
+}
+
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  .nombre{width: 237px; top: -16px;}
+  .nombre4{margin-left: 6%; margin-top: -10%;}
+  .guardar{top: -12px; margin-left: 74%;}
+  .excelButton{margin-top: -4%; margin-left: 4%; position: static; margin-bottom: -78px;}
+  #valSp{margin-left: 29%;}
+  #estSp{margin-left: 28%;}
+}
+
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -22%;}
+  .guardar{top: -13px; margin-left: 82%;}
+}
+
+/* Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 700px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -21%;}
+  .guardar{top: -13px; margin-left: 82%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -9%;}
+}
+
+/* Tablet 2 */
+@media screen and (min-width: 701px) and (max-width: 768px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -17%;}
+  .guardar{top: -13px; margin-left: 81%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -9%;}
+}
+
+/* Tablet 3*/
+@media screen and (min-width: 769px) and (max-width: 800px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -17%;}
+  .guardar{top: -13px; margin-left: 80%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -7%;}
+}
+
+/* Portatil 2 */
+@media screen and (min-width: 801px) and (max-width: 960px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -16%;}
+  .guardar{top: -13px; margin-left: 80%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -7%;}
+}
+
+/* Tablet 4,  Compu. Mesa 1, compu.Mesa 2, */
+@media screen and (min-width: 961px) and (max-width: 1024px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -15%;}
+  .guardar{top: -13px; margin-left: 78%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -7%;}
+}
+
+/* Tablet 5 */
+@media screen and (min-width: 1025px) and (max-width: 1080px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -14%;}
+  .guardar{top: -13px; margin-left: 77%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -6%;}
+}
+
+/* Tablet 6 */
+@media screen and (min-width: 1081px) and (max-width: 1200px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -13%;}
+  .guardar{top: -13px; margin-left: 74%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -5%;}
+}
+
+/* Tablet  7,  portatil 3, Compu. Mesa 3 y 4, Televisor 1*/
+@media screen and (min-width: 1201px) and (max-width: 1280px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -12%;}
+  .guardar{top: -13px; margin-left: 74%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -5%;}
+}
+
+/* Compu. Mesa 5*/
+@media screen and (min-width: 1281px) and (max-width: 1400px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -11%;}
+  .guardar{top: -13px; margin-left: 71%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -5%;}
+}
+
+/* Tablet 8 */
+@media screen and (min-width: 1401px) and (max-width: 1536px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -10%;}
+  .guardar{top: -13px; margin-left: 70%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -5%;}
+}
+
+/*Portatil 4, Compu. Mesa 7, Televisor 2*/
+@media screen and (min-width: 1851px) and (max-width: 1920px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -8%;}
+  .guardar{top: -13px; margin-left: 67%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -3%;}
+}
+
+/*Tablet 9*/
+@media screen and (min-width: 1921px) and (max-width: 2048px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -7.5%;}
+  .guardar{top: -13px; margin-left: 66%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -3%;}
+}
+
+/*Tablet 10*/
+@media screen and (min-width: 2049px) and (max-width: 2160px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -7.3%;}
+  .guardar{top: -13px; margin-left: 65%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -3%;}
+}
+
+/*Tablet 11 y 12, Portatil 5*/
+@media screen and (min-width: 2161px) and (max-width: 2560px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -6.1%;}
+  .guardar{top: -13px; margin-left: 63%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -3%;}
+}
+
+/*Tablet 13*/
+@media screen and (min-width: 2561px) and (max-width: 2736px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -6.1%;}
+  .guardar{top: -13px; margin-left: 63%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -3%;}
+}
+
+/*Tablet 14*/
+@media screen and (min-width: 2737px) and (max-width: 3000px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -5.1%;}
+  .guardar{top: -13px; margin-left: 63%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -2%;}
+}
+
+/*Portatil 6, Televisor 3*/
+@media screen and (min-width: 3001px) and (max-width: 3840px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -4.1%;}
+  .guardar{top: -13px; margin-left: 60%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -2%;}
+}
+
+/*Televisor 4*/
+@media screen and (min-width: 3841px) and (max-width: 4096px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -4.1%;}
+  .guardar{top: -13px; margin-left: 60%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -2%;}
+}
+
+/*Portatil 7, Televisor 5*/
+@media screen and (min-width: 4097px) and (max-width: 7680px){
+  .nombre{top: -15px; width: 213;}
+  .nombre4{margin-left: 54%; margin-top: -2.1%;}
+  .guardar{top: -13px; margin-left: 60%;}
+  .excelButton{ position: static; margin-top: 0%; margin-left: 4%; margin-bottom: -2%;}
+}

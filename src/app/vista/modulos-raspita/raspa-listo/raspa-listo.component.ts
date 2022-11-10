@@ -27,6 +27,7 @@ export class RaspaListoComponent implements OnInit {
   public lista2: any = [];
   public lista3: any = [];
   public listaReporteGecco: any = [];
+  public fechaActual: Date = new Date();
 
   public fecha: Date = new Date();
   color = ('primary');
@@ -99,6 +100,7 @@ export class RaspaListoComponent implements OnInit {
                       raspita.nombres = element.nombres
                       raspita.apellido1 = element.apellido1
                       raspita.emision_raspa = element.emision_raspa
+                      raspita.fecha = this.fechaActual
                       const swalWithBootstrapButtons = Swal.mixin({
                         customClass: {
                           confirmButton: 'btn btn-success',
@@ -271,28 +273,67 @@ export class RaspaListoComponent implements OnInit {
 
   //Generar Reporte de los raspas que están en gecco
   public reporteGecco(){
-    this.servicioRaspaGecco.listarTodos().subscribe(resRaspaGecco=>{
-      resRaspaGecco.forEach(element => {
-        var obj = {
-          id: element.id,
-          raspa: element.raspa,
-          emisionRaspa: element.emision_raspa,
-          nombre: element.nombres + " " + element.apellido1,
-          fechaVenta: element.fecVenta,
-          fechaPago: element.fecPago,
-          ideOficina: element.ideOficina,
-          estado: element.estado
-        }
-        this.listaReporteGecco.push(obj)
-        this.generarReporteGecco(this.listaReporteGecco)
+    this.lista=[]
+    const fechaI = new Date(this.formRaspita.controls['fechaInicio'].value).toISOString().slice(0,10);
+    const fechaF = new Date(this.formRaspita.controls['fechaFinal'].value).toISOString().slice(0,10);
+    console.log(fechaI, fechaF)
+    if(fechaI == '1970-01-01' || fechaF == '1970-01-01'){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Las fechas no pueden estar vacias!',
+        showConfirmButton: false,
+        timer: 1500
       })
-    })
+      this.crearFormulario();
+    }else{
+      if(fechaI>fechaF){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'La fecha inicial no puede ser menor a la final!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }else{
+        document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+        this.servicioRaspaGeccoConsulta.listarRaspasGecco(fechaI, fechaF).subscribe(resRaspasGecco=>{
+          if(resRaspasGecco.length<=0){
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'No existen raspas visados en ese rango de fechas!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.crearFormulario();
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          }else{
+            resRaspasGecco.forEach(element => {
+              var obj = {
+                'Id': element.id,
+                'Fecha Visado': element.fecha,
+                'Raspa': element.raspa,
+                'Emision Raspa': element.emision_raspa,
+                'Nombre Asesor': element.nombres + " " + element.apellido1,
+                'Fecha Venta': element.fecVenta,
+                'Fecha Pago': element.fecPago,
+                'Ide Oficina': element.ideOficina,
+                'Estado': element.estado
+              }
+              this.listaReporteGecco.push(obj)
+            })
+            this.generarReporteGecco(this.listaReporteGecco)
+          }
+        })
+      }
+    }
   }
 
 
 
 
-  nameGecco = 'gecco.xlsx';
+  nameGecco = 'RaspasVisadosGecco.xlsx';
   public generarReporteGecco(lista:any){
     if(lista.length > 0){
       import("xlsx").then(xlsx => {
@@ -325,12 +366,13 @@ export class RaspaListoComponent implements OnInit {
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     let EXCEL_EXTENSION = '.xlsx';
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    FileSaver.saveAs(data, fileName);
     this.crearFormulario();
     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     this.servicioSigaRaspaGecco.eliminar().subscribe(resVacio=>{

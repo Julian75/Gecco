@@ -59,7 +59,7 @@ export class AgregarAsignarProcesoUsuarioComponent implements OnInit {
           this.formAsignacionProcesoUsuario.value.idTiposProcesos = data;
           this.serviceAsignacionProcesoUsuario.listarTodos().subscribe( data => {
             data.forEach((element: any) => {
-              if(element.idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario.id ){
+              if(element.idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario.id && element.idTiposProcesos.id == this.formAsignacionProcesoUsuario.value.idTiposProcesos.id){
                 this.iguales = true;
               }else{
                 this.iguales = false;

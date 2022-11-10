@@ -112,6 +112,7 @@ import { AgregarLibroMayorComponent } from './modulos-presupuesto-contabilidad/l
 import { PorcentajePresupuestoComponent } from './modulos-presupuesto-contabilidad/porcentaje-presupuesto/porcentaje-presupuesto.component';
 import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
 import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/consolidado-grafica/consolidado-grafica.component';
+import { ColillaTerceroLoteriaComponent } from './modulos-raspita/colilla-tercero-loteria/colilla-tercero-loteria.component';
 
 const routes: Routes = [
   {
@@ -379,10 +380,16 @@ const routes: Routes = [
         component: ListaCotizacionesComponent,
         canActivate: [AutorizacionGuard]
       },
-      // Raspita
+      // Modulo Premios
       {
         path: 'raspalisto',
         component: RaspaListoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      // Raspita
+      {
+        path: 'colillaTerceroLoteria',
+        component: ColillaTerceroLoteriaComponent,
         canActivate: [AutorizacionGuard]
       },
       // Modulos de recepcion de datos

@@ -87,7 +87,7 @@ export class ModificarAsignarProcesoUsuarioComponent implements OnInit {
                   this.listadoProcesoUsuario = data;
                   let contador = 0;
                   for(let i = 0; i < this.listadoProcesoUsuario.length; i++){
-                    if(this.listadoProcesoUsuario[i].idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario ){
+                    if(this.listadoProcesoUsuario[i].idUsuario.id == this.formAsignacionProcesoUsuario.value.idUsuario && this.listadoProcesoUsuario[i].idTiposProcesos.id == this.formAsignacionProcesoUsuario.value.idTiposProcesos){
                       contador++;
                     }
                   }

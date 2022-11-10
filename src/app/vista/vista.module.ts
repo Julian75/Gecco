@@ -216,6 +216,7 @@ import { AgregarPorcentajePresupuestoContabilidadComponent } from './modulos-pre
 import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/analisis-detallado-contable.component';
 import { CuentasFaltantesPorcentajeComponent } from './modulos-presupuesto-contabilidad/analisis-detallado-contable/cuentas-faltantes-porcentaje/cuentas-faltantes-porcentaje.component';
 import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/consolidado-grafica/consolidado-grafica.component';
+import { ColillaTerceroLoteriaComponent } from './modulos-raspita/colilla-tercero-loteria/colilla-tercero-loteria.component';
 
 @NgModule({
   declarations: [
@@ -426,7 +427,8 @@ import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/
     AgregarPorcentajePresupuestoContabilidadComponent,
     AnalisisDetalladoContableComponent,
     CuentasFaltantesPorcentajeComponent,
-    ConsolidadoGraficaComponent
+    ConsolidadoGraficaComponent,
+    ColillaTerceroLoteriaComponent
   ],
   imports: [
     CommonModule,

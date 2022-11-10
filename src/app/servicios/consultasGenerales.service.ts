@@ -17,6 +17,7 @@ import { AsignarTurnoVendedor2 } from '../modelos/asignarTurnoVendedor2';
 import { HistorialSolicitudes2 } from '../modelos/modelos2/historialSolicitudes2';
 import { Cuentas2 } from '../modelos/modelos2/cuentas2';
 import { PorcentajePresupuesto2 } from '../modelos/modelos2/porcentajePresupuesto2';
+import { Raspas2 } from '../modelos/modelos2/raspas2';
 
 @Injectable({
   providedIn: 'root'
@@ -143,6 +144,12 @@ export class ConsultasGeneralesService {
   public listarCuentasPorJerarquia(idJerarquiaCuenta){
     return this.http.get<Cuentas2[]>(this.path+"/ObtenerCuentaJerarquia?idJerarquiaCuenta="+idJerarquiaCuenta);
   }
+
+  //Lista todos los raspas de gecco por rango de fecha
+  public listarRaspasGecco(fechaInicio, fechaFinal){
+    return this.http.get<Raspas2[]>(this.path+"/ObtenerRaspasGecco?fechaInicio="+fechaInicio+"&fechaFinal="+fechaFinal);
+  }
+
   // public listarGestionProceso(idUsuario: number){
   //   return this.http.get<DetalleSolicitud2[]>(this.path+"/ObtenerGestionProceso?idUsuario="+idUsuario);
   // }
