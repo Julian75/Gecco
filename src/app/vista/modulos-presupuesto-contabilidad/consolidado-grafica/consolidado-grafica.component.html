@@ -7,4 +7,111 @@
     </mat-datepicker>
   </mat-form-field>
   <button class="btn boton" (click)="consolidadoGuardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de consolidado"><i class="fa-solid fa-file-excel"></i></button>
+  <section class="example-container mat-elevation-z8" tabindex="0" *ngIf="tablaMostrar == true">
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">VENTAS BRUTAS</th>
+          <th scope="col">2020</th>
+          <th scope="col">2021</th>
+          <th scope="col">2022</th>
+          <th scope="col">Variación 21/22</th>
+          <th scope="col">%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of listChance">
+          <th scope="row">CHANCE</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listVentasRaspa">
+          <th scope="row">VENTAS DE RASPAS</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listLineaNegocios">
+          <th scope="row">LINEA DE NEGOCIOS</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of ventasNetas">
+          <th scope="row">VENTAS NETAS</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listCostoVentas">
+          <th scope="row">(-) COSTO DE VENTA</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of utilidadBruta">
+          <th scope="row">UTILIDAD BRUTA</th>
+          <td>{{element.libroMayorAnteriorDos}}</td>
+          <td>{{element.libroMayorAnteriorUno}}</td>
+          <td>{{element.libroMayor}}</td>
+          <td>{{element.libroMayor - element.libroMayorAnteriorUno}}</td>
+          <td>{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listGastoAdmin">
+          <th scope="row">GASTOS DE ADMINISTRACIÓN</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listGastoVenta">
+          <th scope="row">GASTOS DE VENTAS</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listGastoFinanciero">
+          <th scope="row">GASTOS FINANCIEROS</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of utilidadOperativa">
+          <th scope="row">UTILIDAD OPERATIVA</th>
+          <td>{{element.libroMayorAnteriorDos}}</td>
+          <td>{{element.libroMayorAnteriorUno}}</td>
+          <td>{{element.libroMayor}}</td>
+          <td>{{element.libroMayor - element.libroMayorAnteriorUno}}</td>
+          <td>{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+        </tr>
+        <tr *ngFor="let element of listIngresoNoOPeracionales">
+          <th scope="row">INGRESOS NO OPERACIONALES</th>
+          <td>{{element.libroMayorAnteriorDos.valor}}</td>
+          <td>{{element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{element.libroMayor.valor}}</td>
+          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
+          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
 </div>

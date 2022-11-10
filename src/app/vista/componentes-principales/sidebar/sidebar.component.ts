@@ -49,7 +49,7 @@ export class SidebarComponent implements OnInit {
             document.getElementById('Malla')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 16 || this.listaAccessForm[i] == 17 || this.listaAccessForm[i] == 18){
             document.getElementById('Visita')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 28){
+          }else if(this.listaAccessForm[i] == 28 || this.listaAccessForm[i] == 86){
             document.getElementById('Raspa')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]== 32 || this.listaAccessForm[i]== 33 || this.listaAccessForm[i] == 58 ){
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
@@ -276,6 +276,9 @@ export class SidebarComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 85) {
             document.getElementById('85')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 86) {
+            document.getElementById('86')?.setAttribute('style', 'display: block;')
           }
         }
       })

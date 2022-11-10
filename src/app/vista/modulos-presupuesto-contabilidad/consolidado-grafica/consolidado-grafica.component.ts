@@ -1,3 +1,5 @@
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
@@ -11,6 +13,8 @@ import * as fs from 'file-saver'
 import { Workbook, Worksheet } from 'exceljs'
 import { data } from 'jquery';
 import { style } from '@angular/animations';
+import Swal from 'sweetalert2';
+import { MatTableDataSource } from '@angular/material/table';
 
 export const MY_FORMATS = {
   parse: {
@@ -45,8 +49,35 @@ export class ConsolidadoGraficaComponent implements OnInit {
   @ViewChild('picker', { static: false })
   private picker!: MatDatepicker<Date>;
 
+  //Tabla
+  displayedColumns = ['id', 'descripcion'];
+  dataSource!:MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  tablaMostrar: boolean = false;
+
+  //Listas de cada cuenta del excel
+  listChance: any = []
+  listVentasRaspa: any = []
+  listLineaNegocios: any = []
+  listCostoVentas: any = []
+  listGastoAdmin: any = []
+  listGastoVenta: any = []
+  listGastoFinanciero: any = []
+  listIngresoNoOPeracionales: any = []
+  listEgresosNoOperacionales: any = []
+  listProvisionImpuestoRenta: any = []
+  //Variables operaciones
+  ventasNetas: any = [];
+  utilidadBruta: any = [];
+  sumaGastos: any = [];
+  utilidadOperativa: any = [];
+  utilidadAntesImpuesto: any = [];
+
   //Excel
   private _workbook!: Workbook
+
+  public listaMeses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
   constructor(
     private servicioLibroMayor: LibroMayorService,
@@ -70,6 +101,23 @@ export class ConsolidadoGraficaComponent implements OnInit {
   objetoModificar: any = []
   obj2: any = []
   consolidadoGuardar(){
+    this.listChance = []
+    this.listVentasRaspa = []
+    this.listLineaNegocios = []
+    this.listCostoVentas = []
+    this.listGastoAdmin = []
+    this.listGastoVenta = []
+    this.listGastoFinanciero = []
+    this.listIngresoNoOPeracionales = []
+    this.listEgresosNoOperacionales = []
+    this.listProvisionImpuestoRenta = []
+    this.ventasNetas = []
+    this.utilidadBruta = []
+    this.utilidadOperativa = [];
+    this.utilidadAntesImpuesto = [];
+    this.sumaGastos = []
+
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.listaClases = []
     var listaPosiciones = []
     this.servicioConsultasGenerales.listarLibrosMayorAño(this.selectYear.getFullYear()).subscribe(resLibrosMayorAño=>{ // Libro Mayor Actual
@@ -83,106 +131,256 @@ export class ConsolidadoGraficaComponent implements OnInit {
             libroMayorAnteriorUno: {},
           }
           var mesActual = new Date(elementLibroMayorAño.fecha).toISOString().slice(0,10)
+          var mesAlerta = ""
           var fechaSplit = mesActual.split('-')
           var fechaAnteriorDos = (this.selectYear.getFullYear()-2)+'-'+(fechaSplit[1])+'-01'
           var fechaAnteriorUno = (this.selectYear.getFullYear()-1)+'-'+(fechaSplit[1])+'-01'
           this.servicioLibroMayor.listarPorId(elementLibroMayorAño.id).subscribe(resLibroMayorId=>{
-            if(resLibroMayorId.idCuenta.codigo == 41357001 || resLibroMayorId.idCuenta.codigo == 41357002 || resLibroMayorId.idCuenta.codigo == 415030 || resLibroMayorId.idCuenta.codigo == 6 || resLibroMayorId.idCuenta.codigo == 51 || resLibroMayorId.idCuenta.codigo == 52 || resLibroMayorId.idCuenta.codigo == 53 || resLibroMayorId.idCuenta.codigo == 5305 || resLibroMayorId.idCuenta.codigo == 42){
+            if(resLibroMayorId.idCuenta.codigo == 41357001 || resLibroMayorId.idCuenta.codigo == 41357002 || resLibroMayorId.idCuenta.codigo == 415030 || resLibroMayorId.idCuenta.codigo == 6 || resLibroMayorId.idCuenta.codigo == 51 || resLibroMayorId.idCuenta.codigo == 52 || resLibroMayorId.idCuenta.codigo == 53 || resLibroMayorId.idCuenta.codigo == 5305 || resLibroMayorId.idCuenta.codigo == 42 || resLibroMayorId.idCuenta.codigo == 54){
               this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorDos).subscribe(resLibroMayorAnteriorDos=>{
-                this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorUno).subscribe(resLibroMayorAnteriorUno=>{
-                  this.objetoModificar = []
-                  if(this.listaClases.length>0){
-                    this.listaExiste = []
-                    for (let index = 0; index < this.listaClases.length; index++) {
-                      const element = this.listaClases[index];
-                      if(element.cuenta.codigo == resLibroMayorId.idCuenta.id){
-                        this.existe = true
-                        this.idPosicionCuenta = index
-                        this.objetoModificar.push(element)
-                      }else{ this.existe = false }
-                      this.listaExiste.push(this.existe)
-                    }
-                    const existe = this.listaExiste.includes(true)
-                    if(existe == true){
-                      this.listaClases[this.idPosicionCuenta].libroMayor.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayor.valor)+Number(resLibroMayorId.valor)
-                      if(resLibroMayorAnteriorDos.length > 0){
-                        resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
-                          var objetoModificar2 = {
-                            cuenta: {},
-                            libroMayor: {},
-                            libroMayorAnteriorDos: {},
-                            libroMayorAnteriorUno: {},
-                          }
-                          this.objetoModificar.forEach(elementModificar => {
-                            var objetoVacio = Object.entries(elementModificar.libroMayorAnteriorDos).length === 0
-                            console.log(objetoVacio)
-                            if(objetoVacio == true){
-                              if(elementModificar.cuenta.id == elementLibroMayorAnteriorDos.idCuenta){
-                                objetoModificar2.cuenta = elementModificar.cuenta
-                                objetoModificar2.libroMayor = elementModificar.libroMayor
-                                objetoModificar2.libroMayorAnteriorDos = elementLibroMayorAnteriorDos
-                                objetoModificar2.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
-                                this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar2)
-                              }
-                            }else{
-                              if(elementModificar.cuenta.id == elementLibroMayorAnteriorDos.idCuenta){
-                                var sumaValores = Number(elementModificar.libroMayorAnteriorDos.valor) + Number(elementLibroMayorAnteriorDos.valor)
-                                elementModificar.libroMayorAnteriorDos.valor = sumaValores
-                                objetoModificar2.cuenta = elementModificar.cuenta
-                                objetoModificar2.libroMayor = elementModificar.libroMayor
-                                objetoModificar2.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
-                                objetoModificar2.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
-                                this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar2)
-                              }
-                            }
-                          })
-                        });
-                      }
-                      if(resLibroMayorAnteriorUno.length > 0){
-                        resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
-                          var objetoModificar3 = {
-                            cuenta: {},
-                            libroMayor: {},
-                            libroMayorAnteriorDos: {},
-                            libroMayorAnteriorUno: {},
-                          }
-                          this.objetoModificar.forEach(elementModificar => {
-                            var objetoVacio2 = Object.entries(elementModificar.libroMayorAnteriorUno).length === 0
-                            if(objetoVacio2 == true){
-                              if(elementModificar.cuenta.id == elementLibroMayorAnteriorUno.idCuenta){
-                                objetoModificar3.cuenta = elementModificar.cuenta
-                                objetoModificar3.libroMayor = elementModificar.libroMayor
-                                objetoModificar3.libroMayorAnteriorUno = elementLibroMayorAnteriorUno
-                                objetoModificar3.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
-                                this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar3)
-                              }
-                            }else{
-                              if(elementModificar.cuenta.id == elementLibroMayorAnteriorUno.idCuenta){
-                                var sumaValores = Number(elementModificar.libroMayorAnteriorUno.valor) + Number(elementLibroMayorAnteriorUno.valor)
-                                elementModificar.libroMayorAnteriorUno.valor = sumaValores
-                                objetoModificar3.cuenta = elementModificar.cuenta
-                                objetoModificar3.libroMayor = elementModificar.libroMayor
-                                objetoModificar3.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
-                                objetoModificar3.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
-                                this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar3)
-                              }
-                            }
-                          })
-                        });
-                      }
-                      i++
+                for (let i = 0; i < this.listaMeses.length; i++) {
+                  const element = this.listaMeses[i];
+                  if(Number(fechaSplit[1]) == i){
+                    mesAlerta = element
+                  }
+                }
+                // if(resLibroMayorAnteriorDos.length <= 0){
+                //   Swal.fire({
+                //     icon: 'error',
+                //     title: 'Falta el valor del libro mayor de la cuenta'+resLibroMayorId.idCuenta.codigo+'en el mes de '+mesAlerta+' del año '+(this.selectYear.getFullYear()-2)+'!',
+                //     showConfirmButton: false,
+                //     timer: 2500
+                //   });
+                //   document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                // }else{
+                  this.servicioConsultasGenerales.listarLibrosMayor(resLibroMayorId.idCuenta.id, fechaAnteriorUno).subscribe(resLibroMayorAnteriorUno=>{
+                    if(resLibroMayorAnteriorUno.length <= 0){
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Falta el valor del libro mayor de la cuenta'+resLibroMayorId.idCuenta.codigo+'en el mes de '+mesAlerta+' del año '+(this.selectYear.getFullYear()-1)+'!',
+                        showConfirmButton: false,
+                        timer: 2500
+                      });
+                      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                     }else{
-                      this.agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
-                      i++
+                      this.objetoModificar = []
+                      if(this.listaClases.length>0){
+                        this.listaExiste = []
+                        for (let index = 0; index < this.listaClases.length; index++) {
+                          const element = this.listaClases[index];
+                          if(element.cuenta.codigo == resLibroMayorId.idCuenta.codigo){
+                            this.existe = true
+                            this.idPosicionCuenta = index
+                            this.objetoModificar.push(element)
+                          }else{ this.existe = false }
+                          this.listaExiste.push(this.existe)
+                        }
+                        const existe = this.listaExiste.includes(true)
+                        if(existe == true){
+                          this.listaClases[this.idPosicionCuenta].libroMayor.valor = Number(this.listaClases[this.idPosicionCuenta].libroMayor.valor)+Number(resLibroMayorId.valor)
+                          if(resLibroMayorAnteriorDos.length > 0){
+                            resLibroMayorAnteriorDos.forEach(elementLibroMayorAnteriorDos => {
+                              var objetoModificar2 = {
+                                cuenta: {},
+                                libroMayor: {},
+                                libroMayorAnteriorDos: {},
+                                libroMayorAnteriorUno: {},
+                              }
+                              this.objetoModificar.forEach(elementModificar => {
+                                var objetoVacio = Object.entries(elementModificar.libroMayorAnteriorDos).length === 0
+                                console.log(objetoVacio)
+                                if(objetoVacio == true){
+                                  if(elementModificar.cuenta.id == elementLibroMayorAnteriorDos.idCuenta){
+                                    objetoModificar2.cuenta = elementModificar.cuenta
+                                    objetoModificar2.libroMayor = elementModificar.libroMayor
+                                    objetoModificar2.libroMayorAnteriorDos = elementLibroMayorAnteriorDos
+                                    objetoModificar2.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
+                                    this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar2)
+                                  }
+                                }else{
+                                  if(elementModificar.cuenta.id == elementLibroMayorAnteriorDos.idCuenta){
+                                    var sumaValores = Number(elementModificar.libroMayorAnteriorDos.valor) + Number(elementLibroMayorAnteriorDos.valor)
+                                    elementModificar.libroMayorAnteriorDos.valor = sumaValores
+                                    objetoModificar2.cuenta = elementModificar.cuenta
+                                    objetoModificar2.libroMayor = elementModificar.libroMayor
+                                    objetoModificar2.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
+                                    objetoModificar2.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
+                                    this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar2)
+                                  }
+                                }
+                              })
+                            });
+                          }
+                          if(resLibroMayorAnteriorUno.length > 0){
+                            resLibroMayorAnteriorUno.forEach(elementLibroMayorAnteriorUno => {
+                              var objetoModificar3 = {
+                                cuenta: {},
+                                libroMayor: {},
+                                libroMayorAnteriorDos: {},
+                                libroMayorAnteriorUno: {},
+                              }
+                              this.objetoModificar.forEach(elementModificar => {
+                                var objetoVacio2 = Object.entries(elementModificar.libroMayorAnteriorUno).length === 0
+                                if(objetoVacio2 == true){
+                                  if(elementModificar.cuenta.id == elementLibroMayorAnteriorUno.idCuenta){
+                                    objetoModificar3.cuenta = elementModificar.cuenta
+                                    objetoModificar3.libroMayor = elementModificar.libroMayor
+                                    objetoModificar3.libroMayorAnteriorUno = elementLibroMayorAnteriorUno
+                                    objetoModificar3.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
+                                    this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar3)
+                                  }
+                                }else{
+                                  if(elementModificar.cuenta.id == elementLibroMayorAnteriorUno.idCuenta){
+                                    var sumaValores = Number(elementModificar.libroMayorAnteriorUno.valor) + Number(elementLibroMayorAnteriorUno.valor)
+                                    elementModificar.libroMayorAnteriorUno.valor = sumaValores
+                                    objetoModificar3.cuenta = elementModificar.cuenta
+                                    objetoModificar3.libroMayor = elementModificar.libroMayor
+                                    objetoModificar3.libroMayorAnteriorDos = elementModificar.libroMayorAnteriorDos
+                                    objetoModificar3.libroMayorAnteriorUno = elementModificar.libroMayorAnteriorUno
+                                    this.listaClases.splice(this.idPosicionCuenta, 1, objetoModificar3)
+                                  }
+                                }
+                              })
+                            });
+                          }
+                          i++
+                        }else{
+                          this.agregarLibrosMayoresCuentas(obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
+                          i++
+                        }
+                      }else{
+                        this.agregarLibrosMayoresCuentas(obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
+                        i++
+                      }
+                      if(i == resLibrosMayorAño.length){
+                        for (let index = 0; index < this.listaClases.length; index++) {
+                          const element = this.listaClases[index];
+                          if(element.cuenta.codigo == 41357001){
+                            this.listChance.push(element)
+                          }else if(element.cuenta.codigo == 41357002){
+                            this.listVentasRaspa.push(element)
+                          }else if(element.cuenta.codigo == 415030){
+                            this.listLineaNegocios.push(element)
+                          }else if(element.cuenta.codigo == 6){
+                            this.listCostoVentas.push(element)
+                          }else if(element.cuenta.codigo == 51){
+                            this.listGastoAdmin.push(element)
+                          }else if(element.cuenta.codigo == 52){
+                            this.listGastoVenta.push(element)
+                          }else if(element.cuenta.codigo == 5305){
+                            this.listGastoFinanciero.push(element)
+                          }else if(element.cuenta.codigo == 42){
+                            this.listIngresoNoOPeracionales.push(element)
+                          }else if(element.cuenta.codigo == 53){
+                            this.listEgresosNoOperacionales.push(element)
+                          }else if(element.cuenta.codigo == 54){
+                            this.listProvisionImpuestoRenta.push(element)
+                          }
+                          if(element.cuenta.codigo == 41357001 || element.cuenta.codigo == 41357002 || element.cuenta.codigo == 415030){
+                            console.log(element)
+                            var objVentasNetas = {
+                              libroMayorAnteriorDos: {},
+                              libroMayorAnteriorUno: {},
+                              libroMayor: {}
+                            }
+                            if(this.ventasNetas.length <= 0){
+                              objVentasNetas.libroMayorAnteriorDos = element.libroMayorAnteriorDos
+                              objVentasNetas.libroMayorAnteriorUno = element.libroMayorAnteriorUno
+                              objVentasNetas.libroMayor = element.libroMayor
+                              console.log(objVentasNetas)
+                              this.ventasNetas.push(objVentasNetas)
+                            }else{
+                              var objetoVentasNetasMod = {
+                                libroMayorAnteriorDos: {},
+                                libroMayorAnteriorUno: {},
+                                libroMayor: {}
+                              }
+                              for (let index = 0; index < this.ventasNetas.length; index++) {
+                                const elementVentaNeta = this.ventasNetas[index];
+                                console.log(elementVentaNeta)
+                                var sumaValorLibMayDos = Number(elementVentaNeta.libroMayorAnteriorDos.valor) + Number(element.libroMayorAnteriorDos.valor)
+                                elementVentaNeta.libroMayorAnteriorDos.valor = sumaValorLibMayDos
+                                var sumaValoresLibMayUno = Number(elementVentaNeta.libroMayorAnteriorUno.valor) + Number(element.libroMayorAnteriorUno.valor)
+                                elementVentaNeta.libroMayorAnteriorUno.valor = sumaValoresLibMayUno
+                                var sumaValoresLibMay = Number(elementVentaNeta.libroMayor.valor) + Number(element.libroMayor.valor)
+                                elementVentaNeta.libroMayor.valor = sumaValoresLibMay
+                                objetoVentasNetasMod.libroMayorAnteriorDos = elementVentaNeta.libroMayorAnteriorDos
+                                objetoVentasNetasMod.libroMayorAnteriorUno = elementVentaNeta.libroMayorAnteriorUno
+                                objetoVentasNetasMod.libroMayor = elementVentaNeta.libroMayor
+                                this.ventasNetas.splice(index, 1, objetoVentasNetasMod)
+                              }
+                            }
+                          }
+                          if(element.cuenta.codigo == 51 || element.cuenta.codigo == 52 || element.cuenta.codigo == 5305){
+                            console.log(element)
+                            var objGastos = {
+                              libroMayorAnteriorDos: {},
+                              libroMayorAnteriorUno: {},
+                              libroMayor: {}
+                            }
+                            if(this.sumaGastos.length <= 0){
+                              objGastos.libroMayorAnteriorDos = element.libroMayorAnteriorDos
+                              objGastos.libroMayorAnteriorUno = element.libroMayorAnteriorUno
+                              objGastos.libroMayor = element.libroMayor
+                              console.log(objGastos)
+                              this.sumaGastos.push(objGastos)
+                            }else{
+                              var objGastosMod = {
+                                libroMayorAnteriorDos: {},
+                                libroMayorAnteriorUno: {},
+                                libroMayor: {}
+                              }
+                              for (let index = 0; index < this.sumaGastos.length; index++) {
+                                const elementGasto = this.sumaGastos[index];
+                                console.log(elementGasto)
+                                var sumaValorLibMayDos = Number(elementGasto.libroMayorAnteriorDos.valor) + Number(element.libroMayorAnteriorDos.valor)
+                                elementGasto.libroMayorAnteriorDos.valor = sumaValorLibMayDos
+                                var sumaValoresLibMayUno = Number(elementGasto.libroMayorAnteriorUno.valor) + Number(element.libroMayorAnteriorUno.valor)
+                                elementGasto.libroMayorAnteriorUno.valor = sumaValoresLibMayUno
+                                var sumaValoresLibMay = Number(elementGasto.libroMayor.valor) + Number(element.libroMayor.valor)
+                                elementGasto.libroMayor.valor = sumaValoresLibMay
+                                objGastosMod.libroMayorAnteriorDos = elementGasto.libroMayorAnteriorDos
+                                objGastosMod.libroMayorAnteriorUno = elementGasto.libroMayorAnteriorUno
+                                objGastosMod.libroMayor = elementGasto.libroMayor
+                                this.sumaGastos.splice(index, 1, objGastosMod)
+                              }
+                            }
+                          }
+                          if((index+1) == this.listaClases.length){
+                            if(this.ventasNetas.length > 0 && this.listCostoVentas.length > 0){
+                              var objUtilidadBruta = {
+                                libroMayorAnteriorDos: 0,
+                                libroMayorAnteriorUno: 0,
+                                libroMayor: 0
+                              }
+                              objUtilidadBruta.libroMayorAnteriorDos = Number(this.ventasNetas[0].libroMayorAnteriorDos.valor)-Number(this.listCostoVentas[0].libroMayorAnteriorDos.valor)
+                              objUtilidadBruta.libroMayorAnteriorUno = Number(this.ventasNetas[0].libroMayorAnteriorUno.valor)-Number(this.listCostoVentas[0].libroMayorAnteriorUno.valor)
+                              objUtilidadBruta.libroMayor = Number(this.ventasNetas[0].libroMayor.valor)-Number(this.listCostoVentas[0].libroMayor.valor)
+                              this.utilidadBruta.push(objUtilidadBruta)
+                            }
+                            if(this.sumaGastos.length > 0 && this.utilidadBruta.length > 0){
+                              var objUtilidadOperativa = {
+                                libroMayorAnteriorDos: 0,
+                                libroMayorAnteriorUno: 0,
+                                libroMayor: 0
+                              }
+                              objUtilidadOperativa.libroMayorAnteriorDos = Number(this.utilidadBruta[0].libroMayorAnteriorDos)-Number(this.sumaGastos[0].libroMayorAnteriorDos.valor)
+                              objUtilidadOperativa.libroMayorAnteriorUno = Number(this.utilidadBruta[0].libroMayorAnteriorUno)-Number(this.sumaGastos[0].libroMayorAnteriorUno.valor)
+                              objUtilidadOperativa.libroMayor = Number(this.utilidadBruta[0].libroMayor)-Number(this.sumaGastos[0].libroMayor.valor)
+                              this.utilidadOperativa.push(objUtilidadOperativa)
+                            }
+                            console.log(this.ventasNetas)
+                            this.tablaMostrar = true
+                            console.log(this.listChance, this.listVentasRaspa, this.listLineaNegocios)
+                            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                          }
+                        }
+
+                        // this.descargarExcel(this.listaClases)
+                      }
                     }
-                  }else{
-                    this.agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno)
-                    i++
-                  }
-                  if(i == resLibrosMayorAño.length){
-                    this.descargarExcel(this.listaClases, resCuentasJerarquia)
-                  }
-                })
+                  })
+                // }
               })
             }else{
               i++
@@ -193,7 +391,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
     })
   }
 
-  agregarLibrosMayoresCuentas(resCuentasJerarquia, obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno){
+  agregarLibrosMayoresCuentas(obj, resLibroMayorId, resLibroMayorAnteriorDos, resLibroMayorAnteriorUno){
     obj.cuenta = resLibroMayorId.idCuenta
     obj.libroMayor = resLibroMayorId
     if(resLibroMayorAnteriorDos.length > 0){
@@ -209,20 +407,21 @@ export class ConsolidadoGraficaComponent implements OnInit {
     this.listaClases.push(obj)
   }
 
-  private descargarExcel(listaClases: any, cantidadClases: any){
+  private descargarExcel(listaClases: any){
     this._workbook = new Workbook()
     this._workbook.creator = 'DigiDev';
 
-    this.crearHoja(listaClases, cantidadClases);
+    this.crearHoja(listaClases);
 
     this._workbook.xlsx.writeBuffer().then((data)=>{
       const blob = new Blob([data])
       fs.saveAs(blob, 'consolidado.xlsx');
     })
+    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
   }
 
   listaDatosNecesarios: any = [];
-  private crearHoja(listaClases: any, cantidadClases){
+  private crearHoja(listaClases: any){
     const hoja = this._workbook.addWorksheet('consolidado')
 
     //Estable el ancho de cada columna
@@ -287,250 +486,116 @@ export class ConsolidadoGraficaComponent implements OnInit {
     }))
 
     // Insertamos el libro mayor
-    //Sumas de los tres primeros para la venta neta
-    var ventasNetasDosAnteriores = 0
-    var ventasNetasUnoAnteriores = 0
-    var ventasNetasActual = 0
-    var ventasNetasVariacion = 0
-    //Valor total de utilidad bruta
-    var utilidadBrutaDosAnteriores = 0
-    var utilidadBrutaUnoAnteriores = 0
-    var utilidadBrutaActual = 0
-    //Suma de los valores necesarios para restarlo en la utilidad operativa
-    var sumaOperativaDosAnteriores = 0
-    var sumaOperativaUnoAnteriores = 0
-    var sumaOperativaActual = 0
-    //Valor total de utilidad operativa
-    var utilidadOperativaDosAnteriores = 0
-    var utilidadOperativaUnoAnteriores = 0
-    var utilidadOperativaActual = 0
-    //Valores del codigo 53
-    var egresosNoOperacionalesUno1 = 0
-    var egresosNoOperacionalesUno2 = 0
-    var egresosNoOperacionalesUno3 = 0
-    //Valores del codigo 5305
-    var egresosNoOperacionalesDos1 = 0
-    var egresosNoOperacionalesDos2 = 0
-    var egresosNoOperacionalesDos3 = 0
-    //Total de egresos no operacionales
-    var egresosNoOperacionalesTotalDosAnteriores = 0
-    var egresosNoOperacionalesTotalUnoAnteriores = 0
-    var egresosNoOperacionalesTotalActual = 0
-    //Valor de los ingresos no operacionales
-    var ingresosNoOperacionalesDosAnteriores = 0
-    var ingresosNoOperacionalesUnoAnteriores = 0
-    var ingresosNoOperacionalesActual = 0
-    //Total de utilidad antes de impuestos
-    var utilidadAntesImpuestosDosAnteriores = 0
-    var utilidadAntesImpuestosUnoAnteriores = 0
-    var utilidadAntesImpuestosActual = 0
-    for (let index = 0; index < listaClases.length; index++) {
-      const listaFilas = listaClases[index]
-      console.log(listaFilas)
-      const CHANCE = hoja.getRow(9)
-      const VENTASRASPA = hoja.getRow(10)
-      const LINEANEGOCIOS = hoja.getRow(11)
-      const VENTASNETAS = hoja.getRow(12)
-      const COSTOSVENTA = hoja.getRow(13)
-      const UTILIDADBRUTA = hoja.getRow(14)
-      const GASTOSADMINISTRACION = hoja.getRow(16)
-      const GASTOSVENTAS = hoja.getRow(17)
-      const GASTOSFINANCIEROS = hoja.getRow(18)
-      const UTILIDADOPERATIVA = hoja.getRow(19)
-      const INGRESOSNOOPERACIONALES = hoja.getRow(21)
-      const EGRESOSNOOPERACIONALES = hoja.getRow(22)
-      const UTILIDADANTESIMPUESTOS = hoja.getRow(23)
 
-      //Primera Tabla
-      if(listaFilas.libroMayor.idCuenta.codigo == 41357001){
-        ventasNetasDosAnteriores = Number(ventasNetasDosAnteriores)+Number(listaFilas.libroMayorAnteriorDos.valor)
-        ventasNetasUnoAnteriores = Number(ventasNetasUnoAnteriores)+Number(listaFilas.libroMayorAnteriorUno.valor)
-        ventasNetasActual = Number(ventasNetasActual)+Number(listaFilas.libroMayor.valor)
-        ventasNetasVariacion = Number(ventasNetasVariacion)+(Number(listaFilas.libroMayor.valor)-Number(listaFilas.libroMayorAnteriorUno.valor))
-        CHANCE.values = [
-          '',
-          'CHANCE',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          Number(listaFilas.libroMayor.valor)-Number(listaFilas.libroMayorAnteriorUno.valor),
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      if(listaFilas.libroMayor.idCuenta.codigo == 41357002){
-        ventasNetasDosAnteriores = Number(ventasNetasDosAnteriores)+Number(listaFilas.libroMayorAnteriorDos.valor)
-        ventasNetasUnoAnteriores = Number(ventasNetasUnoAnteriores)+Number(listaFilas.libroMayorAnteriorUno.valor)
-        ventasNetasActual = Number(ventasNetasActual)+Number(listaFilas.libroMayor.valor)
-        ventasNetasVariacion = Number(ventasNetasVariacion)+(Number(listaFilas.libroMayor.valor)-Number(listaFilas.libroMayorAnteriorUno.valor))
-        VENTASRASPA.values = [
-          '',
-          'VENTAS RASPA',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      if(listaFilas.libroMayor.idCuenta.codigo == 415030){
-        ventasNetasDosAnteriores = Number(ventasNetasDosAnteriores)+Number(listaFilas.libroMayorAnteriorDos.valor)
-        ventasNetasUnoAnteriores = Number(ventasNetasUnoAnteriores)+Number(listaFilas.libroMayorAnteriorUno.valor)
-        ventasNetasActual = Number(ventasNetasActual)+Number(listaFilas.libroMayor.valor)
-        ventasNetasVariacion = Number(ventasNetasVariacion)+(Number(listaFilas.libroMayor.valor)-Number(listaFilas.libroMayorAnteriorUno.valor))
-        LINEANEGOCIOS.values = [
-          '',
-          'LINEA DE NEGOCIOS',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      VENTASNETAS.values = [
-        '',
-        'VENTAS NETAS',
-        ventasNetasDosAnteriores,
-        ventasNetasUnoAnteriores,
-        ventasNetasActual,
-        ventasNetasVariacion,
-        (((ventasNetasActual-ventasNetasUnoAnteriores)/ventasNetasActual)*100).toFixed(2)+'%',
-      ]
-      if(listaFilas.libroMayor.idCuenta.codigo == 6){
-        COSTOSVENTA.values = [
-          '',
-          '(-) COSTO DE VENTA',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-        utilidadBrutaDosAnteriores = ventasNetasDosAnteriores-listaFilas.libroMayorAnteriorDos.valor
-        utilidadBrutaUnoAnteriores = ventasNetasUnoAnteriores-listaFilas.libroMayorAnteriorUno.valor
-        utilidadBrutaActual = ventasNetasActual-listaFilas.libroMayor.valor
-        UTILIDADBRUTA.values = [
-          '',
-          'UTILIDAD BRUTA',
-          ventasNetasDosAnteriores-listaFilas.libroMayorAnteriorDos.valor,
-          ventasNetasUnoAnteriores-listaFilas.libroMayorAnteriorUno.valor,
-          ventasNetasActual-listaFilas.libroMayor.valor,
-          ventasNetasVariacion-(listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor),
-          ((((ventasNetasActual-listaFilas.libroMayor.valor)-(ventasNetasUnoAnteriores-listaFilas.libroMayorAnteriorUno.valor))/(ventasNetasActual-listaFilas.libroMayor.valor))*100).toFixed(2)+'%',
-        ]
-      }
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
 
-      //Tabla Dos
-      if(listaFilas.libroMayor.idCuenta.codigo == 51){
-        sumaOperativaDosAnteriores = sumaOperativaDosAnteriores+Number(listaFilas.libroMayorAnteriorDos.valor)
-        sumaOperativaUnoAnteriores = sumaOperativaUnoAnteriores+Number(listaFilas.libroMayorAnteriorUno.valor)
-        sumaOperativaActual = sumaOperativaActual+Number(listaFilas.libroMayor.valor)
-        GASTOSADMINISTRACION.values = [
-          '',
-          'GASTOS DE ADMINISTRACION',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      if(listaFilas.libroMayor.idCuenta.codigo == 52){
-        sumaOperativaDosAnteriores = sumaOperativaDosAnteriores+Number(listaFilas.libroMayorAnteriorDos.valor)
-        sumaOperativaUnoAnteriores = sumaOperativaUnoAnteriores+Number(listaFilas.libroMayorAnteriorUno.valor)
-        sumaOperativaActual = sumaOperativaActual+Number(listaFilas.libroMayor.valor)
-        GASTOSVENTAS.values = [
-          '',
-          'GASTOS DE VENTAS',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      if(listaFilas.libroMayor.idCuenta.codigo == 5305){
-        sumaOperativaDosAnteriores = sumaOperativaDosAnteriores+Number(listaFilas.libroMayorAnteriorDos.valor)
-        sumaOperativaUnoAnteriores = sumaOperativaUnoAnteriores+Number(listaFilas.libroMayorAnteriorUno.valor)
-        sumaOperativaActual = sumaOperativaActual+Number(listaFilas.libroMayor.valor)
+    hoja.getRow(9).values = [
+      '',
+      'CHANCE',
+      formatterPeso.format(this.listChance[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listChance[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listChance[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listChance[0].libroMayor.valor)-Number(this.listChance[0].libroMayorAnteriorUno.valor)),
+      (((this.listChance[0].libroMayor.valor-this.listChance[0].libroMayorAnteriorUno.valor)/this.listChance[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
 
-        egresosNoOperacionalesDos1 = listaFilas.libroMayorAnteriorDos.valor
-        egresosNoOperacionalesDos2 = listaFilas.libroMayorAnteriorUno.valor
-        egresosNoOperacionalesDos3 = listaFilas.libroMayor.valor
-        GASTOSFINANCIEROS.values = [
-          '',
-          'GASTOS FINANCIEROS',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      utilidadOperativaDosAnteriores = utilidadBrutaDosAnteriores-sumaOperativaDosAnteriores
-      utilidadOperativaUnoAnteriores = utilidadBrutaUnoAnteriores-sumaOperativaUnoAnteriores
-      utilidadOperativaActual = utilidadBrutaActual-sumaOperativaActual
-      UTILIDADOPERATIVA.values = [
-        '',
-        'UTILIDAD OPERATIVA',
-        utilidadOperativaDosAnteriores,
-        utilidadOperativaUnoAnteriores,
-        utilidadOperativaActual,
-        utilidadOperativaActual-utilidadOperativaUnoAnteriores,
-        (((utilidadOperativaActual-utilidadOperativaUnoAnteriores)/utilidadOperativaActual)*100).toFixed(2)+'%',
-      ]
+    hoja.getRow(10).values = [
+      '',
+      'VENTAS DE RASPAS',
+      formatterPeso.format(this.listVentasRaspa[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listVentasRaspa[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listVentasRaspa[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listVentasRaspa[0].libroMayor.valor)-Number(this.listVentasRaspa[0].libroMayorAnteriorUno.valor)),
+      (((this.listVentasRaspa[0].libroMayor.valor-this.listVentasRaspa[0].libroMayorAnteriorUno.valor)/this.listVentasRaspa[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
 
-      //Tabla tres
-      if(listaFilas.libroMayor.idCuenta.codigo == 42){
+    hoja.getRow(11).values = [
+      '',
+      'LINEA DE NEGOCIOS',
+      formatterPeso.format(this.listLineaNegocios[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listLineaNegocios[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listLineaNegocios[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listLineaNegocios[0].libroMayor.valor)-Number(this.listLineaNegocios[0].libroMayorAnteriorUno.valor)),
+      (((this.listLineaNegocios[0].libroMayor.valor-this.listLineaNegocios[0].libroMayorAnteriorUno.valor)/this.listLineaNegocios[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
 
-        ingresosNoOperacionalesDosAnteriores = listaFilas.libroMayorAnteriorDos.valor
-        ingresosNoOperacionalesUnoAnteriores = listaFilas.libroMayorAnteriorUno.valor
-        ingresosNoOperacionalesActual = listaFilas.libroMayor.valor
+    hoja.getRow(12).values = [
+      '',
+      'VENTAS NETAS',
+      formatterPeso.format(this.ventasNetas[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.ventasNetas[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.ventasNetas[0].libroMayor.valor),
+      formatterPeso.format(Number(this.ventasNetas[0].libroMayor.valor)-Number(this.ventasNetas[0].libroMayorAnteriorUno.valor)),
+      (((this.ventasNetas[0].libroMayor.valor-this.ventasNetas[0].libroMayorAnteriorUno.valor)/this.ventasNetas[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
 
-        INGRESOSNOOPERACIONALES.values = [
-          '',
-          'INGRESOS NO OPERACIONALES',
-          listaFilas.libroMayorAnteriorDos.valor,
-          listaFilas.libroMayorAnteriorUno.valor,
-          listaFilas.libroMayor.valor,
-          listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor,
-          (((listaFilas.libroMayor.valor-listaFilas.libroMayorAnteriorUno.valor)/listaFilas.libroMayor.valor)*100).toFixed(2)+'%',
-        ]
-      }
-      if(listaFilas.libroMayor.idCuenta.codigo == 53){
-        egresosNoOperacionalesUno1 = listaFilas.libroMayorAnteriorDos.valor
-        egresosNoOperacionalesUno2 = listaFilas.libroMayorAnteriorUno.valor
-        egresosNoOperacionalesUno3 = listaFilas.libroMayor.valor
-      }
-      egresosNoOperacionalesTotalDosAnteriores = egresosNoOperacionalesUno1-egresosNoOperacionalesDos1
-      egresosNoOperacionalesTotalUnoAnteriores = egresosNoOperacionalesUno2-egresosNoOperacionalesDos2
-      egresosNoOperacionalesTotalActual = egresosNoOperacionalesUno3-egresosNoOperacionalesDos3
-      EGRESOSNOOPERACIONALES.values = [
-        '',
-        'EGRESOS NO OPERACIONALES',
-        egresosNoOperacionalesTotalDosAnteriores,
-        egresosNoOperacionalesTotalUnoAnteriores,
-        egresosNoOperacionalesTotalActual,
-        egresosNoOperacionalesTotalActual-egresosNoOperacionalesTotalUnoAnteriores,
-        (((egresosNoOperacionalesTotalActual-egresosNoOperacionalesTotalUnoAnteriores)/egresosNoOperacionalesTotalActual)*100).toFixed(2)+'%',
-      ]
-      utilidadAntesImpuestosDosAnteriores = (Number(utilidadOperativaDosAnteriores)+Number(ingresosNoOperacionalesDosAnteriores))-Number(egresosNoOperacionalesTotalDosAnteriores)
-      utilidadAntesImpuestosUnoAnteriores = (Number(utilidadOperativaUnoAnteriores)+Number(ingresosNoOperacionalesUnoAnteriores))-Number(egresosNoOperacionalesTotalUnoAnteriores)
-      utilidadAntesImpuestosActual = (Number(utilidadOperativaActual)+Number(ingresosNoOperacionalesActual))-Number(egresosNoOperacionalesTotalActual)
-      UTILIDADANTESIMPUESTOS.values = [
-        '',
-        'UTILIDAD ANTES DE IMPUESTOS',
-        utilidadAntesImpuestosDosAnteriores,
-        utilidadAntesImpuestosUnoAnteriores,
-        utilidadAntesImpuestosActual,
-        utilidadAntesImpuestosActual-utilidadAntesImpuestosUnoAnteriores,
-        (((utilidadAntesImpuestosActual-utilidadAntesImpuestosUnoAnteriores)/utilidadAntesImpuestosActual)*100).toFixed(2)+'%',
-      ]
-    }
+    hoja.getRow(13).values = [
+      '',
+      '(-) COSTO DE VENTA',
+      formatterPeso.format(this.listCostoVentas[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listCostoVentas[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listCostoVentas[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listCostoVentas[0].libroMayor.valor)-Number(this.listCostoVentas[0].libroMayorAnteriorUno.valor)),
+      (((this.listCostoVentas[0].libroMayor.valor-this.listCostoVentas[0].libroMayorAnteriorUno.valor)/this.listCostoVentas[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(14).values = [
+      '',
+      'UTILIDAD BRUTA',
+      formatterPeso.format(this.utilidadBruta[0].libroMayorAnteriorDos),
+      formatterPeso.format(this.utilidadBruta[0].libroMayorAnteriorUno),
+      formatterPeso.format(this.utilidadBruta[0].libroMayor),
+      formatterPeso.format(Number(this.utilidadBruta[0].libroMayor)-Number(this.utilidadBruta[0].libroMayorAnteriorUno)),
+      (((this.utilidadBruta[0].libroMayor-this.utilidadBruta[0].libroMayorAnteriorUno)/this.utilidadBruta[0].libroMayor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(16).values = [
+      '',
+      'GASTOS DE ADMINISTRACIÓN',
+      formatterPeso.format(this.listGastoAdmin[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listGastoAdmin[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listGastoAdmin[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listGastoAdmin[0].libroMayor.valor)-Number(this.listGastoAdmin[0].libroMayorAnteriorUno.valor)),
+      (((this.listGastoAdmin[0].libroMayor.valor-this.listGastoAdmin[0].libroMayorAnteriorUno.valor)/this.listGastoAdmin[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(17).values = [
+      '',
+      'GASTOS DE VENTAS',
+      formatterPeso.format(this.listGastoVenta[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listGastoVenta[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listGastoVenta[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listGastoVenta[0].libroMayor.valor)-Number(this.listGastoVenta[0].libroMayorAnteriorUno.valor)),
+      (((this.listGastoVenta[0].libroMayor.valor-this.listGastoVenta[0].libroMayorAnteriorUno.valor)/this.listGastoVenta[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(18).values = [
+      '',
+      'UTILIDAD OPERATIVA',
+      formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listGastoFinanciero[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listGastoFinanciero[0].libroMayor.valor)-Number(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)),
+      (((this.listGastoFinanciero[0].libroMayor.valor-this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)/this.listGastoFinanciero[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(19).values = [
+      '',
+      'GASTOS FINANCIEROS',
+      formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listGastoFinanciero[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listGastoFinanciero[0].libroMayor.valor)-Number(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)),
+      (((this.listGastoFinanciero[0].libroMayor.valor-this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)/this.listGastoFinanciero[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
 
     //Estilos completos para toda la tabla
     var listaCeldas = ['C', 'D', 'E', 'F', 'G']
-    for (let index = 0; index < 15; index++) {
+    for (let index = 0; index < 17; index++) {
       const hojaActual = hoja.getCell("B"+(index+9))
       const element = listaClases[index];
       listaCeldas.forEach(elementCelda => {
@@ -541,7 +606,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
             fill: {
               type: 'pattern' , //patron o bloque
               pattern: 'solid',
-              fgColor: { argb: 'B8CCE4' },
+              fgColor: { argb: 'B8CCE4' }, //Azul Oscuro
             },
             alignment: { horizontal: 'center', vertical: 'middle' },
           }
@@ -551,7 +616,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
             fill: {
               type: 'pattern' , //patron o bloque
               pattern: 'solid',
-              fgColor: { argb: 'F49BA0' },
+              fgColor: { argb: 'F49BA0' }, //Rojo
             },
             alignment: { horizontal: 'center', vertical: 'middle' },
           }
@@ -561,30 +626,30 @@ export class ConsolidadoGraficaComponent implements OnInit {
             fill: {
               type: 'pattern' , //patron o bloque
               pattern: 'solid',
-              fgColor: { argb: 'DCEFF6' },
+              fgColor: { argb: 'DCEFF6' }, //Azul claro
             },
             alignment: { horizontal: 'center', vertical: 'middle' },
           }
         }
       });
       //configurar estilos
-      if((index+9)!=14 || (index+9)!=19 || (index+9)!=23){
+      if((index+9)==14 || (index+9)==19  || (index+9)==23){
         hojaActual.style = {
           font: { size: 13, bold: true,  color: { argb: '242A30' } },
           fill: {
             type: 'pattern' , //patron o bloque
             pattern: 'solid',
-            fgColor: { argb: 'B8CCE4' },
+            fgColor: { argb: 'F49BA0' }, // Rojo
           },
           alignment: { horizontal: 'center', vertical: 'middle' },
         }
-      }else if((index+9)==15 || (index+9)==20 || (index+9)==24){
+      }else if((index+9) == 15 || (index+9) == 20){
         hojaActual.style = {
           font: { size: 13, bold: true,  color: { argb: 'FFFFFF' } },
           fill: {
             type: 'pattern' , //patron o bloque
             pattern: 'solid',
-            fgColor: { argb: 'FFFFFF' },
+            fgColor: { argb: 'FFFFFF' }, //Blanco
           },
           alignment: { horizontal: 'center', vertical: 'middle' },
         }
@@ -594,13 +659,13 @@ export class ConsolidadoGraficaComponent implements OnInit {
           fill: {
             type: 'pattern' , //patron o bloque
             pattern: 'solid',
-            fgColor: { argb: 'F49BA0' },
+            fgColor: { argb: 'B8CCE4' }, //Azul Oscuro
           },
           alignment: { horizontal: 'center', vertical: 'middle' },
         }
       }
       hoja.getRow(index+9).eachCell(cell => {
-        if(cell.value != ''){
+        if(Number(cell.col) != 1){
           Object.assign(cell,{
           border: {
             bottom: { style: 'thin'},
@@ -610,7 +675,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
           }
         })
         }
-    })
+      })
     }
   }
 

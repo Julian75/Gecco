@@ -4,8 +4,8 @@
   height: 100%;
   z-index: 50px;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0%;
+  left: 0%;
 }
 .loader {
   width: 108px;
@@ -17,8 +17,8 @@
   border-color: #FFF #FFF transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-top: 20%;
-  margin-left: 45%;
+  margin-top: 22%;
+  margin-left: 50%;
 }
 .loader::after,
 .loader::before {

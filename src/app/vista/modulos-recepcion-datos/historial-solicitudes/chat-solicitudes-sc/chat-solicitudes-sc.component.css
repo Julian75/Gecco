@@ -12,15 +12,15 @@
 }
 .cardDerecha{
   box-shadow: 0em 0 0.4em #b3b8bb;
-  width: 50%;
+  width: 65%;
   border-radius: 13px;
   overflow-wrap: break-word;
 }
 .cardIzquierda{
   box-shadow: 0em 0 0.4em #b3b8bb;
-  width: 50%;
+  width: 65%;
   border-radius: 13px;
-  margin-left: 50%;
+  margin-left: 35%;
   overflow-wrap: break-word;
 }
 .romboIzquierda{
