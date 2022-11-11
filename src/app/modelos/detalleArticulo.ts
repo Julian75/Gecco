@@ -2,6 +2,7 @@ import {Articulo} from "./articulo";
 import {Estado} from "./estado";
 import {Usuario} from "./usuario";
 import {TipoActivo} from "./tipoActivo";
+import {OrdenCompra} from "./ordenCompra";
 export class DetalleArticulo{
     public id: number=0;
     idArticulo !: Articulo;
@@ -13,4 +14,5 @@ export class DetalleArticulo{
     public codigoContable : string="";
     idTipoActivo !: TipoActivo;
     public valor : number=0;
+    idOrdenCompra !: OrdenCompra;
 }

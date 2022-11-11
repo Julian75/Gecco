@@ -227,13 +227,13 @@ export class AprobacionRegistroComponent implements OnInit {
                   if(solicitudDetalle.idSolicitud.id == idSolicitud && solicitudDetalle.idEstado.id == 37){
                     resCompras.forEach(elementCompra => {
                       this.listaExisteCompra = []
-                      if(elementCompra.idArticulo.id == solicitudDetalle.idArticulos.id){
+                      if(elementCompra.idArticulo.id == solicitudDetalle.idArticulos.id && elementCompra.idOrdenCompra.id == this.listaOrdenCompra[0].id){
                         var indice = this.listaComprasRegistrar.indexOf(solicitudDetalle.id); // obtenemos el indice
                         this.listaComprasRegistrar.splice(indice, 1);
                       }
                     });
                     resMovimientosComprasInventario.forEach(elementMoviCI => {
-                      if(elementMoviCI.idArticulo.id == solicitudDetalle.idArticulos.id){
+                      if(elementMoviCI.idArticulo.id == solicitudDetalle.idArticulos.id && elementMoviCI.idOrdenCompra.id == this.listaOrdenCompra[0].id){
                         var indice = this.listaInventariosRegistrar.indexOf(solicitudDetalle.id); // obtenemos el indice
                         this.listaInventariosRegistrar.splice(indice, 1);
                       }
@@ -257,7 +257,7 @@ export class AprobacionRegistroComponent implements OnInit {
                     this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
                       this.servicioCompras.listarTodos().subscribe(resCompras=>{
                         resCompras.forEach(elementCompra => {
-                          if(elementCompra.idArticulo.id == resDetalleSolicitud.idArticulos.id){
+                          if(elementCompra.idArticulo.id == resDetalleSolicitud.idArticulos.id && elementCompra.idOrdenCompra.id == this.listaOrdenCompra[0].id){
                             this.idCompraExiste = elementCompra.id
                           }
                         });
@@ -266,6 +266,7 @@ export class AprobacionRegistroComponent implements OnInit {
                           var cantidad = resCompras.cantidad
                           compras.cantidad = cantidad + resDetalleSolicitud.cantidad
                           compras.id_articulo = resDetalleSolicitud.idArticulos.id
+                          compras.id_orden_compra = resCompras.idOrdenCompra.id
                           this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
                             compras.id_usuario = resUsuario.id
                             this.actualizarCompras(compras)
@@ -283,9 +284,12 @@ export class AprobacionRegistroComponent implements OnInit {
                       comprasRegistro.cantidad = resDetalleSolicitud.cantidad
                       this.servicioArticulo.listarPorId(resDetalleSolicitud.idArticulos.id).subscribe(resArticulo=>{
                         this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-                          comprasRegistro.idUsuario = resUsuario
-                          comprasRegistro.idArticulo = resArticulo
-                          this.registrarCompras(comprasRegistro)
+                          this.servicioOrdenCompra.listarPorId(this.listaOrdenCompra[0].id).subscribe(resOrdenComId=>{
+                            comprasRegistro.idUsuario = resUsuario
+                            comprasRegistro.idArticulo = resArticulo
+                            comprasRegistro.idOrdenCompra = resOrdenComId
+                            this.registrarCompras(comprasRegistro)
+                          })
                         })
                       })
                     })
@@ -298,7 +302,7 @@ export class AprobacionRegistroComponent implements OnInit {
                     this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
                       this.servicioMovimientoComprasInventario.listarTodos().subscribe(resMovimientosComprasInventario=>{
                         resMovimientosComprasInventario.forEach(elementMovimientoComprasInventario => {
-                          if(elementMovimientoComprasInventario.idArticulo.id == resDetalleSolicitud.idArticulos.id){
+                          if(elementMovimientoComprasInventario.idArticulo.id == resDetalleSolicitud.idArticulos.id && elementMovimientoComprasInventario.idOrdenCompra.id == this.listaOrdenCompra[0].id){
                             this.idMoviCI = elementMovimientoComprasInventario.id
                           }
                         });
@@ -307,6 +311,7 @@ export class AprobacionRegistroComponent implements OnInit {
                           var cantidadMovCI = resExisteMovimientoCI.cantidad
                           movimientoCIModificar.cantidad = cantidadMovCI + resDetalleSolicitud.cantidad
                           movimientoCIModificar.id_articulo = resDetalleSolicitud.idArticulos.id
+                          movimientoCIModificar.idOrdenCompra = resExisteMovimientoCI.idOrdenCompra.id
                           this.actualizarMovimientoCI(movimientoCIModificar)
                         })
                       })
@@ -318,10 +323,13 @@ export class AprobacionRegistroComponent implements OnInit {
                     const element = this.listaComprasRegistrar[index];
                     let movimientoCIRegistro : MovimientoComprasInventario = new MovimientoComprasInventario();
                     this.servicioSolicitudDetalle.listarPorId(element).subscribe(resDetalleSolicitud=>{
-                      movimientoCIRegistro.cantidad = resDetalleSolicitud.cantidad
-                      this.servicioArticulo.listarPorId(resDetalleSolicitud.idArticulos.id).subscribe(resArticulo=>{
-                        movimientoCIRegistro.idArticulo = resArticulo
-                        this.registrarMovimientoCI(movimientoCIRegistro)
+                      this.servicioOrdenCompra.listarPorId(Number(this.listaOrdenCompra[0].id)).subscribe(resOrdenCompraIdMod=>{
+                        movimientoCIRegistro.cantidad = resDetalleSolicitud.cantidad
+                        movimientoCIRegistro.idOrdenCompra = resOrdenCompraIdMod
+                        this.servicioArticulo.listarPorId(resDetalleSolicitud.idArticulos.id).subscribe(resArticulo=>{
+                          movimientoCIRegistro.idArticulo = resArticulo
+                          this.registrarMovimientoCI(movimientoCIRegistro)
+                        })
                       })
                     })
                   }

@@ -69,116 +69,116 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     })
   }
 
-  // correo: any;
-  // contrasena: any;
-  // aceptarConfirmacion( id:number){
-  //   document.getElementById('snipper03')?.setAttribute('style', 'display: block;')
-  //   let solicitudBaja = new SolicitudBajasArticulos2();
-  //   this.serviceSolicitudBajasArticulos.listarPorId(id).subscribe(res=>{
-  //     this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-  //       this.serviceEstado.listarPorId(82).subscribe(resEstado=>{
-  //         solicitudBaja.id = res.id;
-  //         var fecha = new Date(res.fecha)
-  //         fecha.setDate(fecha.getDate()+1)
-  //         solicitudBaja.fecha = fecha;
-  //         solicitudBaja.id_usuario = res.idUsuario.id;
-  //         solicitudBaja.id_estado = resEstado.id;
-  //         solicitudBaja.usuario_autorizacion = res.usuarioAutorizacion
-  //         solicitudBaja.usuario_confirmacion = resUsuario.id
-  //         this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(resSolicitudBajaArticulo=>{
-  //           let correo : Correo = new Correo();
-  //           this.servicioBajaArticulos.listarTodos().subscribe(resBajasActivos=>{
-  //             this.servicioUsuario.listarPorId(res.idUsuario.id).subscribe(resUsuario =>{
-  //               this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-  //                 resConfiguracion.forEach(elementConfi => {
-  //                   if(elementConfi.nombre == "correo_gecco"){
-  //                     this.correo = elementConfi.valor
-  //                   }
-  //                   if(elementConfi.nombre == "contraseña_correo"){
-  //                     this.contrasena = elementConfi.valor
-  //                   }
-  //                 });
-  //                 correo.correo = this.correo
-  //                 correo.contrasena = this.contrasena
-  //                 correo.to = resUsuario.correo
-  //                 correo.subject = "Aprobación de solicitud"
-  //                 correo.messaje = "<!doctype html>"
-  //                 +"<html>"
-  //                   +"<head>"
-  //                   +"<meta charset='utf-8'>"
-  //                   +"</head>"
-  //                   +"<body>"
-  //                   +"<h3 style='color: black;'>Su solicitud para dar de baja algunos activos, ha sido aprobada por compras y control interno.</h3>"
-  //                   +"<br>"
-  //                   +"<table style='border: 1px solid #000; text-align: center;'>"
-  //                   +"<tr>"
-  //                   +"<th style='border: 1px solid #000;'>Activo</th>"
-  //                   +"<th style='border: 1px solid #000;'>Serial</th>"
-  //                   +"<th style='border: 1px solid #000;'>Placa</th>"
-  //                   +"<th style='border: 1px solid #000;'>Marca</th>"
-  //                   +"<th style='border: 1px solid #000;'>Estado</th>"
-  //                   +"<th style='border: 1px solid #000;'>Observacion</th>";
-  //                   +"</tr>";
-  //                   resBajasActivos.forEach(element => {
-  //                     if (element.idSolicitudBaja.id == res.id) {
-  //                       correo.messaje += "<tr>"
-  //                       correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.idArticulo.descripcion+"</td>";
-  //                       correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.serial+"</td>";
-  //                       correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.placa+"</td>";
-  //                       correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.marca+"</td>";
-  //                       correo.messaje += "<td style='border: 1px solid #000;'>"+element.idOpcionBaja.descripcion+"</td>";
-  //                       correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
-  //                       correo.messaje += "</tr>";
-  //                     }
-  //                   });
-  //                   correo.messaje += "</table>"
-  //                   +"<br>"
-  //                   +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-  //                   +"</body>"
-  //                   +"</html>";
-  //                 this.enviarCorreo(correo, solicitudBaja.id);
-  //               })
-  //             })
-  //           })
-  //         })
-  //       })
-  //     })
-  //   })
-  // }
+  correo: any;
+  contrasena: any;
+  aceptarConfirmacion( id:number){
+    document.getElementById('snipper03')?.setAttribute('style', 'display: block;')
+    let solicitudBaja = new SolicitudBajasArticulos2();
+    this.serviceSolicitudBajasArticulos.listarPorId(id).subscribe(res=>{
+      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+        this.serviceEstado.listarPorId(82).subscribe(resEstado=>{
+          solicitudBaja.id = res.id;
+          var fecha = new Date(res.fecha)
+          fecha.setDate(fecha.getDate()+1)
+          solicitudBaja.fecha = fecha;
+          solicitudBaja.id_usuario = res.idUsuario.id;
+          solicitudBaja.id_estado = resEstado.id;
+          solicitudBaja.usuario_autorizacion = res.usuarioAutorizacion
+          solicitudBaja.usuario_confirmacion = resUsuario.id
+          this.serviceModificar.actualizarSolicitudBajaArticulo(solicitudBaja).subscribe(resSolicitudBajaArticulo=>{
+            let correo : Correo = new Correo();
+            this.servicioBajaArticulos.listarTodos().subscribe(resBajasActivos=>{
+              this.servicioUsuario.listarPorId(res.idUsuario.id).subscribe(resUsuario =>{
+                this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                  resConfiguracion.forEach(elementConfi => {
+                    if(elementConfi.nombre == "correo_gecco"){
+                      this.correo = elementConfi.valor
+                    }
+                    if(elementConfi.nombre == "contraseña_correo"){
+                      this.contrasena = elementConfi.valor
+                    }
+                  });
+                  correo.correo = this.correo
+                  correo.contrasena = this.contrasena
+                  correo.to = resUsuario.correo
+                  correo.subject = "Aprobación de solicitud"
+                  correo.messaje = "<!doctype html>"
+                  +"<html>"
+                    +"<head>"
+                    +"<meta charset='utf-8'>"
+                    +"</head>"
+                    +"<body>"
+                    +"<h3 style='color: black;'>Su solicitud para dar de baja algunos activos, ha sido aprobada por compras y control interno.</h3>"
+                    +"<br>"
+                    +"<table style='border: 1px solid #000; text-align: center;'>"
+                    +"<tr>"
+                    +"<th style='border: 1px solid #000;'>Activo</th>"
+                    +"<th style='border: 1px solid #000;'>Serial</th>"
+                    +"<th style='border: 1px solid #000;'>Placa</th>"
+                    +"<th style='border: 1px solid #000;'>Marca</th>"
+                    +"<th style='border: 1px solid #000;'>Estado</th>"
+                    +"<th style='border: 1px solid #000;'>Observacion</th>";
+                    +"</tr>";
+                    resBajasActivos.forEach(element => {
+                      if (element.idSolicitudBaja.id == res.id) {
+                        correo.messaje += "<tr>"
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.idArticulo.descripcion+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.serial+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.placa+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idDetalleArticulo.marca+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.idOpcionBaja.descripcion+"</td>";
+                        correo.messaje += "<td style='border: 1px solid #000;'>"+element.observacion+"</td>";
+                        correo.messaje += "</tr>";
+                      }
+                    });
+                    correo.messaje += "</table>"
+                    +"<br>"
+                    +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+                    +"</body>"
+                    +"</html>";
+                  this.enviarCorreo(correo, solicitudBaja.id);
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  }
 
-  // public enviarCorreo(correo: Correo, idSolicitudBajaActivo){
-  //   let actasBajas = new ActasBaja();
-  //   this.servicioCorreo.enviar(correo).subscribe(res =>{
-  //     this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaActivo).subscribe(resSolicitudBajas=>{
-  //         actasBajas.idSolicitudBajaArticulos = resSolicitudBajas
-  //         actasBajas.fecha = new Date()
-  //         var min = 1
-  //         var max = 100000000
-  //         var numero = Math.floor(Math.random()*(min+max)+min);
-  //         actasBajas.codigoUnico = String((numero*resSolicitudBajas.id)+""+resSolicitudBajas.id)
-  //         this.servicioActasBajas.registrar(actasBajas).subscribe(regisActasBajas =>{
-  //           document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
-  //           Swal.fire({
-  //             position: 'center',
-  //             icon: 'success',
-  //             title: 'Se aprobo correctamente la solciitud!',
-  //             showConfirmButton: false,
-  //             timer: 1500
-  //           })
-  //           window.location.reload();
-  //         })
-  //     })
-  //   }, error => {
-  //     document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'error',
-  //       title: 'Hubo un error al enviar el Correo!',
-  //       showConfirmButton: false,
-  //       timer: 1500
-  //     })
-  //   });
-  // }
+  public enviarCorreo(correo: Correo, idSolicitudBajaActivo){
+    let actasBajas = new ActasBaja();
+    this.servicioCorreo.enviar(correo).subscribe(res =>{
+      this.serviceSolicitudBajasArticulos.listarPorId(idSolicitudBajaActivo).subscribe(resSolicitudBajas=>{
+          actasBajas.idSolicitudBajaArticulos = resSolicitudBajas
+          actasBajas.fecha = new Date()
+          var min = 1
+          var max = 100000000
+          var numero = Math.floor(Math.random()*(min+max)+min);
+          actasBajas.codigoUnico = String((numero*resSolicitudBajas.id)+""+resSolicitudBajas.id)
+          this.servicioActasBajas.registrar(actasBajas).subscribe(regisActasBajas =>{
+            document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se aprobo correctamente la solciitud!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload();
+          })
+      })
+    }, error => {
+      document.getElementById('snipper03')?.setAttribute('style', 'display: none;')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Hubo un error al enviar el Correo!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
+  }
 
   visualizarActivosBajas(id:number){
     const dialogRef = this.dialog.open(VisualizarActivosBajasSolicitudComponent, {
@@ -188,13 +188,13 @@ export class ListaConfirmacionesBajaArticulosComponent implements OnInit {
     });
   }
 
-  // rechazarConfirmacion(id:number){
-  //   const dialogRef = this.dialog.open(RechazoSolicitudBajaArticuloLiderProcesoComponent, {
-  //     width: '500px',
-  //     height: '300px',
-  //     data: id
-  //   });
-  // }
+  rechazarConfirmacion(id:number){
+    const dialogRef = this.dialog.open(RechazoSolicitudBajaArticuloLiderProcesoComponent, {
+      width: '500px',
+      height: '300px',
+      data: id
+    });
+  }
   // Filtrado
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

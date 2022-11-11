@@ -1,3 +1,7 @@
+#chart {
+  max-width: 650px;
+  margin: 35px auto;
+}
 .solpiner{
   background-color: rgba(90, 90, 90, 0.247);
   width: 100%;
@@ -19,6 +23,20 @@
   animation: rotation 1s linear infinite;
   margin-top: 22%;
   margin-left: 50%;
+}
+.rojoBlanco{
+  background-color: #FF6961;
+}
+.azulOscuro{
+  background-color: #5086C1;
+}
+.azulClaro{
+  background-color: #B2DAFA;
+}
+th{
+  height: 30px !important;
+  text-align: left !important;
+  padding-left: 1% !important;
 }
 .loader::after,
 .loader::before {
@@ -72,7 +90,6 @@ table{
 .example-container {
   max-width: 100%;
   overflow: auto;
-  margin-top: -5% !important;
   border-bottom: 20%;
   box-shadow: 1px none #000;
   margin-bottom: 3% !important;
@@ -118,6 +135,7 @@ table{
 .excelButton{ margin-left: 91%; }
 .seleccionfecha{ top: 0px; }
 .boton{ background-color: #6DBE53; color: white; margin-left: 2%; margin-top: -1%; }
+.botonBuscar{ background-color: #959595; color: white; margin-left: 2%; margin-top: -1%; width: 64px; height: 36px;}
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

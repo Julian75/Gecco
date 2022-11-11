@@ -6,111 +6,406 @@
     <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)">
     </mat-datepicker>
   </mat-form-field>
-  <button class="btn boton" (click)="consolidadoGuardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de consolidado"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn botonBuscar" (click)="consolidadoGuardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar lista de consolidado"><mat-icon>content_paste_search</mat-icon></button>
+  <button class="btn boton" (click)="descargarExcel(listaClases)" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de consolidado" *ngIf="tablaMostrar == true"><i class="fa-solid fa-file-excel"></i></button>
   <section class="example-container mat-elevation-z8" tabindex="0" *ngIf="tablaMostrar == true">
-    <table class="table table-dark table-striped">
+    <table class="mat-elevation-z8 demo-table" style="border: 1px solid #000 !important">
       <thead>
         <tr>
-          <th scope="col">VENTAS BRUTAS</th>
-          <th scope="col">2020</th>
-          <th scope="col">2021</th>
-          <th scope="col">2022</th>
-          <th scope="col">Variación 21/22</th>
-          <th scope="col">%</th>
+          <th scope="col" class="rojoBlanco" style="border: 1px solid #000 !important; text-align: center !important;">VENTAS BRUTAS</th>
+          <th scope="col" class="rojoBlanco" style="text-align: center !important;">2020</th>
+          <th scope="col" class="rojoBlanco" style="text-align: center !important;">2021</th>
+          <th scope="col" class="rojoBlanco" style="text-align: center !important;">2022</th>
+          <th scope="col" class="rojoBlanco" style="text-align: center !important;">Variación 21/22</th>
+          <th scope="col" class="rojoBlanco" style="text-align: center !important;">%</th>
+          <th scope="col" class="rojoBlanco" style="text-align: center !important;">Grafica</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let element of listChance">
-          <th scope="row">CHANCE</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">CHANCE</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('CHANCE', listChance)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listVentasRaspa">
-          <th scope="row">VENTAS DE RASPAS</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">VENTAS DE RASPAS</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('VENTAS DE RASPAS', listVentasRaspa)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listLineaNegocios">
-          <th scope="row">LINEA DE NEGOCIOS</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">LINEA DE NEGOCIOS</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('LINEA DE NEGOCIOS', listLineaNegocios)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of ventasNetas">
-          <th scope="row">VENTAS NETAS</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">VENTAS NETAS</th>
+          <td class="azulOscuro">{{element.libroMayorAnteriorDos | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulOscuro">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulOscuro">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulOscuro">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulOscuro">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('VENTAS NETAS', ventasNetas)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listCostoVentas">
-          <th scope="row">(-) COSTO DE VENTA</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">(-) COSTO DE VENTA</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('COSTO DE VENTA', listCostoVentas)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of utilidadBruta">
-          <th scope="row">UTILIDAD BRUTA</th>
-          <td>{{element.libroMayorAnteriorDos}}</td>
-          <td>{{element.libroMayorAnteriorUno}}</td>
-          <td>{{element.libroMayor}}</td>
-          <td>{{element.libroMayor - element.libroMayorAnteriorUno}}</td>
-          <td>{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <th scope="row" class="rojoBlanco" style="border: 1px solid #000 !important">UTILIDAD BRUTA</th>
+          <td class="rojoBlanco">{{element.libroMayorAnteriorDos | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('UTILIDAD BRUTA', utilidadBruta)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listGastoAdmin">
-          <th scope="row">GASTOS DE ADMINISTRACIÓN</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">GASTOS DE ADMINISTRACIÓN</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('GASTOS DE ADMINISTRACIÓN', listGastoAdmin)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listGastoVenta">
-          <th scope="row">GASTOS DE VENTAS</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">GASTOS DE VENTAS</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('GASTOS DE VENTAS', listGastoVenta)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listGastoFinanciero">
-          <th scope="row">GASTOS FINANCIEROS</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">GASTOS FINANCIEROS</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('GASTOS FINANCIEROS', listGastoFinanciero)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of utilidadOperativa">
-          <th scope="row">UTILIDAD OPERATIVA</th>
-          <td>{{element.libroMayorAnteriorDos}}</td>
-          <td>{{element.libroMayorAnteriorUno}}</td>
-          <td>{{element.libroMayor}}</td>
-          <td>{{element.libroMayor - element.libroMayorAnteriorUno}}</td>
-          <td>{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <th scope="row" class="rojoBlanco" style="border: 1px solid #000 !important">UTILIDAD OPERATIVA</th>
+          <td class="rojoBlanco">{{element.libroMayorAnteriorDos | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('UTILIDAD OPERATIVA', utilidadOperativa)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
         <tr *ngFor="let element of listIngresoNoOPeracionales">
-          <th scope="row">INGRESOS NO OPERACIONALES</th>
-          <td>{{element.libroMayorAnteriorDos.valor}}</td>
-          <td>{{element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{element.libroMayor.valor}}</td>
-          <td>{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor}}</td>
-          <td>{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">INGRESOS NO OPERACIONALES</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('INGRESOS NO OPERACIONALES', listIngresoNoOPeracionales)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngFor="let element of egresosTotal">
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">EGRESOS NO OPERACIONALES</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('EGRESOS NO OPERACIONALES', egresosTotal)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngFor="let element of utilidadAntesImpuesto">
+          <th scope="row" class="rojoBlanco" style="border: 1px solid #000 !important">UTILIDAD ANTES DE IMPUESTOS</th>
+          <td class="rojoBlanco">{{element.libroMayorAnteriorDos | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('UTILIDAD ANTES DE IMPUESTOS', utilidadAntesImpuesto)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngFor="let element of listProvisionImpuestoRenta">
+          <th scope="row" class="azulOscuro" style="border: 1px solid #000 !important">PROVISION IMPUESTO DE RENTA</th>
+          <td class="azulClaro">{{element.libroMayorAnteriorDos.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">
+            <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('PROVISION IMPUESTO DE RENTA', listProvisionImpuestoRenta)">
+              <mat-icon>bar_chart</mat-icon>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
   </section>
+  <div class="graficas" *ngIf="tablaMostrar == true">
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+  </div>
+    <!-- <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+    <div id="chart">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </div>
+  </div> -->
 </div>
 <div class="solpiner" id="snipper" style="text-align: center; display: none;">
   <div class="loader"></div>

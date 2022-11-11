@@ -1,4 +1,5 @@
 import { Articulo } from "./articulo";
+import { OrdenCompra } from "./ordenCompra";
 import { Usuario } from "./usuario";
 
 export class Compras{
@@ -6,4 +7,5 @@ export class Compras{
     public cantidad: number=0;
     idUsuario !: Usuario;
     idArticulo !: Articulo;
+    idOrdenCompra !: OrdenCompra;
 }

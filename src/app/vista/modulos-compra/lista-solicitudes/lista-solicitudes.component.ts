@@ -108,9 +108,9 @@ export class ListaSolicitudesComponent implements OnInit {
               }
               if (element.idEstado.id == 28 || element.idEstado.id == 29 || element.idEstado.id == 34 || element.idEstado.id == 35 || element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 47 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 54 || element.idEstado.id == 57 || element.idEstado.id == 60) {
                 obj.solicitud = element
-                if(element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 28){
+                if(element.idEstado.id == 36 || element.idEstado.id == 37 || element.idEstado.id == 28 || element.idEstado.id == 34 || element.idEstado.id == 57 || element.idEstado.id == 56 || element.idEstado.id == 60 || element.idEstado.id == 29){
                   obj.color = "azul"
-                }else if(element.idEstado.id == 34 || element.idEstado.id == 57 || element.idEstado.id == 46 || element.idEstado.id == 56 || element.idEstado.id == 60 || element.idEstado.id == 29){
+                }else if(element.idEstado.id == 46){
                   obj.color = "verde"
                 }else if(element.idEstado.id == 35 || element.idEstado.id == 47){
                   obj.color = "rojo"

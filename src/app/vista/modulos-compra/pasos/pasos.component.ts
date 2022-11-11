@@ -54,6 +54,7 @@ export class PasosComponent implements OnInit {
   public nombreCompras: any;
   public nombreAdministrador: any;
   public idSolicitud: any;
+  public observacionCompras: any = []
   public idDetalleSolicitud: any;
 
   constructor(
@@ -687,6 +688,7 @@ export class PasosComponent implements OnInit {
                             this.idCompras = element.id
                             var now = new Array
                             now.push(element.idArticulos.descripcion)
+                            now.push(element.observacion)
                             now.push(element.cantidad)
                             const formatterPeso = new Intl.NumberFormat('es-CO', {
                               style: 'currency',
@@ -747,6 +749,7 @@ export class PasosComponent implements OnInit {
                         }
 
                         this.servicioOrdenCompra.listarPorId(element.id).subscribe(async res=>{
+                          console.log(res)
                           const formatterPeso = new Intl.NumberFormat('es-CO', {
                             style: 'currency',
                             currency: 'COP',
@@ -968,7 +971,6 @@ export class PasosComponent implements OnInit {
                             pdf.open();
                             localStorage.removeItem('idDireccionAdministrativa')
                           }else if(firmaDecision == false){
-
                             const pdfDefinition: any = {
                               content: [
                                 {
@@ -1012,24 +1014,25 @@ export class PasosComponent implements OnInit {
                                   margin: [0, 0, 0, 20]
                                 },{
                                   table: {
-                                    widths: [250, 50, '*', '*'],
+                                    widths: [250, 250, 50, '*', '*'],
                                     body: [
                                       [
                                         'Articulo',
+                                        'Observación',
                                         'Cantidad',
                                         'Valor Unitario',
                                         'Valor Total'
                                       ],
                                     ]
                                   },
-                                  margin: [0, 0, 0, 0.3]
+                                  margin: [0, 0, 0, 0.3, 0]
                                 },
                                 {
                                   table: {
-                                    widths: [250, 50, '*', '*'],
+                                    widths: [250, 250, 50, '*', '*'],
                                     body: body
                                   },
-                                  margin: [0, 0, 0, 40]
+                                  margin: [0, 0, 0, 40, 0]
                                 },
                                 {
                                   text: 'SubTotal: '+ formatterPeso.format(res.subtotal) +' COP',

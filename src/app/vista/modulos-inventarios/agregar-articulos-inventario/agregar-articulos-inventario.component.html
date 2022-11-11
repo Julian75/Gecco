@@ -57,17 +57,19 @@
           </mat-form-field>
         </div>
         <div class="nombre4">
-          <h2>Cantidad</h2>
-          <mat-form-field class="nombre" [color]="color" appearance="fill">
-          <mat-label>Ingrese Cantidad</mat-label>
-          <input type="number" id="cantidad" formControlName="cantidad" matInput>
-          </mat-form-field>
-        </div>
-        <div class="nombre4">
           <h2>Valor</h2>
           <mat-form-field class="nombre" [color]="color" appearance="fill">
           <mat-label>Ingrese el valor del articulo</mat-label>
           <input type="text" id="valor" formControlName="valor" (keyup)="format()" (change)="format()" matInput>
+          </mat-form-field>
+        </div>
+        <div class="nombre4">
+          <h2>Orden Compra</h2>
+          <mat-form-field class="nombre" [color]="color" appearance="fill">
+          <mat-label>Seleccione el id de la orden de compra </mat-label>
+          <mat-select matNativeControl id="ordenCompra" name="ordenCompra" formControlName="ordenCompra">
+            <mat-option *ngFor="let item of listaOrdenesCompra" [value]="item.id">{{item.id}}</mat-option>
+          </mat-select>
           </mat-form-field>
         </div>
       </div>

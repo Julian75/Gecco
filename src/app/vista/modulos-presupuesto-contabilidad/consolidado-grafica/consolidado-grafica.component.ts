@@ -15,7 +15,35 @@ import { data } from 'jquery';
 import { style } from '@angular/animations';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
+//GRAFICA
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexLegend,
+  ApexStroke,
+  ApexXAxis,
+  ApexFill,
+  ApexTooltip
+} from "ng-apexcharts";
 
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  colors: string[];
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
+};
+//AÑO
 export const MY_FORMATS = {
   parse: {
     dateInput: 'YYYY',
@@ -72,6 +100,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
   utilidadBruta: any = [];
   sumaGastos: any = [];
   utilidadOperativa: any = [];
+  egresosTotal: any = [];
   utilidadAntesImpuesto: any = [];
 
   //Excel
@@ -92,6 +121,96 @@ export class ConsolidadoGraficaComponent implements OnInit {
     let { _d } = ev;
     this.selectYear = _d;
     this.picker.close()
+  }
+
+  //GRAFICA
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+
+  public graficas(descripcion, valores){
+    var serieGrafica = []
+    if(descripcion == ""){
+      serieGrafica = [
+        {
+          name: "UTILIDAD BRUTA",
+          data: [Number(this.utilidadBruta[0].libroMayorAnteriorDos), Math.round(this.utilidadBruta[0].libroMayorAnteriorUno),Math.round(this.utilidadBruta[0].libroMayor),
+          Math.round((this.utilidadBruta[0].libroMayor - this.utilidadBruta[0].libroMayorAnteriorUno)),
+          Math.round(((this.utilidadBruta[0].libroMayor-this.utilidadBruta[0].libroMayorAnteriorUno)/this.utilidadBruta[0].libroMayor)*100)]
+        },
+        {
+          name: "UTILIDAD OPERATIVA",
+          data: [Number(this.utilidadOperativa[0].libroMayorAnteriorDos), Math.round(this.utilidadOperativa[0].libroMayorAnteriorUno),Math.round(this.utilidadOperativa[0].libroMayor),
+          Math.round((this.utilidadOperativa[0].libroMayor - this.utilidadOperativa[0].libroMayorAnteriorUno)),
+          Math.round(((this.utilidadOperativa[0].libroMayor-this.utilidadOperativa[0].libroMayorAnteriorUno)/this.utilidadOperativa[0].libroMayor)*100)]
+        },
+        {
+          name: "UTILIDAD ANTES DE IMPUESTOS",
+          data: [Number(this.utilidadAntesImpuesto[0].libroMayorAnteriorDos), Math.round(this.utilidadAntesImpuesto[0].libroMayorAnteriorUno),Math.round(this.utilidadAntesImpuesto[0].libroMayor),
+          Math.round((this.utilidadAntesImpuesto[0].libroMayor - this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)),
+          Math.round(((this.utilidadAntesImpuesto[0].libroMayor-this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)/this.utilidadAntesImpuesto[0].libroMayor)*100)]
+        },
+      ]
+    }else{
+      console.log(valores[0].libroMayor.valor)
+      if(valores[0].libroMayor.valor == undefined){
+        serieGrafica = [
+          {
+            name: descripcion,
+            data: [Number(valores[0].libroMayorAnteriorDos), Math.round(valores[0].libroMayorAnteriorUno),Math.round(valores[0].libroMayor),
+            Math.round((valores[0].libroMayor - valores[0].libroMayorAnteriorUno)),
+            Math.round(((valores[0].libroMayor-valores[0].libroMayorAnteriorUno)/valores[0].libroMayor)*100)]
+          }
+        ]
+      }else{
+        serieGrafica = [
+          {
+            name: descripcion,
+            data: [Number(valores[0].libroMayorAnteriorDos.valor), Math.round(valores[0].libroMayorAnteriorUno.valor),Math.round(valores[0].libroMayor.valor),
+            Math.round((valores[0].libroMayor.valor - valores[0].libroMayorAnteriorUno.valor)),
+            Math.round(((valores[0].libroMayor.valor-valores[0].libroMayorAnteriorUno.valor)/valores[0].libroMayor.valor)*100)]
+          }
+        ]
+      }
+    }
+    this.chartOptions = {
+      series: serieGrafica,
+      chart: {
+        type: "bar",
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "55%",
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"]
+      },
+      xaxis: {
+        categories: ["2020", "2021", "2022", "Variación", "%"]
+      },
+      yaxis: {
+        title: {
+          text: "$ (thousands)"
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return "$ " + val + " thousands";
+          }
+        }
+      }
+    };
   }
 
   listaClases: any = [] // Lista de todos los libros mayores de las cuentas
@@ -116,6 +235,28 @@ export class ConsolidadoGraficaComponent implements OnInit {
     this.utilidadOperativa = [];
     this.utilidadAntesImpuesto = [];
     this.sumaGastos = []
+    this.egresosTotal = []
+
+    //Variables de suma
+    //Ventas Netas
+    var sumaValorVentasNetasDos = 0
+    var sumaValorVentasNetasUno = 0
+    var sumaValorVentasNetas = 0
+
+    //Ventas Netas
+    var sumaValorUtilidadOperativaDos = 0
+    var sumaValorUtilidadOperativaUno = 0
+    var sumaValorUtilidadOperativa = 0
+
+    //Egresos no operacionales
+    var ValorEgresosDos = 0
+    var ValorEgresosUno = 0
+    var ValorEgresos = 0
+
+    //Utilidad antes de impuestos
+    var ValorUtilidadImpuestosDos = 0
+    var ValorUtilidadImpuestosUno = 0
+    var ValorUtilidadImpuestos = 0
 
     document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.listaClases = []
@@ -278,84 +419,51 @@ export class ConsolidadoGraficaComponent implements OnInit {
                           }
                           if(element.cuenta.codigo == 41357001 || element.cuenta.codigo == 41357002 || element.cuenta.codigo == 415030){
                             console.log(element)
+                            sumaValorVentasNetasDos = Number(sumaValorVentasNetasDos) + Number(element.libroMayorAnteriorDos.valor)
+                            sumaValorVentasNetasUno = Number(sumaValorVentasNetasUno) + Number(element.libroMayorAnteriorUno.valor)
+                            sumaValorVentasNetas = Number(sumaValorVentasNetas) + Number(element.libroMayor.valor)
                             var objVentasNetas = {
-                              libroMayorAnteriorDos: {},
-                              libroMayorAnteriorUno: {},
-                              libroMayor: {}
-                            }
-                            if(this.ventasNetas.length <= 0){
-                              objVentasNetas.libroMayorAnteriorDos = element.libroMayorAnteriorDos
-                              objVentasNetas.libroMayorAnteriorUno = element.libroMayorAnteriorUno
-                              objVentasNetas.libroMayor = element.libroMayor
-                              console.log(objVentasNetas)
-                              this.ventasNetas.push(objVentasNetas)
-                            }else{
-                              var objetoVentasNetasMod = {
-                                libroMayorAnteriorDos: {},
-                                libroMayorAnteriorUno: {},
-                                libroMayor: {}
-                              }
-                              for (let index = 0; index < this.ventasNetas.length; index++) {
-                                const elementVentaNeta = this.ventasNetas[index];
-                                console.log(elementVentaNeta)
-                                var sumaValorLibMayDos = Number(elementVentaNeta.libroMayorAnteriorDos.valor) + Number(element.libroMayorAnteriorDos.valor)
-                                elementVentaNeta.libroMayorAnteriorDos.valor = sumaValorLibMayDos
-                                var sumaValoresLibMayUno = Number(elementVentaNeta.libroMayorAnteriorUno.valor) + Number(element.libroMayorAnteriorUno.valor)
-                                elementVentaNeta.libroMayorAnteriorUno.valor = sumaValoresLibMayUno
-                                var sumaValoresLibMay = Number(elementVentaNeta.libroMayor.valor) + Number(element.libroMayor.valor)
-                                elementVentaNeta.libroMayor.valor = sumaValoresLibMay
-                                objetoVentasNetasMod.libroMayorAnteriorDos = elementVentaNeta.libroMayorAnteriorDos
-                                objetoVentasNetasMod.libroMayorAnteriorUno = elementVentaNeta.libroMayorAnteriorUno
-                                objetoVentasNetasMod.libroMayor = elementVentaNeta.libroMayor
-                                this.ventasNetas.splice(index, 1, objetoVentasNetasMod)
-                              }
+                              libroMayorAnteriorDos: sumaValorVentasNetasDos,
+                              libroMayorAnteriorUno: sumaValorVentasNetasUno,
+                              libroMayor: sumaValorVentasNetas
                             }
                           }
                           if(element.cuenta.codigo == 51 || element.cuenta.codigo == 52 || element.cuenta.codigo == 5305){
-                            console.log(element)
+                            sumaValorUtilidadOperativaDos = Number(sumaValorUtilidadOperativaDos) + Number(element.libroMayorAnteriorDos.valor)
+                            sumaValorUtilidadOperativaUno = Number(sumaValorUtilidadOperativaUno) + Number(element.libroMayorAnteriorUno.valor)
+                            sumaValorUtilidadOperativa = Number(sumaValorUtilidadOperativa) + Number(element.libroMayor.valor)
                             var objGastos = {
-                              libroMayorAnteriorDos: {},
-                              libroMayorAnteriorUno: {},
-                              libroMayor: {}
-                            }
-                            if(this.sumaGastos.length <= 0){
-                              objGastos.libroMayorAnteriorDos = element.libroMayorAnteriorDos
-                              objGastos.libroMayorAnteriorUno = element.libroMayorAnteriorUno
-                              objGastos.libroMayor = element.libroMayor
-                              console.log(objGastos)
-                              this.sumaGastos.push(objGastos)
-                            }else{
-                              var objGastosMod = {
-                                libroMayorAnteriorDos: {},
-                                libroMayorAnteriorUno: {},
-                                libroMayor: {}
-                              }
-                              for (let index = 0; index < this.sumaGastos.length; index++) {
-                                const elementGasto = this.sumaGastos[index];
-                                console.log(elementGasto)
-                                var sumaValorLibMayDos = Number(elementGasto.libroMayorAnteriorDos.valor) + Number(element.libroMayorAnteriorDos.valor)
-                                elementGasto.libroMayorAnteriorDos.valor = sumaValorLibMayDos
-                                var sumaValoresLibMayUno = Number(elementGasto.libroMayorAnteriorUno.valor) + Number(element.libroMayorAnteriorUno.valor)
-                                elementGasto.libroMayorAnteriorUno.valor = sumaValoresLibMayUno
-                                var sumaValoresLibMay = Number(elementGasto.libroMayor.valor) + Number(element.libroMayor.valor)
-                                elementGasto.libroMayor.valor = sumaValoresLibMay
-                                objGastosMod.libroMayorAnteriorDos = elementGasto.libroMayorAnteriorDos
-                                objGastosMod.libroMayorAnteriorUno = elementGasto.libroMayorAnteriorUno
-                                objGastosMod.libroMayor = elementGasto.libroMayor
-                                this.sumaGastos.splice(index, 1, objGastosMod)
-                              }
+                              libroMayorAnteriorDos: sumaValorUtilidadOperativaDos,
+                              libroMayorAnteriorUno: sumaValorUtilidadOperativaUno,
+                              libroMayor: sumaValorUtilidadOperativa
                             }
                           }
                           if((index+1) == this.listaClases.length){
+                            this.ventasNetas.push(objVentasNetas)
+                            this.sumaGastos.push(objGastos)
+
+                            //Total de egresos no operacionales
+                            ValorEgresosDos = Number(this.listEgresosNoOperacionales[0].libroMayorAnteriorDos.valor) - Number(this.listGastoFinanciero[0].libroMayorAnteriorDos.valor)
+                            ValorEgresosUno = Number(this.listEgresosNoOperacionales[0].libroMayorAnteriorUno.valor) - Number(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)
+                            ValorEgresos =  Number(this.listEgresosNoOperacionales[0].libroMayor.valor) - Number(this.listGastoFinanciero[0].libroMayor.valor)
+
+                            var objEgresos = {
+                              libroMayorAnteriorDos: ValorEgresosDos,
+                              libroMayorAnteriorUno: ValorEgresosUno,
+                              libroMayor: ValorEgresos
+                            }
+
+                            this.egresosTotal.push(objEgresos)
+
                             if(this.ventasNetas.length > 0 && this.listCostoVentas.length > 0){
                               var objUtilidadBruta = {
                                 libroMayorAnteriorDos: 0,
                                 libroMayorAnteriorUno: 0,
                                 libroMayor: 0
                               }
-                              objUtilidadBruta.libroMayorAnteriorDos = Number(this.ventasNetas[0].libroMayorAnteriorDos.valor)-Number(this.listCostoVentas[0].libroMayorAnteriorDos.valor)
-                              objUtilidadBruta.libroMayorAnteriorUno = Number(this.ventasNetas[0].libroMayorAnteriorUno.valor)-Number(this.listCostoVentas[0].libroMayorAnteriorUno.valor)
-                              objUtilidadBruta.libroMayor = Number(this.ventasNetas[0].libroMayor.valor)-Number(this.listCostoVentas[0].libroMayor.valor)
+                              objUtilidadBruta.libroMayorAnteriorDos = Number(this.ventasNetas[0].libroMayorAnteriorDos)-Number(this.listCostoVentas[0].libroMayorAnteriorDos.valor)
+                              objUtilidadBruta.libroMayorAnteriorUno = Number(this.ventasNetas[0].libroMayorAnteriorUno)-Number(this.listCostoVentas[0].libroMayorAnteriorUno.valor)
+                              objUtilidadBruta.libroMayor = Number(this.ventasNetas[0].libroMayor)-Number(this.listCostoVentas[0].libroMayor.valor)
                               this.utilidadBruta.push(objUtilidadBruta)
                             }
                             if(this.sumaGastos.length > 0 && this.utilidadBruta.length > 0){
@@ -364,14 +472,27 @@ export class ConsolidadoGraficaComponent implements OnInit {
                                 libroMayorAnteriorUno: 0,
                                 libroMayor: 0
                               }
-                              objUtilidadOperativa.libroMayorAnteriorDos = Number(this.utilidadBruta[0].libroMayorAnteriorDos)-Number(this.sumaGastos[0].libroMayorAnteriorDos.valor)
-                              objUtilidadOperativa.libroMayorAnteriorUno = Number(this.utilidadBruta[0].libroMayorAnteriorUno)-Number(this.sumaGastos[0].libroMayorAnteriorUno.valor)
-                              objUtilidadOperativa.libroMayor = Number(this.utilidadBruta[0].libroMayor)-Number(this.sumaGastos[0].libroMayor.valor)
+                              objUtilidadOperativa.libroMayorAnteriorDos = Number(this.utilidadBruta[0].libroMayorAnteriorDos)-Number(this.sumaGastos[0].libroMayorAnteriorDos)
+                              objUtilidadOperativa.libroMayorAnteriorUno = Number(this.utilidadBruta[0].libroMayorAnteriorUno)-Number(this.sumaGastos[0].libroMayorAnteriorUno)
+                              objUtilidadOperativa.libroMayor = Number(this.utilidadBruta[0].libroMayor)-Number(this.sumaGastos[0].libroMayor)
                               this.utilidadOperativa.push(objUtilidadOperativa)
                             }
-                            console.log(this.ventasNetas)
+
+                            //Utilidad Antes de Impuestos
+                            ValorUtilidadImpuestosDos = (Number(this.utilidadOperativa[0].libroMayorAnteriorDos) + Number(this.listIngresoNoOPeracionales[0].libroMayorAnteriorDos.valor)) - Number(this.egresosTotal[0].libroMayorAnteriorDos)
+                            ValorUtilidadImpuestosUno = (Number(this.utilidadOperativa[0].libroMayorAnteriorUno) + Number(this.listIngresoNoOPeracionales[0].libroMayorAnteriorUno.valor)) - Number(this.egresosTotal[0].libroMayorAnteriorUno)
+                            ValorUtilidadImpuestos = (Number(this.utilidadOperativa[0].libroMayor) + Number(this.listIngresoNoOPeracionales[0].libroMayor.valor)) - Number(this.egresosTotal[0].libroMayor)
+
+                            var objUtilidadImpuestos = {
+                              libroMayorAnteriorDos: ValorUtilidadImpuestosDos,
+                              libroMayorAnteriorUno: ValorUtilidadImpuestosUno,
+                              libroMayor: ValorUtilidadImpuestos
+                            }
+
+                            this.utilidadAntesImpuesto.push(objUtilidadImpuestos)
+
                             this.tablaMostrar = true
-                            console.log(this.listChance, this.listVentasRaspa, this.listLineaNegocios)
+                            this.graficas("", 0)
                             document.getElementById('snipper')?.setAttribute('style', 'display: none;')
                           }
                         }
@@ -407,7 +528,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
     this.listaClases.push(obj)
   }
 
-  private descargarExcel(listaClases: any){
+  public descargarExcel(listaClases: any){
     this._workbook = new Workbook()
     this._workbook.creator = 'DigiDev';
 
@@ -526,11 +647,11 @@ export class ConsolidadoGraficaComponent implements OnInit {
     hoja.getRow(12).values = [
       '',
       'VENTAS NETAS',
-      formatterPeso.format(this.ventasNetas[0].libroMayorAnteriorDos.valor),
-      formatterPeso.format(this.ventasNetas[0].libroMayorAnteriorUno.valor),
-      formatterPeso.format(this.ventasNetas[0].libroMayor.valor),
-      formatterPeso.format(Number(this.ventasNetas[0].libroMayor.valor)-Number(this.ventasNetas[0].libroMayorAnteriorUno.valor)),
-      (((this.ventasNetas[0].libroMayor.valor-this.ventasNetas[0].libroMayorAnteriorUno.valor)/this.ventasNetas[0].libroMayor.valor)*100).toFixed(2)+'%',
+      formatterPeso.format(this.ventasNetas[0].libroMayorAnteriorDos),
+      formatterPeso.format(this.ventasNetas[0].libroMayorAnteriorUno),
+      formatterPeso.format(this.ventasNetas[0].libroMayor),
+      formatterPeso.format(Number(this.ventasNetas[0].libroMayor)-Number(this.ventasNetas[0].libroMayorAnteriorUno)),
+      (((this.ventasNetas[0].libroMayor-this.ventasNetas[0].libroMayorAnteriorUno)/this.ventasNetas[0].libroMayor)*100).toFixed(2)+'%',
     ]
 
     hoja.getRow(13).values = [
@@ -575,7 +696,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
 
     hoja.getRow(18).values = [
       '',
-      'UTILIDAD OPERATIVA',
+      'GASTOS FINANCIEROS',
       formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorDos.valor),
       formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor),
       formatterPeso.format(this.listGastoFinanciero[0].libroMayor.valor),
@@ -585,18 +706,59 @@ export class ConsolidadoGraficaComponent implements OnInit {
 
     hoja.getRow(19).values = [
       '',
-      'GASTOS FINANCIEROS',
-      formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorDos.valor),
-      formatterPeso.format(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor),
-      formatterPeso.format(this.listGastoFinanciero[0].libroMayor.valor),
-      formatterPeso.format(Number(this.listGastoFinanciero[0].libroMayor.valor)-Number(this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)),
-      (((this.listGastoFinanciero[0].libroMayor.valor-this.listGastoFinanciero[0].libroMayorAnteriorUno.valor)/this.listGastoFinanciero[0].libroMayor.valor)*100).toFixed(2)+'%',
+      'UTILIDAD OPERATIVA',
+      formatterPeso.format(this.utilidadOperativa[0].libroMayorAnteriorDos),
+      formatterPeso.format(this.utilidadOperativa[0].libroMayorAnteriorUno),
+      formatterPeso.format(this.utilidadOperativa[0].libroMayor),
+      formatterPeso.format(Number(this.utilidadOperativa[0].libroMayor)-Number(this.utilidadOperativa[0].libroMayorAnteriorUno)),
+      (((this.utilidadOperativa[0].libroMayor-this.utilidadOperativa[0].libroMayorAnteriorUno)/this.utilidadOperativa[0].libroMayor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(21).values = [
+      '',
+      'INGRESOS NO OPERACIONALES',
+      formatterPeso.format(this.listIngresoNoOPeracionales[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listIngresoNoOPeracionales[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listIngresoNoOPeracionales[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listIngresoNoOPeracionales[0].libroMayor.valor)-Number(this.listIngresoNoOPeracionales[0].libroMayorAnteriorUno.valor)),
+      (((this.listIngresoNoOPeracionales[0].libroMayor.valor-this.listIngresoNoOPeracionales[0].libroMayorAnteriorUno.valor)/this.listIngresoNoOPeracionales[0].libroMayor.valor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(22).values = [
+      '',
+      'EGRESOS NO OPERACIONALES',
+      formatterPeso.format(this.egresosTotal[0].libroMayorAnteriorDos),
+      formatterPeso.format(this.egresosTotal[0].libroMayorAnteriorUno),
+      formatterPeso.format(this.egresosTotal[0].libroMayor),
+      formatterPeso.format(Number(this.egresosTotal[0].libroMayor)-Number(this.egresosTotal[0].libroMayorAnteriorUno)),
+      (((this.egresosTotal[0].libroMayor-this.egresosTotal[0].libroMayorAnteriorUno)/this.egresosTotal[0].libroMayor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(23).values = [
+      '',
+      'UTILIDAD ANTES DE IMPUESTOS',
+      formatterPeso.format(this.utilidadAntesImpuesto[0].libroMayorAnteriorDos),
+      formatterPeso.format(this.utilidadAntesImpuesto[0].libroMayorAnteriorUno),
+      formatterPeso.format(this.utilidadAntesImpuesto[0].libroMayor),
+      formatterPeso.format(Number(this.utilidadAntesImpuesto[0].libroMayor)-Number(this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)),
+      (((this.utilidadAntesImpuesto[0].libroMayor-this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)/this.utilidadAntesImpuesto[0].libroMayor)*100).toFixed(2)+'%',
+    ]
+
+    hoja.getRow(25).values = [
+      '',
+      'PROVISION IMPUESTO DE RENTA',
+      formatterPeso.format(this.listProvisionImpuestoRenta[0].libroMayorAnteriorDos.valor),
+      formatterPeso.format(this.listProvisionImpuestoRenta[0].libroMayorAnteriorUno.valor),
+      formatterPeso.format(this.listProvisionImpuestoRenta[0].libroMayor.valor),
+      formatterPeso.format(Number(this.listProvisionImpuestoRenta[0].libroMayor.valor)-Number(this.listProvisionImpuestoRenta[0].libroMayorAnteriorUno.valor)),
+      (((this.listProvisionImpuestoRenta[0].libroMayor.valor-this.listProvisionImpuestoRenta[0].libroMayorAnteriorUno.valor)/this.listProvisionImpuestoRenta[0].libroMayor.valor)*100).toFixed(2)+'%',
     ]
 
     //Estilos completos para toda la tabla
     var listaCeldas = ['C', 'D', 'E', 'F', 'G']
     for (let index = 0; index < 17; index++) {
       const hojaActual = hoja.getCell("B"+(index+9))
+      const hojaH = hoja.getCell("H"+(index+9))
       const element = listaClases[index];
       listaCeldas.forEach(elementCelda => {
         const hojaC = hoja.getCell(elementCelda+(index+9))
@@ -643,7 +805,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
           },
           alignment: { horizontal: 'center', vertical: 'middle' },
         }
-      }else if((index+9) == 15 || (index+9) == 20){
+      }else if((index+9) == 15 || (index+9) == 20 || (index+9) == 24){
         hojaActual.style = {
           font: { size: 13, bold: true,  color: { argb: 'FFFFFF' } },
           fill: {
@@ -676,6 +838,14 @@ export class ConsolidadoGraficaComponent implements OnInit {
         })
         }
       })
+      if((index+9) == 15 || (index+9) == 20 || (index+9) == 24){
+        hojaH.border = {
+        };
+      }else{
+        hojaH.border = {
+          left: {style:'thin'}
+        };
+      }
     }
   }
 

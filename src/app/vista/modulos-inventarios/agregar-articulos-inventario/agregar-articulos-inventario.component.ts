@@ -23,6 +23,7 @@ import { ModificarService } from 'src/app/servicios/modificar.service';
 import { map, Observable, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatTableDataSource } from '@angular/material/table';
+import { OrdenCompraService } from 'src/app/servicios/ordenCompra.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
   public listaArticulo: any = [];
   public listAprobar: any = [];
   public articulo : any = [];
+  public listaOrdenesCompra: any = [];
   public fechaActual: Date = new Date();
   color = ('primary');
   constructor(
@@ -63,6 +65,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
     private servicioInventario: InventarioService,
     private servicioMovimientoCompraInventario: MovimientosComprasInventarioService,
     private servicioModificar: ModificarService,
+    private servicioOrdenCompra: OrdenCompraService,
   ) { }
 
 
@@ -71,6 +74,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
     this.listarTipoActivos();
     this.listarCategorias();
     this.listarArticulos();
+    this.listarOrdenesCompra();
   }
 
   private crearFormulario() {
@@ -80,9 +84,15 @@ export class AgregarArticulosInventarioComponent implements OnInit {
       placa: [null,Validators.required],
       marca: [null,Validators.required],
       tipoActivo: [null,Validators.required],
-      cantidad: [0,Validators.required],
-      codigoContable: [null,Validators.required],
-      valor: [null,Validators.required]
+      codigoContable: [null],
+      valor: [null,Validators.required],
+      ordenCompra: [null,Validators.required],
+    });
+  }
+
+  public listarOrdenesCompra() {
+    this.servicioOrdenCompra.listarTodos().subscribe(resOrdenesCompra => {
+      this.listaOrdenesCompra = resOrdenesCompra
     });
   }
 
@@ -112,6 +122,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
     this.listAprobar = []
     this.articulo = []
     if(this.formArticulo.valid){
+      var idOrdenCompra = Number(this.formArticulo.controls['ordenCompra'].value)
       let articulo = this.myControl.value as Articulo
       this.articulo.push(articulo)
       if(this.myControl.value == ""){
@@ -126,7 +137,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
           this.servicioMovimientoCompraInventario.listarTodos().subscribe(res => {
             for(let i = 0; i < res.length; i++){
               if(this.articulo.length > 0){
-                if(res[i].idArticulo.id == this.articulo[0].id){
+                if(res[i].idArticulo.id == this.articulo[0].id && res[i].idOrdenCompra.id == idOrdenCompra){
                   this.aprobar = true
                 }else{
                   this.aprobar = false
@@ -138,7 +149,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
             }
             if(this.listAprobar.includes(true)){
               document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-              this.registrarArticulo(articulo)
+              this.registrarArticulo(articulo, idOrdenCompra)
             }else{
               Swal.fire({
                 icon: 'error',
@@ -180,7 +191,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
   }
 
   idArticulo: any;
-  public registrarArticulo(articulo: Articulo) {
+  public registrarArticulo(articulo: Articulo, idOrdenCompra: Number) {
     const codigoContable = this.formArticulo.value.codigoContable;
     const tipoActivo = this.formArticulo.controls['tipoActivo'].value;
     const marca = this.formArticulo.controls['marca'].value;
@@ -198,17 +209,20 @@ export class AgregarArticulosInventarioComponent implements OnInit {
           this.servicioTipoActivos.listarPorId(tipoActivo).subscribe(resTipoActivo=>{
             this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
               this.servicioEstado.listarPorId(74).subscribe(resEstadoDetalleArticulo=>{
-                let detalleArticulo : DetalleArticulo = new DetalleArticulo()
-                detalleArticulo.idEstado = resEstadoDetalleArticulo
-                detalleArticulo.idArticulo = resArticulito
-                detalleArticulo.idTipoActivo = resTipoActivo
-                detalleArticulo.idUsuario = resUsuario
-                detalleArticulo.marca = marca
-                detalleArticulo.codigoContable = codigoContable
-                detalleArticulo.placa = placa
-                detalleArticulo.serial = serial
-                detalleArticulo.valor = valorSinPuntos
-                this.registrarDetalleArticulo(detalleArticulo , articulo)
+                this.servicioOrdenCompra.listarPorId(Number(idOrdenCompra)).subscribe(resOrdenCompraId=>{
+                  let detalleArticulo : DetalleArticulo = new DetalleArticulo()
+                  detalleArticulo.idEstado = resEstadoDetalleArticulo
+                  detalleArticulo.idArticulo = resArticulito
+                  detalleArticulo.idTipoActivo = resTipoActivo
+                  detalleArticulo.idUsuario = resUsuario
+                  detalleArticulo.marca = marca
+                  detalleArticulo.codigoContable = codigoContable
+                  detalleArticulo.placa = placa
+                  detalleArticulo.serial = serial
+                  detalleArticulo.valor = valorSinPuntos
+                  detalleArticulo.idOrdenCompra = resOrdenCompraId
+                  this.registrarDetalleArticulo(detalleArticulo , articulo, resOrdenCompraId)
+                })
               })
             })
           })
@@ -220,18 +234,18 @@ export class AgregarArticulosInventarioComponent implements OnInit {
   idMovimientoCompraInventario: any;
   idAsignProceso: any;
   idDetalleArticulin: any;
-  public registrarDetalleArticulo(detalleArticulo: DetalleArticulo , articulo: Articulo) {
+  public registrarDetalleArticulo(detalleArticulo: DetalleArticulo , articulo: Articulo, resOrdenCompraId) {
     let inventario : Inventario = new Inventario()
     let movimientoCompraInventario : MovimientoComprasInventario2 = new MovimientoComprasInventario2()
     this.servicioMovimientoCompraInventario.listarTodos().subscribe(resMovimientoCompraInventario=>{
       resMovimientoCompraInventario.forEach(elementMovimientoCompraInventario => {
-        if(elementMovimientoCompraInventario.idArticulo.id == articulo.id){
+        if(elementMovimientoCompraInventario.idArticulo.id == articulo.id && elementMovimientoCompraInventario.idOrdenCompra.id == resOrdenCompraId.id){
           this.idMovimientoCompraInventario = elementMovimientoCompraInventario.id
         }
       });
       this.servicioMovimientoCompraInventario.listarPorId(Number(this.idMovimientoCompraInventario)).subscribe(resMovimientoCompraInventarioModel=>{
         this.servicioUsario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(usuLog => {
-          if(this.formArticulo.controls['cantidad'].value <= resMovimientoCompraInventarioModel.cantidad){
+          if(1 <= resMovimientoCompraInventarioModel.cantidad){
             this.servicioDetalleArticulo.registrar(detalleArticulo).subscribe(resDetalleArticulo=>{
               this.servicioEstado.listarPorId(76).subscribe(resEstado=>{
                 this.servicioDetalleArticulo.listarTodos().subscribe(resDetallesArticulos=>{
@@ -242,7 +256,7 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                       }
                     });
                     resDetallesArticulos.forEach(elementDetalleArticulo => {
-                      if(elementDetalleArticulo.id == detalleArticulo.id && elementDetalleArticulo.idArticulo.id == detalleArticulo.idArticulo.id && elementDetalleArticulo.placa == detalleArticulo.placa && elementDetalleArticulo.serial == detalleArticulo.serial){
+                      if(Number(elementDetalleArticulo.idOrdenCompra.id) == Number(resOrdenCompraId.id) && elementDetalleArticulo.id == detalleArticulo.id && elementDetalleArticulo.idArticulo.id == detalleArticulo.idArticulo.id && elementDetalleArticulo.placa == detalleArticulo.placa && elementDetalleArticulo.serial == detalleArticulo.serial){
                         this.idDetalleArticulin = elementDetalleArticulo.id
                       }
                     });
@@ -256,9 +270,11 @@ export class AgregarArticulosInventarioComponent implements OnInit {
                         inventario.idUsuario = usuLog
                         inventario.idDetalleArticulo = resDetalleArticulo
                         inventario.cantidad = Number(this.formArticulo.controls['cantidad'].value)
+                        inventario.idOrdenCompra = resOrdenCompraId
                         movimientoCompraInventario.id = resMovimientoCompraInventarioModel.id
                         movimientoCompraInventario.id_articulo = resMovimientoCompraInventarioModel.idArticulo.id
                         movimientoCompraInventario.cantidad = resMovimientoCompraInventarioModel.cantidad - Number(inventario.cantidad)
+                        movimientoCompraInventario.idOrdenCompra = resOrdenCompraId.id
                         this.servicioInventario.registrar(inventario).subscribe(resInventario=>{
                           this.servicioModificar.actualizarMovimientoCI(movimientoCompraInventario).subscribe(resMovimientoCompraInventario=>{
                             this.registrarAsignacionArticuloUsuario(asignArticuloUsuario, resDetalleArticulo)

@@ -8,4 +8,5 @@ export class DetalleArticulo2{
     public marca : string="";
     public idTipoActivo  : number=0;
     public valor  : number=0;
+    public idOrdenCompra : number=0;
 }
