@@ -3,6 +3,9 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
   <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar listado de observación"><i class="fa-solid fa-file-excel"></i></button>
+  <button class="btn bot botoncomentario text-white my-2" (click)="abrirTodosComentarios()" data-bs-toggle="tooltip" data-bs-placement="top" title="Abrir solicitud de mas comentarios en general">
+    <mat-icon>forum</mat-icon>
+  </button>
   <!-- <button *ngIf="estadoSolicitud == 31" class="btn pdfButton"><mat-icon>picture_as_pdf</mat-icon></button> -->
   <!-- (click)="exportPdf()" -->
   <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar observación">
@@ -12,6 +15,25 @@
   <section class="example-container mat-elevation-z8" tabindex="0">
 
     <table id="rol" datatable mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef id="chet">
+          <mat-checkbox id="chetbox" (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td id="chet2" mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? toggle($event, row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
       <!-- Position Column -->
       <ng-container matColumnDef="id" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp">Id</h3></th>

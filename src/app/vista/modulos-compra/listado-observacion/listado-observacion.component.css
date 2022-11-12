@@ -20,8 +20,15 @@ table{
 }
 .boton{ background-color: #00235C; }
 .btnver{ background-color: #959595; color: white; }
+.botoncomentario{
+  background-color: #97B4E2;
+  color: white;
+  position: relative;
+  top: 60px;
+  left: -120px;
+}
 
-.botonagregar, .botonvolver{ width: 64px; height: 36px; }
+.botonagregar, .botonvolver, .botoncomentario{ width: 64px; height: 36px; }
 .formulario mat-icon{ left: -3px; top: -1px;}
 
 /* Movil pequeño 1 - Galaxy Fold*/

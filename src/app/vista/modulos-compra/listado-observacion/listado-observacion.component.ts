@@ -8,6 +8,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { DetalleSolicitud } from 'src/app/modelos/detalleSolicitud';
+import { SelectionModel } from '@angular/cdk/collections';
+import { DetalleArticulo } from 'src/app/modelos/detalleArticulo';
+import { TodosComentariosComponent } from '../proceso/todos-comentarios/todos-comentarios.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listado-observacion',
@@ -18,8 +22,9 @@ export class ListadoObservacionComponent implements OnInit {
   public idSolicitud: any;
   public estadoSolicitud: any;
   public listarDetalle: any = [];
-  displayedColumns = ['id', 'articulo','solicitud', 'cantidad','observacion','estado', 'opciones'];
-  dataSource!:MatTableDataSource<any>;
+  displayedColumns = ['select', 'id', 'articulo','solicitud', 'cantidad','observacion','estado', 'opciones'];
+  dataSource2!:MatTableDataSource<any>;
+  dataSource = new MatTableDataSource<DetalleArticulo>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
@@ -34,6 +39,119 @@ export class ListadoObservacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarDetalleSolicitud();
+  }
+
+  //chetbox
+
+  selection = new SelectionModel<DetalleArticulo>(true, []);
+  public list: any = {};
+  public listaRow: any = [];
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+
+  }
+
+  verificacion = false
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  seleccionados:any
+  toggleAllRows() {
+    if(this.verificacion == false){
+      this.verificacion = true
+      if (this.isAllSelected()) {
+        this.selection.clear();
+        return;
+      }
+      this.selection.select(...this.dataSource.data);
+      this.listaRow = this.listarDetalle
+    }else{
+      this.verificacion = false
+      if (this.isAllSelected()) {
+        this.selection.clear();
+        return;
+      }
+      this.selection.select(...this.dataSource.data);
+      this.listaRow = []
+    }
+  }
+
+  toggle(event:any, row: any) {
+    this.list = row
+    var obj = {
+      articulo: [],
+      seleccionado: Boolean
+    }
+    console.log(this.list)
+    var encontrado = false
+    const listaEncontrado: any = []
+    if(this.listaRow.length>=1 ){
+      for (let index = 0; index < this.listaRow.length; index++) {
+        const element = this.listaRow[index];
+        if(element.articulo.id == this.list.id){
+          if(element.seleccionado == true && event.checked == false){
+            var posicion = this.listaRow.indexOf(element)
+            this.listaRow.splice(posicion, 1)
+            break
+          }
+        }else if(element.articulo.id != this.list.id && event.checked == true){
+          obj.articulo = this.list
+          obj.seleccionado = event.checked
+          this.listaRow.push(obj)
+          break
+        }
+      }
+    }else{
+      if(event.checked == true){
+        obj.articulo = this.list
+        obj.seleccionado = event.checked
+        this.listaRow.push(obj)
+      }
+    }
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: DetalleArticulo): string {
+    var encontrado = false
+    const listaEncontrado: any = []
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1},`+this.selection.isSelected(row)+` estas son: `+row;
+  }
+
+  public abrirTodosComentarios(){
+    console.log(this.listaRow)
+    console.log(this.data)
+    if(this.listaRow.length > 0){
+      const dialogRef = this.dialog.open(TodosComentariosComponent, {
+        width: '400px',
+        data: this.listaRow
+      });
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+    // if(this.listaRow.length == this.listarDetalle.length){
+    //   this.listarDetalle = []
+    //   this.dataSource = new MatTableDataSource( this.listarDetalle);
+    // }else{
+    //   this.listaRow.forEach((element:any) => {
+    //     for (let i in this.listarDetalle) {
+    //       if (this.listarDetalle[i].articulo.id == element.articulo.id) {
+    //         this.listarDetalle.splice(i, 1)
+    //       }
+    //     }
+    //   });
+    //   this.dataSource = new MatTableDataSource( this.listarDetalle);
+    // }
   }
 
   public listarDetalleSolicitud() {
@@ -57,10 +175,10 @@ export class ListadoObservacionComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     if(filterValue == ""){
-      this.dataSource = new MatTableDataSource(this.listarDetalle);
+      this.dataSource2 = new MatTableDataSource(this.listarDetalle);
     }else{
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-      this.dataSource.filterPredicate = (data: DetalleSolicitud, filter: string) => {
+      this.dataSource2.filter = filterValue.trim().toLowerCase();
+      this.dataSource2.filterPredicate = (data: DetalleSolicitud, filter: string) => {
         const accumulator = (currentTerm, key) => {
           return this.nestedFilterCheck(currentTerm, data, key);
         };

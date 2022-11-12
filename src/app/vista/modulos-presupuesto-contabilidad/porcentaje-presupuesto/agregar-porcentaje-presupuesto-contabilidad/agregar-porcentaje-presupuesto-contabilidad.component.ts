@@ -253,12 +253,13 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
     this.listaPorcentajeCompletos = []
     this.servicioPorcentajePresupuesto.listarTodos().subscribe(resPorcentajePresupuesto=>{
       this.listadoPorcentajes = resPorcentajePresupuesto
+      console.log(this.listadoPorcentajes)
       for (let index = 0; index < this.listadoPorcentajes.length; index++) {
         const element = this.listadoPorcentajes[index];
         var obj = {
           "Id": element.id,
           "Fecha": element.fecha,
-          "Codigo": element.codigo,
+          "Codigo": element.idCuenta.codigo,
           "Cuenta": element.idCuenta.descripcion,
           "Porcentaje": element.porcentaje+"%"
         }

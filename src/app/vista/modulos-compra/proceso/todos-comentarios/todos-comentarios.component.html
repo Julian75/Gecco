@@ -1,0 +1,20 @@
+<h2 class="dato">¿Desea adquirir una opinion más a fondo de los articulos seleccionados?</h2>
+  <div class="row1">
+    <!-- Ingresar Observacion -->
+    <div class="nombre2">
+      <h2>Comentario</h2>
+      <mat-radio-group aria-label="Seleccione una opción">
+        <mat-radio-button (change)="capturarOpcion(1)" value="1" data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione opción">Si</mat-radio-button>
+        <mat-radio-button (change)="capturarOpcion(2)" value="2" data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione opción">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Adquirir">Comentario</button>
+    </div>
+  </div>
+<div class="solpiner" id="snipper" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
