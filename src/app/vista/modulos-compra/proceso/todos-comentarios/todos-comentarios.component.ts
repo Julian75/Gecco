@@ -12,6 +12,7 @@ import { GestionProceso } from 'src/app/modelos/gestionProceso';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { GestionProceso2 } from 'src/app/modelos/gestionProceso2';
 
 @Component({
   selector: 'app-todos-comentarios',
@@ -50,6 +51,7 @@ export class TodosComentariosComponent implements OnInit {
   existe = false;
   listaExiste = [];
   public guardar(){
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.listaExiste = []
     this.existe = false;
     if(this.opcion == 0){
@@ -60,12 +62,15 @@ export class TodosComentariosComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
     }else{
       this.listaDetalleSolicitud = this.data
+      console.log(this.listaDetalleSolicitud)
       let gestionProceso : GestionProceso = new GestionProceso();
       if(this.opcion == 1){
         gestionProceso.comentario = ""
         this.serviceProceso.listarTodos().subscribe(resProceso=>{
+          console.log(resProceso.length)
           resProceso.forEach(element => {
             if(element.idUsuario.id == this.listaDetalleSolicitud[0].articulo.idSolicitud.idUsuario.id){
               gestionProceso.idProceso = element
@@ -76,18 +81,60 @@ export class TodosComentariosComponent implements OnInit {
           const existente = this.listaExiste.includes(true)
           if(existente == true){
             for (let i = 0; i < this.listaDetalleSolicitud.length; i++) {
+              let gestionProcesoRegistrar : GestionProceso = new GestionProceso();
+              gestionProcesoRegistrar.idProceso = gestionProceso.idProceso
               const element = this.listaDetalleSolicitud[i];
-              console.log(element, this.listaDetalleSolicitud[i])
-              this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
-                gestionProceso.idDetalleSolicitud = element.articulo
-                gestionProceso.idEstado = resEstado
-                this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
-                  gestionProceso.idUsuario = resUsuario
-                  console.log(gestionProceso.idDetalleSolicitud)
-                  this.registrarGestionProceso(gestionProceso, element.articulo.id, i)
-                })
+              var idArticulo = element.articulo.id
+              console.log(idArticulo)
+              this.servicioConsultasGenerales.listarGestionProcesoSolicitud(idArticulo).subscribe(resGestionProcesoSolicitud=>{
+                if(resGestionProcesoSolicitud.length > 0){
+                  resGestionProcesoSolicitud.forEach(elementGestion => {
+                    let gestionProcesoModificar : GestionProceso2 = new GestionProceso2();
+                    gestionProcesoModificar.comentario = ""
+                    gestionProcesoModificar.id = elementGestion.id
+                    gestionProcesoModificar.idDetalleSolicitud = elementGestion.idDetalleSolicitud
+                    gestionProcesoModificar.idEstado = 50
+                    gestionProcesoModificar.idProceso = elementGestion.idProceso
+                    gestionProcesoModificar.idUsuario = elementGestion.idUsuario
+                    this.servicioModificar.actualizarGestionProceso(gestionProcesoModificar).subscribe(resGestionModificada=>{
+                      console.log("bien", resGestionModificada)
+                      this.actualizarDetalleSolicitud(elementGestion.idDetalleSolicitud, i);
+                    }, error => {
+                      Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Hubo un error al modificar!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                    });
+                  });
+                }else{
+                  this.servicioDetalleSolicitud.listarPorId(idArticulo).subscribe(resDetalleSolicitud=>{
+                    var resDetalleSol = resDetalleSolicitud
+                    gestionProcesoRegistrar.idDetalleSolicitud = resDetalleSol
+                    this.serviceEstado.listarPorId(50).subscribe(resEstado=>{
+                      gestionProcesoRegistrar.idEstado = resEstado
+                      this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuario=>{
+                        gestionProcesoRegistrar.idUsuario = resUsuario
+                        this.servicioGestionProceso.registrar(gestionProcesoRegistrar).subscribe(res=>{
+                            this.actualizarDetalleSolicitud(element.articulo.id, i);
+                        }, error => {
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Hubo un error al agregar!',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                        });
+                      })
+                    })
+                  })
+                }
               })
-              console.log(gestionProceso)
             }
           }else{
             Swal.fire({
@@ -97,6 +144,7 @@ export class TodosComentariosComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             })
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
           }
         })
       }else if(this.opcion == 2){
@@ -105,24 +153,10 @@ export class TodosComentariosComponent implements OnInit {
     }
   }
 
-  public registrarGestionProceso(gestionProceso: GestionProceso, idDetalleSolicitud, contador){
-    console.log(gestionProceso)
-    // this.servicioGestionProceso.registrar(gestionProceso).subscribe(res=>{
-    //   this.actualizarDetalleSolicitud(idDetalleSolicitud, contador);
-    // }, error => {
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'error',
-    //     title: 'Hubo un error al agregar!',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    // });
-  }
-
   public actualizarDetalleSolicitud(idDetalleSolicitud:number, contador){
     let detalleSolicitud : DetalleSolicitud2 = new DetalleSolicitud2();
     this.servicioDetalleSolicitud.listarPorId(idDetalleSolicitud).subscribe(resDetalleSolicitud=>{
+      console.log(resDetalleSolicitud)
       detalleSolicitud.id = resDetalleSolicitud.id
       detalleSolicitud.cantidad = resDetalleSolicitud.cantidad
       detalleSolicitud.idArticulos = resDetalleSolicitud.idArticulos.id
@@ -142,7 +176,6 @@ export class TodosComentariosComponent implements OnInit {
       if((contador+1) == this.listaDetalleSolicitud.length){
         this.listaDetallesNoSeleccionados = []
         this.servicioConsultasGenerales.listarDetalleSolicitud(detalleSolicitud.idSolicitud).subscribe(resDetalleSolici=>{
-          console.log(resDetalleSolici)
           resDetalleSolici.forEach(element => {
             this.validar = false
             for (let i = 0; i < this.listaDetalleSolicitud.length; i++) {
@@ -151,13 +184,11 @@ export class TodosComentariosComponent implements OnInit {
                 this.validar = true
               }
             }
-            console.log(this.validar)
-            if(this.validar == true){
+            if(this.validar == false){
               this.listaDetallesNoSeleccionados.push(element)
             }
           });
           if(this.listaDetallesNoSeleccionados.length > 0){
-            console.log("hola")
             for (let i = 0; i < this.listaDetallesNoSeleccionados.length; i++) {
               const element = this.listaDetallesNoSeleccionados[i];
               let detalleSolicitud2 : DetalleSolicitud2 = new DetalleSolicitud2();
@@ -176,7 +207,6 @@ export class TodosComentariosComponent implements OnInit {
               })
             }
           }else{
-            console.log("hola2")
             this.servicioSolicitud.listarPorId(Number(detalleSolicitud.idSolicitud)).subscribe(res => {
               let solicitud : Solicitud2 = new Solicitud2();
               solicitud.id = res.id

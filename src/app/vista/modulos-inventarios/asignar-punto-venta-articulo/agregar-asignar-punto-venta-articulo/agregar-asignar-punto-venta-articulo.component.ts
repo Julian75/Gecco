@@ -164,7 +164,7 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
                   asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo
                   asignacionPuntoVenta.idOficina = oficina.ideOficina
                   asignacionPuntoVenta.idSitioVenta = sitioVent
-                  asignacionPuntoVenta.cantidad = 0
+                  asignacionPuntoVenta.cantidad = 1
                   asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
                   asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
                   this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);

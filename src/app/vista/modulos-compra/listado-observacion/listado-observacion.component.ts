@@ -84,7 +84,6 @@ export class ListadoObservacionComponent implements OnInit {
       articulo: [],
       seleccionado: Boolean
     }
-    console.log(this.list)
     var encontrado = false
     const listaEncontrado: any = []
     if(this.listaRow.length>=1 ){
@@ -122,36 +121,45 @@ export class ListadoObservacionComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1},`+this.selection.isSelected(row)+` estas son: `+row;
   }
 
+  listaModificada: any =[];
   public abrirTodosComentarios(){
-    console.log(this.listaRow)
-    console.log(this.data)
-    if(this.listaRow.length > 0){
-      const dialogRef = this.dialog.open(TodosComentariosComponent, {
-        width: '400px',
-        data: this.listaRow
-      });
+    if(this.listaRow[0].articulo == undefined){
+      for (let i = 0; i < this.listaRow.length; i++) {
+        var obj = { articulo: {}}
+        const element = this.listaRow[i];
+        obj.articulo = element
+        this.listaModificada.push(obj)
+      }
+      if(this.listaModificada.length > 0){
+        const dialogRef = this.dialog.open(TodosComentariosComponent, {
+          width: '400px',
+          data: this.listaModificada
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     }else{
-      Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      if(this.listaRow.length > 0){
+        const dialogRef = this.dialog.open(TodosComentariosComponent, {
+          width: '400px',
+          data: this.listaRow
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     }
-    // if(this.listaRow.length == this.listarDetalle.length){
-    //   this.listarDetalle = []
-    //   this.dataSource = new MatTableDataSource( this.listarDetalle);
-    // }else{
-    //   this.listaRow.forEach((element:any) => {
-    //     for (let i in this.listarDetalle) {
-    //       if (this.listarDetalle[i].articulo.id == element.articulo.id) {
-    //         this.listarDetalle.splice(i, 1)
-    //       }
-    //     }
-    //   });
-    //   this.dataSource = new MatTableDataSource( this.listarDetalle);
-    // }
   }
 
   public listarDetalleSolicitud() {

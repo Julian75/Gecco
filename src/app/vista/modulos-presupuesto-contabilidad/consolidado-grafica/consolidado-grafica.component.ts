@@ -127,7 +127,10 @@ export class ConsolidadoGraficaComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
+  titulo: any;
+  individual = false;
   public graficas(descripcion, valores){
+    this.individual = false
     var serieGrafica = []
     if(descripcion == ""){
       serieGrafica = [
@@ -150,8 +153,45 @@ export class ConsolidadoGraficaComponent implements OnInit {
           Math.round(((this.utilidadAntesImpuesto[0].libroMayor-this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)/this.utilidadAntesImpuesto[0].libroMayor)*100)]
         },
       ]
+      this.chartOptions = {
+        series: serieGrafica,
+        chart: {
+          type: "bar",
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%"
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+        xaxis: {
+          categories: ["2020", "2021", "2022", "Variación", "%"]
+        },
+        yaxis: {
+          show: false,
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$ " + val + " thousands";
+            }
+          }
+        }
+      };
     }else{
-      console.log(valores[0].libroMayor.valor)
+      this.individual = true
       if(valores[0].libroMayor.valor == undefined){
         serieGrafica = [
           {
@@ -171,46 +211,46 @@ export class ConsolidadoGraficaComponent implements OnInit {
           }
         ]
       }
-    }
-    this.chartOptions = {
-      series: serieGrafica,
-      chart: {
-        type: "bar",
-        height: 350
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"]
-      },
-      xaxis: {
-        categories: ["2020", "2021", "2022", "Variación", "%"]
-      },
-      yaxis: {
-        title: {
-          text: "$ (thousands)"
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return "$ " + val + " thousands";
+      this.titulo = descripcion
+      this.chartOptions = {
+        series: serieGrafica,
+        chart: {
+          type: "bar",
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%",
+            distributed: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+        xaxis: {
+          categories: ["2020", "2021", "2022", "Variación", "%"]
+        },
+        yaxis: {
+          show: false,
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$ " + val + " thousands";
+            }
           }
         }
-      }
-    };
+      };
+    }
   }
 
   listaClases: any = [] // Lista de todos los libros mayores de las cuentas

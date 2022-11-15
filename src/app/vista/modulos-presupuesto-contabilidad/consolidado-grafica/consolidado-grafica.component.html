@@ -28,7 +28,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('CHANCE', listChance)">
               <mat-icon>bar_chart</mat-icon>
@@ -41,7 +41,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('VENTAS DE RASPAS', listVentasRaspa)">
               <mat-icon>bar_chart</mat-icon>
@@ -54,7 +54,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('LINEA DE NEGOCIOS', listLineaNegocios)">
               <mat-icon>bar_chart</mat-icon>
@@ -67,7 +67,7 @@
           <td class="azulOscuro">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulOscuro">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulOscuro">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulOscuro">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulOscuro">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('VENTAS NETAS', ventasNetas)">
               <mat-icon>bar_chart</mat-icon>
@@ -80,7 +80,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('COSTO DE VENTA', listCostoVentas)">
               <mat-icon>bar_chart</mat-icon>
@@ -93,7 +93,7 @@
           <td class="rojoBlanco">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="rojoBlanco">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="rojoBlanco">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('UTILIDAD BRUTA', utilidadBruta)">
               <mat-icon>bar_chart</mat-icon>
@@ -106,7 +106,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('GASTOS DE ADMINISTRACIÓN', listGastoAdmin)">
               <mat-icon>bar_chart</mat-icon>
@@ -119,7 +119,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('GASTOS DE VENTAS', listGastoVenta)">
               <mat-icon>bar_chart</mat-icon>
@@ -132,7 +132,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('GASTOS FINANCIEROS', listGastoFinanciero)">
               <mat-icon>bar_chart</mat-icon>
@@ -145,7 +145,7 @@
           <td class="rojoBlanco">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="rojoBlanco">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="rojoBlanco">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('UTILIDAD OPERATIVA', utilidadOperativa)">
               <mat-icon>bar_chart</mat-icon>
@@ -158,7 +158,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('INGRESOS NO OPERACIONALES', listIngresoNoOPeracionales)">
               <mat-icon>bar_chart</mat-icon>
@@ -171,7 +171,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('EGRESOS NO OPERACIONALES', egresosTotal)">
               <mat-icon>bar_chart</mat-icon>
@@ -184,7 +184,7 @@
           <td class="rojoBlanco">{{element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="rojoBlanco">{{element.libroMayor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="rojoBlanco">{{element.libroMayor - element.libroMayorAnteriorUno | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100}}%</td>
+          <td class="rojoBlanco">{{((element.libroMayor-element.libroMayorAnteriorUno)/element.libroMayor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('UTILIDAD ANTES DE IMPUESTOS', utilidadAntesImpuesto)">
               <mat-icon>bar_chart</mat-icon>
@@ -197,7 +197,7 @@
           <td class="azulClaro">{{element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor | currency:'COP':'symbol':'1.0-0'}}</td>
           <td class="azulClaro">{{element.libroMayor.valor - element.libroMayorAnteriorUno.valor | currency:'COP':'symbol':'1.0-0'}}</td>
-          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100}}%</td>
+          <td class="azulClaro">{{((element.libroMayor.valor-element.libroMayorAnteriorUno.valor)/element.libroMayor.valor)*100 | number}}%</td>
           <td class="azulClaro">
             <button class="btn mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar grafica"(click)="graficas('PROVISION IMPUESTO DE RENTA', listProvisionImpuestoRenta)">
               <mat-icon>bar_chart</mat-icon>
@@ -207,6 +207,7 @@
       </tbody>
     </table>
   </section>
+  <h2 class="titulo" *ngIf="individual == true">{{titulo}}</h2>
   <div class="graficas" *ngIf="tablaMostrar == true">
     <div id="chart">
       <apx-chart

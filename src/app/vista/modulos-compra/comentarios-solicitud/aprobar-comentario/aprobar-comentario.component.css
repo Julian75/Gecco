@@ -200,11 +200,11 @@ table{
 /*Compu. Mesa 6*/
 @media screen and (min-width: 1537px) and (max-width: 1850px){
   td button mat-icon{ font-size: 20px !important; margin-left: -3px; margin-top: -1px; }
-  #idSp{ margin-left: 160%; }
+  /* #idSp{ margin-left: 160%; }
   #desSp{ margin-left: 75%; }
   #estSp{ margin-left: 75%; }
   #estaSp{ margin-left: 170%;}
-  #usuar{ width: 130px; }
+  #usuar{ width: 130px; } */
 }
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/

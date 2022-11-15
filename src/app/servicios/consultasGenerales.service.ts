@@ -18,6 +18,7 @@ import { HistorialSolicitudes2 } from '../modelos/modelos2/historialSolicitudes2
 import { Cuentas2 } from '../modelos/modelos2/cuentas2';
 import { PorcentajePresupuesto2 } from '../modelos/modelos2/porcentajePresupuesto2';
 import { Raspas2 } from '../modelos/modelos2/raspas2';
+import { GestionProceso2 } from '../modelos/gestionProceso2';
 
 @Injectable({
   providedIn: 'root'
@@ -148,6 +149,11 @@ export class ConsultasGeneralesService {
   //Lista todos los raspas de gecco por rango de fecha
   public listarRaspasGecco(fechaInicio, fechaFinal){
     return this.http.get<Raspas2[]>(this.path+"/ObtenerRaspasGecco?fechaInicio="+fechaInicio+"&fechaFinal="+fechaFinal);
+  }
+
+  //Lista todos las gestion proceso del detalle de la solicitud digitado
+  public listarGestionProcesoSolicitud(idDetalleSolicitud){
+    return this.http.get<GestionProceso2[]>(this.path+"/ObtenerGestionProcesoSolicitud?idDetalleSolicitud="+idDetalleSolicitud);
   }
 
   // public listarGestionProceso(idUsuario: number){
