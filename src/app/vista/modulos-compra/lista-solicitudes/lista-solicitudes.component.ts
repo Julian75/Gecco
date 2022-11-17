@@ -170,7 +170,8 @@ export class ListaSolicitudesComponent implements OnInit {
 
   verSolicitud(id: number){
     const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
-      width: '1000px',
+      width: '80%',
+      height: '80%',
       data: {id: id}
     });
   }

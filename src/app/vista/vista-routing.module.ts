@@ -114,6 +114,7 @@ import { AnalisisDetalladoContableComponent } from './modulos-presupuesto-contab
 import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/consolidado-grafica/consolidado-grafica.component';
 import { ColillaTerceroLoteriaComponent } from './modulos-raspita/colilla-tercero-loteria/colilla-tercero-loteria.component';
 import { AuditoriaControlInternoComponent } from './modulos-inventarios/auditoria-control-interno/auditoria-control-interno.component';
+import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/reporte-auditoria-activo.component';
 
 const routes: Routes = [
   {
@@ -619,6 +620,11 @@ const routes: Routes = [
       {
         path: 'auditoriaActivos',
         component: AuditoriaControlInternoComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'reporteAuditoriaActivos',
+        component: ReporteAuditoriaActivoComponent,
         canActivate: [AutorizacionGuard]
       },
       //Matriz de Necesidades

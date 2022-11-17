@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   public usuario:any =[]
+  public nombre:any = []
   public get = sessionStorage.getItem("id")
   constructor(
     private router: Router,
@@ -22,11 +23,9 @@ export class NavbarComponent implements OnInit {
 
   public usuarioLogeado(){
     this.servicioUsuario.listarTodos().subscribe(res => {
-      res.forEach(usuario => {
-        if(usuario.documento == Number(sessionStorage.getItem('usuario'))){
-          this.usuario = usuario;
-        }
-      })
+      const usuario = res.find((usuario:Usuario) => usuario.documento == Number(sessionStorage.getItem("usuario")));
+      this.usuario = usuario.idRol.descripcion;
+      this.nombre = usuario.nombre + " " + usuario.apellido;
     })
   }
   public salir(){

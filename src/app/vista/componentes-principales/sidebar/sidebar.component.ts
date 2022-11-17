@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
   public fecha : Date = new Date();
   public listaVisita:any = []
   public valor: any;
+  public fechaActual:any
 
   constructor(
     private servicioUsuario: UsuarioService,
@@ -37,29 +38,35 @@ export class SidebarComponent implements OnInit {
     this.servicioUsuario.listarPorId(idUsuario).subscribe(res=>{
       this.idRol = res.idRol.id
       this.servicioAcceso.listarTodos().subscribe( res =>{
+        const fecha = this.fecha.toISOString().slice(0,10)
+        console.log(fecha)
+        const mesFecha = fecha.slice(5,7)
+        let dia = fecha.slice(8,10)
+        let mes = new Date(0, Number(mesFecha)-1).toLocaleString('default', { month: 'long' }).toUpperCase()
+        this.fechaActual = dia + "  " + mes + "  " + fecha.slice(0,4)
         res.forEach(element => {
           if (element.idRol.id == this.idRol) {
             this.listaAccessForm.push(element.idModulo.id)
           }
         });
         for (let i = 0; i < this.listaAccessForm.length; i++) {
-          if(this.listaAccessForm[i] == 5 || this.listaAccessForm[i] == 4 || this.listaAccessForm[i] == 3 || this.listaAccessForm[i] == 10 || this.listaAccessForm[i] == 11 || this.listaAccessForm[i] == 19 || this.listaAccessForm[i] == 21 || this.listaAccessForm[i] == 51 || this.listaAccessForm[i] == 52 || this.listaAccessForm[i] == 50 || this.listaAccessForm[i] == 63){
+          if(this.listaAccessForm[i] == 5 || this.listaAccessForm[i] == 4 || this.listaAccessForm[i] == 3 || this.listaAccessForm[i] == 10 || this.listaAccessForm[i] == 11 || this.listaAccessForm[i] == 19 || this.listaAccessForm[i] == 21){
             document.getElementById('Administracion')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 1 || this.listaAccessForm[i] == 12 || this.listaAccessForm[i] == 2 || this.listaAccessForm[i] == 6 || this.listaAccessForm[i] == 13 || this.listaAccessForm[i] == 7 || this.listaAccessForm[i] == 20 || this.listaAccessForm[i] == 14 || this.listaAccessForm[i]== 40 || this.listaAccessForm[i]== 41 ){
             document.getElementById('Malla')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 16 || this.listaAccessForm[i] == 17 || this.listaAccessForm[i] == 18){
             document.getElementById('Visita')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 28 || this.listaAccessForm[i] == 86){
+          }else if(this.listaAccessForm[i] == 28){
             document.getElementById('Raspa')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 22 || this.listaAccessForm[i]== 23 || this.listaAccessForm[i]== 26 || this.listaAccessForm[i]== 29 || this.listaAccessForm[i]== 30 || this.listaAccessForm[i]== 31 || this.listaAccessForm[i]== 32 || this.listaAccessForm[i]== 33 || this.listaAccessForm[i] == 58 ){
             document.getElementById('Compra')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i]== 42 || this.listaAccessForm[i]== 43 || this.listaAccessForm[i]== 44 || this.listaAccessForm[i]== 45 || this.listaAccessForm[i]== 46 || this.listaAccessForm[i] == 38 || this.listaAccessForm[i] == 47 || this.listaAccessForm[i] == 66 || this.listaAccessForm[i] == 39){
             document.getElementById('RecepcionDatos')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 68 ){
+          }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 50 || this.listaAccessForm[i] == 68 ){
             document.getElementById('RegistroIngreso')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 55 || this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 59 || this.listaAccessForm[i] == 60 || this.listaAccessForm[i] == 61 || this.listaAccessForm[i] == 62 || this.listaAccessForm[i] == 69 || this.listaAccessForm[i] == 70 || this.listaAccessForm[i] == 71 || this.listaAccessForm[i] == 72 || this.listaAccessForm[i] == 73 || this.listaAccessForm[i] == 78) {
+          }else if(this.listaAccessForm[i] == 51 || this.listaAccessForm[i] == 52 || this.listaAccessForm[i] == 55 || this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 59 || this.listaAccessForm[i] == 60 || this.listaAccessForm[i] == 61 || this.listaAccessForm[i] == 62 || this.listaAccessForm[i] == 69 || this.listaAccessForm[i] == 70 || this.listaAccessForm[i] == 71 || this.listaAccessForm[i] == 72 || this.listaAccessForm[i] == 73 || this.listaAccessForm[i] == 78) {
             document.getElementById('Inventario')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 64 || this.listaAccessForm[i] == 65 || this.listaAccessForm[i] == 74 || this.listaAccessForm[i] == 75 || this.listaAccessForm[i] == 77 ){
+          }else if(this.listaAccessForm[i] == 63 || this.listaAccessForm[i] == 64 || this.listaAccessForm[i] == 65 || this.listaAccessForm[i] == 74 || this.listaAccessForm[i] == 75 || this.listaAccessForm[i] == 77 ){
             document.getElementById('MatrizDeNecesidades')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 79 || this.listaAccessForm[i] == 80 || this.listaAccessForm[i] == 81 || this.listaAccessForm[i] == 82 || this.listaAccessForm[i] == 83 || this.listaAccessForm[i] == 84 || this.listaAccessForm[i] == 85 ){
             document.getElementById('PresupuestoContabilidad')?.setAttribute('style', 'display: block;')
@@ -276,9 +283,6 @@ export class SidebarComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 85) {
             document.getElementById('85')?.setAttribute('style', 'display: block;')
-          }
-          if (this.listaAccessForm[i] == 86) {
-            document.getElementById('86')?.setAttribute('style', 'display: block;')
           }
         }
       })

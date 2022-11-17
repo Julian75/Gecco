@@ -27,7 +27,8 @@ import {
   ApexStroke,
   ApexXAxis,
   ApexFill,
-  ApexTooltip
+  ApexTooltip,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -129,28 +130,32 @@ export class ConsolidadoGraficaComponent implements OnInit {
 
   titulo: any;
   individual = false;
+  valorAnteriorDos: any;
+  valorAnteriorUno: any;
+  valorActual: any;
+  variacion: any;
+  porcentaje: any;
   public graficas(descripcion, valores){
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
     this.individual = false
     var serieGrafica = []
     if(descripcion == ""){
       serieGrafica = [
         {
           name: "UTILIDAD BRUTA",
-          data: [Number(this.utilidadBruta[0].libroMayorAnteriorDos), Math.round(this.utilidadBruta[0].libroMayorAnteriorUno),Math.round(this.utilidadBruta[0].libroMayor),
-          Math.round((this.utilidadBruta[0].libroMayor - this.utilidadBruta[0].libroMayorAnteriorUno)),
-          Math.round(((this.utilidadBruta[0].libroMayor-this.utilidadBruta[0].libroMayorAnteriorUno)/this.utilidadBruta[0].libroMayor)*100)]
+          data: [Number(this.utilidadBruta[0].libroMayorAnteriorDos), Math.round(this.utilidadBruta[0].libroMayorAnteriorUno),Math.round(this.utilidadBruta[0].libroMayor)]
         },
         {
           name: "UTILIDAD OPERATIVA",
-          data: [Number(this.utilidadOperativa[0].libroMayorAnteriorDos), Math.round(this.utilidadOperativa[0].libroMayorAnteriorUno),Math.round(this.utilidadOperativa[0].libroMayor),
-          Math.round((this.utilidadOperativa[0].libroMayor - this.utilidadOperativa[0].libroMayorAnteriorUno)),
-          Math.round(((this.utilidadOperativa[0].libroMayor-this.utilidadOperativa[0].libroMayorAnteriorUno)/this.utilidadOperativa[0].libroMayor)*100)]
+          data: [Number(this.utilidadOperativa[0].libroMayorAnteriorDos), Math.round(this.utilidadOperativa[0].libroMayorAnteriorUno),Math.round(this.utilidadOperativa[0].libroMayor)]
         },
         {
           name: "UTILIDAD ANTES DE IMPUESTOS",
-          data: [Number(this.utilidadAntesImpuesto[0].libroMayorAnteriorDos), Math.round(this.utilidadAntesImpuesto[0].libroMayorAnteriorUno),Math.round(this.utilidadAntesImpuesto[0].libroMayor),
-          Math.round((this.utilidadAntesImpuesto[0].libroMayor - this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)),
-          Math.round(((this.utilidadAntesImpuesto[0].libroMayor-this.utilidadAntesImpuesto[0].libroMayorAnteriorUno)/this.utilidadAntesImpuesto[0].libroMayor)*100)]
+          data: [Number(this.utilidadAntesImpuesto[0].libroMayorAnteriorDos), Math.round(this.utilidadAntesImpuesto[0].libroMayorAnteriorUno),Math.round(this.utilidadAntesImpuesto[0].libroMayor)]
         },
       ]
       this.chartOptions = {
@@ -174,7 +179,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
           colors: ["transparent"]
         },
         xaxis: {
-          categories: ["2020", "2021", "2022", "Variación", "%"]
+          categories: [(this.selectYear.getFullYear()-2), (this.selectYear.getFullYear()-1), this.selectYear.getFullYear()]
         },
         yaxis: {
           show: false,
@@ -185,7 +190,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
         tooltip: {
           y: {
             formatter: function (val) {
-              return "$ " + val + " thousands";
+              return formatterPeso.format(val);
             }
           }
         }
@@ -196,20 +201,26 @@ export class ConsolidadoGraficaComponent implements OnInit {
         serieGrafica = [
           {
             name: descripcion,
-            data: [Number(valores[0].libroMayorAnteriorDos), Math.round(valores[0].libroMayorAnteriorUno),Math.round(valores[0].libroMayor),
-            Math.round((valores[0].libroMayor - valores[0].libroMayorAnteriorUno)),
-            Math.round(((valores[0].libroMayor-valores[0].libroMayorAnteriorUno)/valores[0].libroMayor)*100)]
+            data: [Number(valores[0].libroMayorAnteriorDos), Math.round(valores[0].libroMayorAnteriorUno),Math.round(valores[0].libroMayor)]
           }
         ]
+        this.valorAnteriorDos = formatterPeso.format((valores[0].libroMayorAnteriorDos))
+        this.valorAnteriorUno = formatterPeso.format(Math.round(valores[0].libroMayorAnteriorUno))
+        this.valorActual = formatterPeso.format(Math.round(valores[0].libroMayor))
+        this.variacion = formatterPeso.format(Math.round((valores[0].libroMayor - valores[0].libroMayorAnteriorUno)))
+        this.porcentaje = Number(((valores[0].libroMayor-valores[0].libroMayorAnteriorUno)/valores[0].libroMayor)*100)
       }else{
         serieGrafica = [
           {
             name: descripcion,
-            data: [Number(valores[0].libroMayorAnteriorDos.valor), Math.round(valores[0].libroMayorAnteriorUno.valor),Math.round(valores[0].libroMayor.valor),
-            Math.round((valores[0].libroMayor.valor - valores[0].libroMayorAnteriorUno.valor)),
-            Math.round(((valores[0].libroMayor.valor-valores[0].libroMayorAnteriorUno.valor)/valores[0].libroMayor.valor)*100)]
+            data: [Number(valores[0].libroMayorAnteriorDos.valor), Math.round(valores[0].libroMayorAnteriorUno.valor),Math.round(valores[0].libroMayor.valor)],
           }
         ]
+        this.valorAnteriorDos = formatterPeso.format((valores[0].libroMayorAnteriorDos.valor))
+        this.valorAnteriorUno = formatterPeso.format(Math.round(valores[0].libroMayorAnteriorUno.valor))
+        this.valorActual = formatterPeso.format(Math.round(valores[0].libroMayor.valor))
+        this.variacion = formatterPeso.format(Math.round((valores[0].libroMayor.valor - valores[0].libroMayorAnteriorUno.valor)))
+        this.porcentaje = Number(((valores[0].libroMayor.valor-valores[0].libroMayorAnteriorUno.valor)/valores[0].libroMayor.valor)*100)
       }
       this.titulo = descripcion
       this.chartOptions = {
@@ -228,13 +239,19 @@ export class ConsolidadoGraficaComponent implements OnInit {
         dataLabels: {
           enabled: false
         },
+        legend: {
+          position: 'top'
+        },
         stroke: {
           show: true,
           width: 2,
           colors: ["transparent"]
         },
         xaxis: {
-          categories: ["2020", "2021", "2022", "Variación", "%"]
+          categories: [(this.selectYear.getFullYear()-2), (this.selectYear.getFullYear()-1), this.selectYear.getFullYear()],
+          title: {
+            text: (this.selectYear.getFullYear()-2)+": "+this.valorAnteriorDos+" - "+(this.selectYear.getFullYear()-1)+": "+this.valorAnteriorUno+" - "+this.selectYear.getFullYear()+": "+this.valorActual
+          }
         },
         yaxis: {
           show: false,
@@ -245,7 +262,7 @@ export class ConsolidadoGraficaComponent implements OnInit {
         tooltip: {
           y: {
             formatter: function (val) {
-              return "$ " + val + " thousands";
+              return formatterPeso.format(val);
             }
           }
         }

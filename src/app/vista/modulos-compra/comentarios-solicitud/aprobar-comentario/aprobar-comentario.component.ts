@@ -61,8 +61,8 @@ export class AprobarComentarioComponent implements OnInit {
   //Abrir Modal de detalle Solicitud
   public verSolicitud(id: number){
     const dialogRef = this.dialog.open(ListadoComentariosComponent, {
-      width: '1000px',
-      height: '430px',
+      width: '80%',
+      height: '80%',
       data: {id: id}
     });
   }

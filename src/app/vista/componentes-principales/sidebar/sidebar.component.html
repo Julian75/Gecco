@@ -1,194 +1,195 @@
 <mat-drawer-container class="example">
   <mat-drawer mode="side" opened>
     <img src="assets/logo/LOGO GECCO-ai (4).png" routerLink="/inicio" alt="" class="logo">
-  <mat-expansion-panel style="display: none;" id="Administracion" (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Administración
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="5"  routerLink="/usuarios" style="display: none;">Usuarios</button>
-      <button mat-raised-button id="4" routerLink="/tipoDocumento" style="display: none;">Tipos de Documentos</button>
-      <button mat-raised-button id="3" routerLink="/roles" style="display: none;">Roles</button>
-      <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
-      <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
-      <button mat-raised-button id="51" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
-      <button mat-raised-button id="52" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
-      <button mat-raised-button id="63" routerLink="/subProceso" style="display: none;">Sub Procesos</button>
-      <button mat-raised-button id="50" routerLink="/sedes" style="display: none;">Sedes</button>
-      <button mat-raised-button id="19" routerLink="/configuraciones" style="display: none;">Configuracion</button>
-      <button mat-raised-button id="21" routerLink="/aprobacion" style="display: none;">Aprobacion</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel style="display: none;" id="Malla" (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Malla de Turnos
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="1" routerLink="/tipoTurnos" style="display: none;">Tipos de Turnos</button>
-      <button mat-raised-button id="12" routerLink="/tipoNovedades" style="display: none;">Tipo de Novedades</button>
-      <button mat-raised-button id="2" routerLink="/turnos" style="display: none;">Turnos</button>
-      <button mat-raised-button id="6" routerLink="/asignarTurno" style="display: none;">Asignar Turno a Punto de Venta</button>
-      <button mat-raised-button id="13" routerLink="/asignarTurnoVendedor" style="display: none;">Asignar Turno Vendedor</button>
-      <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos Ingreso</button>
-      <button mat-raised-button id="20" routerLink="/mallasCierre" style="display: none;">Malla de Turnos Cierre</button>
-      <button mat-raised-button id="14" routerLink="/novedades" style="display: none;">Generar Reporte Novedad</button>
-      <button mat-raised-button id="40" routerLink="/presupuestoVentaMensual" style="display: none;" >Presupuesto de Punto Venta Mensual</button>
-      <button mat-raised-button id="41" routerLink="/reporteAsesor" style="display: none;" >Reporte Asesor</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel style="display: none;" id="Visita" (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Visita
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="16" routerLink="/elementosVisita" style="display: none;">Elementos Visita</button>
-      <button mat-raised-button id="17" routerLink="/opcionesVisita" style="display: none;">Opciones Visita</button>
-      <button mat-raised-button id="15" routerLink="/visitaDetalle"  style="display: none;">Agregar Visita Detalle</button>
-      <button mat-raised-button id="18" routerLink="/reportesVisitaDetalle" style="display: none;">Generar Reporte Visita</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel style="display: none;" id="Compra" (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Compra
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="22" routerLink="/articulos" style="display: none;">Articulos</button>
-      <button mat-raised-button id="31" routerLink="/categoria" style="display: none;">Categoria</button>
-      <button mat-raised-button id="33" routerLink="/proceso" style="display: none;">Asignación de Categoria</button>
-      <button mat-raised-button id="26" routerLink="/proveedores" style="display: none;">Proveedores</button>
-      <button mat-raised-button  id="30" routerLink="/generarSolicitud" style="display: none;">Generar Solicitud</button>
-      <button mat-raised-button id="32" routerLink="/comentariosSolicitud" style="display: none;">Comentarios Solicitudes</button>
-      <button mat-raised-button id="29" routerLink="/solicitudesRealizadas" style="display: none;">Solicitudes Realizadas</button>
-      <button mat-raised-button  id="23" routerLink="/solicitud" style="display: none;">Lista de Solicitudes</button>
-      <button mat-raised-button  id="58" routerLink="/firmas" style="display: none;">Firmas</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel style="display: none;" id="RecepcionDatos" (opened)="panelOpenState = true"
+    <mat-expansion-panel style="display: none;" id="Administracion" (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Administración
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="5"  routerLink="/usuarios" style="display: none;">Usuarios</button>
+        <button mat-raised-button id="4" routerLink="/tipoDocumento" style="display: none;">Tipos de Documentos</button>
+        <button mat-raised-button id="3" routerLink="/roles" style="display: none;">Roles</button>
+        <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
+        <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
+        <button mat-raised-button id="51" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
+        <button mat-raised-button id="52" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
+        <button mat-raised-button id="63" routerLink="/subProceso" style="display: none;">Sub Procesos</button>
+        <button mat-raised-button id="50" routerLink="/sedes" style="display: none;">Sedes</button>
+        <button mat-raised-button id="55" routerLink="/asignacionProceso" style="display: none;">Asignar Proceso a Usuario</button>
+        <button mat-raised-button id="19" routerLink="/configuraciones" style="display: none;">Configuracion</button>
+        <button mat-raised-button id="21" routerLink="/aprobacion" style="display: none;">Aprobacion</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="Malla" (opened)="panelOpenState = true"
                         (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Recepción de Datos
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="42" routerLink="/tipoServicio" style="display: none;">Tipo de Servicio</button>
-      <button mat-raised-button id="43" routerLink="/escalaSolicitudes" style="display: none;">Escala Solicitudes</button>
-      <button mat-raised-button id="44" routerLink="/motivoSolicitud" style="display: none;">Motivos de Solicitud</button>
-      <button mat-raised-button id="66" routerLink="/mediosRadicacion" style="display: none;">Medios de Radicación</button>
-      <button mat-raised-button id="45" routerLink="/clientesSC" style="display: none;">Clientes Servicio al Cliente</button>
-      <button mat-raised-button id="47" routerLink="/areaPQRS" style="display: none;">Area</button>
-      <button mat-raised-button id="46" routerLink="/asignacionUsuariosPqr" style="display: none;">Asignar usuario PQRS</button>
-      <button mat-raised-button id="38" routerLink="/solicitudesSC" style="display: none;">Solicitudes PQRS</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel style="display: none;" id="Raspa" (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Premios
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="28" [routerLink]="['/raspalisto']" style="display: none;">Visado Premios Raspas</button>
-      <button mat-raised-button id="86" routerLink="/colillaTerceroLoteria" style="display: none;">Colilla Tercero Loteria</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel style="display: none;" id="RegistroIngreso" (opened)="panelOpenState = true"
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Malla de Turnos
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="1" routerLink="/tipoTurnos" style="display: none;">Tipos de Turnos</button>
+        <button mat-raised-button id="12" routerLink="/tipoNovedades" style="display: none;">Tipo de Novedades</button>
+        <button mat-raised-button id="2" routerLink="/turnos" style="display: none;">Turnos</button>
+        <button mat-raised-button id="6" routerLink="/asignarTurno" style="display: none;">Asignar Turno a Punto de Venta</button>
+        <button mat-raised-button id="13" routerLink="/asignarTurnoVendedor" style="display: none;">Asignar Turno Vendedor</button>
+        <button mat-raised-button id="7" routerLink="/mallas" style="display: none;">Malla de Turnos Ingreso</button>
+        <button mat-raised-button id="20" routerLink="/mallasCierre" style="display: none;">Malla de Turnos Cierre</button>
+        <button mat-raised-button id="14" routerLink="/novedades" style="display: none;">Generar Reporte Novedad</button>
+        <button mat-raised-button id="40" routerLink="/presupuestoVentaMensual" style="display: none;" >Presupuesto de Punto Venta Mensual</button>
+        <button mat-raised-button id="41" routerLink="/reporteAsesor" style="display: none;" >Reporte Asesor</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="Visita" (opened)="panelOpenState = true"
                         (closed)="panelOpenState = false" >
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Registro Ingreso
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Visita
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="16" routerLink="/elementosVisita" style="display: none;">Elementos Visita</button>
+        <button mat-raised-button id="17" routerLink="/opcionesVisita" style="display: none;">Opciones Visita</button>
+        <button mat-raised-button id="15" routerLink="/visitaDetalle"  style="display: none;">Agregar Visita Detalle</button>
+        <button mat-raised-button id="18" routerLink="/reportesVisitaDetalle" style="display: none;">Generar Reporte Visita</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="Compra" (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false" >
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Compra
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="22" routerLink="/articulos" style="display: none;">Articulos</button>
+        <button mat-raised-button id="31" routerLink="/categoria" style="display: none;">Categoria</button>
+        <button mat-raised-button id="33" routerLink="/proceso" style="display: none;">Asignación de Categoria</button>
+        <button mat-raised-button id="26" routerLink="/proveedores" style="display: none;">Proveedores</button>
+        <button mat-raised-button  id="30" routerLink="/generarSolicitud" style="display: none;">Generar Solicitud</button>
+        <button mat-raised-button id="32" routerLink="/comentariosSolicitud" style="display: none;">Comentarios Solicitudes</button>
+        <button mat-raised-button id="29" routerLink="/solicitudesRealizadas" style="display: none;">Solicitudes Realizadas</button>
+        <button mat-raised-button  id="23" routerLink="/solicitud" style="display: none;">Lista de Solicitudes</button>
+        <button mat-raised-button  id="58" routerLink="/firmas" style="display: none;">Firmas</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="RecepcionDatos" (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false" >
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Recepción de Datos
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="42" routerLink="/tipoServicio" style="display: none;">Tipo de Servicio</button>
+        <button mat-raised-button id="43" routerLink="/escalaSolicitudes" style="display: none;">Escala Solicitudes</button>
+        <button mat-raised-button id="44" routerLink="/motivoSolicitud" style="display: none;">Motivos de Solicitud</button>
+        <button mat-raised-button id="66" routerLink="/mediosRadicacion" style="display: none;">Medios de Radicación</button>
+        <button mat-raised-button id="45" routerLink="/clientesSC" style="display: none;">Clientes Servicio al Cliente</button>
+        <button mat-raised-button id="47" routerLink="/areaPQRS" style="display: none;">Area</button>
+        <button mat-raised-button id="46" routerLink="/asignacionUsuariosPqr" style="display: none;">Asignar usuario PQRS</button>
+        <button mat-raised-button id="38" routerLink="/solicitudesSC" style="display: none;">Solicitudes PQRS</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="Raspa" (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false" >
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Premios
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="28" [routerLink]="['/raspalisto']" style="display: none;">Visado Premios Raspas</button>
+        <button mat-raised-button id="86" routerLink="/colillaTerceroLoteria" style="display: none;">Colilla Tercero Loteria</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel style="display: none;" id="RegistroIngreso" (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false" >
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Registro Ingreso
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
 
-      <button mat-raised-button id="49" routerLink="/registroIngreso" style="display: none;">Registro</button>
-      <button mat-raised-button id="68" routerLink="/reporteIngreso" style="display: none;">Reporte Ingreso</button>
-    </div>
-  </mat-expansion-panel>
+        <button mat-raised-button id="49" routerLink="/registroIngreso" style="display: none;">Registro</button>
+        <button mat-raised-button id="68" routerLink="/reporteIngreso" style="display: none;">Reporte Ingreso</button>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel style="display: none;" id="Inventario" (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false" style="display: none;">
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Inventario
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="73" routerLink="/opcionArticulosBaja" style="display: none;">Estados Baja Activo</button>
-      <button mat-raised-button id="62" routerLink="/listaArticuloInventario" style="display: none;">Lista Activos Inventario</button>
-      <button mat-raised-button id="55" routerLink="/asignacionProceso" style="display: none;">Asignar Proceso a Usuario</button>
-      <button mat-raised-button id="56" routerLink="/asignacionArticulo" style="display: none;">Asignar Activo a Usuario</button>
-      <button mat-raised-button id="59" routerLink="/misArticulos" style="display: none;">Mis Activos</button>
-      <button mat-raised-button id="69" routerLink="/reporteInventario" style="display: none;">Reporte Inventario</button>
-      <button mat-raised-button id="61" routerLink="/listaAutorizaciones" style="display: none;">Solicitudes Bajas Activos</button>
-      <button mat-raised-button id="70" routerLink="/listaConfirmaciones" style="display: none;">Admitir Bajas Activos</button>
-      <button mat-raised-button id="71" routerLink="/agregarArticulosInventario" style="display: none;">Agregar Activo Inventario</button>
-      <button mat-raised-button id="72" routerLink="/listaActasBajas" style="display: none;" style="display: none;">Lista Actas Bajas Activos</button>
-      <button mat-raised-button id="60" routerLink="/solicitudBajaArticulos" style="display: none;">Generar Solicitud Baja Activo</button>
-      <button mat-raised-button id="78" routerLink="/listaActivosContabilidad" style="display: none;">Lista Activos Contabilidad</button>
+    <mat-expansion-panel style="display: none;" id="Inventario" (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false" style="display: none;">
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Inventario
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="73" routerLink="/opcionArticulosBaja" style="display: none;">Estados Baja Activo</button>
+        <button mat-raised-button id="62" routerLink="/listaArticuloInventario" style="display: none;">Lista Activos Inventario</button>
+        <button mat-raised-button id="56" routerLink="/asignacionArticulo" style="display: none;">Asignar Activo a Usuario</button>
+        <button mat-raised-button id="59" routerLink="/misArticulos" style="display: none;">Mis Activos</button>
+        <button mat-raised-button id="69" routerLink="/reporteInventario" style="display: none;">Reporte Inventario</button>
+        <button mat-raised-button id="61" routerLink="/listaAutorizaciones" style="display: none;">Solicitudes Bajas Activos</button>
+        <button mat-raised-button id="70" routerLink="/listaConfirmaciones" style="display: none;">Admitir Bajas Activos</button>
+        <button mat-raised-button id="71" routerLink="/agregarArticulosInventario" style="display: none;">Agregar Activo Inventario</button>
+        <button mat-raised-button id="72" routerLink="/listaActasBajas" style="display: none;" style="display: none;">Lista Actas Bajas Activos</button>
+        <button mat-raised-button id="60" routerLink="/solicitudBajaArticulos" style="display: none;">Generar Solicitud Baja Activo</button>
+        <button mat-raised-button routerLink="/listaActivosContabilidad" >Lista Activos Contabilidad</button> <!--id="78"-->
+        <button mat-raised-button routerLink="/auditoriaActivos">Chequeo Activos Punto Venta</button>
+        <button mat-raised-button routerLink="/reporteAuditoriaActivos">Reporte Auditoria Activos</button>
+      </div>
+    </mat-expansion-panel>
 
-    </div>
-  </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false" id="MatrizDeNecesidades" style="display: none;">
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Matriz de Necesidades
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button id="65" routerLink="/tipoNecesidad" style="display: none;">Tipo Necesidades</button>
+        <button mat-raised-button id="77" routerLink="/periodoEjecucion" style="display: none;">Periodo de Ejecución</button>
+        <button mat-raised-button id="74" routerLink="/matrizNecesidad" style="display: none;">Generar Matriz</button>
+        <button mat-raised-button id="64" routerLink="/listaMatricesNecesidades" style="display: none;">Matrices de Necesidades</button>
+        <button mat-raised-button id="75" routerLink="/reporteMatrizNecesidad" style="display: none;">Reporte de Matriz Necesidad</button>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false" id="MatrizDeNecesidades" style="display: none;">
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Matriz de Necesidades
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button id="65" routerLink="/tipoNecesidad" style="display: none;">Tipo Necesidades</button>
-      <button mat-raised-button id="77" routerLink="/periodoEjecucion" style="display: none;">Periodo de Ejecución</button>
-      <button mat-raised-button id="74" routerLink="/matrizNecesidad" style="display: none;">Generar Matriz</button>
-      <button mat-raised-button id="64" routerLink="/listaMatricesNecesidades" style="display: none;">Matrices de Necesidades</button>
-      <button mat-raised-button id="75" routerLink="/reporteMatrizNecesidad" style="display: none;">Reporte de Matriz Necesidad</button>
-    </div>
-  </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false" id="PresupuestoContabilidad" style="display: none;">
+      <mat-expansion-panel-header class="boton" >
+        <mat-panel-title >
+          Presupuesto de Contabilidad
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button routerLink="/jerarquiaCuentas">Jerarquia Cuentas</button> <!--id: 79-->
+        <button mat-raised-button routerLink="/cuentas">Cuentas</button>
+        <button mat-raised-button routerLink="/cargarArchivo">Cargar Archivo</button>
+        <button mat-raised-button routerLink="/libroMayor">Consultar Libro</button>
+        <button mat-raised-button routerLink="/agregarPorcentajePresupuesto">Agregar Porcentaje Presupuesto</button>
+        <button mat-raised-button routerLink="/porcentajePresupuesto">Visualizar Porcentaje Presupuesto</button>
+        <button mat-raised-button  routerLink="/analisisDetalladoContable" >Analisis Detallado Contable</button> <!--id="85"-->
+        <button mat-raised-button routerLink="/consolidadoContabilidad">Consolidado</button>
+      </div>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false" id="PresupuestoContabilidad" style="display: none;">
-    <mat-expansion-panel-header class="boton" >
-      <mat-panel-title >
-        Presupuesto de Contabilidad
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button routerLink="/jerarquiaCuentas">Jerarquia Cuentas</button> <!--id: 79-->
-      <button mat-raised-button routerLink="/cuentas">Cuentas</button>
-      <button mat-raised-button routerLink="/cargarArchivo">Cargar Archivo</button>
-      <button mat-raised-button routerLink="/libroMayor">Consultar Libro</button>
-      <button mat-raised-button routerLink="/agregarPorcentajePresupuesto">Agregar Porcentaje Presupuesto</button>
-      <button mat-raised-button routerLink="/porcentajePresupuesto">Visualizar Porcentaje Presupuesto</button>
-      <button mat-raised-button  routerLink="/analisisDetalladoContable" >Analisis Detallado Contable</button> <!--id="85"-->
-      <button mat-raised-button routerLink="/consolidadoContabilidad">Consolidado</button>
-    </div>
-  </mat-expansion-panel>
-
-  <!-- <mat-expansion-panel (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"> !--id="ModuloRecordatorio"--
-    <mat-expansion-panel-header class="boton">
-      <mat-panel-title >
-        Modulo de Recordatorio
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="opciones">
-      <button mat-raised-button routerLink="/recordatorio" >Lista de Eventos</button>
-    </div>
-  </mat-expansion-panel> -->
+    <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"> !--id="ModuloRecordatorio"--
+      <mat-expansion-panel-header class="boton">
+        <mat-panel-title >
+          Modulo de Recordatorio
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="opciones">
+        <button mat-raised-button routerLink="/recordatorio" >Lista de Eventos</button>
+      </div>
+    </mat-expansion-panel> -->
 
   </mat-drawer>
   <mat-drawer-content>

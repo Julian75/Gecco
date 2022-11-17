@@ -55,12 +55,10 @@ export class ListadoObservacionComponent implements OnInit {
 
   }
 
-  verificacion = false
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   seleccionados:any
-  toggleAllRows() {
-    if(this.verificacion == false){
-      this.verificacion = true
+  toggleAllRows(event: any) {
+    if(event.checked == true){
       if (this.isAllSelected()) {
         this.selection.clear();
         return;
@@ -68,14 +66,16 @@ export class ListadoObservacionComponent implements OnInit {
       this.selection.select(...this.dataSource.data);
       this.listaRow = this.listarDetalle
     }else{
-      this.verificacion = false
+      console.log("hola")
+      this.listaRow = []
       if (this.isAllSelected()) {
         this.selection.clear();
         return;
       }
-      this.selection.select(...this.dataSource.data);
       this.listaRow = []
+      this.selection.select(...this.dataSource.data);
     }
+    console.log(this.listaRow)
   }
 
   toggle(event:any, row: any) {
@@ -123,41 +123,51 @@ export class ListadoObservacionComponent implements OnInit {
 
   listaModificada: any =[];
   public abrirTodosComentarios(){
-    if(this.listaRow[0].articulo == undefined){
-      for (let i = 0; i < this.listaRow.length; i++) {
-        var obj = { articulo: {}}
-        const element = this.listaRow[i];
-        obj.articulo = element
-        this.listaModificada.push(obj)
-      }
-      if(this.listaModificada.length > 0){
-        const dialogRef = this.dialog.open(TodosComentariosComponent, {
-          width: '400px',
-          data: this.listaModificada
-        });
-      }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
+    if(this.listaRow.length == 0){
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }else{
-      if(this.listaRow.length > 0){
-        const dialogRef = this.dialog.open(TodosComentariosComponent, {
-          width: '400px',
-          data: this.listaRow
-        });
+      if(this.listaRow[0].articulo == undefined){
+        for (let i = 0; i < this.listaRow.length; i++) {
+          var obj = { articulo: {}}
+          const element = this.listaRow[i];
+          obj.articulo = element
+          this.listaModificada.push(obj)
+        }
+        if(this.listaModificada.length > 0){
+          const dialogRef = this.dialog.open(TodosComentariosComponent, {
+            width: '400px',
+            data: this.listaModificada
+          });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        if(this.listaRow.length > 0){
+          const dialogRef = this.dialog.open(TodosComentariosComponent, {
+            width: '400px',
+            data: this.listaRow
+          });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Debe tener seleccionado a cuales articulos desea que le creen un comentario!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       }
     }
   }

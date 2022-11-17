@@ -71,82 +71,92 @@ export class AgregarLibroMayorComponent implements OnInit {
   i: any;
   cuentasFaltantes: any = []
   public guardar() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger mx-5'
-      },
-      buttonsStyling: false
-    })
+    if(this.excelData == undefined || this.formLibroMayor.value.fecha == null){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Campos Vacios!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger mx-5'
+        },
+        buttonsStyling: false
+      })
 
-    swalWithBootstrapButtons.fire({
-      title: '¿Estas seguro de cargar el archivo?',
-      text: "No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, Subir!',
-      cancelButtonText: 'No, Cancelar!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-        this.i = 0
-        this.excelData.forEach(elementData => {
-          let libroMayor : LibroMayor = new LibroMayor();
-          let libroMayorActualizar : LibroMayor2 = new LibroMayor2();
-          var fecha = this.formLibroMayor.value.fecha.split('-');
-          libroMayor.fecha = new Date(fecha[0],(fecha[1]-1),1)
-          var fechaLibroMayor = libroMayor.fecha.toISOString().slice(0,10)
-          libroMayor.valor = elementData.valor
-          this.servicioConsultasGenerales.listarCuenta(Number(elementData.codigo)).subscribe(resCuenta=>{
-            if(resCuenta.length > 0){
-              this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
-            }else{
-              let cuenta : Cuentas = new Cuentas();
-              cuenta.codigo = elementData.codigo
-              cuenta.descripcion = elementData.descripcion.toUpperCase()
-              var separarCodigo = String(elementData.codigo).split('')
-              var idJerarquiaCuenta = 0
-              if(separarCodigo.length == 1){
-                idJerarquiaCuenta = 1
-              }else if(separarCodigo.length == 2){
-                idJerarquiaCuenta = 2
-              }else if(separarCodigo.length == 4){
-                idJerarquiaCuenta = 3
+      swalWithBootstrapButtons.fire({
+        title: '¿Estas seguro de cargar el archivo?',
+        text: "No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Subir!',
+        cancelButtonText: 'No, Cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+          this.i = 0
+          this.excelData.forEach(elementData => {
+            let libroMayor : LibroMayor = new LibroMayor();
+            let libroMayorActualizar : LibroMayor2 = new LibroMayor2();
+            var fecha = this.formLibroMayor.value.fecha.split('-');
+            libroMayor.fecha = new Date(fecha[0],(fecha[1]-1),1)
+            var fechaLibroMayor = libroMayor.fecha.toISOString().slice(0,10)
+            libroMayor.valor = elementData.valor
+            this.servicioConsultasGenerales.listarCuenta(Number(elementData.codigo)).subscribe(resCuenta=>{
+              if(resCuenta.length > 0){
+                this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
               }else{
-                idJerarquiaCuenta = 4
+                let cuenta : Cuentas = new Cuentas();
+                cuenta.codigo = elementData.codigo
+                cuenta.descripcion = elementData.descripcion.toUpperCase()
+                var separarCodigo = String(elementData.codigo).split('')
+                var idJerarquiaCuenta = 0
+                if(separarCodigo.length == 1){
+                  idJerarquiaCuenta = 1
+                }else if(separarCodigo.length == 2){
+                  idJerarquiaCuenta = 2
+                }else if(separarCodigo.length == 4){
+                  idJerarquiaCuenta = 3
+                }else{
+                  idJerarquiaCuenta = 4
+                }
+                this.servicioJerarquiaCuenta.listarPorId(idJerarquiaCuenta).subscribe(resJerarquiaCuentas=>{
+                  cuenta.idJerarquiaCuentas = resJerarquiaCuentas
+                  this.servicioCuentas.registrar(cuenta).subscribe(resCuentasRegistrado=>{
+                    this.servicioConsultasGenerales.listarCuenta(Number(cuenta.codigo)).subscribe(resCuenta=>{
+                      this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
+                    })
+                  }, error => {
+                    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: 'Hubo un error al agregar la cuenta '+elementData.codigo+'.',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
+                  });
+                })
               }
-              this.servicioJerarquiaCuenta.listarPorId(idJerarquiaCuenta).subscribe(resJerarquiaCuentas=>{
-                cuenta.idJerarquiaCuentas = resJerarquiaCuentas
-                this.servicioCuentas.registrar(cuenta).subscribe(resCuentasRegistrado=>{
-                  this.servicioConsultasGenerales.listarCuenta(Number(cuenta.codigo)).subscribe(resCuenta=>{
-                    this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
-                  })
-                }, error => {
-                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Hubo un error al agregar la cuenta '+elementData.codigo+'.',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                });
-              })
-            }
-          })
-        });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelado!',
-          '',
-          'error'
-        )
-      }
-    })
+            })
+          });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado!',
+            '',
+            'error'
+          )
+        }
+      })
+    }
   }
 
   public registrarLibroMayor(libroMayor: LibroMayor) {

@@ -51,7 +51,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   public colorGradual = "";
   public sumaPorcentajes = 0;
 
-  displayedColumns = ['id','subProceso','tipoNecesidad','fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'opciones'];
+  displayedColumns = ['id','subProceso','tipoNecesidad', 'detalleMatriz', 'fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -161,6 +161,8 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   }
 
   listarMatricesCompletas: any = []
+  totalEstimadoMatriz: any = 0;
+  totalEjecutadoMatriz: any = 0;
   mostrarInformacionTabla(){
     this.listarMatricesCompletas = []
     this.servicioListaMatrices.listarTodos().subscribe(res => {
@@ -172,6 +174,8 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
         });
         res.forEach(elementMatriz => {
           if(elementMatriz.idSubProceso.idTipoProceso.id == this.matrizUsuario.idTiposProcesos.id){
+            this.totalEstimadoMatriz = Number(this.totalEstimadoMatriz) + Number(elementMatriz.costoEstimado)
+            this.totalEjecutadoMatriz = Number(this.totalEjecutadoMatriz) + Number(elementMatriz.costoTotal)
             // elementMatriz.costoTotal/(elementMatriz.costoEstimado * elementMatriz.porcentajeTotal)*100
             var valorDividido = elementMatriz.costoEstimado*(elementMatriz.porcentajeTotal/100)
             var totalesDivididos = elementMatriz.costoTotal/valorDividido
@@ -207,6 +211,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
             this.listarMatricesCompletas.push(obj)
           }
         });
+        console.log(this.listarMatricesCompletas)
         this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -216,8 +221,8 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
 
   visualizarMatrizNecesidad(id:Number){
     const dialogRef = this.dialog.open(VisualizarDetalleMatrizNecesidadesComponent, {
-      width: '1000px',
-      height: '440px',
+      width: '80%',
+      height: '80%',
       data: id
     });
     dialogRef.afterClosed().subscribe(() =>{

@@ -197,8 +197,8 @@ export class PasosComponent implements OnInit {
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
               if(res.idEstado.id == 28){
                 const dialogRef = this.dialog.open(ListadoObservacionComponent, {
-                  width: '1000px',
-                  height: '430px',
+                  width: '80%',
+                  height: '80%',
                   data: {id:this.lista[0]}
                 });
               }else if(res.idEstado.id == 54){
@@ -212,7 +212,8 @@ export class PasosComponent implements OnInit {
               }else if(res.idEstado.id == 57){
                 this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
                   const dialogRef = this.dialog.open(AprobarComentarioComponent, {
-                    width: '1000px',
+                    width: '80%',
+                    height: '80%',
                     data: resSolicitud
                   });
                 })
@@ -235,8 +236,8 @@ export class PasosComponent implements OnInit {
                   if(res.idEstado.id == 54){
                     this.servicioSolicitud.listarPorId(this.lista[0]).subscribe(resSolicitud=>{
                       const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
-                        width: '1000px',
-                        height: '430px',
+                        width: '80%',
+                        height: '80%',
                         data: resSolicitud
                       });
                     })
@@ -303,8 +304,8 @@ export class PasosComponent implements OnInit {
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
               if(res.idEstado.id == 56){
                 const dialogRef = this.dialog.open(SolicitudesComponent, {
-                  width: '1000px',
-                  height: '430px',
+                  width: '80%',
+                  height: '80%',
                   data: this.lista[0]
                 });
               }else if(res.idEstado.id == 30){
@@ -332,8 +333,8 @@ export class PasosComponent implements OnInit {
               this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
                 if(res.idEstado.id == 56){
                   const dialogRef = this.dialog.open(SolicitudesComponent, {
-                    width: '1000px',
-                    height: '430px',
+                    width: '80%',
+                    height: '80%',
                     data: this.lista[0]
                   });
                 }else if(res.idEstado.id == 30){
@@ -358,8 +359,8 @@ export class PasosComponent implements OnInit {
                   })
                 }if(res.idEstado.id == 30){
                   const dialogRef = this.dialog.open(ModificarSolicitudComponent, {
-                    width: '2500px',
-                    height: '440px',
+                    width: '80%',
+                    height: '80%',
                     data: this.lista[0]
                   });
                 }
@@ -397,16 +398,16 @@ export class PasosComponent implements OnInit {
               if(existeCotizacion == true ){
                 if(res.idEstado.id == 29){
                   const dialogRef = this.dialog.open(ListaCotizacionesLiderProcesoComponent, {
-                    width: '1000px',
-                    height: '430px',
+                    width: '80%',
+                    height: '80%',
                     data: this.lista[0]
                   });
                 }
               }else{
                 if(res.idEstado.id == 29){
                   const dialogRef = this.dialog.open(GenerarCotizacionComponent, {
-                    width: '1000px',
-                    height: '430px',
+                    width: '80%',
+                    height: '80%',
                     data: this.lista[0]
                   });
                 }
@@ -442,8 +443,8 @@ export class PasosComponent implements OnInit {
           this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
             if(res.idEstado.id == 36){
               const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
-                width: '1000px',
-                height: '430px',
+                width: '80%',
+                height: '80%',
                 data: this.lista[0]
               });
             }
@@ -459,14 +460,14 @@ export class PasosComponent implements OnInit {
               this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
                 if(res.idEstado.id == 35){
                   const dialogRef = this.dialog.open(AgregarCotizacionComponent, {
-                    width: '450px',
+                    width: '500px',
                     data: this.lista[0]
                   });
                 }
                 if(res.idEstado.id == 36){
                   const dialogRef = this.dialog.open(ListaCotizacionesComponent, {
-                    width: '1000px',
-                    height: '430px',
+                    width: '80%',
+                    height: '80%',
                     data: this.lista[0]
                   });
                 }
@@ -530,8 +531,8 @@ export class PasosComponent implements OnInit {
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
               if(res.idEstado.id == 34){
                 const dialogRef = this.dialog.open(OrdenCompraComponent, {
-                  width: '1000px',
-                  height: '440px',
+                  width: '80%',
+                  height: '80%',
                   data: this.lista[0]
                 });
               }
@@ -572,8 +573,8 @@ export class PasosComponent implements OnInit {
               })
             }else if(res.idEstado.id == 37){
               const dialogRef = this.dialog.open(AprobacionRegistroComponent, {
-                width: '1000px',
-                height: '400px',
+                width: '80%',
+                height: '80%',
                 data: this.lista[0]
               });
             }else if(res.idEstado.id == 46){
@@ -594,8 +595,8 @@ export class PasosComponent implements OnInit {
             this.servicioSolicitud.listarPorId(Number(this.lista[0])).subscribe(res => {
               if(res.idEstado.id == 37){
                 const dialogRef = this.dialog.open(AprobacionRegistroComponent, {
-                  width: '1000px',
-                  height: '400px',
+                  width: '80%',
+                  height: '80%',
                   data: this.lista[0]
                 });
               }else if(res.idEstado.id == 46){
@@ -608,8 +609,8 @@ export class PasosComponent implements OnInit {
                 this.servicioConsultasGenerales.listarOrdenCompra(this.lista[0]).subscribe(resOrdenCompra=>{
                   resOrdenCompra.forEach(element => {
                     const dialogRef = this.dialog.open(ModificarOrdenCompraComponent, {
-                      width: '1000px',
-                      height: '440px',
+                      width: '80%',
+                      height: '80%',
                       data: {idSolicitud: this.lista[0], idOrdenCompra: element.id}
                     });
                   });
@@ -641,8 +642,8 @@ export class PasosComponent implements OnInit {
               }else if(res.idEstado.id == 46){
                 this.pasos.close()
                 const dialogRef = this.dialog.open(SolicitudConformeComponent, {
-                  width: '300px',
-                  height: '200px',
+                  width: '80%',
+                  height: '80%',
                   data: this.lista[0]
                 });
               }else if(res.idEstado.id == 60){

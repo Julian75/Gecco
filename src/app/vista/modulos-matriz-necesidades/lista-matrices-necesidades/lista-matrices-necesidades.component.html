@@ -1,104 +1,113 @@
 <div class="contenedor">
-    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de matrices necesidades"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar matrices">
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event) " placeholder="Buscar.." #input>
-    </mat-form-field>
-    <div id="chart">
-      <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [plotOptions]="chartOptions.plotOptions"
-        [labels]="chartOptions.labels"
-        [fill]="chartOptions.fill"
-      ></apx-chart>
+  <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de matrices necesidades"><i class="fa-solid fa-file-excel"></i></button>
+  <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar matrices">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event) " placeholder="Buscar.." #input>
+  </mat-form-field>
+  <div id="chart">
+    <div class="totales">
+      <p><strong>Total Estimado:</strong> ${{totalEstimadoMatriz | currency:'COP':'symbol':'1.0-0'}} <strong class="totalE">Total Ejecutado:</strong> ${{totalEjecutadoMatriz | currency:'COP':'symbol':'1.0-0'}}</p>
     </div>
-    <section class="example-container mat-elevation-z8" tabindex="0">
-      <table id="tipoNovedades" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-        <!-- Position Column -->
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
-          <td mat-cell *matCellDef="let element" id="idSp2">{{element.matriz.id}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="subProceso">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="subSp">Proceso - SubProceso</h3></th>
-          <td mat-cell *matCellDef="let element"> {{element.matriz.idSubProceso.idTipoProceso.descripcion}} - {{element.matriz.idSubProceso.descripcion}}</td>
-        </ng-container>
-
-       <!-- Name Column -->
-       <ng-container matColumnDef="tipoNecesidad">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">Tipo Necesidad</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.idTipoNecesidad.descripcion}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.fecha | date:'MMMM y' | uppercase}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="cantidad">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantidadSp">Cantidad</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.cantidad}} </td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="cantidadEjecuciones">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="ejecuSp">Cantidad Ejecuciones</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.cantidadEjecuciones}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="costoEstimado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="costoSp">Costo Estimado</h3></th>
-          <td mat-cell *matCellDef="let element">${{element.matriz.costoEstimado | currency:'COP':'symbol':'1.0-0'}}</td>
-        </ng-container>
-
-         <!-- Name Column -->
-         <ng-container matColumnDef="costoTotal">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Costo Ejecutado</h3></th>
-          <td mat-cell *matCellDef="let element">${{element.matriz.costoTotal | currency:'COP':'symbol':'1.0-0'}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="ejecucionPresupuesto">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Ejecucion Presupuesto</h3></th>
-          <td mat-cell *matCellDef="let element" id="{{element.color}}">{{element.ejecucionPresupuesto}}%</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="cumpPlaneacion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Cumplimiento Planeacion</h3></th>
-          <td mat-cell *matCellDef="let element" id="{{element.colorPorcentajeEjecucion}}">{{element.porcentajeEjecucion}} %</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="porcentajeTotal">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porcentaje Ejecutado</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.matriz.porcentajeTotal}} %</td>
-        </ng-container>
-
-          <!--Opciones-->
-        <ng-container matColumnDef="opciones">
-          <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
-          <td mat-cell *matCellDef="let item">
-            <button class="btn btnver2 mx3" style="margin-left: 20px;" (click)="visualizarMatrizNecesidad(item.matriz.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar detalle matriz necesidades">
-              <mat-icon>visibility</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </section>
-    <mat-paginator [length]="100"
-                [pageSize]="10"
-                [pageSizeOptions]="[2, 5, 10, 25, 100]"
-                aria-label="Select page">
-    </mat-paginator>
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [plotOptions]="chartOptions.plotOptions"
+      [labels]="chartOptions.labels"
+      [fill]="chartOptions.fill"
+    ></apx-chart>
   </div>
+  <section class="example-container mat-elevation-z8" tabindex="0">
+    <table id="tipoNovedades" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+      <!-- Position Column -->
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
+        <td mat-cell *matCellDef="let element" id="idSp2">{{element.matriz.id}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="subProceso">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="subSp">Proceso - SubProceso</h3></th>
+        <td mat-cell *matCellDef="let element"> {{element.matriz.idSubProceso.idTipoProceso.descripcion}} - {{element.matriz.idSubProceso.descripcion}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="tipoNecesidad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">Tipo Necesidad</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.matriz.idTipoNecesidad.descripcion}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="detalleMatriz">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">Detalle</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.matriz.detalle}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.matriz.fecha | date:'MMMM y' | uppercase}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cantidadSp">Cantidad</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.matriz.cantidad}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="cantidadEjecuciones">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="ejecuSp">Ejecuciones</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.matriz.cantidadEjecuciones}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="costoEstimado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="costoSp">Costo Estimado</h3></th>
+        <td mat-cell *matCellDef="let element">${{element.matriz.costoEstimado | currency:'COP':'symbol':'1.0-0'}}</td>
+      </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="costoTotal">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Costo Ejecutado</h3></th>
+        <td mat-cell *matCellDef="let element">${{element.matriz.costoTotal | currency:'COP':'symbol':'1.0-0'}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="ejecucionPresupuesto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Ejec. Presupuesto</h3></th>
+        <td mat-cell *matCellDef="let element" id="{{element.color}}">{{element.ejecucionPresupuesto}}%</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="cumpPlaneacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Cum. Planeacion</h3></th>
+        <td mat-cell *matCellDef="let element" id="{{element.colorPorcentajeEjecucion}}">{{element.porcentajeEjecucion}} %</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="porcentajeTotal">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="totalSp">Porc. Ejecutado</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.matriz.porcentajeTotal}} %</td>
+      </ng-container>
+
+        <!--Opciones-->
+      <ng-container matColumnDef="opciones">
+        <th mat-header-cell *matHeaderCellDef ><h3 id="opcSpa">Opciones</h3></th>
+        <td mat-cell *matCellDef="let item">
+          <button class="btn btnver2 mx3" style="margin-left: 20px;" (click)="visualizarMatrizNecesidad(item.matriz.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar detalle matriz necesidades">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[2, 5, 10, 25, 100]"
+              aria-label="Select page">
+  </mat-paginator>
+</div>
 

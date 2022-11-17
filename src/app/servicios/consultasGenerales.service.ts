@@ -19,6 +19,7 @@ import { Cuentas2 } from '../modelos/modelos2/cuentas2';
 import { PorcentajePresupuesto2 } from '../modelos/modelos2/porcentajePresupuesto2';
 import { Raspas2 } from '../modelos/modelos2/raspas2';
 import { GestionProceso2 } from '../modelos/gestionProceso2';
+import { AuditoriaActivo2 } from '../modelos/modelos2/auditoriaActivo2';
 
 @Injectable({
   providedIn: 'root'
@@ -154,6 +155,16 @@ export class ConsultasGeneralesService {
   //Lista todos las gestion proceso del detalle de la solicitud digitado
   public listarGestionProcesoSolicitud(idDetalleSolicitud){
     return this.http.get<GestionProceso2[]>(this.path+"/ObtenerGestionProcesoSolicitud?idDetalleSolicitud="+idDetalleSolicitud);
+  }
+
+  //Lista todas las auditorias de activos de acuerdo a un id detalle solicitud y fecha con tiempo
+  public listarAuditoriaActivos(idDetallArticulo, fecha){
+    return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivo?idDetalleArticulo="+idDetallArticulo+"&fecha="+fecha);
+  }
+
+  //Lista todas las auditorias de activos de acuerdo a unas fechas en especifico
+  public listarAuditoriaActivosFechas(fechaInicio, fechaFinal){
+    return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivoFechas?fechaInicio="+fechaInicio+"&fechaFinal="+fechaFinal);
   }
 
   // public listarGestionProceso(idUsuario: number){

@@ -74,8 +74,8 @@ export class SolicitudesComponent implements OnInit {
 
   verSolicitud(id: number){
     const dialogRef = this.dialog.open(ListadoComentariosComponent, {
-      width: '1000px',
-      height: '430px',
+      width: '80%',
+      height: '80%',
       data: {id: id}
     });
   }

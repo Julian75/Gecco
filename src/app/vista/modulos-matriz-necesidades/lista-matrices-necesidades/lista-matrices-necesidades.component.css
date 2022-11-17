@@ -12,8 +12,8 @@
 }
 
 #chart{
-  margin-top: 1%;
-  margin-left: 79.5%;
+  margin-top: -3%;
+    margin-left: 79.5%;
 }
 #incumplio{
   background-color: #ffc7ce;
@@ -28,44 +28,51 @@
   color: #9B0006;
 }
 .example-container {
-    max-width: 100%;
-    overflow: auto;
-    margin-top: -3%;
-    border-bottom: 20%;
-    box-shadow: 1px none #000;
-    margin-bottom: 3%;
-  }
-  table{
-    width: 100%;
-    height: 100%;
-    border: 1px solid #000;
-    text-align: center !important;
-  }
+  max-width: 100%;
+  overflow: auto;
+  margin-top: -3%;
+  border-bottom: 20%;
+  box-shadow: 1px none #000;
+  margin-bottom: 3%;
+}
+.totalE{ margin-left: 5%; }
+.totales{
+  width: 633px;
+  position: relative;
+  top: 87px;
+  left: -434px;
+}
+table{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+  text-align: center !important;
+}
 
-  .mat-sort-header-container{
-    justify-content: center !important;
-  }
+.mat-sort-header-container{
+  justify-content: center !important;
+}
 
-  .mat-header-cell{
-    text-align: center !important;
-  }
+.mat-header-cell{
+  text-align: center !important;
+}
 
-  .btnVisualizar{
-    background-color: #97B4E2;
-    width: 10%;
-  }
-  .contenedor{
-    width: 90%; margin-left: 5%; margin-top: 3%;
-  }
-  .boton{ background-color: #00235C; }
-  .btnver{ background-color: #00235C; color: white; }
-  .btnver2{ background-color: #959595; color: white; }
-  .btnedit{ background-color: #97B4E2; color: white; }
-  .btnremove, .btndelete{ background-color: #DA161A; color: white; }
-  .btnasigPuntoVenta{ background-color: #437260; color: white; }
-  td button mat-icon{left: -18%; top: -10%;}
-  td{ text-align: left; overflow-wrap: break-word; }
-  td.mat-cell{ padding-left: 1%;}
+.btnVisualizar{
+  background-color: #97B4E2;
+  width: 10%;
+}
+.contenedor{
+  width: 90%; margin-left: 5%; margin-top: 3%;
+}
+.boton{ background-color: #00235C; }
+.btnver{ background-color: #00235C; color: white; }
+.btnver2{ background-color: #959595; color: white; }
+.btnedit{ background-color: #97B4E2; color: white; }
+.btnremove, .btndelete{ background-color: #DA161A; color: white; }
+.btnasigPuntoVenta{ background-color: #437260; color: white; }
+td button mat-icon{left: -18%; top: -10%;}
+td{ text-align: left; overflow-wrap: break-word; }
+td.mat-cell{ padding-left: 1%;}
 
   /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

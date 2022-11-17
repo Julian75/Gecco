@@ -1,18 +1,50 @@
-<mat-toolbar>
-  <h2 class="nombre">{{usuario.nombre}} {{usuario.apellido}}</h2>
-  <img class="person" src="assets/botones/ICONO USUARIO GECCO.png" alt="">
-  <mat-label class=""><mat-icon>arrow_drop_down</mat-icon></mat-label>
-  <mat-select class="flecha">
-    <mat-option routerLink="/modificarUsuario/{{get}}">
-      Modificar Perfil
-    </mat-option>
-    <mat-option >
-      <button (click)="salir()">Cerrar Sesion</button>
-    </mat-option>
-  </mat-select>
 
-  <button mat-button id="iconMenu" class="iconMenu" routerLink="/sidebarMovil">
-    <i class="fa-solid fa-bars"></i>
-  </button>
-</mat-toolbar>
-<router-outlet></router-outlet>
+  <!-- icono y nombre del Usuario -->
+  <mat-toolbar>
+    <div class="container d-none d-md-block">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+          <p class="text-white" style="font-size: 25px; font-weight: bold; font-family: 'Roboto', sans-serif;">Gestión y Control Comercial</p>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <img src="../../../../assets/Iconos/Icono Usuario.png" alt="usuario" style="width: 36px; height: 33px;">
+              </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <p class="text-white mt-2 ps-2" style="font-size: 18px; font-weight: bold; font-family: 'Roboto', sans-serif;">{{nombre}}</p>
+              <mat-select class="flecha">
+                <mat-option routerLink="/modificarUsuario/{{get}}">
+                  Modificar Perfil
+                </mat-option>
+                <mat-option >
+                  <button (click)="salir()">Cerrar Sesion</button>
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="text-white position-absolute" style="width: 100%; font-size: 18px; font-weight: bold; font-family: 'Roboto', sans-serif; margin-left: 81%; margin-top: 29px;">
+          {{usuario}}
+        </div>
+      </div>
+    </div>
+    <!-- <h2 class="nombre">{{usuario.nombre}} {{usuario.apellido}}</h2>
+    <img class="person" src="assets/botones/ICONO USUARIO GECCO.png" alt="">
+    <mat-label class=""><mat-icon>arrow_drop_down</mat-icon></mat-label>
+    <mat-select class="flecha">
+      <mat-option routerLink="/modificarUsuario/{{get}}">
+        Modificar Perfil
+      </mat-option>
+      <mat-option >
+        <button (click)="salir()">Cerrar Sesion</button>
+      </mat-option>
+    </mat-select>
+
+    <button mat-button id="iconMenu" class="iconMenu" routerLink="/sidebarMovil">
+      <i class="fa-solid fa-bars"></i>
+    </button> -->
+  </mat-toolbar>
+  <router-outlet></router-outlet>

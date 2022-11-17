@@ -118,8 +118,8 @@ export class AprobacionRegistroComponent implements OnInit {
           resOrdenCompra.forEach(element => {
             if(element.idSolicitud.id == id){
               const dialogRef = this.dialog.open(VisualizarRegistroComponent, {
-                width: '1000px',
-                height: '440px',
+                width: '80%',
+                height: '80%',
                 data: element.id
               });
             }
@@ -127,7 +127,8 @@ export class AprobacionRegistroComponent implements OnInit {
         })
       }else{
         const dialogRef = this.dialog.open(VisualizarDetalleSolicitudComponent, {
-          width: '1000px',
+          width: '80%',
+          height: '80%',
           data: {id: id}
         });
       }

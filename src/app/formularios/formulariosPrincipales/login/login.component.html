@@ -1,34 +1,40 @@
-<div id="formWrapper">
-  <form [formGroup]="formLogin">
-    <div id="form">
-      <div class="logo">
-        <div class="d-flex justify-content-between">
-          <div>
-            <img src="assets/logo/LOGO SUCHANCE (2).png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
-          </div>
-          <div>
-            <img src="assets/logo/Su-red-azul.png" class="logo" style=" object-fit: cover; object-position: center; width: 125px;">
+<section class="h-100" id="fondoImg">
+  <div class="login" style="background-color: #415593; height: 100%; position: absolute; width: 100%; opacity: 0.6; z-index: -1;">
+    <div class="px-4 px-md-5 text-center text-lg-start" id="pantalla">
+      <div style="display: none;">
+        <img src="../../../../assets/formularios/Fondo.jpg" id="logo" alt="logo" class="logo">
+      </div>
+    </div>
+  </div>
+  <div class="container" style="z-index: 1;">
+    <div class="col-md-6 col-lg-7 d-flex align-items-center justify-content-center w-100 h-100">
+      <div class="col-lg-6 mb-5 mb-lg-0 d-none d-md-block ">
+        <img src="../../../../assets/logo/Logo.png" style="margin-top: 161px;" class="img-fluid" alt="logo" id="logo2">
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="div">
+          <div class="px-md-5 " id="formulario" style="margin-top: 166px;">
+            <form [formGroup]="formLogin">
+              <div class="row d-flex justify-content-center mb-4">
+                <img src="../../../../assets/logo/LOGO SUCHANCE (2).png" style="background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed; width: 219px;" class="img-fluid" alt="logo">
+              </div>
+
+              <div class="d-flex justify-content-center align-items-center mb-4">
+                <input type="text" id="user" class="form-style form-control" placeholder="Usuario" formControlName="username"/>
+              </div>
+
+              <div class="d-flex justify-content-center align-items-center mb-4 form-outline" appearance="fill">
+                <input type="password" id="contrasena" class="form-style form-control" placeholder="Contraseña" formControlName="password" />
+              </div>
+              <a href="#" class="text-decoration-none text-white d-flex justify-content-center align-items-center mb-4" routerLink="/olvidoContrasena">*Olvidó Contraseña*</a>
+
+              <div class="d-flex justify-content-center align-items-center mb-4">
+                <button type="button" class="btn btn-block btn-lg" style="background-color: #244BBF; color: white;" (click)="ingresar()">INGRESAR</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-          <div class="form-item">
-            <mat-form-field class="form-style w-100" appearance="fill">
-              <mat-label>Username:</mat-label>
-              <input  name="username" id="username"  formControlName="username" matInput>
-            </mat-form-field>
-          </div>
-          <div class="form-item">
-            <mat-form-field class="form-style w-100"  appearance="fill">
-              <mat-label>Password:</mat-label>
-              <input type="password" name="password" id="password" formControlName="password" matInput>
-            </mat-form-field>
-            <!-- <div class="pw-view"><i class="fa fa-eye"></i></div> -->
-            <p><a routerLink="/olvidoContrasena"><small style="color: #00235C !important;">OLVIDO CONTRASEÑA?</small></a></p>
-          </div>
-          <div class="form-item">
-          <button mat-raised-button class="login pull-right" style="background-color: #00235C !important; color: white !important; font-size: 20px !important;" (click)="ingresar()">INGRESAR</button>
-          <div class="clear-fix"></div>
-          </div>
-      </div>
-  </form>
+    </div>
   </div>
+</section>

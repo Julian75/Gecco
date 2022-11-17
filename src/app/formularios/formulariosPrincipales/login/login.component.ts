@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
+    this.listarImagen();
   }
 
   private crearFormulario() {
@@ -42,58 +43,70 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  public listarImagen(){
+    const logo = document.getElementById('logo').getAttribute('src');
+    const fondo = document.getElementById('fondoImg')
+    fondo?.setAttribute('style', 'background-image: url('+logo+' ); background-size: cover; width: 100vw; position: absolute; z-index: 1;')
+  }
   ingresar(){
+    if(this.formLogin.controls['username'].value == null){
+      const username = document.getElementById('user');
+      username?.animate([{ transform: 'translateX(0px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(0px)' }], {duration: 2000,iterations: 1});
+    }else if(this.formLogin.controls['password'].value == null){
+      const password = document.getElementById('contrasena');
+      password?.animate([{ transform: 'translateX(0px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(10px)' },{ transform: 'translateX(-10px)' },{ transform: 'translateX(0px)' }], {duration: 2000,iterations: 1});
+    }else if(this.formLogin.value.username != null && this.formLogin.value.password != null){
       this.servicioUsuario.listarTodos().subscribe(res=>{
         const username = this.formLogin.controls['username'].value;
         const password = this.formLogin.controls['password'].value;
-        res.forEach(element => {
-          if(element.documento == username){
-            const contrasena = element.password.toString()
-            var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
-            var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
-            if(decryptedData == JSON.stringify(password)){
-              if(element.idEstado.id == 11){
-                Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Bienvenido(a)!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-                this.usuario = element.documento
-                this.id = element.id
-                sessionStorage.setItem('usuario',this.usuario)
-                sessionStorage.setItem('id',this.id)
-                this.router.navigate(['/vista']);
-              }else{
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Usuario inactivo!!',
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-              }
-            }else if(element.password != password){
+        const encontrarUsuario = res.find((usuario:any) => usuario.documento == username);
+        if(encontrarUsuario != undefined){
+          const contrasena = encontrarUsuario.password.toString();
+          var bytes  = CryptoJS.AES.decrypt(contrasena, 'secret key 123');
+          var decryptedData = JSON.stringify(bytes.toString(CryptoJS.enc.Utf8));
+          if(decryptedData == JSON.stringify(password)){
+            const encontrarActivo = res.find((usuario:any) => usuario.idEstado.id == 11);
+            if(encontrarActivo){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Bienvenido(a)!',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.usuario = encontrarUsuario.documento
+              this.id = encontrarUsuario.id
+              sessionStorage.setItem('usuario',this.usuario)
+              sessionStorage.setItem('id',this.id)
+              this.router.navigate(['/vista']);
+            }else{
               Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Digitó la contraseña incorrecta!',
+                title: 'Usuario inactivo!!',
                 showConfirmButton: false,
                 timer: 1500
               })
             }
-          }else if(username=="" || password==""){
+          }else{
             Swal.fire({
-              position: 'center',
               icon: 'error',
-              title: 'Los campos estan vacios!',
+              title: 'Contraseña incorrecta',
               showConfirmButton: false,
               timer: 1500
             })
           }
-        })
+        }else if(encontrarUsuario == undefined){
+          Swal.fire({
+            icon: 'error',
+            title: 'Usuario no registrado',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.formLogin.reset();
+        }
       })
+    }
 
 
   }

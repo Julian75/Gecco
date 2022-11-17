@@ -213,8 +213,8 @@ export class ProcesoComponent implements OnInit {
             if(res.idEstado.id == 28){
               this.dialogRef.close();
               const dialogRef = this.dialog.open(ListadoObservacionComponent, {
-                width: '1000px',
-                height: '430px',
+                width: '80%',
+                height: '80%',
                 data: {id:detalleSolicitud.idSolicitud}
               });
             }

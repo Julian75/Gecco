@@ -219,6 +219,7 @@ import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/
 import { ColillaTerceroLoteriaComponent } from './modulos-raspita/colilla-tercero-loteria/colilla-tercero-loteria.component';
 import { AuditoriaControlInternoComponent } from './modulos-inventarios/auditoria-control-interno/auditoria-control-interno.component';
 import { TodosComentariosComponent } from './modulos-compra/proceso/todos-comentarios/todos-comentarios.component';
+import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/reporte-auditoria-activo.component';
 
 @NgModule({
   declarations: [
@@ -432,7 +433,8 @@ import { TodosComentariosComponent } from './modulos-compra/proceso/todos-coment
     ConsolidadoGraficaComponent,
     ColillaTerceroLoteriaComponent,
     AuditoriaControlInternoComponent,
-    TodosComentariosComponent
+    TodosComentariosComponent,
+    ReporteAuditoriaActivoComponent
   ],
   imports: [
     CommonModule,

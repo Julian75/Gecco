@@ -5,6 +5,6 @@ export class CorreoAuditoria {
   public asunto: string="";
   public mensaje: string="";
   idAuditoriaActivo !: AuditoriaActivo;
-  idUsuarioEnvia !: Usuario;
+  idUsuarioEnvias !: Usuario;
   idUsuarioRecibe !: Usuario;
 }

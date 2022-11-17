@@ -1,9 +1,8 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-
 mat-toolbar{
-  background-color: #00235C;
+  background-color: #7C91BA;
   height: 13%;
 }
 mat-icon, .nombre, .rol, .person{ color: white; position: relative;}
@@ -53,7 +52,6 @@ li ul li {
 .flecha{
   color: white;
   width: 10%;
-  margin-left: -11.3%;
 }
 
 button{
@@ -167,7 +165,7 @@ button{
   .iconMenu{ display: none; }
   .nombre{margin-left: 60%; font-size: 23px;}
   .person{width: 58px; height: 46%; margin-left: 1%;}
-  mat-toolbar{ height: 9%;}
+  mat-toolbar{ height: 91px;}
 }
 
 /*Portatil 4, Compu. Mesa 7, Televisor 2*/
