@@ -3,12 +3,11 @@
 }
 mat-drawer{
   background-color: #7C91BA;
-  width: 15%;
+  width: 16%;
 }
 .logo{
   width: 75%;
   margin-top: 3%;
-  margin-left: 9%;
   margin-bottom: -11%;
 }
 .boton{
@@ -29,5 +28,27 @@ mat-expansion-panel{
 mat-panel-title{ color: white; font-weight: 400; }
 button{ width: 125%; margin-left: -12%; border-radius: 0%; background-color: white; text-align: left; font-weight: 400;}
 .opciones button{ font-size: 12px; }
+/* Movil pequeño 1 - Galaxy Fold*/
+@media screen and (min-width: 280px) and (max-width: 359px){
+  mat-drawer{ display: none; }
+}
 
+/* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
+@media screen and (min-width: 360px) and (max-width: 420px){
+  mat-drawer{ display: none; }
+}
+
+/* PORTATILES */
+@media screen and (min-width: 600px) and (max-width: 639px){
+  mat-drawer{ display: none; }
+}
+
+/* Tablet 2,  Portatil 1*/
+@media screen and (min-width: 640px) and (max-width: 768px){
+  mat-drawer{ display: none; }
+}
+/* Tablet 3*/
+@media screen and (min-width: 769px) and (max-width: 800px){
+  mat-drawer{ display: none; }
+}
 

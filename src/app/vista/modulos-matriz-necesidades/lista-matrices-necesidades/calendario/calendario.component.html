@@ -1,0 +1,16 @@
+<form [formGroup]="formMatriz">
+    <div class="nombre2">
+      <h2 class="nombre">Informacion mensual</h2>
+      <mat-form-field class="tur" appearance="fill">
+        <mat-label>Seleccione un Mes</mat-label>
+        <input type="month" id="mes" formControlName="mes" name="mes" (change)="matrizDetalleFecha()" matInput>
+      </mat-form-field>
+    </div>
+  </form>
+  <mat-card class="cuadroPrincipal mat-elevation-z8">
+    <mat-card class="cuadroSecundario mb-3" *ngFor="let item of listaMatricesDetalle">
+      <h2>Fecha: {{item.fecha}}</h2>
+      <p>Id Matriz: {{item.id_matriz_necesidad}}</p>
+      <p>Descripcion: {{item.descripcion}}</p>
+    </mat-card>
+  </mat-card>

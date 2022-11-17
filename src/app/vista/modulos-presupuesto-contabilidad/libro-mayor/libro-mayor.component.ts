@@ -58,41 +58,30 @@ export class LibroMayorComponent implements OnInit {
   public guardar() {
     if (this.formLibroMayor.valid) {
       const spinner = document.getElementById('snipper');
-    this.section = false;
-    this.exportar = false;
-    this.buscador = false;
-    this.listarLibrosMayor = [];
-    let fecha = this.formLibroMayor.value.fecha;
-    let mes = fecha.toString().substring(5,7);
-    let año = fecha.toString().substring(0,4);
-    this.servicioLibroMayor.listarTodos().subscribe( resTodoLibroMayor => {
+      const paginator = document.getElementById('paginator');
+      paginator?.setAttribute('style', 'display: none;');
+      this.section = false;
+      this.exportar = false;
+      this.buscador = false;
+      this.listarLibrosMayor = [];
+      let fecha = this.formLibroMayor.value.fecha;
+      let mes = fecha.toString().substring(5,7);
+      let año = fecha.toString().substring(0,4);
+      this.servicioLibroMayor.listarTodos().subscribe( resTodoLibroMayor => {
       spinner?.setAttribute('style', 'display: block;');
       const libroMayor = resTodoLibroMayor as LibroMayor[];
       this.listarLibrosMayor = libroMayor.filter(libroMayor => libroMayor.fecha.toString().substring(5,7) == mes && libroMayor.fecha.toString().substring(0,4) == año);
-      const paginator = document.getElementById('paginator');
       if(this.listarLibrosMayor.length > 0){
-        paginator?.setAttribute('style', 'display: block;');
-        this.section = true;
-        this.exportar = true;
-        this.buscador = true;
-        async function sleep(ms: number) {
-          try {
-            await new Promise(resolve => setTimeout(resolve, ms));
-          }
-          catch (e) {
-            spinner?.setAttribute('style', 'display: none;');
-            stop();
-          }
-        }
-        sleep(1000).then(() => {
+        setTimeout(() => {
+          this.section = true;
+          this.exportar = true;
+          this.buscador = true;
           spinner?.setAttribute('style', 'display: none;');
+          paginator?.setAttribute('style', 'display: block;');
           this.dataSource = new MatTableDataSource(this.listarLibrosMayor);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-        }).catch(() => {
-          spinner?.setAttribute('style', 'display: none;');
-          stop();
-        });
+        }, 1000);
       }else{
         spinner?.setAttribute('style', 'display: none;');
         paginator?.setAttribute('style', 'display: none;');

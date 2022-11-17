@@ -1,8 +1,14 @@
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { UsuarioService } from './../../../../servicios/usuario.service';
 import { AuditoriaActivoService } from 'src/app/servicios/auditoriaActivo.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import Swal from 'sweetalert2';
+import { MatTableDataSource } from '@angular/material/table';
+import { ModalAuditoriasActivosComponent } from './modal-auditorias-activos/modal-auditorias-activos.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reporte-auditoria-activo',
@@ -14,16 +20,23 @@ export class ReporteAuditoriaActivoComponent implements OnInit {
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+  reporteVisualizar: boolean = false;
+  displayedColumns = ['id', 'fecha', 'hora', 'usuario', 'opcion'];
+  dataSource!:MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private servicioConsultasGenerales: ConsultasGeneralesService,
-    private servicioAuditoriaActivos: AuditoriaActivoService,
+    private servicioUsuario: UsuarioService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
   }
 
-  listaAuditoriasCompletas: any = []
+  listaAuditoriasRegistrosCompletas: any = []
+  listaAuditorias: any = []
   reporteAuditorias(){
     const inicio = new Date(this.range.value.start);
     const fin = new Date(this.range.value.end);
@@ -47,9 +60,10 @@ export class ReporteAuditoriaActivoComponent implements OnInit {
           timer: 1500
         })
       }else{
-        this.listaAuditoriasCompletas = []
-        this.servicioConsultasGenerales.listarAuditoriaActivosFechas(fechaInicio, fechaFin).subscribe(resAuditoriasActivos=>{
-          if(resAuditoriasActivos.length <= 0){
+        this.listaAuditoriasRegistrosCompletas = []
+        this.reporteVisualizar = false
+        this.servicioConsultasGenerales.listarAuditoriaActivosRegistroFechas(fechaInicio, fechaFin).subscribe(resAuditoriasActivosRegistros=>{
+          if(resAuditoriasActivosRegistros.length <= 0){
             Swal.fire({
               position: 'center',
               icon: 'warning',
@@ -58,14 +72,36 @@ export class ReporteAuditoriaActivoComponent implements OnInit {
               timer: 1500
             })
           }else{
-            resAuditoriasActivos.forEach(element => {
-
-            });
+            for (let index = 0; index < resAuditoriasActivosRegistros.length; index++) {
+              const elementAuditoriaActivoRegistro = resAuditoriasActivosRegistros[index];
+              this.servicioUsuario.listarPorId(elementAuditoriaActivoRegistro.idUsuario).subscribe(resUsuarioAuditoria=>{
+                var fechaSolita = String(elementAuditoriaActivoRegistro.fecha).split(' ')
+                var obj = {
+                  fechaSolita: fechaSolita[0],
+                  usuarioAuditoria: resUsuarioAuditoria,
+                  auditoriaRegistro: elementAuditoriaActivoRegistro
+                }
+                this.listaAuditoriasRegistrosCompletas.push(obj)
+                if((index+1) == resAuditoriasActivosRegistros.length){
+                  this.dataSource = new MatTableDataSource(this.listaAuditoriasRegistrosCompletas);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                  this.reporteVisualizar = true
+                }
+              })
+            }
           }
-          console.log(resAuditoriasActivos)
         })
       }
     }
+  }
+
+  reporteDetalle(auditoriaActivoRegistro: any){
+    const dialogRef = this.dialog.open(ModalAuditoriasActivosComponent, {
+      width: '80%',
+      height: '80%',
+      data: auditoriaActivoRegistro.auditoriaRegistro.id
+    });
   }
 
 }

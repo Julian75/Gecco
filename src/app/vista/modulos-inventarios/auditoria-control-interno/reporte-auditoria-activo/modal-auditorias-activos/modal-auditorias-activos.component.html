@@ -1,0 +1,74 @@
+<div class="contenedor">
+  <section class="example-container mat-elevation-z8" tabindex="0">
+    <table mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" id="tabla">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef id="idSp2"><h3 id="idSp">Id</h3></th>
+        <td mat-cell *matCellDef="let element" id="idSp2">{{element.auditoriaRegistro.id}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="serial">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Codigo Contable</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="articulo">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Tipo Articulo</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="marca">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Marca</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="placa">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Placa</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="serial">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Serial</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="oficina">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Oficina Asignada</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="puntoVenta">
+        <th mat-header-cell *matHeaderCellDef><h3 id="estSp">Punto Venta Asignado</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.fechaSolita}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="usuario">
+        <th mat-header-cell *matHeaderCellDef><h3 id="iniSp">Usuario Asignado</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.usuarioAuditoria.nombre}} {{element.usuarioAuditoria.apellido}}<td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef><h3 id="iniSp">Estado Auditoria</h3></th>
+        <td mat-cell *matCellDef="let element">{{element.usuarioAuditoria.nombre}} {{element.usuarioAuditoria.apellido}}<td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+  <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page" >
+  </mat-paginator>
+</div>

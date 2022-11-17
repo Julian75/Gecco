@@ -43,12 +43,11 @@ h2{
 .nombre2, .estado2{ margin-left: 5%; margin-top: 1%; }
 .estado2{ width: 300px; }
 .guardarModal{
-  background-color: #00235C ;
+  background-color: #959595 ;
   color: white;
   width: 64px;
   height: 40px;
   font-size: large;
-  margin-left: 5%;
 }
 
 .row1{
@@ -56,6 +55,7 @@ h2{
   padding-top: 3%;
   padding-bottom: 4%;
 }
+.btnedit{ background-color: #97B4E2; color: white; }
 
 .contenedor{
   width: 90% !important; margin-left: 5%; margin-top: 3%;

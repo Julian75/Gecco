@@ -98,7 +98,7 @@ table{
 td{ text-align: left;}
 td.mat-cell{ padding-left: 1%;}
 
-.guardarModal{position: absolute; left: 26%; top: 30%;}
+.guardarModal{position: absolute; left: 26%; top: 34%;}
 .excelButton{position: absolute; left: 7%; top: 41%;}
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){

@@ -1,28 +1,37 @@
 <mat-drawer-container class="example">
-  <mat-drawer mode="side" opened>
-    <img src="assets/logo/LOGO GECCO-ai (4).png" routerLink="/inicio" alt="" class="logo">
-    <mat-expansion-panel style="display: none;" id="Administracion" (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false">
-      <mat-expansion-panel-header class="boton">
-        <mat-panel-title >
-          Administración
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="opciones">
-        <button mat-raised-button id="5"  routerLink="/usuarios" style="display: none;">Usuarios</button>
-        <button mat-raised-button id="4" routerLink="/tipoDocumento" style="display: none;">Tipos de Documentos</button>
-        <button mat-raised-button id="3" routerLink="/roles" style="display: none;">Roles</button>
-        <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
-        <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
-        <button mat-raised-button id="51" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
-        <button mat-raised-button id="52" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
-        <button mat-raised-button id="63" routerLink="/subProceso" style="display: none;">Sub Procesos</button>
-        <button mat-raised-button id="50" routerLink="/sedes" style="display: none;">Sedes</button>
-        <button mat-raised-button id="55" routerLink="/asignacionProceso" style="display: none;">Asignar Proceso a Usuario</button>
-        <button mat-raised-button id="19" routerLink="/configuraciones" style="display: none;">Configuracion</button>
-        <button mat-raised-button id="21" routerLink="/aprobacion" style="display: none;">Aprobacion</button>
-      </div>
-    </mat-expansion-panel>
+  <mat-drawer mode="side" class="d-none d-md-block" style="border: none;" opened>
+    <!-- logo -->
+    <div class="d-flex justify-content-center align-items-center mt-3" style="border-bottom: 1px solid  #415593;">
+      <img src="assets/logo/LOGO SUCHANCE (2).png"style="width: 138px;" class="img-fluid mb-3 logo" alt="logo">
+    </div>
+    <!-- fecha -->
+    <div class="d-flex justify-content-center align-items-center mt-3">
+      <p class="text-center" style="font-size: 14px; color: #53618c; color:white;">{{fechaActual}}</p>
+    </div>
+    <!-- menu -->
+    <div class="">
+      <mat-expansion-panel style="display: none;" id="Administracion" (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+        <mat-expansion-panel-header class="boton">
+          <mat-panel-title >
+            Administración
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="opciones">
+          <button mat-raised-button id="5"  routerLink="/usuarios" style="display: none;">Usuarios</button>
+          <button mat-raised-button id="4" routerLink="/tipoDocumento" style="display: none;">Tipos de Documentos</button>
+          <button mat-raised-button id="3" routerLink="/roles" style="display: none;">Roles</button>
+          <button mat-raised-button id="10" routerLink="/modulo" style="display: none;">Modulos</button>
+          <button mat-raised-button id="11" routerLink="/jerarquia" style="display: none;">Jerarquía</button>
+          <button mat-raised-button id="51" routerLink="/tipoActivo" style="display: none;">Tipo Activo</button>
+          <button mat-raised-button id="52" routerLink="/tipoProceso" style="display: none;">Tipo Proceso</button>
+          <button mat-raised-button id="63" routerLink="/subProceso" style="display: none;">Sub Procesos</button>
+          <button mat-raised-button id="50" routerLink="/sedes" style="display: none;">Sedes</button>
+          <button mat-raised-button id="55" routerLink="/asignacionProceso" style="display: none;">Asignar Proceso a Usuario</button>
+          <button mat-raised-button id="19" routerLink="/configuraciones" style="display: none;">Configuracion</button>
+          <button mat-raised-button id="21" routerLink="/aprobacion" style="display: none;">Aprobacion</button>
+        </div>
+      </mat-expansion-panel>
     <mat-expansion-panel style="display: none;" id="Malla" (opened)="panelOpenState = true"
                         (closed)="panelOpenState = false" >
       <mat-expansion-panel-header class="boton">
@@ -138,9 +147,9 @@
         <button mat-raised-button id="71" routerLink="/agregarArticulosInventario" style="display: none;">Agregar Activo Inventario</button>
         <button mat-raised-button id="72" routerLink="/listaActasBajas" style="display: none;" style="display: none;">Lista Actas Bajas Activos</button>
         <button mat-raised-button id="60" routerLink="/solicitudBajaArticulos" style="display: none;">Generar Solicitud Baja Activo</button>
-        <button mat-raised-button routerLink="/listaActivosContabilidad" >Lista Activos Contabilidad</button> <!--id="78"-->
-        <button mat-raised-button routerLink="/auditoriaActivos">Chequeo Activos Punto Venta</button>
-        <button mat-raised-button routerLink="/reporteAuditoriaActivos">Reporte Auditoria Activos</button>
+        <button mat-raised-button id="78" routerLink="/listaActivosContabilidad" style="display: none;">Lista Activos Contabilidad</button>
+        <!-- <button mat-raised-button routerLink="/auditoriaActivos">Chequeo Activos Punto Venta</button>
+        <button mat-raised-button routerLink="/reporteAuditoriaActivos">Reporte Auditoria Activos</button> -->
       </div>
     </mat-expansion-panel>
 
@@ -168,17 +177,22 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="opciones">
-        <button mat-raised-button routerLink="/jerarquiaCuentas">Jerarquia Cuentas</button> <!--id: 79-->
-        <button mat-raised-button routerLink="/cuentas">Cuentas</button>
-        <button mat-raised-button routerLink="/cargarArchivo">Cargar Archivo</button>
-        <button mat-raised-button routerLink="/libroMayor">Consultar Libro</button>
-        <button mat-raised-button routerLink="/agregarPorcentajePresupuesto">Agregar Porcentaje Presupuesto</button>
-        <button mat-raised-button routerLink="/porcentajePresupuesto">Visualizar Porcentaje Presupuesto</button>
-        <button mat-raised-button  routerLink="/analisisDetalladoContable" >Analisis Detallado Contable</button> <!--id="85"-->
-        <button mat-raised-button routerLink="/consolidadoContabilidad">Consolidado</button>
+        <button mat-raised-button id="79" routerLink="/jerarquiaCuentas">Jerarquia Cuentas</button>
+        <button mat-raised-button id="80" routerLink="/cuentas">Cuentas</button>
+        <button mat-raised-button id="81" routerLink="/cargarArchivo">Cargar Archivo</button>
+        <button mat-raised-button id="82" routerLink="/libroMayor">Consultar Libro</button>
+        <button mat-raised-button id="83" routerLink="/agregarPorcentajePresupuesto">Agregar Porcentaje Presupuesto</button>
+        <button mat-raised-button id="84" routerLink="/porcentajePresupuesto">Visualizar Porcentaje Presupuesto</button>
+        <button mat-raised-button id="85" routerLink="/analisisDetalladoContable" >Analisis Detallado Contable</button>
+        <button mat-raised-button id="87" routerLink="/consolidadoContabilidad">Consolidado</button>
       </div>
     </mat-expansion-panel>
+    </div>
 
+    <!-- logo -->
+    <div class="d-flex justify-content-center mt-3">
+      <img src="assets/Iconos/Icono Gecco.png" alt="logo" class="w-75">
+    </div>
     <!-- <mat-expansion-panel (opened)="panelOpenState = true"
               (closed)="panelOpenState = false"> !--id="ModuloRecordatorio"--
       <mat-expansion-panel-header class="boton">
@@ -192,7 +206,7 @@
     </mat-expansion-panel> -->
 
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content style="overflow-x: hidden;">
     <app-navbar></app-navbar>
   </mat-drawer-content>
 </mat-drawer-container>

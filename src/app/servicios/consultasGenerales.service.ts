@@ -20,6 +20,9 @@ import { PorcentajePresupuesto2 } from '../modelos/modelos2/porcentajePresupuest
 import { Raspas2 } from '../modelos/modelos2/raspas2';
 import { GestionProceso2 } from '../modelos/gestionProceso2';
 import { AuditoriaActivo2 } from '../modelos/modelos2/auditoriaActivo2';
+import { MatrizNecesidadDetalle2 } from '../modelos/modelos2/matrizNecesidadDetalle2';
+import { AsignacionProceso2 } from '../modelos/modelos2/asignacionProceso2';
+import { AuditoriaActivoRegistro2 } from '../modelos/modelos2/auditoriaActivoRegistro2';
 
 @Injectable({
   providedIn: 'root'
@@ -158,13 +161,33 @@ export class ConsultasGeneralesService {
   }
 
   //Lista todas las auditorias de activos de acuerdo a un id detalle solicitud y fecha con tiempo
-  public listarAuditoriaActivos(idDetallArticulo, fecha){
-    return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivo?idDetalleArticulo="+idDetallArticulo+"&fecha="+fecha);
+  public listarAuditoriaActivos(idAuditoriaActivoRegistro, idAsignacionPuntoVentaActivo){
+    return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivo?idAuditoriaActivoRegistro="+idAuditoriaActivoRegistro+"&idAsignacionPuntoVentaActivo="+idAsignacionPuntoVentaActivo);
   }
 
-  //Lista todas las auditorias de activos de acuerdo a unas fechas en especifico
-  public listarAuditoriaActivosFechas(fechaInicio, fechaFinal){
-    return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivoFechas?fechaInicio="+fechaInicio+"&fechaFinal="+fechaFinal);
+  //Lista todas las auditorias de activos de registro de acuerdo a unas fechas en especifico
+  public listarAuditoriaActivosRegistroFechas(fechaInicio, fechaFinal){
+    return this.http.get<AuditoriaActivoRegistro2[]>(this.path+"/ObtenerAuditoriaActivoRegistroFechas?fechaInicio="+fechaInicio+"&fechaFinal="+fechaFinal);
+  }
+
+  //Lista todas las matrices de necesidad detalle que esten en la fecha digitada y el id del tipo de proceso del usuario logeado en la matariz
+  public listarMatrizDetalleProceso(idTipoProceso, fecha){
+    return this.http.get<MatrizNecesidadDetalle2[]>(this.path+"/ObtenerMatrizDetalleProceso?idTipoProceso="+idTipoProceso+"&fecha="+fecha);
+  }
+
+  //Lista todas las asignaciones procesos por el id del usuario
+  public listarAsignacionesProceso(idUsuario){
+    return this.http.get<AsignacionProceso2[]>(this.path+"/ObtenerAsignacionProceso?idUsuario="+idUsuario);
+  }
+
+  //Lista todas las auditorias de activos registro de acuerdo a un id de usuario y fecha con tiempo
+  public listarAuditoriaActivosRegistro(fecha, idUsuario){
+    return this.http.get<AuditoriaActivoRegistro2[]>(this.path+"/ObtenerAuditoriaActivoRegistro?fecha="+fecha+"&idUsuario="+idUsuario);
+  }
+
+  //Lista todas las auditorias de activos de acuerdo a un id auditoria activo registro
+  public listarAuditoriaActivosConIdRegistro(idAuditoriaActivoRegistro){
+    return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivoIdRegistro?idAuditoriaActivoRegistro="+idAuditoriaActivoRegistro);
   }
 
   // public listarGestionProceso(idUsuario: number){

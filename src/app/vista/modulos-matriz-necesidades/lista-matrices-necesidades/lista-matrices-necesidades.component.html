@@ -4,6 +4,7 @@
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="applyFilter($event) " placeholder="Buscar.." #input>
   </mat-form-field>
+  <button class="btn btnedit" (click)="abrirCalendario()" data-bs-toggle="tooltip" data-bs-placement="top" title="Abrir Calendario"><mat-icon>calendar_month</mat-icon></button>
   <div id="chart">
     <div class="totales">
       <p><strong>Total Estimado:</strong> ${{totalEstimadoMatriz | currency:'COP':'symbol':'1.0-0'}} <strong class="totalE">Total Ejecutado:</strong> ${{totalEjecutadoMatriz | currency:'COP':'symbol':'1.0-0'}}</p>

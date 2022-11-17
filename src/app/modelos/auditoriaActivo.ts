@@ -1,9 +1,8 @@
 import { AsignacionPuntoVenta } from './asignacionPuntoVenta';
-import { Usuario } from './usuario';
+import { AuditoriaActivoRegistro } from './audioriaActivoRegistro';
 export class AuditoriaActivo {
   public id: number=0;
   public estado: string="";
-  public fecha: Date = new Date();
   idAsignacionPuntoVentaArticulo !: AsignacionPuntoVenta;
-  idUsuario !: Usuario;
+  idAuditoriaActivoRegistro !: AuditoriaActivoRegistro;
 }

@@ -74,6 +74,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
     this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigActivos=>{
       this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
         this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAsignacionesActivosSinBaja=>{
+          console.log(resAsignacionesActivosSinBaja)
           if(resAsignacionesActivosSinBaja.length == 0){
             this.listaAsignActivosCompletos = resAsigActivos
           }else{
@@ -85,29 +86,34 @@ export class MisArticulosAsignadosComponent implements OnInit {
               });
             });
           }
+          console.log(this.listaAsignActivosCompletos)
           this.listaAsignActivosCompletos.forEach(elementAsignArticulo => {
-            if(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+            if(Number(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id) == Number(sessionStorage.getItem('id'))){
               if(elementAsignArticulo.idEstado.id == 76 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
                 var obj = {
                   asignArticulo: elementAsignArticulo,
                   existeAsigPuntoVenta: false
                 }
-                resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                    obj.existeAsigPuntoVenta = true
-                  }
-                })
+                if(resAsignacion.length > 0){
+                  resAsignacion.forEach(elementAsignacionPuntoVenta => {
+                    if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                      obj.existeAsigPuntoVenta = true
+                    }
+                  })
+                }
                 this.listarAsignacionArticulos.push(obj);
               }else if(elementAsignArticulo.idEstado.id == 78 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
                 var obj = {
                   asignArticulo: elementAsignArticulo,
                   existeAsigPuntoVenta: false
                 }
-                resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                  if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                    obj.existeAsigPuntoVenta = true
-                  }
-                })
+                if(resAsignacion.length > 0){
+                  resAsignacion.forEach(elementAsignacionPuntoVenta => {
+                    if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                      obj.existeAsigPuntoVenta = true
+                    }
+                  })
+                }
                 this.listarAsignacionArticulos.push(obj);
               }
             }
@@ -115,7 +121,6 @@ export class MisArticulosAsignadosComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-
         })
       })
     })

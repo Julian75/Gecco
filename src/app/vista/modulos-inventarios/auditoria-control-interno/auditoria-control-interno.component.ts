@@ -1,3 +1,4 @@
+import { AuditoriaActivoRegistro } from './../../../modelos/audioriaActivoRegistro';
 import { ConsultasGeneralesService } from './../../../servicios/consultasGenerales.service';
 import { CorreoService } from 'src/app/servicios/Correo.service';
 import { ConfiguracionService } from 'src/app/servicios/configuracion.service';
@@ -23,6 +24,7 @@ import { AuditoriaActivoService } from 'src/app/servicios/auditoriaActivo.servic
 import { CorreoAuditoria } from 'src/app/modelos/correoAuditoria';
 import { CorreoAuditoriaService } from 'src/app/servicios/correoAuditoria.service';
 import { Correo } from 'src/app/modelos/correo';
+import { AuditoriaActivoRegistroService } from 'src/app/servicios/auditoriaActivoRegistro.service';
 
 export interface Task {
   name: {};
@@ -79,6 +81,7 @@ export class AuditoriaControlInternoComponent implements OnInit {
     private servicioCorreoAuditoria: CorreoAuditoriaService,
     private servicioConfiguracion: ConfiguracionService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
+    private servicioAuditoriaActivoRegistro: AuditoriaActivoRegistroService,
     private servicioCorreo: CorreoService,
     private router: Router,
   ) { }
@@ -257,171 +260,177 @@ export class AuditoriaControlInternoComponent implements OnInit {
     }
   }
 
-  meses = [1, 2, 3, 4,]
   fechaActual: Date = new Date();
   correo: any;
   contrasena: any;
   existeCorreo: boolean = false;
   listaExisteCorreo: any = [];
   registrarAuditorias(){
-    for (let index = 0; index < this.activosSeleccionados.length; index++) {
-      const elementActivoSeleccionado = this.activosSeleccionados[index];
-      let auditoriaActivo : AuditoriaActivo = new AuditoriaActivo();
-      if(elementActivoSeleccionado.seleccion == true){
-        auditoriaActivo.estado = "Validado"
-        auditoriaActivo.fecha = this.fechaActual
-        auditoriaActivo.idAsignacionPuntoVentaArticulo = elementActivoSeleccionado.activo
-        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuarioLogueado=>{
-          auditoriaActivo.idUsuario = resUsuarioLogueado
-          this.servicioAuditoriaActivo.registrar(auditoriaActivo).subscribe(resAuditoriaActivo=>{
+    let auditoriaActivoRegistro : AuditoriaActivoRegistro = new AuditoriaActivoRegistro();
+    auditoriaActivoRegistro.fecha = this.fechaActual
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuarioLogueado=>{
+      auditoriaActivoRegistro.idUsuario = resUsuarioLogueado
+      var splitFecha = String(auditoriaActivoRegistro.fecha).split('-')
+      splitFecha = String(splitFecha[0]).split(' ')
+      var fechaConsultaGeneral = String(splitFecha[3]+"-"+(this.fechaActual.getMonth()+1)+"-"+splitFecha[2]+" "+splitFecha[4])
+      console.log(fechaConsultaGeneral, resUsuarioLogueado.id)
+      this.servicioAuditoriaActivoRegistro.registrar(auditoriaActivoRegistro).subscribe(resAuditoriaActivoRegistro=>{
+        this.servicioConsultasGenerales.listarAuditoriaActivosRegistro(fechaConsultaGeneral, resUsuarioLogueado.id).subscribe(resAuditoriaActivoRegistroId=>{
+          resAuditoriaActivoRegistroId.forEach(elementAuditoriaActivoRegistroId => {
+            this.servicioAuditoriaActivoRegistro.listarPorId(Number(elementAuditoriaActivoRegistroId.id)).subscribe(resAuditoriaActivoRegistroIde=>{
+              for (let index = 0; index < this.activosSeleccionados.length; index++) {
+                const elementActivoSeleccionado = this.activosSeleccionados[index];
+                let auditoriaActivo : AuditoriaActivo = new AuditoriaActivo();
+                if(elementActivoSeleccionado.seleccion == true){
+                  auditoriaActivo.estado = "Validado"
+                  auditoriaActivo.idAsignacionPuntoVentaArticulo = elementActivoSeleccionado.activo
+                  auditoriaActivo.idAuditoriaActivoRegistro = resAuditoriaActivoRegistroIde
+                  this.servicioAuditoriaActivo.registrar(auditoriaActivo).subscribe(resAuditoriaActivo=>{
+                  })
+                }else{
+                  auditoriaActivo.estado = "No Validado"
+                  auditoriaActivo.idAsignacionPuntoVentaArticulo = elementActivoSeleccionado.activo
+                  auditoriaActivo.idAuditoriaActivoRegistro = resAuditoriaActivoRegistroIde
+                  this.servicioAuditoriaActivo.registrar(auditoriaActivo).subscribe(resAuditoriaActivo=>{
+                    let correoAuditoria : CorreoAuditoria = new CorreoAuditoria();
+                    console.log(elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.id)
+                    this.servicioConsultasGenerales.listarAuditoriaActivos(resAuditoriaActivoRegistroIde.id, elementActivoSeleccionado.activo.id).subscribe(resAuditoriaActivoId=>{
+                      resAuditoriaActivoId.forEach(elementAuditoriaId => {
+                        console.log(elementAuditoriaId, elementAuditoriaId.id)
+                        this.servicioAuditoriaActivo.listarPorId(elementAuditoriaId.id).subscribe(resAuditoriaIdList=>{
+                          console.log(resAuditoriaIdList)
+                          correoAuditoria.idAuditoriaActivo = resAuditoriaIdList
+                          correoAuditoria.asunto = "Auditoria Activos"
+                          console.log(elementActivoSeleccionado.activo)
+                          correoAuditoria.mensaje = "Según la respectiva auditoria a la oficina "+elementActivoSeleccionado.activo.nombreOficina.toLowerCase()+" del punto de venta "+elementActivoSeleccionado.activo.nombreSitioVenta.toLowerCase()+", el activo "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" con marca "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.marca.toLowerCase()+", serial "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.serial.toLowerCase()+" y placa "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.placa.toLowerCase()+" asignado al usuario "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre.toLowerCase()+" "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido.toLowerCase()+", no se encuentra en ese punto de venta."
+                          correoAuditoria.idUsuarioEnvias = resUsuarioLogueado
+                          this.servicioUsuario.listarPorId(Number(elementActivoSeleccionado.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id)).subscribe(resUsuarioCorreo=>{
+                            correoAuditoria.idUsuarioRecibe = resUsuarioCorreo
+                            console.log(correoAuditoria)
+                            this.servicioCorreoAuditoria.registrar(correoAuditoria).subscribe(correoAuditoriaRegistrado=>{
 
-          })
-        })
-      }else{
-        auditoriaActivo.estado = "No Validado"
-        auditoriaActivo.fecha = this.fechaActual
-        auditoriaActivo.idAsignacionPuntoVentaArticulo = elementActivoSeleccionado.activo
-        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuarioLogueado=>{
-          auditoriaActivo.idUsuario = resUsuarioLogueado
-          this.servicioAuditoriaActivo.registrar(auditoriaActivo).subscribe(resAuditoriaActivo=>{
-            let correoAuditoria : CorreoAuditoria = new CorreoAuditoria();
-            var splitFecha = String(auditoriaActivo.fecha).split('-')
-            splitFecha = String(splitFecha[0]).split(' ')
-            var fechaConsultaGeneral = String(splitFecha[3]+"-"+(this.fechaActual.getMonth()+1)+"-"+splitFecha[2]+" "+splitFecha[4])
-            console.log(elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.id)
-            this.servicioConsultasGenerales.listarAuditoriaActivos(elementActivoSeleccionado.activo.id, fechaConsultaGeneral).subscribe(resAuditoriaActivoId=>{
-              resAuditoriaActivoId.forEach(elementAuditoriaId => {
-                console.log(elementAuditoriaId, elementAuditoriaId.id)
-                this.servicioAuditoriaActivo.listarPorId(elementAuditoriaId.id).subscribe(resAuditoriaIdList=>{
-                  console.log(resAuditoriaIdList)
-                  correoAuditoria.idAuditoriaActivo = resAuditoriaIdList
-                  correoAuditoria.asunto = "Auditoria Activos"
-                  console.log(elementActivoSeleccionado.activo)
-                  correoAuditoria.mensaje = "Según la respectiva auditoria a la oficina "+elementActivoSeleccionado.activo.nombreOficina.toLowerCase()+" del punto de venta "+elementActivoSeleccionado.activo.nombreSitioVenta.toLowerCase()+", el activo "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" con marca "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.marca.toLowerCase()+", serial "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.serial.toLowerCase()+" y placa "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idDetalleArticulo.placa.toLowerCase()+" asignado al usuario "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre.toLowerCase()+" "+elementActivoSeleccionado.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido.toLowerCase()+", no se encuentra en ese punto de venta."
-                  correoAuditoria.idUsuarioEnvias = resUsuarioLogueado
-                  this.servicioUsuario.listarPorId(Number(elementActivoSeleccionado.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id)).subscribe(resUsuarioCorreo=>{
-                    correoAuditoria.idUsuarioRecibe = resUsuarioCorreo
-                    console.log(correoAuditoria)
-                    this.servicioCorreoAuditoria.registrar(correoAuditoria).subscribe(correoAuditoriaRegistrado=>{
-
+                            })
+                          })
+                        })
+                      });
                     })
                   })
-                })
-              });
-            })
-          })
-        })
-      }
-      if((index+1) == this.activosSeleccionados.length){
-        this.listaExisteCorreo = []
-        this.activosSeleccionados.forEach(elementActivo => {
-          if(elementActivo.seleccion == false){
-            this.existeCorreo = true
-          }else{
-            this.existeCorreo = false
-          }
-          this.listaExisteCorreo.push(this.existeCorreo)
-        });
-        const existeCorreo = this.listaExisteCorreo.includes(true)
-        if(existeCorreo == true){
-          var listaUsuariosEnviar = []
-          for (let index = 0; index < this.activosSeleccionados.length; index++) {
-            const elementActivo = this.activosSeleccionados[index];
-            if(listaUsuariosEnviar.length <= 0){
-              listaUsuariosEnviar.push(elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id)
-            }else{
-              for (let index = 0; index < listaUsuariosEnviar.length; index++) {
-                const element = listaUsuariosEnviar[index];
-                if(element != elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                  listaUsuariosEnviar.push(elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id)
+                }
+                if((index+1) == this.activosSeleccionados.length){
+                  this.listaExisteCorreo = []
+                  this.activosSeleccionados.forEach(elementActivo => {
+                    if(elementActivo.seleccion == false){
+                      this.existeCorreo = true
+                    }else{
+                      this.existeCorreo = false
+                    }
+                    this.listaExisteCorreo.push(this.existeCorreo)
+                  });
+                  const existeCorreo = this.listaExisteCorreo.includes(true)
+                  if(existeCorreo == true){
+                    var listaUsuariosEnviar = []
+                    for (let index = 0; index < this.activosSeleccionados.length; index++) {
+                      const elementActivo = this.activosSeleccionados[index];
+                      if(listaUsuariosEnviar.length <= 0){
+                        listaUsuariosEnviar.push(elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id)
+                      }else{
+                        for (let index = 0; index < listaUsuariosEnviar.length; index++) {
+                          const element = listaUsuariosEnviar[index];
+                          if(element != elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
+                            listaUsuariosEnviar.push(elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id)
+                          }
+                        }
+                      }
+                      if((index+1) == this.activosSeleccionados.length){
+                        for (let index = 0; index < listaUsuariosEnviar.length; index++) {
+                          const element = listaUsuariosEnviar[index];
+                          this.servicioUsuario.listarPorId(Number(element)).subscribe(resUsuarioCorreo=>{
+                            let correo : Correo = new Correo();
+                            this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
+                              resConfiguracion.forEach(elementConfi => {
+                                if(elementConfi.nombre == "correo_gecco"){
+                                  this.correo = elementConfi.valor
+                                }
+                                if(elementConfi.nombre == "contraseña_correo"){
+                                  this.contrasena = elementConfi.valor
+                                }
+                              });
+                              correo.correo = this.correo
+                              correo.contrasena = this.contrasena
+                              correo.to = resUsuarioCorreo.correo
+                              correo.subject = "Auditoria de Activos"
+                              correo.messaje = "<!doctype html>"
+                              +"<html>"
+                              +"<head>"
+                              +"<meta charset='utf-8'>"
+                              +"</head>"
+                              +"<body>"
+                              +"<h3 style='color: black;'>Segun la respectiva auditoria a los activos que a continuacion se mencionaran, los cuales tiene asignados, no se encuentra en el punto de venta que se asignaron. Los cuales son: </h3>"
+                              +"<br>"
+                              +"<table style='border: 1px solid #000; text-align: center;'>"
+                              +"<tr>"
+                              +"<th style='border: 1px solid #000;'>Tipo Articulo</th>"
+                              +"<th style='border: 1px solid #000;'>Marca</th>"
+                              +"<th style='border: 1px solid #000;'>Placa</th>"
+                              +"<th style='border: 1px solid #000;'>Serial</th>"
+                              +"<th style='border: 1px solid #000;'>Oficina Asignada</th>"
+                              +"<th style='border: 1px solid #000;'>Sitio de Venta Asignado</th>"
+                              +"<th style='border: 1px solid #000;'>Usuario Asignado</th>";
+                              this.activosSeleccionados.forEach(elementActivo => {
+                                if (elementActivo.seleccion == false && elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id == resUsuarioCorreo.id) {
+                                  correo.messaje += "<tr>"
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion+"</td>";
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.marca+"</td>";
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.placa+"</td>";
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.serial+"</td>";
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.nombreOficina+"</td>";
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.nombreSitioVenta+"</td>";
+                                  correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"</td>";
+                                  correo.messaje += "</tr>";
+                                }
+                              });
+                              correo.messaje += "</table>"
+                              +"<br>"
+                              +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
+                              +"</body>"
+                              +"</html>";
+                              this.servicioCorreo.enviar(correo).subscribe(res =>{
+                                if((index+1) == listaUsuariosEnviar.length){
+                                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                                  Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Se ha registrado la auditoria!',
+                                    showConfirmButton: false,
+                                    timer: 4500
+                                  })
+                                  window.location.reload();
+                                }
+                              })
+                            })
+                          })
+
+                        }
+                      }
+                    }
+                  }else{
+                    document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Se ha registrado la auditoria!',
+                      showConfirmButton: false,
+                      timer: 4500
+                    })
+                    window.location.reload();
+                  }
                 }
               }
-            }
-            if((index+1) == this.activosSeleccionados.length){
-              for (let index = 0; index < listaUsuariosEnviar.length; index++) {
-                const element = listaUsuariosEnviar[index];
-                this.servicioUsuario.listarPorId(Number(element)).subscribe(resUsuarioCorreo=>{
-                  let correo : Correo = new Correo();
-                  this.servicioConfiguracion.listarTodos().subscribe(resConfiguracion=>{
-                    resConfiguracion.forEach(elementConfi => {
-                      if(elementConfi.nombre == "correo_gecco"){
-                        this.correo = elementConfi.valor
-                      }
-                      if(elementConfi.nombre == "contraseña_correo"){
-                        this.contrasena = elementConfi.valor
-                      }
-                    });
-                    correo.correo = this.correo
-                    correo.contrasena = this.contrasena
-                    correo.to = resUsuarioCorreo.correo
-                    correo.subject = "Auditoria de Activos"
-                    correo.messaje = "<!doctype html>"
-                    +"<html>"
-                    +"<head>"
-                    +"<meta charset='utf-8'>"
-                    +"</head>"
-                    +"<body>"
-                    +"<h3 style='color: black;'>Segun la respectiva auditoria a los activos que a continuacion se mencionaran, los cuales tiene asignados, no se encuentra en el punto de venta que se asignaron. Los cuales son: </h3>"
-                    +"<br>"
-                    +"<table style='border: 1px solid #000; text-align: center;'>"
-                    +"<tr>"
-                    +"<th style='border: 1px solid #000;'>Tipo Articulo</th>"
-                    +"<th style='border: 1px solid #000;'>Marca</th>"
-                    +"<th style='border: 1px solid #000;'>Placa</th>"
-                    +"<th style='border: 1px solid #000;'>Serial</th>"
-                    +"<th style='border: 1px solid #000;'>Oficina Asignada</th>"
-                    +"<th style='border: 1px solid #000;'>Sitio de Venta Asignado</th>"
-                    +"<th style='border: 1px solid #000;'>Usuario Asignado</th>";
-                    this.activosSeleccionados.forEach(elementActivo => {
-                      if (elementActivo.seleccion == false && elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id == resUsuarioCorreo.id) {
-                        correo.messaje += "<tr>"
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion+"</td>";
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.marca+"</td>";
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.placa+"</td>";
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idDetalleArticulo.serial+"</td>";
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.nombreOficina+"</td>";
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.nombreSitioVenta+"</td>";
-                        correo.messaje += "<td style='border: 1px solid #000;'>"+elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+elementActivo.activo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"</td>";
-                        correo.messaje += "</tr>";
-                      }
-                    });
-                    correo.messaje += "</table>"
-                    +"<br>"
-                    +"<img src='https://i.ibb.co/JdW99PF/logo-suchance.png' style='width: 400px;'>"
-                    +"</body>"
-                    +"</html>";
-                    this.servicioCorreo.enviar(correo).subscribe(res =>{
-                      if((index+1) == listaUsuariosEnviar.length){
-                        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'success',
-                          title: 'Se ha registrado la auditoria!',
-                          showConfirmButton: false,
-                          timer: 4500
-                        })
-                        window.location.reload();
-                      }
-                    })
-                  })
-                })
-
-              }
-            }
-          }
-        }else{
-          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se ha registrado la auditoria!',
-            showConfirmButton: false,
-            timer: 4500
-          })
-          window.location.reload();
-        }
-      }
-    }
+            })
+          });
+        })
+      })
+    })
   }
 
 }

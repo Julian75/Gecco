@@ -220,6 +220,8 @@ import { ColillaTerceroLoteriaComponent } from './modulos-raspita/colilla-tercer
 import { AuditoriaControlInternoComponent } from './modulos-inventarios/auditoria-control-interno/auditoria-control-interno.component';
 import { TodosComentariosComponent } from './modulos-compra/proceso/todos-comentarios/todos-comentarios.component';
 import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/reporte-auditoria-activo.component';
+import { CalendarioComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/calendario/calendario.component';
+import { ModalAuditoriasActivosComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/modal-auditorias-activos/modal-auditorias-activos.component';
 
 @NgModule({
   declarations: [
@@ -434,7 +436,9 @@ import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria
     ColillaTerceroLoteriaComponent,
     AuditoriaControlInternoComponent,
     TodosComentariosComponent,
-    ReporteAuditoriaActivoComponent
+    ReporteAuditoriaActivoComponent,
+    CalendarioComponent,
+    ModalAuditoriasActivosComponent
   ],
   imports: [
     CommonModule,
