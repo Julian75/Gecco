@@ -1,3 +1,4 @@
+import { Accesos2 } from './../modelos/modelos2/accesos2';
 import { PresupuestoContable2 } from './../modelos/modelos2/presupuestoContable2';
 import { LibroMayor2 } from './../modelos/modelos2/libroMayor2';
 import { AsignacionArticulos2 } from './../modelos/modelos2/asignacionArticulos2';
@@ -188,6 +189,11 @@ export class ConsultasGeneralesService {
   //Lista todas las auditorias de activos de acuerdo a un id auditoria activo registro
   public listarAuditoriaActivosConIdRegistro(idAuditoriaActivoRegistro){
     return this.http.get<AuditoriaActivo2[]>(this.path+"/ObtenerAuditoriaActivoIdRegistro?idAuditoriaActivoRegistro="+idAuditoriaActivoRegistro);
+  }
+
+  //Lista Accesos de acuerdo al id del rol del usuario
+  public listarAccesos(idRol){
+    return this.http.get<Accesos2[]>(this.path+"/ObtenerAccesos?idRol="+idRol);
   }
 
   // public listarGestionProceso(idUsuario: number){

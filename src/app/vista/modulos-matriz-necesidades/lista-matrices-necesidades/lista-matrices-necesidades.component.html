@@ -19,11 +19,6 @@
   </div>
   <section class="example-container mat-elevation-z8" tabindex="0">
     <table id="tipoNovedades" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-      <!-- Position Column -->
-      <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSpa">Id</h3></th>
-        <td mat-cell *matCellDef="let element" id="idSp2">{{element.matriz.id}}</td>
-      </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="subProceso">
@@ -41,12 +36,6 @@
       <ng-container matColumnDef="detalleMatriz">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estadoSp">Detalle</h3></th>
         <td mat-cell *matCellDef="let element">{{element.matriz.detalle}}</td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSp">Fecha</h3></th>
-        <td mat-cell *matCellDef="let element">{{element.matriz.fecha | date:'MMMM y' | uppercase}}</td>
       </ng-container>
 
       <!-- Name Column -->

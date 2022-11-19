@@ -68,7 +68,6 @@ export class AgregarLibroMayorComponent implements OnInit {
   }
 
   cuentaList: any = []
-  i: any;
   cuentasFaltantes: any = []
   public guardar() {
     if(this.excelData == undefined || this.formLibroMayor.value.fecha == null){
@@ -99,21 +98,21 @@ export class AgregarLibroMayorComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-          this.i = 0
-          this.excelData.forEach(elementData => {
+          for (let index = 0; index < this.excelData.length; index++) {
+            console.log("leyendo excel")
+            const elementData = this.excelData[index];
             let libroMayor : LibroMayor = new LibroMayor();
             let libroMayorActualizar : LibroMayor2 = new LibroMayor2();
             var fecha = this.formLibroMayor.value.fecha.split('-');
-            libroMayor.fecha = new Date(fecha[0],(fecha[1]-1),1)
             var fechaLibroMayor = libroMayor.fecha.toISOString().slice(0,10)
-            libroMayor.valor = elementData.valor
+            console.log(elementData)
             this.servicioConsultasGenerales.listarCuenta(Number(elementData.codigo)).subscribe(resCuenta=>{
+              console.log("reviso si existe la cuenta", resCuenta)
               if(resCuenta.length > 0){
-                this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
+                console.log("Si existe la cuenta")
+                this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData, index, fecha)
               }else{
-                let cuenta : Cuentas = new Cuentas();
-                cuenta.codigo = elementData.codigo
-                cuenta.descripcion = elementData.descripcion.toUpperCase()
+                console.log("No existe la cuenta")
                 var separarCodigo = String(elementData.codigo).split('')
                 var idJerarquiaCuenta = 0
                 if(separarCodigo.length == 1){
@@ -126,10 +125,15 @@ export class AgregarLibroMayorComponent implements OnInit {
                   idJerarquiaCuenta = 4
                 }
                 this.servicioJerarquiaCuenta.listarPorId(idJerarquiaCuenta).subscribe(resJerarquiaCuentas=>{
+                  let cuenta : Cuentas = new Cuentas();
+                  cuenta.codigo = elementData.codigo
+                  cuenta.descripcion = elementData.descripcion.toUpperCase()
                   cuenta.idJerarquiaCuentas = resJerarquiaCuentas
+                  console.log("Datos de cuenta", cuenta)
                   this.servicioCuentas.registrar(cuenta).subscribe(resCuentasRegistrado=>{
+                    console.log("Registro la cuenta", resCuentasRegistrado)
                     this.servicioConsultasGenerales.listarCuenta(Number(cuenta.codigo)).subscribe(resCuenta=>{
-                      this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData)
+                      this.registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData, index, fecha)
                     })
                   }, error => {
                     document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -144,7 +148,7 @@ export class AgregarLibroMayorComponent implements OnInit {
                 })
               }
             })
-          });
+          }
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -159,34 +163,13 @@ export class AgregarLibroMayorComponent implements OnInit {
     }
   }
 
-  public registrarLibroMayor(libroMayor: LibroMayor) {
-    this.servicioLibroMayor.registrar(libroMayor).subscribe(res=>{
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Libro Mayor Registrado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload();
-
-    }, error => {
-      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Hubo un error al agregar!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
-  }
-
-  public registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData){
+  public registrarActualizarLibroMayor(resCuenta, libroMayor, libroMayorActualizar, fechaLibroMayor, elementData, index, fecha){
+    console.log("Ya vamos a registrar o actualizar la cuenta")
     resCuenta.forEach(elementCuenta => {
       this.servicioCuentas.listarPorId(elementCuenta.id).subscribe(resCuenta=>{
+        libroMayor.fecha = new Date(fecha[0],(fecha[1]-1),1)
         libroMayor.idCuenta = resCuenta
+        libroMayor.valor = elementData.valor
         this.servicioConsultasGenerales.listarLibrosMayor(resCuenta.id, fechaLibroMayor).subscribe(resLibroMayor=>{
           if(resLibroMayor.length >= 1){
             resLibroMayor.forEach(elementLibroMayor => {
@@ -195,7 +178,7 @@ export class AgregarLibroMayorComponent implements OnInit {
               libroMayorActualizar.fecha = fechaLibroActualizada
               libroMayorActualizar.idCuenta = elementLibroMayor.idCuenta
               libroMayorActualizar.valor = elementData.valor
-              console.log(libroMayorActualizar)
+              console.log("entre para actualizar", libroMayorActualizar)
               this.servicioModificar.actualizarLibroMayor(libroMayorActualizar).subscribe(resActualizado=>{
                 console.log(resActualizado)
               }, error => {
@@ -209,8 +192,8 @@ export class AgregarLibroMayorComponent implements OnInit {
                 })
               });
             });
-            this.i += 1
           }else{
+            console.log("entre para registrar", libroMayor)
             this.servicioLibroMayor.registrar(libroMayor).subscribe(resLibroMayor=>{
               }, error => {
                 document.getElementById('snipper')?.setAttribute('style', 'display: none;')
@@ -222,10 +205,10 @@ export class AgregarLibroMayorComponent implements OnInit {
                   timer: 1500
                 })
             });
-            this.i += 1
           }
-          console.log(this.i)
-          if(this.i== this.excelData.length){
+          console.log(index, this.excelData.length)
+          if((index+1) == this.excelData.length){
+            console.log(libroMayorActualizar, libroMayor)
             document.getElementById('snipper')?.setAttribute('style', 'display: none;')
             Swal.fire({
               position: 'center',

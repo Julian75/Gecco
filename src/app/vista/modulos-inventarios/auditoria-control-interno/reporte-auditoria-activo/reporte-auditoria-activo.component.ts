@@ -86,7 +86,7 @@ export class ReporteAuditoriaActivoComponent implements OnInit {
                   this.dataSource = new MatTableDataSource(this.listaAuditoriasRegistrosCompletas);
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
-                  this.reporteVisualizar = true
+                  document.getElementById('validacion').setAttribute('style', 'display:block')
                 }
               })
             }

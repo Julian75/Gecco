@@ -5,6 +5,7 @@ import { AuditoriaActivoService } from './../../../../../servicios/auditoriaActi
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-modal-auditorias-activos',
@@ -13,7 +14,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class ModalAuditoriasActivosComponent implements OnInit {
 
-  displayedColumns = ['id', 'seriaol', 'articulo', 'marca', 'placa', 'serial', 'oficina', 'puntoVenta', 'usuario', 'estado'];
+  displayedColumns = ['id', 'codigoContable', 'articulo', 'marca', 'placa', 'serial', 'oficina', 'puntoVenta', 'usuario', 'estado'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -37,7 +38,7 @@ export class ModalAuditoriasActivosComponent implements OnInit {
         const element = resAuditoriasActivos[index];
         this.servicioAuditoriaActivos.listarPorId(element.id).subscribe(resAuditoriaActivoId=>{
           this.listaAuditoriaActivos.push(resAuditoriaActivoId)
-          if((index+1) == resAuditoriasActivos.length){
+          if(this.listaAuditoriaActivos.length == resAuditoriasActivos.length){
             console.log(this.listaAuditoriaActivos)
             this.dataSource = new MatTableDataSource(this.listaAuditoriaActivos);
             this.dataSource.paginator = this.paginator;
@@ -46,6 +47,42 @@ export class ModalAuditoriasActivosComponent implements OnInit {
         })
       }
     })
+  }
+
+  listaActivosExcel: any = []
+  exportToExcel(){
+    this.listaActivosExcel = []
+    for (let index = 0; index < this.listaAuditoriaActivos.length; index++) {
+      const element = this.listaAuditoriaActivos[index];
+      var obj = {
+        "Id": element.idAuditoriaActivoRegistro.id,
+        "Codigo Contable": element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idDetalleArticulo.codigoContable,
+        "Tipo Articulo": element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion,
+        "Marca": element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idDetalleArticulo.marca,
+        "Placa": element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idDetalleArticulo.placa,
+        "Serial": element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idDetalleArticulo.serial,
+        "Oficina Asignada": element.idAsignacionPuntoVentaArticulo.nombreOficina,
+        "Punto Venta Asignado": element.idAsignacionPuntoVentaArticulo.nombreSitioVenta,
+        "Usuario Asignado": element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionPuntoVentaArticulo.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido,
+        "Estado Auditoria": element.estado
+      }
+      this.listaActivosExcel.push(obj)
+    }
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listaActivosExcel);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "listaModulos");
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
 }

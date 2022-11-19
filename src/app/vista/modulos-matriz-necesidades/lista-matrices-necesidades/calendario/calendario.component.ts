@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
@@ -27,20 +28,30 @@ export class CalendarioComponent implements OnInit {
   }
 
   listaMatricesDetalle: any = [];
-  public matrizDetalleFecha(){
+  public matrizDetalleFecha(event){
     this.listaMatricesDetalle = []
     var fechaSeleccionada = this.formMatriz.controls['mes'].value
     var idUsuarioLogeado = Number(sessionStorage.getItem("id"))
-    console.log(idUsuarioLogeado)
     this.servicioConsultasGenerales.listarAsignacionesProceso(idUsuarioLogeado).subscribe(res=>{
       console.log(res)
-      res.forEach(elementAsignacionProceso => {
-        this.servicioConsultasGenerales.listarMatrizDetalleProceso(Number(elementAsignacionProceso.idTiposProcesos), fechaSeleccionada).subscribe(resMatriz=>{
-          resMatriz.forEach(elementMatriz => {
-            this.listaMatricesDetalle.push(elementMatriz)
-          });
+      if(res.length > 0){
+        res.forEach(elementAsignacionProceso => {
+          this.servicioConsultasGenerales.listarMatrizDetalleProceso(Number(elementAsignacionProceso.idTiposProcesos), fechaSeleccionada).subscribe(resMatriz=>{
+            resMatriz.forEach(elementMatriz => {
+              this.listaMatricesDetalle.push(elementMatriz)
+              console.log(this.listaMatricesDetalle)
+            });
+          })
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No tienen un proceso asignado!',
+          showConfirmButton: false,
+          timer: 1500
         })
-      });
+      }
     })
   }
 

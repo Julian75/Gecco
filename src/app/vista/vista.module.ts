@@ -222,6 +222,8 @@ import { TodosComentariosComponent } from './modulos-compra/proceso/todos-coment
 import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/reporte-auditoria-activo.component';
 import { CalendarioComponent } from './modulos-matriz-necesidades/lista-matrices-necesidades/calendario/calendario.component';
 import { ModalAuditoriasActivosComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/modal-auditorias-activos/modal-auditorias-activos.component';
+import { SolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/solicitud-autorizacion-premios/solicitud-autorizacion-premios.component';
+import { ListaSolicitudesAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/lista-solicitudes-autorizacion-premios.component';
 
 @NgModule({
   declarations: [
@@ -438,7 +440,9 @@ import { ModalAuditoriasActivosComponent } from './modulos-inventarios/auditoria
     TodosComentariosComponent,
     ReporteAuditoriaActivoComponent,
     CalendarioComponent,
-    ModalAuditoriasActivosComponent
+    ModalAuditoriasActivosComponent,
+    SolicitudAutorizacionPremiosComponent,
+    ListaSolicitudesAutorizacionPremiosComponent
   ],
   imports: [
     CommonModule,
@@ -459,7 +463,8 @@ import { ModalAuditoriasActivosComponent } from './modulos-inventarios/auditoria
   exports: [
     DataTablesModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
 })
 export class VistaModule { }

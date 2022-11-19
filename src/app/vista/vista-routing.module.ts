@@ -115,6 +115,8 @@ import { ConsolidadoGraficaComponent } from './modulos-presupuesto-contabilidad/
 import { ColillaTerceroLoteriaComponent } from './modulos-raspita/colilla-tercero-loteria/colilla-tercero-loteria.component';
 import { AuditoriaControlInternoComponent } from './modulos-inventarios/auditoria-control-interno/auditoria-control-interno.component';
 import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/reporte-auditoria-activo.component';
+import { SolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/solicitud-autorizacion-premios/solicitud-autorizacion-premios.component';
+import { ListaSolicitudesAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/lista-solicitudes-autorizacion-premios.component';
 
 const routes: Routes = [
   {
@@ -707,6 +709,17 @@ const routes: Routes = [
       {
         path: 'consolidadoContabilidad',
         component: ConsolidadoGraficaComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      //Modulo Autorizacion Premios
+      {
+        path: 'solicitudAutorizacionPremios',
+        component: SolicitudAutorizacionPremiosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'listaSolicitudesAutorizacionPremios',
+        component: ListaSolicitudesAutorizacionPremiosComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

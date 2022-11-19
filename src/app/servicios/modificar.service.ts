@@ -58,7 +58,10 @@ import { MediosRadiacion2 } from '../modelos/modelos2/mediosRadiacion2';
 import { JerarquiaCuentas2 } from '../modelos/modelos2/jerarquiaCuentas2';
 import { Cuentas2 } from '../modelos/modelos2/cuentas2';
 import { LibroMayor2 } from '../modelos/modelos2/libroMayor2';
-
+import { MotivoAutorizacionPago2 } from '../modelos/modelos2/motivoAutorizacionPago2';
+import { ClienteAutorizacionPago2 } from '../modelos/modelos2/clienteAutorizacionPago2';
+import { DatosFormularioPago2 } from '../modelos/modelos2/datosFormularioPago2';
+import { SolicitudAutorizacionPago2 } from '../modelos/modelos2/solicitudAutorizacionPago2';
 @Injectable({
   providedIn: 'root'
 })
@@ -294,5 +297,21 @@ export class ModificarService {
 
   public actualizarPresupuestoContable(presupuestoContable: PresupuestoContable2){
     return this.http.put<void>(this.path+'/PresupuestoContable/'+ presupuestoContable.id, presupuestoContable);
+  }
+
+  public actualizarMotivoAutorizacionPago(motivoAutorizacionPago: MotivoAutorizacionPago2){
+    return this.http.put<void>(this.path+'/MotivoAutorizacionPago/'+ motivoAutorizacionPago.id, motivoAutorizacionPago);
+  }
+
+  public actualizarClienteAutorizacionPago(clienteAutorizacionPago: ClienteAutorizacionPago2){
+    return this.http.put<void>(this.path+'/ClienteAutorizacionPago/'+ clienteAutorizacionPago.id, clienteAutorizacionPago);
+  }
+
+  public actualizarDatosFormularioPago(datosFormularioPago: DatosFormularioPago2){
+    return this.http.put<void>(this.path+'/DatosFormularioPago/'+ datosFormularioPago.id, datosFormularioPago);
+  }
+
+  public actualizarSolicitudAutorizacionPago(solicitudAutorizacionPago: SolicitudAutorizacionPago2){
+    return this.http.put<void>(this.path+'/SolicitudAutorizacionPago/'+ solicitudAutorizacionPago.id, solicitudAutorizacionPago);
   }
 }

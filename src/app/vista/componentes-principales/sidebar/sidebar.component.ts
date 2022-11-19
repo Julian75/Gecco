@@ -39,7 +39,6 @@ export class SidebarComponent implements OnInit {
       this.idRol = res.idRol.id
       this.servicioAcceso.listarTodos().subscribe( res =>{
         const fecha = this.fecha.toISOString().slice(0,10)
-        console.log(fecha)
         const mesFecha = fecha.slice(5,7)
         let dia = fecha.slice(8,10)
         let mes = new Date(0, Number(mesFecha)-1).toLocaleString('default', { month: 'long' }).toUpperCase()
@@ -64,7 +63,7 @@ export class SidebarComponent implements OnInit {
             document.getElementById('RecepcionDatos')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 49 || this.listaAccessForm[i] == 68 ){
             document.getElementById('RegistroIngreso')?.setAttribute('style', 'display: block;')
-          }else if(this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 59 || this.listaAccessForm[i] == 60 || this.listaAccessForm[i] == 61 || this.listaAccessForm[i] == 62 || this.listaAccessForm[i] == 69 || this.listaAccessForm[i] == 70 || this.listaAccessForm[i] == 71 || this.listaAccessForm[i] == 72 || this.listaAccessForm[i] == 73 || this.listaAccessForm[i] == 78) {
+          }else if(this.listaAccessForm[i] == 56 || this.listaAccessForm[i] == 59 || this.listaAccessForm[i] == 60 || this.listaAccessForm[i] == 61 || this.listaAccessForm[i] == 62 || this.listaAccessForm[i] == 69 || this.listaAccessForm[i] == 70 || this.listaAccessForm[i] == 71 || this.listaAccessForm[i] == 72 || this.listaAccessForm[i] == 73 || this.listaAccessForm[i] == 78 || this.listaAccessForm[i] == 88 || this.listaAccessForm[i] == 89) {
             document.getElementById('Inventario')?.setAttribute('style', 'display: block;')
           }else if(this.listaAccessForm[i] == 64 || this.listaAccessForm[i] == 65 || this.listaAccessForm[i] == 74 || this.listaAccessForm[i] == 75 || this.listaAccessForm[i] == 77 ){
             document.getElementById('MatrizDeNecesidades')?.setAttribute('style', 'display: block;')
@@ -289,6 +288,12 @@ export class SidebarComponent implements OnInit {
           }
           if (this.listaAccessForm[i] == 87) {
             document.getElementById('87')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 88) {
+            document.getElementById('88')?.setAttribute('style', 'display: block;')
+          }
+          if (this.listaAccessForm[i] == 89) {
+            document.getElementById('89')?.setAttribute('style', 'display: block;')
           }
         }
       })

@@ -21,6 +21,7 @@ import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/mater
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
 import * as _moment from 'moment';
+import * as XLSX from 'xlsx';
 
 export const MY_FORMATS = {
   parse: {
@@ -89,6 +90,84 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
     this.picker.close()
   }
 
+  file: any
+  fileReader: any
+  workBook: any
+  sheetName: any
+  excelData: any = []
+  public readExcel(event: any){
+    this.file = event.target.files[0];
+
+    this.fileReader = new FileReader();
+    this.fileReader.readAsBinaryString(this.file);
+
+    this.fileReader.onload = (e)=>{
+      this.workBook = XLSX.read(this.fileReader.result,{type:'binary'})
+      this.sheetName = this.workBook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(this.workBook.Sheets[this.sheetName[0]])
+    }
+  }
+
+  guardarPorcentajesExcelCompleto(){
+    console.log(this.excelData)
+    for (let index = 0; index < this.excelData.length; index++) {
+      const elementData = this.excelData[index];
+      this.servicioConsultasGenerales.listarCuenta(elementData.codigo).subscribe(resCuentaConsulta=>{
+        resCuentaConsulta.forEach(elementCuentaCon => {
+          this.servicioCuentas.listarPorId(elementCuentaCon.id).subscribe(resCuentaId=>{
+            var mes = new Date(elementData.año, 0, 1)
+            let porcentajePresupuesto : PorcentajePresupuesto = new PorcentajePresupuesto();
+            porcentajePresupuesto.fecha = mes
+            porcentajePresupuesto.idCuenta = resCuentaId
+            porcentajePresupuesto.porcentaje = Number(elementData.porcentaje)
+            console.log(porcentajePresupuesto)
+            this.servicioPorcentajePresupuesto.registrar(porcentajePresupuesto).subscribe(res=>{
+              console.log(resCuentaId.id, elementData.año)
+              this.servicioConsultasGenerales.listarLibrosMayorFechas(Number(resCuentaId.id), String(elementData.año)).subscribe(resLibroMayorPrueba=>{
+                console.log(resLibroMayorPrueba)
+                if(resLibroMayorPrueba.length > 0){
+                  let presupuestoContable : PresupuestoContable = new PresupuestoContable();
+                  var fechaActual = elementData.año+"-01-01";
+                  this.servicioConsultasGenerales.listarPorcentajePresupuesto(porcentajePresupuesto.idCuenta.id, fechaActual).subscribe(resPorcentajePresupesto=>{
+                    resPorcentajePresupesto.forEach(elementPorcentajePresupuesto => {
+                      this.servicioPorcentajePresupuesto.listarPorId(elementPorcentajePresupuesto.id).subscribe(resPorcentajePre=>{
+                        this.servicioConsultasGenerales.listarLibrosMayorFechas(porcentajePresupuesto.idCuenta.id, elementData.año).subscribe(resLibroMayor=>{
+                          var i = 0
+                          resLibroMayor.forEach(elementLibroMayor => {
+                            this.servicioCuentas.listarPorId(elementLibroMayor.idCuenta).subscribe(resCuentaLibroMayor=>{
+                              var presupuestoPorcentaje = Math.round(elementLibroMayor.valor*(elementPorcentajePresupuesto.porcentaje/100))
+                              var valorLibroMayor = Math.round(elementLibroMayor.valor)
+                              presupuestoContable.presupuesto = valorLibroMayor + presupuestoPorcentaje
+                              presupuestoContable.idCuenta = resCuentaLibroMayor
+                              var fecha =  new Date(elementLibroMayor.fecha)
+                              presupuestoContable.fecha = fecha
+                              console.log(presupuestoContable)
+                              this.servicioPresupuestoContable.registrar(presupuestoContable).subscribe(resNuevoPresupuesto=>{
+                              })
+                            })
+                          });
+                        })
+                      })
+                    });
+                  })
+                }
+              })
+            })
+          })
+        });
+      })
+      if((index+1) == this.excelData.length){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Ponte feliz Hallys :3, ya te hice el trabajo!!!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    }
+  }
+
   public listarTodos () {
     this.servicioCuentas.listarTodos().subscribe( resCuentas =>{
       resCuentas.forEach(elementCuenta => {
@@ -152,13 +231,12 @@ export class AgregarPorcentajePresupuestoContabilidadComponent implements OnInit
   public registrarPorcentajePresupuesto(porcentajePresupuesto: PorcentajePresupuesto, año) {
     this.servicioPorcentajePresupuesto.registrar(porcentajePresupuesto).subscribe(res=>{
       let presupuestoContable : PresupuestoContable = new PresupuestoContable();
-      var fechaActual = this.fechaActual.getFullYear()+"-01-01";
-      console.log(porcentajePresupuesto.idCuenta.id, fechaActual)
+      var fechaActual = this.selectYear.getFullYear()+"-01-01";
       this.servicioConsultasGenerales.listarPorcentajePresupuesto(porcentajePresupuesto.idCuenta.id, fechaActual).subscribe(resPorcentajePresupesto=>{
-        console.log(resPorcentajePresupesto)
         resPorcentajePresupesto.forEach(elementPorcentajePresupuesto => {
           this.servicioPorcentajePresupuesto.listarPorId(elementPorcentajePresupuesto.id).subscribe(resPorcentajePre=>{
             this.servicioConsultasGenerales.listarLibrosMayorFechas(porcentajePresupuesto.idCuenta.id, año).subscribe(resLibroMayor=>{
+              console.log(resLibroMayor)
               var i = 0
               resLibroMayor.forEach(elementLibroMayor => {
                 this.servicioCuentas.listarPorId(elementLibroMayor.idCuenta).subscribe(resCuentaLibroMayor=>{

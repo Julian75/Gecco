@@ -66,6 +66,8 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   color = ('primary')
+  public meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+  
   //Select Codigos Compras
   control = new FormControl<string | OrdenCompra>("");
   opcionesFiltradas!: Observable<OrdenCompra[]>;
@@ -979,7 +981,9 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
 
   //this.listarMatrizDetalle
   listadoMatrices: any = [] //lista que nos sirve para guardar los objetos que se van a mostrar en el excel
+  mes: any;
   exportToExcel(): void {
+    this.mes = ""
     this.listadoMatrices = []
     const formatterPeso = new Intl.NumberFormat('es-CO', {
       style: 'currency',
@@ -988,21 +992,28 @@ export class VisualizarDetalleMatrizNecesidadesComponent implements OnInit {
     })
     for (let index = 0; index < this.listarMatrizDetalle.length; index++) {
       const element = this.listarMatrizDetalle[index];
+      var fechaLista = new Date(element.fecha)
+      for (let j = 0; j < this.meses.length; j++) {
+        const elementMes = this.meses[j];
+        if(fechaLista.getMonth() == j){
+          this.mes = elementMes+"-"+fechaLista.getFullYear()
+        }
+      }
       var obj = {
         "Id Matriz Necesidad": element.idMatrizNecesidad.id,
-        "Fecha Registro Matriz": element.idMatrizNecesidad.fecha,
-        "Fecha Ejecucion Matriz Detalle": element.fecha,
-        "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
         "Proceso - SubProceso": element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion+" - "+element.idMatrizNecesidad.idSubProceso.descripcion,
+        "Fecha Registro Matriz": element.idMatrizNecesidad.fecha,
+        "Fecha Ejecucion Matriz Detalle": this.mes,
+        "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
         "Descripcion Matriz Necesidad Detalle": element.descripcion,
         "Cantidad Estimada": element.cantidadEstimada,
         "Cantidad Ejecutada": element.cantidadComprada,
         "Ejecucion Estimada": element.cantidadEjecuciones,
         "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
-        "Costo Unitario Estimado": formatterPeso.format(element.idMatrizNecesidad.costoUnitario),
-        "Costo Ejecucion Comprada": formatterPeso.format(element.costoEjecucionComprada),
-        "Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
-        "Total Comprado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
+        "Costo Unitario Estimado": element.idMatrizNecesidad.costoUnitario,
+        "Costo Ejecucion Comprada": element.costoEjecucionComprada,
+        "Total Estimado": element.idMatrizNecesidad.costoEstimado,
+        "Total Comprado": element.idMatrizNecesidad.costoTotal,
         "Porcentaje Cumplido Detalle": Math.round(element.porcentaje)+"%",
         "Porcentaje Total Cumplido": Math.round(element.idMatrizNecesidad.porcentajeTotal)+"%"
       }

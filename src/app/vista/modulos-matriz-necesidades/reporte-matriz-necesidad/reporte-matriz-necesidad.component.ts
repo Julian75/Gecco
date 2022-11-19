@@ -137,6 +137,8 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           }
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
+            Proceso: element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion,
+            "Sub Proceso": element.idMatrizNecesidad.idSubProceso.descripcion,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
             Detalle: element.idMatrizNecesidad.detalle,
             "Mes Ejecutar": this.mes,
@@ -144,12 +146,11 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
             "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
             "Cantidad Estimada": element.cantidadEstimada,
             "Cantidad Ejecutada": element.cantidadComprada,
-            "Costo Unitario Estimado": formatterPeso.format(element.idMatrizNecesidad.costoUnitario),
-            "Costo Unitario Ejecutado": formatterPeso.format(element.costoEjecucionComprada),
+            "Costo Unitario Estimado": element.idMatrizNecesidad.costoUnitario,
+            "Costo Unitario Ejecutado": element.costoEjecucionComprada,
             "Porcentaje Ejecucion": Math.round(element.porcentaje)+"%",
-            "Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
-            "Total Ejecutado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
-            Proceso: element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion,
+            "Total Estimado": element.idMatrizNecesidad.costoEstimado,
+            "Total Ejecutado": element.idMatrizNecesidad.costoTotal,
           }
           this.listaExcel.push(obj)
         }
@@ -211,6 +212,8 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           }
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
+            Proceso: element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion,
+            "Sub Proceso": element.idMatrizNecesidad.idSubProceso.descripcion,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
             Detalle: element.idMatrizNecesidad.detalle,
             "Mes Ejecutar": this.mes,
@@ -218,12 +221,11 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
             "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
             "Cantidad Estimada": element.cantidadEstimada,
             "Cantidad Ejecutada": element.cantidadComprada,
-            "Costo Unitario Estimado": formatterPeso.format(element.idMatrizNecesidad.costoUnitario),
-            "Costo Unitario Ejecutado": formatterPeso.format(element.costoEjecucionComprada),
+            "Costo Unitario Estimado": element.idMatrizNecesidad.costoUnitario,
+            "Costo Unitario Ejecutado": element.costoEjecucionComprada,
             "Porcentaje Ejecucion": Math.round(element.porcentaje)+"%",
-            "Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
-            "Total Ejecutado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
-            SubProceso: element.idMatrizNecesidad.idSubProceso.descripcion,
+            "Total Estimado": element.idMatrizNecesidad.costoEstimado,
+            "Total Ejecutado": element.idMatrizNecesidad.costoTotal,
           }
           this.listaExcel.push(obj)
         }
@@ -272,6 +274,8 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
           }
           var obj = {
             "Id Matriz Necesidad": element.idMatrizNecesidad.id,
+            Proceso: element.idMatrizNecesidad.idSubProceso.idTipoProceso.descripcion,
+            "Sub Proceso": element.idMatrizNecesidad.idSubProceso.descripcion,
             "Tipo Necesidad": element.idMatrizNecesidad.idTipoNecesidad.descripcion,
             Detalle: element.idMatrizNecesidad.detalle,
             "Mes Ejecutar": this.mes,
@@ -279,11 +283,11 @@ export class ReporteMatrizNecesidadComponent implements OnInit {
             "Ejecuciones Cumplidas": element.cantidadEjecucionesCumplidas,
             "Cantidad Estimada": element.cantidadEstimada,
             "Cantidad Ejecutada": element.cantidadComprada,
-            "Costo Unitario Estimado": formatterPeso.format(element.idMatrizNecesidad.costoUnitario),
-            "Costo Unitario Ejecutado": formatterPeso.format(element.costoEjecucionComprada),
+            "Costo Unitario Estimado": element.idMatrizNecesidad.costoUnitario,
+            "Costo Unitario Ejecutado": element.costoEjecucionComprada,
             "Porcentaje Ejecucion": Math.round(element.porcentaje)+"%",
-            "Total Estimado": formatterPeso.format(element.idMatrizNecesidad.costoEstimado),
-            "Total Ejecutado": formatterPeso.format(element.idMatrizNecesidad.costoTotal),
+            "Total Estimado": element.idMatrizNecesidad.costoEstimado,
+            "Total Ejecutado": element.idMatrizNecesidad.costoTotal,
           }
           this.listaExcel.push(obj)
         }

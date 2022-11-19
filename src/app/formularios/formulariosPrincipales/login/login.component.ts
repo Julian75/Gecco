@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
-    this.listarImagen();
   }
 
   private crearFormulario() {
@@ -43,11 +42,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public listarImagen(){
-    const logo = document.getElementById('logo').getAttribute('src');
-    const fondo = document.getElementById('fondoImg')
-    fondo?.setAttribute('style', 'background-image: url('+logo+' ); background-size: cover; width: 100vw; position: absolute; z-index: 1;')
-  }
   ingresar(){
     if(this.formLogin.controls['username'].value == null){
       const username = document.getElementById('user');

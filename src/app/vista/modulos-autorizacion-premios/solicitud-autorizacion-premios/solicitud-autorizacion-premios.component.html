@@ -1,0 +1,137 @@
+<div class="contenedor">
+    <h2 class="dato">Solicitud Autorizacion Premios</h2>
+    <form [formGroup]="formSolicitudAutorizacion">
+        <div class="row1">
+            <div class="row ms-5">
+                <div class="col-md-6">
+                    <h2>Nombre Oficina</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese Oficina</mat-label>
+                        <mat-select matNativeControl id="oficina" name="oficina" formControlName="idOficina">
+                          <mat-option *ngFor="let item of listaOficinas"  value="{{item.ideOficina}}">{{item.ideOficina}} | {{item.nom_oficina}}</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Motivo</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese motivo </mat-label>
+                        <input type="text" id="motivo" formControlName="motivo" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="title">
+                    <h2 class="dato" style="border-bottom: 3px solid #4541db; margin-left: -59px; margin-bottom: 16px;">Datos del formulario</h2>
+                </div>
+                <div class="col-md-6">
+                    <h2>Fecha de Sorteo</h2>
+                    <mat-form-field  class="nombre" appearance="fill">
+                        <mat-label>Selecciona fecha </mat-label>
+                        <input type="date" id="fechaSorteo" formControlName="fecha" matInput>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Serie preimpresa</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese serie </mat-label>
+                        <input type="text" id="seriePreImpresa" formControlName="seriePreImpresa" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Colilla preimpresa</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese colilla </mat-label>
+                        <input type="text" id="colillaPreImpresa" formControlName="colillaPreImpresa" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Serie impresa</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese serie </mat-label>
+                        <input type="text" id="serieImpresa" formControlName="serieImpresa" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Colilla impresa</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese colilla </mat-label>
+                        <input type="text" id="colillaImpresa" formControlName="colillaImpresa" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Serie código de venta</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese código </mat-label>
+                        <input type="number" id="codigo" formControlName="codigo"  matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Nombre loteria y/o sorteo</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese nombre </mat-label>
+                        <input type="text" id="nombreLoteria" formControlName="nombreLoteria" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Total formulario</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese valor </mat-label>
+                        <input id="totalFormulario" formControlName="totalFormulario" (keyup)="format()" (change)="format()" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Total ganado bruto</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese valor </mat-label>
+                        <input id="totalBruto" formControlName="totalBruto" (keyup)="formatBruto()" (change)="formatBruto()" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Cedula colocador</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese cedula </mat-label>
+                        <input type="number" id="cedulaColocador" formControlName="cedulaColocador" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="title">
+                    <h2 class="dato" style="border-bottom: 3px solid #2266d2; margin-left: -59px; margin-bottom: 16px;">Datos del cliente</h2>
+                </div>
+                <div class="col-md-6">
+                    <h2>Nombre y Apellido</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese su nombre completo </mat-label>
+                        <input type="text" id="nombreCompleto" formControlName="nombreCompleto" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Cédula</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese su cedula</mat-label>
+                        <input type="number" id="cedula" formControlName="cedula" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Dirección</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese dirección</mat-label>
+                        <input type="text" id="direccion" formControlName="direccion" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <h2>Teléfono</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese telefono</mat-label>
+                        <input type="number" id="telefono" formControlName="telefono" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="guardar2">
+                <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear usuario"><mat-icon>add</mat-icon></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

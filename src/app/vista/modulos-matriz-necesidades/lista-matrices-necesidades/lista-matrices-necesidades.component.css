@@ -67,7 +67,7 @@ table{
 .boton{ background-color: #00235C; }
 .btnver{ background-color: #00235C; color: white; }
 .btnver2{ background-color: #959595; color: white; }
-.btnedit{ background-color: #97B4E2; color: white; }
+.btnedit{ background-color: #97B4E2; color: white; width: 64px; height: 39px; margin-top: -5%; margin-left: 5%;}
 .btnremove, .btndelete{ background-color: #DA161A; color: white; }
 .btnasigPuntoVenta{ background-color: #437260; color: white; }
 td button mat-icon{left: -18%; top: -10%;}

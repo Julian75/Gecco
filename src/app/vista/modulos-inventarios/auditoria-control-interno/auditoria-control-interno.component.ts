@@ -43,17 +43,6 @@ export class AuditoriaControlInternoComponent implements OnInit {
   options: SitioVenta[] = []
   filteredOptions!: Observable<SitioVenta[]>;
 
-  //Seleccionar items
-  //name, completed y color
-  // {name: 'Warn', completed: false, color: 'warn'},
-  activos: Task = {
-    name: 'Indeterminate',
-    completed: false,
-    color: 'primary',
-    subtasks: [
-    ],
-  };
-
   dtOptions: any = {};
   public formAuditoria!: FormGroup;
   public listaOficinas: any = [];
@@ -193,6 +182,7 @@ export class AuditoriaControlInternoComponent implements OnInit {
   listaExiste = []
   idPosicionActivo: any
   capturarActivos(checked: any, activoSeleccionado){
+    console.log(checked)
     this.listaExiste = []
     this.idPosicionActivo
     var obj = {
@@ -234,7 +224,7 @@ export class AuditoriaControlInternoComponent implements OnInit {
         this.listaAsignacionesPuntoVenta.forEach(elementActivo => {
           var obj = {
             activo: elementActivo,
-            seleccion: true
+            seleccion: false
           }
           this.activosSeleccionados.push(obj)
         })
@@ -245,7 +235,7 @@ export class AuditoriaControlInternoComponent implements OnInit {
             if(element.activo.idAsignacionesArticulos.idDetalleArticulo.id != elementActivo.idAsignacionesArticulos.idDetalleArticulo.id){
               var obj = {
                 activo: elementActivo,
-                seleccion: true
+                seleccion: false
               }
               this.activosSeleccionados.push(obj)
             }

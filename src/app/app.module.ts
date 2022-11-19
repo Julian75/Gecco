@@ -17,6 +17,9 @@ import { ModificarDatosComponent } from './formularios/formulariosPrincipales/mo
 import { NgApexchartsModule } from "ng-apexcharts";
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({

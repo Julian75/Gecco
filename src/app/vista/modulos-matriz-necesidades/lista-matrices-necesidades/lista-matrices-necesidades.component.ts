@@ -24,6 +24,7 @@ import { AsignacionProceso } from 'src/app/modelos/asignacionProceso';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { TipoProcesoService } from 'src/app/servicios/tipoProceso.service';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -44,6 +45,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   public listarMatrice: any = [];
   public matrizUsuario: any;
   public lista: any = [];
+  validar: boolean = false;
 
   //Grafico
   @ViewChild("chart") chart: VisualizarDetalleMatrizNecesidadesComponent;
@@ -58,7 +60,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
   public sumaPorcentajes = 0;
   public formMatriz!: FormGroup;
 
-  displayedColumns = ['id','subProceso','tipoNecesidad', 'detalleMatriz', 'fecha','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'opciones'];
+  displayedColumns = ['subProceso','tipoNecesidad', 'detalleMatriz','cantidad','cantidadEjecuciones','costoEstimado','costoTotal', 'ejecucionPresupuesto', 'cumpPlaneacion', 'porcentajeTotal', 'opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -67,6 +69,7 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
     private servicioListaMatrices: MatrizNecesidadService,
     private servicioAsignacionProceso: AsignacionProcesoService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
+    private servicioUsuario: UsuarioService,
     private servicioTipoProceso: TipoProcesoService,
     private fb: FormBuilder,
   ) { }
@@ -75,7 +78,12 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
     this.listarMatrices();
     this.mostrarInformacionTabla();
   }
-  
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   public abrirCalendario(){
     const dialogRef = this.dialog.open(CalendarioComponent, {
       width: '80%',
@@ -83,159 +91,278 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
     });
   }
 
+  //Listar Matrice para grafica
+  idExisteAcceso: boolean = false
+  listaExisteAcceso: any = []
   public listarMatrices(){
     this.listarMatrice = []
     this.sumaPorcentajes = 0
-    this.servicioListaMatrices.listarTodos().subscribe(res => {
-      this.servicioAsignacionProceso.listarTodos().subscribe(resAsignacion=>{
-        const resAsignacionFiltrado = resAsignacion.filter((element:any) => element.idUsuario.id == Number(sessionStorage.getItem("id")))
-        for (let i = 0; i < resAsignacionFiltrado.length; i++) {
-          const element = resAsignacionFiltrado[i];
-          const resFiltrado = res.filter((elementMatriz:any) => elementMatriz.idSubProceso.idTipoProceso.id == element.idTiposProcesos.id)
-          for (let j = 0; j < resFiltrado.length; j++) {
-            const elementMatriz = resFiltrado[j];
-            this.listarMatrice.push(elementMatriz)
-          }
-        }
-        for (let i = 0; i < this.listarMatrice.length; i++) {
-          const element = this.listarMatrice[i];
-          var lengthMatrizNecesidades = this.listarMatrice.length
-          var porcentajeIndividualEjecucionCompleta = 100/lengthMatrizNecesidades
-          var porcentajeTotalIndividual = (element.porcentajeTotal/100)*porcentajeIndividualEjecucionCompleta
-          this.sumaPorcentajes = this.sumaPorcentajes + porcentajeTotalIndividual
-        }
-        this.valor = Math.round(this.sumaPorcentajes)
-        if (this.valor >= 0 && this.valor <= 33) {
-          this.colorFondo = this.colorRojo;
-          this.colorGradual = this.colorRojo;
-        }
-        if (this.valor >= 34 && this.valor <= 66) {
-          this.colorFondo = this.colorAmarillo;
-          this.colorGradual = this.colorRojo;
-        }
-        if (this.valor >= 67 && this.valor <= 80) {
-          this.colorFondo = this.colorVerdeOscuro;
-          this.colorGradual = this.colorRojo;
-        }
-        if (this.valor >= 81 && this.valor <= 100) {
-          this.colorFondo = this.colorVerdeClaro;
-          this.colorGradual = this.colorRojo;
-        }
-        this.chartOptions = {
-          series: [this.valor],
-          chart: {
-            type: "radialBar",
-            offsetY: -20,
-            foreColor: "#97B4E2",
-            width: 250,
-          },
-          plotOptions: {
-            radialBar: {
-              startAngle: -90,
-              endAngle: 90,
-              track: {
-                background: "",
-                strokeWidth: "97%",
-                margin: 5, // margin is in pixels
-                dropShadow: {
-                  enabled: true,
-                  top: 2,
-                  left: 0,
-                  opacity: 0.31,
-                  blur: 2
+    this.listaExisteAcceso = []
+    this.valor = 0
+    this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuarioIdLogueado=>{
+      this.servicioConsultasGenerales.listarAccesos(resUsuarioIdLogueado.idRol.id).subscribe(resAccesos=>{
+        resAccesos.forEach(element => {
+          if(element.idModulo == 76){
+            this.idExisteAcceso = true
+          }else{ this.idExisteAcceso = false }
+          this.listaExisteAcceso.push(this.idExisteAcceso)
+        });
+        const existeAcceso = this.listaExisteAcceso.includes(true)
+        if(existeAcceso == true){
+          this.servicioListaMatrices.listarTodos().subscribe(resMatricesCompletas=>{
+            for (let i = 0; i < resMatricesCompletas.length; i++) {
+              const element = resMatricesCompletas[i];
+              var lengthMatrizNecesidades = resMatricesCompletas.length
+              var porcentajeIndividualEjecucionCompleta = 100/lengthMatrizNecesidades
+              var porcentajeTotalIndividual = (element.porcentajeTotal/100)*porcentajeIndividualEjecucionCompleta
+              this.sumaPorcentajes = this.sumaPorcentajes + porcentajeTotalIndividual
+            }
+            this.valor = Math.round(this.sumaPorcentajes)
+            if (this.valor >= 0 && this.valor <= 33) {
+              this.colorFondo = this.colorRojo;
+              this.colorGradual = this.colorRojo;
+            }
+            if (this.valor >= 34 && this.valor <= 66) {
+              this.colorFondo = this.colorAmarillo;
+              this.colorGradual = this.colorRojo;
+            }
+            if (this.valor >= 67 && this.valor <= 80) {
+              this.colorFondo = this.colorVerdeOscuro;
+              this.colorGradual = this.colorRojo;
+            }
+            if (this.valor >= 81 && this.valor <= 100) {
+              this.colorFondo = this.colorVerdeClaro;
+              this.colorGradual = this.colorRojo;
+            }
+            this.chartOptions = {
+              series: [this.valor],
+              chart: {
+                type: "radialBar",
+                offsetY: -20,
+                foreColor: "#97B4E2",
+                width: 250,
+              },
+              plotOptions: {
+                radialBar: {
+                  startAngle: -90,
+                  endAngle: 90,
+                  track: {
+                    background: "",
+                    strokeWidth: "97%",
+                    margin: 5, // margin is in pixels
+                    dropShadow: {
+                      enabled: true,
+                      top: 2,
+                      left: 0,
+                      opacity: 0.31,
+                      blur: 2
+                    }
+                  },
+                  dataLabels: {
+                    name: {
+                      show: false
+                    },
+                    value: {
+                      offsetY: -2,
+                      fontSize: "20px"
+                    }
+                  }
                 }
               },
-              dataLabels: {
-                name: {
-                  show: false
-                },
-                value: {
-                  offsetY: -2,
-                  fontSize: "20px"
+              fill: {
+                type: "gradient",
+                colors: [this.colorFondo],
+                gradient: {
+                  shade: "dark",
+                  type: "horizontal",
+                  shadeIntensity: 0.5,
+                  gradientToColors: [this.colorGradual],
+                  inverseColors: true,
+                  opacityFrom: 1,
+                  opacityTo: 1,
+                  stops: [0, 100]
+                }
+              },
+              labels: ["Average Results"]
+            };
+          })
+        }else{
+          this.servicioListaMatrices.listarTodos().subscribe(res => {
+            this.servicioAsignacionProceso.listarTodos().subscribe(resAsignacion=>{
+              const resAsignacionFiltrado = resAsignacion.filter((element:any) => element.idUsuario.id == Number(sessionStorage.getItem("id")))
+              for (let i = 0; i < resAsignacionFiltrado.length; i++) {
+                const element = resAsignacionFiltrado[i];
+                const resFiltrado = res.filter((elementMatriz:any) => elementMatriz.idSubProceso.idTipoProceso.id == element.idTiposProcesos.id)
+                for (let j = 0; j < resFiltrado.length; j++) {
+                  const elementMatriz = resFiltrado[j];
+                  this.listarMatrice.push(elementMatriz)
                 }
               }
-            }
-          },
-          fill: {
-            type: "gradient",
-            colors: [this.colorFondo],
-            gradient: {
-              shade: "dark",
-              type: "horizontal",
-              shadeIntensity: 0.5,
-              gradientToColors: [this.colorGradual],
-              inverseColors: true,
-              opacityFrom: 1,
-              opacityTo: 1,
-              stops: [0, 100]
-            }
-          },
-          labels: ["Average Results"]
-        };
-      });
+              for (let i = 0; i < this.listarMatrice.length; i++) {
+                const element = this.listarMatrice[i];
+                var lengthMatrizNecesidades = this.listarMatrice.length
+                var porcentajeIndividualEjecucionCompleta = 100/lengthMatrizNecesidades
+                var porcentajeTotalIndividual = (element.porcentajeTotal/100)*porcentajeIndividualEjecucionCompleta
+                this.sumaPorcentajes = this.sumaPorcentajes + porcentajeTotalIndividual
+              }
+              this.valor = Math.round(this.sumaPorcentajes)
+              if (this.valor >= 0 && this.valor <= 33) {
+                this.colorFondo = this.colorRojo;
+                this.colorGradual = this.colorRojo;
+              }
+              if (this.valor >= 34 && this.valor <= 66) {
+                this.colorFondo = this.colorAmarillo;
+                this.colorGradual = this.colorRojo;
+              }
+              if (this.valor >= 67 && this.valor <= 80) {
+                this.colorFondo = this.colorVerdeOscuro;
+                this.colorGradual = this.colorRojo;
+              }
+              if (this.valor >= 81 && this.valor <= 100) {
+                this.colorFondo = this.colorVerdeClaro;
+                this.colorGradual = this.colorRojo;
+              }
+              this.chartOptions = {
+                series: [this.valor],
+                chart: {
+                  type: "radialBar",
+                  offsetY: -20,
+                  foreColor: "#97B4E2",
+                  width: 250,
+                },
+                plotOptions: {
+                  radialBar: {
+                    startAngle: -90,
+                    endAngle: 90,
+                    track: {
+                      background: "",
+                      strokeWidth: "97%",
+                      margin: 5, // margin is in pixels
+                      dropShadow: {
+                        enabled: true,
+                        top: 2,
+                        left: 0,
+                        opacity: 0.31,
+                        blur: 2
+                      }
+                    },
+                    dataLabels: {
+                      name: {
+                        show: false
+                      },
+                      value: {
+                        offsetY: -2,
+                        fontSize: "20px"
+                      }
+                    }
+                  }
+                },
+                fill: {
+                  type: "gradient",
+                  colors: [this.colorFondo],
+                  gradient: {
+                    shade: "dark",
+                    type: "horizontal",
+                    shadeIntensity: 0.5,
+                    gradientToColors: [this.colorGradual],
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 100]
+                  }
+                },
+                labels: ["Average Results"]
+              };
+            });
+          })
+        }
+      })
     })
   }
 
+  //Listar Matrice para datos de la tabla
   listarMatricesCompletas: any = []
   totalEstimadoMatriz: any = 0;
   totalEjecutadoMatriz: any = 0;
+  idExisteAccesoTabla: boolean = false
+  listaExisteAccesoTabla: any = []
   mostrarInformacionTabla(){
+    this.validar = false
     this.listarMatricesCompletas = []
     this.lista =[]
+    this.listaExisteAccesoTabla = []
     this.servicioListaMatrices.listarTodos().subscribe(res => {
       this.servicioAsignacionProceso.listarTodos().subscribe(resAsignacion=>{
-        const resAsignacionFiltrado = resAsignacion.filter((element:any) => element.idUsuario.id == Number(sessionStorage.getItem("id")))
-        for (let i = 0; i < resAsignacionFiltrado.length; i++) {
-          const element = resAsignacionFiltrado[i];
-          const resFiltrado = res.filter((elementMatriz:any) => elementMatriz.idSubProceso.idTipoProceso.id == element.idTiposProcesos.id)
-          for (let j = 0; j < resFiltrado.length; j++) {
-            const elementMatriz = resFiltrado[j];
-            this.lista.push(elementMatriz)
-          }
-        }
-        this.lista.forEach(elementMatriz  => {
-          const resFiltrado = res.filter((elementMatriz:any) => elementMatriz.idSubProceso.idTipoProceso.id == elementMatriz.idSubProceso.idTipoProceso.id)
-          this.totalEstimadoMatriz = Number(this.totalEstimadoMatriz) + Number(elementMatriz.costoEstimado)
-          this.totalEjecutadoMatriz = Number(this.totalEjecutadoMatriz) + Number(elementMatriz.costoTotal)
-          // elementMatriz.costoTotal/(elementMatriz.costoEstimado * elementMatriz.porcentajeTotal)*100
-          var valorDividido = elementMatriz.costoEstimado*(elementMatriz.porcentajeTotal/100)
-          var totalesDivididos = elementMatriz.costoTotal/valorDividido
-          var presupuestoMatriz = Math.round(totalesDivididos*100)
-          elementMatriz.porcentajeTotal = Math.round(elementMatriz.porcentajeTotal)
-          var obj = {
-            color: '',
-            porcentajeEjecucion: 0,
-            colorPorcentajeEjecucion: '',
-            matriz: elementMatriz,
-            ejecucionPresupuesto: presupuestoMatriz,
-          }
-          if(elementMatriz.porcentajeTotal == 0){
-            obj.ejecucionPresupuesto = 0
-          }
-          if(presupuestoMatriz < 0){
-            obj.color = 'incumplio'
-          }
-          if(presupuestoMatriz > 1){
-            obj.color = 'cumplio'
-          }
-          if(presupuestoMatriz > 100){
-            obj.color = 'pasado'
-          }
-          var porcentajeCumEjeFech = Math.round((elementMatriz.cumPlaneacion/elementMatriz.cantidadEjecuciones)*100)
-          obj.porcentajeEjecucion = porcentajeCumEjeFech
-          if(porcentajeCumEjeFech < 50){
-            obj.colorPorcentajeEjecucion = 'incumplio'
-          }
-          if(porcentajeCumEjeFech >= 50){
-            obj.colorPorcentajeEjecucion = 'cumplio'
-          }
-          this.listarMatricesCompletas.push(obj) 
+        this.servicioUsuario.listarPorId(Number(sessionStorage.getItem('id'))).subscribe(resUsuarioIdLogueado=>{
+          this.servicioConsultasGenerales.listarAccesos(resUsuarioIdLogueado.idRol.id).subscribe(resAccesos=>{
+            resAccesos.forEach(element => {
+              if(element.idModulo == 76){
+                this.idExisteAccesoTabla = true
+              }else{ this.idExisteAccesoTabla = false }
+              this.listaExisteAccesoTabla.push(this.idExisteAcceso)
+            });
+            const existeAccesoTabla = this.listaExisteAccesoTabla.includes(true)
+            if(existeAccesoTabla == true){
+              this.organizarTablas(res)
+            }else{
+              const resAsignacionFiltrado = resAsignacion.filter((element:any) => element.idUsuario.id == Number(sessionStorage.getItem("id")))
+              for (let i = 0; i < resAsignacionFiltrado.length; i++) {
+                const element = resAsignacionFiltrado[i];
+                const resFiltrado = res.filter((elementMatriz:any) => elementMatriz.idSubProceso.idTipoProceso.id == element.idTiposProcesos.id)
+                for (let j = 0; j < resFiltrado.length; j++) {
+                  const elementMatriz = resFiltrado[j];
+                  this.lista.push(elementMatriz)
+                }
+              }
+              this.organizarTablas(this.lista)
+            }
+          })
         })
-        this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+      })
     })
+  }
+
+  organizarTablas(listaMatrices: any){
+    for (let index = 0; index < listaMatrices.length; index++) {
+      const elementMatriz = listaMatrices[index];
+      this.totalEstimadoMatriz = Number(this.totalEstimadoMatriz) + Number(elementMatriz.costoEstimado)
+      this.totalEjecutadoMatriz = Number(this.totalEjecutadoMatriz) + Number(elementMatriz.costoTotal)
+      var valorDividido = elementMatriz.costoEstimado*(elementMatriz.porcentajeTotal/100)
+      var totalesDivididos = elementMatriz.costoTotal/valorDividido
+      var presupuestoMatriz = Math.round(totalesDivididos*100)
+      elementMatriz.porcentajeTotal = Math.round(elementMatriz.porcentajeTotal)
+      var obj = {
+        color: '',
+        porcentajeEjecucion: 0,
+        colorPorcentajeEjecucion: '',
+        matriz: elementMatriz,
+        ejecucionPresupuesto: presupuestoMatriz,
+      }
+      if(elementMatriz.porcentajeTotal == 0){
+        obj.ejecucionPresupuesto = 0
+      }
+      if(presupuestoMatriz < 0){
+        obj.color = 'incumplio'
+      }
+      if(presupuestoMatriz > 1){
+        obj.color = 'cumplio'
+      }
+      if(presupuestoMatriz > 100){
+        obj.color = 'pasado'
+      }
+      var porcentajeCumEjeFech = Math.round((elementMatriz.cumPlaneacion/elementMatriz.cantidadEjecuciones)*100)
+      obj.porcentajeEjecucion = porcentajeCumEjeFech
+      if(porcentajeCumEjeFech < 50){
+        obj.colorPorcentajeEjecucion = 'incumplio'
+      }
+      if(porcentajeCumEjeFech >= 50){
+        obj.colorPorcentajeEjecucion = 'cumplio'
+      }
+      this.listarMatricesCompletas.push(obj)
+      if((index+1) == listaMatrices.length){
+        this.dataSource = new MatTableDataSource(this.listarMatricesCompletas);
+      }
+    }
   }
 
   visualizarMatrizNecesidad(id:Number){
@@ -288,20 +415,20 @@ export class ListaMatricesNecesidadesComponent implements OnInit {
       currency: 'COP',
       minimumFractionDigits: 0
     })
-    for (let index = 0; index < this.listarMatrice.length; index++) {
-      const element = this.listarMatrice[index];
+    for (let index = 0; index < this.listarMatricesCompletas.length; index++) {
+      const element = this.listarMatricesCompletas[index];
       var obj = {
-        "Id Matriz Necesidad": element.id,
-        "Fecha": element.fecha,
-        "Tipo Necesidad": element.idTipoNecesidad.descripcion,
-        "Proceso - SubProceso": element.idSubProceso.idTipoProceso.descripcion+" - "+element.idSubProceso.descripcion,
-        "Cantidad Estimada": element.cantidad,
-        "Costo Unitario Estimado": formatterPeso.format(element.costoUnitario),
-        "Costo Estimado": formatterPeso.format(element.costoEstimado),
-        "Costo Ejecutado": formatterPeso.format(element.costoTotal),
-        "Ejecuciones Estimada": element.cantidadEjecuciones,
-        "Porcentaje Total Cumplido": element.porcentajeTotal+"%",
-        "Detalle Matriz": element.detalle
+        "Id Matriz Necesidad": element.matriz.id,
+        "Proceso - SubProceso": element.matriz.idSubProceso.idTipoProceso.descripcion+" - "+element.matriz.idSubProceso.descripcion,
+        "Fecha": element.matriz.fecha,
+        "Tipo Necesidad": element.matriz.idTipoNecesidad.descripcion,
+        "Cantidad Estimada": element.matriz.cantidad,
+        "Costo Unitario Estimado": element.matriz.costoUnitario,
+        "Costo Estimado": element.matriz.costoEstimado,
+        "Costo Ejecutado": element.matriz.costoTotal,
+        "Ejecuciones Estimada": element.matriz.cantidadEjecuciones,
+        "Porcentaje Total Cumplido": element.matriz.porcentajeTotal+"%",
+        "Detalle Matriz": element.matriz.detalle
       }
       this.listadoMatrices.push(obj)
     }
