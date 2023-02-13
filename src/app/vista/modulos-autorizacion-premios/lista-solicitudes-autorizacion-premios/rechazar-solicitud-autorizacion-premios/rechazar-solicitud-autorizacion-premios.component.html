@@ -1,0 +1,21 @@
+<h2 class="dato">Rechazar Solicitud Autorizacion</h2>
+<form [formGroup]="formAprobacion">
+  <div class="row1">
+    <div class="nombre2">
+      <h2>Observacion</h2>
+      <mat-form-field class="nombre" appearance="fill">
+        <mat-label>Ingrese observacion</mat-label>
+        <input type="text" id="observacion" formControlName="observacion" matInput>
+      </mat-form-field>
+    </div>
+    <div class="row">
+        <!-- Boton de guardar datos -->
+        <div class="guardar2">
+          <button mat-raised-button class="guardar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar registro">Rechazar</button>
+        </div>
+      </div>
+  </div>
+</form>
+<div class="solpiner" id="snipper2" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
