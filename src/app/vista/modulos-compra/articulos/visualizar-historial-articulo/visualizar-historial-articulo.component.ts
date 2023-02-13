@@ -9,6 +9,7 @@ import { HistorialArticuloService } from 'src/app/servicios/historialArticulo.se
 import * as XLSX from 'xlsx';
 import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
 import * as FileSaver from 'file-saver';
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 
 @Component({
   selector: 'app-visualizar-historial-articulo',
@@ -29,6 +30,7 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
     public dialogRef: MatDialogRef<VisualizarHistorialArticuloComponent>,
     private servicioHistorialArticulo: HistorialArticuloService,
     private servicioDetalleArticulo: DetalleArticuloService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private servicioArticulo: ArticuloService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
@@ -43,16 +45,19 @@ export class VisualizarHistorialArticuloComponent implements OnInit {
     this.idDetalleArticulo = this.data
     this.servicioDetalleArticulo.listarPorId(this.idDetalleArticulo).subscribe(resDetalleArticulo=>{
       this.articulo = resDetalleArticulo.idArticulo.descripcion
-      this.servicioHistorialArticulo.listarTodos().subscribe(resHistorialesArticulos=>{
-        resHistorialesArticulos.forEach(elementHistorialArticulo => {
-          if(elementHistorialArticulo.idDetalleArticulo.id == resDetalleArticulo.id){
-            this.listarHistorialArticulo.push(elementHistorialArticulo)
+        this.servicioConsultasGenerales.listarHistorialActivo(resDetalleArticulo.id).subscribe(resHistorialesActivos=>{
+          for (let index = 0; index < resHistorialesActivos.length; index++) {
+            const element = resHistorialesActivos[index];
+            this.servicioHistorialArticulo.listarPorId(element.id).subscribe(resHistorialActivoId=>{
+              this.listarHistorialArticulo.push(resHistorialActivoId)
+              if((index+1) == resHistorialesActivos.length){
+                this.dataSource = new MatTableDataSource(this.listarHistorialArticulo);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+              }
+            })
           }
-        });
-        this.dataSource = new MatTableDataSource(this.listarHistorialArticulo);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
+        })
     })
     document.getElementById('botonVolver').addEventListener('click', () => {
       this.dialogRef.close();

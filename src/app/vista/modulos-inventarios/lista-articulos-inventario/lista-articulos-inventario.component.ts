@@ -1,3 +1,4 @@
+import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -21,13 +22,14 @@ export class ListaArticulosInventarioComponent implements OnInit {
   dtOptions: any = {};
   public listarInventario: any = [];
 
-  displayedColumns = ['id', 'cantidad','fecha', 'articulo','usuario','opciones'];
+  displayedColumns = ['id', 'articulo','marca','placa','serial','usuario','opciones'];
   dataSource!:MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioInventario: InventarioService,
     private servicioSolicitudBaja: ArticulosBajaService,
+    private servicioAsignacionArticulo: AsignacionArticulosService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
     public dialog: MatDialog
   ) { }
@@ -39,25 +41,53 @@ export class ListaArticulosInventarioComponent implements OnInit {
   listaCompletaInventario: any = []
   public listarTodo(){
     this.listaCompletaInventario = []
-    this.servicioInventario.listarTodos().subscribe(resInventariosCompletos=>{
-      this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventariosSinBaja=>{
-        if(resInventariosSinBaja.length == 0){
-          this.listaCompletaInventario = resInventariosCompletos
+    this.servicioConsultasGenerales.listarDetalleActivoSinBaja(Number(sessionStorage.getItem('id'))).subscribe(resDetalleActivoSinBaja=>{
+      this.servicioConsultasGenerales.listarAsignacionArticulosEstadoDetalle1(Number(sessionStorage.getItem('id'))).subscribe(resAsignacionArticulos=>{
+        console.log(resDetalleActivoSinBaja)
+        if(resDetalleActivoSinBaja.length > 0){
+          this.listaCompletaInventario = resDetalleActivoSinBaja
+          var listaAsigArticulosCompletos = this.listaCompletaInventario.sort((a, b) => Number(a.id) - Number(b.id))
+          this.dataSource = new MatTableDataSource(listaAsigArticulosCompletos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         }else{
-          resInventariosSinBaja.forEach(elementInventarioSinBaja => {
-            resInventariosCompletos.forEach(elementInventario => {
-              if(elementInventario.id == elementInventarioSinBaja.id){
-                this.listaCompletaInventario.push(elementInventario)
+          resAsignacionArticulos.forEach(element => {
+            this.servicioAsignacionArticulo.listarPorId(element.ideAsignacion).subscribe(resAsignacion=>{
+              var obj = {
+                idDetalleArticulo: resAsignacion.idDetalleArticulo.id,
+                tipoActivo: resAsignacion.idDetalleArticulo.idArticulo.descripcion,
+                marca: resAsignacion.idDetalleArticulo.marca,
+                placa: resAsignacion.idDetalleArticulo.placa,
+                serial: resAsignacion.idDetalleArticulo.serial,
+                nombre: resAsignacion.idDetalleArticulo.idUsuario.nombre,
+                apellido: resAsignacion.idDetalleArticulo.idUsuario.apellido
               }
-            });
+              this.listaCompletaInventario.push(obj)
+              var listaAsigArticulosCompletos = this.listaCompletaInventario.sort((a, b) => Number(a.id) - Number(b.id))
+              this.dataSource = new MatTableDataSource(listaAsigArticulosCompletos);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            })
           });
         }
-        this.listaCompletaInventario.sort()
-        this.dataSource = new MatTableDataSource( this.listaCompletaInventario);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       })
     })
+    // this.servicioInventario.listarTodos().subscribe(resInventariosCompletos=>{
+    //   this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventariosSinBaja=>{
+    //     if(resInventariosSinBaja.length == 0){
+    //       this.listaCompletaInventario = resInventariosCompletos
+    //     }else{
+    //       const datosInventarioSinBaja = resInventariosSinBaja.map((item:any) => item.id)
+    //       const datosInventarioCompletos = resInventariosCompletos.map((item:any) => item.id)
+    //       const datosInventarioCompletosSinBaja = datosInventarioCompletos.filter((item:any) => datosInventarioSinBaja.includes(item))
+    //       this.listaCompletaInventario = resInventariosCompletos.filter((item:any) => datosInventarioCompletosSinBaja.includes(item.id))
+    //     }
+    //     this.listaCompletaInventario.sort()
+    //     this.dataSource = new MatTableDataSource( this.listaCompletaInventario);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.dataSource.sort = this.sort;
+    //   })
+    // })
   }
 
   mostrarHistorial(idArticulo:number):void{

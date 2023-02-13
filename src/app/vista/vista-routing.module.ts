@@ -117,6 +117,8 @@ import { AuditoriaControlInternoComponent } from './modulos-inventarios/auditori
 import { ReporteAuditoriaActivoComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/reporte-auditoria-activo.component';
 import { SolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/solicitud-autorizacion-premios/solicitud-autorizacion-premios.component';
 import { ListaSolicitudesAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/lista-solicitudes-autorizacion-premios.component';
+import { AprobarSolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/aprobar-solicitud-autorizacion-premios/aprobar-solicitud-autorizacion-premios.component';
+import { MisSolicitudesAutorizacionPremiosComponent } from './modulos-autorizacion-premios/mis-solicitudes-autorizacion-premios/mis-solicitudes-autorizacion-premios.component';
 
 const routes: Routes = [
   {
@@ -720,6 +722,16 @@ const routes: Routes = [
       {
         path: 'listaSolicitudesAutorizacionPremios',
         component: ListaSolicitudesAutorizacionPremiosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'subirArchivoSolicitudAutorizacionPremios',
+        component: AprobarSolicitudAutorizacionPremiosComponent,
+        canActivate: [AutorizacionGuard]
+      },
+      {
+        path: 'misSolicitudesAutorizacionPremios',
+        component: MisSolicitudesAutorizacionPremiosComponent,
         canActivate: [AutorizacionGuard]
       },
     ]

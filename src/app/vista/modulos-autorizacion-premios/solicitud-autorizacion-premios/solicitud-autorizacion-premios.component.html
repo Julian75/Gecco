@@ -75,14 +75,14 @@
                     <h2>Total formulario</h2>
                     <mat-form-field class="nombre" appearance="fill">
                         <mat-label>Ingrese valor </mat-label>
-                        <input id="totalFormulario" formControlName="totalFormulario" (keyup)="format()" (change)="format()" matInput>
+                        <input id="totalFormulario" formControlName="totalFormulario" (keyup)="format($event)" matInput>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <h2>Total ganado bruto</h2>
                     <mat-form-field class="nombre" appearance="fill">
                         <mat-label>Ingrese valor </mat-label>
-                        <input id="totalBruto" formControlName="totalBruto" (keyup)="formatBruto()" (change)="formatBruto()" matInput>
+                        <input id="totalBruto" formControlName="totalBruto" (keyup)="formatBruto($event)" matInput>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
@@ -110,6 +110,15 @@
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
+                    <h2>Tipo Documento</h2>
+                    <mat-form-field class="nombre" appearance="fill">
+                        <mat-label>Ingrese tipo documento</mat-label>
+                        <mat-select matNativeControl id="tipoDocumento" name="tipoDocumento" formControlName="idTipoDocumento">
+                          <mat-option *ngFor="let item of listaTipoDocumentos"  value="{{item.id}}">{{item.descripcion}}</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                </div>
+                <div class="col-md-6">
                     <h2>Dirección</h2>
                     <mat-form-field class="nombre" appearance="fill">
                         <mat-label>Ingrese dirección</mat-label>
@@ -123,11 +132,9 @@
                         <input type="number" id="telefono" formControlName="telefono" matInput>
                     </mat-form-field>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="guardar2">
-                <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear usuario"><mat-icon>add</mat-icon></button>
+                <div class="col-md-6">
+                        <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear usuario"><mat-icon>add</mat-icon></button>
+                </div>
             </div>
         </div>
     </form>

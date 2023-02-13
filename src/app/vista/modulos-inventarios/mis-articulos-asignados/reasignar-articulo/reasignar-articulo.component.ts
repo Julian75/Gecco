@@ -1,3 +1,4 @@
+import { AsignacionesActivosPendiente } from './../../../../modelos/asignacionesActivosPendiente';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,6 +17,7 @@ import { HistorialArticulos } from 'src/app/modelos/historialArticulos';
 import { AsignacionArticulos2 } from 'src/app/modelos/modelos2/asignacionArticulos2';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
+import { AsignacionesActivosPendienteService } from 'src/app/servicios/asignacionesActivosPendiente.service';
 
 @Component({
   selector: 'app-reasignar-articulo',
@@ -40,6 +42,7 @@ export class ReasignarArticuloComponent implements OnInit {
     private servicioModificar: ModificarService,
     private serviceHistorial: HistorialArticuloService,
     private serviceUsuario: UsuarioService,
+    private servicioAsignacionActivoPendiente: AsignacionesActivosPendienteService,
     public dialogRef: MatDialogRef<ReasignarArticuloComponent>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -62,11 +65,15 @@ export class ReasignarArticuloComponent implements OnInit {
   }
 
   nombreArticulo: any;
+  placaActivo: any;
+  serialActivo: any;
   listaAsigArti: any = []
   public listarTodos(){
     this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(data => {
       this.formAsignarArticulos.get('idAsignacionesProcesos')?.setValue(data.idAsignacionesProcesos);
       this.nombreArticulo = data.idDetalleArticulo.idArticulo.descripcion
+      this.placaActivo = data.idDetalleArticulo.placa
+      this.serialActivo = data.idDetalleArticulo.serial
     })
   }
 
@@ -91,6 +98,7 @@ export class ReasignarArticuloComponent implements OnInit {
   primerIdAsignArt: any;
   segundoIdAsignArt: any;
   public guardar() {
+    document.getElementById('snipper')?.setAttribute('style', 'display: block;')
     this.listaAsignacionArticulos = []
     let asignacionArticulos = new AsignacionArticulos();
     let asignacionArticulosModificar = new AsignacionArticulos2();
@@ -102,6 +110,7 @@ export class ReasignarArticuloComponent implements OnInit {
     if (this.formAsignarArticulos.valid) {
       this.serviceAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignArt=>{
         if(resAsignArt.idAsignacionesProcesos.id == this.formAsignarArticulos.value.idAsignacionesProcesos){
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -139,7 +148,11 @@ export class ReasignarArticuloComponent implements OnInit {
                           historial.idDetalleArticulo = resAsignArt.idDetalleArticulo
                           historial.idUsuario = usuarioLog
                           asignacionArticulos.idEstado = resEstadoReg
-                          this.servicioRegistrarModficarAsigAr(asignacionArticulosModificar, asignacionArticulos, historial)
+                          let asignacionActivoPendiente = new AsignacionesActivosPendiente();
+                          asignacionActivoPendiente.idDetalleActivo = resAsignArt.idDetalleArticulo
+                          asignacionActivoPendiente.idUsuario = usuarioLog
+                          asignacionActivoPendiente.idUsuarioAsignacionPendiente = resAsigProcesoReg.idUsuario
+                          this.servicioRegistrarModficarAsigAr(asignacionArticulosModificar, asignacionArticulos, historial, asignacionActivoPendiente)
                         })
                       })
                     })
@@ -172,7 +185,11 @@ export class ReasignarArticuloComponent implements OnInit {
                             historialPrimera.idDetalleArticulo = resAsigArticuloPrimera.idDetalleArticulo
                             historialPrimera.observacion = "Se reasignó el artículo "+resAsigArticuloSegunda.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+" al usuario "+ resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.nombre.toLowerCase()+ " " + resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario.apellido.toLowerCase()+ " del área " +resAsigArticuloPrimera.idAsignacionesProcesos.idTiposProcesos.descripcion.toLowerCase()
                             historialPrimera.idUsuario = usuariolog
-                            this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda , historialPrimera)
+                            let asignacionActivoPendiente = new AsignacionesActivosPendiente();
+                            asignacionActivoPendiente.idDetalleActivo = resAsigArticuloSegunda.idDetalleArticulo
+                            asignacionActivoPendiente.idUsuario = usuariolog
+                            asignacionActivoPendiente.idUsuarioAsignacionPendiente = resAsigArticuloPrimera.idAsignacionesProcesos.idUsuario
+                            this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda , historialPrimera, asignacionActivoPendiente)
                           })
 
                         })
@@ -190,8 +207,12 @@ export class ReasignarArticuloComponent implements OnInit {
                             historialSegunda.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                             historialSegunda.observacion = "Se reasignó el artículo "+ resAsigArticuloPrimera.idDetalleArticulo.idArticulo.descripcion.toLowerCase()+ " al usuario " +resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.nombre.toLowerCase()+ " " + resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario.apellido.toLowerCase() + " del área " +resAsigArticuloSegunda.idAsignacionesProcesos.idTiposProcesos.descripcion.toLowerCase()
                             historialSegunda.idUsuario = usuariolog
+                            let asignacionActivoPendiente = new AsignacionesActivosPendiente();
+                            asignacionActivoPendiente.idDetalleActivo = resAsigArticuloPrimera.idDetalleArticulo
+                            asignacionActivoPendiente.idUsuario = usuariolog
+                            asignacionActivoPendiente.idUsuarioAsignacionPendiente = resAsigArticuloSegunda.idAsignacionesProcesos.idUsuario
                             asignacionArticulosModificarSegunda.idEstado = resEstadoRegMod.id
-                            this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda, historialSegunda)
+                            this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificarSegunda, historialSegunda, asignacionActivoPendiente)
                           })
                         })
                       }else{
@@ -210,7 +231,11 @@ export class ReasignarArticuloComponent implements OnInit {
                               historial.idDetalleArticulo = resAsigArticuloSegunda.idDetalleArticulo
                               historial.idUsuario = usuariolog
                               asignacionArticulosModificar.idEstado = resEstadoReg.id
-                              this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificar, historial)
+                              let asignacionActivoPendiente = new AsignacionesActivosPendiente();
+                              asignacionActivoPendiente.idDetalleActivo = resAsigArticuloSegunda.idDetalleArticulo
+                              asignacionActivoPendiente.idUsuario = usuariolog
+                              asignacionActivoPendiente.idUsuarioAsignacionPendiente = resNuevaAsigProceso.idUsuario
+                              this.servicioModificarAsigArtPrimeraSegunda(asignacionArticulosModificarPrimera, asignacionArticulosModificar, historial, asignacionActivoPendiente)
                             })
                           })
                         })
@@ -221,6 +246,7 @@ export class ReasignarArticuloComponent implements OnInit {
               })
 
             }else{
+              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
               Swal.fire({
                 icon: 'error',
                 title: 'No encontrado',
@@ -232,6 +258,7 @@ export class ReasignarArticuloComponent implements OnInit {
         }
       })
     }else{
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         icon: 'error',
         title: 'Campos vacios',
@@ -240,19 +267,33 @@ export class ReasignarArticuloComponent implements OnInit {
       })
     }
   }
-  public servicioRegistrarModficarAsigAr(asignacionArticuloMod: AsignacionArticulos2, asignacionArticuloReg: AsignacionArticulos, historial: HistorialArticulos){
+
+  public servicioRegistrarModficarAsigAr(asignacionArticuloMod: AsignacionArticulos2, asignacionArticuloReg: AsignacionArticulos, historial: HistorialArticulos, asignacionActivoPendiente: AsignacionesActivosPendiente){
     this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloMod).subscribe(resAsignActualizada=>{
       this.serviceAsignacionArticulo.registrar(asignacionArticuloReg).subscribe(resAsigArtNuevo=>{
         this.serviceHistorial.registrar(historial).subscribe(resHistorialNuevo =>{
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Ha sido reasignado el articulo!',
-            showConfirmButton: false,
-            timer: 1500
+          this.servicioAsignacionActivoPendiente.registrar(asignacionActivoPendiente).subscribe(resAsignacionActivoPendiente=>{
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Ha sido reasignado el articulo!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload()
+          }, error => {
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Ocurrio un error al registrar la asignacion pendiente!',
+              showConfirmButton: false,
+              timer: 1500
+            })
           })
-          window.location.reload()
         }, error => {
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -263,6 +304,7 @@ export class ReasignarArticuloComponent implements OnInit {
         })
       })
     }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -273,19 +315,32 @@ export class ReasignarArticuloComponent implements OnInit {
     });
   }
 
-  public servicioModificarAsigArtPrimeraSegunda(asignacionArticuloModPrimera: AsignacionArticulos2, asignacionArticuloModSegunda: AsignacionArticulos2, historialPrimera: HistorialArticulos){
+  public servicioModificarAsigArtPrimeraSegunda(asignacionArticuloModPrimera: AsignacionArticulos2, asignacionArticuloModSegunda: AsignacionArticulos2, historialPrimera: HistorialArticulos, asignacionActivoPendiente: AsignacionesActivosPendiente){
     this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloModPrimera).subscribe(resAsignActualizadaPrimera=>{
       this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloModSegunda).subscribe(resAsignActualizadaSegunda=>{
         this.serviceHistorial.registrar(historialPrimera).subscribe( historialprimera=>{
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Ha sido reasignado el articulo!',
-            showConfirmButton: false,
-            timer: 1500
+          this.servicioAsignacionActivoPendiente.registrar(asignacionActivoPendiente).subscribe(resAsignacionActivoPendiente=>{
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Ha sido reasignado el articulo!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            window.location.reload()
+          }, error => {
+            document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Ocurrio un error al registrar la asignacion pendiente!',
+              showConfirmButton: false,
+              timer: 1500
+            })
           })
-          window.location.reload()
         },  error => {
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -295,6 +350,7 @@ export class ReasignarArticuloComponent implements OnInit {
           })
         })
       }, error => {
+        document.getElementById('snipper')?.setAttribute('style', 'display: none;')
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -304,6 +360,7 @@ export class ReasignarArticuloComponent implements OnInit {
         })
       });
     }, error => {
+      document.getElementById('snipper')?.setAttribute('style', 'display: none;')
       Swal.fire({
         position: 'center',
         icon: 'error',

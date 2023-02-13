@@ -1,60 +1,46 @@
 <div class="contenedor">
     <h2 class="dato">Consultar Colilla Lotería</h2>
-    <form [formGroup]="formColillaTercero">
-      <div class="row1">
-        <!-- Ingresar serial -->
-        <div class="nombre2">
-            <h2>Serie</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-            <mat-label>Ingrese serie</mat-label>
-            <input id="raspita" formControlName="serie" matInput>
-            </mat-form-field>
-        </div>
-        <!-- Ingresar Colilla -->
-        <div class="nombre4">
-            <h2>Colilla</h2>
-            <mat-form-field class="nombre" [color]="color" appearance="fill">
-            <mat-label>Ingrese colilla</mat-label>
-            <input id="colilla" formControlName="colilla" matInput>
-            </mat-form-field>
-        </div>
-        <div class="guardar2">
-            <button mat-raised-button class="guardar" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar Loteria"><mat-icon>search</mat-icon></button>
-        </div>
+    <div class="row1">
+      <div class="nombre3 my-4">
+        <h2>Seleccionar Archivo</h2>
+        <input class="my-1 form-control" type="file" (change)="readExcel($event)" mat-input>
+        <button class="btn botonBuscar my-3" (click)="consultarColillasCompleto()"><mat-icon>manage_search</mat-icon></button>
       </div>
-    </form>
-    <button class="btn excelButton" *ngIf="exportar==true" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de Loteria"><i class="fa-solid fa-file-excel"></i></button>
-    <mat-form-field class="buscador" appearance="standard" *ngIf="buscador==true" >
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
-    </mat-form-field>
-    <section *ngIf="section==true" class="example-container mat-elevation-z8" tabindex="0" >
-      <table  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
-           <!-- Name Column  -->
-           <ng-container matColumnDef="colilla">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="desSp">Colilla</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.colilla}}</td>
-          </ng-container>
+    </div>
+    <div class="tablaInformacion" id="visualizarTabla" style="display: none;">
+      <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar lista de Loteria"><i class="fa-solid fa-file-excel"></i></button>
+      <mat-form-field class="buscador" appearance="standard" >
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+      </mat-form-field>
+      <section  class="example-container mat-elevation-z8" tabindex="0" >
+        <table  mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+             <!-- Name Column  -->
+             <ng-container matColumnDef="colilla">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Colilla</h3></th>
+              <td mat-cell *matCellDef="let element">{{element.colilla}}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="serie">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Serie</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.serie}}</td>
-          </ng-container>
+            <ng-container matColumnDef="serie">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Serie</h3></th>
+              <td mat-cell *matCellDef="let element">{{element.serie}}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="colillaTercero">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="valSp">Colilla Tercero</h3></th>
-            <td mat-cell *matCellDef="let element">{{element.colilla_tercero}}</td>
-          </ng-container>
+            <ng-container matColumnDef="colillaTercero">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><h3>Consecutivo</h3></th>
+              <td mat-cell *matCellDef="let element">{{element.colilla_tercero}}</td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </section>
-    <mat-paginator id="paginator" style="display: none;" [length]="100"
-                [pageSize]="10"
-                [pageSizeOptions]="[2, 5, 10, 25, 100]"
-                aria-label="Select page">
-    </mat-paginator>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </section>
+      <mat-paginator [length]="100"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[2, 5, 10, 25, 100]"
+                  aria-label="Select page">
+      </mat-paginator>
+    </div>
 </div>
 <div class="solpiner" id="snipper" style="text-align: center; display: none;">
   <div class="loader"></div>

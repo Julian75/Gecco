@@ -217,7 +217,7 @@ export class AgregarLibroMayorComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             })
-            window.location.reload();
+            // window.location.reload();
           }
         })
       })

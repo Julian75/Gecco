@@ -1,3 +1,5 @@
+import { ModificarPorcentajeTurnoComponent } from '../modificar-porcentaje-turno/modificar-porcentaje-turno.component'
+import { MatDialog } from '@angular/material/dialog';
 import { AsignarTurno2 } from './../../../../modelos/asignarTurno2';
 import { ModificarService } from 'src/app/servicios/modificar.service';
 import { Router } from '@angular/router';
@@ -59,6 +61,7 @@ export class AgregarAsignarTurnoComponent implements OnInit {
     private servicioSitioVenta : SitioVentaService,
     private servicioModificar : ModificarService,
     private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +76,13 @@ export class AgregarAsignarTurnoComponent implements OnInit {
       turno: [null,Validators.required],
       oficina: [null,Validators.required],
       porcentajito: [null, Validators.required]
+    });
+  }
+
+  modificarPorcentaje(turno): void {
+    const dialogRef = this.dialog.open(ModificarPorcentajeTurnoComponent, {
+      width: '500px',
+      data: turno
     });
   }
 

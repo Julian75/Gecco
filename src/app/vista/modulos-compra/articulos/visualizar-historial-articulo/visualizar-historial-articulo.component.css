@@ -31,70 +31,37 @@ td button mat-icon{ left: -18%; top: -11%; }
 .btnver{ background-color: #959595; color: white; }
 .btnedit{ background-color: #97B4E2; color: white; }
 .btnremove{ background-color: #DA161A; color: white; }
-
-#idSp{ left: 43px; }
-#desSp{ left: 122px; }
-#obsSp{ left: 130px; }
-#opcSp{ text-align: center; left: 8px;}
-#idSp, #desSp, #obsSp, #opcSp{ position: relative; }
 h2{ font-weight: 700; }
 
 /* Movil pequeño 1 - Galaxy Fold*/
 @media screen and (min-width: 280px) and (max-width: 359px){
-  #idSp{left: -39% !important; }
-  #desSp{left: 13%;}
-  #obsSp{ left: 12%;}
-  #opcSp{ margin-left: 11%; }
   td button{ margin-top: 5%; }
   .boton{ margin-left: -14% !important; }
 }
 
 /* Movil pequeño 2, movil pequeño 3 y movil pequeño 4*/
 @media screen and (min-width: 360px) and (max-width: 420px){
-  #idSp{left: -39% !important; }
-  #desSp{left: 13%;}
-  #obsSp{ left: 12%;}
-  #opcSp{ margin-left: 11%; }
   td button{ margin-top: 5%; }
   .boton{ margin-left: -11% !important; }
 }
 
 /* Tablet 1 */
 @media screen and (min-width: 600px) and (max-width: 639px){
-  #idSp{left: -39% !important; }
-  #desSp{left: 25%;}
-  #obsSp{ left: 63%;}
-  #opcSp{ margin-left: 11%; }
   td button{ margin-top: 5%; }
   .boton{ margin-left: -7% !important; }
 }
 
 /* Portatil 1*/
 @media screen and (min-width: 640px) and (max-width: 700px){
-  #idSp, #desSp, #obsSp, #opcSp{ position: static; }
-  #idSp{ margin-left: -25%; }
-  #desSp{left: 42%;}
-  #obsSp{ left: 42%;}
-  #opcSp{ margin-left: 11%; }
   .boton{ margin-left: -9% !important; }
 }
 /* Tablet 2, Tablet 3, Tablet 4, Tablet 5, Tablet 6 y 7, Tablet 8, Portatil 2, Portatil 3, Compu. Mesa 1, compu.Mesa 2, Compu. Mesa 3, Compu. Mesa 4, Compu. Mesa 5, Compu. Mesa 6, Televisor 1*/
 @media screen and (min-width: 701px) and (max-width: 1850px){
-  #idSp, #desSp, #obsSp, #opcSp{ position: static; }
-  #idSp{margin-left: -31%; }
-  #desSp{margin-left: 24%;}
-  #obsSp{margin-left: 110%;}
-  #opcSp{ margin-left: 20%; }
   .boton{ margin-left: -9% !important; }
 }
 
 /*Tablet 9, Tablet 10, Tablet 11, Tablet 12, Tablet 13, Tablet 14, Portatil 4, Portatil 5, Portatil 6, Portatil 7, Compu. Mesa 7, Televisor 2, Televisor 3, Televisor 4, Televisor 5*/
 @media screen and (min-width: 1851px) and (max-width: 7680px){
-  #idSp, #desSp, #obsSp, #opcSp{ position: static; }
-  #idSp{margin-left: -31%; }
-  #desSp{margin-left: 24%;}
-  #obsSp{margin-left: 79%;}
-  #opcSp{ margin-left: 20%; }
   .boton{ margin-left: -9% !important; }
 }
 

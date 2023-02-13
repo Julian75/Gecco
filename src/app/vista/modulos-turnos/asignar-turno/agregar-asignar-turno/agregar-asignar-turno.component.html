@@ -116,6 +116,9 @@
           <button class="btn btnremove me-2" *ngIf="item.porcentaje == 0" (click)="agregarPorcentaje(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Porcentaje a esta Asignación">
             <mat-icon>switch_access_shortcut_add</mat-icon>
           </button>
+          <button class="btn btnedit ms-3" *ngIf="item.porcentaje != 0" (click)="modificarPorcentaje(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar Porcentaje a esta Asignación">
+            <mat-icon>edit</mat-icon>
+          </button>
         </td>
       </ng-container>
 

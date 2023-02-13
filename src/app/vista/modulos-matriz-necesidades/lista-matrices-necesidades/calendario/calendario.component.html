@@ -1,16 +1,25 @@
 <form [formGroup]="formMatriz">
-    <div class="nombre2">
-      <h2 class="nombre">Informacion matriz mensual</h2>
+  <div class="nombre2">
+    <h2 class="nombre">Informacion matriz mensual</h2>
+    <button class="btn btncerrar" (click)="cerrarCalendario()" data-bs-toggle="tooltip" data-bs-placement="top" title="Cerrar Calendario"><mat-icon>cancel</mat-icon></button>
+    <div class="row1">
       <mat-form-field class="tur" appearance="fill">
         <mat-label>Seleccione un Mes</mat-label>
         <input type="month" id="mes" formControlName="mes" name="mes" (change)="matrizDetalleFecha($event)" matInput>
       </mat-form-field>
     </div>
-  </form>
-  <mat-card class="cuadroPrincipal mat-elevation-z8">
-    <mat-card class="cuadroSecundario mb-5 me-5" *ngFor="let item of listaMatricesDetalle">
-      <h2>Fecha: {{item.fecha}}</h2>
-      <p>Id de la Matriz: {{item.id_matriz_necesidad}}</p>
-      <p>Descripcion: {{item.descripcion}}</p>
-    </mat-card>
-  </mat-card>
+  </div>
+</form>
+<h2 class="fechaSeleccionada" *ngIf="fechaSeleccionada != undefined">{{fechaSeleccionada | date:'MMMM y' | uppercase}}</h2>
+<mat-card class="cuadroPrincipal">
+  <ul>
+    <li class="mb-3" *ngFor="let item of listaMatricesDetalle">
+      <mat-card class="cuadroSecundario me-5" id="{{item.color}}">
+        <p>Id de la Matriz: {{item.matriz.idMatrizNecesidad.id}}</p>
+        <p>Valor Estimado: {{item.matriz.idMatrizNecesidad.costoUnitario * item.matriz.cantidadEstimada}}</p>
+        <p>Cantidad Estimada: {{item.matriz.cantidadEstimada}}</p>
+        <p>Descripcion: {{item.matriz.descripcion}}</p>
+      </mat-card>
+    </li>
+  </ul>
+</mat-card>

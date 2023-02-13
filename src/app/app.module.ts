@@ -28,7 +28,7 @@ registerLocaleData(localeEs, 'es');
     LoginComponent,
     OlvidoContrasenaComponent,
     CambiarContrasenaComponent,
-    ModificarDatosComponent
+    ModificarDatosComponent,
   ],
   imports: [
     BrowserModule,

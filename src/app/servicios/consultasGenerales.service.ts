@@ -1,3 +1,7 @@
+import { DetalleActivoSinBaja } from './../modelos/modelos2/detalleActivoSinBaja';
+import { AsignacionActivoPuntoVentaConsulta } from './../modelos/modelos2/asignacionActivoPuntoVentaConsulta';
+import { AsignacionesActivosPendiente2 } from './../modelos/modelos2/asignacionesActivosPendiente2';
+import { AsignacionPuntoVenta2 } from './../modelos/modelos2/asignacionPuntoVenta2';
 import { Accesos2 } from './../modelos/modelos2/accesos2';
 import { PresupuestoContable2 } from './../modelos/modelos2/presupuestoContable2';
 import { LibroMayor2 } from './../modelos/modelos2/libroMayor2';
@@ -24,6 +28,8 @@ import { AuditoriaActivo2 } from '../modelos/modelos2/auditoriaActivo2';
 import { MatrizNecesidadDetalle2 } from '../modelos/modelos2/matrizNecesidadDetalle2';
 import { AsignacionProceso2 } from '../modelos/modelos2/asignacionProceso2';
 import { AuditoriaActivoRegistro2 } from '../modelos/modelos2/auditoriaActivoRegistro2';
+import { HistorialArticulos2 } from '../modelos/modelos2/historialArticulo';
+import { AsignacionActivoConsulta } from '../modelos/modelos2/asignacionActivoConsulta';
 
 @Injectable({
   providedIn: 'root'
@@ -97,8 +103,8 @@ export class ConsultasGeneralesService {
   }
 
   //Listar Asignaciones activas que no tienen los mismos activos que ya se dieron de baja
-  public listarAsignacionesActivosSinBaja(){
-    return this.http.get<AsignacionArticulos2[]>(this.path+"/ObtenerAsignacionArticulos");
+  public listarAsignacionesActivosSinBaja(idUsuario){
+    return this.http.get<AsignacionActivoConsulta[]>(this.path+"/ObtenerAsignacionArticulos?idUsuario="+idUsuario);
   }
 
   //Listar Cuenta
@@ -194,6 +200,46 @@ export class ConsultasGeneralesService {
   //Lista Accesos de acuerdo al id del rol del usuario
   public listarAccesos(idRol){
     return this.http.get<Accesos2[]>(this.path+"/ObtenerAccesos?idRol="+idRol);
+  }
+
+  //
+  public listarAsignacionArticulosEstadoDetalle1(idUsuario){
+    return this.http.get<AsignacionActivoConsulta[]>(this.path+"/ObtenerAsignacionArticulosEstadoDetalle1?idUsuario="+idUsuario);
+  }
+
+  //
+   public listarAsignPuntoVentArtDetArtUsuario(idDetalleArticulo, idUsuario){
+    return this.http.get<AsignacionPuntoVenta2[]>(this.path+"/ObtenerAsignacionPuntoVentaArtDetArtUsuario?idDetalleArticulo="+idDetalleArticulo+"&idUsuario="+idUsuario);
+  }
+
+  //
+  public listarAsignacionArticulosSitioVenta(idProceso, ideOficina, ideSitioVenta){
+    return this.http.get<AsignacionActivoPuntoVentaConsulta[]>(this.path+"/ObtenerAsignacionArticulosSitioVenta?idProceso="+idProceso+"&ideOficina="+ideOficina+"&ideSitioVenta="+ideSitioVenta);
+  }
+
+  //
+  public listarHistorialActivo(idDetalleActivo){
+    return this.http.get<HistorialArticulos2[]>(this.path+"/ObtenerHistorialActivo?idDetalleActivo="+idDetalleActivo);
+  }
+
+  public listarAsignArticuloDetArtUsuario(idDetalleArticulo, idUsuario, dispositivo){
+    return this.http.get<AsignacionArticulos2[]>(this.path+"/ObtenerAsignacionArticuloDetArtUsuario?idDetalleArticulo="+idDetalleArticulo+"&idUsuario="+idUsuario+"&dispositivo="+dispositivo);
+  }
+
+  public listarAsignacionActivoPendiente(idUsuarioAsignacionPendiente, idDetalleActivo){
+    return this.http.get<AsignacionesActivosPendiente2[]>(this.path+"/ObtenerAsignacinActivoPendiente?idUsuarioAsignacionPendiente="+idUsuarioAsignacionPendiente+"&idDetalleActivo="+idDetalleActivo);
+  }
+
+  public listarArticulosBajaUsuario(idUsuario){
+    return this.http.get<Inventario2[]>(this.path+"/ObtenerArticulosBajaUsuario?idUsuario="+idUsuario);
+  }
+
+  public listarInventarioUsuario(idUsuario){
+    return this.http.get<Inventario2[]>(this.path+"/ObtenerInventarioUsuario?idUsuario="+idUsuario);
+  }
+
+  public listarDetalleActivoSinBaja(idUsuario){
+    return this.http.get<DetalleActivoSinBaja[]>(this.path+"/ObtenerDetalleActivoSinBaja?idUsuario="+idUsuario);
   }
 
   // public listarGestionProceso(idUsuario: number){

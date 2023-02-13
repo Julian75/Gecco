@@ -2,6 +2,8 @@ import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatrizNecesidadDetalleService } from 'src/app/servicios/matrizNecesidadDetalle.service';
 
 @Component({
   selector: 'app-calendario',
@@ -11,13 +13,17 @@ import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.
 export class CalendarioComponent implements OnInit {
 
   public formMatriz!: FormGroup;
+  public fechaActual: Date = new Date();
 
   constructor(
     private servicioConsultasGenerales: ConsultasGeneralesService,
+    private servicioMatrizDetalle: MatrizNecesidadDetalleService,
     private fb: FormBuilder,
+    public dialogRef: MatDialogRef<CalendarioComponent>,
   ) { }
 
   ngOnInit(): void {
+    this.crearFormulario();
   }
 
   private crearFormulario() {
@@ -27,19 +33,38 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
+  fechaSeleccionada: any;
   listaMatricesDetalle: any = [];
   public matrizDetalleFecha(event){
     this.listaMatricesDetalle = []
-    var fechaSeleccionada = this.formMatriz.controls['mes'].value
+    var fechaVerificacion = this.fechaActual.getFullYear()+"-"+this.fechaActual.getMonth()+"-01";
+    this.fechaSeleccionada = this.formMatriz.controls['mes'].value
     var idUsuarioLogeado = Number(sessionStorage.getItem("id"))
     this.servicioConsultasGenerales.listarAsignacionesProceso(idUsuarioLogeado).subscribe(res=>{
-      console.log(res)
       if(res.length > 0){
         res.forEach(elementAsignacionProceso => {
-          this.servicioConsultasGenerales.listarMatrizDetalleProceso(Number(elementAsignacionProceso.idTiposProcesos), fechaSeleccionada).subscribe(resMatriz=>{
+          this.servicioConsultasGenerales.listarMatrizDetalleProceso(Number(elementAsignacionProceso.idTiposProcesos), this.fechaSeleccionada).subscribe(resMatriz=>{
             resMatriz.forEach(elementMatriz => {
-              this.listaMatricesDetalle.push(elementMatriz)
-              console.log(this.listaMatricesDetalle)
+              var obj = {
+                matriz: {},
+                color: ""
+              }
+              this.servicioMatrizDetalle.listarPorId(elementMatriz.id).subscribe(resMatriz=>{
+                if(resMatriz.fechaEjecutada == ""){
+                  obj.matriz = resMatriz
+                  obj.color = "azul"
+                }else if(String(resMatriz.fecha) == resMatriz.fechaEjecutada){
+                  obj.matriz = resMatriz
+                  obj.color = "verde"
+                }else if(String(resMatriz.fecha) < fechaVerificacion && resMatriz.fechaEjecutada == ""){
+                  obj.matriz = resMatriz
+                  obj.color = "rojo"
+                }else if(String(resMatriz.fecha) < resMatriz.fechaEjecutada){
+                  obj.matriz = resMatriz
+                  obj.color = "rojo"
+                }
+                this.listaMatricesDetalle.push(obj)
+              })
             });
           })
         });
@@ -55,4 +80,7 @@ export class CalendarioComponent implements OnInit {
     })
   }
 
+  public cerrarCalendario(){
+    this.dialogRef.close();
+  }
 }

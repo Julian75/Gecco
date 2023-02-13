@@ -42,43 +42,43 @@ export class AsignarArticulosUsuarioComponent implements OnInit {
 
   listaCompletaActivos: any = []
   public listarTodos(){
-    this.listaCompletaActivos = []
-    this.listarAsignacionArticulos = []
-    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsignacionesArticulos=>{
-      this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resActivosSinBaja=>{
-        if(resActivosSinBaja.length == 0){
-          this.listaCompletaActivos = resAsignacionesArticulos
-        }else{
-          resActivosSinBaja.forEach(elementActivosSinBaja => {
-            resAsignacionesArticulos.forEach(elementAsignArti => {
-              if(elementAsignArti.id == elementActivosSinBaja.id){
-                this.listaCompletaActivos.push(elementAsignArti)
-              }
-            });
-          });
-        }
-        this.listaCompletaActivos.sort()
-        this.listaCompletaActivos.forEach(elementAsigArticulo => {
-          if(elementAsigArticulo.idEstado.id != 79){
-            var obj = {
-              asignacionArticulo: {},
-              usuario: false
-            }
-            if(elementAsigArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
-              obj.asignacionArticulo = elementAsigArticulo
-              obj.usuario = true
-            }else{
-              obj.asignacionArticulo = elementAsigArticulo
-              obj.usuario = false
-            }
-            this.listarAsignacionArticulos.push(obj)
-          }
-        });
-        this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
-    })
+    // this.listaCompletaActivos = []
+    // this.listarAsignacionArticulos = []
+    // this.serviceAsignacionArticulos.listarTodos().subscribe(resAsignacionesArticulos=>{
+    //   this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resActivosSinBaja=>{
+    //     if(resActivosSinBaja.length == 0){
+    //       this.listaCompletaActivos = resAsignacionesArticulos
+    //     }else{
+    //       resActivosSinBaja.forEach(elementActivosSinBaja => {
+    //         resAsignacionesArticulos.forEach(elementAsignArti => {
+    //           if(elementAsignArti.id == elementActivosSinBaja.id){
+    //             this.listaCompletaActivos.push(elementAsignArti)
+    //           }
+    //         });
+    //       });
+    //     }
+    //     this.listaCompletaActivos.sort()
+    //     this.listaCompletaActivos.forEach(elementAsigArticulo => {
+    //       if(elementAsigArticulo.idEstado.id != 79){
+    //         var obj = {
+    //           asignacionArticulo: {},
+    //           usuario: false
+    //         }
+    //         if(elementAsigArticulo.idAsignacionesProcesos.idUsuario.id == Number(sessionStorage.getItem('id'))){
+    //           obj.asignacionArticulo = elementAsigArticulo
+    //           obj.usuario = true
+    //         }else{
+    //           obj.asignacionArticulo = elementAsigArticulo
+    //           obj.usuario = false
+    //         }
+    //         this.listarAsignacionArticulos.push(obj)
+    //       }
+    //     });
+    //     this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.dataSource.sort = this.sort;
+    //   })
+    // })
 
   }
 

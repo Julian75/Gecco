@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { OficinasService } from 'src/app/servicios/serviciosSiga/oficinas.service';
 import { SitioVentaService } from 'src/app/servicios/serviciosSiga/sitioVenta.service';
 import { SitioVenta } from 'src/app/modelos/modelosSiga/sitioVenta';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith, subscribeOn } from 'rxjs';
 import { VisitasSiga } from 'src/app/modelos/modelosSiga/visitasSiga';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -16,6 +16,7 @@ import { AsignacionArticulosService } from 'src/app/servicios/asignacionArticulo
 import { InventarioService } from 'src/app/servicios/inventario.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
+import { AsignacionProcesoService } from 'src/app/servicios/asignacionProceso.service';
 
 @Component({
   selector: 'app-reporte-inventario',
@@ -55,6 +56,7 @@ export class ReporteInventarioComponent implements OnInit {
     private servicioUsuario : UsuarioService,
     private servicioAsignacionPuntoVenta : AsignacionPuntoVentaService,
     private servicioAsignacionArticulo : AsignacionArticulosService,
+    private servicioProceso : AsignacionProcesoService,
     private servicioInventario : InventarioService,
     private servicioConsultasGenerales : ConsultasGeneralesService,
   ) { }
@@ -233,317 +235,313 @@ export class ReporteInventarioComponent implements OnInit {
     }
   }
 
-  listaInventarioBaja = []
   reporteSitioVenta(){
     this.lista = []
-    this.listaInventarioBaja = []
-    this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacion=>{
-      this.servicioInventario.listarTodos().subscribe(resInventario=>{
-        this.servicioConsultasGenerales.listarInventariosSinBaja().subscribe(resInventarioSinBaja=>{
-          resInventarioSinBaja.forEach(elementInventarioBaja => {
-            resInventario.forEach(elementInventario => {
-              if(elementInventario.id == elementInventarioBaja.id){
-                this.listaInventarioBaja.push(elementInventario)
-              }
-            });
-          });
-          resAsignacion.forEach(element => {
-            this.listaInventarioBaja.forEach(elementInventario => {
-              if(element.idSitioVenta == Number(localStorage.getItem('v'))){
-                if(elementInventario.idDetalleArticulo.id == element.idAsignacionesArticulos.idDetalleArticulo.id){
-                  var obj = {
-                    Articulo: element.idAsignacionesArticulos.idDetalleArticulo.idArticulo.descripcion,
-                    CodigoUnico: "",
-                    Placa: "",
-                    Marca: "",
-                    Serial: "",
-                    TipoActivo: "",
-                    Categoria: element.idAsignacionesArticulos.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-                    Oficina: element.nombreOficina,
-                    SitioVenta: element.nombreSitioVenta,
-                    UsuarioLogueado: element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido,
-                    EstadoAsignacion: element.idAsignacionesArticulos.idEstado.descripcion,
-                    Observacion: "",
-                  }
-                  obj.Placa = elementInventario.idDetalleArticulo.placa
-                  obj.Marca = elementInventario.idDetalleArticulo.marca
-                  obj.Serial = elementInventario.idDetalleArticulo.serial
-                  obj.TipoActivo= elementInventario.idDetalleArticulo.idTipoActivo.descripcion
-                  if(element.idAsignacionesArticulos.idEstado.id == 76){
-                    obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"."
-                  }else{
-                    obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.apellido+"."
-                  }
-                  this.lista.push(obj)
+    this.servicioConsultasGenerales.listarAsignacionesProceso(Number(sessionStorage.getItem('id'))).subscribe(resAsignProcesos=>{
+      if(resAsignProcesos.length > 0){
+        document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+        var oficina = this.formInventario.controls["oficina"].value
+        for (let index = 0; index < resAsignProcesos.length; index++) {
+          const elementAsignProcesos = resAsignProcesos[index];
+          this.servicioConsultasGenerales.listarAsignacionArticulosSitioVenta(elementAsignProcesos.idTiposProcesos, Number(oficina.ideOficina), Number(localStorage.getItem('v'))).subscribe(resAsignPuntoVenta=>{
+            if(resAsignPuntoVenta.length > 0){
+              for (let index = 0; index < resAsignPuntoVenta.length; index++) {
+                const elementAsignPuntoVenta = resAsignPuntoVenta[index];
+                var obj = {
+                  asignacionPuntoVenta: elementAsignPuntoVenta,
+                  observacion: ""
                 }
+                if(elementAsignPuntoVenta.ideEstadoAsignacion == 76){
+                  obj.observacion = "La asignacion de este articulo fue aprobada por "+elementAsignPuntoVenta.nombreUsuario+" "+elementAsignPuntoVenta.apellidoUsuario+"."
+                }else{
+                  obj.observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+elementAsignPuntoVenta.nombreUsuario+" "+elementAsignPuntoVenta.apellidoUsuario+"."
+                }
+                this.lista.push(obj)
               }
-            });
-          });
-          if(this.lista.length > 0){
-            this.dataSource = new MatTableDataSource(this.lista);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-            document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
-            document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
-            document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
-          }else{
-            document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
-            document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
-            document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'No hay datos para mostrar!',
-              showConfirmButton: false,
-              timer: 2500
-            })
-          }
+            }
+            if((index+1) == resAsignProcesos.length){
+              console.log(this.lista)
+              if(this.lista.length > 0){
+                this.dataSource = new MatTableDataSource(this.lista);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
+                document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
+                document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
+              }else{
+                document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
+                document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
+                document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'No hay datos para mostrar!',
+                  showConfirmButton: false,
+                  timer: 2500
+                })
+              }
+            }
+          })
+        }
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No tiene asignado ningun proceso!',
+          showConfirmButton: false,
+          timer: 2500
         })
-      })
+      }
     })
   }
 
-  listaAsignacionArticulosBaja = []
   reporteSerial(){
-    this.lista = []
-    this.listaInventarioBaja = []
-    this.listaAsignacionArticulosBaja = []
-    var serial = this.formInventario.controls["serial"].value;
-    this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAignacionesActivosSinBaja=>{
-      this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
-        this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacionPuntoVenta=>{
-          this.servicioInventario.listarTodos().subscribe(resInventario=>{
-            resAignacionesActivosSinBaja.forEach(elementActivoSinBaja => {
-              resAsignacionesactivos.forEach(elementAsignacionActivo => {
-                if(elementAsignacionActivo.id == elementActivoSinBaja.id){
-                  this.listaAsignacionArticulosBaja.push(elementAsignacionActivo)
-                }
-              });
-            });
-            this.listaAsignacionArticulosBaja.forEach(element => {
-              resInventario.forEach(elementInventario => {
-                if(elementInventario.idDetalleArticulo.serial.toLowerCase() == serial.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
-                  this.idPuntoVentaAsign = 0
-                  var obj = {
-                    Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
-                    Placa: elementInventario.idDetalleArticulo.placa,
-                    Marca: elementInventario.idDetalleArticulo.marca,
-                    Serial: elementInventario.idDetalleArticulo.serial,
-                    TipoActivo: elementInventario.idDetalleArticulo.idTipoActivo.descripcion,
-                    Categoria: elementInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-                    Oficina: "",
-                    SitioVenta: "",
-                    UsuarioLogueado: element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
-                    EstadoAsignacion: element.idEstado.descripcion,
-                    Observacion: "",
-                  }
-                  resAsignacionPuntoVenta.forEach(elementPuntoVenta => {
-                    if(elementPuntoVenta.idAsignacionesArticulos.id == element.id){
-                      this.idPuntoVentaAsign = elementPuntoVenta.id
-                    }
-                  });
-                  if(this.idPuntoVentaAsign != 0){
-                    this.servicioAsignacionPuntoVenta.listarPorId(this.idPuntoVentaAsign).subscribe(resAsignPuntoVenta=>{
-                      obj.Oficina = String(resAsignPuntoVenta.nombreOficina)
-                      obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
-                    })
-                  }
-                  if(element.idEstado.id == 76){
-                    obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-                  }else{
-                    obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-                  }
-                  this.lista.push(obj)
-                }
-              });
-            })
-            if(this.lista.length > 0){
-              this.dataSource = new MatTableDataSource(this.lista);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
-              document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
-              document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
-            }else{
-              document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
-              document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
-              document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'No hay datos para mostrar!',
-                showConfirmButton: false,
-                timer: 2500
-              })
-            }
-          })
-        })
-      })
-    })
+
+    // this.lista = []
+    // this.listaInventarioBaja = []
+    // this.listaAsignacionArticulosBaja = []
+    // var serial = this.formInventario.controls["serial"].value;
+    // this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAignacionesActivosSinBaja=>{
+    //   this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
+    //     this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacionPuntoVenta=>{
+    //       this.servicioInventario.listarTodos().subscribe(resInventario=>{
+    //         resAignacionesActivosSinBaja.forEach(elementActivoSinBaja => {
+    //           resAsignacionesactivos.forEach(elementAsignacionActivo => {
+    //             if(elementAsignacionActivo.id == elementActivoSinBaja.id){
+    //               this.listaAsignacionArticulosBaja.push(elementAsignacionActivo)
+    //             }
+    //           });
+    //         });
+    //         this.listaAsignacionArticulosBaja.forEach(element => {
+    //           resInventario.forEach(elementInventario => {
+    //             if(elementInventario.idDetalleArticulo.serial.toLowerCase() == serial.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
+    //               this.idPuntoVentaAsign = 0
+    //               var obj = {
+    //                 Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
+    //                 Placa: elementInventario.idDetalleArticulo.placa,
+    //                 Marca: elementInventario.idDetalleArticulo.marca,
+    //                 Serial: elementInventario.idDetalleArticulo.serial,
+    //                 TipoActivo: elementInventario.idDetalleArticulo.idTipoActivo.descripcion,
+    //                 Categoria: elementInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion,
+    //                 Oficina: "",
+    //                 SitioVenta: "",
+    //                 UsuarioLogueado: element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
+    //                 EstadoAsignacion: element.idEstado.descripcion,
+    //                 Observacion: "",
+    //               }
+    //               resAsignacionPuntoVenta.forEach(elementPuntoVenta => {
+    //                 if(elementPuntoVenta.idAsignacionesArticulos.id == element.id){
+    //                   this.idPuntoVentaAsign = elementPuntoVenta.id
+    //                 }
+    //               });
+    //               if(this.idPuntoVentaAsign != 0){
+    //                 this.servicioAsignacionPuntoVenta.listarPorId(this.idPuntoVentaAsign).subscribe(resAsignPuntoVenta=>{
+    //                   obj.Oficina = String(resAsignPuntoVenta.nombreOficina)
+    //                   obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
+    //                 })
+    //               }
+    //               if(element.idEstado.id == 76){
+    //                 obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+    //               }else{
+    //                 obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+    //               }
+    //               this.lista.push(obj)
+    //             }
+    //           });
+    //         })
+    //         if(this.lista.length > 0){
+    //           this.dataSource = new MatTableDataSource(this.lista);
+    //           this.dataSource.paginator = this.paginator;
+    //           this.dataSource.sort = this.sort;
+    //           document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
+    //           document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
+    //           document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
+    //         }else{
+    //           document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
+    //           document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
+    //           document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
+    //           Swal.fire({
+    //             position: 'center',
+    //             icon: 'error',
+    //             title: 'No hay datos para mostrar!',
+    //             showConfirmButton: false,
+    //             timer: 2500
+    //           })
+    //         }
+    //       })
+    //     })
+    //   })
+    // })
   }
 
   reportePlaca(){
-    this.lista = []
-    this.listaInventarioBaja = []
-    this.listaAsignacionArticulosBaja = []
-    var placa = this.formInventario.controls["placa"].value
-    this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAignacionesActivosSinBaja=>{
-      this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
-        this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacionPuntoVenta=>{
-          this.servicioInventario.listarTodos().subscribe(resInventario=>{
-            resAignacionesActivosSinBaja.forEach(elementActivoSinBaja => {
-              resAsignacionesactivos.forEach(elementAsignacionActivo => {
-                if(elementAsignacionActivo.id == elementActivoSinBaja.id){
-                  this.listaAsignacionArticulosBaja.push(elementAsignacionActivo)
-                }
-              });
-            });
-            this.listaAsignacionArticulosBaja.forEach(element => {
-              resInventario.forEach(elementInventario => {
-              if(elementInventario.idDetalleArticulo.placa.toLowerCase() == placa.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
-                this.idPuntoVentaAsign = 0
-                var obj = {
-                  Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
-                  Placa: elementInventario.idDetalleArticulo.placa,
-                  Marca: elementInventario.idDetalleArticulo.marca,
-                  Serial: elementInventario.idDetalleArticulo.serial,
-                  TipoActivo: elementInventario.idDetalleArticulo.idTipoActivo.descripcion,
-                  Categoria: elementInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-                  Oficina: "",
-                  SitioVenta: "",
-                  UsuarioLogueado: element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
-                  EstadoAsignacion: element.idEstado.descripcion,
-                  Observacion: "",
-                }
-                resAsignacionPuntoVenta.forEach(elementPuntoVenta => {
-                  if(elementPuntoVenta.idAsignacionesArticulos.id == element.id){
-                    this.idPuntoVentaAsign = elementPuntoVenta.id
-                  }
-                });
-                if(this.idPuntoVentaAsign != 0){
-                  this.servicioAsignacionPuntoVenta.listarPorId(this.idPuntoVentaAsign).subscribe(resAsignPuntoVenta=>{
-                    obj.Oficina = String(resAsignPuntoVenta.nombreOficina)
-                    obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
-                  })
-                }
-                if(element.idEstado.id == 76){
-                  obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-                }else{
-                  obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-                }
-                this.lista.push(obj)
-                }
-              })
-            });
-            if(this.lista.length > 0){
-              this.dataSource = new MatTableDataSource(this.lista);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
-              document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
-              document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
-            }else{
-              document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
-              document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
-              document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'No hay datos para mostrar!',
-                showConfirmButton: false,
-                timer: 2500
-              })
-            }
-          })
-        })
-      })
-    })
+    // this.lista = []
+    // this.listaInventarioBaja = []
+    // this.listaAsignacionArticulosBaja = []
+    // var placa = this.formInventario.controls["placa"].value
+    // this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAignacionesActivosSinBaja=>{
+    //   this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
+    //     this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacionPuntoVenta=>{
+    //       this.servicioInventario.listarTodos().subscribe(resInventario=>{
+    //         resAignacionesActivosSinBaja.forEach(elementActivoSinBaja => {
+    //           resAsignacionesactivos.forEach(elementAsignacionActivo => {
+    //             if(elementAsignacionActivo.id == elementActivoSinBaja.id){
+    //               this.listaAsignacionArticulosBaja.push(elementAsignacionActivo)
+    //             }
+    //           });
+    //         });
+    //         this.listaAsignacionArticulosBaja.forEach(element => {
+    //           resInventario.forEach(elementInventario => {
+    //           if(elementInventario.idDetalleArticulo.placa.toLowerCase() == placa.toLowerCase() && (element.idEstado.id == 76 || element.idEstado.id == 78) && elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
+    //             this.idPuntoVentaAsign = 0
+    //             var obj = {
+    //               Articulo: elementInventario.idDetalleArticulo.idArticulo.descripcion,
+    //               Placa: elementInventario.idDetalleArticulo.placa,
+    //               Marca: elementInventario.idDetalleArticulo.marca,
+    //               Serial: elementInventario.idDetalleArticulo.serial,
+    //               TipoActivo: elementInventario.idDetalleArticulo.idTipoActivo.descripcion,
+    //               Categoria: elementInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion,
+    //               Oficina: "",
+    //               SitioVenta: "",
+    //               UsuarioLogueado: element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
+    //               EstadoAsignacion: element.idEstado.descripcion,
+    //               Observacion: "",
+    //             }
+    //             resAsignacionPuntoVenta.forEach(elementPuntoVenta => {
+    //               if(elementPuntoVenta.idAsignacionesArticulos.id == element.id){
+    //                 this.idPuntoVentaAsign = elementPuntoVenta.id
+    //               }
+    //             });
+    //             if(this.idPuntoVentaAsign != 0){
+    //               this.servicioAsignacionPuntoVenta.listarPorId(this.idPuntoVentaAsign).subscribe(resAsignPuntoVenta=>{
+    //                 obj.Oficina = String(resAsignPuntoVenta.nombreOficina)
+    //                 obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
+    //               })
+    //             }
+    //             if(element.idEstado.id == 76){
+    //               obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+    //             }else{
+    //               obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+    //             }
+    //             this.lista.push(obj)
+    //             }
+    //           })
+    //         });
+    //         if(this.lista.length > 0){
+    //           this.dataSource = new MatTableDataSource(this.lista);
+    //           this.dataSource.paginator = this.paginator;
+    //           this.dataSource.sort = this.sort;
+    //           document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
+    //           document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
+    //           document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
+    //         }else{
+    //           document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
+    //           document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
+    //           document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
+    //           Swal.fire({
+    //             position: 'center',
+    //             icon: 'error',
+    //             title: 'No hay datos para mostrar!',
+    //             showConfirmButton: false,
+    //             timer: 2500
+    //           })
+    //         }
+    //       })
+    //     })
+    //   })
+    // })
   }
 
   idPuntoVentaAsign: any;
   reporteUsuario(){
-    this.lista = []
-    this.listaInventarioBaja = []
-    this.listaAsignacionArticulosBaja = []
-    var usua = this.formInventario.controls["usuario"].value
-    this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAignacionesActivosSinBaja=>{
-      this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
-        this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacionPuntoVenta=>{
-          this.servicioInventario.listarTodos().subscribe(resInventario=>{
-            resAignacionesActivosSinBaja.forEach(elementActivoSinBaja => {
-              resAsignacionesactivos.forEach(elementAsignacionActivo => {
-                if(elementAsignacionActivo.id == elementActivoSinBaja.id){
-                  this.listaAsignacionArticulosBaja.push(elementAsignacionActivo)
-                }
-              });
-            });
-            this.listaAsignacionArticulosBaja.forEach(element => {
-              resInventario.forEach(elementInventario => {
-                if(element.idAsignacionesProcesos.idUsuario.id == usua && (element.idEstado.id == 76 || element.idEstado.id == 78)){
-                  if(elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
-                    this.idPuntoVentaAsign = 0
-                    var obj = {
-                      Articulo: element.idDetalleArticulo.idArticulo.descripcion,
-                      CodigoUnico: "",
-                      Placa: "",
-                      Marca: "",
-                      Serial: "",
-                      TipoActivo: "",
-                      Categoria: element.idDetalleArticulo.idArticulo.idCategoria.descripcion,
-                      Oficina: "",
-                      SitioVenta: "",
-                      UsuarioLogueado: element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
-                      EstadoAsignacion: element.idEstado.descripcion,
-                      Observacion: "",
-                    }
-                    resAsignacionPuntoVenta.forEach(elementPuntoVenta => {
-                      if(elementPuntoVenta.idAsignacionesArticulos.id == element.id){
-                        this.idPuntoVentaAsign = elementPuntoVenta.id
-                      }
-                    });
-                    if(this.idPuntoVentaAsign != 0){
-                      this.servicioAsignacionPuntoVenta.listarPorId(this.idPuntoVentaAsign).subscribe(resAsignPuntoVenta=>{
-                        obj.Oficina = String(resAsignPuntoVenta.nombreOficina)
-                        obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
-                      })
-                    }
-                    obj.Placa = elementInventario.idDetalleArticulo.placa
-                    obj.Marca = elementInventario.idDetalleArticulo.marca
-                    obj.Serial = elementInventario.idDetalleArticulo.serial
-                    obj.TipoActivo = elementInventario.idDetalleArticulo.idTipoActivo.descripcion
-                    if(element.idEstado.id == 76){
-                      obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-                    }else{
-                      obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
-                    }
-                    this.lista.push(obj)
-                  }
-                }
-              });
-            })
-            if(this.lista.length > 0){
-              this.dataSource = new MatTableDataSource(this.lista);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
-              document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
-              document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
-            }else{
-              document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
-              document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
-              document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'No hay datos para mostrar!',
-                showConfirmButton: false,
-                timer: 2500
-              })
-            }
-          })
-        })
-      })
-    })
+    // this.lista = []
+    // this.listaInventarioBaja = []
+    // this.listaAsignacionArticulosBaja = []
+    // var usua = this.formInventario.controls["usuario"].value
+    // this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAignacionesActivosSinBaja=>{
+    //   this.servicioAsignacionArticulo.listarTodos().subscribe(resAsignacionesactivos=>{
+    //     this.servicioAsignacionPuntoVenta.listarTodos().subscribe(resAsignacionPuntoVenta=>{
+    //       this.servicioInventario.listarTodos().subscribe(resInventario=>{
+    //         resAignacionesActivosSinBaja.forEach(elementActivoSinBaja => {
+    //           if(resAsignacionesactivos.length == 0){
+    //             this.listaAsignacionArticulosBaja = resAsignacionesactivos
+    //           }else{
+    //             resAsignacionesactivos.forEach(elementAsignacionActivo => {
+    //               if(elementAsignacionActivo.id == elementActivoSinBaja.id){
+    //                 this.listaAsignacionArticulosBaja.push(elementAsignacionActivo)
+    //               }
+    //             });
+    //           }
+    //         });
+    //         this.listaAsignacionArticulosBaja.forEach(element => {
+    //           resInventario.forEach(elementInventario => {
+    //             if(element.idAsignacionesProcesos.idUsuario.id == usua && (element.idEstado.id == 76 || element.idEstado.id == 78)){
+    //               if(elementInventario.idDetalleArticulo.id == element.idDetalleArticulo.id){
+    //                 this.idPuntoVentaAsign = 0
+    //                 var obj = {
+    //                   Articulo: element.idDetalleArticulo.idArticulo.descripcion,
+    //                   CodigoUnico: "",
+    //                   Placa: "",
+    //                   Marca: "",
+    //                   Serial: "",
+    //                   TipoActivo: "",
+    //                   Categoria: element.idDetalleArticulo.idArticulo.idCategoria.descripcion,
+    //                   Oficina: "",
+    //                   SitioVenta: "",
+    //                   UsuarioLogueado: element.idAsignacionesProcesos.idUsuario.nombre + " " + element.idAsignacionesProcesos.idUsuario.apellido,
+    //                   EstadoAsignacion: element.idEstado.descripcion,
+    //                   Observacion: "",
+    //                 }
+    //                 resAsignacionPuntoVenta.forEach(elementPuntoVenta => {
+    //                   if(elementPuntoVenta.idAsignacionesArticulos.id == element.id){
+    //                     this.idPuntoVentaAsign = elementPuntoVenta.id
+    //                   }
+    //                 });
+    //                 if(this.idPuntoVentaAsign != 0){
+    //                   this.servicioAsignacionPuntoVenta.listarPorId(this.idPuntoVentaAsign).subscribe(resAsignPuntoVenta=>{
+    //                     obj.Oficina = String(resAsignPuntoVenta.nombreOficina)
+    //                     obj.SitioVenta = String(resAsignPuntoVenta.nombreSitioVenta)
+    //                   })
+    //                 }
+    //                 obj.Placa = elementInventario.idDetalleArticulo.placa
+    //                 obj.Marca = elementInventario.idDetalleArticulo.marca
+    //                 obj.Serial = elementInventario.idDetalleArticulo.serial
+    //                 obj.TipoActivo = elementInventario.idDetalleArticulo.idTipoActivo.descripcion
+    //                 if(element.idEstado.id == 76){
+    //                   obj.Observacion = "La asignacion de este articulo fue aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+    //                 }else{
+    //                   obj.Observacion = "La asignacion de este articulo esta pendiente de ser aprobada por "+element.idAsignacionesProcesos.idUsuario.nombre+" "+element.idAsignacionesProcesos.idUsuario.apellido+"."
+    //                 }
+    //                 this.lista.push(obj)
+    //               }
+    //             }
+    //           });
+    //         })
+    //         if(this.lista.length > 0){
+    //           this.dataSource = new MatTableDataSource(this.lista);
+    //           this.dataSource.paginator = this.paginator;
+    //           this.dataSource.sort = this.sort;
+    //           document.getElementById('excelReporte')?.setAttribute('style', 'display: block;')
+    //           document.getElementById('reporteInventario')?.setAttribute('style', 'display: block;')
+    //           document.getElementById('paginatorTabla')?.setAttribute('style', 'display: block;')
+    //         }else{
+    //           document.getElementById('excelReporte')?.setAttribute('style', 'display: none;')
+    //           document.getElementById('reporteInventario')?.setAttribute('style', 'display: none;')
+    //           document.getElementById('paginatorTabla')?.setAttribute('style', 'display: none;')
+    //           Swal.fire({
+    //             position: 'center',
+    //             icon: 'error',
+    //             title: 'No hay datos para mostrar!',
+    //             showConfirmButton: false,
+    //             timer: 2500
+    //           })
+    //         }
+    //       })
+    //     })
+    //   })
+    // })
   }
 
   listaExcel: any = []

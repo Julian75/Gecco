@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { InventarioService } from 'src/app/servicios/inventario.service';
 
 @Component({
   selector: 'app-informacion-detallada-activos',
@@ -15,6 +16,7 @@ export class InformacionDetalladaActivosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<InformacionDetalladaActivosComponent>,
+    private servicioInventario: InventarioService,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog
   ) { }
 
@@ -36,11 +38,13 @@ export class InformacionDetalladaActivosComponent implements OnInit {
 
   public llenarDatos(){
     this.datos = this.data
-    this.formInfo.controls['activo'].setValue(this.datos.idDetalleArticulo.idArticulo.descripcion);
-    this.formInfo.controls['marca'].setValue(this.datos.idDetalleArticulo.marca);
-    this.formInfo.controls['placa'].setValue(this.datos.idDetalleArticulo.placa);
-    this.formInfo.controls['serial'].setValue(this.datos.idDetalleArticulo.serial);
-    this.formInfo.controls['categoria'].setValue(this.datos.idDetalleArticulo.idArticulo.idCategoria.descripcion);
+    this.servicioInventario.listarPorId(this.datos.id).subscribe(resInventario=>{
+      this.formInfo.controls['activo'].setValue(resInventario.idDetalleArticulo.idArticulo.descripcion);
+      this.formInfo.controls['marca'].setValue(resInventario.idDetalleArticulo.marca);
+      this.formInfo.controls['placa'].setValue(resInventario.idDetalleArticulo.placa);
+      this.formInfo.controls['serial'].setValue(resInventario.idDetalleArticulo.serial);
+      this.formInfo.controls['categoria'].setValue(resInventario.idDetalleArticulo.idArticulo.idCategoria.descripcion);
+    })
   }
 
   public guardar(){

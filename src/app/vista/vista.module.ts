@@ -224,6 +224,11 @@ import { CalendarioComponent } from './modulos-matriz-necesidades/lista-matrices
 import { ModalAuditoriasActivosComponent } from './modulos-inventarios/auditoria-control-interno/reporte-auditoria-activo/modal-auditorias-activos/modal-auditorias-activos.component';
 import { SolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/solicitud-autorizacion-premios/solicitud-autorizacion-premios.component';
 import { ListaSolicitudesAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/lista-solicitudes-autorizacion-premios.component';
+import { AprobarSolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/aprobar-solicitud-autorizacion-premios/aprobar-solicitud-autorizacion-premios.component';
+import { RechazarSolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/rechazar-solicitud-autorizacion-premios/rechazar-solicitud-autorizacion-premios.component';
+import { DetalleSolicitudAutorizacionPremiosComponent } from './modulos-autorizacion-premios/lista-solicitudes-autorizacion-premios/detalle-solicitud-autorizacion-premios/detalle-solicitud-autorizacion-premios.component';
+import { MisSolicitudesAutorizacionPremiosComponent } from './modulos-autorizacion-premios/mis-solicitudes-autorizacion-premios/mis-solicitudes-autorizacion-premios.component';
+import { ModificarPorcentajeTurnoComponent } from './modulos-turnos/asignar-turno/modificar-porcentaje-turno/modificar-porcentaje-turno.component';
 
 @NgModule({
   declarations: [
@@ -442,7 +447,12 @@ import { ListaSolicitudesAutorizacionPremiosComponent } from './modulos-autoriza
     CalendarioComponent,
     ModalAuditoriasActivosComponent,
     SolicitudAutorizacionPremiosComponent,
-    ListaSolicitudesAutorizacionPremiosComponent
+    ListaSolicitudesAutorizacionPremiosComponent,
+    AprobarSolicitudAutorizacionPremiosComponent,
+    RechazarSolicitudAutorizacionPremiosComponent,
+    DetalleSolicitudAutorizacionPremiosComponent,
+    MisSolicitudesAutorizacionPremiosComponent,
+    ModificarPorcentajeTurnoComponent,
   ],
   imports: [
     CommonModule,

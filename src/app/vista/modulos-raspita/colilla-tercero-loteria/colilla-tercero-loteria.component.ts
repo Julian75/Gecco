@@ -24,7 +24,7 @@ export class ColillaTerceroLoteriaComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private formBuilder: FormBuilder,
-    private servicio: ColillaTerceroLoteriaService
+    private servicioColillaTerceroLoteria: ColillaTerceroLoteriaService
   ) { }
 
   ngOnInit(): void {
@@ -38,82 +38,85 @@ export class ColillaTerceroLoteriaComponent implements OnInit {
     });
   }
 
-  section:boolean = false;
-  exportar:boolean = false;
-  buscador:boolean = false;
-  public guardar(){
-    this.listaColillaTercero = [];
-    if(this.formColillaTercero.valid){
-      const spinner = document.getElementById('snipper');
-      const paginator = document.getElementById('paginator');
-      this.section = false;
-      this.exportar = false;
-      this.buscador = false;
-      this.formColillaTercero.value.serie = this.formColillaTercero.value.serie.toUpperCase();
-      if(isNaN(this.formColillaTercero.value.colilla)){//isNaN sirve para verificar si el valor se puede convertir en un numero o no
-        paginator?.setAttribute('style', 'display: none;');
-        Swal.fire({
-          icon: 'error',
-          title: 'La colilla debe ser un número',
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }else{
-        this.servicio.listarPorId(this.formColillaTercero.value.serie,this.formColillaTercero.value.colilla).subscribe( data => {
-          if(data.length > 0){
-            document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-            paginator?.setAttribute('style', 'display: block;');
-            this.section = true;
-            this.exportar = true;
-            this.buscador = true;
-            //Desde aqui
-            async function sleep(ms: number) {
-              try {
-                await new Promise(resolve => setTimeout(resolve, ms));
-              }
-              catch (e) {
-                spinner?.setAttribute('style', 'display: none;');
-                stop();
-              }
+  file: any
+  fileReader: any
+  workBook: any
+  sheetName: any
+  excelData: any = []
+  public readExcel(event: any){
+    this.file = event.target.files[0];
+
+    this.fileReader = new FileReader();
+    this.fileReader.readAsBinaryString(this.file);
+
+    this.fileReader.onload = (e)=>{
+      this.workBook = XLSX.read(this.fileReader.result,{type:'binary'})
+      this.sheetName = this.workBook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(this.workBook.Sheets[this.sheetName[0]])
+    }
+  }
+
+  consultarColillasCompleto(){
+    if(this.excelData.length > 0){
+      document.getElementById('visualizarTabla')?.setAttribute('style', 'display: none;')
+      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+      this.listaColillaTercero = []
+      for (let index = 0; index < this.excelData.length; index++) {
+        const elementData = this.excelData[index];
+        if(elementData.serie == undefined || elementData.colilla == undefined){
+          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+          if(index == 0){
+            Swal.fire({
+              icon: 'error',
+              title: 'El archivo se encuentra sin ninguna serie con colilla!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Debe indicar la serie y colilla de todos!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+          break
+        }else{
+          this.servicioColillaTerceroLoteria.listarPorId(elementData.serie.toUpperCase(),Number(elementData.colilla)).subscribe(resColillaTercero => {
+            if(resColillaTercero.length > 0){
+              resColillaTercero.forEach(elementColillaTercero => {
+                this.listaColillaTercero.push(elementColillaTercero)
+              });
             }
-            sleep(1000).then(() => {
-              this.listaColillaTercero = data;
+            console.log(this.listaColillaTercero)
+            if(this.listaColillaTercero.length == this.excelData.length){
+              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+              document.getElementById('visualizarTabla')?.setAttribute('style', 'display: block;')
               this.dataSource = new MatTableDataSource(this.listaColillaTercero);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
-              document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-            }).catch(() => {
-              spinner?.setAttribute('style', 'display: none;');
-              stop();
-            });
-            //hasta aqui
-          }else{
-            paginator?.setAttribute('style', 'display: none;');
-            Swal.fire({
-              icon: 'error',
-              title: 'No se encontraron registros',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
-        })
+            }
+          })
+        }
       }
     }else{
       Swal.fire({
         icon: 'error',
-        title: 'Campos Vacíos!',
+        title: 'Debe seleccionar un archivo!',
         showConfirmButton: false,
         timer: 1500
-      })
+      });
     }
   }
 
   public exportToExcel() {
     for (let i = 0; i < this.listaColillaTercero.length; i++) {
+      const element = this.listaColillaTercero[i];
+      console.log(element)
       var obj = {
-        'Colilla': this.listaColillaTercero[i].colilla,
-        'Serie': this.listaColillaTercero[i].serie,
-        'Colilla Tercero': this.listaColillaTercero[i].colilla_tercero,
+        'Colilla': element.colilla,
+        'Serie': element.serie,
+        'Consecutivo': element.colilla_tercero,
       }
       this.exportarArthivo.push(obj);
     }

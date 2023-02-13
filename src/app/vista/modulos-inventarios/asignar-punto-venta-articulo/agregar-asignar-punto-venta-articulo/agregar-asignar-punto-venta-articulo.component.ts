@@ -131,59 +131,59 @@ export class AgregarAsignarPuntoVentaArticuloComponent implements OnInit {
     // var articulo = this.formAsigancionPuntoVenta.controls['articulo'].value;
     var oficina = this.formAsigancionPuntoVenta.controls['oficina'].value;
     var sitioVent = Number(localStorage.getItem("v"));
-    if(oficina != undefined && sitioVent != 0){
-      document.getElementById('snipper')?.setAttribute('style', 'display: block;')
-      this.servicioAsignarPuntoVenta.listarTodos().subscribe(resAsigancionTurnoVendedor => {
-        this.servicioAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignacionArticulo=>{
-          this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{
-            for (let i = 0; i < resSitioVenta.length; i++) {
-              const elementSitio = resSitioVenta[i];
-              if(elementSitio.ideSitioventa == sitioVent){
-                resAsigancionTurnoVendedor.forEach(element => {
-                  if(element.idAsignacionesArticulos.idDetalleArticulo.id == resAsignacionArticulo.idDetalleArticulo.id && element.idSitioVenta == sitioVent && element.idOficina == Number(oficina)){
-                    this.encontrado = true;
-                  }else{
-                    this.encontrado = false;
-                  }
-                  this.encontrados.push(this.encontrado);
-                })
-                const existe = this.encontrados.includes(true);
-                if(existe == true){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'La asignación de ese articulo ya existe en ese sitio de venta!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                  localStorage.removeItem("v")
-                  this.dialogRef.close();
-                  window.location.reload();
-                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                }else{
-                  asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo
-                  asignacionPuntoVenta.idOficina = oficina.ideOficina
-                  asignacionPuntoVenta.idSitioVenta = sitioVent
-                  asignacionPuntoVenta.cantidad = 1
-                  asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
-                  asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
-                  this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);
-                }
-                break
-              }
-            }
-          });
-        });
-      });
-    }else{
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'El campo está vacio!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }
+    // if(oficina != undefined && sitioVent != 0){
+    //   document.getElementById('snipper')?.setAttribute('style', 'display: block;')
+    //   this.servicioAsignarPuntoVenta.listarTodos().subscribe(resAsigancionTurnoVendedor => {
+    //     this.servicioAsignacionArticulo.listarPorId(Number(this.data)).subscribe(resAsignacionArticulo=>{
+    //       this.servicioSitioVenta.listarPorId(oficina.ideOficina).subscribe(resSitioVenta=>{
+    //         for (let i = 0; i < resSitioVenta.length; i++) {
+    //           const elementSitio = resSitioVenta[i];
+    //           if(elementSitio.ideSitioventa == sitioVent){
+    //             resAsigancionTurnoVendedor.forEach(element => {
+    //               if(element.idAsignacionesArticulos.idDetalleArticulo.id == resAsignacionArticulo.idDetalleArticulo.id && element.idSitioVenta == sitioVent && element.idOficina == Number(oficina)){
+    //                 this.encontrado = true;
+    //               }else{
+    //                 this.encontrado = false;
+    //               }
+    //               this.encontrados.push(this.encontrado);
+    //             })
+    //             const existe = this.encontrados.includes(true);
+    //             if(existe == true){
+    //               Swal.fire({
+    //                 position: 'center',
+    //                 icon: 'error',
+    //                 title: 'La asignación de ese articulo ya existe en ese sitio de venta!',
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //               })
+    //               localStorage.removeItem("v")
+    //               this.dialogRef.close();
+    //               window.location.reload();
+    //               document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+    //             }else{
+    //               asignacionPuntoVenta.idAsignacionesArticulos = resAsignacionArticulo
+    //               asignacionPuntoVenta.idOficina = oficina.ideOficina
+    //               asignacionPuntoVenta.idSitioVenta = sitioVent
+    //               asignacionPuntoVenta.cantidad = 1
+    //               asignacionPuntoVenta.nombreOficina = oficina.nom_oficina
+    //               asignacionPuntoVenta.nombreSitioVenta = elementSitio.nom_sitioventa
+    //               this.registrarAsignacionPuntoVenta(asignacionPuntoVenta);
+    //             }
+    //             break
+    //           }
+    //         }
+    //       });
+    //     });
+    //   });
+    // }else{
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'error',
+    //     title: 'El campo está vacio!',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    // }
   }
 
   public registrarAsignacionPuntoVenta(asignacionPuntoVenta: AsignacionPuntoVenta) {

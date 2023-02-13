@@ -5,6 +5,10 @@ import { MatSort } from '@angular/material/sort';
 import * as FileSaver from 'file-saver';
 import { SolicitudAutorizacionPagoService } from 'src/app/servicios/solicitudAutorizacionPago.service';
 import { SolicitudAutorizacionPago } from 'src/app/modelos/solicitudAutorizacionPago';
+import { AprobarSolicitudAutorizacionPremiosComponent } from './aprobar-solicitud-autorizacion-premios/aprobar-solicitud-autorizacion-premios.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DetalleSolicitudAutorizacionPremiosComponent } from './detalle-solicitud-autorizacion-premios/detalle-solicitud-autorizacion-premios.component';
+import { RechazarSolicitudAutorizacionPremiosComponent } from './rechazar-solicitud-autorizacion-premios/rechazar-solicitud-autorizacion-premios.component';
 @Component({
   selector: 'app-lista-solicitudes-autorizacion-premios',
   templateUrl: './lista-solicitudes-autorizacion-premios.component.html',
@@ -21,6 +25,7 @@ export class ListaSolicitudesAutorizacionPremiosComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private servicioSoliciAutorizacion: SolicitudAutorizacionPagoService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -30,28 +35,42 @@ export class ListaSolicitudesAutorizacionPremiosComponent implements OnInit {
   public listarTodos(){
     this.listarSolicitudes = [];
     this.servicioSoliciAutorizacion.listarTodos().subscribe(res=>{
-      this.listarSolicitudes = res.map((res: any) => {
-        return {
-          id: res.id,
-          fecha: new Date(res.fecha).toLocaleDateString() + " " + new Date(res.fecha).toLocaleTimeString(),
-          motivo: res.idMotivoAutorizacionPago.descripcion,
-          oficina: res.nombreOficiona,
-          usuario: res.idUsuario.nombre+" "+res.idUsuario.apellido,
-          }
-      })
-      this.dataSource = new MatTableDataSource(this.listarSolicitudes);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      const datosSolicitud = res.map((e:any)=> {return {id: e.id,fecha: e.fecha,idOficina: e.idOficina,idDatosFormularioPago: e.idDatosFormularioPago,idMotivoAutorizacionPago: e.idMotivoAutorizacionPago,oficina: e.nombreOficiona,usuario: e.idUsuario}})
+      const datosPendientes = datosSolicitud.filter((e:any)=> { return e.idMotivoAutorizacionPago.idEstado.id == 96 });
+      console.log(datosPendientes);
+      if (datosPendientes.length > 0) {
+        this.listarSolicitudes = datosPendientes.map((res: any) => {return {id: res.id,fecha: new Date(res.fecha).toLocaleDateString() + " " + new Date(res.fecha).toLocaleTimeString(),motivo: res.idMotivoAutorizacionPago.descripcion,oficina: res.oficina,usuario: res.usuario.nombre+" "+res.usuario.apellido,}})
+        this.dataSource = new MatTableDataSource(this.listarSolicitudes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }else{
+        this.listarSolicitudes = [];
+        this.dataSource = new MatTableDataSource(this.listarSolicitudes);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
     })
   }
 
   verSolicitud(id: any){
+    const dialogRef = this.dialog.open(DetalleSolicitudAutorizacionPremiosComponent, {
+      width: '1000px',
+      data: id
+    });
   }
 
   aceptar(id: any){
+    const dialogRef = this.dialog.open(AprobarSolicitudAutorizacionPremiosComponent, {
+      width: '500px',
+      data: id
+    });
   }
 
   rechazarSolicitud(id: any){
+    const dialogRef = this.dialog.open(RechazarSolicitudAutorizacionPremiosComponent, {
+      width: '500px',
+      data: id
+    });
   }
   // Filtrado
   applyFilter(event: Event) {
@@ -87,31 +106,31 @@ export class ListaSolicitudesAutorizacionPremiosComponent implements OnInit {
   listadoUsuarios: any = [];
   listaUsuariosCompletos: any = []
   exportToExcel(): void {
-    this.listaUsuariosCompletos = []
-    this.servicioSoliciAutorizacion.listarTodos().subscribe(resUsuarios=>{
-      this.listadoUsuarios = resUsuarios
-      for (let index = 0; index < this.listadoUsuarios.length; index++) {
-        const element = this.listadoUsuarios[index];
-        var obj = {
-          "Id": element.id,
-          "Nombre": element.nombre+" "+element.apellido,
-          "Tipo de Documento": element.idTipoDocumento.descripcion,
-          Documento: element.documento,
-          Correo: element.correo,
-          Rol: element.idRol.descripcion,
-          "Ide Oficina": element.ideOficina,
-          "Ide SubZona": element.ideSubzona,
-          Estado: element.idEstado.descripcion
-        }
-        this.listaUsuariosCompletos.push(obj)
-      }
-      import("xlsx").then(xlsx => {
-        const worksheet = xlsx.utils.json_to_sheet(this.listaUsuariosCompletos);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, "listaUsuarios");
-      });
-    })
+    // this.listaUsuariosCompletos = []
+    // this.servicioSoliciAutorizacion.listarTodos().subscribe(resUsuarios=>{
+    //   this.listadoUsuarios = resUsuarios
+    //   for (let index = 0; index < this.listadoUsuarios.length; index++) {
+    //     const element = this.listadoUsuarios[index];
+    //     var obj = {
+    //       "Id": element.id,
+    //       "Nombre": element.nombre+" "+element.apellido,
+    //       "Tipo de Documento": element.idTipoDocumento.descripcion,
+    //       Documento: element.documento,
+    //       Correo: element.correo,
+    //       Rol: element.idRol.descripcion,
+    //       "Ide Oficina": element.ideOficina,
+    //       "Ide SubZona": element.ideSubzona,
+    //       Estado: element.idEstado.descripcion
+    //     }
+    //     this.listaUsuariosCompletos.push(obj)
+    //   }
+    //   import("xlsx").then(xlsx => {
+    //     const worksheet = xlsx.utils.json_to_sheet(this.listaUsuariosCompletos);
+    //     const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    //     const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+    //     this.saveAsExcelFile(excelBuffer, "listaUsuarios");
+    //   });
+    // })
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {

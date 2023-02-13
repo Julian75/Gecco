@@ -10,34 +10,38 @@
         <!-- Position Column -->
         <ng-container matColumnDef="id" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header id="idSp2"><h3 id="idSp" style="text-align: center;">Id</h3></th>
-          <td mat-cell *matCellDef="let element" id="idSp2">{{element.id}}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="cantidad">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="centre"><h3 id="desSp">Cantidad</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.cantidad}}</td>
+          <td mat-cell *matCellDef="let element" id="idSp2">{{element.idDetalleArticulo}}</td>
         </ng-container>
 
         <ng-container matColumnDef="articulo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Activo</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idDetalleArticulo.idArticulo.descripcion}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Tipo Articulo</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.tipoActivo}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="estSp">Fecha</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+        <ng-container matColumnDef="marca">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Marca</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.marca}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="placa">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Placa</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.placa}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serial">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Serial</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.serial}}</td>
         </ng-container>
 
         <ng-container matColumnDef="usuario">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Usuario</h3></th>
-          <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="jerSp">Usuario Registro</h3></th>
+          <td mat-cell *matCellDef="let element">{{element.nombre}} {{element.apellido}}</td>
         </ng-container>
 
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="opcionSpa">Opciones</h3></th>
           <td mat-cell *matCellDef="let element">
-            <button class="btn btnver mx-2 edi" (click)="mostrarHistorial(element.idDetalleArticulo.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar historial">
+            <button class="btn btnver mx-2 edi" (click)="mostrarHistorial(element.idDetalleArticulo)" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar historial">
               <mat-icon>manage_search</mat-icon>
             </button>
           </td>

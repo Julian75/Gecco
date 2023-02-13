@@ -71,6 +71,7 @@ export class ReporteAsesorComponent implements OnInit {
     });
   }
 
+  nombre:any
   sumPorcen: any
   listaAsignVenSitioVenta: any = []
   valorTotalVentas: any
@@ -112,6 +113,7 @@ export class ReporteAsesorComponent implements OnInit {
         resUsuariosVendedores.forEach(elementAsesor => {
           if(elementAsesor.num_identificacion == Number(documentoAsesor)){
             this.informacionAsesor.push(elementAsesor)
+            this.nombre = elementAsesor.nombres+" "+elementAsesor.apellido1
           }
         });
         if(this.informacionAsesor.length<1){

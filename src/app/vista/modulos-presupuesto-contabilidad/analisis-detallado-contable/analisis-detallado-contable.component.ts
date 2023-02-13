@@ -129,35 +129,37 @@ export class AnalisisDetalladoContableComponent implements OnInit {
                               })
                             })
                           });
-                        }else{
-                          document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                          for (let index = 0; index < this.listaMeses.length; index++) {
-                            if((index+1) == Number(fecha[1])){
-                              Swal.fire({
-                                icon: 'error',
-                                title: 'Falta el valor del libro mayor del mes '+this.listaMeses[index]+' del año '+Number(fecha[0]),
-                                showConfirmButton: false,
-                                timer: 2500
-                              });
-                            }
-                          }
                         }
+                        // else{
+                        //   document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                        //   for (let index = 0; index < this.listaMeses.length; index++) {
+                        //     if((index+1) == Number(fecha[1])){
+                        //       Swal.fire({
+                        //         icon: 'error',
+                        //         title: 'Falta el valor del libro mayor del mes '+this.listaMeses[index]+' del año '+Number(fecha[0]),
+                        //         showConfirmButton: false,
+                        //         timer: 2500
+                        //       });
+                        //     }
+                        //   }
+                        // }
                       })
                     })
                   });
-                }else{
-                  document.getElementById('snipper')?.setAttribute('style', 'display: none;')
-                  for (let index = 0; index < this.listaMeses.length; index++) {
-                    if((index+1) == Number(fecha[1])){
-                      Swal.fire({
-                        icon: 'error',
-                        title: 'Falta el valor del codigo de la cuenta '+resLibrosMayorId.idCuenta.codigo+' del mes '+this.listaMeses[index]+' del año '+Number(fecha[0]-1),
-                        showConfirmButton: false,
-                        timer: 2500
-                      });
-                    }
-                  }
                 }
+                // else{
+                //   document.getElementById('snipper')?.setAttribute('style', 'display: none;')
+                //   for (let index = 0; index < this.listaMeses.length; index++) {
+                //     if((index+1) == Number(fecha[1])){
+                //       Swal.fire({
+                //         icon: 'error',
+                //         title: 'Falta el valor del codigo de la cuenta '+resLibrosMayorId.idCuenta.codigo+' del mes '+this.listaMeses[index]+' del año '+Number(fecha[0]-1),
+                //         showConfirmButton: false,
+                //         timer: 2500
+                //       });
+                //     }
+                //   }
+                // }
               })
             })
           });

@@ -21,6 +21,7 @@ import { DetalleArticuloService } from 'src/app/servicios/detalleArticulo.servic
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AsignacionArticulos } from 'src/app/modelos/asignacionArticulos';
 import * as FileSaver from 'file-saver';
+import { AsignacionesActivosPendienteService } from 'src/app/servicios/asignacionesActivosPendiente.service';
 
 @Component({
   selector: 'app-mis-articulos-asignados',
@@ -43,6 +44,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
     private servicioAsignacionPuntoVent: AsignacionPuntoVentaService,
     private servicioUsuario: UsuarioService,
     private serviceHistorial: HistorialArticuloService,
+    private serviceAsignacionActivoPendiente: AsignacionesActivosPendienteService,
     private servicioConsultasGenerales: ConsultasGeneralesService,
     public dialog: MatDialog
   ) { }
@@ -71,59 +73,38 @@ export class MisArticulosAsignadosComponent implements OnInit {
   listaAsignActivosCompletos: any = []
   public listarTodos(){
     this.listaAsignActivosCompletos = []
-    this.serviceAsignacionArticulos.listarTodos().subscribe(resAsigActivos=>{
-      this.servicioAsignacionPuntoVent.listarTodos().subscribe(resAsignacion=>{
-        this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja().subscribe(resAsignacionesActivosSinBaja=>{
-          console.log(resAsignacionesActivosSinBaja)
-          if(resAsignacionesActivosSinBaja.length == 0){
-            this.listaAsignActivosCompletos = resAsigActivos
-          }else{
-            resAsignacionesActivosSinBaja.forEach(elementAsignSinBaja => {
-              resAsigActivos.forEach(elementAsignActivos => {
-                if(elementAsignActivos.id == elementAsignSinBaja.id){
-                  this.listaAsignActivosCompletos.push(elementAsignActivos)
-                }
-              });
-            });
+    this.servicioConsultasGenerales.listarAsignacionesActivosSinBaja(Number(sessionStorage.getItem('id'))).subscribe(resAsignacionesActivosSinBaja=>{
+      if(resAsignacionesActivosSinBaja.length == 0){
+        this.servicioConsultasGenerales.listarAsignacionArticulosEstadoDetalle1(Number(sessionStorage.getItem('id'))).subscribe(resAsignArti1=>{
+          if(resAsignArti1.length > 0){
+            this.completarProcedimiento(resAsignArti1)
           }
-          console.log(this.listaAsignActivosCompletos)
-          this.listaAsignActivosCompletos.forEach(elementAsignArticulo => {
-            if(Number(elementAsignArticulo.idAsignacionesProcesos.idUsuario.id) == Number(sessionStorage.getItem('id'))){
-              if(elementAsignArticulo.idEstado.id == 76 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
-                var obj = {
-                  asignArticulo: elementAsignArticulo,
-                  existeAsigPuntoVenta: false
-                }
-                if(resAsignacion.length > 0){
-                  resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                    if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                      obj.existeAsigPuntoVenta = true
-                    }
-                  })
-                }
-                this.listarAsignacionArticulos.push(obj);
-              }else if(elementAsignArticulo.idEstado.id == 78 && elementAsignArticulo.idDetalleArticulo.idArticulo.idEstado.id == 26){
-                var obj = {
-                  asignArticulo: elementAsignArticulo,
-                  existeAsigPuntoVenta: false
-                }
-                if(resAsignacion.length > 0){
-                  resAsignacion.forEach(elementAsignacionPuntoVenta => {
-                    if(elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idDetalleArticulo.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idDetalleArticulo.id && elementAsignArticulo.idAsignacionesProcesos.idUsuario.id == elementAsignacionPuntoVenta.idAsignacionesArticulos.idAsignacionesProcesos.idUsuario.id){
-                      obj.existeAsigPuntoVenta = true
-                    }
-                  })
-                }
-                this.listarAsignacionArticulos.push(obj);
-              }
-            }
-          })
-          this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
         })
-      })
+      }else{
+        this.completarProcedimiento(resAsignacionesActivosSinBaja)
+      }
     })
+  }
+
+  completarProcedimiento(resAsignArt12){
+    for (let index = 0; index < resAsignArt12.length; index++) {
+      const element = resAsignArt12[index];
+      var obj = {
+        asignArticulo: element,
+        existeAsigPuntoVenta: false
+      }
+      this.servicioConsultasGenerales.listarAsignPuntoVentArtDetArtUsuario(element.ideDetalleActivo, Number(sessionStorage.getItem('id'))).subscribe(resAsignPuntoVenta2=>{
+        if(resAsignPuntoVenta2.length > 0){
+          obj.existeAsigPuntoVenta = true
+        }
+      })
+      this.listarAsignacionArticulos.push(obj);
+      if((index+1) == resAsignArt12.length){
+        this.dataSource = new MatTableDataSource(this.listarAsignacionArticulos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    }
   }
 
   reAsignarArticulo(idAsignacionArticulo){
@@ -135,22 +116,48 @@ export class MisArticulosAsignadosComponent implements OnInit {
   }
 
   aceptar(id:number){
+    document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: block;')
     let asignacionArticulo: AsignacionArticulos2 = new AsignacionArticulos2();
-    this.serviceAsignacionArticulos.listarPorId(id).subscribe(res=>{
-      asignacionArticulo.id = res.id;
-      asignacionArticulo.idAsignacionesProcesos = res.idAsignacionesProcesos.id;
-      asignacionArticulo.idDetalleArticulo = res.idDetalleArticulo.id
+    this.serviceAsignacionArticulos.listarPorId(id).subscribe(resAsignAc=>{
+      asignacionArticulo.id = resAsignAc.id;
+      asignacionArticulo.idAsignacionesProcesos = resAsignAc.idAsignacionesProcesos.id;
+      asignacionArticulo.idDetalleArticulo = resAsignAc.idDetalleArticulo.id
       this.servicioEstado.listarPorId(76).subscribe(res=>{
         asignacionArticulo.idEstado = res.id;
         this.servicioModificar.actualizarAsignacionArticulos(asignacionArticulo).subscribe(res=>{
+          this.servicioConsultasGenerales.listarAsignacionActivoPendiente(Number(sessionStorage.getItem('id')), resAsignAc.idDetalleArticulo.id).subscribe(resAsignPendiente=>{
+            resAsignPendiente.forEach(elementAsignPendiente => {
+              this.serviceAsignacionActivoPendiente.eliminar(elementAsignPendiente.id).subscribe(resAsigPendienteEliminado=>{
+                document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Asignación de articulo aceptada',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                window.location.reload()
+              }, error => {
+                document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: none;')
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Ocurrio un error al registrar el historial!',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              })
+            })
+          })
+        }, error => {
+          document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: none;')
           Swal.fire({
             position: 'center',
-            icon: 'success',
-            title: 'Asignación de articulo aceptada',
+            icon: 'error',
+            title: 'Ocurrio un error al modificar asignacion articulo!',
             showConfirmButton: false,
             timer: 1500
           })
-          window.location.reload()
         })
       })
     })
@@ -159,6 +166,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
   listaAsignArticulos: any = [];
   fechaActual: Date = new Date();
   eliminarAsignacionProceso(id:number){
+    document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: block;')
     this.listaAsignArticulos = []
     let asignacionArticuloMod: AsignacionArticulos2 = new AsignacionArticulos2();
     let asignacionArticuloCompras: AsignacionArticulos2 = new AsignacionArticulos2();
@@ -200,6 +208,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
     this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloMod).subscribe(resAsigModificado=>{
       this.servicioModificar.actualizarAsignacionArticulos(asignacionArticuloCompra).subscribe(resAsigCompras=>{
         this.serviceHistorial.registrar(historial).subscribe(resHistorialNuevo =>{
+          document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: none;')
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -209,6 +218,7 @@ export class MisArticulosAsignadosComponent implements OnInit {
           })
           window.location.reload()
         }, error => {
+          document.getElementById('snipperAceptRech')?.setAttribute('style', 'display: none;')
           Swal.fire({
             position: 'center',
             icon: 'error',

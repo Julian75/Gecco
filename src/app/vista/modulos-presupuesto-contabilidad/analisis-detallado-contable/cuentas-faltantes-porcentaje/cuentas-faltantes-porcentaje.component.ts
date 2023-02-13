@@ -27,12 +27,15 @@ export class CuentasFaltantesPorcentajeComponent implements OnInit {
     this.listarTodos()
   }
 
+  ngAfterViewInit() {
+    this.dataSource1.paginator = this.paginator;
+    this.dataSource1.sort = this.sort;
+  }
+
   public listarTodos(){
     this.listaPorcentajes = this.data
     this.listaPorcentajes.sort((a, b) => Number(a.codigo) - Number(b.codigo))
     this.dataSource1 = new MatTableDataSource(this.listaPorcentajes);
-    this.dataSource1.paginator = this.paginator;
-    this.dataSource1.sort = this.sort;
   }
 
 }
