@@ -4,6 +4,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Usuario } from 'src/app/modelos/usuario';
 import Swal from 'sweetalert2';
+import { ModificarService } from 'src/app/servicios/modificar.service';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -18,6 +19,7 @@ export class CambiarContrasenaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private servicioUsuario: UsuarioService,
+    private servicioModificar: ModificarService,
     private router: Router,
   ) { }
 
