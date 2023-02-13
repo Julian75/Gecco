@@ -1,0 +1,23 @@
+<h2 class="dato">Ingresar Archivo</h2>
+<form [formGroup]="formArchivoSolicitud">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Archivo de Solicitud de Pago</h2>
+      <button id="selectButton" mat-raised-button (click)="fileInput.click()" style="margin-top: 15px;">Selecciona archivo</button>
+      <input #fileInput type="file" hidden multiple (change)="selectFiles($event)" /><br>
+      <span *ngIf="fileLenght" style="position: relative; top: 15px;"><strong style="margin-right: 5px;">Cantidad de archivos: </strong>{{fileLenght}}</span><br>
+      <h4 *ngIf="fileName.length == 1" style="position:relative; top:20px"><strong>Nombre del archivo seleccionado: {{fileName}}</strong></h4>
+      <h4 *ngIf="fileName.length>1" style="position:relative; top:20px"><strong>Nombres de los archivos seleccionados: {{fileName}}</strong></h4>
+      <ul style="margin-top:5%;">
+        <li style="margin-top: 5px;" *ngFor="let item of listaArchivos2">{{item}}</li>
+      </ul>
+      <button id="uploadButton" class="guardar" mat-raised-button *ngIf="selectFiles" [disabled]="!selectFiles" (click)="guardarArchivoSolicitud()" style="margin-top: 15px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar cotización">
+          Guardar Archivo
+      </button>
+    </div>
+  </div>
+</form>
+<div class="solpiner" id="snipper2" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>

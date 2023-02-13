@@ -1,0 +1,97 @@
+<div class="contenedor">
+    <button class="btn excelButton" (click)="exportToExcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exporta lista de usuarios"><i class="fa-solid fa-file-excel"></i></button>
+    <mat-form-field class="buscador" appearance="standard" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar solicitud">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar.." #input>
+    </mat-form-field>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+
+      <table datatable [dtOptions]="dtOptions" id="usuario" mat-table class="mat-elevation-z8 demo-table" [dataSource]="dataSource" matSort>
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header ><h3 class="id">Id</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fecha">Fecha</h3></th>
+            <td mat-cell *matCellDef="let element">{{fecha}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="oficina">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="oficina">Oficina</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.nombreOficiona}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="cedulaColocador">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cedulaColocador">Cedula Colocador</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.cedulaColocador}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="colillaImpresa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="colillaImpresa">Colilla Impresa</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.colillaImpresa}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaSorteo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="fechaSorteo">Fecha Sorteo</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.fechaSorteo}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="cliente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cliente">Cliente</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.idClientesAutorizacionPago.nombre}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="cedulaCliente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="cedulaCliente">Cédula del Cliente</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.idClientesAutorizacionPago.cedula}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccionCliente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="direccionCliente">Dirección del Cliente</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.idClientesAutorizacionPago.direccion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="nomSorteoLoteria">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="nomSorteoLoteria">Nombre Sorteo Lotería</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.nombreSorteoLoteria}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="codigoVenta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="codigoVenta">Serie Codigo Venta</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.serieCodigoVenta}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalFormulario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="usuario">Total Formulario</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.totalFormulario}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalGanadoBruto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="usuario">Total Ganado Bruto</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idDatosFormularioPago.totalGanadoBruto}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="motivo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="motivo">Motivo</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idMotivoAutorizacionPago.descripcion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header><h3 id="usuario">Usuario</h3></th>
+            <td mat-cell *matCellDef="let element">{{element.idUsuario.nombre}} {{element.idUsuario.apellido}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+    </mat-paginator>
+  </div>
