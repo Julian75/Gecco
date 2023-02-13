@@ -1,3 +1,4 @@
+import { ConsultasGeneralesService } from 'src/app/servicios/consultasGenerales.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -20,6 +21,7 @@ export class CambiarContrasenaComponent implements OnInit {
     private fb: FormBuilder,
     private servicioUsuario: UsuarioService,
     private servicioModificar: ModificarService,
+    private servicioConsultasGenerales: ConsultasGeneralesService,
     private router: Router,
   ) { }
 
