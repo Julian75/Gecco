@@ -1,0 +1,23 @@
+<h2 class="dato">Modificar Porcentaje del Turno</h2>
+<a class="cerrar" (click)="cerrarModal()"><mat-icon>close</mat-icon></a>
+<form [formGroup]="formPorcentaje">
+  <div class="row1">
+    <!-- Ingresar Nombre -->
+    <div class="nombre2">
+      <h2>Porcentaje</h2>
+      <mat-form-field class="nombre" [color]="color" appearance="fill">
+      <mat-label>Modifique el porcentaje</mat-label>
+      <input type="number" id="porcentaje" formControlName="porcentaje" matInput>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Boton de guardar datos -->
+    <div class="guardar2">
+      <button mat-raised-button class="guardarModal" (click)="guardar()" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar porcentaje"><mat-icon>edit_square</mat-icon></button>
+    </div>
+  </div>
+</form>
+<div class="solpiner" id="snipper2" style="text-align: center; display: none;">
+  <div class="loader"></div>
+</div>
